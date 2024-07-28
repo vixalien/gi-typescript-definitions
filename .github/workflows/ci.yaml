@@ -27,6 +27,8 @@ jobs:
           flatpak --system install -y gnome-nightly org.gnome.Sdk//master
           flatpak --system install -y flathub-beta org.freedesktop.Sdk.Extension.node20//24.08beta
 
+      - uses: actions/checkout@v4
+
       - name: Delete existing .d.ts files
         run: find . -name "*.d.ts" -type f -delete
 
