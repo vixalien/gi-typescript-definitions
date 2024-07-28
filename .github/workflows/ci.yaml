@@ -12,6 +12,9 @@ on:
 jobs:
   setup_flatpak:
     runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-nightly
+      options: --privileged
     steps:
       - name: Install Flatpak
         run: |
