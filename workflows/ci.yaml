@@ -1,0 +1,58 @@
+name: TypeScript Regeneration
+
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+  # schedule:
+  #   - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  setup_flatpak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak
+      - name: Add Flatpak remotes
+        run: |
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak remote-add --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
+          flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+      - name: Install Flatpak SDKs
+        run: |
+          flatpak install -y gnome-nightly org.gnome.Sdk//master
+          flatpak install -y flathub-beta org.freedesktop.Sdk.Extension.node20//24.08beta
+
+  regenerate_typescript:
+    needs: setup_flatpak
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Delete existing .d.ts files
+        run: find . -name "*.d.ts" -type f -delete
+      - name: Generate TypeScript types
+        run: ./generate_types_in_flatpak.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: typescript-files
+          path: '**/*.ts'
+
+  commit_changes:
+    needs: regenerate_typescript
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: typescript-files
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git diff --staged --quiet || (git commit -m "Regenerate TypeScript files [skip ci]" && git push)
