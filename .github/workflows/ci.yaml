@@ -19,13 +19,13 @@ jobs:
           sudo apt-get install -y flatpak
       - name: Add Flatpak remotes
         run: |
-          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak remote-add --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
-          flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+          flatpak --system remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak --system remote-add --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
+          flatpak --system remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
       - name: Install Flatpak SDKs
         run: |
-          flatpak install -y gnome-nightly org.gnome.Sdk//master
-          flatpak install -y flathub-beta org.freedesktop.Sdk.Extension.node20//24.08beta
+          flatpak --system install -y gnome-nightly org.gnome.Sdk//master
+          flatpak --system install -y flathub-beta org.freedesktop.Sdk.Extension.node20//24.08beta
 
   regenerate_typescript:
     needs: setup_flatpak
