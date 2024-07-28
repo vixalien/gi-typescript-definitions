@@ -15,6 +15,9 @@ jobs:
     container:
       image: bilelmoussaoui/flatpak-github-actions:gnome-nightly
       options: --privileged
+    permissions:
+      contents: write
+
     steps:
       - name: Add Flatpak remotes
         run: |
