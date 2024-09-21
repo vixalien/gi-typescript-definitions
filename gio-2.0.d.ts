@@ -706,8 +706,8 @@ declare module 'gi://Gio?version=2.0' {
             MULTIDISK,
             /**
              * The start/stop methods will
-             *    unlock/lock the disk (for example using the ATA <quote>SECURITY
-             *    UNLOCK DEVICE</quote> command)
+             *    unlock/lock the disk (for example using the ATA `SECURITY UNLOCK
+             *    DEVICE` command)
              */
             PASSWORD,
         }
@@ -1621,7 +1621,7 @@ declare module 'gi://Gio?version=2.0' {
             // Static methods
 
             /**
-             * Gets the #GResource Error Quark.
+             * Gets the [struct`Gio`.Resource] Error Quark.
              */
             static quark(): GLib.Quark;
         }
@@ -3379,17 +3379,19 @@ declare module 'gi://Gio?version=2.0' {
          */
         function action_print_detailed_name(action_name: string, target_value?: GLib.Variant | null): string;
         /**
-         * Creates a new #GAppInfo from the given information.
+         * Creates a new [iface`Gio`.AppInfo] from the given information.
          *
-         * Note that for `commandline,` the quoting rules of the Exec key of the
+         * Note that for `commandline,` the quoting rules of the `Exec` key of the
          * [freedesktop.org Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)
          * are applied. For example, if the `commandline` contains
          * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
-         * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
-         * @param commandline the commandline to use
-         * @param application_name the application name, or %NULL to use @commandline
-         * @param flags flags that can specify details of the created #GAppInfo
-         * @returns new #GAppInfo for given command.
+         * being swallowed by `Exec` key unquoting. See
+         * [the specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html)
+         * for exact quoting rules.
+         * @param commandline the command line to use
+         * @param application_name the application name, or `NULL` to use @commandline
+         * @param flags flags that can specify details of the created [iface@Gio.AppInfo]
+         * @returns new [iface@Gio.AppInfo] for given command.
          */
         function app_info_create_from_commandline(
             commandline: string,
@@ -3401,10 +3403,15 @@ declare module 'gi://Gio?version=2.0' {
          * on this system.
          *
          * For desktop files, this includes applications that have
-         * `NoDisplay=true` set or are excluded from display by means
-         * of `OnlyShowIn` or `NotShowIn`. See [method`Gio`.AppInfo.should_show].
-         * The returned list does not include applications which have
-         * the `Hidden` key set.
+         * [`NoDisplay=true`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-nodisplay)
+         * set or are excluded from display by means of
+         * [`OnlyShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-onlyshowin)
+         * or [`NotShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-notshowin).
+         * See [method`Gio`.AppInfo.should_show].
+         *
+         * The returned list does not include applications which have the
+         * [`Hidden` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-hidden)
+         * set.
          * @returns a newly allocated   list of references to [iface@Gio.AppInfo]s.
          */
         function app_info_get_all(): AppInfo[];
@@ -3475,12 +3482,12 @@ declare module 'gi://Gio?version=2.0' {
          */
         function app_info_get_default_for_type_finish(result: AsyncResult): AppInfo;
         /**
-         * Gets the default application for handling URIs with
-         * the given URI scheme. A URI scheme is the initial part
-         * of the URI, up to but not including the ':', e.g. "http",
-         * "ftp" or "sip".
+         * Gets the default application for handling URIs with the given URI scheme.
+         *
+         * A URI scheme is the initial part of the URI, up to but not including the `:`.
+         * For example, `http`, `ftp` or `sip`.
          * @param uri_scheme a string containing a URI scheme.
-         * @returns #GAppInfo for given @uri_scheme or     %NULL on error.
+         * @returns [iface@Gio.AppInfo] for given   @uri_scheme or `NULL` on error.
          */
         function app_info_get_default_for_uri_scheme(uri_scheme: string): AppInfo | null;
         /**
@@ -5022,34 +5029,35 @@ declare module 'gi://Gio?version=2.0' {
          */
         function resolver_error_quark(): GLib.Quark;
         /**
-         * Gets the #GResource Error Quark.
-         * @returns a #GQuark
+         * Gets the [struct`Gio`.Resource] Error Quark.
+         * @returns a [type@GLib.Quark]
          */
         function resource_error_quark(): GLib.Quark;
         /**
-         * Loads a binary resource bundle and creates a #GResource representation of it, allowing
-         * you to query it for data.
+         * Loads a binary resource bundle and creates a [struct`Gio`.Resource]
+         * representation of it, allowing you to query it for data.
          *
          * If you want to use this resource in the global resource namespace you need
-         * to register it with g_resources_register().
+         * to register it with [func`Gio`.resources_register].
          *
          * If `filename` is empty or the data in it is corrupt,
          * %G_RESOURCE_ERROR_INTERNAL will be returned. If `filename` doesn’t exist, or
-         * there is an error in reading it, an error from g_mapped_file_new() will be
-         * returned.
+         * there is an error in reading it, an error from [ctor`GLib`.MappedFile.new]
+         * will be returned.
          * @param filename the path of a filename to load, in the GLib filename encoding
-         * @returns a new #GResource, or %NULL on error
+         * @returns a new [struct@Gio.Resource], or `NULL` on error
          */
         function resource_load(filename: string): Resource;
         /**
          * Returns all the names of children at the specified `path` in the set of
          * globally registered resources.
-         * The return result is a %NULL terminated list of strings which should
-         * be released with g_strfreev().
+         *
+         * The return result is a `NULL` terminated list of strings which should
+         * be released with [func`GLib`.strfreev].
          *
          * `lookup_flags` controls the behaviour of the lookup.
-         * @param path A pathname inside the resource
-         * @param lookup_flags A #GResourceLookupFlags
+         * @param path A path name inside the resource
+         * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
          * @returns an array of constant strings
          */
         function resources_enumerate_children(path: string, lookup_flags: ResourceLookupFlags): string[];
@@ -5058,52 +5066,61 @@ declare module 'gi://Gio?version=2.0' {
          * globally registered resources and if found returns information about it.
          *
          * `lookup_flags` controls the behaviour of the lookup.
-         * @param path A pathname inside the resource
-         * @param lookup_flags A #GResourceLookupFlags
-         * @returns %TRUE if the file was found. %FALSE if there were errors
+         * @param path A path name inside the resource
+         * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
+         * @returns `TRUE` if the file was found, `FALSE` if there were errors
          */
         function resources_get_info(path: string, lookup_flags: ResourceLookupFlags): [boolean, number, number];
         /**
+         * Returns whether the specified `path` in the set of
+         * globally registered resources has children.
+         * @param path A pathname
+         * @returns %TRUE if @patch has children
+         */
+        function resources_has_children(path: string): boolean;
+        /**
          * Looks for a file at the specified `path` in the set of
-         * globally registered resources and returns a #GBytes that
+         * globally registered resources and returns a [struct`GLib`.Bytes] that
          * lets you directly access the data in memory.
          *
          * The data is always followed by a zero byte, so you
          * can safely use the data as a C string. However, that byte
-         * is not included in the size of the GBytes.
+         * is not included in the size of the [struct`GLib`.Bytes].
          *
          * For uncompressed resource files this is a pointer directly into
-         * the resource bundle, which is typically in some readonly data section
+         * the resource bundle, which is typically in some read-only data section
          * in the program binary. For compressed files we allocate memory on
          * the heap and automatically uncompress the data.
          *
          * `lookup_flags` controls the behaviour of the lookup.
-         * @param path A pathname inside the resource
-         * @param lookup_flags A #GResourceLookupFlags
-         * @returns #GBytes or %NULL on error.     Free the returned object with g_bytes_unref()
+         * @param path A path name inside the resource
+         * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
+         * @returns [struct@GLib.Bytes] or `NULL` on error
          */
         function resources_lookup_data(path: string, lookup_flags: ResourceLookupFlags): GLib.Bytes;
         /**
          * Looks for a file at the specified `path` in the set of
-         * globally registered resources and returns a #GInputStream
+         * globally registered resources and returns a [class`Gio`.InputStream]
          * that lets you read the data.
          *
          * `lookup_flags` controls the behaviour of the lookup.
-         * @param path A pathname inside the resource
-         * @param lookup_flags A #GResourceLookupFlags
-         * @returns #GInputStream or %NULL on error.     Free the returned object with g_object_unref()
+         * @param path A path name inside the resource
+         * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
+         * @returns [class@Gio.InputStream] or `NULL` on error
          */
         function resources_open_stream(path: string, lookup_flags: ResourceLookupFlags): InputStream;
         /**
          * Registers the resource with the process-global set of resources.
+         *
          * Once a resource is registered the files in it can be accessed
-         * with the global resource lookup functions like g_resources_lookup_data().
-         * @param resource A #GResource
+         * with the global resource lookup functions like
+         * [func`Gio`.resources_lookup_data].
+         * @param resource A [struct@Gio.Resource]
          */
         function resources_register(resource: Resource): void;
         /**
          * Unregisters the resource from the process-global set of resources.
-         * @param resource A #GResource
+         * @param resource A [struct@Gio.Resource]
          */
         function resources_unregister(resource: Resource): void;
         /**
@@ -5382,6 +5399,21 @@ declare module 'gi://Gio?version=2.0' {
          */
         function unix_mount_points_get(): [UnixMountPoint[], number];
         /**
+         * Gets an array of [struct`Gio`.UnixMountPoint]s containing the Unix mount
+         * points listed in `table_path`.
+         *
+         * This is a generalized version of g_unix_mount_points_get(), mainly intended
+         * for internal testing use. Note that g_unix_mount_points_get() may parse
+         * multiple hierarchical table files, so this function is not a direct superset
+         * of its functionality.
+         *
+         * If there is an error reading or parsing the file, `NULL` will be returned
+         * and both out parameters will be set to `0`.
+         * @param table_path path to the mount points table file (for example `/etc/fstab`)
+         * @returns mount   points, or `NULL` if there was an error loading them
+         */
+        function unix_mount_points_get_from_file(table_path: string): [UnixMountPoint[] | null, number];
+        /**
          * Checks if the unix mounts have changed since a given unix time.
          * @param time guint64 to contain a timestamp.
          * @returns %TRUE if the mounts have changed since @time.
@@ -5395,6 +5427,21 @@ declare module 'gi://Gio?version=2.0' {
          * @returns a #GList of the UNIX mounts.
          */
         function unix_mounts_get(): [UnixMountEntry[], number];
+        /**
+         * Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
+         * listed in `table_path`.
+         *
+         * This is a generalized version of g_unix_mounts_get(), mainly intended for
+         * internal testing use. Note that g_unix_mounts_get() may parse multiple
+         * hierarchical table files, so this function is not a direct superset of its
+         * functionality.
+         *
+         * If there is an error reading or parsing the file, `NULL` will be returned
+         * and both out parameters will be set to `0`.
+         * @param table_path path to the mounts table file (for example `/proc/self/mountinfo`)
+         * @returns mount   entries, or `NULL` if there was an error loading them
+         */
+        function unix_mounts_get_from_file(table_path: string): [UnixMountEntry[] | null, number];
         interface AsyncReadyCallback<A = GObject.Object> {
             (source_object: A | null, res: AsyncResult, data?: any | null): void;
         }
@@ -7029,10 +7076,12 @@ declare module 'gi://Gio?version=2.0' {
              * [freedesktop.org Startup Notification Protocol](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
              *
              * Support for the XDG Activation Protocol was added in GLib 2.76.
+             * Since GLib 2.82 `info` and `files` can be `NULL`. If that’s not supported by the backend,
+             * the returned token will be `NULL`.
              * @param info the app info
-             * @param files list of [iface@Gio.File] objects
+             * @param files a list of [iface@Gio.File] objects
              */
-            vfunc_get_startup_notify_id(info: AppInfo, files: File[]): string | null;
+            vfunc_get_startup_notify_id(info?: AppInfo | null, files?: File[] | null): string | null;
             /**
              * Called when an application has failed to launch, so that it can cancel
              * the application startup notification started in
@@ -7076,11 +7125,13 @@ declare module 'gi://Gio?version=2.0' {
              * [freedesktop.org Startup Notification Protocol](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
              *
              * Support for the XDG Activation Protocol was added in GLib 2.76.
+             * Since GLib 2.82 `info` and `files` can be `NULL`. If that’s not supported by the backend,
+             * the returned token will be `NULL`.
              * @param info the app info
-             * @param files list of [iface@Gio.File] objects
+             * @param files a list of [iface@Gio.File] objects
              * @returns a startup notification ID for the application, or `NULL` if   not supported.
              */
-            get_startup_notify_id(info: AppInfo, files: File[]): string | null;
+            get_startup_notify_id(info?: AppInfo | null, files?: File[] | null): string | null;
             /**
              * Called when an application has failed to launch, so that it can cancel
              * the application startup notification started in
@@ -8037,11 +8088,11 @@ declare module 'gi://Gio?version=2.0' {
              * notification. This works even for notifications sent from a previous
              * execution of the application, as long as `id` is the same string.
              *
-             * `id` may be %NULL, but it is impossible to replace or withdraw
+             * `id` may be `NULL`, but it is impossible to replace or withdraw
              * notifications without an id.
              *
              * If `notification` is no longer relevant, it can be withdrawn with
-             * g_application_withdraw_notification().
+             * [method`Gio`.Application.withdraw_notification].
              *
              * It is an error to call this function if `application` has no
              * application ID.
@@ -11574,9 +11625,11 @@ declare module 'gi://Gio?version=2.0' {
              * signal. Also handles the race condition that may happen
              * if the cancellable is cancelled right before connecting.
              *
-             * `callback` is called at most once, either directly at the
-             * time of the connect if `cancellable` is already cancelled,
-             * or when `cancellable` is cancelled in some thread.
+             * `callback` is called exactly once each time `cancellable` is cancelled,
+             * either directly at the time of the connect if `cancellable` is already
+             * cancelled, or when `cancellable` is cancelled in some thread.
+             * In case the cancellable is reset via [method`Gio`.Cancellable.reset]
+             * then the callback can be called again if the `cancellable` is cancelled.
              *
              * `data_destroy_func` will be called when the handler is
              * disconnected, or immediately if the cancellable is already
@@ -12772,9 +12825,9 @@ declare module 'gi://Gio?version=2.0' {
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -12790,7 +12843,7 @@ declare module 'gi://Gio?version=2.0' {
             ): Uint8Array;
             /**
              * Finishes an asynchronous stream read operation started with
-             * g_input_stream_read_all_async().
+             * [method`InputStream`.read_all_async].
              *
              * As a special exception to the normal conventions for functions that
              * use #GError, if this function returns %FALSE (and sets `error)` then
@@ -25097,7 +25150,7 @@ declare module 'gi://Gio?version=2.0' {
             // Properties
 
             /**
-             * The origin filename of this #GDesktopAppInfo
+             * The origin filename of this [class`Gio`.DesktopAppInfo]
              */
             get filename(): string;
 
@@ -25119,7 +25172,7 @@ declare module 'gi://Gio?version=2.0' {
              * Gets all applications that implement `interface`.
              *
              * An application implements an interface if that interface is listed in
-             * the Implements= line of the desktop file of the application.
+             * the `Implements` line of the desktop file of the application.
              * @param _interface the name of the interface
              */
             static get_implementations(_interface: string): DesktopAppInfo[];
@@ -25134,20 +25187,22 @@ declare module 'gi://Gio?version=2.0' {
              * any time.
              *
              * None of the search results are subjected to the normal validation
-             * checks performed by g_desktop_app_info_new() (for example, checking that
+             * checks performed by [ctor`Gio`.DesktopAppInfo.new] (for example, checking that
              * the executable referenced by a result exists), and so it is possible for
-             * g_desktop_app_info_new() to return %NULL when passed an app ID returned by
-             * this function. It is expected that calling code will do this when
-             * subsequently creating a #GDesktopAppInfo for each result.
+             * [ctor`Gio`.DesktopAppInfo.new] to return `NULL` when passed an app ID returned
+             * by this function. It is expected that calling code will do this when
+             * subsequently creating a [class`Gio`.DesktopAppInfo] for each result.
              * @param search_string the search string to use
              */
             static search(search_string: string): string[][];
             /**
              * Sets the name of the desktop that the application is running in.
-             * This is used by g_app_info_should_show() and
-             * g_desktop_app_info_get_show_in() to evaluate the
-             * `OnlyShowIn` and `NotShowIn`
-             * desktop entry fields.
+             *
+             * This is used by [method`Gio`.AppInfo.should_show] and
+             * [method`Gio`.DesktopAppInfo.get_show_in] to evaluate the
+             * [`OnlyShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-onlyshowin)
+             * and [`NotShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-notshowin)
+             * keys.
              *
              * Should be called only once; subsequent calls are ignored.
              * @param desktop_env a string specifying what desktop this is
@@ -25157,155 +25212,162 @@ declare module 'gi://Gio?version=2.0' {
             // Methods
 
             /**
-             * Gets the user-visible display name of the "additional application
-             * action" specified by `action_name`.
+             * Gets the user-visible display name of the
+             * [‘additional application actions’](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s11.html)
+             * specified by `action_name`.
              *
-             * This corresponds to the "Name" key within the keyfile group for the
+             * This corresponds to the `Name` key within the keyfile group for the
              * action.
-             * @param action_name the name of the action as from   g_desktop_app_info_list_actions()
+             * @param action_name the name of the action as from   [method@Gio.DesktopAppInfo.list_actions]
              * @returns the locale-specific action name
              */
             get_action_name(action_name: string): string;
             /**
              * Looks up a boolean value in the keyfile backing `info`.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
+             * The `key` is looked up in the `Desktop Entry` group.
              * @param key the key to look up
-             * @returns the boolean value, or %FALSE if the key     is not found
+             * @returns the boolean value, or `FALSE` if the key is not found
              */
             get_boolean(key: string): boolean;
             /**
              * Gets the categories from the desktop file.
-             * @returns The unparsed Categories key from the desktop file;     i.e. no attempt is made to split it by ';' or validate it.
+             * @returns The unparsed   [`Categories` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-categories)   from the desktop file;   i.e. no attempt is made to split it by `;` or validate it.
              */
             get_categories(): string | null;
             /**
              * When `info` was created from a known filename, return it.  In some
-             * situations such as the #GDesktopAppInfo returned from
-             * g_desktop_app_info_new_from_keyfile(), this function will return %NULL.
-             * @returns The full path to the file for @info,     or %NULL if not known.
+             * situations such as a [class`Gio`.DesktopAppInfo] returned from
+             * [ctor`Gio`.DesktopAppInfo.new_from_keyfile], this function will return `NULL`.
+             * @returns The full path to the file for @info,   or `NULL` if not known.
              */
             get_filename(): string | null;
             /**
              * Gets the generic name from the desktop file.
-             * @returns The value of the GenericName key
+             * @returns The value of the   [`GenericName` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-genericname)
              */
             get_generic_name(): string | null;
             /**
-             * A desktop file is hidden if the Hidden key in it is
-             * set to True.
-             * @returns %TRUE if hidden, %FALSE otherwise.
+             * A desktop file is hidden if the
+             * [`Hidden` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-hidden)
+             * in it is set to `True`.
+             * @returns `TRUE` if hidden, `FALSE` otherwise.
              */
             get_is_hidden(): boolean;
             /**
              * Gets the keywords from the desktop file.
-             * @returns The value of the Keywords key
+             * @returns The value of the   [`Keywords` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-keywords)
              */
             get_keywords(): string[];
             /**
              * Looks up a localized string value in the keyfile backing `info`
              * translated to the current locale.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
+             * The `key` is looked up in the `Desktop Entry` group.
              * @param key the key to look up
-             * @returns a newly allocated string, or %NULL if the key     is not found
+             * @returns a newly allocated string, or `NULL` if the key is not   found
              */
             get_locale_string(key: string): string | null;
             /**
-             * Gets the value of the NoDisplay key, which helps determine if the
-             * application info should be shown in menus. See
-             * %G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY and g_app_info_should_show().
-             * @returns The value of the NoDisplay key
+             * Gets the value of the
+             * [`NoDisplay` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-nodisplay)
+             *  which helps determine if the application info should be shown in menus. See
+             * `G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY` and [method`Gio`.AppInfo.should_show].
+             * @returns The value of the `NoDisplay` key
              */
             get_nodisplay(): boolean;
             /**
              * Checks if the application info should be shown in menus that list available
              * applications for a specific name of the desktop, based on the
-             * `OnlyShowIn` and `NotShowIn` keys.
+             * [`OnlyShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-onlyshowin)
+             * and [`NotShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-notshowin)
+             * keys.
              *
-             * `desktop_env` should typically be given as %NULL, in which case the
+             * `desktop_env` should typically be given as `NULL`, in which case the
              * `XDG_CURRENT_DESKTOP` environment variable is consulted.  If you want
              * to override the default mechanism then you may specify `desktop_env,`
              * but this is not recommended.
              *
-             * Note that g_app_info_should_show() for `info` will include this check (with
-             * %NULL for `desktop_env)` as well as additional checks.
+             * Note that [method`Gio`.AppInfo.should_show] for `info` will include this check
+             * (with `NULL` for `desktop_env)` as well as additional checks.
              * @param desktop_env a string specifying a desktop name
-             * @returns %TRUE if the @info should be shown in @desktop_env according to the `OnlyShowIn` and `NotShowIn` keys, %FALSE otherwise.
+             * @returns `TRUE` if the @info should be shown in @desktop_env according to the `OnlyShowIn` and `NotShowIn` keys, `FALSE` otherwise.
              */
             get_show_in(desktop_env?: string | null): boolean;
             /**
-             * Retrieves the StartupWMClass field from `info`. This represents the
-             * WM_CLASS property of the main window of the application, if launched
+             * Retrieves the `StartupWMClass` field from `info`. This represents the
+             * `WM_CLASS` property of the main window of the application, if launched
              * through `info`.
-             * @returns the startup WM class, or %NULL if none is set in the desktop file.
+             * @returns the startup WM class, or `NULL` if none   is set in the desktop file.
              */
             get_startup_wm_class(): string | null;
             /**
              * Looks up a string value in the keyfile backing `info`.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
+             * The `key` is looked up in the `Desktop Entry` group.
              * @param key the key to look up
-             * @returns a newly allocated string, or %NULL if the key     is not found
+             * @returns a newly allocated string, or `NULL` if the key is not   found
              */
             get_string(key: string): string | null;
             /**
              * Looks up a string list value in the keyfile backing `info`.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
+             * The `key` is looked up in the `Desktop Entry` group.
              * @param key the key to look up
-             * @returns a %NULL-terminated string array or %NULL if the specified  key cannot be found. The array should be freed with g_strfreev().
+             * @returns a `NULL`-terminated string array or `NULL` if the specified   key cannot be found. The array should be freed with [func@GLib.strfreev].
              */
             get_string_list(key: string): string[];
             /**
-             * Returns whether `key` exists in the "Desktop Entry" group
+             * Returns whether `key` exists in the `Desktop Entry` group
              * of the keyfile backing `info`.
              * @param key the key to look up
-             * @returns %TRUE if the @key exists
+             * @returns `TRUE` if the @key exists
              */
             has_key(key: string): boolean;
             /**
              * Activates the named application action.
              *
              * You may only call this function on action names that were
-             * returned from g_desktop_app_info_list_actions().
+             * returned from [method`Gio`.DesktopAppInfo.list_actions].
              *
              * Note that if the main entry of the desktop file indicates that the
              * application supports startup notification, and `launch_context` is
-             * non-%NULL, then startup notification will be used when activating the
+             * non-`NULL`, then startup notification will be used when activating the
              * action (and as such, invocation of the action on the receiving side
              * must signal the end of startup notification when it is completed).
              * This is the expected behaviour of applications declaring additional
-             * actions, as per the desktop file specification.
+             * actions, as per the
+             * [desktop file specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s11.html).
              *
-             * As with g_app_info_launch() there is no way to detect failures that
+             * As with [method`Gio`.AppInfo.launch] there is no way to detect failures that
              * occur while using this function.
-             * @param action_name the name of the action as from   g_desktop_app_info_list_actions()
-             * @param launch_context a #GAppLaunchContext
+             * @param action_name the name of the action as from   [method@Gio.DesktopAppInfo.list_actions]
+             * @param launch_context a [class@Gio.AppLaunchContext]
              */
             launch_action(action_name: string, launch_context?: AppLaunchContext | null): void;
             /**
-             * This function performs the equivalent of g_app_info_launch_uris(),
+             * This function performs the equivalent of [method`Gio`.AppInfo.launch_uris],
              * but is intended primarily for operating system components that
              * launch applications.  Ordinary applications should use
-             * g_app_info_launch_uris().
+             * [method`Gio`.AppInfo.launch_uris].
              *
              * If the application is launched via GSpawn, then `spawn_flags,` `user_setup`
-             * and `user_setup_data` are used for the call to g_spawn_async().
+             * and `user_setup_data` are used for the call to [func`GLib`.spawn_async].
              * Additionally, `pid_callback` (with `pid_callback_data)` will be called to
-             * inform about the PID of the created process. See g_spawn_async_with_pipes()
-             * for information on certain parameter conditions that can enable an
-             * optimized posix_spawn() codepath to be used.
+             * inform about the PID of the created process. See
+             * [func`GLib`.spawn_async_with_pipes] for information on certain parameter
+             * conditions that can enable an optimized [`posix_spawn()`](man:posix_spawn(3))
+             * code path to be used.
              *
-             * If application launching occurs via some other mechanism (eg: D-Bus
+             * If application launching occurs via some other mechanism (for example, D-Bus
              * activation) then `spawn_flags,` `user_setup,` `user_setup_data,`
              * `pid_callback` and `pid_callback_data` are ignored.
              * @param uris List of URIs
-             * @param launch_context a #GAppLaunchContext
-             * @param spawn_flags #GSpawnFlags, used for each process
-             * @param user_setup a #GSpawnChildSetupFunc, used once     for each process.
+             * @param launch_context a [class@Gio.AppLaunchContext]
+             * @param spawn_flags [flags@GLib.SpawnFlags], used for each process
+             * @param user_setup a [callback@GLib.SpawnChildSetupFunc],   used once  for each process.
              * @param pid_callback Callback for child processes
-             * @returns %TRUE on successful launch, %FALSE otherwise.
+             * @returns `TRUE` on successful launch, `FALSE` otherwise.
              */
             launch_uris_as_manager(
                 uris: string[],
@@ -25315,21 +25377,21 @@ declare module 'gi://Gio?version=2.0' {
                 pid_callback?: DesktopAppLaunchCallback | null,
             ): boolean;
             /**
-             * Equivalent to g_desktop_app_info_launch_uris_as_manager() but allows
+             * Equivalent to [method`Gio`.DesktopAppInfo.launch_uris_as_manager] but allows
              * you to pass in file descriptors for the stdin, stdout and stderr streams
              * of the launched process.
              *
              * If application launching occurs via some non-spawn mechanism (e.g. D-Bus
              * activation) then `stdin_fd,` `stdout_fd` and `stderr_fd` are ignored.
              * @param uris List of URIs
-             * @param launch_context a #GAppLaunchContext
-             * @param spawn_flags #GSpawnFlags, used for each process
-             * @param user_setup a #GSpawnChildSetupFunc, used once     for each process.
+             * @param launch_context a [class@Gio.AppLaunchContext]
+             * @param spawn_flags [flags@GLib.SpawnFlags], used for each process
+             * @param user_setup a   [callback@GLib.SpawnChildSetupFunc], used once for each process.
              * @param pid_callback Callback for child processes
-             * @param stdin_fd file descriptor to use for child's stdin, or -1
-             * @param stdout_fd file descriptor to use for child's stdout, or -1
-             * @param stderr_fd file descriptor to use for child's stderr, or -1
-             * @returns %TRUE on successful launch, %FALSE otherwise.
+             * @param stdin_fd file descriptor to use for child’s stdin, or `-1`
+             * @param stdout_fd file descriptor to use for child’s stdout, or `-1`
+             * @param stderr_fd file descriptor to use for child’s stderr, or `-1`
+             * @returns `TRUE` on successful launch, `FALSE` otherwise.
              */
             launch_uris_as_manager_with_fds(
                 uris: string[],
@@ -25342,12 +25404,13 @@ declare module 'gi://Gio?version=2.0' {
                 stderr_fd: number,
             ): boolean;
             /**
-             * Returns the list of "additional application actions" supported on the
-             * desktop file, as per the desktop file specification.
+             * Returns the list of
+             * [‘additional application actions’](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s11.html)
+             * supported on the desktop file, as per the desktop file specification.
              *
              * As per the specification, this is the list of actions that are
-             * explicitly listed in the "Actions" key of the [Desktop Entry] group.
-             * @returns a list of strings, always non-%NULL
+             * explicitly listed in the `Actions` key of the `Desktop Entry` group.
+             * @returns a   list of strings, always non-`NULL`
              */
             list_actions(): string[];
 
@@ -33278,9 +33341,9 @@ declare module 'gi://Gio?version=2.0' {
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -33296,7 +33359,7 @@ declare module 'gi://Gio?version=2.0' {
             ): Uint8Array;
             /**
              * Finishes an asynchronous stream read operation started with
-             * g_input_stream_read_all_async().
+             * [method`InputStream`.read_all_async].
              *
              * As a special exception to the normal conventions for functions that
              * use #GError, if this function returns %FALSE (and sets `error)` then
@@ -34535,9 +34598,9 @@ declare module 'gi://Gio?version=2.0' {
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -34553,7 +34616,7 @@ declare module 'gi://Gio?version=2.0' {
             ): Uint8Array;
             /**
              * Finishes an asynchronous stream read operation started with
-             * g_input_stream_read_all_async().
+             * [method`InputStream`.read_all_async].
              *
              * As a special exception to the normal conventions for functions that
              * use #GError, if this function returns %FALSE (and sets `error)` then
@@ -37353,6 +37416,8 @@ declare module 'gi://Gio?version=2.0' {
          *
          * ![](menu-example.png)
          *
+         * While this kind of deeply nested menu is no longer considered good UI
+         * practice, it serves as a good example of the concepts in `GMenuModel`.
          * There are 8 ‘menus’ visible in the screenshot: one menubar, two
          * submenus and 5 sections:
          *
@@ -46725,7 +46790,7 @@ declare module 'gi://Gio?version=2.0' {
              * Looks into the system proxy configuration to determine what proxy,
              * if any, to use to connect to `uri`. The returned proxy URIs are of
              * the form `<protocol>://[user[:password]`]`host[:port]` or
-             * `direct://`, where <protocol> could be http, rtsp, socks
+             * `direct://`, where `<protocol>` could be http, rtsp, socks
              * or other proxying protocol.
              *
              * If you don't know what network protocol is being used on the
@@ -46772,7 +46837,7 @@ declare module 'gi://Gio?version=2.0' {
              * Looks into the system proxy configuration to determine what proxy,
              * if any, to use to connect to `uri`. The returned proxy URIs are of
              * the form `<protocol>://[user[:password]`]`host[:port]` or
-             * `direct://`, where <protocol> could be http, rtsp, socks
+             * `direct://`, where `<protocol>` could be http, rtsp, socks
              * or other proxying protocol.
              *
              * If you don't know what network protocol is being used on the
@@ -47699,7 +47764,7 @@ declare module 'gi://Gio?version=2.0' {
              * getsockopt(). (If you need to fetch a  non-integer-valued option,
              * you will need to call getsockopt() directly.)
              *
-             * The [<gio/gnetworking.h>][gio-gnetworking.h]
+             * The [`<gio/gnetworking.h>`](networking.html)
              * header pulls in system headers that will define most of the
              * standard/portable socket options. For unusual socket protocols or
              * platform-dependent options, you may need to include additional
@@ -48309,7 +48374,7 @@ declare module 'gi://Gio?version=2.0' {
              * setsockopt(). (If you need to set a non-integer-valued option,
              * you will need to call setsockopt() directly.)
              *
-             * The [<gio/gnetworking.h>][gio-gnetworking.h]
+             * The [`<gio/gnetworking.h>`](networking.html)
              * header pulls in system headers that will define most of the
              * standard/portable socket options. For unusual socket protocols or
              * platform-dependent options, you may need to include additional
@@ -57656,9 +57721,9 @@ declare module 'gi://Gio?version=2.0' {
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -57674,7 +57739,7 @@ declare module 'gi://Gio?version=2.0' {
             ): Uint8Array;
             /**
              * Finishes an asynchronous stream read operation started with
-             * g_input_stream_read_all_async().
+             * [method`InputStream`.read_all_async].
              *
              * As a special exception to the normal conventions for functions that
              * use #GError, if this function returns %FALSE (and sets `error)` then
@@ -63340,16 +63405,16 @@ declare module 'gi://Gio?version=2.0' {
             // Static methods
 
             /**
-             * Loads a binary resource bundle and creates a #GResource representation of it, allowing
-             * you to query it for data.
+             * Loads a binary resource bundle and creates a [struct`Gio`.Resource]
+             * representation of it, allowing you to query it for data.
              *
              * If you want to use this resource in the global resource namespace you need
-             * to register it with g_resources_register().
+             * to register it with [func`Gio`.resources_register].
              *
              * If `filename` is empty or the data in it is corrupt,
              * %G_RESOURCE_ERROR_INTERNAL will be returned. If `filename` doesn’t exist, or
-             * there is an error in reading it, an error from g_mapped_file_new() will be
-             * returned.
+             * there is an error in reading it, an error from [ctor`GLib`.MappedFile.new]
+             * will be returned.
              * @param filename the path of a filename to load, in the GLib filename encoding
              */
             static load(filename: string): Resource;
@@ -63358,8 +63423,10 @@ declare module 'gi://Gio?version=2.0' {
 
             /**
              * Registers the resource with the process-global set of resources.
+             *
              * Once a resource is registered the files in it can be accessed
-             * with the global resource lookup functions like g_resources_lookup_data().
+             * with the global resource lookup functions like
+             * [func`Gio`.resources_lookup_data].
              */
             _register(): void;
             /**
@@ -63368,15 +63435,16 @@ declare module 'gi://Gio?version=2.0' {
             _unregister(): void;
             /**
              * Returns all the names of children at the specified `path` in the resource.
-             * The return result is a %NULL terminated list of strings which should
-             * be released with g_strfreev().
              *
-             * If `path` is invalid or does not exist in the #GResource,
+             * The return result is a `NULL` terminated list of strings which should
+             * be released with [func`GLib`.strfreev].
+             *
+             * If `path` is invalid or does not exist in the [struct`Gio`.Resource],
              * %G_RESOURCE_ERROR_NOT_FOUND will be returned.
              *
              * `lookup_flags` controls the behaviour of the lookup.
-             * @param path A pathname inside the resource
-             * @param lookup_flags A #GResourceLookupFlags
+             * @param path A path name inside the resource
+             * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
              * @returns an array of constant strings
              */
             enumerate_children(path: string, lookup_flags: ResourceLookupFlags): string[];
@@ -63385,51 +63453,70 @@ declare module 'gi://Gio?version=2.0' {
              * if found returns information about it.
              *
              * `lookup_flags` controls the behaviour of the lookup.
-             * @param path A pathname inside the resource
-             * @param lookup_flags A #GResourceLookupFlags
-             * @returns %TRUE if the file was found. %FALSE if there were errors
+             *
+             * The only error this can return is %G_RESOURCE_ERROR_NOT_FOUND, if `path` was
+             * not found in `resource`.
+             * @param path A path name inside the resource
+             * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
+             * @returns `TRUE` if the file was found, `FALSE` if there were errors
              */
             get_info(path: string, lookup_flags: ResourceLookupFlags): [boolean, number, number];
             /**
+             * Returns whether the specified `path` in the resource
+             * has children.
+             * @param path A pathname inside the resource
+             * @returns %TRUE if @path has children
+             */
+            has_children(path: string): boolean;
+            /**
              * Looks for a file at the specified `path` in the resource and
-             * returns a #GBytes that lets you directly access the data in
+             * returns a [struct`GLib`.Bytes] that lets you directly access the data in
              * memory.
              *
              * The data is always followed by a zero byte, so you
              * can safely use the data as a C string. However, that byte
-             * is not included in the size of the GBytes.
+             * is not included in the size of the [struct`GLib`.Bytes].
              *
              * For uncompressed resource files this is a pointer directly into
-             * the resource bundle, which is typically in some readonly data section
-             * in the program binary. For compressed files we allocate memory on
-             * the heap and automatically uncompress the data.
+             * the resource bundle, which is typically in some read-only data section
+             * in the program binary. For compressed files, memory is allocated on
+             * the heap and the data is automatically uncompressed.
              *
              * `lookup_flags` controls the behaviour of the lookup.
-             * @param path A pathname inside the resource
-             * @param lookup_flags A #GResourceLookupFlags
-             * @returns #GBytes or %NULL on error.     Free the returned object with g_bytes_unref()
+             *
+             * This can return error %G_RESOURCE_ERROR_NOT_FOUND if `path` was not found in
+             * `resource,` or %G_RESOURCE_ERROR_INTERNAL if decompression of a compressed
+             * resource failed.
+             * @param path A path name inside the resource
+             * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
+             * @returns [struct@GLib.Bytes] or `NULL` on error
              */
             lookup_data(path: string, lookup_flags: ResourceLookupFlags): GLib.Bytes;
             /**
              * Looks for a file at the specified `path` in the resource and
-             * returns a #GInputStream that lets you read the data.
+             * returns a [class`Gio`.InputStream] that lets you read the data.
              *
              * `lookup_flags` controls the behaviour of the lookup.
-             * @param path A pathname inside the resource
-             * @param lookup_flags A #GResourceLookupFlags
-             * @returns #GInputStream or %NULL on error.     Free the returned object with g_object_unref()
+             *
+             * The only error this can return is %G_RESOURCE_ERROR_NOT_FOUND, if `path` was
+             * not found in `resource`.
+             * @param path A path name inside the resource
+             * @param lookup_flags A [flags@Gio.ResourceLookupFlags]
+             * @returns [class@Gio.InputStream] or `NULL` on error
              */
             open_stream(path: string, lookup_flags: ResourceLookupFlags): InputStream;
             /**
-             * Atomically increments the reference count of `resource` by one. This
-             * function is MT-safe and may be called from any thread.
-             * @returns The passed in #GResource
+             * Atomically increments the reference count of `resource` by one.
+             *
+             * This function is threadsafe and may be called from any thread.
+             * @returns The passed in [struct@Gio.Resource]
              */
             ref(): Resource;
             /**
-             * Atomically decrements the reference count of `resource` by one. If the
-             * reference count drops to 0, all memory allocated by the resource is
-             * released. This function is MT-safe and may be called from any
+             * Atomically decrements the reference count of `resource` by one.
+             *
+             * If the reference count drops to 0, all memory allocated by the resource is
+             * released. This function is threadsafe and may be called from any
              * thread.
              */
             unref(): void;
@@ -63973,7 +64060,7 @@ declare module 'gi://Gio?version=2.0' {
         }
 
         /**
-         * #GStaticResource is an opaque data structure and can only be accessed
+         * `GStaticResource` is an opaque data structure and can only be accessed
          * using the following functions.
          */
         class StaticResource {
@@ -63986,28 +64073,30 @@ declare module 'gi://Gio?version=2.0' {
             // Methods
 
             /**
-             * Finalized a GResource initialized by g_static_resource_init().
+             * Finalizes a [struct`Gio`.Resource] initialized by
+             * [method`Gio`.StaticResource.init].
              *
              * This is normally used by code generated by
-             * [glib-compile-resources][glib-compile-resources]
+             * [`glib-compile-resources`](glib-compile-resources.html)
              * and is not typically used by other code.
              */
             fini(): void;
             /**
-             * Gets the GResource that was registered by a call to g_static_resource_init().
+             * Gets the [struct`Gio`.Resource] that was registered by a call to
+             * [method`Gio`.StaticResource.init].
              *
              * This is normally used by code generated by
-             * [glib-compile-resources][glib-compile-resources]
+             * [`glib-compile-resources`](glib-compile-resources.html)
              * and is not typically used by other code.
-             * @returns a #GResource
+             * @returns a [struct@Gio.Resource]
              */
             get_resource(): Resource;
             /**
-             * Initializes a GResource from static data using a
-             * GStaticResource.
+             * Initializes a [struct`Gio`.Resource] from static data using a
+             * [struct`Gio`.StaticResource].
              *
              * This is normally used by code generated by
-             * [glib-compile-resources][glib-compile-resources]
+             * [`glib-compile-resources`](glib-compile-resources.html)
              * and is not typically used by other code.
              */
             init(): void;
@@ -64138,7 +64227,7 @@ declare module 'gi://Gio?version=2.0' {
         }
 
         /**
-         * Defines a Unix mount entry (e.g. <filename>/media/cdrom</filename>).
+         * Defines a Unix mount entry (e.g. `/media/cdrom`).
          * This corresponds roughly to a mtab entry.
          */
         abstract class UnixMountEntry {
@@ -64151,7 +64240,7 @@ declare module 'gi://Gio?version=2.0' {
 
         type UnixMountMonitorClass = typeof UnixMountMonitor;
         /**
-         * Defines a Unix mount point (e.g. <filename>/dev</filename>).
+         * Defines a Unix mount point (e.g. `/dev`).
          * This corresponds roughly to a fstab entry.
          */
         abstract class UnixMountPoint {
@@ -65204,16 +65293,18 @@ declare module 'gi://Gio?version=2.0' {
             prototype: AppInfo;
 
             /**
-             * Creates a new #GAppInfo from the given information.
+             * Creates a new [iface`Gio`.AppInfo] from the given information.
              *
-             * Note that for `commandline,` the quoting rules of the Exec key of the
+             * Note that for `commandline,` the quoting rules of the `Exec` key of the
              * [freedesktop.org Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)
              * are applied. For example, if the `commandline` contains
              * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
-             * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
-             * @param commandline the commandline to use
-             * @param application_name the application name, or %NULL to use @commandline
-             * @param flags flags that can specify details of the created #GAppInfo
+             * being swallowed by `Exec` key unquoting. See
+             * [the specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html)
+             * for exact quoting rules.
+             * @param commandline the command line to use
+             * @param application_name the application name, or `NULL` to use @commandline
+             * @param flags flags that can specify details of the created [iface@Gio.AppInfo]
              */
             create_from_commandline(
                 commandline: string,
@@ -65225,10 +65316,15 @@ declare module 'gi://Gio?version=2.0' {
              * on this system.
              *
              * For desktop files, this includes applications that have
-             * `NoDisplay=true` set or are excluded from display by means
-             * of `OnlyShowIn` or `NotShowIn`. See [method`Gio`.AppInfo.should_show].
-             * The returned list does not include applications which have
-             * the `Hidden` key set.
+             * [`NoDisplay=true`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-nodisplay)
+             * set or are excluded from display by means of
+             * [`OnlyShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-onlyshowin)
+             * or [`NotShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-notshowin).
+             * See [method`Gio`.AppInfo.should_show].
+             *
+             * The returned list does not include applications which have the
+             * [`Hidden` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-hidden)
+             * set.
              */
             get_all(): AppInfo[];
             /**
@@ -65269,10 +65365,10 @@ declare module 'gi://Gio?version=2.0' {
              */
             get_default_for_type_finish(result: AsyncResult): AppInfo;
             /**
-             * Gets the default application for handling URIs with
-             * the given URI scheme. A URI scheme is the initial part
-             * of the URI, up to but not including the ':', e.g. "http",
-             * "ftp" or "sip".
+             * Gets the default application for handling URIs with the given URI scheme.
+             *
+             * A URI scheme is the initial part of the URI, up to but not including the `:`.
+             * For example, `http`, `ftp` or `sip`.
              * @param uri_scheme a string containing a URI scheme.
              */
             get_default_for_uri_scheme(uri_scheme: string): AppInfo | null;
@@ -66891,15 +66987,16 @@ declare module 'gi://Gio?version=2.0' {
 
             /**
              * Gets the default application for launching applications
-             * using this URI scheme for a particular #GDesktopAppInfoLookup
+             * using this URI scheme for a particular [iface`Gio`.DesktopAppInfoLookup]
              * implementation.
              *
-             * The #GDesktopAppInfoLookup interface and this function is used
-             * to implement g_app_info_get_default_for_uri_scheme() backends
+             * The [iface`Gio`.DesktopAppInfoLookup] interface and this function is used
+             * to implement [func`Gio`.AppInfo.get_default_for_uri_scheme] backends
              * in a GIO module. There is no reason for applications to use it
-             * directly. Applications should use g_app_info_get_default_for_uri_scheme().
+             * directly. Applications should use
+             * [func`Gio`.AppInfo.get_default_for_uri_scheme].
              * @param uri_scheme a string containing a URI scheme.
-             * @returns #GAppInfo for given @uri_scheme or    %NULL on error.
+             * @returns [iface@Gio.AppInfo] for given   @uri_scheme or `NULL` on error.
              */
             get_default_for_uri_scheme(uri_scheme: string): AppInfo | null;
 
@@ -66907,13 +67004,14 @@ declare module 'gi://Gio?version=2.0' {
 
             /**
              * Gets the default application for launching applications
-             * using this URI scheme for a particular #GDesktopAppInfoLookup
+             * using this URI scheme for a particular [iface`Gio`.DesktopAppInfoLookup]
              * implementation.
              *
-             * The #GDesktopAppInfoLookup interface and this function is used
-             * to implement g_app_info_get_default_for_uri_scheme() backends
+             * The [iface`Gio`.DesktopAppInfoLookup] interface and this function is used
+             * to implement [func`Gio`.AppInfo.get_default_for_uri_scheme] backends
              * in a GIO module. There is no reason for applications to use it
-             * directly. Applications should use g_app_info_get_default_for_uri_scheme().
+             * directly. Applications should use
+             * [func`Gio`.AppInfo.get_default_for_uri_scheme].
              * @param uri_scheme a string containing a URI scheme.
              */
             vfunc_get_default_for_uri_scheme(uri_scheme: string): AppInfo | null;
@@ -70397,10 +70495,13 @@ declare module 'gi://Gio?version=2.0' {
             /**
              * Sends `file` to the "Trashcan", if possible. This is similar to
              * deleting it, but the user can recover it before emptying the trashcan.
-             * Not all file systems support trashing, so this call can return the
+             * Trashing is disabled for system mounts by default (see
+             * g_unix_mount_is_system_internal()), so this call can return the
              * %G_IO_ERROR_NOT_SUPPORTED error. Since GLib 2.66, the `x-gvfs-notrash` unix
-             * mount option can be used to disable g_file_trash() support for certain
+             * mount option can be used to disable g_file_trash() support for particular
              * mounts, the %G_IO_ERROR_NOT_SUPPORTED error will be returned in that case.
+             * Since 2.82, the `x-gvfs-trash` unix mount option can be used to enable
+             * g_file_trash() support for particular system mounts.
              *
              * If `cancellable` is not %NULL, then the operation can be cancelled by
              * triggering the cancellable object from another thread. If the operation
@@ -71942,10 +72043,13 @@ declare module 'gi://Gio?version=2.0' {
             /**
              * Sends `file` to the "Trashcan", if possible. This is similar to
              * deleting it, but the user can recover it before emptying the trashcan.
-             * Not all file systems support trashing, so this call can return the
+             * Trashing is disabled for system mounts by default (see
+             * g_unix_mount_is_system_internal()), so this call can return the
              * %G_IO_ERROR_NOT_SUPPORTED error. Since GLib 2.66, the `x-gvfs-notrash` unix
-             * mount option can be used to disable g_file_trash() support for certain
+             * mount option can be used to disable g_file_trash() support for particular
              * mounts, the %G_IO_ERROR_NOT_SUPPORTED error will be returned in that case.
+             * Since 2.82, the `x-gvfs-trash` unix mount option can be used to enable
+             * g_file_trash() support for particular system mounts.
              *
              * If `cancellable` is not %NULL, then the operation can be cancelled by
              * triggering the cancellable object from another thread. If the operation
@@ -73774,7 +73878,7 @@ declare module 'gi://Gio?version=2.0' {
              * Looks into the system proxy configuration to determine what proxy,
              * if any, to use to connect to `uri`. The returned proxy URIs are of
              * the form `<protocol>://[user[:password]`]`host[:port]` or
-             * `direct://`, where <protocol> could be http, rtsp, socks
+             * `direct://`, where `<protocol>` could be http, rtsp, socks
              * or other proxying protocol.
              *
              * If you don't know what network protocol is being used on the
@@ -73824,7 +73928,7 @@ declare module 'gi://Gio?version=2.0' {
              * Looks into the system proxy configuration to determine what proxy,
              * if any, to use to connect to `uri`. The returned proxy URIs are of
              * the form `<protocol>://[user[:password]`]`host[:port]` or
-             * `direct://`, where <protocol> could be http, rtsp, socks
+             * `direct://`, where `<protocol>` could be http, rtsp, socks
              * or other proxying protocol.
              *
              * If you don't know what network protocol is being used on the

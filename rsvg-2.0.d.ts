@@ -3,6 +3,7 @@
 /// <reference path="./glib-2.0.d.ts" />
 /// <reference path="./gio-2.0.d.ts" />
 /// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./gdkpixbuf-2.0.d.ts" />
 
 /**
  * Type Definitions for Gjs (https://gjs.guide/)
@@ -20,6 +21,7 @@ declare module 'gi://Rsvg?version=2.0' {
     import type GLib from 'gi://GLib?version=2.0';
     import type Gio from 'gi://Gio?version=2.0';
     import type GModule from 'gi://GModule?version=2.0';
+    import type GdkPixbuf from 'gi://GdkPixbuf?version=2.0';
 
     export namespace Rsvg {
         /**
@@ -200,6 +202,72 @@ declare module 'gi://Rsvg?version=2.0' {
          * This function does nothing.
          */
         function init(): void;
+        /**
+         * Loads a new `GdkPixbuf` from `filename` and returns it.  The caller must
+         * assume the reference to the reurned pixbuf. If an error occurred, `error` is
+         * set and `NULL` is returned.
+         * @param filename A file name
+         * @returns A pixbuf, or %NULL on error.
+         */
+        function pixbuf_from_file(filename: string): GdkPixbuf.Pixbuf | null;
+        /**
+         * Loads a new `GdkPixbuf` from `filename` and returns it.  This pixbuf is uniformly
+         * scaled so that the it fits into a rectangle of size `max_width * max_height`. The
+         * caller must assume the reference to the returned pixbuf. If an error occurred,
+         * `error` is set and `NULL` is returned.
+         * @param filename A file name
+         * @param max_width The requested max width
+         * @param max_height The requested max height
+         * @returns A pixbuf, or %NULL on error.
+         */
+        function pixbuf_from_file_at_max_size(
+            filename: string,
+            max_width: number,
+            max_height: number,
+        ): GdkPixbuf.Pixbuf | null;
+        /**
+         * Loads a new `GdkPixbuf` from `filename` and returns it.  This pixbuf is scaled
+         * from the size indicated to the new size indicated by `width` and `height`.  If
+         * both of these are -1, then the default size of the image being loaded is
+         * used.  The caller must assume the reference to the returned pixbuf. If an
+         * error occurred, `error` is set and `NULL` is returned.
+         * @param filename A file name
+         * @param width The new width, or -1
+         * @param height The new height, or -1
+         * @returns A pixbuf, or %NULL on error.
+         */
+        function pixbuf_from_file_at_size(filename: string, width: number, height: number): GdkPixbuf.Pixbuf | null;
+        /**
+         * Loads a new `GdkPixbuf` from `filename` and returns it.  This pixbuf is scaled
+         * from the size indicated by the file by a factor of `x_zoom` and `y_zoom`.  The
+         * caller must assume the reference to the returned pixbuf. If an error
+         * occurred, `error` is set and `NULL` is returned.
+         * @param filename A file name
+         * @param x_zoom The horizontal zoom factor
+         * @param y_zoom The vertical zoom factor
+         * @returns A pixbuf, or %NULL on error.
+         */
+        function pixbuf_from_file_at_zoom(filename: string, x_zoom: number, y_zoom: number): GdkPixbuf.Pixbuf | null;
+        /**
+         * Loads a new `GdkPixbuf` from `filename` and returns it.  This pixbuf is scaled
+         * from the size indicated by the file by a factor of `x_zoom` and `y_zoom`. If the
+         * resulting pixbuf would be larger than max_width/max_heigh it is uniformly scaled
+         * down to fit in that rectangle. The caller must assume the reference to the
+         * returned pixbuf. If an error occurred, `error` is set and `NULL` is returned.
+         * @param filename A file name
+         * @param x_zoom The horizontal zoom factor
+         * @param y_zoom The vertical zoom factor
+         * @param max_width The requested max width
+         * @param max_height The requested max height
+         * @returns A pixbuf, or %NULL on error.
+         */
+        function pixbuf_from_file_at_zoom_with_max(
+            filename: string,
+            x_zoom: number,
+            y_zoom: number,
+            max_width: number,
+            max_height: number,
+        ): GdkPixbuf.Pixbuf | null;
         /**
          * Do not use this function.  Create an [class`Rsvg`.Handle] and call
          * [method`Rsvg`.Handle.set_dpi] on it instead.
@@ -769,6 +837,55 @@ declare module 'gi://Rsvg?version=2.0' {
              */
             get_intrinsic_size_in_pixels(): [boolean, number, number];
             get_metadata(): string | null;
+            /**
+             * Returns the pixbuf loaded by `handle`.  The pixbuf returned will be reffed, so
+             * the caller of this function must assume that ref.
+             *
+             * API ordering: This function must be called on a fully-loaded `handle`.  See
+             * the section "[API ordering](class.Handle.html#api-ordering)" for details.
+             *
+             * This function depends on the [class`Rsvg`.Handle]'s dots-per-inch value (DPI) to compute the
+             * "natural size" of the document in pixels, so you should call [method`Rsvg`.Handle.set_dpi]
+             * beforehand.
+             * @returns A pixbuf, or %NULL on error during rendering.
+             */
+            get_pixbuf(): GdkPixbuf.Pixbuf | null;
+            /**
+             * Returns the pixbuf loaded by `handle`.  The pixbuf returned will be reffed, so
+             * the caller of this function must assume that ref.
+             *
+             * API ordering: This function must be called on a fully-loaded `handle`.  See
+             * the section "[API ordering](class.Handle.html#api-ordering)" for details.
+             *
+             * This function depends on the [class`Rsvg`.Handle]'s dots-per-inch value (DPI) to compute the
+             * "natural size" of the document in pixels, so you should call [method`Rsvg`.Handle.set_dpi]
+             * beforehand.
+             * @returns A pixbuf, or %NULL on error during rendering.
+             */
+            get_pixbuf_and_error(): GdkPixbuf.Pixbuf | null;
+            /**
+             * Creates a `GdkPixbuf` the same size as the entire SVG loaded into `handle,` but
+             * only renders the sub-element that has the specified `id` (and all its
+             * sub-sub-elements recursively).  If `id` is `NULL`, this function renders the
+             * whole SVG.
+             *
+             * This function depends on the [class`Rsvg`.Handle]'s dots-per-inch value (DPI) to compute the
+             * "natural size" of the document in pixels, so you should call [method`Rsvg`.Handle.set_dpi]
+             * beforehand.
+             *
+             * If you need to render an image which is only big enough to fit a particular
+             * sub-element of the SVG, consider using [method`Rsvg`.Handle.render_element].
+             *
+             * Element IDs should look like an URL fragment identifier; for example, pass
+             * `#foo` (hash `foo`) to get the geometry of the element that
+             * has an `id="foo"` attribute.
+             *
+             * API ordering: This function must be called on a fully-loaded `handle`.  See
+             * the section "[API ordering](class.Handle.html#api-ordering)" for details.
+             * @param id An element's id within the SVG, starting with "#" (a single hash character), for example, `#layer1`.  This notation corresponds to a URL's fragment ID.  Alternatively, pass `NULL` to use the whole SVG.
+             * @returns a pixbuf, or `NULL` if an error occurs during rendering.
+             */
+            get_pixbuf_sub(id?: string | null): GdkPixbuf.Pixbuf | null;
             /**
              * Get the position of a subelement of the SVG file. Do not call from within
              * the size_func callback, because an infinite loop will occur.

@@ -924,7 +924,7 @@ declare module 'gi://Atspi?version=2.0' {
              * An object the user can manipulate to tell the
              * application to do something.
              */
-            PUSH_BUTTON,
+            BUTTON,
             /**
              * A specialized check box that will cause other
              * radio buttons in the same group to become unchecked when this one is
@@ -1445,6 +1445,7 @@ declare module 'gi://Atspi?version=2.0' {
              * enumeration.
              */
             LAST_DEFINED,
+            PUSH_BUTTON,
         }
         /**
          * Enumeration used by interface #AtspiAccessible to specify where an
@@ -4677,13 +4678,13 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](
-                states: StateSet,
+                states: StateSet | null,
                 statematchtype: CollectionMatchType,
-                attributes: { [key: string]: any } | GLib.HashTable<string, string>,
+                attributes: GLib.HashTable<string, string> | null,
                 attributematchtype: CollectionMatchType,
-                roles: Role[],
+                roles: Role[] | null,
                 rolematchtype: CollectionMatchType,
-                interfaces: string[],
+                interfaces: string[] | null,
                 interfacematchtype: CollectionMatchType,
                 invert: boolean,
             ): MatchRule;

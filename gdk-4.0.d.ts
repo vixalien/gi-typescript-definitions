@@ -110,6 +110,37 @@ declare module 'gi://Gdk?version=4.0' {
             LAST,
         }
         /**
+         * The values of this enumeration describe whether image data uses
+         * the full range of 8-bit values.
+         *
+         * In digital broadcasting, it is common to reserve the lowest and
+         * highest values. Typically the allowed values for the narrow range
+         * are 16-235 for Y and 16-240 for u,v (when dealing with YUV data).
+         */
+
+        /**
+         * The values of this enumeration describe whether image data uses
+         * the full range of 8-bit values.
+         *
+         * In digital broadcasting, it is common to reserve the lowest and
+         * highest values. Typically the allowed values for the narrow range
+         * are 16-235 for Y and 16-240 for u,v (when dealing with YUV data).
+         */
+        export namespace CicpRange {
+            export const $gtype: GObject.GType<CicpRange>;
+        }
+
+        enum CicpRange {
+            /**
+             * The values use the range of 16-235 (for Y) and 16-240 for u and v.
+             */
+            NARROW,
+            /**
+             * The values use the full range.
+             */
+            FULL,
+        }
+        /**
          * Specifies the crossing mode for enter and leave events.
          */
 
@@ -2944,6 +2975,11 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_circle: number;
         const KEY_club: number;
         const KEY_colon: number;
+        const KEY_combining_acute: number;
+        const KEY_combining_belowdot: number;
+        const KEY_combining_grave: number;
+        const KEY_combining_hook: number;
+        const KEY_combining_tilde: number;
         const KEY_comma: number;
         const KEY_containsas: number;
         const KEY_copyright: number;
@@ -2960,6 +2996,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_dead_E: number;
         const KEY_dead_I: number;
         const KEY_dead_O: number;
+        const KEY_dead_SCHWA: number;
         const KEY_dead_U: number;
         const KEY_dead_a: number;
         const KEY_dead_abovecomma: number;
@@ -2990,6 +3027,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_dead_e: number;
         const KEY_dead_grave: number;
         const KEY_dead_greek: number;
+        const KEY_dead_hamza: number;
         const KEY_dead_hook: number;
         const KEY_dead_horn: number;
         const KEY_dead_i: number;
@@ -3002,6 +3040,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_dead_ogonek: number;
         const KEY_dead_perispomeni: number;
         const KEY_dead_psili: number;
+        const KEY_dead_schwa: number;
         const KEY_dead_semivoiced_sound: number;
         const KEY_dead_small_schwa: number;
         const KEY_dead_stroke: number;
@@ -3096,6 +3135,8 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_grave: number;
         const KEY_greater: number;
         const KEY_greaterthanequal: number;
+        const KEY_guillemetleft: number;
+        const KEY_guillemetright: number;
         const KEY_guillemotleft: number;
         const KEY_guillemotright: number;
         const KEY_h: number;
@@ -3339,6 +3380,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_opentribulletdown: number;
         const KEY_opentribulletup: number;
         const KEY_ordfeminine: number;
+        const KEY_ordmasculine: number;
         const KEY_oslash: number;
         const KEY_otilde: number;
         const KEY_overbar: number;
@@ -3602,7 +3644,7 @@ declare module 'gi://Gdk?version=4.0' {
          * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and a linear
          * transfer function.
          *
-         * It is equivalent to H.273 ColourPrimaries code point 9 with TransferCharacteristics 8.
+         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/8/0/1.
          *
          * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-linear)
          * for details about this colorstate.
@@ -3615,7 +3657,7 @@ declare module 'gi://Gdk?version=4.0' {
          * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and the transfer
          * function defined by SMPTE ST 2084 and BT.2100-2.
          *
-         * It is equivalent to H.273 ColourPrimaries code point 9 with TransferCharacteristics 16.
+         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/16/0/1.
          *
          * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-pq)
          * for details about this colorstate.
@@ -3628,7 +3670,7 @@ declare module 'gi://Gdk?version=4.0' {
          * This color state uses the primaries defined by BT.709-6 and the transfer function
          * defined by IEC 61966-2-1.
          *
-         * It is equivalent to H.273 ColourPrimaries 1 with TransferCharacteristics 13 and MatrixCoefficients 0.
+         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/13/0/1.
          *
          * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB)
          * for details about this colorstate.
@@ -3640,7 +3682,7 @@ declare module 'gi://Gdk?version=4.0' {
          *
          * This color state uses the primaries defined by BT.709-6 and a linear transfer function.
          *
-         * It is equivalent to H.273 ColourPrimaries 1 with TransferCharacteristics 8 and MatrixCoefficients 0.
+         * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/8/0/1.
          *
          * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB-linear)
          * for details about this colorstate.
@@ -4527,7 +4569,7 @@ declare module 'gi://Gdk?version=4.0' {
              */
             LEFT_RESIZABLE,
             /**
-             * the surface is not visible to the user
+             * The surface is not visible to the user.
              */
             SUSPENDED,
         }
@@ -4697,6 +4739,196 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns a Cairo context   to draw on `GdkSurface
              */
             cairo_create(): cairo.Context | null;
+        }
+
+        module CicpParams {
+            // Constructor properties interface
+
+            interface ConstructorProps extends GObject.Object.ConstructorProps {
+                color_primaries: number;
+                colorPrimaries: number;
+                matrix_coefficients: number;
+                matrixCoefficients: number;
+                range: CicpRange;
+                transfer_function: number;
+                transferFunction: number;
+            }
+        }
+
+        /**
+         * The `GdkCicpParams` struct contains the parameters that define
+         * a colorstate according to the ITU-T H.273
+         * [specification](https://www.itu.int/rec/T-REC-H.273/en).
+         *
+         * See the documentation of individual properties for supported values.
+         *
+         * The 'unspecified' value (2) is not treated in any special way, and
+         * must be replaced by a different value before creating a color state.
+         *
+         * `GdkCicpParams` can be used as a builder object to construct a color
+         * state from Cicp data with [method`Gdk`.CicpParams.build_color_state].
+         * The function will return an error if the given parameters are not
+         * supported.
+         *
+         * You can obtain a `GdkCicpParams` object from a color state with
+         * [method`Gdk`.ColorState.create_cicp_params]. This can be used to
+         * create a variant of a color state, by changing just one of the cicp
+         * parameters, or just to obtain information about the color state.
+         */
+        class CicpParams extends GObject.Object {
+            static $gtype: GObject.GType<CicpParams>;
+
+            // Properties
+
+            /**
+             * The color primaries to use.
+             *
+             * Supported values:
+             *
+             * - 1: BT.709 / sRGB
+             * - 2: unspecified
+             * - 5: PAL
+             * - 6,7: BT.601 / NTSC
+             * - 9: BT.2020
+             * - 12: Display P3
+             */
+            get color_primaries(): number;
+            set color_primaries(val: number);
+            /**
+             * The color primaries to use.
+             *
+             * Supported values:
+             *
+             * - 1: BT.709 / sRGB
+             * - 2: unspecified
+             * - 5: PAL
+             * - 6,7: BT.601 / NTSC
+             * - 9: BT.2020
+             * - 12: Display P3
+             */
+            get colorPrimaries(): number;
+            set colorPrimaries(val: number);
+            /**
+             * The matrix coefficients (for YUV to RGB conversion).
+             *
+             * Supported values:
+             *
+             * - 0: RGB
+             * - 2: unspecified
+             */
+            get matrix_coefficients(): number;
+            set matrix_coefficients(val: number);
+            /**
+             * The matrix coefficients (for YUV to RGB conversion).
+             *
+             * Supported values:
+             *
+             * - 0: RGB
+             * - 2: unspecified
+             */
+            get matrixCoefficients(): number;
+            set matrixCoefficients(val: number);
+            /**
+             * Whether the data is using the full range of values.
+             *
+             * The range of the data.
+             */
+            get range(): CicpRange;
+            set range(val: CicpRange);
+            /**
+             * The transfer function to use.
+             *
+             * Supported values:
+             *
+             * - 1,6,14,15: BT.709, BT.601, BT.2020
+             * - 2: unspecified
+             * - 4: gamma 2.2
+             * - 5: gamma 2.8
+             * - 8: linear
+             * - 13: sRGB
+             * - 16: BT.2100 PQ
+             * - 18: BT.2100 HLG
+             */
+            get transfer_function(): number;
+            set transfer_function(val: number);
+            /**
+             * The transfer function to use.
+             *
+             * Supported values:
+             *
+             * - 1,6,14,15: BT.709, BT.601, BT.2020
+             * - 2: unspecified
+             * - 4: gamma 2.2
+             * - 5: gamma 2.8
+             * - 8: linear
+             * - 13: sRGB
+             * - 16: BT.2100 PQ
+             * - 18: BT.2100 HLG
+             */
+            get transferFunction(): number;
+            set transferFunction(val: number);
+
+            // Constructors
+
+            constructor(properties?: Partial<CicpParams.ConstructorProps>, ...args: any[]);
+
+            _init(...args: any[]): void;
+
+            static ['new'](): CicpParams;
+
+            // Methods
+
+            /**
+             * Creates a new `GdkColorState` object for the cicp parameters in `self`.
+             *
+             * Note that this may fail if the cicp parameters in `self` are not
+             * supported by GTK. In that case, `NULL` is returned, and `error` is set
+             * with an error message that can be presented to the user.
+             * @returns A newly allocated `GdkColorState`
+             */
+            build_color_state(): ColorState | null;
+            /**
+             * Returns the value of the color-primaries property
+             * of `self`.
+             * @returns the color-primaries value
+             */
+            get_color_primaries(): number;
+            /**
+             * Gets the matrix-coefficients property of `self`.
+             * @returns the matrix-coefficients value
+             */
+            get_matrix_coefficients(): number;
+            /**
+             * Gets the range property of `self`.
+             * @returns the range value
+             */
+            get_range(): CicpRange;
+            /**
+             * Gets the transfer-function property of `self`.
+             * @returns the transfer-function value
+             */
+            get_transfer_function(): number;
+            /**
+             * Sets the color-primaries property of `self`.
+             * @param color_primaries the new color primaries value
+             */
+            set_color_primaries(color_primaries: number): void;
+            /**
+             * `self` a `GdkCicpParams`
+             * Sets the matrix-coefficients property of `self`.
+             * @param matrix_coefficients the new matrix-coefficients value
+             */
+            set_matrix_coefficients(matrix_coefficients: number): void;
+            /**
+             * Sets the range property of `self`
+             * @param range the range value
+             */
+            set_range(range: CicpRange): void;
+            /**
+             * Sets the transfer-function property of `self`.
+             * @param transfer_function the new transfer-function value
+             */
+            set_transfer_function(transfer_function: number): void;
         }
 
         module Clipboard {
@@ -8377,7 +8609,7 @@ declare module 'gi://Gdk?version=4.0' {
              * Gets the color state previously set via gdk_dmabuf_texture_builder_set_color_state().
              * @returns the color state
              */
-            get_color_state(): ColorState;
+            get_color_state(): ColorState | null;
             /**
              * Returns the display that this texture builder is
              * associated with.
@@ -8452,11 +8684,12 @@ declare module 'gi://Gdk?version=4.0' {
             /**
              * Sets the color state for the texture.
              *
-             * By default, the sRGB colorstate is used. If you don't know what
-             * colorstates are, this is probably the right thing.
-             * @param color_state a `GdkColorState`
+             * By default, the colorstate is `NULL`. In that case, GTK will choose the
+             * correct colorstate based on the format.
+             * If you don't know what colorstates are, this is probably the right thing.
+             * @param color_state a `GdkColorState` or `NULL` to unset the colorstate.
              */
-            set_color_state(color_state: ColorState): void;
+            set_color_state(color_state?: ColorState | null): void;
             /**
              * Sets the display that this texture builder is
              * associated with.
@@ -9231,9 +9464,13 @@ declare module 'gi://Gdk?version=4.0' {
              * according to platform conventions.
              *
              * The right mouse button typically triggers context menus.
+             * On macOS, Control+left mouse button also triggers.
              *
              * This function should always be used instead of simply checking for
-             * event->button == %GDK_BUTTON_SECONDARY.
+             *
+             * ```c
+             * event->button == GDK_BUTTON_SECONDARY
+             * ```
              * @returns %TRUE if the event should trigger a context menu.
              */
             triggers_context_menu(): boolean;
@@ -12777,7 +13014,18 @@ declare module 'gi://Gdk?version=4.0' {
          *
          * `GdkTexture` is an immutable object: That means you cannot change
          * anything about it other than increasing the reference count via
-         * [method`GObject`.Object.ref], and consequently, it is a thread-safe object.
+         * [method`GObject`.Object.ref], and consequently, it is a threadsafe object.
+         *
+         * GDK provides a number of threadsafe texture loading functions:
+         * [ctor`Gdk`.Texture.new_from_resource],
+         * [ctor`Gdk`.Texture.new_from_bytes],
+         * [ctor`Gdk`.Texture.new_from_file],
+         * [ctor`Gdk`.Texture.new_from_filename],
+         * [ctor`Gdk`.Texture.new_for_pixbuf]. Note that these are meant for loading
+         * icons and resources that are shipped with the toolkit or application. It
+         * is recommended that you use a dedicated image loading framework such as
+         * [glycin](https://lib.rs/crates/glycin), if you need to load untrusted image
+         * data.
          */
         abstract class Texture extends GObject.Object implements Paintable, Gio.Icon, Gio.LoadableIcon {
             static $gtype: GObject.GType<Texture>;
@@ -14238,6 +14486,7 @@ declare module 'gi://Gdk?version=4.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
+        type CicpParamsClass = typeof CicpParams;
         /**
          * A `GdkColorState` object provides the information to interpret
          * colors and pixels in a variety of ways.
@@ -14248,9 +14497,7 @@ declare module 'gi://Gdk?version=4.0' {
          * Crucially, GTK knows how to convert colors from one color
          * state to another.
          *
-         * `GdkColorState objects are immutable and therefore threadsafe.
-         *
-         * Since 4.16
+         * `GdkColorState` objects are immutable and therefore threadsafe.
          */
         abstract class ColorState {
             static $gtype: GObject.GType<ColorState>;
@@ -14267,7 +14514,7 @@ declare module 'gi://Gdk?version=4.0' {
              * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and a linear
              * transfer function.
              *
-             * It is equivalent to H.273 ColourPrimaries code point 9 with TransferCharacteristics 8.
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/8/0/1.
              *
              * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-linear)
              * for details about this colorstate.
@@ -14279,7 +14526,7 @@ declare module 'gi://Gdk?version=4.0' {
              * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and the transfer
              * function defined by SMPTE ST 2084 and BT.2100-2.
              *
-             * It is equivalent to H.273 ColourPrimaries code point 9 with TransferCharacteristics 16.
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/16/0/1.
              *
              * See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-pq)
              * for details about this colorstate.
@@ -14291,7 +14538,7 @@ declare module 'gi://Gdk?version=4.0' {
              * This color state uses the primaries defined by BT.709-6 and the transfer function
              * defined by IEC 61966-2-1.
              *
-             * It is equivalent to H.273 ColourPrimaries 1 with TransferCharacteristics 13 and MatrixCoefficients 0.
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/13/0/1.
              *
              * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB)
              * for details about this colorstate.
@@ -14302,7 +14549,7 @@ declare module 'gi://Gdk?version=4.0' {
              *
              * This color state uses the primaries defined by BT.709-6 and a linear transfer function.
              *
-             * It is equivalent to H.273 ColourPrimaries 1 with TransferCharacteristics 8 and MatrixCoefficients 0.
+             * It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/8/0/1.
              *
              * See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB-linear)
              * for details about this colorstate.
@@ -14311,6 +14558,15 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Methods
 
+            /**
+             * Create a [class`Gdk`.CicpParams] representing the colorstate.
+             *
+             * It is not guaranteed that every `GdkColorState` can be
+             * represented with Cicp parameters. If that is the case,
+             * this function returns `NULL`.
+             * @returns A new [class@Gdk.CicpParams]
+             */
+            create_cicp_params(): CicpParams | null;
             /**
              * Compares two `GdkColorStates` for equality.
              *

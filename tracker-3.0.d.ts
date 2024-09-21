@@ -334,7 +334,7 @@ declare module 'gi://Tracker?version=3.0' {
          * Checks that the Tracker library in use is compatible with the given version.
          *
          * Generally you would pass in the constants
-         * [const`Tracker`.MAJOR_VERSION], [const`Tracker`.MINOR_VERSION], [const`Tracker`.MICRO_VERSION]
+         * [const`MAJOR_VERSION]`, [const`MINOR_VERSION]`, [const`MICRO_VERSION]`
          * as the three arguments to this function; that produces
          * a check that the library in use is compatible with
          * the version of Tracker the application or module was compiled

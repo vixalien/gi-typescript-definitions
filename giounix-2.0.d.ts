@@ -31,16 +31,17 @@ declare module 'gi://GioUnix?version=2.0' {
         const DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: string;
         /**
          * Gets the default application for launching applications
-         * using this URI scheme for a particular #GDesktopAppInfoLookup
+         * using this URI scheme for a particular [iface`Gio`.DesktopAppInfoLookup]
          * implementation.
          *
-         * The #GDesktopAppInfoLookup interface and this function is used
-         * to implement g_app_info_get_default_for_uri_scheme() backends
+         * The [iface`Gio`.DesktopAppInfoLookup] interface and this function is used
+         * to implement [func`Gio`.AppInfo.get_default_for_uri_scheme] backends
          * in a GIO module. There is no reason for applications to use it
-         * directly. Applications should use g_app_info_get_default_for_uri_scheme().
-         * @param lookup a #GDesktopAppInfoLookup
+         * directly. Applications should use
+         * [func`Gio`.AppInfo.get_default_for_uri_scheme].
+         * @param lookup a [iface@Gio.DesktopAppInfoLookup]
          * @param uri_scheme a string containing a URI scheme.
-         * @returns #GAppInfo for given @uri_scheme or    %NULL on error.
+         * @returns [iface@Gio.AppInfo] for given   @uri_scheme or `NULL` on error.
          */
         function desktop_app_info_lookup_get_default_for_uri_scheme(
             lookup: Gio.DesktopAppInfoLookup,
@@ -328,6 +329,21 @@ declare module 'gi://GioUnix?version=2.0' {
          */
         function mount_points_get(): [Gio.UnixMountPoint[], number];
         /**
+         * Gets an array of [struct`Gio`.UnixMountPoint]s containing the Unix mount
+         * points listed in `table_path`.
+         *
+         * This is a generalized version of g_unix_mount_points_get(), mainly intended
+         * for internal testing use. Note that g_unix_mount_points_get() may parse
+         * multiple hierarchical table files, so this function is not a direct superset
+         * of its functionality.
+         *
+         * If there is an error reading or parsing the file, `NULL` will be returned
+         * and both out parameters will be set to `0`.
+         * @param table_path path to the mount points table file (for example `/etc/fstab`)
+         * @returns mount   points, or `NULL` if there was an error loading them
+         */
+        function mount_points_get_from_file(table_path: string): [Gio.UnixMountPoint[] | null, number];
+        /**
          * Checks if the unix mounts have changed since a given unix time.
          * @param time guint64 to contain a timestamp.
          * @returns %TRUE if the mounts have changed since @time.
@@ -341,6 +357,21 @@ declare module 'gi://GioUnix?version=2.0' {
          * @returns a #GList of the UNIX mounts.
          */
         function mounts_get(): [Gio.UnixMountEntry[], number];
+        /**
+         * Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
+         * listed in `table_path`.
+         *
+         * This is a generalized version of g_unix_mounts_get(), mainly intended for
+         * internal testing use. Note that g_unix_mounts_get() may parse multiple
+         * hierarchical table files, so this function is not a direct superset of its
+         * functionality.
+         *
+         * If there is an error reading or parsing the file, `NULL` will be returned
+         * and both out parameters will be set to `0`.
+         * @param table_path path to the mounts table file (for example `/proc/self/mountinfo`)
+         * @returns mount   entries, or `NULL` if there was an error loading them
+         */
+        function mounts_get_from_file(table_path: string): [Gio.UnixMountEntry[] | null, number];
         interface DesktopAppLaunchCallback {
             (appinfo: Gio.DesktopAppInfo, pid: GLib.Pid): void;
         }
@@ -366,7 +397,7 @@ declare module 'gi://GioUnix?version=2.0' {
             // Properties
 
             /**
-             * The origin filename of this #GDesktopAppInfo
+             * The origin filename of this [class`Gio`.DesktopAppInfo]
              */
             get filename(): string;
 
@@ -385,118 +416,123 @@ declare module 'gi://GioUnix?version=2.0' {
             // Static methods
 
             /**
-             * Gets the user-visible display name of the "additional application
-             * action" specified by `action_name`.
+             * Gets the user-visible display name of the
+             * [‘additional application actions’](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s11.html)
+             * specified by `action_name`.
              *
-             * This corresponds to the "Name" key within the keyfile group for the
+             * This corresponds to the `Name` key within the keyfile group for the
              * action.
-             * @param info a #GDesktopAppInfo
-             * @param action_name the name of the action as from   g_desktop_app_info_list_actions()
+             * @param info a [class@Gio.DesktopAppInfo]
+             * @param action_name the name of the action as from   [method@Gio.DesktopAppInfo.list_actions]
              */
             static get_action_name(info: Gio.DesktopAppInfo, action_name: string): string;
             /**
              * Looks up a boolean value in the keyfile backing `info`.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
-             * @param info a #GDesktopAppInfo
+             * The `key` is looked up in the `Desktop Entry` group.
+             * @param info a [class@Gio.DesktopAppInfo]
              * @param key the key to look up
              */
             static get_boolean(info: Gio.DesktopAppInfo, key: string): boolean;
             /**
              * Gets the categories from the desktop file.
-             * @param info a #GDesktopAppInfo
+             * @param info a [class@Gio.DesktopAppInfo]
              */
             static get_categories(info: Gio.DesktopAppInfo): string | null;
             /**
              * When `info` was created from a known filename, return it.  In some
-             * situations such as the #GDesktopAppInfo returned from
-             * g_desktop_app_info_new_from_keyfile(), this function will return %NULL.
-             * @param info a #GDesktopAppInfo
+             * situations such as a [class`Gio`.DesktopAppInfo] returned from
+             * [ctor`Gio`.DesktopAppInfo.new_from_keyfile], this function will return `NULL`.
+             * @param info a [class@Gio.DesktopAppInfo]
              */
             static get_filename(info: Gio.DesktopAppInfo): string | null;
             /**
              * Gets the generic name from the desktop file.
-             * @param info a #GDesktopAppInfo
+             * @param info a [class@Gio.DesktopAppInfo]
              */
             static get_generic_name(info: Gio.DesktopAppInfo): string | null;
             /**
              * Gets all applications that implement `interface`.
              *
              * An application implements an interface if that interface is listed in
-             * the Implements= line of the desktop file of the application.
+             * the `Implements` line of the desktop file of the application.
              * @param _interface the name of the interface
              */
             static get_implementations(_interface: string): Gio.DesktopAppInfo[];
             /**
-             * A desktop file is hidden if the Hidden key in it is
-             * set to True.
-             * @param info a #GDesktopAppInfo.
+             * A desktop file is hidden if the
+             * [`Hidden` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-hidden)
+             * in it is set to `True`.
+             * @param info a [class@Gio.DesktopAppInfo].
              */
             static get_is_hidden(info: Gio.DesktopAppInfo): boolean;
             /**
              * Gets the keywords from the desktop file.
-             * @param info a #GDesktopAppInfo
+             * @param info a [class@Gio.DesktopAppInfo]
              */
             static get_keywords(info: Gio.DesktopAppInfo): string[];
             /**
              * Looks up a localized string value in the keyfile backing `info`
              * translated to the current locale.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
-             * @param info a #GDesktopAppInfo
+             * The `key` is looked up in the `Desktop Entry` group.
+             * @param info a [class@Gio.DesktopAppInfo]
              * @param key the key to look up
              */
             static get_locale_string(info: Gio.DesktopAppInfo, key: string): string | null;
             /**
-             * Gets the value of the NoDisplay key, which helps determine if the
-             * application info should be shown in menus. See
-             * %G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY and g_app_info_should_show().
-             * @param info a #GDesktopAppInfo
+             * Gets the value of the
+             * [`NoDisplay` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-nodisplay)
+             *  which helps determine if the application info should be shown in menus. See
+             * `G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY` and [method`Gio`.AppInfo.should_show].
+             * @param info a [class@Gio.DesktopAppInfo]
              */
             static get_nodisplay(info: Gio.DesktopAppInfo): boolean;
             /**
              * Checks if the application info should be shown in menus that list available
              * applications for a specific name of the desktop, based on the
-             * `OnlyShowIn` and `NotShowIn` keys.
+             * [`OnlyShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-onlyshowin)
+             * and [`NotShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-notshowin)
+             * keys.
              *
-             * `desktop_env` should typically be given as %NULL, in which case the
+             * `desktop_env` should typically be given as `NULL`, in which case the
              * `XDG_CURRENT_DESKTOP` environment variable is consulted.  If you want
              * to override the default mechanism then you may specify `desktop_env,`
              * but this is not recommended.
              *
-             * Note that g_app_info_should_show() for `info` will include this check (with
-             * %NULL for `desktop_env)` as well as additional checks.
-             * @param info a #GDesktopAppInfo
+             * Note that [method`Gio`.AppInfo.should_show] for `info` will include this check
+             * (with `NULL` for `desktop_env)` as well as additional checks.
+             * @param info a [class@Gio.DesktopAppInfo]
              * @param desktop_env a string specifying a desktop name
              */
             static get_show_in(info: Gio.DesktopAppInfo, desktop_env?: string | null): boolean;
             /**
-             * Retrieves the StartupWMClass field from `info`. This represents the
-             * WM_CLASS property of the main window of the application, if launched
+             * Retrieves the `StartupWMClass` field from `info`. This represents the
+             * `WM_CLASS` property of the main window of the application, if launched
              * through `info`.
-             * @param info a #GDesktopAppInfo that supports startup notify
+             * @param info a [class@Gio.DesktopAppInfo] that supports startup notify
              */
             static get_startup_wm_class(info: Gio.DesktopAppInfo): string | null;
             /**
              * Looks up a string value in the keyfile backing `info`.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
-             * @param info a #GDesktopAppInfo
+             * The `key` is looked up in the `Desktop Entry` group.
+             * @param info a [class@Gio.DesktopAppInfo]
              * @param key the key to look up
              */
             static get_string(info: Gio.DesktopAppInfo, key: string): string | null;
             /**
              * Looks up a string list value in the keyfile backing `info`.
              *
-             * The `key` is looked up in the "Desktop Entry" group.
-             * @param info a #GDesktopAppInfo
+             * The `key` is looked up in the `Desktop Entry` group.
+             * @param info a [class@Gio.DesktopAppInfo]
              * @param key the key to look up
              */
             static get_string_list(info: Gio.DesktopAppInfo, key: string): string[];
             /**
-             * Returns whether `key` exists in the "Desktop Entry" group
+             * Returns whether `key` exists in the `Desktop Entry` group
              * of the keyfile backing `info`.
-             * @param info a #GDesktopAppInfo
+             * @param info a [class@Gio.DesktopAppInfo]
              * @param key the key to look up
              */
             static has_key(info: Gio.DesktopAppInfo, key: string): boolean;
@@ -504,21 +540,22 @@ declare module 'gi://GioUnix?version=2.0' {
              * Activates the named application action.
              *
              * You may only call this function on action names that were
-             * returned from g_desktop_app_info_list_actions().
+             * returned from [method`Gio`.DesktopAppInfo.list_actions].
              *
              * Note that if the main entry of the desktop file indicates that the
              * application supports startup notification, and `launch_context` is
-             * non-%NULL, then startup notification will be used when activating the
+             * non-`NULL`, then startup notification will be used when activating the
              * action (and as such, invocation of the action on the receiving side
              * must signal the end of startup notification when it is completed).
              * This is the expected behaviour of applications declaring additional
-             * actions, as per the desktop file specification.
+             * actions, as per the
+             * [desktop file specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s11.html).
              *
-             * As with g_app_info_launch() there is no way to detect failures that
+             * As with [method`Gio`.AppInfo.launch] there is no way to detect failures that
              * occur while using this function.
-             * @param info a #GDesktopAppInfo
-             * @param action_name the name of the action as from   g_desktop_app_info_list_actions()
-             * @param launch_context a #GAppLaunchContext
+             * @param info a [class@Gio.DesktopAppInfo]
+             * @param action_name the name of the action as from   [method@Gio.DesktopAppInfo.list_actions]
+             * @param launch_context a [class@Gio.AppLaunchContext]
              */
             static launch_action(
                 info: Gio.DesktopAppInfo,
@@ -526,26 +563,27 @@ declare module 'gi://GioUnix?version=2.0' {
                 launch_context?: Gio.AppLaunchContext | null,
             ): void;
             /**
-             * This function performs the equivalent of g_app_info_launch_uris(),
+             * This function performs the equivalent of [method`Gio`.AppInfo.launch_uris],
              * but is intended primarily for operating system components that
              * launch applications.  Ordinary applications should use
-             * g_app_info_launch_uris().
+             * [method`Gio`.AppInfo.launch_uris].
              *
              * If the application is launched via GSpawn, then `spawn_flags,` `user_setup`
-             * and `user_setup_data` are used for the call to g_spawn_async().
+             * and `user_setup_data` are used for the call to [func`GLib`.spawn_async].
              * Additionally, `pid_callback` (with `pid_callback_data)` will be called to
-             * inform about the PID of the created process. See g_spawn_async_with_pipes()
-             * for information on certain parameter conditions that can enable an
-             * optimized posix_spawn() codepath to be used.
+             * inform about the PID of the created process. See
+             * [func`GLib`.spawn_async_with_pipes] for information on certain parameter
+             * conditions that can enable an optimized [`posix_spawn()`](man:posix_spawn(3))
+             * code path to be used.
              *
-             * If application launching occurs via some other mechanism (eg: D-Bus
+             * If application launching occurs via some other mechanism (for example, D-Bus
              * activation) then `spawn_flags,` `user_setup,` `user_setup_data,`
              * `pid_callback` and `pid_callback_data` are ignored.
-             * @param appinfo a #GDesktopAppInfo
+             * @param appinfo a [class@Gio.DesktopAppInfo]
              * @param uris List of URIs
-             * @param launch_context a #GAppLaunchContext
-             * @param spawn_flags #GSpawnFlags, used for each process
-             * @param user_setup a #GSpawnChildSetupFunc, used once     for each process.
+             * @param launch_context a [class@Gio.AppLaunchContext]
+             * @param spawn_flags [flags@GLib.SpawnFlags], used for each process
+             * @param user_setup a [callback@GLib.SpawnChildSetupFunc],   used once  for each process.
              * @param pid_callback Callback for child processes
              */
             static launch_uris_as_manager(
@@ -557,21 +595,21 @@ declare module 'gi://GioUnix?version=2.0' {
                 pid_callback?: Gio.DesktopAppLaunchCallback | null,
             ): boolean;
             /**
-             * Equivalent to g_desktop_app_info_launch_uris_as_manager() but allows
+             * Equivalent to [method`Gio`.DesktopAppInfo.launch_uris_as_manager] but allows
              * you to pass in file descriptors for the stdin, stdout and stderr streams
              * of the launched process.
              *
              * If application launching occurs via some non-spawn mechanism (e.g. D-Bus
              * activation) then `stdin_fd,` `stdout_fd` and `stderr_fd` are ignored.
-             * @param appinfo a #GDesktopAppInfo
+             * @param appinfo a [class@Gio.DesktopAppInfo]
              * @param uris List of URIs
-             * @param launch_context a #GAppLaunchContext
-             * @param spawn_flags #GSpawnFlags, used for each process
-             * @param user_setup a #GSpawnChildSetupFunc, used once     for each process.
+             * @param launch_context a [class@Gio.AppLaunchContext]
+             * @param spawn_flags [flags@GLib.SpawnFlags], used for each process
+             * @param user_setup a   [callback@GLib.SpawnChildSetupFunc], used once for each process.
              * @param pid_callback Callback for child processes
-             * @param stdin_fd file descriptor to use for child's stdin, or -1
-             * @param stdout_fd file descriptor to use for child's stdout, or -1
-             * @param stderr_fd file descriptor to use for child's stderr, or -1
+             * @param stdin_fd file descriptor to use for child’s stdin, or `-1`
+             * @param stdout_fd file descriptor to use for child’s stdout, or `-1`
+             * @param stderr_fd file descriptor to use for child’s stderr, or `-1`
              */
             static launch_uris_as_manager_with_fds(
                 appinfo: Gio.DesktopAppInfo,
@@ -585,12 +623,13 @@ declare module 'gi://GioUnix?version=2.0' {
                 stderr_fd: number,
             ): boolean;
             /**
-             * Returns the list of "additional application actions" supported on the
-             * desktop file, as per the desktop file specification.
+             * Returns the list of
+             * [‘additional application actions’](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s11.html)
+             * supported on the desktop file, as per the desktop file specification.
              *
              * As per the specification, this is the list of actions that are
-             * explicitly listed in the "Actions" key of the [Desktop Entry] group.
-             * @param info a #GDesktopAppInfo
+             * explicitly listed in the `Actions` key of the `Desktop Entry` group.
+             * @param info a [class@Gio.DesktopAppInfo]
              */
             static list_actions(info: Gio.DesktopAppInfo): string[];
             /**
@@ -604,20 +643,22 @@ declare module 'gi://GioUnix?version=2.0' {
              * any time.
              *
              * None of the search results are subjected to the normal validation
-             * checks performed by g_desktop_app_info_new() (for example, checking that
+             * checks performed by [ctor`Gio`.DesktopAppInfo.new] (for example, checking that
              * the executable referenced by a result exists), and so it is possible for
-             * g_desktop_app_info_new() to return %NULL when passed an app ID returned by
-             * this function. It is expected that calling code will do this when
-             * subsequently creating a #GDesktopAppInfo for each result.
+             * [ctor`Gio`.DesktopAppInfo.new] to return `NULL` when passed an app ID returned
+             * by this function. It is expected that calling code will do this when
+             * subsequently creating a [class`Gio`.DesktopAppInfo] for each result.
              * @param search_string the search string to use
              */
             static search(search_string: string): string[][];
             /**
              * Sets the name of the desktop that the application is running in.
-             * This is used by g_app_info_should_show() and
-             * g_desktop_app_info_get_show_in() to evaluate the
-             * `OnlyShowIn` and `NotShowIn`
-             * desktop entry fields.
+             *
+             * This is used by [method`Gio`.AppInfo.should_show] and
+             * [method`Gio`.DesktopAppInfo.get_show_in] to evaluate the
+             * [`OnlyShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-onlyshowin)
+             * and [`NotShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-notshowin)
+             * keys.
              *
              * Should be called only once; subsequent calls are ignored.
              * @param desktop_env a string specifying what desktop this is
@@ -1843,9 +1884,9 @@ declare module 'gi://GioUnix?version=2.0' {
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -1861,7 +1902,7 @@ declare module 'gi://GioUnix?version=2.0' {
             ): Uint8Array;
             /**
              * Finishes an asynchronous stream read operation started with
-             * g_input_stream_read_all_async().
+             * [method`InputStream`.read_all_async].
              *
              * As a special exception to the normal conventions for functions that
              * use #GError, if this function returns %FALSE (and sets `error)` then
@@ -4076,7 +4117,7 @@ declare module 'gi://GioUnix?version=2.0' {
         }
 
         /**
-         * Defines a Unix mount entry (e.g. <filename>/media/cdrom</filename>).
+         * Defines a Unix mount entry (e.g. `/media/cdrom`).
          * This corresponds roughly to a mtab entry.
          */
         abstract class MountEntry {
@@ -4089,7 +4130,7 @@ declare module 'gi://GioUnix?version=2.0' {
 
         type MountMonitorClass = typeof MountMonitor;
         /**
-         * Defines a Unix mount point (e.g. <filename>/dev</filename>).
+         * Defines a Unix mount point (e.g. `/dev`).
          * This corresponds roughly to a fstab entry.
          */
         abstract class MountPoint {
@@ -4206,14 +4247,15 @@ declare module 'gi://GioUnix?version=2.0' {
 
             /**
              * Gets the default application for launching applications
-             * using this URI scheme for a particular #GDesktopAppInfoLookup
+             * using this URI scheme for a particular [iface`Gio`.DesktopAppInfoLookup]
              * implementation.
              *
-             * The #GDesktopAppInfoLookup interface and this function is used
-             * to implement g_app_info_get_default_for_uri_scheme() backends
+             * The [iface`Gio`.DesktopAppInfoLookup] interface and this function is used
+             * to implement [func`Gio`.AppInfo.get_default_for_uri_scheme] backends
              * in a GIO module. There is no reason for applications to use it
-             * directly. Applications should use g_app_info_get_default_for_uri_scheme().
-             * @param lookup a #GDesktopAppInfoLookup
+             * directly. Applications should use
+             * [func`Gio`.AppInfo.get_default_for_uri_scheme].
+             * @param lookup a [iface@Gio.DesktopAppInfoLookup]
              * @param uri_scheme a string containing a URI scheme.
              */
             get_default_for_uri_scheme(lookup: Gio.DesktopAppInfoLookup, uri_scheme: string): Gio.AppInfo | null;
