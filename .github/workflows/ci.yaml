@@ -1,12 +1,12 @@
 name: TypeScript Regeneration
 
 on:
-  push:
-    branches:
-      - main 
-  pull_request:
-  schedule:
-    - cron: '0 0 1/7 * *'
+  # push:
+  #   branches:
+  #     - main 
+  # pull_request:
+  # schedule:
+  #   - cron: '0 0 1/7 * *'
   workflow_dispatch:
 
 jobs:
