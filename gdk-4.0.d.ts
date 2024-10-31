@@ -3639,6 +3639,21 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function cairo_set_source_rgba(cr: cairo.Context, rgba: RGBA): void;
         /**
+         * Returns the color state object representing the oklab color space.
+         *
+         * This is a perceptually uniform color state.
+         * @returns the color state object for oklab
+         */
+        function color_state_get_oklab(): ColorState;
+        /**
+         * Returns the color state object representing the oklch color space.
+         *
+         * This is the polar variant of oklab, in which the hue is encoded as
+         * a polar coordinate.
+         * @returns the color state object for oklch
+         */
+        function color_state_get_oklch(): ColorState;
+        /**
          * Returns the color state object representing the linear rec2100 color space.
          *
          * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and a linear
@@ -14508,6 +14523,19 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Static methods
 
+            /**
+             * Returns the color state object representing the oklab color space.
+             *
+             * This is a perceptually uniform color state.
+             */
+            static get_oklab(): ColorState;
+            /**
+             * Returns the color state object representing the oklch color space.
+             *
+             * This is the polar variant of oklab, in which the hue is encoded as
+             * a polar coordinate.
+             */
+            static get_oklch(): ColorState;
             /**
              * Returns the color state object representing the linear rec2100 color space.
              *

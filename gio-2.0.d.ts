@@ -5244,7 +5244,7 @@ declare module 'gi://Gio?version=2.0' {
         /**
          * Gets a #GUnixMountEntry for a given mount path. If `time_read`
          * is set, it will be filled with a unix timestamp for checking
-         * if the mounts have changed since with g_unix_mounts_changed_since().
+         * if the mounts have changed since with g_unix_mount_entries_changed_since().
          *
          * If more mounts have the same mount path, the last matching mount
          * is returned.
@@ -5268,9 +5268,65 @@ declare module 'gi://Gio?version=2.0' {
          */
         function unix_mount_copy(mount_entry: UnixMountEntry): UnixMountEntry;
         /**
+         * Checks if the unix mounts have changed since a given unix time.
+         * @param time guint64 to contain a timestamp.
+         * @returns %TRUE if the mounts have changed since @time. Since 2.84
+         */
+        function unix_mount_entries_changed_since(time: number): boolean;
+        /**
+         * Gets a #GList of #GUnixMountEntry containing the unix mounts.
+         * If `time_read` is set, it will be filled with the mount
+         * timestamp, allowing for checking if the mounts have changed
+         * with g_unix_mount_entries_changed_since().
+         * @returns a #GList of the UNIX mounts.
+         */
+        function unix_mount_entries_get(): [UnixMountEntry[], number];
+        /**
+         * Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
+         * listed in `table_path`.
+         *
+         * This is a generalized version of g_unix_mount_entries_get(), mainly intended for
+         * internal testing use. Note that g_unix_mount_entries_get() may parse multiple
+         * hierarchical table files, so this function is not a direct superset of its
+         * functionality.
+         *
+         * If there is an error reading or parsing the file, `NULL` will be returned
+         * and both out parameters will be set to `0`.
+         * @param table_path path to the mounts table file (for example `/proc/self/mountinfo`)
+         * @returns mount   entries, or `NULL` if there was an error loading them
+         */
+        function unix_mount_entries_get_from_file(table_path: string): [UnixMountEntry[] | null, number];
+        /**
+         * Gets a #GUnixMountEntry for a given mount path. If `time_read`
+         * is set, it will be filled with a unix timestamp for checking
+         * if the mounts have changed since with g_unix_mount_entries_changed_since().
+         *
+         * If more mounts have the same mount path, the last matching mount
+         * is returned.
+         *
+         * This will return %NULL if there is no mount point at `mount_path`.
+         * @param mount_path path for a possible unix mount.
+         * @returns a #GUnixMountEntry.
+         */
+        function unix_mount_entry_at(mount_path: string): [UnixMountEntry | null, number];
+        /**
          * Gets a #GUnixMountEntry for a given file path. If `time_read`
          * is set, it will be filled with a unix timestamp for checking
-         * if the mounts have changed since with g_unix_mounts_changed_since().
+         * if the mounts have changed since with g_unix_mount_entries_changed_since().
+         *
+         * If more mounts have the same mount path, the last matching mount
+         * is returned.
+         *
+         * This will return %NULL if looking up the mount entry fails, if
+         * `file_path` doesn’t exist or there is an I/O error.
+         * @param file_path file path on some unix mount.
+         * @returns a #GUnixMountEntry.
+         */
+        function unix_mount_entry_for(file_path: string): [UnixMountEntry | null, number];
+        /**
+         * Gets a #GUnixMountEntry for a given file path. If `time_read`
+         * is set, it will be filled with a unix timestamp for checking
+         * if the mounts have changed since with g_unix_mount_entries_changed_since().
          *
          * If more mounts have the same mount path, the last matching mount
          * is returned.
@@ -5423,7 +5479,7 @@ declare module 'gi://Gio?version=2.0' {
          * Gets a #GList of #GUnixMountEntry containing the unix mounts.
          * If `time_read` is set, it will be filled with the mount
          * timestamp, allowing for checking if the mounts have changed
-         * with g_unix_mounts_changed_since().
+         * with g_unix_mount_entries_changed_since().
          * @returns a #GList of the UNIX mounts.
          */
         function unix_mounts_get(): [UnixMountEntry[], number];
@@ -5431,8 +5487,8 @@ declare module 'gi://Gio?version=2.0' {
          * Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
          * listed in `table_path`.
          *
-         * This is a generalized version of g_unix_mounts_get(), mainly intended for
-         * internal testing use. Note that g_unix_mounts_get() may parse multiple
+         * This is a generalized version of g_unix_mount_entries_get(), mainly intended for
+         * internal testing use. Note that g_unix_mount_entries_get() may parse multiple
          * hierarchical table files, so this function is not a direct superset of its
          * functionality.
          *
@@ -43026,6 +43082,70 @@ declare module 'gi://Gio?version=2.0' {
          *
          * ## Build system integration
          *
+         * ### Meson
+         *
+         * GSettings is natively supported by Meson's [GNOME module](https://mesonbuild.com/Gnome-module.html).
+         *
+         * You can install the schemas as any other data file:
+         *
+         * ```
+         * install_data(
+         *   'org.foo.MyApp.gschema.xml',
+         *   install_dir: get_option('datadir') / 'glib-2.0/schemas',
+         * )
+         * ```
+         *
+         * You can use `gnome.post_install()` function to compile the schemas on
+         * installation:
+         *
+         * ```
+         * gnome = import('gnome')
+         * gnome.post_install(
+         *   glib_compile_schemas: true,
+         * )
+         * ```
+         *
+         * If an enumerated type defined in a C header file is to be used in a GSettings
+         * schema, it can either be defined manually using an `<enum>` element in the
+         * schema XML, or it can be extracted automatically from the C header. This
+         * approach is preferred, as it ensures the two representations are always
+         * synchronised. To do so, you will need to use the `gnome.mkenums()` function
+         * with the following templates:
+         *
+         * ```
+         * schemas_enums = gnome.mkenums('org.foo.MyApp.enums.xml',
+         *   comments: '<!-- `comment@` -->',
+         *   fhead: '<schemalist>',
+         *   vhead: '  <`type@` id="org.foo.MyApp.`EnumName@`">',
+         *   vprod: '    <value nick="`valuenick@`" value="`valuenum@`"/>',
+         *   vtail: '  </`type@`>',
+         *   ftail: '</schemalist>',
+         *   sources: enum_sources,
+         *   install_header: true,
+         *   install_dir: get_option('datadir') / 'glib-2.0/schemas',
+         * )
+         * ```
+         *
+         * It is recommended to validate your schemas as part of the test suite for
+         * your application:
+         *
+         * ```
+         * test('validate-schema',
+         *   find_program('glib-compile-schemas'),
+         *   args: ['--strict', '--dry-run', meson.current_source_dir()],
+         * )
+         * ```
+         *
+         * If your application allows running uninstalled, you should also use the
+         * `gnome.compile_schemas()` function to compile the schemas in the current
+         * build directory:
+         *
+         * ```
+         * gnome.compile_schemas()
+         * ```
+         *
+         * ### Autotools
+         *
          * GSettings comes with autotools integration to simplify compiling and
          * installing schemas. To add GSettings support to an application, add the
          * following to your `configure.ac`:
@@ -43041,25 +43161,6 @@ declare module 'gi://Gio?version=2.0' {
          *
          * `GSETTINGS_RULES@`
          * ```
-         *
-         * No changes are needed to the build system to mark a schema XML file for
-         * translation. Assuming it sets the `gettext-domain` attribute, a schema may
-         * be marked for translation by adding it to `POTFILES.in`, assuming gettext
-         * 0.19 is in use (the preferred method for translation):
-         * ```
-         * data/org.foo.MyApp.gschema.xml
-         * ```
-         *
-         * Alternatively, if intltool 0.50.1 is in use:
-         * ```
-         * [type: gettext/gsettings]data/org.foo.MyApp.gschema.xml
-         * ```
-         *
-         * GSettings will use gettext to look up translations for the `<summary>` and
-         * `<description>` elements, and also any `<default>` elements which have a
-         * `l10n` attribute set. Translations must not be included in the `.gschema.xml`
-         * file by the build system, for example by using intltool XML rules with a
-         * `.gschema.xml.in` template.
          *
          * If an enumerated type defined in a C header file is to be used in a GSettings
          * schema, it can either be defined manually using an `<enum>` element in the
@@ -43077,6 +43178,28 @@ declare module 'gi://Gio?version=2.0' {
          * automatically included in the schema compilation, install and uninstall
          * rules. It should not be committed to version control or included in
          * `EXTRA_DIST`.
+         *
+         * ## Localization
+         *
+         * No changes are needed to the build system to mark a schema XML file for
+         * translation. Assuming it sets the `gettext-domain` attribute, a schema may
+         * be marked for translation by adding it to `POTFILES.in`, assuming gettext
+         * 0.19 or newer is in use (the preferred method for translation):
+         * ```
+         * data/org.foo.MyApp.gschema.xml
+         * ```
+         *
+         * Alternatively, if intltool 0.50.1 is in use:
+         * ```
+         * [type: gettext/gsettings]data/org.foo.MyApp.gschema.xml
+         * ```
+         *
+         * GSettings will use gettext to look up translations for the `<summary>` and
+         * `<description>` elements, and also any `<default>` elements which have a
+         * `l10n` attribute set.
+         *
+         * Translations **must not** be included in the `.gschema.xml` file by the build
+         * system, for example by using a rule to generate the XML file from a template.
          */
         class Settings extends GObject.Object {
             static $gtype: GObject.GType<Settings>;
@@ -64236,6 +64359,127 @@ declare module 'gi://Gio?version=2.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Static methods
+
+            /**
+             * Gets a #GUnixMountEntry for a given mount path. If `time_read`
+             * is set, it will be filled with a unix timestamp for checking
+             * if the mounts have changed since with g_unix_mount_entries_changed_since().
+             *
+             * If more mounts have the same mount path, the last matching mount
+             * is returned.
+             *
+             * This will return %NULL if there is no mount point at `mount_path`.
+             * @param mount_path path for a possible unix mount.
+             */
+            static at(mount_path: string): [UnixMountEntry | null, number];
+            /**
+             * Gets a #GUnixMountEntry for a given file path. If `time_read`
+             * is set, it will be filled with a unix timestamp for checking
+             * if the mounts have changed since with g_unix_mount_entries_changed_since().
+             *
+             * If more mounts have the same mount path, the last matching mount
+             * is returned.
+             *
+             * This will return %NULL if looking up the mount entry fails, if
+             * `file_path` doesn’t exist or there is an I/O error.
+             * @param file_path file path on some unix mount.
+             */
+            static ['for'](file_path: string): [UnixMountEntry | null, number];
+
+            // Methods
+
+            /**
+             * Compares two unix mounts.
+             * @param mount2 second #GUnixMountEntry to compare.
+             * @returns 1, 0 or -1 if @mount1 is greater than, equal to, or less than @mount2, respectively.
+             */
+            compare(mount2: UnixMountEntry): number;
+            /**
+             * Makes a copy of `mount_entry`.
+             * @returns a new #GUnixMountEntry
+             */
+            copy(): UnixMountEntry;
+            /**
+             * Frees a unix mount.
+             */
+            free(): void;
+            /**
+             * Gets the device path for a unix mount.
+             * @returns a string containing the device path.
+             */
+            get_device_path(): string;
+            /**
+             * Gets the filesystem type for the unix mount.
+             * @returns a string containing the file system type.
+             */
+            get_fs_type(): string;
+            /**
+             * Gets the mount path for a unix mount.
+             * @returns the mount path for @mount_entry.
+             */
+            get_mount_path(): string;
+            /**
+             * Gets a comma-separated list of mount options for the unix mount. For example,
+             * `rw,relatime,seclabel,data=ordered`.
+             *
+             * This is similar to g_unix_mount_point_get_options(), but it takes
+             * a #GUnixMountEntry as an argument.
+             * @returns a string containing the options, or %NULL if not available.
+             */
+            get_options(): string | null;
+            /**
+             * Gets the root of the mount within the filesystem. This is useful e.g. for
+             * mounts created by bind operation, or btrfs subvolumes.
+             *
+             * For example, the root path is equal to "/" for mount created by
+             * "mount /dev/sda1 /mnt/foo" and "/bar" for
+             * "mount --bind /mnt/foo/bar /mnt/bar".
+             * @returns a string containing the root, or %NULL if not supported.
+             */
+            get_root_path(): string | null;
+            /**
+             * Guesses whether a Unix mount can be ejected.
+             * @returns %TRUE if @mount_entry is deemed to be ejectable.
+             */
+            guess_can_eject(): boolean;
+            /**
+             * Guesses the icon of a Unix mount.
+             * @returns a #GIcon
+             */
+            guess_icon(): Icon;
+            /**
+             * Guesses the name of a Unix mount.
+             * The result is a translated string.
+             * @returns A newly allocated string that must     be freed with g_free()
+             */
+            guess_name(): string;
+            /**
+             * Guesses whether a Unix mount should be displayed in the UI.
+             * @returns %TRUE if @mount_entry is deemed to be displayable.
+             */
+            guess_should_display(): boolean;
+            /**
+             * Guesses the symbolic icon of a Unix mount.
+             * @returns a #GIcon
+             */
+            guess_symbolic_icon(): Icon;
+            /**
+             * Checks if a unix mount is mounted read only.
+             * @returns %TRUE if @mount_entry is read only.
+             */
+            is_readonly(): boolean;
+            /**
+             * Checks if a Unix mount is a system mount. This is the Boolean OR of
+             * g_unix_is_system_fs_type(), g_unix_is_system_device_path() and
+             * g_unix_is_mount_path_system_internal() on `mount_entry’`s properties.
+             *
+             * The definition of what a ‘system’ mount entry is may change over time as new
+             * file system types and device paths are ignored.
+             * @returns %TRUE if the unix mount is for a system path.
+             */
+            is_system_internal(): boolean;
         }
 
         type UnixMountMonitorClass = typeof UnixMountMonitor;
@@ -69701,8 +69945,11 @@ declare module 'gi://Gio?version=2.0' {
              */
             query_default_handler_finish(result: AsyncResult): AppInfo;
             /**
-             * Utility function to check if a particular file exists. This is
-             * implemented using g_file_query_info() and as such does blocking I/O.
+             * Utility function to check if a particular file exists.
+             *
+             * The fallback implementation of this API is using [method`Gio`.File.query_info]
+             * and therefore may do blocking I/O. To asynchronously query the existence
+             * of a file, use [method`Gio`.File.query_info_async].
              *
              * Note that in many cases it is [racy to first check for file existence](https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use)
              * and then execute something based on the outcome of that, because the
@@ -70496,7 +70743,7 @@ declare module 'gi://Gio?version=2.0' {
              * Sends `file` to the "Trashcan", if possible. This is similar to
              * deleting it, but the user can recover it before emptying the trashcan.
              * Trashing is disabled for system mounts by default (see
-             * g_unix_mount_is_system_internal()), so this call can return the
+             * g_unix_mount_entry_is_system_internal()), so this call can return the
              * %G_IO_ERROR_NOT_SUPPORTED error. Since GLib 2.66, the `x-gvfs-notrash` unix
              * mount option can be used to disable g_file_trash() support for particular
              * mounts, the %G_IO_ERROR_NOT_SUPPORTED error will be returned in that case.
@@ -71528,6 +71775,35 @@ declare module 'gi://Gio?version=2.0' {
              */
             vfunc_prefix_matches(file: File): boolean;
             /**
+             * Utility function to check if a particular file exists.
+             *
+             * The fallback implementation of this API is using [method`Gio`.File.query_info]
+             * and therefore may do blocking I/O. To asynchronously query the existence
+             * of a file, use [method`Gio`.File.query_info_async].
+             *
+             * Note that in many cases it is [racy to first check for file existence](https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use)
+             * and then execute something based on the outcome of that, because the
+             * file might have been created or removed in between the operations. The
+             * general approach to handling that is to not check, but just do the
+             * operation and handle the errors as they come.
+             *
+             * As an example of race-free checking, take the case of reading a file,
+             * and if it doesn't exist, creating it. There are two racy versions: read
+             * it, and on error create it; and: check if it exists, if not create it.
+             * These can both result in two processes creating the file (with perhaps
+             * a partially written file as the result). The correct approach is to
+             * always try to create the file with g_file_create() which will either
+             * atomically create the file or fail with a %G_IO_ERROR_EXISTS error.
+             *
+             * However, in many cases an existence check is useful in a user interface,
+             * for instance to make a menu item sensitive/insensitive, so that you don't
+             * have to fool users that something is possible and then just show an error
+             * dialog. If you do this, you should make sure to also handle the errors
+             * that can happen due to races when you execute the operation.
+             * @param cancellable optional #GCancellable object,   %NULL to ignore
+             */
+            vfunc_query_exists(cancellable?: Cancellable | null): boolean;
+            /**
              * Similar to g_file_query_info(), but obtains information
              * about the filesystem the `file` is on, rather than the file itself.
              * For instance the amount of space available and the type of
@@ -72044,7 +72320,7 @@ declare module 'gi://Gio?version=2.0' {
              * Sends `file` to the "Trashcan", if possible. This is similar to
              * deleting it, but the user can recover it before emptying the trashcan.
              * Trashing is disabled for system mounts by default (see
-             * g_unix_mount_is_system_internal()), so this call can return the
+             * g_unix_mount_entry_is_system_internal()), so this call can return the
              * %G_IO_ERROR_NOT_SUPPORTED error. Since GLib 2.66, the `x-gvfs-notrash` unix
              * mount option can be used to disable g_file_trash() support for particular
              * mounts, the %G_IO_ERROR_NOT_SUPPORTED error will be returned in that case.

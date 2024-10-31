@@ -1127,6 +1127,13 @@ declare module 'gi://Dex?version=1' {
              */
             await_enum(): number;
             /**
+             * Awaits on `future` and returns the resultint file-descriptor.
+             *
+             * The resolved value must be of type %DEX_TYPE_FD or `error` is set.
+             * @returns a valid file descriptor or -1. you may get -1 without   error being set if there was no rejected future.
+             */
+            await_fd(): number;
+            /**
              * Awaits on `future` and returns the flags result.
              *
              * If the result is not a %G_TYPE_FLAGS, `error` is set.
@@ -1352,6 +1359,7 @@ declare module 'gi://Dex?version=1' {
             resolve(value: GObject.Value | any): void;
             resolve_boolean(value: boolean): void;
             resolve_double(value: number): void;
+            resolve_fd(fd: number): void;
             resolve_float(value: number): void;
             resolve_int(value: number): void;
             resolve_int64(value: number): void;
