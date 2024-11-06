@@ -2844,13 +2844,42 @@ declare module 'gi://GtkSource?version=5' {
              * to reduce latency until the user sees results.
              * @param context a #GtkSourceCompletionContext
              * @param cancellable a #GCancellable or %NULL
+             */
+            populate_async(context: CompletionContext, cancellable?: Gio.Cancellable | null): Promise<Gio.ListModel>;
+            /**
+             * Asynchronously requests that the provider populates the completion
+             * results for `context`.
+             *
+             * For providers that would like to populate a [iface`Gio`.ListModel] while those
+             * results are displayed to the user,
+             * [method`CompletionContext`.set_proposals_for_provider] may be used
+             * to reduce latency until the user sees results.
+             * @param context a #GtkSourceCompletionContext
+             * @param cancellable a #GCancellable or %NULL
+             * @param callback a callback to execute upon completion
+             */
+            populate_async(
+                context: CompletionContext,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously requests that the provider populates the completion
+             * results for `context`.
+             *
+             * For providers that would like to populate a [iface`Gio`.ListModel] while those
+             * results are displayed to the user,
+             * [method`CompletionContext`.set_proposals_for_provider] may be used
+             * to reduce latency until the user sees results.
+             * @param context a #GtkSourceCompletionContext
+             * @param cancellable a #GCancellable or %NULL
              * @param callback a callback to execute upon completion
              */
             populate_async(
                 context: CompletionContext,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Gio.ListModel> | void;
             /**
              * Completes an asynchronous operation to populate a completion provider.
              * @param result a #GAsyncResult provided to callback
@@ -3558,13 +3587,42 @@ declare module 'gi://GtkSource?version=5' {
              * to reduce latency until the user sees results.
              * @param context a #GtkSourceCompletionContext
              * @param cancellable a #GCancellable or %NULL
+             */
+            populate_async(context: CompletionContext, cancellable?: Gio.Cancellable | null): Promise<Gio.ListModel>;
+            /**
+             * Asynchronously requests that the provider populates the completion
+             * results for `context`.
+             *
+             * For providers that would like to populate a [iface`Gio`.ListModel] while those
+             * results are displayed to the user,
+             * [method`CompletionContext`.set_proposals_for_provider] may be used
+             * to reduce latency until the user sees results.
+             * @param context a #GtkSourceCompletionContext
+             * @param cancellable a #GCancellable or %NULL
+             * @param callback a callback to execute upon completion
+             */
+            populate_async(
+                context: CompletionContext,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously requests that the provider populates the completion
+             * results for `context`.
+             *
+             * For providers that would like to populate a [iface`Gio`.ListModel] while those
+             * results are displayed to the user,
+             * [method`CompletionContext`.set_proposals_for_provider] may be used
+             * to reduce latency until the user sees results.
+             * @param context a #GtkSourceCompletionContext
+             * @param cancellable a #GCancellable or %NULL
              * @param callback a callback to execute upon completion
              */
             populate_async(
                 context: CompletionContext,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Gio.ListModel> | void;
             /**
              * Completes an asynchronous operation to populate a completion provider.
              * @param result a #GAsyncResult provided to callback
@@ -4338,6 +4396,40 @@ declare module 'gi://GtkSource?version=5' {
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param progress_callback function to call back with progress information, or %NULL if progress   information is not needed.
              * @param progress_callback_notify function to call on   @progress_callback_data when the @progress_callback is no longer needed, or   %NULL.
+             */
+            load_async(
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+                progress_callback?: Gio.FileProgressCallback | null,
+                progress_callback_notify?: GLib.DestroyNotify | null,
+            ): Promise<boolean>;
+            /**
+             * Loads asynchronously the file or input stream contents into the [class`Buffer]`.
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this
+             * function.
+             * @param io_priority the I/O priority of the request. E.g. %G_PRIORITY_LOW,   %G_PRIORITY_DEFAULT or %G_PRIORITY_HIGH.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param progress_callback function to call back with progress information, or %NULL if progress   information is not needed.
+             * @param progress_callback_notify function to call on   @progress_callback_data when the @progress_callback is no longer needed, or   %NULL.
+             * @param callback a #GAsyncReadyCallback to call when the request is   satisfied.
+             */
+            load_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                progress_callback: Gio.FileProgressCallback | null,
+                progress_callback_notify: GLib.DestroyNotify | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Loads asynchronously the file or input stream contents into the [class`Buffer]`.
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this
+             * function.
+             * @param io_priority the I/O priority of the request. E.g. %G_PRIORITY_LOW,   %G_PRIORITY_DEFAULT or %G_PRIORITY_HIGH.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param progress_callback function to call back with progress information, or %NULL if progress   information is not needed.
+             * @param progress_callback_notify function to call on   @progress_callback_data when the @progress_callback is no longer needed, or   %NULL.
              * @param callback a #GAsyncReadyCallback to call when the request is   satisfied.
              */
             load_async(
@@ -4346,7 +4438,7 @@ declare module 'gi://GtkSource?version=5' {
                 progress_callback?: Gio.FileProgressCallback | null,
                 progress_callback_notify?: GLib.DestroyNotify | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes a file loading started with [method`FileLoader`.load_async].
              *
@@ -4478,6 +4570,38 @@ declare module 'gi://GtkSource?version=5' {
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param progress_callback function to call back with progress information, or %NULL if progress   information is not needed.
              * @param progress_callback_notify function to call on   @progress_callback_data when the @progress_callback is no longer needed, or   %NULL.
+             */
+            save_async(
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+                progress_callback?: Gio.FileProgressCallback | null,
+                progress_callback_notify?: GLib.DestroyNotify | null,
+            ): Promise<boolean>;
+            /**
+             * Saves asynchronously the buffer into the file.
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this function.
+             * @param io_priority the I/O priority of the request. E.g. %G_PRIORITY_LOW,   %G_PRIORITY_DEFAULT or %G_PRIORITY_HIGH.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param progress_callback function to call back with progress information, or %NULL if progress   information is not needed.
+             * @param progress_callback_notify function to call on   @progress_callback_data when the @progress_callback is no longer needed, or   %NULL.
+             * @param callback a #GAsyncReadyCallback to call when the request is   satisfied.
+             */
+            save_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                progress_callback: Gio.FileProgressCallback | null,
+                progress_callback_notify: GLib.DestroyNotify | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Saves asynchronously the buffer into the file.
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this function.
+             * @param io_priority the I/O priority of the request. E.g. %G_PRIORITY_LOW,   %G_PRIORITY_DEFAULT or %G_PRIORITY_HIGH.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param progress_callback function to call back with progress information, or %NULL if progress   information is not needed.
+             * @param progress_callback_notify function to call on   @progress_callback_data when the @progress_callback is no longer needed, or   %NULL.
              * @param callback a #GAsyncReadyCallback to call when the request is   satisfied.
              */
             save_async(
@@ -4486,7 +4610,7 @@ declare module 'gi://GtkSource?version=5' {
                 progress_callback?: Gio.FileProgressCallback | null,
                 progress_callback_notify?: GLib.DestroyNotify | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes a file saving started with [method`FileSaver`.save_async].
              *
@@ -10260,13 +10384,45 @@ declare module 'gi://GtkSource?version=5' {
              * ownership of `cancellable,` so you can unref it after calling this function.
              * @param iter start of search.
              * @param cancellable a #GCancellable, or %NULL.
+             */
+            backward_async(
+                iter: Gtk.TextIter,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null, boolean]>;
+            /**
+             * The asynchronous version of [method`SearchContext`.backward].
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this function.
+             *
+             * If the operation is cancelled, the `callback` will only be called if
+             * `cancellable` was not %NULL. The method takes
+             * ownership of `cancellable,` so you can unref it after calling this function.
+             * @param iter start of search.
+             * @param cancellable a #GCancellable, or %NULL.
+             * @param callback a #GAsyncReadyCallback to call when the operation is finished.
+             */
+            backward_async(
+                iter: Gtk.TextIter,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * The asynchronous version of [method`SearchContext`.backward].
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this function.
+             *
+             * If the operation is cancelled, the `callback` will only be called if
+             * `cancellable` was not %NULL. The method takes
+             * ownership of `cancellable,` so you can unref it after calling this function.
+             * @param iter start of search.
+             * @param cancellable a #GCancellable, or %NULL.
              * @param callback a #GAsyncReadyCallback to call when the operation is finished.
              */
             backward_async(
                 iter: Gtk.TextIter,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null, boolean]> | void;
             /**
              * Finishes a backward search started with
              * [method`SearchContext`.backward_async].
@@ -10303,13 +10459,45 @@ declare module 'gi://GtkSource?version=5' {
              * ownership of `cancellable,` so you can unref it after calling this function.
              * @param iter start of search.
              * @param cancellable a #GCancellable, or %NULL.
+             */
+            forward_async(
+                iter: Gtk.TextIter,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null, boolean]>;
+            /**
+             * The asynchronous version of [method`SearchContext`.forward].
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this function.
+             *
+             * If the operation is cancelled, the `callback` will only be called if
+             * `cancellable` was not %NULL. The method takes
+             * ownership of `cancellable,` so you can unref it after calling this function.
+             * @param iter start of search.
+             * @param cancellable a #GCancellable, or %NULL.
+             * @param callback a #GAsyncReadyCallback to call when the operation is finished.
+             */
+            forward_async(
+                iter: Gtk.TextIter,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * The asynchronous version of [method`SearchContext`.forward].
+             *
+             * See the [iface`Gio`.AsyncResult] documentation to know how to use this function.
+             *
+             * If the operation is cancelled, the `callback` will only be called if
+             * `cancellable` was not %NULL. The method takes
+             * ownership of `cancellable,` so you can unref it after calling this function.
+             * @param iter start of search.
+             * @param cancellable a #GCancellable, or %NULL.
              * @param callback a #GAsyncReadyCallback to call when the operation is finished.
              */
             forward_async(
                 iter: Gtk.TextIter,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null, boolean]> | void;
             /**
              * Finishes a forward search started with [method`SearchContext`.forward_async].
              *
@@ -20403,13 +20591,42 @@ declare module 'gi://GtkSource?version=5' {
              * to reduce latency until the user sees results.
              * @param context a #GtkSourceCompletionContext
              * @param cancellable a #GCancellable or %NULL
+             */
+            populate_async(context: CompletionContext, cancellable?: Gio.Cancellable | null): Promise<Gio.ListModel>;
+            /**
+             * Asynchronously requests that the provider populates the completion
+             * results for `context`.
+             *
+             * For providers that would like to populate a [iface`Gio`.ListModel] while those
+             * results are displayed to the user,
+             * [method`CompletionContext`.set_proposals_for_provider] may be used
+             * to reduce latency until the user sees results.
+             * @param context a #GtkSourceCompletionContext
+             * @param cancellable a #GCancellable or %NULL
+             * @param callback a callback to execute upon completion
+             */
+            populate_async(
+                context: CompletionContext,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously requests that the provider populates the completion
+             * results for `context`.
+             *
+             * For providers that would like to populate a [iface`Gio`.ListModel] while those
+             * results are displayed to the user,
+             * [method`CompletionContext`.set_proposals_for_provider] may be used
+             * to reduce latency until the user sees results.
+             * @param context a #GtkSourceCompletionContext
+             * @param cancellable a #GCancellable or %NULL
              * @param callback a callback to execute upon completion
              */
             populate_async(
                 context: CompletionContext,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Gio.ListModel> | void;
             /**
              * Completes an asynchronous operation to populate a completion provider.
              * @param result a #GAsyncResult provided to callback
@@ -20574,8 +20791,19 @@ declare module 'gi://GtkSource?version=5' {
                 context: HoverContext,
                 display: HoverDisplay,
                 cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean>;
+            populate_async(
+                context: HoverContext,
+                display: HoverDisplay,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
             ): void;
+            populate_async(
+                context: HoverContext,
+                display: HoverDisplay,
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             populate_finish(result: Gio.AsyncResult): boolean;
 
             // Virtual methods

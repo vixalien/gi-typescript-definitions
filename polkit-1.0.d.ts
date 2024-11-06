@@ -389,6 +389,52 @@ declare module 'gi://Polkit?version=1.0' {
              * @param cookie The cookie passed to the authentication agent from the authority.
              * @param identity The identity that was authenticated.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            authentication_agent_response(
+                cookie: string,
+                identity: Identity,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Asynchronously provide response that `identity` successfully authenticated
+             * for the authentication request identified by `cookie`.
+             *
+             * This function is only used by the privileged bits of an authentication agent.
+             * It will fail if the caller is not sufficiently privileged (typically uid 0).
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_authentication_agent_response_finish() to get the
+             * result of the operation.
+             * @param cookie The cookie passed to the authentication agent from the authority.
+             * @param identity The identity that was authenticated.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            authentication_agent_response(
+                cookie: string,
+                identity: Identity,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously provide response that `identity` successfully authenticated
+             * for the authentication request identified by `cookie`.
+             *
+             * This function is only used by the privileged bits of an authentication agent.
+             * It will fail if the caller is not sufficiently privileged (typically uid 0).
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_authentication_agent_response_finish() to get the
+             * result of the operation.
+             * @param cookie The cookie passed to the authentication agent from the authority.
+             * @param identity The identity that was authenticated.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             authentication_agent_response(
@@ -396,7 +442,7 @@ declare module 'gi://Polkit?version=1.0' {
                 identity: Identity,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes providing response from an authentication agent.
              * @param res A #GAsyncResult obtained from the callback.
@@ -451,6 +497,84 @@ declare module 'gi://Polkit?version=1.0' {
              * @param details Details about the action or %NULL.
              * @param flags A set of #PolkitCheckAuthorizationFlags.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            check_authorization(
+                subject: Subject,
+                action_id: string,
+                details: Details | null,
+                flags: CheckAuthorizationFlags,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<AuthorizationResult>;
+            /**
+             * Asynchronously checks if `subject` is authorized to perform the action represented
+             * by `action_id`.
+             *
+             * Note that %POLKIT_CHECK_AUTHORIZATION_FLAGS_ALLOW_USER_INTERACTION
+             * <emphasis>SHOULD</emphasis> be passed <emphasis>ONLY</emphasis> if
+             * the event that triggered the authorization check is stemming from
+             * an user action, e.g. the user pressing a button or attaching a
+             * device.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_check_authorization_finish() to get the result of
+             * the operation.
+             *
+             * Known keys in `details` include <literal>polkit.message</literal>
+             * and <literal>polkit.gettext_domain</literal> that can be used to
+             * override the message shown to the user. See the documentation for
+             * the <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.CheckAuthorization">D-Bus method</link> for more details.
+             *
+             * If `details` is non-empty then the request will fail with
+             * #POLKIT_ERROR_FAILED unless the process doing the check itsef is
+             * sufficiently authorized (e.g. running as uid 0).
+             * @param subject A #PolkitSubject.
+             * @param action_id The action to check for.
+             * @param details Details about the action or %NULL.
+             * @param flags A set of #PolkitCheckAuthorizationFlags.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            check_authorization(
+                subject: Subject,
+                action_id: string,
+                details: Details | null,
+                flags: CheckAuthorizationFlags,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously checks if `subject` is authorized to perform the action represented
+             * by `action_id`.
+             *
+             * Note that %POLKIT_CHECK_AUTHORIZATION_FLAGS_ALLOW_USER_INTERACTION
+             * <emphasis>SHOULD</emphasis> be passed <emphasis>ONLY</emphasis> if
+             * the event that triggered the authorization check is stemming from
+             * an user action, e.g. the user pressing a button or attaching a
+             * device.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_check_authorization_finish() to get the result of
+             * the operation.
+             *
+             * Known keys in `details` include <literal>polkit.message</literal>
+             * and <literal>polkit.gettext_domain</literal> that can be used to
+             * override the message shown to the user. See the documentation for
+             * the <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.CheckAuthorization">D-Bus method</link> for more details.
+             *
+             * If `details` is non-empty then the request will fail with
+             * #POLKIT_ERROR_FAILED unless the process doing the check itsef is
+             * sufficiently authorized (e.g. running as uid 0).
+             * @param subject A #PolkitSubject.
+             * @param action_id The action to check for.
+             * @param details Details about the action or %NULL.
+             * @param flags A set of #PolkitCheckAuthorizationFlags.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             check_authorization(
@@ -460,7 +584,7 @@ declare module 'gi://Polkit?version=1.0' {
                 flags: CheckAuthorizationFlags,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<AuthorizationResult> | void;
             /**
              * Finishes checking if a subject is authorized for an action.
              * @param res A #GAsyncResult obtained from the callback.
@@ -512,12 +636,35 @@ declare module 'gi://Polkit?version=1.0' {
              * from. You can then call polkit_authority_enumerate_actions_finish()
              * to get the result of the operation.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            enumerate_actions(cancellable?: Gio.Cancellable | null): Promise<ActionDescription[]>;
+            /**
+             * Asynchronously retrieves all registered actions.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_authority_enumerate_actions_finish()
+             * to get the result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            enumerate_actions(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Asynchronously retrieves all registered actions.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_authority_enumerate_actions_finish()
+             * to get the result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             enumerate_actions(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<ActionDescription[]> | void;
             /**
              * Finishes retrieving all registered actions.
              * @param res A #GAsyncResult obtained from the callback.
@@ -543,13 +690,47 @@ declare module 'gi://Polkit?version=1.0' {
              * the result of the operation.
              * @param subject A #PolkitSubject, typically a #PolkitUnixSession.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            enumerate_temporary_authorizations(
+                subject: Subject,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<TemporaryAuthorization[]>;
+            /**
+             * Asynchronously gets all temporary authorizations for `subject`.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_enumerate_temporary_authorizations_finish() to get
+             * the result of the operation.
+             * @param subject A #PolkitSubject, typically a #PolkitUnixSession.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            enumerate_temporary_authorizations(
+                subject: Subject,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously gets all temporary authorizations for `subject`.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_enumerate_temporary_authorizations_finish() to get
+             * the result of the operation.
+             * @param subject A #PolkitSubject, typically a #PolkitUnixSession.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             enumerate_temporary_authorizations(
                 subject: Subject,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<TemporaryAuthorization[]> | void;
             /**
              * Finishes retrieving all registered actions.
              * @param res A #GAsyncResult obtained from the callback.
@@ -610,6 +791,56 @@ declare module 'gi://Polkit?version=1.0' {
              * @param locale The locale of the authentication agent.
              * @param object_path The object path for the authentication agent.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            register_authentication_agent(
+                subject: Subject,
+                locale: string,
+                object_path: string,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Asynchronously registers an authentication agent.
+             *
+             * Note that this should be called by the same effective UID which will be
+             * the real UID using the #PolkitAgentSession API or otherwise calling
+             * polkit_authority_authentication_agent_response().
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_register_authentication_agent_finish() to get the
+             * result of the operation.
+             * @param subject The subject the authentication agent is for, typically a #PolkitUnixSession object.
+             * @param locale The locale of the authentication agent.
+             * @param object_path The object path for the authentication agent.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            register_authentication_agent(
+                subject: Subject,
+                locale: string,
+                object_path: string,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously registers an authentication agent.
+             *
+             * Note that this should be called by the same effective UID which will be
+             * the real UID using the #PolkitAgentSession API or otherwise calling
+             * polkit_authority_authentication_agent_response().
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_register_authentication_agent_finish() to get the
+             * result of the operation.
+             * @param subject The subject the authentication agent is for, typically a #PolkitUnixSession object.
+             * @param locale The locale of the authentication agent.
+             * @param object_path The object path for the authentication agent.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             register_authentication_agent(
@@ -618,7 +849,7 @@ declare module 'gi://Polkit?version=1.0' {
                 object_path: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes registering an authentication agent.
              * @param res A #GAsyncResult obtained from the callback.
@@ -666,6 +897,60 @@ declare module 'gi://Polkit?version=1.0' {
              * @param object_path The object path for the authentication agent.
              * @param options A #GVariant with options or %NULL.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            register_authentication_agent_with_options(
+                subject: Subject,
+                locale: string,
+                object_path: string,
+                options?: GLib.Variant | null,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Asynchronously registers an authentication agent.
+             *
+             * Note that this should be called by the same effective UID which will be
+             * the real UID using the #PolkitAgentSession API or otherwise calling
+             * polkit_authority_authentication_agent_response().
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_register_authentication_agent_with_options_finish() to get the
+             * result of the operation.
+             * @param subject The subject the authentication agent is for, typically a #PolkitUnixSession object.
+             * @param locale The locale of the authentication agent.
+             * @param object_path The object path for the authentication agent.
+             * @param options A #GVariant with options or %NULL.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            register_authentication_agent_with_options(
+                subject: Subject,
+                locale: string,
+                object_path: string,
+                options: GLib.Variant | null,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously registers an authentication agent.
+             *
+             * Note that this should be called by the same effective UID which will be
+             * the real UID using the #PolkitAgentSession API or otherwise calling
+             * polkit_authority_authentication_agent_response().
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_register_authentication_agent_with_options_finish() to get the
+             * result of the operation.
+             * @param subject The subject the authentication agent is for, typically a #PolkitUnixSession object.
+             * @param locale The locale of the authentication agent.
+             * @param object_path The object path for the authentication agent.
+             * @param options A #GVariant with options or %NULL.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             register_authentication_agent_with_options(
@@ -675,7 +960,7 @@ declare module 'gi://Polkit?version=1.0' {
                 options?: GLib.Variant | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes registering an authentication agent.
              * @param res A #GAsyncResult obtained from the callback.
@@ -718,13 +1003,44 @@ declare module 'gi://Polkit?version=1.0' {
              * get the result of the operation.
              * @param id The opaque identifier for the temporary authorization.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            revoke_temporary_authorization_by_id(id: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously revoke a temporary authorization.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_revoke_temporary_authorization_by_id_finish() to
+             * get the result of the operation.
+             * @param id The opaque identifier for the temporary authorization.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            revoke_temporary_authorization_by_id(
+                id: string,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously revoke a temporary authorization.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_revoke_temporary_authorization_by_id_finish() to
+             * get the result of the operation.
+             * @param id The opaque identifier for the temporary authorization.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             revoke_temporary_authorization_by_id(
                 id: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes revoking a temporary authorization by id.
              * @param res A #GAsyncResult obtained from the callback.
@@ -753,13 +1069,44 @@ declare module 'gi://Polkit?version=1.0' {
              * the result of the operation.
              * @param subject The subject to revoke authorizations from, typically a #PolkitUnixSession.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            revoke_temporary_authorizations(subject: Subject, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously revokes all temporary authorizations for `subject`.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_revoke_temporary_authorizations_finish() to get
+             * the result of the operation.
+             * @param subject The subject to revoke authorizations from, typically a #PolkitUnixSession.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            revoke_temporary_authorizations(
+                subject: Subject,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously revokes all temporary authorizations for `subject`.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_revoke_temporary_authorizations_finish() to get
+             * the result of the operation.
+             * @param subject The subject to revoke authorizations from, typically a #PolkitUnixSession.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             revoke_temporary_authorizations(
                 subject: Subject,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes revoking temporary authorizations.
              * @param res A #GAsyncResult obtained from the callback.
@@ -789,6 +1136,44 @@ declare module 'gi://Polkit?version=1.0' {
              * @param subject The subject the authentication agent is for, typically a #PolkitUnixSession object.
              * @param object_path The object path for the authentication agent.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            unregister_authentication_agent(
+                subject: Subject,
+                object_path: string,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Asynchronously unregisters an authentication agent.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_unregister_authentication_agent_finish() to get
+             * the result of the operation.
+             * @param subject The subject the authentication agent is for, typically a #PolkitUnixSession object.
+             * @param object_path The object path for the authentication agent.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            unregister_authentication_agent(
+                subject: Subject,
+                object_path: string,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously unregisters an authentication agent.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_unregister_authentication_agent_finish() to get
+             * the result of the operation.
+             * @param subject The subject the authentication agent is for, typically a #PolkitUnixSession object.
+             * @param object_path The object path for the authentication agent.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
              */
             unregister_authentication_agent(
@@ -796,7 +1181,7 @@ declare module 'gi://Polkit?version=1.0' {
                 object_path: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes unregistering an authentication agent.
              * @param res A #GAsyncResult obtained from the callback.
@@ -859,13 +1244,100 @@ declare module 'gi://Polkit?version=1.0' {
              * any interface methods.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+             */
+            init_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             init_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -1679,13 +2151,100 @@ declare module 'gi://Polkit?version=1.0' {
              * any interface methods.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+             */
+            init_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             init_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -2322,9 +2881,35 @@ declare module 'gi://Polkit?version=1.0' {
              * from. You can then call polkit_subject_exists_finish() to get the
              * result of the operation.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            exists(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied
              */
-            exists(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
+             */
+            exists(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             /**
              * Finishes checking whether a subject exists.
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().
@@ -4043,9 +4628,35 @@ declare module 'gi://Polkit?version=1.0' {
              * from. You can then call polkit_subject_exists_finish() to get the
              * result of the operation.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            exists(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied
              */
-            exists(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
+             */
+            exists(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             /**
              * Finishes checking whether a subject exists.
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().
@@ -4662,13 +5273,100 @@ declare module 'gi://Polkit?version=1.0' {
              * any interface methods.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+             */
+            init_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             init_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -4839,9 +5537,35 @@ declare module 'gi://Polkit?version=1.0' {
              * from. You can then call polkit_subject_exists_finish() to get the
              * result of the operation.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            exists(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied
              */
-            exists(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
+             */
+            exists(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             /**
              * Finishes checking whether a subject exists.
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().
@@ -5927,9 +6651,35 @@ declare module 'gi://Polkit?version=1.0' {
              * from. You can then call polkit_subject_exists_finish() to get the
              * result of the operation.
              * @param cancellable A #GCancellable or %NULL.
+             */
+            exists(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
              * @param callback A #GAsyncReadyCallback to call when the request is satisfied
              */
-            exists(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            exists(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Asynchronously checks if `subject` exists.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call polkit_subject_exists_finish() to get the
+             * result of the operation.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
+             */
+            exists(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             /**
              * Finishes checking whether a subject exists.
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_subject_exists().

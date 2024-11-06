@@ -27,6 +27,31 @@ declare module 'gi://Manette?version=0.2' {
          */
 
         /**
+         * Describes available types of a #ManetteDevice.
+         *
+         * More values may be added to this enumeration over time.
+         */
+
+        /**
+         * Describes available types of a #ManetteDevice.
+         *
+         * More values may be added to this enumeration over time.
+         */
+        export namespace DeviceType {
+            export const $gtype: GObject.GType<DeviceType>;
+        }
+
+        enum DeviceType {
+            /**
+             * Generic gamepads
+             */
+            GENERIC,
+            /**
+             * Steam Deck
+             */
+            STEAM_DECK,
+        }
+        /**
          * Specifies the type of the event.
          */
 
@@ -128,6 +153,11 @@ declare module 'gi://Manette?version=0.2' {
             // Methods
 
             /**
+             * Gets the device type of `self`.
+             * @returns the device type
+             */
+            get_device_type(): DeviceType;
+            /**
              * Gets the identifier used by SDL mappings to discriminate game controller
              * devices.
              * @returns the identifier used by SDL mappings
@@ -135,7 +165,7 @@ declare module 'gi://Manette?version=0.2' {
             get_guid(): string;
             /**
              * Gets the user mapping for `self,` or default mapping if there isn't any. Can
-             * return %NULL if there's no mapping.
+             * return %NULL if there's no mapping or `self` doesn't support mappings.
              * @returns the mapping for @self
              */
             get_mapping(): string | null;
@@ -183,6 +213,11 @@ declare module 'gi://Manette?version=0.2' {
              * @param mapping_string the mapping string
              */
             save_user_mapping(mapping_string: string): void;
+            /**
+             * Gets whether `self` supports mapping.
+             * @returns whether @self supports mapping
+             */
+            supports_mapping(): boolean;
         }
 
         module Monitor {

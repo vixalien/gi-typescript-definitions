@@ -4512,7 +4512,9 @@ declare module 'gi://Gee?version=0.8' {
 
             wait(): any;
             wait_until(end_time: number): [boolean, any];
-            wait_async(_callback_?: Gio.AsyncReadyCallback<this> | null): void;
+            wait_async(): globalThis.Promise<any>;
+            wait_async(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+            wait_async(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<any> | void;
             wait_finish(_res_: Gio.AsyncResult): any;
             map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: MapFunc): Future;
             light_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: Future.LightMapFunc): Future;

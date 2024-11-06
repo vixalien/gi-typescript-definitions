@@ -987,6 +987,40 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param uris a list of URIs to launch.
              * @param context the launch context
              * @param cancellable a [class@Gio.Cancellable]
+             */
+            launch_uris_async(
+                uris?: string[] | null,
+                context?: Gio.AppLaunchContext | null,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Async version of [method`Gio`.AppInfo.launch_uris].
+             *
+             * The `callback` is invoked immediately after the application launch, but it
+             * waits for activation in case of D-Bus–activated applications and also provides
+             * extended error information for sandboxed applications, see notes for
+             * [func`Gio`.AppInfo.launch_default_for_uri_async].
+             * @param uris a list of URIs to launch.
+             * @param context the launch context
+             * @param cancellable a [class@Gio.Cancellable]
+             * @param callback a [type@Gio.AsyncReadyCallback] to call   when the request is done
+             */
+            launch_uris_async(
+                uris: string[] | null,
+                context: Gio.AppLaunchContext | null,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Async version of [method`Gio`.AppInfo.launch_uris].
+             *
+             * The `callback` is invoked immediately after the application launch, but it
+             * waits for activation in case of D-Bus–activated applications and also provides
+             * extended error information for sandboxed applications, see notes for
+             * [func`Gio`.AppInfo.launch_default_for_uri_async].
+             * @param uris a list of URIs to launch.
+             * @param context the launch context
+             * @param cancellable a [class@Gio.Cancellable]
              * @param callback a [type@Gio.AsyncReadyCallback] to call   when the request is done
              */
             launch_uris_async(
@@ -994,7 +1028,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 context?: Gio.AppLaunchContext | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes a [method`Gio`.AppInfo.launch_uris_async] operation.
              * @param result the async result
@@ -1968,13 +2002,48 @@ declare module 'gi://GioUnix?version=2.0' {
              * override one you must override all.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional cancellable object
+             */
+            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Requests an asynchronous closes of the stream, releasing resources related to it.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_close_finish() to get the result of the
+             * operation.
+             *
+             * For behaviour details see g_input_stream_close().
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional cancellable object
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            close_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Requests an asynchronous closes of the stream, releasing resources related to it.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_close_finish() to get the result of the
+             * operation.
+             *
+             * For behaviour details see g_input_stream_close().
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional cancellable object
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             close_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes closing a stream asynchronously, started from g_input_stream_close_async().
              * @param result a #GAsyncResult.
@@ -2054,13 +2123,48 @@ declare module 'gi://GioUnix?version=2.0' {
              * priority. Default priority is %G_PRIORITY_DEFAULT.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore
+             */
+            read_all_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the
+             * buffer starting at `buffer`.
+             *
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
+             *
+             * Call [method`InputStream`.read_all_finish] to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            read_all_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): Uint8Array;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the
+             * buffer starting at `buffer`.
+             *
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
+             *
+             * Call [method`InputStream`.read_all_finish] to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             read_all_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Uint8Array;
+            ): [Promise<number> | void, Uint8Array];
             /**
              * Finishes an asynchronous stream read operation started with
              * [method`InputStream`.read_all_async].
@@ -2101,13 +2205,74 @@ declare module 'gi://GioUnix?version=2.0' {
              * override one you must override all.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            read_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the buffer
+             * starting at `buffer`. When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_read_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed on `stream,` and will
+             * result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes read into the buffer will be passed to the
+             * callback. It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to read
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero),  but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value) will
+             * be executed before an outstanding request with lower priority. Default
+             * priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            read_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): Uint8Array;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the buffer
+             * starting at `buffer`. When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_read_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed on `stream,` and will
+             * result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes read into the buffer will be passed to the
+             * callback. It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to read
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero),  but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value) will
+             * be executed before an outstanding request with lower priority. Default
+             * priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             read_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Uint8Array;
+            ): [Promise<number> | void, Uint8Array];
             /**
              * Like g_input_stream_read(), this tries to read `count` bytes from
              * the stream in a blocking fashion. However, rather than reading into
@@ -2161,6 +2326,68 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param count the number of bytes that will be read from the stream
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            read_bytes_async(
+                count: number,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<GLib.Bytes>;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into a
+             * new #GBytes. When the operation is finished `callback` will be
+             * called. You can then call g_input_stream_read_bytes_finish() to get the
+             * result of the operation.
+             *
+             * During an async request no other sync and async calls are allowed
+             * on `stream,` and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a
+             * %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the new #GBytes will be passed to the callback. It is
+             * not an error if this is smaller than the requested size, as it can
+             * happen e.g. near the end of a file, but generally we try to read as
+             * many bytes as requested. Zero is returned on end of file (or if
+             * `count` is zero), but never otherwise.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param count the number of bytes that will be read from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            read_bytes_async(
+                count: number,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into a
+             * new #GBytes. When the operation is finished `callback` will be
+             * called. You can then call g_input_stream_read_bytes_finish() to get the
+             * result of the operation.
+             *
+             * During an async request no other sync and async calls are allowed
+             * on `stream,` and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a
+             * %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the new #GBytes will be passed to the callback. It is
+             * not an error if this is smaller than the requested size, as it can
+             * happen e.g. near the end of a file, but generally we try to read as
+             * many bytes as requested. Zero is returned on end of file (or if
+             * `count` is zero), but never otherwise.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param count the number of bytes that will be read from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             read_bytes_async(
@@ -2168,7 +2395,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<GLib.Bytes> | void;
             /**
              * Finishes an asynchronous stream read-into-#GBytes operation.
              * @param result a #GAsyncResult.
@@ -2235,6 +2462,70 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param count the number of bytes that will be skipped from the stream
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            skip_async(count: number, io_priority: number, cancellable?: Gio.Cancellable | null): Promise<number>;
+            /**
+             * Request an asynchronous skip of `count` bytes from the stream.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_skip_finish() to get the result
+             * of the operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes skipped will be passed to the callback.
+             * It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to skip
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero), but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value)
+             * will be executed before an outstanding request with lower priority.
+             * Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to
+             * implement asynchronicity, so they are optional for inheriting classes.
+             * However, if you override one, you must override all.
+             * @param count the number of bytes that will be skipped from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            skip_async(
+                count: number,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous skip of `count` bytes from the stream.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_skip_finish() to get the result
+             * of the operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes skipped will be passed to the callback.
+             * It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to skip
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero), but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value)
+             * will be executed before an outstanding request with lower priority.
+             * Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to
+             * implement asynchronicity, so they are optional for inheriting classes.
+             * However, if you override one, you must override all.
+             * @param count the number of bytes that will be skipped from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             skip_async(
@@ -2242,7 +2533,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Finishes a stream skip operation.
              * @param result a #GAsyncResult.
@@ -3148,13 +3439,48 @@ declare module 'gi://GioUnix?version=2.0' {
              * classes. However, if you override one you must override all.
              * @param io_priority the io priority of the request.
              * @param cancellable optional cancellable object
+             */
+            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Requests an asynchronous close of the stream, releasing resources
+             * related to it. When the operation is finished `callback` will be
+             * called. You can then call g_output_stream_close_finish() to get
+             * the result of the operation.
+             *
+             * For behaviour details see g_output_stream_close().
+             *
+             * The asynchronous methods have a default fallback that uses threads
+             * to implement asynchronicity, so they are optional for inheriting
+             * classes. However, if you override one you must override all.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional cancellable object
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            close_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Requests an asynchronous close of the stream, releasing resources
+             * related to it. When the operation is finished `callback` will be
+             * called. You can then call g_output_stream_close_finish() to get
+             * the result of the operation.
+             *
+             * For behaviour details see g_output_stream_close().
+             *
+             * The asynchronous methods have a default fallback that uses threads
+             * to implement asynchronicity, so they are optional for inheriting
+             * classes. However, if you override one you must override all.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional cancellable object
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             close_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Closes an output stream.
              * @param result a #GAsyncResult.
@@ -3185,13 +3511,42 @@ declare module 'gi://GioUnix?version=2.0' {
              * result of the operation.
              * @param io_priority the io priority of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            flush_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Forces an asynchronous write of all user-space buffered data for
+             * the given `stream`.
+             * For behaviour details see g_output_stream_flush().
+             *
+             * When the operation is finished `callback` will be
+             * called. You can then call g_output_stream_flush_finish() to get the
+             * result of the operation.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            flush_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Forces an asynchronous write of all user-space buffered data for
+             * the given `stream`.
+             * For behaviour details see g_output_stream_flush().
+             *
+             * When the operation is finished `callback` will be
+             * called. You can then call g_output_stream_flush_finish() to get the
+             * result of the operation.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             flush_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes flushing an output stream.
              * @param result a GAsyncResult.
@@ -3247,6 +3602,46 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param flags a set of #GOutputStreamSpliceFlags.
              * @param io_priority the io priority of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            splice_async(
+                source: Gio.InputStream,
+                flags: Gio.OutputStreamSpliceFlags,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<number>;
+            /**
+             * Splices a stream asynchronously.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_splice_finish() to get the
+             * result of the operation.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_splice().
+             * @param source a #GInputStream.
+             * @param flags a set of #GOutputStreamSpliceFlags.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            splice_async(
+                source: Gio.InputStream,
+                flags: Gio.OutputStreamSpliceFlags,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Splices a stream asynchronously.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_splice_finish() to get the
+             * result of the operation.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_splice().
+             * @param source a #GInputStream.
+             * @param flags a set of #GOutputStreamSpliceFlags.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             splice_async(
@@ -3255,7 +3650,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Finishes an asynchronous stream splice operation.
              * @param result a #GAsyncResult.
@@ -3332,6 +3727,58 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param buffer the buffer containing the data to write
              * @param io_priority the io priority of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore
+             */
+            write_all_async(
+                buffer: Uint8Array | string,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<number>;
+            /**
+             * Request an asynchronous write of `count` bytes from `buffer` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_write_all_finish() to get the result of the
+             * operation.
+             *
+             * This is the asynchronous version of g_output_stream_write_all().
+             *
+             * Call g_output_stream_write_all_finish() to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * Note that no copy of `buffer` will be made, so it must stay valid
+             * until `callback` is called.
+             * @param buffer the buffer containing the data to write
+             * @param io_priority the io priority of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
+             * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
+             */
+            write_all_async(
+                buffer: Uint8Array | string,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous write of `count` bytes from `buffer` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_write_all_finish() to get the result of the
+             * operation.
+             *
+             * This is the asynchronous version of g_output_stream_write_all().
+             *
+             * Call g_output_stream_write_all_finish() to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * Note that no copy of `buffer` will be made, so it must stay valid
+             * until `callback` is called.
+             * @param buffer the buffer containing the data to write
+             * @param io_priority the io priority of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
              * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
              */
             write_all_async(
@@ -3339,7 +3786,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Finishes an asynchronous stream write operation started with
              * g_output_stream_write_all_async().
@@ -3394,6 +3841,98 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param buffer the buffer containing the data to write.
              * @param io_priority the io priority of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            write_async(
+                buffer: Uint8Array | string,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<number>;
+            /**
+             * Request an asynchronous write of `count` bytes from `buffer` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_write_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a
+             * %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes written will be passed to the
+             * `callback`. It is not an error if this is not the same as the
+             * requested size, as it can happen e.g. on a partial I/O error,
+             * but generally we try to write as many bytes as requested.
+             *
+             * You are guaranteed that this method will never fail with
+             * %G_IO_ERROR_WOULD_BLOCK - if `stream` can't accept more data, the
+             * method will just wait until this changes.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads
+             * to implement asynchronicity, so they are optional for inheriting
+             * classes. However, if you override one you must override all.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_write().
+             *
+             * Note that no copy of `buffer` will be made, so it must stay valid
+             * until `callback` is called. See g_output_stream_write_bytes_async()
+             * for a #GBytes version that will automatically hold a reference to
+             * the contents (without copying) for the duration of the call.
+             * @param buffer the buffer containing the data to write.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
+             */
+            write_async(
+                buffer: Uint8Array | string,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous write of `count` bytes from `buffer` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_write_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a
+             * %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes written will be passed to the
+             * `callback`. It is not an error if this is not the same as the
+             * requested size, as it can happen e.g. on a partial I/O error,
+             * but generally we try to write as many bytes as requested.
+             *
+             * You are guaranteed that this method will never fail with
+             * %G_IO_ERROR_WOULD_BLOCK - if `stream` can't accept more data, the
+             * method will just wait until this changes.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads
+             * to implement asynchronicity, so they are optional for inheriting
+             * classes. However, if you override one you must override all.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_write().
+             *
+             * Note that no copy of `buffer` will be made, so it must stay valid
+             * until `callback` is called. See g_output_stream_write_bytes_async()
+             * for a #GBytes version that will automatically hold a reference to
+             * the contents (without copying) for the duration of the call.
+             * @param buffer the buffer containing the data to write.
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
              */
             write_async(
@@ -3401,7 +3940,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * A wrapper function for g_output_stream_write() which takes a
              * #GBytes as input.  This can be more convenient for use by language
@@ -3436,6 +3975,54 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param bytes The bytes to write
              * @param io_priority the io priority of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            write_bytes_async(
+                bytes: GLib.Bytes | Uint8Array,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<number>;
+            /**
+             * This function is similar to g_output_stream_write_async(), but
+             * takes a #GBytes as input.  Due to the refcounted nature of #GBytes,
+             * this allows the stream to avoid taking a copy of the data.
+             *
+             * However, note that this function may still perform partial writes,
+             * just like g_output_stream_write_async(). If that occurs, to continue
+             * writing, you will need to create a new #GBytes containing just the
+             * remaining bytes, using g_bytes_new_from_bytes(). Passing the same
+             * #GBytes instance multiple times potentially can result in duplicated
+             * data in the output stream.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_write_bytes().
+             * @param bytes The bytes to write
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            write_bytes_async(
+                bytes: GLib.Bytes | Uint8Array,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * This function is similar to g_output_stream_write_async(), but
+             * takes a #GBytes as input.  Due to the refcounted nature of #GBytes,
+             * this allows the stream to avoid taking a copy of the data.
+             *
+             * However, note that this function may still perform partial writes,
+             * just like g_output_stream_write_async(). If that occurs, to continue
+             * writing, you will need to create a new #GBytes containing just the
+             * remaining bytes, using g_bytes_new_from_bytes(). Passing the same
+             * #GBytes instance multiple times potentially can result in duplicated
+             * data in the output stream.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_write_bytes().
+             * @param bytes The bytes to write
+             * @param io_priority the io priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             write_bytes_async(
@@ -3443,7 +4030,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Finishes a stream write-from-#GBytes operation.
              * @param result a #GAsyncResult.
@@ -3533,6 +4120,60 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param vectors the buffer containing the #GOutputVectors to write.
              * @param io_priority the I/O priority of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore
+             */
+            writev_all_async(
+                vectors: Gio.OutputVector[],
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<number>;
+            /**
+             * Request an asynchronous write of the bytes contained in the `n_vectors` `vectors` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_writev_all_finish() to get the result of the
+             * operation.
+             *
+             * This is the asynchronous version of g_output_stream_writev_all().
+             *
+             * Call g_output_stream_writev_all_finish() to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * Note that no copy of `vectors` will be made, so it must stay valid
+             * until `callback` is called. The content of the individual elements
+             * of `vectors` might be changed by this function.
+             * @param vectors the buffer containing the #GOutputVectors to write.
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
+             * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
+             */
+            writev_all_async(
+                vectors: Gio.OutputVector[],
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous write of the bytes contained in the `n_vectors` `vectors` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_writev_all_finish() to get the result of the
+             * operation.
+             *
+             * This is the asynchronous version of g_output_stream_writev_all().
+             *
+             * Call g_output_stream_writev_all_finish() to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * Note that no copy of `vectors` will be made, so it must stay valid
+             * until `callback` is called. The content of the individual elements
+             * of `vectors` might be changed by this function.
+             * @param vectors the buffer containing the #GOutputVectors to write.
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
              * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
              */
             writev_all_async(
@@ -3540,7 +4181,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Finishes an asynchronous stream write operation started with
              * g_output_stream_writev_all_async().
@@ -3590,6 +4231,88 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param vectors the buffer containing the #GOutputVectors to write.
              * @param io_priority the I/O priority of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            writev_async(
+                vectors: Gio.OutputVector[],
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<number>;
+            /**
+             * Request an asynchronous write of the bytes contained in `n_vectors` `vectors` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_writev_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * On success, the number of bytes written will be passed to the
+             * `callback`. It is not an error if this is not the same as the
+             * requested size, as it can happen e.g. on a partial I/O error,
+             * but generally we try to write as many bytes as requested.
+             *
+             * You are guaranteed that this method will never fail with
+             * %G_IO_ERROR_WOULD_BLOCK — if `stream` can't accept more data, the
+             * method will just wait until this changes.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads
+             * to implement asynchronicity, so they are optional for inheriting
+             * classes. However, if you override one you must override all.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_writev().
+             *
+             * Note that no copy of `vectors` will be made, so it must stay valid
+             * until `callback` is called.
+             * @param vectors the buffer containing the #GOutputVectors to write.
+             * @param io_priority the I/O priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
+             */
+            writev_async(
+                vectors: Gio.OutputVector[],
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous write of the bytes contained in `n_vectors` `vectors` into
+             * the stream. When the operation is finished `callback` will be called.
+             * You can then call g_output_stream_writev_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * On success, the number of bytes written will be passed to the
+             * `callback`. It is not an error if this is not the same as the
+             * requested size, as it can happen e.g. on a partial I/O error,
+             * but generally we try to write as many bytes as requested.
+             *
+             * You are guaranteed that this method will never fail with
+             * %G_IO_ERROR_WOULD_BLOCK — if `stream` can't accept more data, the
+             * method will just wait until this changes.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads
+             * to implement asynchronicity, so they are optional for inheriting
+             * classes. However, if you override one you must override all.
+             *
+             * For the synchronous, blocking version of this function, see
+             * g_output_stream_writev().
+             *
+             * Note that no copy of `vectors` will be made, so it must stay valid
+             * until `callback` is called.
+             * @param vectors the buffer containing the #GOutputVectors to write.
+             * @param io_priority the I/O priority of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback     to call when the request is satisfied
              */
             writev_async(
@@ -3597,7 +4320,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Finishes a stream writev operation.
              * @param result a #GAsyncResult.

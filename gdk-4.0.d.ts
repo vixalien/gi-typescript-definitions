@@ -5060,6 +5060,38 @@ declare module 'gi://Gdk?version=4.0' {
              * @param mime_types a %NULL-terminated array of mime types to choose from
              * @param io_priority the I/O priority of the request
              * @param cancellable optional `GCancellable` object
+             */
+            read_async(
+                mime_types: string[],
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<[Gio.InputStream | null, string]>;
+            /**
+             * Asynchronously requests an input stream to read the `clipboard'`s
+             * contents from.
+             *
+             * The clipboard will choose the most suitable mime type from the given list
+             * to fulfill the request, preferring the ones listed first.
+             * @param mime_types a %NULL-terminated array of mime types to choose from
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            read_async(
+                mime_types: string[],
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously requests an input stream to read the `clipboard'`s
+             * contents from.
+             *
+             * The clipboard will choose the most suitable mime type from the given list
+             * to fulfill the request, preferring the ones listed first.
+             * @param mime_types a %NULL-terminated array of mime types to choose from
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
              * @param callback callback to call when the request is satisfied
              */
             read_async(
@@ -5067,7 +5099,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gio.InputStream | null, string]> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5083,9 +5115,31 @@ declare module 'gi://Gdk?version=4.0' {
              * Use that function or [method`Gdk`.Clipboard.read_async] directly if you
              * need more control over the operation.
              * @param cancellable optional `GCancellable` object
+             */
+            read_text_async(cancellable?: Gio.Cancellable | null): Promise<string | null>;
+            /**
+             * Asynchronously request the `clipboard` contents converted to a string.
+             *
+             * This is a simple wrapper around [method`Gdk`.Clipboard.read_value_async].
+             * Use that function or [method`Gdk`.Clipboard.read_async] directly if you
+             * need more control over the operation.
+             * @param cancellable optional `GCancellable` object
              * @param callback callback to call when the request is satisfied
              */
-            read_text_async(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            read_text_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Asynchronously request the `clipboard` contents converted to a string.
+             *
+             * This is a simple wrapper around [method`Gdk`.Clipboard.read_value_async].
+             * Use that function or [method`Gdk`.Clipboard.read_async] directly if you
+             * need more control over the operation.
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            read_text_async(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<string | null> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5101,12 +5155,34 @@ declare module 'gi://Gdk?version=4.0' {
              * Use that function or [method`Gdk`.Clipboard.read_async] directly if you
              * need more control over the operation.
              * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             */
+            read_texture_async(cancellable?: Gio.Cancellable | null): Promise<Texture | null>;
+            /**
+             * Asynchronously request the `clipboard` contents converted to a `GdkPixbuf`.
+             *
+             * This is a simple wrapper around [method`Gdk`.Clipboard.read_value_async].
+             * Use that function or [method`Gdk`.Clipboard.read_async] directly if you
+             * need more control over the operation.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             * @param callback callback to call when the request is satisfied
+             */
+            read_texture_async(
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously request the `clipboard` contents converted to a `GdkPixbuf`.
+             *
+             * This is a simple wrapper around [method`Gdk`.Clipboard.read_value_async].
+             * Use that function or [method`Gdk`.Clipboard.read_async] directly if you
+             * need more control over the operation.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
              * @param callback callback to call when the request is satisfied
              */
             read_texture_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Texture | null> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5125,6 +5201,40 @@ declare module 'gi://Gdk?version=4.0' {
              * @param type a `GType` to read
              * @param io_priority the I/O priority of the request
              * @param cancellable optional `GCancellable` object
+             */
+            read_value_async(
+                type: GObject.GType,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<GObject.Value>;
+            /**
+             * Asynchronously request the `clipboard` contents converted to the given
+             * `type`.
+             *
+             * For local clipboard contents that are available in the given `GType`,
+             * the value will be copied directly. Otherwise, GDK will try to use
+             * [func`content_deserialize_async]` to convert the clipboard's data.
+             * @param type a `GType` to read
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            read_value_async(
+                type: GObject.GType,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously request the `clipboard` contents converted to the given
+             * `type`.
+             *
+             * For local clipboard contents that are available in the given `GType`,
+             * the value will be copied directly. Otherwise, GDK will try to use
+             * [func`content_deserialize_async]` to convert the clipboard's data.
+             * @param type a `GType` to read
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
              * @param callback callback to call when the request is satisfied
              */
             read_value_async(
@@ -5132,7 +5242,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<GObject.Value> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5180,13 +5290,52 @@ declare module 'gi://Gdk?version=4.0' {
              * is shut down, so you likely don't need to call it.
              * @param io_priority the I/O priority of the request
              * @param cancellable optional `GCancellable` object
+             */
+            store_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously instructs the `clipboard` to store its contents remotely.
+             *
+             * If the clipboard is not local, this function does nothing but report success.
+             *
+             * The purpose of this call is to preserve clipboard contents beyond the
+             * lifetime of an application, so this function is typically called on
+             * exit. Depending on the platform, the functionality may not be available
+             * unless a "clipboard manager" is running.
+             *
+             * This function is called automatically when a
+             * [GtkApplication](../gtk4/class.Application.html)
+             * is shut down, so you likely don't need to call it.
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
+             * @param callback callback to call when the request is satisfied
+             */
+            store_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously instructs the `clipboard` to store its contents remotely.
+             *
+             * If the clipboard is not local, this function does nothing but report success.
+             *
+             * The purpose of this call is to preserve clipboard contents beyond the
+             * lifetime of an application, so this function is typically called on
+             * exit. Depending on the platform, the functionality may not be available
+             * unless a "clipboard manager" is running.
+             *
+             * This function is called automatically when a
+             * [GtkApplication](../gtk4/class.Application.html)
+             * is shut down, so you likely don't need to call it.
+             * @param io_priority the I/O priority of the request
+             * @param cancellable optional `GCancellable` object
              * @param callback callback to call when the request is satisfied
              */
             store_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes an asynchronous clipboard store.
              *
@@ -5907,6 +6056,48 @@ declare module 'gi://Gdk?version=4.0' {
              * @param stream the `GOutputStream` to write to
              * @param io_priority I/O priority of the request.
              * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             */
+            write_mime_type_async(
+                mime_type: string,
+                stream: Gio.OutputStream,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Asynchronously writes the contents of `provider` to `stream` in the given
+             * `mime_type`.
+             *
+             * The given mime type does not need to be listed in the formats returned by
+             * [method`Gdk`.ContentProvider.ref_formats]. However, if the given `GType` is
+             * not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+             *
+             * The given `stream` will not be closed.
+             * @param mime_type the mime type to provide the data in
+             * @param stream the `GOutputStream` to write to
+             * @param io_priority I/O priority of the request.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             * @param callback callback to call when the request is satisfied
+             */
+            write_mime_type_async(
+                mime_type: string,
+                stream: Gio.OutputStream,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously writes the contents of `provider` to `stream` in the given
+             * `mime_type`.
+             *
+             * The given mime type does not need to be listed in the formats returned by
+             * [method`Gdk`.ContentProvider.ref_formats]. However, if the given `GType` is
+             * not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+             *
+             * The given `stream` will not be closed.
+             * @param mime_type the mime type to provide the data in
+             * @param stream the `GOutputStream` to write to
+             * @param io_priority I/O priority of the request.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
              * @param callback callback to call when the request is satisfied
              */
             write_mime_type_async(
@@ -5915,7 +6106,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes an asynchronous write operation.
              *
@@ -7984,13 +8175,34 @@ declare module 'gi://Gdk?version=4.0' {
              * version of this function, see g_loadable_icon_load().
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            load_async(
+                size: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             load_async(
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.
@@ -9249,6 +9461,32 @@ declare module 'gi://Gdk?version=4.0' {
              * @param mime_types pointer to an array of mime types
              * @param io_priority the I/O priority for the read operation
              * @param cancellable optional `GCancellable` object
+             */
+            read_async(
+                mime_types: string[],
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<[Gio.InputStream | null, string]>;
+            /**
+             * Asynchronously read the dropped data from a `GdkDrop`
+             * in a format that complies with one of the mime types.
+             * @param mime_types pointer to an array of mime types
+             * @param io_priority the I/O priority for the read operation
+             * @param cancellable optional `GCancellable` object
+             * @param callback a `GAsyncReadyCallback` to call when   the request is satisfied
+             */
+            read_async(
+                mime_types: string[],
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously read the dropped data from a `GdkDrop`
+             * in a format that complies with one of the mime types.
+             * @param mime_types pointer to an array of mime types
+             * @param io_priority the I/O priority for the read operation
+             * @param cancellable optional `GCancellable` object
              * @param callback a `GAsyncReadyCallback` to call when   the request is satisfied
              */
             read_async(
@@ -9256,7 +9494,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gio.InputStream | null, string]> | void;
             /**
              * Finishes an async drop read operation.
              *
@@ -9280,6 +9518,40 @@ declare module 'gi://Gdk?version=4.0' {
              * @param type a `GType` to read
              * @param io_priority the I/O priority of the request.
              * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             */
+            read_value_async(
+                type: GObject.GType,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<GObject.Value>;
+            /**
+             * Asynchronously request the drag operation's contents converted
+             * to the given `type`.
+             *
+             * For local drag-and-drop operations that are available in the given
+             * `GType`, the value will be copied directly. Otherwise, GDK will
+             * try to use [func`Gdk`.content_deserialize_async] to convert the data.
+             * @param type a `GType` to read
+             * @param io_priority the I/O priority of the request.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
+             * @param callback callback to call when the request is satisfied
+             */
+            read_value_async(
+                type: GObject.GType,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously request the drag operation's contents converted
+             * to the given `type`.
+             *
+             * For local drag-and-drop operations that are available in the given
+             * `GType`, the value will be copied directly. Otherwise, GDK will
+             * try to use [func`Gdk`.content_deserialize_async] to convert the data.
+             * @param type a `GType` to read
+             * @param io_priority the I/O priority of the request.
+             * @param cancellable optional `GCancellable` object, %NULL to ignore.
              * @param callback callback to call when the request is satisfied
              */
             read_value_async(
@@ -9287,7 +9559,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<GObject.Value> | void;
             /**
              * Finishes an async drop read.
              *
@@ -10333,13 +10605,34 @@ declare module 'gi://Gdk?version=4.0' {
              * version of this function, see g_loadable_icon_load().
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            load_async(
+                size: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             load_async(
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.
@@ -11469,13 +11762,34 @@ declare module 'gi://Gdk?version=4.0' {
              * version of this function, see g_loadable_icon_load().
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            load_async(
+                size: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             load_async(
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.
@@ -13470,13 +13784,34 @@ declare module 'gi://Gdk?version=4.0' {
              * version of this function, see g_loadable_icon_load().
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            load_async(
+                size: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Loads an icon asynchronously. To finish this function, see
+             * g_loadable_icon_load_finish(). For the synchronous, blocking
+             * version of this function, see g_loadable_icon_load().
+             * @param size an integer.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             load_async(
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.

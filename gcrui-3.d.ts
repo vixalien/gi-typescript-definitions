@@ -13623,9 +13623,31 @@ declare module 'gi://GcrUi?version=3' {
              *
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
+             */
+            confirm_async(cancellable?: Gio.Cancellable | null): Promise<Gcr.PromptReply>;
+            /**
+             * Prompts for confirmation asking a cancel/continue style question.
+             * Set the various properties on the prompt before calling this method to
+             * represent the question correctly.
+             *
+             * This method will return immediately and complete asynchronously.
+             * @param cancellable optional cancellation object
              * @param callback called when the operation completes
              */
-            confirm_async(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            confirm_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Prompts for confirmation asking a cancel/continue style question.
+             * Set the various properties on the prompt before calling this method to
+             * represent the question correctly.
+             *
+             * This method will return immediately and complete asynchronously.
+             * @param cancellable optional cancellation object
+             * @param callback called when the operation completes
+             */
+            confirm_async(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<Gcr.PromptReply> | void;
             /**
              * Complete an operation to prompt for confirmation.
              *
@@ -13768,9 +13790,29 @@ declare module 'gi://GcrUi?version=3' {
              *
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
+             */
+            password_async(cancellable?: Gio.Cancellable | null): Promise<string>;
+            /**
+             * Prompts for password. Set the various properties on the prompt before calling
+             * this method to explain which password should be entered.
+             *
+             * This method will return immediately and complete asynchronously.
+             * @param cancellable optional cancellation object
              * @param callback called when the operation completes
              */
-            password_async(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            password_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Prompts for password. Set the various properties on the prompt before calling
+             * this method to explain which password should be entered.
+             *
+             * This method will return immediately and complete asynchronously.
+             * @param cancellable optional cancellation object
+             * @param callback called when the operation completes
+             */
+            password_async(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<string> | void;
             /**
              * Complete an operation to prompt for a password.
              *

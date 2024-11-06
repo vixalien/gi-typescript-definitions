@@ -5050,9 +5050,25 @@ declare module 'gi://AppStream?version=1.0' {
              * Asynchronously loads data from all registered locations.
              * Equivalent to as_pool_load() (but asynchronous)
              * @param cancellable a #GCancellable.
+             */
+            load_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously loads data from all registered locations.
+             * Equivalent to as_pool_load() (but asynchronous)
+             * @param cancellable a #GCancellable.
              * @param callback A #GAsyncReadyCallback
              */
-            load_async(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            load_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Asynchronously loads data from all registered locations.
+             * Equivalent to as_pool_load() (but asynchronous)
+             * @param cancellable a #GCancellable.
+             * @param callback A #GAsyncReadyCallback
+             */
+            load_async(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             /**
              * Retrieve the result of as_pool_load_async().
              * @param result A #GAsyncResult

@@ -1121,13 +1121,44 @@ declare module 'gi://Json?version=1.0' {
              * of the operation.
              * @param stream the input stream with the JSON data
              * @param cancellable a #GCancellable
+             */
+            load_from_stream_async(stream: Gio.InputStream, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Asynchronously reads the contents of a stream.
+             *
+             * For more details, see [method`Json`.Parser.load_from_stream], which is the
+             * synchronous version of this call.
+             *
+             * When the operation is finished, `callback` will be called. You should
+             * then call [method`Json`.Parser.load_from_stream_finish] to get the result
+             * of the operation.
+             * @param stream the input stream with the JSON data
+             * @param cancellable a #GCancellable
+             * @param callback the function to call when the request is satisfied
+             */
+            load_from_stream_async(
+                stream: Gio.InputStream,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously reads the contents of a stream.
+             *
+             * For more details, see [method`Json`.Parser.load_from_stream], which is the
+             * synchronous version of this call.
+             *
+             * When the operation is finished, `callback` will be called. You should
+             * then call [method`Json`.Parser.load_from_stream_finish] to get the result
+             * of the operation.
+             * @param stream the input stream with the JSON data
+             * @param cancellable a #GCancellable
              * @param callback the function to call when the request is satisfied
              */
             load_from_stream_async(
                 stream: Gio.InputStream,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes an asynchronous stream loading started with
              * [method`Json`.Parser.load_from_stream_async].

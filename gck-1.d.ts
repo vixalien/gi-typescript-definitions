@@ -457,13 +457,36 @@ declare module 'gi://Gck?version=1' {
              * enumerated.
              * @param max_objects The maximum number of objects to get
              * @param cancellable A #GCancellable or %NULL
+             */
+            next_async(max_objects: number, cancellable?: Gio.Cancellable | null): Promise<Object[]>;
+            /**
+             * Get the next set of objects from the enumerator. This operation completes
+             * asynchronously.The maximum number of objects can be specified with
+             * `max_objects`. If -1 is specified, then all the remaining objects will be
+             * enumerated.
+             * @param max_objects The maximum number of objects to get
+             * @param cancellable A #GCancellable or %NULL
+             * @param callback Called when the result is ready
+             */
+            next_async(
+                max_objects: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Get the next set of objects from the enumerator. This operation completes
+             * asynchronously.The maximum number of objects can be specified with
+             * `max_objects`. If -1 is specified, then all the remaining objects will be
+             * enumerated.
+             * @param max_objects The maximum number of objects to get
+             * @param cancellable A #GCancellable or %NULL
              * @param callback Called when the result is ready
              */
             next_async(
                 max_objects: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Object[]> | void;
             /**
              * Complete an operation to enumerate next objects.
              *
@@ -734,13 +757,48 @@ declare module 'gi://Gck?version=1' {
              * This will return immediately and complete asynchronously
              * @param attr_types the types of attributes to update
              * @param cancellable optional cancellation object
+             */
+            cache_lookup_async(attr_types: number[], cancellable?: Gio.Cancellable | null): Promise<Attributes>;
+            /**
+             * Lookup attributes in the cache, or retrieve them from the object if necessary.
+             *
+             * If `object` is a #GckObjectCache then this will lookup the attributes there
+             * first if available, otherwise will read them from the object and update
+             * the cache.
+             *
+             * If `object` is not a #GckObjectCache, then the attributes will simply be
+             * read from the object.
+             *
+             * This will return immediately and complete asynchronously
+             * @param attr_types the types of attributes to update
+             * @param cancellable optional cancellation object
+             * @param callback called when the operation completes
+             */
+            cache_lookup_async(
+                attr_types: number[],
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Lookup attributes in the cache, or retrieve them from the object if necessary.
+             *
+             * If `object` is a #GckObjectCache then this will lookup the attributes there
+             * first if available, otherwise will read them from the object and update
+             * the cache.
+             *
+             * If `object` is not a #GckObjectCache, then the attributes will simply be
+             * read from the object.
+             *
+             * This will return immediately and complete asynchronously
+             * @param attr_types the types of attributes to update
+             * @param cancellable optional cancellation object
              * @param callback called when the operation completes
              */
             cache_lookup_async(
                 attr_types: number[],
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Attributes> | void;
             /**
              * Complete an operation to lookup attributes in the cache or retrieve them
              * from the object if necessary.
@@ -759,9 +817,25 @@ declare module 'gi://Gck?version=1' {
              * Destroy a PKCS#11 object, deleting it from storage or the session.
              * This call will return immediately and complete asynchronously.
              * @param cancellable Optional cancellable object, or %NULL to ignore.
+             */
+            destroy_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Destroy a PKCS#11 object, deleting it from storage or the session.
+             * This call will return immediately and complete asynchronously.
+             * @param cancellable Optional cancellable object, or %NULL to ignore.
              * @param callback Callback which is called when operation completes.
              */
-            destroy_async(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            destroy_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Destroy a PKCS#11 object, deleting it from storage or the session.
+             * This call will return immediately and complete asynchronously.
+             * @param cancellable Optional cancellable object, or %NULL to ignore.
+             * @param callback Callback which is called when operation completes.
+             */
+            destroy_async(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             /**
              * Get the status of the operation to destroy a PKCS#11 object, begun with
              * gck_object_destroy_async().
@@ -785,13 +859,40 @@ declare module 'gi://Gck?version=1' {
              * This call returns immediately and completes asynchronously.
              * @param attr_types the types of the attributes to get
              * @param cancellable optional cancellation object, or %NULL
+             */
+            get_async(attr_types: number[], cancellable?: Gio.Cancellable | null): Promise<Attributes>;
+            /**
+             * Get the specified attributes from the object. The attributes will be cleared
+             * of their current values, and new attributes will be stored. The attributes
+             * should not be accessed in any way except for referencing and unreferencing
+             * them until gck_object_get_finish() is called.
+             *
+             * This call returns immediately and completes asynchronously.
+             * @param attr_types the types of the attributes to get
+             * @param cancellable optional cancellation object, or %NULL
+             * @param callback A callback which is called when the operation completes.
+             */
+            get_async(
+                attr_types: number[],
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Get the specified attributes from the object. The attributes will be cleared
+             * of their current values, and new attributes will be stored. The attributes
+             * should not be accessed in any way except for referencing and unreferencing
+             * them until gck_object_get_finish() is called.
+             *
+             * This call returns immediately and completes asynchronously.
+             * @param attr_types the types of the attributes to get
+             * @param cancellable optional cancellation object, or %NULL
              * @param callback A callback which is called when the operation completes.
              */
             get_async(
                 attr_types: number[],
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Attributes> | void;
             /**
              * Get the data for the specified attribute from the object. For convenience
              * the returned data has a null terminator.
@@ -811,6 +912,34 @@ declare module 'gi://Gck?version=1' {
              * @param attr_type The attribute to get data for.
              * @param allocator An allocator with which to allocate memory for the data, or %NULL for default.
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            get_data_async(
+                attr_type: number,
+                allocator: Allocator,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Uint8Array>;
+            /**
+             * Get the data for the specified attribute from the object.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_type The attribute to get data for.
+             * @param allocator An allocator with which to allocate memory for the data, or %NULL for default.
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            get_data_async(
+                attr_type: number,
+                allocator: Allocator,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Get the data for the specified attribute from the object.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_type The attribute to get data for.
+             * @param allocator An allocator with which to allocate memory for the data, or %NULL for default.
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
             get_data_async(
@@ -818,7 +947,7 @@ declare module 'gi://Gck?version=1' {
                 allocator: Allocator,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Uint8Array> | void;
             /**
              * Get the result of an operation to get attribute data from
              * an object. For convenience the returned data has an extra null terminator,
@@ -884,13 +1013,36 @@ declare module 'gi://Gck?version=1' {
              * This call will return immediately and complete asynchronously.
              * @param attr_type The template attribute type.
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            get_template_async(attr_type: number, cancellable?: Gio.Cancellable | null): Promise<Attributes>;
+            /**
+             * Get an attribute template from the object. The `attr_type` must be for
+             * an attribute which returns a template.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_type The template attribute type.
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            get_template_async(
+                attr_type: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Get an attribute template from the object. The `attr_type` must be for
+             * an attribute which returns a template.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_type The template attribute type.
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
             get_template_async(
                 attr_type: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Attributes> | void;
             /**
              * Get the result of an operation to get attribute template from
              * an object.
@@ -924,13 +1076,36 @@ declare module 'gi://Gck?version=1' {
              * If the `attrs` #GckAttributes is floating, it is consumed.
              * @param attrs The attributes to set on the object.
              * @param cancellable Optional cancellable object, or %NULL to ignore.
+             */
+            set_async(attrs: Attributes, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Set PKCS#11 attributes on an object. This call will return
+             * immediately and completes asynchronously.
+             *
+             * If the `attrs` #GckAttributes is floating, it is consumed.
+             * @param attrs The attributes to set on the object.
+             * @param cancellable Optional cancellable object, or %NULL to ignore.
+             * @param callback Callback which is called when operation completes.
+             */
+            set_async(
+                attrs: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Set PKCS#11 attributes on an object. This call will return
+             * immediately and completes asynchronously.
+             *
+             * If the `attrs` #GckAttributes is floating, it is consumed.
+             * @param attrs The attributes to set on the object.
+             * @param cancellable Optional cancellable object, or %NULL to ignore.
              * @param callback Callback which is called when operation completes.
              */
             set_async(
                 attrs: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Get the status of the operation to set attributes on a PKCS#11 object,
              * begun with gck_object_set_async().
@@ -961,6 +1136,40 @@ declare module 'gi://Gck?version=1' {
              * @param attr_type The attribute template type.
              * @param attrs The attribute template.
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            set_template_async(
+                attr_type: number,
+                attrs: Attributes,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Set an attribute template on the object. The attr_type must be for
+             * an attribute which contains a template.
+             *
+             * If the `attrs` #GckAttributes is floating, it is consumed.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_type The attribute template type.
+             * @param attrs The attribute template.
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            set_template_async(
+                attr_type: number,
+                attrs: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Set an attribute template on the object. The attr_type must be for
+             * an attribute which contains a template.
+             *
+             * If the `attrs` #GckAttributes is floating, it is consumed.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_type The attribute template type.
+             * @param attrs The attribute template.
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
             set_template_async(
@@ -968,7 +1177,7 @@ declare module 'gi://Gck?version=1' {
                 attrs: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Get the result of an operation to set attribute template on
              * an object.
@@ -1198,13 +1407,36 @@ declare module 'gi://Gck?version=1' {
              * If `attrs` is a floating reference, it is consumed.
              * @param attrs The attributes to create the object with.
              * @param cancellable Optional cancellation object or %NULL.
+             */
+            create_object_async(attrs: Attributes, cancellable?: Gio.Cancellable | null): Promise<Object>;
+            /**
+             * Create a new PKCS#11 object. This call will return immediately
+             * and complete asynchronously.
+             *
+             * If `attrs` is a floating reference, it is consumed.
+             * @param attrs The attributes to create the object with.
+             * @param cancellable Optional cancellation object or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            create_object_async(
+                attrs: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Create a new PKCS#11 object. This call will return immediately
+             * and complete asynchronously.
+             *
+             * If `attrs` is a floating reference, it is consumed.
+             * @param attrs The attributes to create the object with.
+             * @param cancellable Optional cancellation object or %NULL.
              * @param callback Called when the operation completes.
              */
             create_object_async(
                 attrs: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Object> | void;
             /**
              * Get the result of creating a new PKCS#11 object.
              * @param result The result passed to the callback.
@@ -1233,6 +1465,36 @@ declare module 'gi://Gck?version=1' {
              * @param mechanism The mechanism type and parameters to use for decryption.
              * @param input data to decrypt
              * @param cancellable A GCancellable which can be used to cancel the operation.
+             */
+            decrypt_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Uint8Array>;
+            /**
+             * Decrypt data in a mechanism specific manner. This call will
+             * return immediately and complete asynchronously.
+             * @param key The key to decrypt with.
+             * @param mechanism The mechanism type and parameters to use for decryption.
+             * @param input data to decrypt
+             * @param cancellable A GCancellable which can be used to cancel the operation.
+             * @param callback Called when the operation completes.
+             */
+            decrypt_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Decrypt data in a mechanism specific manner. This call will
+             * return immediately and complete asynchronously.
+             * @param key The key to decrypt with.
+             * @param mechanism The mechanism type and parameters to use for decryption.
+             * @param input data to decrypt
+             * @param cancellable A GCancellable which can be used to cancel the operation.
              * @param callback Called when the operation completes.
              */
             decrypt_async(
@@ -1241,7 +1503,7 @@ declare module 'gi://Gck?version=1' {
                 input: Uint8Array | string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Uint8Array> | void;
             /**
              * Get the result of an decryption operation.
              * @param result The result object passed to the callback.
@@ -1289,6 +1551,40 @@ declare module 'gi://Gck?version=1' {
              * @param mechanism The mechanism to use for derivation.
              * @param attrs Additional attributes for the derived key.
              * @param cancellable Optional cancellation object or %NULL.
+             */
+            derive_key_async(
+                base: Object,
+                mechanism: Mechanism,
+                attrs: Attributes,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Object>;
+            /**
+             * Derive a key from another key. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If the `attrs` #GckAttributes is floating, it is consumed.
+             * @param base The key to derive from.
+             * @param mechanism The mechanism to use for derivation.
+             * @param attrs Additional attributes for the derived key.
+             * @param cancellable Optional cancellation object or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            derive_key_async(
+                base: Object,
+                mechanism: Mechanism,
+                attrs: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Derive a key from another key. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If the `attrs` #GckAttributes is floating, it is consumed.
+             * @param base The key to derive from.
+             * @param mechanism The mechanism to use for derivation.
+             * @param attrs Additional attributes for the derived key.
+             * @param cancellable Optional cancellation object or %NULL.
              * @param callback Called when the operation completes.
              */
             derive_key_async(
@@ -1297,7 +1593,7 @@ declare module 'gi://Gck?version=1' {
                 attrs: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Object> | void;
             /**
              * Get the result of a derive key operation.
              * @param result The async result passed to the callback.
@@ -1343,6 +1639,36 @@ declare module 'gi://Gck?version=1' {
              * @param mechanism The mechanism type and parameters to use for encryption.
              * @param input the data to encrypt
              * @param cancellable A GCancellable which can be used to cancel the operation.
+             */
+            encrypt_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Uint8Array>;
+            /**
+             * Encrypt data in a mechanism specific manner. This call will
+             * return immediately and complete asynchronously.
+             * @param key The key to encrypt with.
+             * @param mechanism The mechanism type and parameters to use for encryption.
+             * @param input the data to encrypt
+             * @param cancellable A GCancellable which can be used to cancel the operation.
+             * @param callback Called when the operation completes.
+             */
+            encrypt_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Encrypt data in a mechanism specific manner. This call will
+             * return immediately and complete asynchronously.
+             * @param key The key to encrypt with.
+             * @param mechanism The mechanism type and parameters to use for encryption.
+             * @param input the data to encrypt
+             * @param cancellable A GCancellable which can be used to cancel the operation.
              * @param callback Called when the operation completes.
              */
             encrypt_async(
@@ -1351,7 +1677,7 @@ declare module 'gi://Gck?version=1' {
                 input: Uint8Array | string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Uint8Array> | void;
             /**
              * Get the result of an encryption operation.
              * @param result The result object passed to the callback.
@@ -1400,13 +1726,36 @@ declare module 'gi://Gck?version=1' {
              * If `match` is a floating reference, it is consumed.
              * @param match the attributes to match against the objects
              * @param cancellable optional cancellation object or %NULL
+             */
+            find_handles_async(match: Attributes, cancellable?: Gio.Cancellable | null): Promise<number[] | null>;
+            /**
+             * Find the objects matching the passed attributes. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If `match` is a floating reference, it is consumed.
+             * @param match the attributes to match against the objects
+             * @param cancellable optional cancellation object or %NULL
+             * @param callback called when the operation completes
+             */
+            find_handles_async(
+                match: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Find the objects matching the passed attributes. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If `match` is a floating reference, it is consumed.
+             * @param match the attributes to match against the objects
+             * @param cancellable optional cancellation object or %NULL
              * @param callback called when the operation completes
              */
             find_handles_async(
                 match: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number[] | null> | void;
             /**
              * Get the result of a find handles operation.
              * @param result the asynchronous result
@@ -1430,13 +1779,36 @@ declare module 'gi://Gck?version=1' {
              * If the `match` #GckAttributes is floating, it is consumed.
              * @param match The attributes to match.
              * @param cancellable Optional cancellation object or %NULL.
+             */
+            find_objects_async(match: Attributes, cancellable?: Gio.Cancellable | null): Promise<Object[]>;
+            /**
+             * Find the objects matching the passed attributes. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If the `match` #GckAttributes is floating, it is consumed.
+             * @param match The attributes to match.
+             * @param cancellable Optional cancellation object or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            find_objects_async(
+                match: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Find the objects matching the passed attributes. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If the `match` #GckAttributes is floating, it is consumed.
+             * @param match The attributes to match.
+             * @param cancellable Optional cancellation object or %NULL.
              * @param callback Called when the operation completes.
              */
             find_objects_async(
                 match: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Object[]> | void;
             /**
              * Get the result of a find operation.
              * @param result The attributes to match.
@@ -1471,6 +1843,42 @@ declare module 'gi://Gck?version=1' {
              * @param public_attrs Additional attributes for the generated public key.
              * @param private_attrs Additional attributes for the generated private key.
              * @param cancellable Optional cancellation object or %NULL.
+             */
+            generate_key_pair_async(
+                mechanism: Mechanism,
+                public_attrs: Attributes,
+                private_attrs: Attributes,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<[Object | null, Object | null]>;
+            /**
+             * Generate a new key pair of public and private keys. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If `public_attrs` and/or `private_attrs` is a floating reference, it is
+             * consumed.
+             * @param mechanism The mechanism to use for key generation.
+             * @param public_attrs Additional attributes for the generated public key.
+             * @param private_attrs Additional attributes for the generated private key.
+             * @param cancellable Optional cancellation object or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            generate_key_pair_async(
+                mechanism: Mechanism,
+                public_attrs: Attributes,
+                private_attrs: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Generate a new key pair of public and private keys. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If `public_attrs` and/or `private_attrs` is a floating reference, it is
+             * consumed.
+             * @param mechanism The mechanism to use for key generation.
+             * @param public_attrs Additional attributes for the generated public key.
+             * @param private_attrs Additional attributes for the generated private key.
+             * @param cancellable Optional cancellation object or %NULL.
              * @param callback Called when the operation completes.
              */
             generate_key_pair_async(
@@ -1479,7 +1887,7 @@ declare module 'gi://Gck?version=1' {
                 private_attrs: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<[Object | null, Object | null]> | void;
             /**
              * Get the result of a generate key pair operation.
              * @param result The async result passed to the callback.
@@ -1559,13 +1967,38 @@ declare module 'gi://Gck?version=1' {
              * This call will return immediately and completes asynchronously.
              * @param pin the user's PIN, or %NULL for protected authentication path
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            init_pin_async(pin?: Uint8Array | null, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Initialize the user's pin on this slot that this session is opened on.
+             * According to the PKCS#11 standards, the session must be logged in with
+             * the `CKU_SO` user type.
+             *
+             * This call will return immediately and completes asynchronously.
+             * @param pin the user's PIN, or %NULL for protected authentication path
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            init_pin_async(
+                pin: Uint8Array | null,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Initialize the user's pin on this slot that this session is opened on.
+             * According to the PKCS#11 standards, the session must be logged in with
+             * the `CKU_SO` user type.
+             *
+             * This call will return immediately and completes asynchronously.
+             * @param pin the user's PIN, or %NULL for protected authentication path
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
             init_pin_async(
                 pin?: Uint8Array | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Get the result of initializing a user's PIN.
              * @param result The result passed to the callback.
@@ -1587,6 +2020,32 @@ declare module 'gi://Gck?version=1' {
              * @param user_type The type of login user.
              * @param pin the user's PIN, or %NULL for       protected authentication path
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            login_async(
+                user_type: number,
+                pin?: Uint8Array | null,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Login the user on the session. This call will return
+             * immediately and completes asynchronously.
+             * @param user_type The type of login user.
+             * @param pin the user's PIN, or %NULL for       protected authentication path
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            login_async(
+                user_type: number,
+                pin: Uint8Array | null,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Login the user on the session. This call will return
+             * immediately and completes asynchronously.
+             * @param user_type The type of login user.
+             * @param pin the user's PIN, or %NULL for       protected authentication path
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
             login_async(
@@ -1594,7 +2053,7 @@ declare module 'gi://Gck?version=1' {
                 pin?: Uint8Array | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Get the result of a login operation.
              * @param result The result passed to the callback.
@@ -1620,6 +2079,32 @@ declare module 'gi://Gck?version=1' {
              * @param user_type the type of login user
              * @param interaction interaction to request PIN when necessary
              * @param cancellable optional cancellation object, or %NULL
+             */
+            login_interactive_async(
+                user_type: number,
+                interaction?: Gio.TlsInteraction | null,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Login the user on the session prompting for passwords interactively when
+             * necessary. This call will return immediately and completes asynchronously.
+             * @param user_type the type of login user
+             * @param interaction interaction to request PIN when necessary
+             * @param cancellable optional cancellation object, or %NULL
+             * @param callback called when the operation completes
+             */
+            login_interactive_async(
+                user_type: number,
+                interaction: Gio.TlsInteraction | null,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Login the user on the session prompting for passwords interactively when
+             * necessary. This call will return immediately and completes asynchronously.
+             * @param user_type the type of login user
+             * @param interaction interaction to request PIN when necessary
+             * @param cancellable optional cancellation object, or %NULL
              * @param callback called when the operation completes
              */
             login_interactive_async(
@@ -1627,7 +2112,7 @@ declare module 'gi://Gck?version=1' {
                 interaction?: Gio.TlsInteraction | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Get the result of a login operation.
              * @param result the result passed to the callback
@@ -1644,9 +2129,25 @@ declare module 'gi://Gck?version=1' {
              * Log out of the session. This call returns immediately and completes
              * asynchronously.
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            logout_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Log out of the session. This call returns immediately and completes
+             * asynchronously.
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
-            logout_async(cancellable?: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): void;
+            logout_async(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+            /**
+             * Log out of the session. This call returns immediately and completes
+             * asynchronously.
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            logout_async(
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): Promise<boolean> | void;
             /**
              * Get the result of logging out of a session.
              * @param result The result passed to the callback.
@@ -1681,6 +2182,38 @@ declare module 'gi://Gck?version=1' {
              * @param n_old_pin the length of the old PIN
              * @param new_pin the user's new PIN, or %NULL           for protected authentication path
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            set_pin_async(
+                old_pin: Uint8Array | null,
+                n_old_pin: number,
+                new_pin?: Uint8Array | null,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Change the user's pin on this slot that this session is opened on.
+             *
+             * This call will return immediately and completes asynchronously.
+             * @param old_pin the user's old PIN, or %NULL           for protected authentication path
+             * @param n_old_pin the length of the old PIN
+             * @param new_pin the user's new PIN, or %NULL           for protected authentication path
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            set_pin_async(
+                old_pin: Uint8Array | null,
+                n_old_pin: number,
+                new_pin: Uint8Array | null,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Change the user's pin on this slot that this session is opened on.
+             *
+             * This call will return immediately and completes asynchronously.
+             * @param old_pin the user's old PIN, or %NULL           for protected authentication path
+             * @param n_old_pin the length of the old PIN
+             * @param new_pin the user's new PIN, or %NULL           for protected authentication path
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
             set_pin_async(
@@ -1689,7 +2222,7 @@ declare module 'gi://Gck?version=1' {
                 new_pin?: Uint8Array | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Get the result of changing a user's PIN.
              * @param result The result passed to the callback.
@@ -1718,6 +2251,36 @@ declare module 'gi://Gck?version=1' {
              * @param mechanism The mechanism type and parameters to use for signing.
              * @param input data to sign
              * @param cancellable A GCancellable which can be used to cancel the operation.
+             */
+            sign_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Uint8Array>;
+            /**
+             * Sign data in a mechanism specific manner. This call will
+             * return immediately and complete asynchronously.
+             * @param key The key to sign with.
+             * @param mechanism The mechanism type and parameters to use for signing.
+             * @param input data to sign
+             * @param cancellable A GCancellable which can be used to cancel the operation.
+             * @param callback Called when the operation completes.
+             */
+            sign_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Sign data in a mechanism specific manner. This call will
+             * return immediately and complete asynchronously.
+             * @param key The key to sign with.
+             * @param mechanism The mechanism type and parameters to use for signing.
+             * @param input data to sign
+             * @param cancellable A GCancellable which can be used to cancel the operation.
              * @param callback Called when the operation completes.
              */
             sign_async(
@@ -1726,7 +2289,7 @@ declare module 'gi://Gck?version=1' {
                 input: Uint8Array | string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Uint8Array> | void;
             /**
              * Get the result of an signing operation.
              * @param result The result object passed to the callback.
@@ -1779,6 +2342,44 @@ declare module 'gi://Gck?version=1' {
              * @param input the wrapped data as a byte stream
              * @param attrs Additional attributes for the unwrapped key.
              * @param cancellable Optional cancellation object or %NULL.
+             */
+            unwrap_key_async(
+                wrapper: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                attrs: Attributes,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Object>;
+            /**
+             * Unwrap a key from a byte stream. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If `attrs` is a floating reference, it is consumed.
+             * @param wrapper The key to use for unwrapping.
+             * @param mechanism The mechanism to use for unwrapping.
+             * @param input the wrapped data as a byte stream
+             * @param attrs Additional attributes for the unwrapped key.
+             * @param cancellable Optional cancellation object or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            unwrap_key_async(
+                wrapper: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                attrs: Attributes,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Unwrap a key from a byte stream. This call will
+             * return immediately and complete asynchronously.
+             *
+             * If `attrs` is a floating reference, it is consumed.
+             * @param wrapper The key to use for unwrapping.
+             * @param mechanism The mechanism to use for unwrapping.
+             * @param input the wrapped data as a byte stream
+             * @param attrs Additional attributes for the unwrapped key.
+             * @param cancellable Optional cancellation object or %NULL.
              * @param callback Called when the operation completes.
              */
             unwrap_key_async(
@@ -1788,7 +2389,7 @@ declare module 'gi://Gck?version=1' {
                 attrs: Attributes,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Object> | void;
             /**
              * Get the result of a unwrap key operation.
              * @param result The async result passed to the callback.
@@ -1839,6 +2440,40 @@ declare module 'gi://Gck?version=1' {
              * @param input data to verify
              * @param signature the signature
              * @param cancellable A GCancellable which can be used to cancel the operation.
+             */
+            verify_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                signature: Uint8Array | string,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
+            /**
+             * Verify data in a mechanism specific manner. This call returns
+             * immediately and completes asynchronously.
+             * @param key The key to verify with.
+             * @param mechanism The mechanism type and parameters to use for signing.
+             * @param input data to verify
+             * @param signature the signature
+             * @param cancellable A GCancellable which can be used to cancel the operation.
+             * @param callback Called when the operation completes.
+             */
+            verify_async(
+                key: Object,
+                mechanism: Mechanism,
+                input: Uint8Array | string,
+                signature: Uint8Array | string,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Verify data in a mechanism specific manner. This call returns
+             * immediately and completes asynchronously.
+             * @param key The key to verify with.
+             * @param mechanism The mechanism type and parameters to use for signing.
+             * @param input data to verify
+             * @param signature the signature
+             * @param cancellable A GCancellable which can be used to cancel the operation.
              * @param callback Called when the operation completes.
              */
             verify_async(
@@ -1848,7 +2483,7 @@ declare module 'gi://Gck?version=1' {
                 signature: Uint8Array | string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Get the result of an verify operation.
              * @param result The result object passed to the callback.
@@ -1894,6 +2529,36 @@ declare module 'gi://Gck?version=1' {
              * @param mechanism The mechanism to use for wrapping.
              * @param wrapped The key to wrap.
              * @param cancellable Optional cancellation object or %NULL.
+             */
+            wrap_key_async(
+                wrapper: Object,
+                mechanism: Mechanism,
+                wrapped: Object,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Uint8Array>;
+            /**
+             * Wrap a key into a byte stream. This call will
+             * return immediately and complete asynchronously.
+             * @param wrapper The key to use for wrapping.
+             * @param mechanism The mechanism to use for wrapping.
+             * @param wrapped The key to wrap.
+             * @param cancellable Optional cancellation object or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            wrap_key_async(
+                wrapper: Object,
+                mechanism: Mechanism,
+                wrapped: Object,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Wrap a key into a byte stream. This call will
+             * return immediately and complete asynchronously.
+             * @param wrapper The key to use for wrapping.
+             * @param mechanism The mechanism to use for wrapping.
+             * @param wrapped The key to wrap.
+             * @param cancellable Optional cancellation object or %NULL.
              * @param callback Called when the operation completes.
              */
             wrap_key_async(
@@ -1902,7 +2567,7 @@ declare module 'gi://Gck?version=1' {
                 wrapped: Object,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Uint8Array> | void;
             /**
              * Get the result of a wrap key operation.
              * @param result The async result passed to the callback.
@@ -1965,13 +2630,100 @@ declare module 'gi://Gck?version=1' {
              * any interface methods.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+             */
+            init_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Starts asynchronous initialization of the object implementing the
+             * interface. This must be done before any real use of the object after
+             * initial construction. If the object also implements #GInitable you can
+             * optionally call g_initable_init() instead.
+             *
+             * This method is intended for language bindings. If writing in C,
+             * g_async_initable_new_async() should typically be used instead.
+             *
+             * When the initialization is finished, `callback` will be called. You can
+             * then call g_async_initable_init_finish() to get the result of the
+             * initialization.
+             *
+             * Implementations may also support cancellation. If `cancellable` is not
+             * %NULL, then initialization can be cancelled by triggering the cancellable
+             * object from another thread. If the operation was cancelled, the error
+             * %G_IO_ERROR_CANCELLED will be returned. If `cancellable` is not %NULL, and
+             * the object doesn't support cancellable initialization, the error
+             * %G_IO_ERROR_NOT_SUPPORTED will be returned.
+             *
+             * As with #GInitable, if the object is not initialized, or initialization
+             * returns with an error, then all operations on the object except
+             * g_object_ref() and g_object_unref() are considered to be invalid, and
+             * have undefined behaviour. They will often fail with g_critical() or
+             * g_warning(), but this must not be relied on.
+             *
+             * Callers should not assume that a class which implements #GAsyncInitable can
+             * be initialized multiple times; for more information, see g_initable_init().
+             * If a class explicitly supports being initialized multiple times,
+             * implementation requires yielding all subsequent calls to init_async() on the
+             * results of the first call.
+             *
+             * For classes that also support the #GInitable interface, the default
+             * implementation of this method will run the g_initable_init() function
+             * in a thread, so if you want to support asynchronous initialization via
+             * threads, just implement the #GAsyncInitable interface without overriding
+             * any interface methods.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             init_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -2658,13 +3410,36 @@ declare module 'gi://Gck?version=1' {
              * This call will return immediately and complete asynchronously.
              * @param options The options to open the new session with.
              * @param cancellable Optional cancellation object, or %NULL.
+             */
+            open_session_async(options: SessionOptions, cancellable?: Gio.Cancellable | null): Promise<Session>;
+            /**
+             * Open a session on the slot. If the 'auto reuse' setting is set,
+             * then this may be a recycled session with the same flags.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param options The options to open the new session with.
+             * @param cancellable Optional cancellation object, or %NULL.
+             * @param callback Called when the operation completes.
+             */
+            open_session_async(
+                options: SessionOptions,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Open a session on the slot. If the 'auto reuse' setting is set,
+             * then this may be a recycled session with the same flags.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param options The options to open the new session with.
+             * @param cancellable Optional cancellation object, or %NULL.
              * @param callback Called when the operation completes.
              */
             open_session_async(
                 options: SessionOptions,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Session> | void;
             /**
              * Get the result of an open session operation. If the 'auto reuse' setting is set,
              * then this may be a recycled session with the same flags.
@@ -3720,13 +4495,36 @@ declare module 'gi://Gck?version=1' {
              * This call will return immediately and complete asynchronously.
              * @param attr_types the types of attributes to update
              * @param cancellable optional cancellation object
+             */
+            update_async(attr_types: number[], cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Update the object cache with given attributes. If an attribute already
+             * exists in the cache, it will be updated, and if it doesn't it will be added.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_types the types of attributes to update
+             * @param cancellable optional cancellation object
+             * @param callback called when the operation completes
+             */
+            update_async(
+                attr_types: number[],
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Update the object cache with given attributes. If an attribute already
+             * exists in the cache, it will be updated, and if it doesn't it will be added.
+             *
+             * This call will return immediately and complete asynchronously.
+             * @param attr_types the types of attributes to update
+             * @param cancellable optional cancellation object
              * @param callback called when the operation completes
              */
             update_async(
                 attr_types: number[],
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Complete an asynchronous operation to update the object cache with given
              * attributes.

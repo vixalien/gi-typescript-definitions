@@ -8179,13 +8179,34 @@ declare module 'gi://Soup?version=3.0' {
              * See [method`MultipartInputStream`.next_part] for details on the workflow.
              * @param io_priority the I/O priority for the request.
              * @param cancellable a #GCancellable.
+             */
+            next_part_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<Gio.InputStream | null>;
+            /**
+             * Obtains a [class`Gio`.InputStream] for the next request.
+             *
+             * See [method`MultipartInputStream`.next_part] for details on the workflow.
+             * @param io_priority the I/O priority for the request.
+             * @param cancellable a #GCancellable.
+             * @param callback callback to call when request is satisfied.
+             */
+            next_part_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Obtains a [class`Gio`.InputStream] for the next request.
+             *
+             * See [method`MultipartInputStream`.next_part] for details on the workflow.
+             * @param io_priority the I/O priority for the request.
+             * @param cancellable a #GCancellable.
              * @param callback callback to call when request is satisfied.
              */
             next_part_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Gio.InputStream | null> | void;
             /**
              * Finishes an asynchronous request for the next part.
              * @param result a #GAsyncResult.
@@ -8356,13 +8377,48 @@ declare module 'gi://Soup?version=3.0' {
              * override one you must override all.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional cancellable object
+             */
+            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Requests an asynchronous closes of the stream, releasing resources related to it.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_close_finish() to get the result of the
+             * operation.
+             *
+             * For behaviour details see g_input_stream_close().
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional cancellable object
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            close_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Requests an asynchronous closes of the stream, releasing resources related to it.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_close_finish() to get the result of the
+             * operation.
+             *
+             * For behaviour details see g_input_stream_close().
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional cancellable object
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             close_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Finishes closing a stream asynchronously, started from g_input_stream_close_async().
              * @param result a #GAsyncResult.
@@ -8442,13 +8498,48 @@ declare module 'gi://Soup?version=3.0' {
              * priority. Default priority is %G_PRIORITY_DEFAULT.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore
+             */
+            read_all_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the
+             * buffer starting at `buffer`.
+             *
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
+             *
+             * Call [method`InputStream`.read_all_finish] to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            read_all_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): Uint8Array;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the
+             * buffer starting at `buffer`.
+             *
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
+             *
+             * Call [method`InputStream`.read_all_finish] to collect the result.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             read_all_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Uint8Array;
+            ): [Promise<number> | void, Uint8Array];
             /**
              * Finishes an asynchronous stream read operation started with
              * [method`InputStream`.read_all_async].
@@ -8489,13 +8580,74 @@ declare module 'gi://Soup?version=3.0' {
              * override one you must override all.
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            read_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the buffer
+             * starting at `buffer`. When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_read_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed on `stream,` and will
+             * result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes read into the buffer will be passed to the
+             * callback. It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to read
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero),  but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value) will
+             * be executed before an outstanding request with lower priority. Default
+             * priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            read_async(
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): Uint8Array;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into the buffer
+             * starting at `buffer`. When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_read_finish() to get the result of the
+             * operation.
+             *
+             * During an async request no other sync and async calls are allowed on `stream,` and will
+             * result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes read into the buffer will be passed to the
+             * callback. It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to read
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero),  but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value) will
+             * be executed before an outstanding request with lower priority. Default
+             * priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to implement
+             * asynchronicity, so they are optional for inheriting classes. However, if you
+             * override one you must override all.
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             read_async(
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Uint8Array;
+            ): [Promise<number> | void, Uint8Array];
             /**
              * Like g_input_stream_read(), this tries to read `count` bytes from
              * the stream in a blocking fashion. However, rather than reading into
@@ -8549,6 +8701,68 @@ declare module 'gi://Soup?version=3.0' {
              * @param count the number of bytes that will be read from the stream
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            read_bytes_async(
+                count: number,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<GLib.Bytes>;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into a
+             * new #GBytes. When the operation is finished `callback` will be
+             * called. You can then call g_input_stream_read_bytes_finish() to get the
+             * result of the operation.
+             *
+             * During an async request no other sync and async calls are allowed
+             * on `stream,` and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a
+             * %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the new #GBytes will be passed to the callback. It is
+             * not an error if this is smaller than the requested size, as it can
+             * happen e.g. near the end of a file, but generally we try to read as
+             * many bytes as requested. Zero is returned on end of file (or if
+             * `count` is zero), but never otherwise.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param count the number of bytes that will be read from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            read_bytes_async(
+                count: number,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous read of `count` bytes from the stream into a
+             * new #GBytes. When the operation is finished `callback` will be
+             * called. You can then call g_input_stream_read_bytes_finish() to get the
+             * result of the operation.
+             *
+             * During an async request no other sync and async calls are allowed
+             * on `stream,` and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a
+             * %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the new #GBytes will be passed to the callback. It is
+             * not an error if this is smaller than the requested size, as it can
+             * happen e.g. near the end of a file, but generally we try to read as
+             * many bytes as requested. Zero is returned on end of file (or if
+             * `count` is zero), but never otherwise.
+             *
+             * Any outstanding I/O request with higher priority (lower numerical
+             * value) will be executed before an outstanding request with lower
+             * priority. Default priority is %G_PRIORITY_DEFAULT.
+             * @param count the number of bytes that will be read from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             read_bytes_async(
@@ -8556,7 +8770,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<GLib.Bytes> | void;
             /**
              * Finishes an asynchronous stream read-into-#GBytes operation.
              * @param result a #GAsyncResult.
@@ -8623,6 +8837,70 @@ declare module 'gi://Soup?version=3.0' {
              * @param count the number of bytes that will be skipped from the stream
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore.
+             */
+            skip_async(count: number, io_priority: number, cancellable?: Gio.Cancellable | null): Promise<number>;
+            /**
+             * Request an asynchronous skip of `count` bytes from the stream.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_skip_finish() to get the result
+             * of the operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes skipped will be passed to the callback.
+             * It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to skip
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero), but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value)
+             * will be executed before an outstanding request with lower priority.
+             * Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to
+             * implement asynchronicity, so they are optional for inheriting classes.
+             * However, if you override one, you must override all.
+             * @param count the number of bytes that will be skipped from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
+             * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
+             */
+            skip_async(
+                count: number,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Request an asynchronous skip of `count` bytes from the stream.
+             * When the operation is finished `callback` will be called.
+             * You can then call g_input_stream_skip_finish() to get the result
+             * of the operation.
+             *
+             * During an async request no other sync and async calls are allowed,
+             * and will result in %G_IO_ERROR_PENDING errors.
+             *
+             * A value of `count` larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+             *
+             * On success, the number of bytes skipped will be passed to the callback.
+             * It is not an error if this is not the same as the requested size, as it
+             * can happen e.g. near the end of a file, but generally we try to skip
+             * as many bytes as requested. Zero is returned on end of file
+             * (or if `count` is zero), but never otherwise.
+             *
+             * Any outstanding i/o request with higher priority (lower numerical value)
+             * will be executed before an outstanding request with lower priority.
+             * Default priority is %G_PRIORITY_DEFAULT.
+             *
+             * The asynchronous methods have a default fallback that uses threads to
+             * implement asynchronicity, so they are optional for inheriting classes.
+             * However, if you override one, you must override all.
+             * @param count the number of bytes that will be skipped from the stream
+             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+             * @param cancellable optional #GCancellable object, %NULL to ignore.
              * @param callback a #GAsyncReadyCallback   to call when the request is satisfied
              */
             skip_async(
@@ -8630,7 +8908,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Finishes a stream skip operation.
              * @param result a #GAsyncResult.
@@ -10184,6 +10462,46 @@ declare module 'gi://Soup?version=3.0' {
              * @param msg a #SoupMessage
              * @param io_priority the I/O priority of the request
              * @param cancellable a #GCancellable
+             */
+            preconnect_async(msg: Message, io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            /**
+             * Start a preconnection to `msg`.
+             *
+             * Once the connection is done, it will remain in idle state so that it can be
+             * reused by future requests. If there's already an idle connection for the
+             * given `msg` host, the operation finishes successfully without creating a new
+             * connection. If a new request for the given `msg` host is made while the
+             * preconnect is still ongoing, the request will take the ownership of the
+             * connection and the preconnect operation will finish successfully (if there's
+             * a connection error it will be handled by the request).
+             *
+             * The operation finishes when the connection is done or an error occurred.
+             * @param msg a #SoupMessage
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
+             * @param callback the callback to invoke when the operation finishes
+             */
+            preconnect_async(
+                msg: Message,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Start a preconnection to `msg`.
+             *
+             * Once the connection is done, it will remain in idle state so that it can be
+             * reused by future requests. If there's already an idle connection for the
+             * given `msg` host, the operation finishes successfully without creating a new
+             * connection. If a new request for the given `msg` host is made while the
+             * preconnect is still ongoing, the request will take the ownership of the
+             * connection and the preconnect operation will finish successfully (if there's
+             * a connection error it will be handled by the request).
+             *
+             * The operation finishes when the connection is done or an error occurred.
+             * @param msg a #SoupMessage
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
              * @param callback the callback to invoke when the operation finishes
              */
             preconnect_async(
@@ -10191,7 +10509,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<boolean> | void;
             /**
              * Complete a preconnect async operation started with [method`Session`.preconnect_async].
              * @param result the #GAsyncResult passed to your callback
@@ -10259,6 +10577,46 @@ declare module 'gi://Soup?version=3.0' {
              * @param msg a #SoupMessage
              * @param io_priority the I/O priority of the request
              * @param cancellable a #GCancellable
+             */
+            send_and_read_async(
+                msg: Message,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<GLib.Bytes>;
+            /**
+             * Asynchronously sends `msg` and reads the response body.
+             *
+             * When `callback` is called, then either `msg` has been sent, and its response
+             * body read, or else an error has occurred. This function should only be used
+             * when the resource to be retrieved is not too long and can be stored in
+             * memory. Call [method`Session`.send_and_read_finish] to get a
+             * [struct`GLib`.Bytes] with the response body.
+             *
+             * See [method`Session`.send] for more details on the general semantics.
+             * @param msg a #SoupMessage
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
+             * @param callback the callback to invoke
+             */
+            send_and_read_async(
+                msg: Message,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously sends `msg` and reads the response body.
+             *
+             * When `callback` is called, then either `msg` has been sent, and its response
+             * body read, or else an error has occurred. This function should only be used
+             * when the resource to be retrieved is not too long and can be stored in
+             * memory. Call [method`Session`.send_and_read_finish] to get a
+             * [struct`GLib`.Bytes] with the response body.
+             *
+             * See [method`Session`.send] for more details on the general semantics.
+             * @param msg a #SoupMessage
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
              * @param callback the callback to invoke
              */
             send_and_read_async(
@@ -10266,7 +10624,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<GLib.Bytes> | void;
             /**
              * Gets the response to a [method`Session`.send_and_read_async].
              *
@@ -10302,6 +10660,46 @@ declare module 'gi://Soup?version=3.0' {
              * @param flags a set of #GOutputStreamSpliceFlags
              * @param io_priority the I/O priority of the request
              * @param cancellable a #GCancellable
+             */
+            send_and_splice_async(
+                msg: Message,
+                out_stream: Gio.OutputStream,
+                flags: Gio.OutputStreamSpliceFlags,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<number>;
+            /**
+             * Asynchronously sends `msg` and splices the response body stream into `out_stream`.
+             * When `callback` is called, then either `msg` has been sent and its response body
+             * spliced, or else an error has occurred.
+             *
+             * See [method`Session`.send] for more details on the general semantics.
+             * @param msg a #SoupMessage
+             * @param out_stream a #GOutputStream
+             * @param flags a set of #GOutputStreamSpliceFlags
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
+             * @param callback the callback to invoke
+             */
+            send_and_splice_async(
+                msg: Message,
+                out_stream: Gio.OutputStream,
+                flags: Gio.OutputStreamSpliceFlags,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously sends `msg` and splices the response body stream into `out_stream`.
+             * When `callback` is called, then either `msg` has been sent and its response body
+             * spliced, or else an error has occurred.
+             *
+             * See [method`Session`.send] for more details on the general semantics.
+             * @param msg a #SoupMessage
+             * @param out_stream a #GOutputStream
+             * @param flags a set of #GOutputStreamSpliceFlags
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
              * @param callback the callback to invoke
              */
             send_and_splice_async(
@@ -10311,13 +10709,51 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<number> | void;
             /**
              * Gets the response to a [method`Session`.send_and_splice_async].
              * @param result the #GAsyncResult passed to your callback
              * @returns a #gssize containing the size of the data spliced, or -1 if an error occurred.
              */
             send_and_splice_finish(result: Gio.AsyncResult): number;
+            /**
+             * Asynchronously sends `msg` and waits for the beginning of a response.
+             *
+             * When `callback` is called, then either `msg` has been sent, and its response
+             * headers received, or else an error has occurred. Call
+             * [method`Session`.send_finish] to get a [class`Gio`.InputStream] for reading the
+             * response body.
+             *
+             * See [method`Session`.send] for more details on the general semantics.
+             * @param msg a #SoupMessage
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
+             */
+            send_async(
+                msg: Message,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<Gio.InputStream>;
+            /**
+             * Asynchronously sends `msg` and waits for the beginning of a response.
+             *
+             * When `callback` is called, then either `msg` has been sent, and its response
+             * headers received, or else an error has occurred. Call
+             * [method`Session`.send_finish] to get a [class`Gio`.InputStream] for reading the
+             * response body.
+             *
+             * See [method`Session`.send] for more details on the general semantics.
+             * @param msg a #SoupMessage
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
+             * @param callback the callback to invoke
+             */
+            send_async(
+                msg: Message,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
             /**
              * Asynchronously sends `msg` and waits for the beginning of a response.
              *
@@ -10337,7 +10773,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<Gio.InputStream> | void;
             /**
              * Gets the response to a [method`Session`.send_async] call.
              *
@@ -10441,6 +10877,70 @@ declare module 'gi://Soup?version=3.0' {
              * @param protocols a   %NULL-terminated array of protocols supported
              * @param io_priority the I/O priority of the request
              * @param cancellable a #GCancellable
+             */
+            websocket_connect_async(
+                msg: Message,
+                origin: string | null,
+                protocols: string[] | null,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<WebsocketConnection>;
+            /**
+             * Asynchronously creates a [class`WebsocketConnection]` to communicate with a
+             * remote server.
+             *
+             * All necessary WebSocket-related headers will be added to `msg,` and
+             * it will then be sent and asynchronously processed normally
+             * (including handling of redirection and HTTP authentication).
+             *
+             * If the server returns "101 Switching Protocols", then `msg'`s status
+             * code and response headers will be updated, and then the WebSocket
+             * handshake will be completed. On success,
+             * [method`Session`.websocket_connect_finish] will return a new
+             * [class`WebsocketConnection]`. On failure it will return a #GError.
+             *
+             * If the server returns a status other than "101 Switching Protocols", then
+             * `msg` will contain the complete response headers and body from the server's
+             * response, and [method`Session`.websocket_connect_finish] will return
+             * %SOUP_WEBSOCKET_ERROR_NOT_WEBSOCKET.
+             * @param msg #SoupMessage indicating the WebSocket server to connect to
+             * @param origin origin of the connection
+             * @param protocols a   %NULL-terminated array of protocols supported
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
+             * @param callback the callback to invoke
+             */
+            websocket_connect_async(
+                msg: Message,
+                origin: string | null,
+                protocols: string[] | null,
+                io_priority: number,
+                cancellable: Gio.Cancellable | null,
+                callback: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Asynchronously creates a [class`WebsocketConnection]` to communicate with a
+             * remote server.
+             *
+             * All necessary WebSocket-related headers will be added to `msg,` and
+             * it will then be sent and asynchronously processed normally
+             * (including handling of redirection and HTTP authentication).
+             *
+             * If the server returns "101 Switching Protocols", then `msg'`s status
+             * code and response headers will be updated, and then the WebSocket
+             * handshake will be completed. On success,
+             * [method`Session`.websocket_connect_finish] will return a new
+             * [class`WebsocketConnection]`. On failure it will return a #GError.
+             *
+             * If the server returns a status other than "101 Switching Protocols", then
+             * `msg` will contain the complete response headers and body from the server's
+             * response, and [method`Session`.websocket_connect_finish] will return
+             * %SOUP_WEBSOCKET_ERROR_NOT_WEBSOCKET.
+             * @param msg #SoupMessage indicating the WebSocket server to connect to
+             * @param origin origin of the connection
+             * @param protocols a   %NULL-terminated array of protocols supported
+             * @param io_priority the I/O priority of the request
+             * @param cancellable a #GCancellable
              * @param callback the callback to invoke
              */
             websocket_connect_async(
@@ -10450,7 +10950,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
+            ): Promise<WebsocketConnection> | void;
             /**
              * Gets the [class`WebsocketConnection]` response to a
              * [method`Session`.websocket_connect_async] call.
