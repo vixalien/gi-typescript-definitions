@@ -372,7 +372,7 @@ declare module 'gi://GdkWayland?version=4.0' {
              * @param height height of the new surface
              * @returns a pointer to the newly allocated surface. The caller   owns the surface and should call cairo_surface_destroy() when done   with it.
              */
-            create_similar_surface(content: cairo.Content, width: number, height: number): cairo.Surface;
+            create_similar_surface(content: cairo.Content | null, width: number, height: number): cairo.Surface;
             /**
              * Sets an error and returns %NULL.
              * @returns %NULL
@@ -883,7 +883,7 @@ declare module 'gi://GdkWayland?version=4.0' {
              * @param timestamp timestamp of mouse click that began the drag (use   [method@Gdk.Event.get_time])
              */
             begin_resize(
-                edge: Gdk.SurfaceEdge,
+                edge: Gdk.SurfaceEdge | null,
                 device: Gdk.Device | null,
                 button: number,
                 x: number,
@@ -1061,7 +1061,7 @@ declare module 'gi://GdkWayland?version=4.0' {
              * @param gesture a `GdkTitlebarGesture`
              * @returns whether the gesture was performed
              */
-            titlebar_gesture(gesture: Gdk.TitlebarGesture): boolean;
+            titlebar_gesture(gesture: Gdk.TitlebarGesture | null): boolean;
             /**
              * Emits a short beep associated to `surface`.
              *
@@ -1105,7 +1105,7 @@ declare module 'gi://GdkWayland?version=4.0' {
              * @param height height of the new surface
              * @returns a pointer to the newly allocated surface. The caller   owns the surface and should call cairo_surface_destroy() when done   with it.
              */
-            create_similar_surface(content: cairo.Content, width: number, height: number): cairo.Surface;
+            create_similar_surface(content: cairo.Content | null, width: number, height: number): cairo.Surface;
             /**
              * Sets an error and returns %NULL.
              * @returns %NULL

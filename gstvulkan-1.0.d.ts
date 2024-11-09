@@ -303,7 +303,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             notify?: GLib.DestroyNotify | null,
         ): Gst.Memory;
         function vulkan_create_shader(device: VulkanDevice, code: string, size: number): VulkanHandle;
-        function vulkan_display_type_to_extension_string(type: VulkanDisplayType): string | null;
+        function vulkan_display_type_to_extension_string(type: VulkanDisplayType | null): string | null;
         /**
          * Perform the steps necessary for retrieving a #GstVulkanInstance and
          * (optionally) an #GstVulkanDisplay from the surrounding elements or from
@@ -445,7 +445,7 @@ declare module 'gi://GstVulkan?version=1.0' {
         function vulkan_memory_init_once(): void;
         function vulkan_memory_property_flags_to_string(prop_bits: Vulkan.MemoryPropertyFlags): string;
         function vulkan_present_mode_to_string(present_mode: Vulkan.PresentModeKHR): string;
-        function vulkan_run_query(element: Gst.Element, query: Gst.Query, direction: Gst.PadDirection): boolean;
+        function vulkan_run_query(element: Gst.Element, query: Gst.Query, direction: Gst.PadDirection | null): boolean;
         function vulkan_sample_count_flags_to_string(sample_count_bits: Vulkan.SampleCountFlags): string;
         /**
          * A #GstVulkanTrashNotify implementation for unreffing a #GstMiniObject when the

@@ -44,7 +44,7 @@ declare module 'gi://GstDxva?version=1.0' {
             AV1,
             LAST,
         }
-        function dxva_codec_to_string(codec: DxvaCodec): string;
+        function dxva_codec_to_string(codec: DxvaCodec | null): string;
         module DxvaAV1Decoder {
             // Constructor properties interface
 

@@ -1793,7 +1793,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param scale a `PangoFontScale` value, which indicates font size change relative   to the size of the previous run.
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_font_scale_new(scale: FontScale): Attribute;
+        function attr_font_scale_new(scale: FontScale | null): Attribute;
         /**
          * Create a new foreground alpha attribute.
          * @param alpha the alpha value, between 1 and 65536
@@ -1813,13 +1813,13 @@ declare module 'gi://Pango?version=1.0' {
          * @param hint the gravity hint value
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_gravity_hint_new(hint: GravityHint): Attribute;
+        function attr_gravity_hint_new(hint: GravityHint | null): Attribute;
         /**
          * Create a new gravity attribute.
          * @param gravity the gravity value; should not be %PANGO_GRAVITY_AUTO
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_gravity_new(gravity: Gravity): Attribute;
+        function attr_gravity_new(gravity: Gravity | null): Attribute;
         /**
          * Create a new insert-hyphens attribute.
          *
@@ -1887,7 +1887,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param overline the overline style
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_overline_new(overline: Overline): Attribute;
+        function attr_overline_new(overline: Overline | null): Attribute;
         /**
          * Create a new baseline displacement attribute.
          * @param rise the amount that the text should be displaced vertically,   in Pango units. Positive values displace the text upwards.
@@ -1949,7 +1949,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param flags `PangoShowFlags` to apply
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_show_new(flags: ShowFlags): Attribute;
+        function attr_show_new(flags: ShowFlags | null): Attribute;
         /**
          * Create a new font-size attribute in fractional points.
          * @param size the font size, in %PANGO_SCALE-ths of a point
@@ -1967,7 +1967,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param stretch the stretch
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_stretch_new(stretch: Stretch): Attribute;
+        function attr_stretch_new(stretch: Stretch | null): Attribute;
         /**
          * Create a new strikethrough color attribute.
          *
@@ -1990,14 +1990,14 @@ declare module 'gi://Pango?version=1.0' {
          * @param style the slant style
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_style_new(style: Style): Attribute;
+        function attr_style_new(style: Style | null): Attribute;
         /**
          * Create a new attribute that influences how characters
          * are transformed during shaping.
          * @param transform `PangoTextTransform` to apply
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_text_transform_new(transform: TextTransform): Attribute;
+        function attr_text_transform_new(transform: TextTransform | null): Attribute;
         /**
          * Fetches the attribute type name.
          *
@@ -2011,7 +2011,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param type an attribute type ID to fetch the name for
          * @returns the type ID name (which   may be %NULL), or %NULL if @type is a built-in Pango   attribute type or invalid.
          */
-        function attr_type_get_name(type: AttrType): string | null;
+        function attr_type_get_name(type: AttrType | null): string | null;
         /**
          * Allocate a new attribute type ID.
          *
@@ -2037,19 +2037,19 @@ declare module 'gi://Pango?version=1.0' {
          * @param underline the underline style
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_underline_new(underline: Underline): Attribute;
+        function attr_underline_new(underline: Underline | null): Attribute;
         /**
          * Create a new font variant attribute (normal or small caps).
          * @param variant the variant
          * @returns the newly allocated `PangoAttribute`,   which should be freed with [method@Pango.Attribute.destroy].
          */
-        function attr_variant_new(variant: Variant): Attribute;
+        function attr_variant_new(variant: Variant | null): Attribute;
         /**
          * Create a new font weight attribute.
          * @param weight the weight
          * @returns the newly allocated   `PangoAttribute`, which should be freed with   [method@Pango.Attribute.destroy]
          */
-        function attr_weight_new(weight: Weight): Attribute;
+        function attr_weight_new(weight: Weight | null): Attribute;
         /**
          * Marks the range of the attribute as a single word.
          *
@@ -2246,7 +2246,11 @@ declare module 'gi://Pango?version=1.0' {
          * @param hint orientation hint
          * @returns resolved gravity suitable to use for a run of text with @script
          */
-        function gravity_get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint): Gravity;
+        function gravity_get_for_script(
+            script: Script | null,
+            base_gravity: Gravity | null,
+            hint: GravityHint | null,
+        ): Gravity;
         /**
          * Returns the gravity to use in laying out a single character
          * or `PangoItem`.
@@ -2270,10 +2274,10 @@ declare module 'gi://Pango?version=1.0' {
          * @returns resolved gravity suitable to use for a run of text with @script and @wide.
          */
         function gravity_get_for_script_and_width(
-            script: Script,
+            script: Script | null,
             wide: boolean,
-            base_gravity: Gravity,
-            hint: GravityHint,
+            base_gravity: Gravity | null,
+            hint: GravityHint | null,
         ): Gravity;
         /**
          * Converts a `PangoGravity` value to its natural rotation in radians.
@@ -2284,7 +2288,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param gravity gravity to query, should not be %PANGO_GRAVITY_AUTO
          * @returns the rotation value corresponding to @gravity.
          */
-        function gravity_to_rotation(gravity: Gravity): number;
+        function gravity_to_rotation(gravity: Gravity | null): number;
         /**
          * Checks if a character that should not be normally rendered.
          *
@@ -2342,7 +2346,7 @@ declare module 'gi://Pango?version=1.0' {
          */
         function itemize_with_base_dir(
             context: Context,
-            base_dir: Direction,
+            base_dir: Direction | null,
             text: string,
             start_index: number,
             length: number,
@@ -2430,7 +2434,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param pbase_dir input base direction, and output resolved direction.
          * @returns a newly allocated array of embedding levels, one item per   character (not byte), that should be freed using [func@GLib.free].
          */
-        function log2vis_get_embedding_levels(text: string, length: number, pbase_dir: Direction): number;
+        function log2vis_get_embedding_levels(text: string, length: number, pbase_dir: Direction | null): number;
         /**
          * Finishes parsing markup.
          *
@@ -2679,7 +2683,7 @@ declare module 'gi://Pango?version=1.0' {
          * @param script a `PangoScript`
          * @returns a `PangoLanguage` that is representative   of the script
          */
-        function script_get_sample_language(script: Script): Language | null;
+        function script_get_sample_language(script: Script | null): Language | null;
         /**
          * Convert the characters in `text` into glyphs.
          *
@@ -2769,7 +2773,7 @@ declare module 'gi://Pango?version=1.0' {
             paragraph_length: number,
             log_attrs: LogAttr | null,
             glyphs: GlyphString,
-            flags: ShapeFlags,
+            flags: ShapeFlags | null,
         ): void;
         /**
          * Convert the characters in `text` into glyphs.
@@ -2805,7 +2809,7 @@ declare module 'gi://Pango?version=1.0' {
             paragraph_length: number,
             analysis: Analysis,
             glyphs: GlyphString,
-            flags: ShapeFlags,
+            flags: ShapeFlags | null,
         ): void;
         /**
          * Skips 0 or more characters of white space.
@@ -3254,14 +3258,14 @@ declare module 'gi://Pango?version=1.0' {
              * for paragraphs that do not contain any strong characters themselves.
              * @param direction the new base direction
              */
-            set_base_dir(direction: Direction): void;
+            set_base_dir(direction: Direction | null): void;
             /**
              * Sets the base gravity for the context.
              *
              * The base gravity is used in laying vertical text out.
              * @param gravity the new base gravity
              */
-            set_base_gravity(gravity: Gravity): void;
+            set_base_gravity(gravity: Gravity | null): void;
             /**
              * Set the default font description for the context
              * @param desc the new pango font description
@@ -3286,7 +3290,7 @@ declare module 'gi://Pango?version=1.0' {
              * or %PANGO_GRAVITY_WEST.
              * @param hint the new gravity hint
              */
-            set_gravity_hint(hint: GravityHint): void;
+            set_gravity_hint(hint: GravityHint | null): void;
             /**
              * Sets the global language tag for the context.
              *
@@ -3388,7 +3392,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param index_ the index to modify
              * @param level the new level for @index_
              */
-            set(index_: number, level: CoverageLevel): void;
+            set(index_: number, level: CoverageLevel | null): void;
             // Conflicted with GObject.Object.set
             set(...args: never[]): any;
             /**
@@ -4031,7 +4035,7 @@ declare module 'gi://Pango?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -4072,7 +4076,7 @@ declare module 'gi://Pango?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -4720,7 +4724,7 @@ declare module 'gi://Pango?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -4761,7 +4765,7 @@ declare module 'gi://Pango?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -5669,7 +5673,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param flags `PangoLayoutSerializeFlags`
              * @returns a `GBytes` containing the serialized form of @layout
              */
-            serialize(flags: LayoutSerializeFlags): GLib.Bytes;
+            serialize(flags: LayoutSerializeFlags | null): GLib.Bytes;
             /**
              * Sets the alignment for the layout: how partial lines are
              * positioned within the horizontal space available.
@@ -5677,7 +5681,7 @@ declare module 'gi://Pango?version=1.0' {
              * The default alignment is %PANGO_ALIGN_LEFT.
              * @param alignment the alignment
              */
-            set_alignment(alignment: Alignment): void;
+            set_alignment(alignment: Alignment | null): void;
             /**
              * Sets the text attributes for a layout object.
              *
@@ -5723,7 +5727,7 @@ declare module 'gi://Pango?version=1.0' {
              * See [method`Pango`.Layout.set_height] for details.
              * @param ellipsize the new ellipsization mode for @layout
              */
-            set_ellipsize(ellipsize: EllipsizeMode): void;
+            set_ellipsize(ellipsize: EllipsizeMode | null): void;
             /**
              * Sets the default font description for the layout.
              *
@@ -5941,7 +5945,7 @@ declare module 'gi://Pango?version=1.0' {
              * The default value is %PANGO_WRAP_WORD.
              * @param wrap the wrap mode
              */
-            set_wrap(wrap: WrapMode): void;
+            set_wrap(wrap: WrapMode | null): void;
             /**
              * A convenience method to serialize a layout to a file.
              *
@@ -5956,7 +5960,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param filename the file to save it to
              * @returns %TRUE if saving was successful
              */
-            write_to_file(flags: LayoutSerializeFlags, filename: string): boolean;
+            write_to_file(flags: LayoutSerializeFlags | null, filename: string): boolean;
             /**
              * Converts from X and Y position within a layout to the byte index to the
              * character at that logical position.
@@ -6245,7 +6249,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param width width of rectangle in Pango units
              * @param height height of rectangle in Pango units
              */
-            draw_rectangle(part: RenderPart, x: number, y: number, width: number, height: number): void;
+            draw_rectangle(part: RenderPart | null, x: number, y: number, width: number, height: number): void;
             /**
              * Draws a trapezoid with the parallel sides aligned with the X axis
              * using the given `PangoRenderer`; coordinates are in device space.
@@ -6258,7 +6262,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param x22 X coordinate of right end of bottom of trapezoid
              */
             draw_trapezoid(
-                part: RenderPart,
+                part: RenderPart | null,
                 y1_: number,
                 x11: number,
                 x21: number,
@@ -6271,13 +6275,13 @@ declare module 'gi://Pango?version=1.0' {
              * @param part the part to get the alpha for
              * @returns the alpha for the specified part,   or 0 if it hasn't been set and should be   inherited from the environment.
              */
-            get_alpha(part: RenderPart): number;
+            get_alpha(part: RenderPart | null): number;
             /**
              * Gets the current rendering color for the specified part.
              * @param part the part to get the color for
              * @returns the color for the   specified part, or %NULL if it hasn't been set and should be   inherited from the environment.
              */
-            get_color(part: RenderPart): Color | null;
+            get_color(part: RenderPart | null): Color | null;
             /**
              * Gets the layout currently being rendered using `renderer`.
              *
@@ -6326,7 +6330,7 @@ declare module 'gi://Pango?version=1.0' {
              * changes to colors. (See [method`Pango`.Renderer.set_color])
              * @param part the part for which rendering has changed.
              */
-            part_changed(part: RenderPart): void;
+            part_changed(part: RenderPart | null): void;
             /**
              * Sets the alpha for part of the rendering.
              *
@@ -6335,7 +6339,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param part the part to set the alpha for
              * @param alpha an alpha value between 1 and 65536, or 0 to unset the alpha
              */
-            set_alpha(part: RenderPart, alpha: number): void;
+            set_alpha(part: RenderPart | null, alpha: number): void;
             /**
              * Sets the color for part of the rendering.
              *
@@ -6343,7 +6347,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param part the part to change the color of
              * @param color the new color or %NULL to unset the current color
              */
-            set_color(part: RenderPart, color?: Color | null): void;
+            set_color(part: RenderPart | null, color?: Color | null): void;
             /**
              * Sets the transformation matrix that will be applied when rendering.
              * @param matrix a `PangoMatrix`, or %NULL to unset any existing matrix  (No matrix set is the same as setting the identity matrix.)
@@ -6528,7 +6532,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param type the type of attribute to find
              * @returns the current   attribute of the given type, or %NULL if no attribute   of that type applies to the current location.
              */
-            get(type: AttrType): Attribute | null;
+            get(type: AttrType | null): Attribute | null;
             /**
              * Gets a list of all attributes at the current position of the
              * iterator.
@@ -7345,7 +7349,7 @@ declare module 'gi://Pango?version=1.0' {
              * be set on a `PangoContext`.
              * @param gravity the gravity for the font description.
              */
-            set_gravity(gravity: Gravity): void;
+            set_gravity(gravity: Gravity | null): void;
             /**
              * Sets the size field of a font description in fractional points.
              *
@@ -7361,7 +7365,7 @@ declare module 'gi://Pango?version=1.0' {
              * wide the font should be.
              * @param stretch the stretch for the font description
              */
-            set_stretch(stretch: Stretch): void;
+            set_stretch(stretch: Stretch | null): void;
             /**
              * Sets the style field of a `PangoFontDescription`.
              *
@@ -7375,7 +7379,7 @@ declare module 'gi://Pango?version=1.0' {
              * match is not found.
              * @param style the style for the font description
              */
-            set_style(style: Style): void;
+            set_style(style: Style | null): void;
             /**
              * Sets the variant field of a font description.
              *
@@ -7383,7 +7387,7 @@ declare module 'gi://Pango?version=1.0' {
              * or %PANGO_VARIANT_SMALL_CAPS.
              * @param variant the variant type for the font description.
              */
-            set_variant(variant: Variant): void;
+            set_variant(variant: Variant | null): void;
             /**
              * Sets the variations field of a font description.
              *
@@ -7425,7 +7429,7 @@ declare module 'gi://Pango?version=1.0' {
              * intermediate numeric values are possible.
              * @param weight the weight for the font description.
              */
-            set_weight(weight: Weight): void;
+            set_weight(weight: Weight | null): void;
             /**
              * Creates a filename representation of a font description.
              *
@@ -7452,7 +7456,7 @@ declare module 'gi://Pango?version=1.0' {
              * The unset fields will get back to their default values.
              * @param to_unset bitmask of fields in the @desc to unset.
              */
-            unset_fields(to_unset: FontMask): void;
+            unset_fields(to_unset: FontMask | null): void;
         }
 
         type FontFaceClass = typeof FontFace;
@@ -8254,7 +8258,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param script a `PangoScript`
              * @returns %TRUE if @script is one of the scripts used   to write @language or if nothing is known about @language   (including the case that @language is %NULL), %FALSE otherwise.
              */
-            includes_script(script: Script): boolean;
+            includes_script(script: Script | null): boolean;
             /**
              * Checks if a language tag matches one of the elements in a list of
              * language ranges.
@@ -8995,7 +8999,7 @@ declare module 'gi://Pango?version=1.0' {
              * @param alignment tab alignment
              * @param location tab location in Pango units
              */
-            set_tab(tab_index: number, alignment: TabAlign, location: number): void;
+            set_tab(tab_index: number, alignment: TabAlign | null, location: number): void;
             /**
              * Utility function to ensure that the tab stops are in increasing order.
              */

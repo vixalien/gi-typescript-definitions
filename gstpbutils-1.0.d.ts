@@ -596,7 +596,7 @@ declare module 'gi://GstPbutils?version=1.0' {
          * @param ret the return status code
          * @returns a descriptive string for the status code in @ret
          */
-        function install_plugins_return_get_name(ret: InstallPluginsReturn): string;
+        function install_plugins_return_get_name(ret: InstallPluginsReturn | null): string;
         /**
          * Checks whether plugin installation is likely to be supported by the
          * current environment. This currently only checks whether the helper script
@@ -1306,7 +1306,7 @@ declare module 'gi://GstPbutils?version=1.0' {
              * @param flags A combination of #GstDiscovererSerializeFlags to specify what needs to be serialized.
              * @returns A newly-allocated #GVariant representing @info.
              */
-            to_variant(flags: DiscovererSerializeFlags): GLib.Variant;
+            to_variant(flags: DiscovererSerializeFlags | null): GLib.Variant;
         }
 
         module DiscovererStreamInfo {

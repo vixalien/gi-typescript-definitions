@@ -357,7 +357,7 @@ declare module 'gi://PangoFT2?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -398,7 +398,7 @@ declare module 'gi://PangoFT2?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,

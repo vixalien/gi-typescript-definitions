@@ -102,7 +102,7 @@ declare module 'gi://GstGLEGL?version=1.0' {
             fd: number,
             offset: number,
             in_info: GstVideo.VideoInfo,
-            target: GstGL.GLTextureTarget,
+            target: GstGL.GLTextureTarget | null,
         ): EGLImage | null;
         /**
          * Creates an EGL image that imports the dmabuf FD. The dmabuf data is passed
@@ -125,7 +125,7 @@ declare module 'gi://GstGLEGL?version=1.0' {
             fd: number,
             offset: number,
             in_info_dma: GstVideo.VideoInfoDmaDrm,
-            target: GstGL.GLTextureTarget,
+            target: GstGL.GLTextureTarget | null,
         ): EGLImage | null;
         function egl_image_from_texture(
             context: GstGL.GLContext,

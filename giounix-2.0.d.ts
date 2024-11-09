@@ -1315,7 +1315,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1356,7 +1356,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -2665,6 +2665,54 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             vfunc_skip_finish(result: Gio.AsyncResult): number;
             /**
+             * Creates an asynchronous iterator for a Gio.InputStream that reads the stream in chunks.
+             *
+             * Each iteration will return a GLib.Bytes object containing at most `count` bytes (default 4096). The iterator will end when the stream is exhausted.
+             *
+             * Example:
+             * ```js
+             * import Gio from "gi://Gio";
+             *
+             * const textDecoder = new TextDecoder("utf-8");
+             *
+             * const file = Gio.File.new_for_path("/etc/os-release");
+             * const inputStream = file.read(null);
+             *
+             * for await (const bytes of inputStream.createAsyncIterator(4)) {
+             *   log(textDecoder.decode(bytes.toArray()));
+             * }
+             * ```
+             *
+             * `returns` An async iterator yielding GLib.Bytes objects
+             * @param count Maximum number of bytes to read per chunk (default: 4096)
+             * @param priority I/O priority of the request (default: GLib.PRIORITY_DEFAULT)
+             */
+            createAsyncIterator(count?: number, priority?: number): AsyncIterableIterator<GLib.Bytes>;
+            /**
+             * Creates a synchronous iterator for a Gio.InputStream that reads the stream in chunks.
+             *
+             * Each iteration will return a GLib.Bytes object containing at most `count` bytes (default 4096). The iterator will end when the stream is exhausted.
+             *
+             * Example:
+             * ```js
+             * import Gio from "gi://Gio";
+             *
+             * const textDecoder = new TextDecoder("utf-8");
+             *
+             * const file = Gio.File.new_for_path("/etc/os-release");
+             * const inputStream = file.read(null);
+             *
+             * for (const bytes of inputStream.createSyncIterator(4)) {
+             *   log(textDecoder.decode(bytes.toArray()));
+             * }
+             * ```
+             *
+             * `returns` An iterable yielding GLib.Bytes objects
+             * @param count Maximum number of bytes to read per chunk (default: 4096)
+             * @param priority I/O priority of the request (default: GLib.PRIORITY_DEFAULT)
+             */
+            createSyncIterator(count?: number, priority?: number): IterableIterator<GLib.Bytes>;
+            /**
              * Creates a binding between `source_property` on `source` and `target_property`
              * on `target`.
              *
@@ -2708,7 +2756,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -2749,7 +2797,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -3587,7 +3635,7 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             splice(
                 source: Gio.InputStream,
-                flags: Gio.OutputStreamSpliceFlags,
+                flags: Gio.OutputStreamSpliceFlags | null,
                 cancellable?: Gio.Cancellable | null,
             ): number;
             /**
@@ -3605,7 +3653,7 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             splice_async(
                 source: Gio.InputStream,
-                flags: Gio.OutputStreamSpliceFlags,
+                flags: Gio.OutputStreamSpliceFlags | null,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
             ): Promise<number>;
@@ -3625,7 +3673,7 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             splice_async(
                 source: Gio.InputStream,
-                flags: Gio.OutputStreamSpliceFlags,
+                flags: Gio.OutputStreamSpliceFlags | null,
                 io_priority: number,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
@@ -3646,7 +3694,7 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             splice_async(
                 source: Gio.InputStream,
-                flags: Gio.OutputStreamSpliceFlags,
+                flags: Gio.OutputStreamSpliceFlags | null,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
@@ -4621,7 +4669,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -4662,7 +4710,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -5265,7 +5313,9 @@ declare module 'gi://GioUnix?version=2.0' {
         }
         interface DesktopAppInfoLookup extends GObject.Object {}
 
-        export const DesktopAppInfoLookup: DesktopAppInfoLookupNamespace;
+        export const DesktopAppInfoLookup: DesktopAppInfoLookupNamespace & {
+            new (): DesktopAppInfoLookup; // This allows `obj instanceof DesktopAppInfoLookup`
+        };
 
         module FileDescriptorBased {
             // Constructor properties interface
@@ -5285,7 +5335,9 @@ declare module 'gi://GioUnix?version=2.0' {
         }
         interface FileDescriptorBased extends GObject.Object {}
 
-        export const FileDescriptorBased: FileDescriptorBasedNamespace;
+        export const FileDescriptorBased: FileDescriptorBasedNamespace & {
+            new (): FileDescriptorBased; // This allows `obj instanceof FileDescriptorBased`
+        };
 
         /**
          * Name of the imported GIR library

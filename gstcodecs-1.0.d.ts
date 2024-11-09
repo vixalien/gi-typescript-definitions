@@ -1021,7 +1021,7 @@ declare module 'gi://GstCodecs?version=1.0' {
              * Mark all pictures are not referenced
              */
             mark_all_non_ref(): void;
-            needs_bump(to_insert: H264Picture, latency_mode: H264DpbBumpMode): boolean;
+            needs_bump(to_insert: H264Picture, latency_mode: H264DpbBumpMode | null): boolean;
             num_ref_frames(): number;
             set_interlaced(interlaced: boolean): void;
             /**

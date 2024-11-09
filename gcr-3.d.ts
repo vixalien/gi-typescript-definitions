@@ -401,7 +401,7 @@ declare module 'gi://Gcr?version=3' {
          */
         function fingerprint_from_attributes(
             attrs: Gck.Attributes,
-            checksum_type: GLib.ChecksumType,
+            checksum_type: GLib.ChecksumType | null,
         ): Uint8Array | null;
         /**
          * Create a key fingerprint for a DER encoded subjectPublicKeyInfo. The
@@ -417,7 +417,7 @@ declare module 'gi://Gcr?version=3' {
          */
         function fingerprint_from_subject_public_key_info(
             key_info: Uint8Array | string,
-            checksum_type: GLib.ChecksumType,
+            checksum_type: GLib.ChecksumType | null,
         ): Uint8Array | null;
         /**
          * Get an appropriate icon for the token
@@ -1161,7 +1161,7 @@ declare module 'gi://Gcr?version=3' {
             build(
                 purpose: string,
                 peer: string | null,
-                flags: CertificateChainFlags,
+                flags: CertificateChainFlags | null,
                 cancellable?: Gio.Cancellable | null,
             ): boolean;
             /**
@@ -1202,7 +1202,7 @@ declare module 'gi://Gcr?version=3' {
             build_async(
                 purpose: string,
                 peer: string | null,
-                flags: CertificateChainFlags,
+                flags: CertificateChainFlags | null,
                 cancellable?: Gio.Cancellable | null,
             ): Promise<boolean>;
             /**
@@ -1244,7 +1244,7 @@ declare module 'gi://Gcr?version=3' {
             build_async(
                 purpose: string,
                 peer: string | null,
-                flags: CertificateChainFlags,
+                flags: CertificateChainFlags | null,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
             ): void;
@@ -1287,7 +1287,7 @@ declare module 'gi://Gcr?version=3' {
             build_async(
                 purpose: string,
                 peer: string | null,
-                flags: CertificateChainFlags,
+                flags: CertificateChainFlags | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): Promise<boolean> | void;
@@ -1635,7 +1635,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1676,7 +1676,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -2112,18 +2112,18 @@ declare module 'gi://Gcr?version=3' {
              * Disable parsing of the given format. Use %GCR_FORMAT_ALL to disable all the formats.
              * @param format The format identifier
              */
-            format_disable(format: DataFormat): void;
+            format_disable(format: DataFormat | null): void;
             /**
              * Enable parsing of the given format. Use %GCR_FORMAT_ALL to enable all the formats.
              * @param format The format identifier
              */
-            format_enable(format: DataFormat): void;
+            format_enable(format: DataFormat | null): void;
             /**
              * Check whether the given format is supported by the parser.
              * @param format The format identifier
              * @returns Whether the format is supported.
              */
-            format_supported(format: DataFormat): boolean;
+            format_supported(format: DataFormat | null): boolean;
             /**
              * Get the filename of the parser item.
              * @returns the filename set on the parser, or %NULL
@@ -2400,7 +2400,7 @@ declare module 'gi://Gcr?version=3' {
              * @param type the type of algorithm for the fingerprint.
              * @returns the raw binary fingerprint
              */
-            get_fingerprint(type: GLib.ChecksumType): Uint8Array;
+            get_fingerprint(type: GLib.ChecksumType | null): Uint8Array;
             /**
              * Calculate the fingerprint for this certificate, and return it
              * as a hex string.
@@ -2410,7 +2410,7 @@ declare module 'gi://Gcr?version=3' {
              * @param type the type of algorithm for the fingerprint.
              * @returns an allocated hex string which contains the fingerprint.
              */
-            get_fingerprint_hex(type: GLib.ChecksumType): string;
+            get_fingerprint_hex(type: GLib.ChecksumType | null): string;
             /**
              * Get the issued date of this certificate.
              *
@@ -2612,7 +2612,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -2653,7 +2653,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -3173,7 +3173,7 @@ declare module 'gi://Gcr?version=3' {
              * @param type the type of algorithm for the fingerprint.
              * @returns the raw binary fingerprint
              */
-            get_fingerprint(type: GLib.ChecksumType): Uint8Array;
+            get_fingerprint(type: GLib.ChecksumType | null): Uint8Array;
             /**
              * Calculate the fingerprint for this certificate, and return it
              * as a hex string.
@@ -3183,7 +3183,7 @@ declare module 'gi://Gcr?version=3' {
              * @param type the type of algorithm for the fingerprint.
              * @returns an allocated hex string which contains the fingerprint.
              */
-            get_fingerprint_hex(type: GLib.ChecksumType): string;
+            get_fingerprint_hex(type: GLib.ChecksumType | null): string;
             /**
              * Get the issued date of this certificate.
              *
@@ -3385,7 +3385,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -3426,7 +3426,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -3868,7 +3868,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -3909,7 +3909,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -5355,7 +5355,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -5396,7 +5396,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -5967,7 +5967,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -6008,7 +6008,7 @@ declare module 'gi://Gcr?version=3' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -6596,7 +6596,7 @@ declare module 'gi://Gcr?version=3' {
              * @param type the type of algorithm for the fingerprint.
              * @returns the raw binary fingerprint
              */
-            get_fingerprint(type: GLib.ChecksumType): Uint8Array;
+            get_fingerprint(type: GLib.ChecksumType | null): Uint8Array;
             /**
              * Calculate the fingerprint for this certificate, and return it
              * as a hex string.
@@ -6606,7 +6606,7 @@ declare module 'gi://Gcr?version=3' {
              * @param type the type of algorithm for the fingerprint.
              * @returns an allocated hex string which contains the fingerprint.
              */
-            get_fingerprint_hex(type: GLib.ChecksumType): string;
+            get_fingerprint_hex(type: GLib.ChecksumType | null): string;
             /**
              * Get the issued date of this certificate.
              *
@@ -6756,7 +6756,9 @@ declare module 'gi://Gcr?version=3' {
             vfunc_get_der_data(): Uint8Array;
         }
 
-        export const Certificate: CertificateNamespace;
+        export const Certificate: CertificateNamespace & {
+            new (): Certificate; // This allows `obj instanceof Certificate`
+        };
 
         module Collection {
             // Constructor properties interface
@@ -6819,7 +6821,9 @@ declare module 'gi://Gcr?version=3' {
             vfunc_removed(object: GObject.Object): void;
         }
 
-        export const Collection: CollectionNamespace;
+        export const Collection: CollectionNamespace & {
+            new (): Collection; // This allows `obj instanceof Collection`
+        };
 
         module Comparable {
             // Constructor properties interface
@@ -6852,7 +6856,9 @@ declare module 'gi://Gcr?version=3' {
             vfunc_compare(other?: Comparable | null): number;
         }
 
-        export const Comparable: ComparableNamespace;
+        export const Comparable: ComparableNamespace & {
+            new (): Comparable; // This allows `obj instanceof Comparable`
+        };
 
         module ImportInteraction {
             // Constructor properties interface
@@ -6992,7 +6998,9 @@ declare module 'gi://Gcr?version=3' {
             vfunc_supplement_prep(builder: Gck.Builder): void;
         }
 
-        export const ImportInteraction: ImportInteractionNamespace;
+        export const ImportInteraction: ImportInteractionNamespace & {
+            new (): ImportInteraction; // This allows `obj instanceof ImportInteraction`
+        };
 
         module Importer {
             // Constructor properties interface
@@ -7155,7 +7163,9 @@ declare module 'gi://Gcr?version=3' {
             vfunc_queue_for_parsed(parsed: Parsed): boolean;
         }
 
-        export const Importer: ImporterNamespace;
+        export const Importer: ImporterNamespace & {
+            new (): Importer; // This allows `obj instanceof Importer`
+        };
 
         module Prompt {
             // Constructor properties interface
@@ -7739,7 +7749,9 @@ declare module 'gi://Gcr?version=3' {
             vfunc_prompt_password_finish(result: Gio.AsyncResult): string;
         }
 
-        export const Prompt: PromptNamespace;
+        export const Prompt: PromptNamespace & {
+            new (): Prompt; // This allows `obj instanceof Prompt`
+        };
 
         /**
          * Name of the imported GIR library

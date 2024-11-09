@@ -2333,7 +2333,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -2374,7 +2374,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -3317,7 +3317,7 @@ declare module 'gi://WebKit?version=6.0' {
              * See also webkit_website_data_manager_set_itp_enabled().
              * @param policy a #WebKitCookieAcceptPolicy
              */
-            set_accept_policy(policy: CookieAcceptPolicy): void;
+            set_accept_policy(policy: CookieAcceptPolicy | null): void;
             /**
              * Set non-session cookies.
              *
@@ -3333,7 +3333,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param filename the filename to read to/write from
              * @param storage a #WebKitCookiePersistentStorage
              */
-            set_persistent_storage(filename: string, storage: CookiePersistentStorage): void;
+            set_persistent_storage(filename: string, storage: CookiePersistentStorage | null): void;
         }
 
         module DeviceInfoPermissionRequest {
@@ -3422,7 +3422,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -3463,7 +3463,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -4809,7 +4809,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -4850,7 +4850,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -5577,12 +5577,12 @@ declare module 'gi://WebKit?version=6.0' {
              * Set the value of the #WebKitInputMethodContext:input-hints property.
              * @param hints a #WebKitInputHints
              */
-            set_input_hints(hints: InputHints): void;
+            set_input_hints(hints: InputHints | null): void;
             /**
              * Set the value of the #WebKitInputMethodContext:input-purpose property.
              * @param purpose a #WebKitInputPurpose
              */
-            set_input_purpose(purpose: InputPurpose): void;
+            set_input_purpose(purpose: InputPurpose | null): void;
         }
 
         module MediaKeySystemPermissionRequest {
@@ -5674,7 +5674,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -5715,7 +5715,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -6303,12 +6303,12 @@ declare module 'gi://WebKit?version=6.0' {
              * @param proxy_mode a #WebKitNetworkProxyMode
              * @param proxy_settings a #WebKitNetworkProxySettings, or %NULL
              */
-            set_proxy_settings(proxy_mode: NetworkProxyMode, proxy_settings?: NetworkProxySettings | null): void;
+            set_proxy_settings(proxy_mode: NetworkProxyMode | null, proxy_settings?: NetworkProxySettings | null): void;
             /**
              * Set the TLS errors policy of `session` as `policy`.
              * @param policy a #WebKitTLSErrorsPolicy
              */
-            set_tls_errors_policy(policy: TLSErrorsPolicy): void;
+            set_tls_errors_policy(policy: TLSErrorsPolicy | null): void;
         }
 
         module Notification {
@@ -6496,7 +6496,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -6537,7 +6537,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -7029,7 +7029,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -7070,7 +7070,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -9371,7 +9371,7 @@ declare module 'gi://WebKit?version=6.0' {
              * Set the #WebKitSettings:hardware-acceleration-policy property.
              * @param policy a #WebKitHardwareAccelerationPolicy
              */
-            set_hardware_acceleration_policy(policy: HardwareAccelerationPolicy): void;
+            set_hardware_acceleration_policy(policy: HardwareAccelerationPolicy | null): void;
             /**
              * Set the #WebKitSettings:javascript-can-access-clipboard property.
              * @param enabled Value to be set
@@ -10460,7 +10460,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -10501,7 +10501,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -11221,7 +11221,7 @@ declare module 'gi://WebKit?version=6.0' {
              * %WEBKIT_CACHE_MODEL_WEB_BROWSER.
              * @param cache_model a #WebKitCacheModel
              */
-            set_cache_model(cache_model: CacheModel): void;
+            set_cache_model(cache_model: CacheModel | null): void;
             /**
              * Set the list of preferred languages.
              *
@@ -13084,8 +13084,8 @@ declare module 'gi://WebKit?version=6.0' {
              * @param cancellable a #GCancellable
              */
             get_snapshot(
-                region: SnapshotRegion,
-                options: SnapshotOptions,
+                region: SnapshotRegion | null,
+                options: SnapshotOptions | null,
                 cancellable?: Gio.Cancellable | null,
             ): Promise<Gdk.Texture>;
             /**
@@ -13102,8 +13102,8 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback
              */
             get_snapshot(
-                region: SnapshotRegion,
-                options: SnapshotOptions,
+                region: SnapshotRegion | null,
+                options: SnapshotOptions | null,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
             ): void;
@@ -13121,8 +13121,8 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback
              */
             get_snapshot(
-                region: SnapshotRegion,
-                options: SnapshotOptions,
+                region: SnapshotRegion | null,
+                options: SnapshotOptions | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): Promise<Gdk.Texture> | void;
@@ -13382,7 +13382,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param save_mode the #WebKitSaveMode specifying how the web page should be saved.
              * @param cancellable a #GCancellable or %NULL to ignore
              */
-            save(save_mode: SaveMode, cancellable?: Gio.Cancellable | null): Promise<Gio.InputStream>;
+            save(save_mode: SaveMode | null, cancellable?: Gio.Cancellable | null): Promise<Gio.InputStream>;
             /**
              * Asynchronously save the current web page.
              *
@@ -13398,7 +13398,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             save(
-                save_mode: SaveMode,
+                save_mode: SaveMode | null,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
             ): void;
@@ -13417,7 +13417,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             save(
-                save_mode: SaveMode,
+                save_mode: SaveMode | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): Promise<Gio.InputStream> | void;
@@ -13441,7 +13441,11 @@ declare module 'gi://WebKit?version=6.0' {
              * @param save_mode the #WebKitSaveMode specifying how the web page should be saved.
              * @param cancellable a #GCancellable or %NULL to ignore
              */
-            save_to_file(file: Gio.File, save_mode: SaveMode, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            save_to_file(
+                file: Gio.File,
+                save_mode: SaveMode | null,
+                cancellable?: Gio.Cancellable | null,
+            ): Promise<boolean>;
             /**
              * Asynchronously save the current web page.
              *
@@ -13459,7 +13463,7 @@ declare module 'gi://WebKit?version=6.0' {
              */
             save_to_file(
                 file: Gio.File,
-                save_mode: SaveMode,
+                save_mode: SaveMode | null,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
             ): void;
@@ -13480,7 +13484,7 @@ declare module 'gi://WebKit?version=6.0' {
              */
             save_to_file(
                 file: Gio.File,
-                save_mode: SaveMode,
+                save_mode: SaveMode | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): Promise<boolean> | void;
@@ -13557,7 +13561,7 @@ declare module 'gi://WebKit?version=6.0' {
              * anymore. The page can however request capture again using the mediaDevices API.
              * @param state a #WebKitMediaCaptureState
              */
-            set_camera_capture_state(state: MediaCaptureState): void;
+            set_camera_capture_state(state: MediaCaptureState | null): void;
             /**
              * Sets the `allowlist` for CORS.
              *
@@ -13596,7 +13600,7 @@ declare module 'gi://WebKit?version=6.0' {
              * anymore. The page can however request capture again using the mediaDevices API.
              * @param state a #WebKitMediaCaptureState
              */
-            set_display_capture_state(state: MediaCaptureState): void;
+            set_display_capture_state(state: MediaCaptureState | null): void;
             /**
              * Sets whether the user is allowed to edit the HTML document.
              *
@@ -13632,7 +13636,7 @@ declare module 'gi://WebKit?version=6.0' {
              * anymore. The page can however request capture again using the mediaDevices API.
              * @param state a #WebKitMediaCaptureState
              */
-            set_microphone_capture_state(state: MediaCaptureState): void;
+            set_microphone_capture_state(state: MediaCaptureState | null): void;
             /**
              * Sets the #WebKitSettings to be applied to `web_view`.
              *
@@ -13724,7 +13728,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -13765,7 +13769,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -14131,7 +14135,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param message the string to announce
              * @param priority the priority of the announcement
              */
-            announce(message: string, priority: Gtk.AccessibleAnnouncementPriority): void;
+            announce(message: string, priority: Gtk.AccessibleAnnouncementPriority | null): void;
             /**
              * Retrieves the accessible parent for an accessible object.
              *
@@ -14179,22 +14183,22 @@ declare module 'gi://WebKit?version=6.0' {
              * @param state platform state to query
              * @returns the value of @state for the accessible
              */
-            get_platform_state(state: Gtk.AccessiblePlatformState): boolean;
+            get_platform_state(state: Gtk.AccessiblePlatformState | null): boolean;
             /**
              * Resets the accessible `property` to its default value.
              * @param property a `GtkAccessibleProperty`
              */
-            reset_property(property: Gtk.AccessibleProperty): void;
+            reset_property(property: Gtk.AccessibleProperty | null): void;
             /**
              * Resets the accessible `relation` to its default value.
              * @param relation a `GtkAccessibleRelation`
              */
-            reset_relation(relation: Gtk.AccessibleRelation): void;
+            reset_relation(relation: Gtk.AccessibleRelation | null): void;
             /**
              * Resets the accessible `state` to its default value.
              * @param state a `GtkAccessibleState`
              */
-            reset_state(state: Gtk.AccessibleState): void;
+            reset_state(state: Gtk.AccessibleState | null): void;
             /**
              * Sets the parent and sibling of an accessible object.
              *
@@ -14227,7 +14231,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param properties an array of `GtkAccessibleProperty`
              * @param values an array of `GValues`, one for each property
              */
-            update_property(properties: Gtk.AccessibleProperty[], values: (GObject.Value | any)[]): void;
+            update_property(properties: Gtk.AccessibleProperty[] | null, values: (GObject.Value | any)[]): void;
             /**
              * Updates an array of accessible relations.
              *
@@ -14238,7 +14242,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param relations an array of `GtkAccessibleRelation`
              * @param values an array of `GValues`, one for each relation
              */
-            update_relation(relations: Gtk.AccessibleRelation[], values: (GObject.Value | any)[]): void;
+            update_relation(relations: Gtk.AccessibleRelation[] | null, values: (GObject.Value | any)[]): void;
             /**
              * Updates an array of accessible states.
              *
@@ -14249,7 +14253,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param states an array of `GtkAccessibleState`
              * @param values an array of `GValues`, one for each state
              */
-            update_state(states: Gtk.AccessibleState[], values: (GObject.Value | any)[]): void;
+            update_state(states: Gtk.AccessibleState[] | null, values: (GObject.Value | any)[]): void;
             /**
              * Retrieves the accessible parent for an accessible object.
              *
@@ -14424,7 +14428,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -14465,7 +14469,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -14880,7 +14884,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -14921,7 +14925,7 @@ declare module 'gi://WebKit?version=6.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -15359,7 +15363,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param cancellable a #GCancellable or %NULL to ignore
              */
             clear(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 timespan: GLib.TimeSpan,
                 cancellable?: Gio.Cancellable | null,
             ): Promise<boolean>;
@@ -15380,7 +15384,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             clear(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 timespan: GLib.TimeSpan,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
@@ -15402,7 +15406,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             clear(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 timespan: GLib.TimeSpan,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
@@ -15421,7 +15425,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param types #WebKitWebsiteDataTypes
              * @param cancellable a #GCancellable or %NULL to ignore
              */
-            fetch(types: WebsiteDataTypes, cancellable?: Gio.Cancellable | null): Promise<WebsiteData[]>;
+            fetch(types: WebsiteDataTypes | null, cancellable?: Gio.Cancellable | null): Promise<WebsiteData[]>;
             /**
              * Asynchronously get the list of #WebKitWebsiteData for the given `types`.
              *
@@ -15432,7 +15436,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             fetch(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
             ): void;
@@ -15446,7 +15450,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             fetch(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): Promise<WebsiteData[]> | void;
@@ -15533,7 +15537,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param cancellable a #GCancellable or %NULL to ignore
              */
             remove(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 website_data: WebsiteData[],
                 cancellable?: Gio.Cancellable | null,
             ): Promise<boolean>;
@@ -15551,7 +15555,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             remove(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 website_data: WebsiteData[],
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
@@ -15570,7 +15574,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param callback a #GAsyncReadyCallback to call when the request is satisfied
              */
             remove(
-                types: WebsiteDataTypes,
+                types: WebsiteDataTypes | null,
                 website_data: WebsiteData[],
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
@@ -16642,7 +16646,7 @@ declare module 'gi://WebKit?version=6.0' {
              * only be called as a response to the `WebKitWebView::query-permission-state` signal.
              * @param state a #WebKitPermissionState
              */
-            finish(state: PermissionState): void;
+            finish(state: PermissionState | null): void;
             /**
              * Get the permission name for which access is being queried.
              * @returns the permission name for @query
@@ -17135,7 +17139,7 @@ declare module 'gi://WebKit?version=6.0' {
              * @param types a bitmask  of #WebKitWebsiteDataTypes
              * @returns the size of @website_data for the given @types.
              */
-            get_size(types: WebsiteDataTypes): number;
+            get_size(types: WebsiteDataTypes | null): number;
             /**
              * Gets the types of data stored in the client for a #WebKitWebsiteData.
              *
@@ -17199,7 +17203,9 @@ declare module 'gi://WebKit?version=6.0' {
             vfunc_deny(): void;
         }
 
-        export const PermissionRequest: PermissionRequestNamespace;
+        export const PermissionRequest: PermissionRequestNamespace & {
+            new (): PermissionRequest; // This allows `obj instanceof PermissionRequest`
+        };
 
         /**
          * Name of the imported GIR library

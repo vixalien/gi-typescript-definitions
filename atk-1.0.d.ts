@@ -1650,7 +1650,7 @@ declare module 'gi://Atk?version=1.0' {
          * @param type The #AtkRelationType whose name is required
          * @returns the string describing the AtkRelationType
          */
-        function relation_type_get_name(type: RelationType): string;
+        function relation_type_get_name(type: RelationType | null): string;
         /**
          * Associate `name` with a new #AtkRelationType
          * @param name a name string
@@ -1697,13 +1697,13 @@ declare module 'gi://Atk?version=1.0' {
          * @param role The #AtkRole whose localized name is required
          * @returns the localized string describing the AtkRole
          */
-        function role_get_localized_name(role: Role): string;
+        function role_get_localized_name(role: Role | null): string;
         /**
          * Gets the description string describing the #AtkRole `role`.
          * @param role The #AtkRole whose name is required
          * @returns the string describing the AtkRole
          */
-        function role_get_name(role: Role): string;
+        function role_get_name(role: Role | null): string;
         /**
          * Registers the role specified by `name`. `name` must be a meaningful
          * name. So it should not be empty, or consisting on whitespaces.
@@ -1722,7 +1722,7 @@ declare module 'gi://Atk?version=1.0' {
          * @param type The #AtkStateType whose name is required
          * @returns the string describing the AtkStateType
          */
-        function state_type_get_name(type: StateType): string;
+        function state_type_get_name(type: StateType | null): string;
         /**
          * Register a new object state.
          * @param name a character string describing the new state.
@@ -1740,14 +1740,14 @@ declare module 'gi://Atk?version=1.0' {
          * @param attr The #AtkTextAttribute whose name is required
          * @returns a string containing the name; this string should not be freed
          */
-        function text_attribute_get_name(attr: TextAttribute): string;
+        function text_attribute_get_name(attr: TextAttribute | null): string;
         /**
          * Gets the value for the index of the #AtkTextAttribute
          * @param attr The #AtkTextAttribute for which a value is required
          * @param index_ The index of the required value
          * @returns a string containing the value; this string should not be freed; %NULL is returned if there are no values maintained for the attr value.
          */
-        function text_attribute_get_value(attr: TextAttribute, index_: number): string | null;
+        function text_attribute_get_value(attr: TextAttribute | null, index_: number): string | null;
         /**
          * Associate `name` with a new #AtkTextAttribute
          * @param name a name string
@@ -1766,13 +1766,13 @@ declare module 'gi://Atk?version=1.0' {
          * @param value_type The #AtkValueType whose localized name is required
          * @returns the localized string describing the #AtkValueType
          */
-        function value_type_get_localized_name(value_type: ValueType): string;
+        function value_type_get_localized_name(value_type: ValueType | null): string;
         /**
          * Gets the description string describing the #AtkValueType `value_type`.
          * @param value_type The #AtkValueType whose name is required
          * @returns the string describing the #AtkValueType
          */
-        function value_type_get_name(value_type: ValueType): string;
+        function value_type_get_name(value_type: ValueType | null): string;
         interface EventListener {
             (obj: Object): void;
         }
@@ -2211,7 +2211,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -2252,7 +2252,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -2968,7 +2968,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE indicating whether the specified point is within the extent of the @component or not
              */
-            contains(x: number, y: number, coord_type: CoordType): boolean;
+            contains(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Returns the alpha value (i.e. the opacity) for this
              * `component,` on a scale from 0 (fully transparent) to 1.0
@@ -2983,7 +2983,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), all of x, y, width, height are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_extents(coord_type: CoordType): [number, number, number, number];
+            get_extents(coord_type: CoordType | null): [number, number, number, number];
             /**
              * Gets the layer of the component.
              * @returns an #AtkLayer which is the layer of the component
@@ -3003,7 +3003,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), x and y are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_position(coord_type: CoordType): [number, number];
+            get_position(coord_type: CoordType | null): [number, number];
             // Conflicted with Atk.TableCell.get_position
             get_position(...args: never[]): any;
             /**
@@ -3026,7 +3026,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns a reference to the accessible child, if one exists
              */
-            ref_accessible_at_point(x: number, y: number, coord_type: CoordType): Object | null;
+            ref_accessible_at_point(x: number, y: number, coord_type: CoordType | null): Object | null;
             /**
              * Remove the handler specified by `handler_id` from the list of
              * functions to be executed when this object receives focus events
@@ -3043,7 +3043,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type specify where the object should be made visible.
              * @returns whether scrolling was successful.
              */
-            scroll_to(type: ScrollType): boolean;
+            scroll_to(type: ScrollType | null): boolean;
             /**
              * Move the top-left of `component` to a given position of the screen by
              * scrolling all necessary parents.
@@ -3052,7 +3052,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param y y-position where to scroll to
              * @returns whether scrolling was successful.
              */
-            scroll_to_point(coords: CoordType, x: number, y: number): boolean;
+            scroll_to_point(coords: CoordType | null, x: number, y: number): boolean;
             /**
              * Sets the extents of `component`.
              * @param x x coordinate
@@ -3062,7 +3062,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE whether the extents were set or not
              */
-            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType): boolean;
+            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType | null): boolean;
             /**
              * Sets the position of `component`.
              *
@@ -3073,7 +3073,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
              * @returns %TRUE or %FALSE whether or not the position was set or not
              */
-            set_position(x: number, y: number, coord_type: CoordType): boolean;
+            set_position(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Set the size of the `component` in terms of width and height.
              * @param width width to set for @component
@@ -3464,7 +3464,7 @@ declare module 'gi://Atk?version=1.0' {
              * to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_image_position(coord_type: CoordType): [number, number];
+            get_image_position(coord_type: CoordType | null): [number, number];
             /**
              * Get the width and height in pixels for the specified image.
              * The values of `width` and `height` are returned as -1 if the
@@ -4035,9 +4035,9 @@ declare module 'gi://Atk?version=1.0' {
              */
             get_bounded_ranges(
                 rect: TextRectangle,
-                coord_type: CoordType,
-                x_clip_type: TextClipType,
-                y_clip_type: TextClipType,
+                coord_type: CoordType | null,
+                x_clip_type: TextClipType | null,
+                y_clip_type: TextClipType | null,
             ): TextRange[];
             /**
              * Gets the offset of the position of the caret (cursor).
@@ -4064,7 +4064,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param offset The offset of the text character for which bounding information is required.
              * @param coords specify whether coordinates are relative to the screen or widget window
              */
-            get_character_extents(offset: number, coords: CoordType): [number, number, number, number];
+            get_character_extents(offset: number, coords: CoordType | null): [number, number, number, number];
             /**
              * Creates an #AtkAttributeSet which consists of the default values of
              * attributes for the text. See the enum AtkTextAttribute for types of text
@@ -4087,7 +4087,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coords specify whether coordinates are relative to the screen or widget window
              * @returns the offset to the character which is located at  the specified          @x and @y coordinates of -1 in case of failure.
              */
-            get_offset_at_point(x: number, y: number, coords: CoordType): number;
+            get_offset_at_point(x: number, y: number, coords: CoordType | null): number;
             /**
              * Get the bounding box for text within the specified range.
              *
@@ -4097,7 +4097,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param end_offset The offset of the text character after the last character        for which boundary information is required.
              * @param coord_type Specify whether coordinates are relative to the screen or widget window.
              */
-            get_range_extents(start_offset: number, end_offset: number, coord_type: CoordType): TextRectangle;
+            get_range_extents(start_offset: number, end_offset: number, coord_type: CoordType | null): TextRectangle;
             /**
              * Creates an #AtkAttributeSet which consists of the attributes explicitly
              * set at the position `offset` in the text. `start_offset` and `end_offset` are
@@ -4151,7 +4151,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param granularity An #AtkTextGranularity
              * @returns a newly allocated string containing the text at          the @offset bounded by the specified @granularity. Use g_free()          to free the returned string.  Returns %NULL if the offset is invalid          or no implementation is available.
              */
-            get_string_at_offset(offset: number, granularity: TextGranularity): [string | null, number, number];
+            get_string_at_offset(offset: number, granularity: TextGranularity | null): [string | null, number, number];
             /**
              * Gets the specified text.
              * @param start_offset a starting character offset within @text
@@ -4165,7 +4165,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param boundary_type An #AtkTextBoundary
              * @returns a newly allocated string containing the text after @offset bounded          by the specified @boundary_type. Use g_free() to free the returned          string.
              */
-            get_text_after_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+            get_text_after_offset(offset: number, boundary_type: TextBoundary | null): [string, number, number];
             /**
              * Gets the specified text.
              *
@@ -4195,14 +4195,14 @@ declare module 'gi://Atk?version=1.0' {
              * @param boundary_type An #AtkTextBoundary
              * @returns a newly allocated string containing the text at @offset bounded          by the specified @boundary_type. Use g_free() to free the returned          string.
              */
-            get_text_at_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+            get_text_at_offset(offset: number, boundary_type: TextBoundary | null): [string, number, number];
             /**
              * Gets the specified text.
              * @param offset position
              * @param boundary_type An #AtkTextBoundary
              * @returns a newly allocated string containing the text before @offset bounded          by the specified @boundary_type. Use g_free() to free the returned          string.
              */
-            get_text_before_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+            get_text_before_offset(offset: number, boundary_type: TextBoundary | null): [string, number, number];
             /**
              * Makes a substring of `text` visible on the screen by scrolling all necessary parents.
              * @param start_offset start offset in the @text
@@ -4210,7 +4210,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type specify where the object should be made visible.
              * @returns whether scrolling was successful.
              */
-            scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType): boolean;
+            scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType | null): boolean;
             /**
              * Move the top-left of a substring of `text` to a given position of the screen
              * by scrolling all necessary parents.
@@ -4224,7 +4224,7 @@ declare module 'gi://Atk?version=1.0' {
             scroll_substring_to_point(
                 start_offset: number,
                 end_offset: number,
-                coords: CoordType,
+                coords: CoordType | null,
                 x: number,
                 y: number,
             ): boolean;
@@ -4658,7 +4658,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -4699,7 +4699,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -5020,7 +5020,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param target The #AtkObject which is to be the target of the relation.
              * @returns TRUE if the relationship is added.
              */
-            add_relationship(relationship: RelationType, target: Object): boolean;
+            add_relationship(relationship: RelationType | null, target: Object): boolean;
             /**
              * Gets the accessible id of the accessible.
              * @returns a character string representing the accessible id of the object, or NULL if no such string was set.
@@ -5123,7 +5123,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param target The #AtkObject which is the target of the relation to be removed.
              * @returns TRUE if the relationship is removed.
              */
-            remove_relationship(relationship: RelationType, target: Object): boolean;
+            remove_relationship(relationship: RelationType | null, target: Object): boolean;
             /**
              * Sets the accessible ID of the accessible.  This is not meant to be presented
              * to the user, but to be an ID which is stable over application development.
@@ -5159,7 +5159,7 @@ declare module 'gi://Atk?version=1.0' {
              * Sets the role of the accessible.
              * @param role an #AtkRole to be set as the role
              */
-            set_role(role: Role): void;
+            set_role(role: Role | null): void;
             vfunc_active_descendant_changed(child?: any | null): void;
             vfunc_children_changed(change_index: number, changed_child?: any | null): void;
             /**
@@ -5661,7 +5661,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param target The #AtkObject which is to be the target of the relation.
              * @returns TRUE if the relationship is added.
              */
-            add_relationship(relationship: RelationType, target: Object): boolean;
+            add_relationship(relationship: RelationType | null, target: Object): boolean;
             /**
              * Gets the accessible id of the accessible.
              * @returns a character string representing the accessible id of the object, or NULL if no such string was set.
@@ -5793,7 +5793,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param target The #AtkObject which is the target of the relation to be removed.
              * @returns TRUE if the relationship is removed.
              */
-            remove_relationship(relationship: RelationType, target: Object): boolean;
+            remove_relationship(relationship: RelationType | null, target: Object): boolean;
             /**
              * Sets the accessible ID of the accessible.  This is not meant to be presented
              * to the user, but to be an ID which is stable over application development.
@@ -5837,7 +5837,7 @@ declare module 'gi://Atk?version=1.0' {
              * Sets the role of the accessible.
              * @param role an #AtkRole to be set as the role
              */
-            set_role(role: Role): void;
+            set_role(role: Role | null): void;
         }
 
         module ObjectFactory {
@@ -5966,7 +5966,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE indicating whether the specified point is within the extent of the @component or not
              */
-            contains(x: number, y: number, coord_type: CoordType): boolean;
+            contains(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Returns the alpha value (i.e. the opacity) for this
              * `component,` on a scale from 0 (fully transparent) to 1.0
@@ -5981,7 +5981,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), all of x, y, width, height are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_extents(coord_type: CoordType): [number, number, number, number];
+            get_extents(coord_type: CoordType | null): [number, number, number, number];
             /**
              * Gets the layer of the component.
              * @returns an #AtkLayer which is the layer of the component
@@ -6001,7 +6001,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), x and y are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_position(coord_type: CoordType): [number, number];
+            get_position(coord_type: CoordType | null): [number, number];
             /**
              * Gets the size of the `component` in terms of width and height.
              *
@@ -6022,7 +6022,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns a reference to the accessible child, if one exists
              */
-            ref_accessible_at_point(x: number, y: number, coord_type: CoordType): Object | null;
+            ref_accessible_at_point(x: number, y: number, coord_type: CoordType | null): Object | null;
             /**
              * Remove the handler specified by `handler_id` from the list of
              * functions to be executed when this object receives focus events
@@ -6039,7 +6039,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type specify where the object should be made visible.
              * @returns whether scrolling was successful.
              */
-            scroll_to(type: ScrollType): boolean;
+            scroll_to(type: ScrollType | null): boolean;
             /**
              * Move the top-left of `component` to a given position of the screen by
              * scrolling all necessary parents.
@@ -6048,7 +6048,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param y y-position where to scroll to
              * @returns whether scrolling was successful.
              */
-            scroll_to_point(coords: CoordType, x: number, y: number): boolean;
+            scroll_to_point(coords: CoordType | null, x: number, y: number): boolean;
             /**
              * Sets the extents of `component`.
              * @param x x coordinate
@@ -6058,7 +6058,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE whether the extents were set or not
              */
-            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType): boolean;
+            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType | null): boolean;
             /**
              * Sets the position of `component`.
              *
@@ -6069,7 +6069,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
              * @returns %TRUE or %FALSE whether or not the position was set or not
              */
-            set_position(x: number, y: number, coord_type: CoordType): boolean;
+            set_position(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Set the size of the `component` in terms of width and height.
              * @param width width to set for @component
@@ -6233,7 +6233,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -6274,7 +6274,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -6767,14 +6767,14 @@ declare module 'gi://Atk?version=1.0' {
              * @param relationship an #AtkRelationType
              * @param target an #AtkObject
              */
-            add_relation_by_type(relationship: RelationType, target: Object): void;
+            add_relation_by_type(relationship: RelationType | null, target: Object): void;
             /**
              * Determines whether the relation set contains a relation that matches the
              * specified type.
              * @param relationship an #AtkRelationType
              * @returns %TRUE if @relationship is the relationship type of a relation in @set, %FALSE otherwise
              */
-            contains(relationship: RelationType): boolean;
+            contains(relationship: RelationType | null): boolean;
             /**
              * Determines whether the relation set contains a relation that
              * matches the specified pair formed by type `relationship` and object
@@ -6783,7 +6783,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param target an #AtkObject
              * @returns %TRUE if @set contains a relation with the relationship type @relationship with an object @target, %FALSE otherwise
              */
-            contains_target(relationship: RelationType, target: Object): boolean;
+            contains_target(relationship: RelationType | null, target: Object): boolean;
             /**
              * Determines the number of relations in a relation set.
              * @returns an integer representing the number of relations in the set.
@@ -6800,7 +6800,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param relationship an #AtkRelationType
              * @returns an #AtkRelation, which is a relation matching the specified type.
              */
-            get_relation_by_type(relationship: RelationType): Relation;
+            get_relation_by_type(relationship: RelationType | null): Relation;
             /**
              * Removes a relation from the relation set.
              * This function unref's the #AtkRelation so it will be deleted unless there
@@ -6906,7 +6906,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE indicating whether the specified point is within the extent of the @component or not
              */
-            contains(x: number, y: number, coord_type: CoordType): boolean;
+            contains(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Returns the alpha value (i.e. the opacity) for this
              * `component,` on a scale from 0 (fully transparent) to 1.0
@@ -6921,7 +6921,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), all of x, y, width, height are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_extents(coord_type: CoordType): [number, number, number, number];
+            get_extents(coord_type: CoordType | null): [number, number, number, number];
             /**
              * Gets the layer of the component.
              * @returns an #AtkLayer which is the layer of the component
@@ -6941,7 +6941,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), x and y are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_position(coord_type: CoordType): [number, number];
+            get_position(coord_type: CoordType | null): [number, number];
             /**
              * Gets the size of the `component` in terms of width and height.
              *
@@ -6962,7 +6962,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns a reference to the accessible child, if one exists
              */
-            ref_accessible_at_point(x: number, y: number, coord_type: CoordType): Object | null;
+            ref_accessible_at_point(x: number, y: number, coord_type: CoordType | null): Object | null;
             /**
              * Remove the handler specified by `handler_id` from the list of
              * functions to be executed when this object receives focus events
@@ -6979,7 +6979,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type specify where the object should be made visible.
              * @returns whether scrolling was successful.
              */
-            scroll_to(type: ScrollType): boolean;
+            scroll_to(type: ScrollType | null): boolean;
             /**
              * Move the top-left of `component` to a given position of the screen by
              * scrolling all necessary parents.
@@ -6988,7 +6988,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param y y-position where to scroll to
              * @returns whether scrolling was successful.
              */
-            scroll_to_point(coords: CoordType, x: number, y: number): boolean;
+            scroll_to_point(coords: CoordType | null, x: number, y: number): boolean;
             /**
              * Sets the extents of `component`.
              * @param x x coordinate
@@ -6998,7 +6998,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE whether the extents were set or not
              */
-            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType): boolean;
+            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType | null): boolean;
             /**
              * Sets the position of `component`.
              *
@@ -7009,7 +7009,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
              * @returns %TRUE or %FALSE whether or not the position was set or not
              */
-            set_position(x: number, y: number, coord_type: CoordType): boolean;
+            set_position(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Set the size of the `component` in terms of width and height.
              * @param width width to set for @component
@@ -7173,7 +7173,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -7214,7 +7214,7 @@ declare module 'gi://Atk?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -7568,7 +7568,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type an #AtkStateType
              * @returns %TRUE if  the state for @type is not already in @set.
              */
-            add_state(type: StateType): boolean;
+            add_state(type: StateType | null): boolean;
             /**
              * Adds the states of the specified types to the state set.
              *
@@ -7578,7 +7578,7 @@ declare module 'gi://Atk?version=1.0' {
              * of an object. See also #atk_object_notify_state_change.
              * @param types an array of #AtkStateType
              */
-            add_states(types: StateType[]): void;
+            add_states(types: StateType[] | null): void;
             /**
              * Constructs the intersection of the two sets, returning %NULL if the
              * intersection is empty.
@@ -7595,14 +7595,14 @@ declare module 'gi://Atk?version=1.0' {
              * @param type an #AtkStateType
              * @returns %TRUE if @type is the state type is in @set.
              */
-            contains_state(type: StateType): boolean;
+            contains_state(type: StateType | null): boolean;
             /**
              * Checks whether the states for all the specified types are in the
              * specified set.
              * @param types an array of #AtkStateType
              * @returns %TRUE if all the states for @type are in @set.
              */
-            contains_states(types: StateType[]): boolean;
+            contains_states(types: StateType[] | null): boolean;
             /**
              * Checks whether the state set is empty, i.e. has no states set.
              * @returns %TRUE if @set has no states set, otherwise %FALSE
@@ -7624,7 +7624,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type an #AtkType
              * @returns %TRUE if @type was the state type is in @set.
              */
-            remove_state(type: StateType): boolean;
+            remove_state(type: StateType | null): boolean;
             /**
              * Constructs the exclusive-or of the two sets, returning %NULL is empty.
              * The set returned by this operation contains the states in exactly
@@ -8124,7 +8124,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_set_description(i: number, desc: string): boolean;
         }
 
-        export const Action: ActionNamespace;
+        export const Action: ActionNamespace & {
+            new (): Action; // This allows `obj instanceof Action`
+        };
 
         module Component {
             // Constructor properties interface
@@ -8150,7 +8152,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE indicating whether the specified point is within the extent of the @component or not
              */
-            contains(x: number, y: number, coord_type: CoordType): boolean;
+            contains(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Returns the alpha value (i.e. the opacity) for this
              * `component,` on a scale from 0 (fully transparent) to 1.0
@@ -8165,7 +8167,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), all of x, y, width, height are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_extents(coord_type: CoordType): [number, number, number, number];
+            get_extents(coord_type: CoordType | null): [number, number, number, number];
             /**
              * Gets the layer of the component.
              * @returns an #AtkLayer which is the layer of the component
@@ -8185,7 +8187,7 @@ declare module 'gi://Atk?version=1.0' {
              * support), x and y are set to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_position(coord_type: CoordType): [number, number];
+            get_position(coord_type: CoordType | null): [number, number];
             /**
              * Gets the size of the `component` in terms of width and height.
              *
@@ -8206,7 +8208,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns a reference to the accessible child, if one exists
              */
-            ref_accessible_at_point(x: number, y: number, coord_type: CoordType): Object | null;
+            ref_accessible_at_point(x: number, y: number, coord_type: CoordType | null): Object | null;
             /**
              * Remove the handler specified by `handler_id` from the list of
              * functions to be executed when this object receives focus events
@@ -8223,7 +8225,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type specify where the object should be made visible.
              * @returns whether scrolling was successful.
              */
-            scroll_to(type: ScrollType): boolean;
+            scroll_to(type: ScrollType | null): boolean;
             /**
              * Move the top-left of `component` to a given position of the screen by
              * scrolling all necessary parents.
@@ -8232,7 +8234,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param y y-position where to scroll to
              * @returns whether scrolling was successful.
              */
-            scroll_to_point(coords: CoordType, x: number, y: number): boolean;
+            scroll_to_point(coords: CoordType | null, x: number, y: number): boolean;
             /**
              * Sets the extents of `component`.
              * @param x x coordinate
@@ -8242,7 +8244,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              * @returns %TRUE or %FALSE whether the extents were set or not
              */
-            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType): boolean;
+            set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType | null): boolean;
             /**
              * Sets the position of `component`.
              *
@@ -8253,7 +8255,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
              * @returns %TRUE or %FALSE whether or not the position was set or not
              */
-            set_position(x: number, y: number, coord_type: CoordType): boolean;
+            set_position(x: number, y: number, coord_type: CoordType | null): boolean;
             /**
              * Set the size of the `component` in terms of width and height.
              * @param width width to set for @component
@@ -8378,7 +8380,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_set_size(width: number, height: number): boolean;
         }
 
-        export const Component: ComponentNamespace;
+        export const Component: ComponentNamespace & {
+            new (): Component; // This allows `obj instanceof Component`
+        };
 
         module Document {
             // Constructor properties interface
@@ -8518,7 +8522,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_set_text_selections(selections: TextSelection[]): boolean;
         }
 
-        export const Document: DocumentNamespace;
+        export const Document: DocumentNamespace & {
+            new (): Document; // This allows `obj instanceof Document`
+        };
 
         module EditableText {
             // Constructor properties interface
@@ -8633,7 +8639,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_set_text_contents(string: string): void;
         }
 
-        export const EditableText: EditableTextNamespace;
+        export const EditableText: EditableTextNamespace & {
+            new (): EditableText; // This allows `obj instanceof EditableText`
+        };
 
         module HyperlinkImpl {
             // Constructor properties interface
@@ -8662,7 +8670,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_get_hyperlink(): Hyperlink;
         }
 
-        export const HyperlinkImpl: HyperlinkImplNamespace;
+        export const HyperlinkImpl: HyperlinkImplNamespace & {
+            new (): HyperlinkImpl; // This allows `obj instanceof HyperlinkImpl`
+        };
 
         module Hypertext {
             // Constructor properties interface
@@ -8718,7 +8728,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_link_selected(link_index: number): void;
         }
 
-        export const Hypertext: HypertextNamespace;
+        export const Hypertext: HypertextNamespace & {
+            new (): Hypertext; // This allows `obj instanceof Hypertext`
+        };
 
         module Image {
             // Constructor properties interface
@@ -8751,7 +8763,7 @@ declare module 'gi://Atk?version=1.0' {
              * to -1.
              * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
              */
-            get_image_position(coord_type: CoordType): [number, number];
+            get_image_position(coord_type: CoordType | null): [number, number];
             /**
              * Get the width and height in pixels for the specified image.
              * The values of `width` and `height` are returned as -1 if the
@@ -8803,7 +8815,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_set_image_description(description: string): boolean;
         }
 
-        export const Image: ImageNamespace;
+        export const Image: ImageNamespace & {
+            new (): Image; // This allows `obj instanceof Image`
+        };
 
         module ImplementorIface {
             // Constructor properties interface
@@ -8817,7 +8831,9 @@ declare module 'gi://Atk?version=1.0' {
         }
         interface ImplementorIface extends GObject.Object {}
 
-        export const ImplementorIface: ImplementorIfaceNamespace;
+        export const ImplementorIface: ImplementorIfaceNamespace & {
+            new (): ImplementorIface; // This allows `obj instanceof ImplementorIface`
+        };
 
         module Selection {
             // Constructor properties interface
@@ -8941,7 +8957,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_selection_changed(): void;
         }
 
-        export const Selection: SelectionNamespace;
+        export const Selection: SelectionNamespace & {
+            new (): Selection; // This allows `obj instanceof Selection`
+        };
 
         module StreamableContent {
             // Constructor properties interface
@@ -9019,7 +9037,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_get_uri(mime_type: string): string | null;
         }
 
-        export const StreamableContent: StreamableContentNamespace;
+        export const StreamableContent: StreamableContentNamespace & {
+            new (): StreamableContent; // This allows `obj instanceof StreamableContent`
+        };
 
         module Table {
             // Constructor properties interface
@@ -9387,7 +9407,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_set_summary(accessible: Object): void;
         }
 
-        export const Table: TableNamespace;
+        export const Table: TableNamespace & {
+            new (): Table; // This allows `obj instanceof Table`
+        };
 
         module TableCell {
             // Constructor properties interface
@@ -9478,7 +9500,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_get_table(): Object;
         }
 
-        export const TableCell: TableCellNamespace;
+        export const TableCell: TableCellNamespace & {
+            new (): TableCell; // This allows `obj instanceof TableCell`
+        };
 
         module Text {
             // Constructor properties interface
@@ -9518,9 +9542,9 @@ declare module 'gi://Atk?version=1.0' {
              */
             get_bounded_ranges(
                 rect: TextRectangle,
-                coord_type: CoordType,
-                x_clip_type: TextClipType,
-                y_clip_type: TextClipType,
+                coord_type: CoordType | null,
+                x_clip_type: TextClipType | null,
+                y_clip_type: TextClipType | null,
             ): TextRange[];
             /**
              * Gets the offset of the position of the caret (cursor).
@@ -9547,7 +9571,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param offset The offset of the text character for which bounding information is required.
              * @param coords specify whether coordinates are relative to the screen or widget window
              */
-            get_character_extents(offset: number, coords: CoordType): [number, number, number, number];
+            get_character_extents(offset: number, coords: CoordType | null): [number, number, number, number];
             /**
              * Creates an #AtkAttributeSet which consists of the default values of
              * attributes for the text. See the enum AtkTextAttribute for types of text
@@ -9570,7 +9594,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param coords specify whether coordinates are relative to the screen or widget window
              * @returns the offset to the character which is located at  the specified          @x and @y coordinates of -1 in case of failure.
              */
-            get_offset_at_point(x: number, y: number, coords: CoordType): number;
+            get_offset_at_point(x: number, y: number, coords: CoordType | null): number;
             /**
              * Get the bounding box for text within the specified range.
              *
@@ -9580,7 +9604,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param end_offset The offset of the text character after the last character        for which boundary information is required.
              * @param coord_type Specify whether coordinates are relative to the screen or widget window.
              */
-            get_range_extents(start_offset: number, end_offset: number, coord_type: CoordType): TextRectangle;
+            get_range_extents(start_offset: number, end_offset: number, coord_type: CoordType | null): TextRectangle;
             /**
              * Creates an #AtkAttributeSet which consists of the attributes explicitly
              * set at the position `offset` in the text. `start_offset` and `end_offset` are
@@ -9634,7 +9658,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param granularity An #AtkTextGranularity
              * @returns a newly allocated string containing the text at          the @offset bounded by the specified @granularity. Use g_free()          to free the returned string.  Returns %NULL if the offset is invalid          or no implementation is available.
              */
-            get_string_at_offset(offset: number, granularity: TextGranularity): [string | null, number, number];
+            get_string_at_offset(offset: number, granularity: TextGranularity | null): [string | null, number, number];
             /**
              * Gets the specified text.
              * @param start_offset a starting character offset within @text
@@ -9648,7 +9672,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param boundary_type An #AtkTextBoundary
              * @returns a newly allocated string containing the text after @offset bounded          by the specified @boundary_type. Use g_free() to free the returned          string.
              */
-            get_text_after_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+            get_text_after_offset(offset: number, boundary_type: TextBoundary | null): [string, number, number];
             /**
              * Gets the specified text.
              *
@@ -9678,14 +9702,14 @@ declare module 'gi://Atk?version=1.0' {
              * @param boundary_type An #AtkTextBoundary
              * @returns a newly allocated string containing the text at @offset bounded          by the specified @boundary_type. Use g_free() to free the returned          string.
              */
-            get_text_at_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+            get_text_at_offset(offset: number, boundary_type: TextBoundary | null): [string, number, number];
             /**
              * Gets the specified text.
              * @param offset position
              * @param boundary_type An #AtkTextBoundary
              * @returns a newly allocated string containing the text before @offset bounded          by the specified @boundary_type. Use g_free() to free the returned          string.
              */
-            get_text_before_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+            get_text_before_offset(offset: number, boundary_type: TextBoundary | null): [string, number, number];
             /**
              * Removes the specified selection.
              * @param selection_num The selection number.  The selected regions are assigned numbers that correspond to how far the region is from the start of the text.  The selected region closest to the beginning of the text region is assigned the number 0, etc.  Note that adding, moving or deleting a selected region can change the numbering.
@@ -9699,7 +9723,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param type specify where the object should be made visible.
              * @returns whether scrolling was successful.
              */
-            scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType): boolean;
+            scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType | null): boolean;
             /**
              * Move the top-left of a substring of `text` to a given position of the screen
              * by scrolling all necessary parents.
@@ -9713,7 +9737,7 @@ declare module 'gi://Atk?version=1.0' {
             scroll_substring_to_point(
                 start_offset: number,
                 end_offset: number,
-                coords: CoordType,
+                coords: CoordType | null,
                 x: number,
                 y: number,
             ): boolean;
@@ -9989,7 +10013,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_text_selection_changed(): void;
         }
 
-        export const Text: TextNamespace;
+        export const Text: TextNamespace & {
+            new (): Text; // This allows `obj instanceof Text`
+        };
 
         module Value {
             // Constructor properties interface
@@ -10139,7 +10165,9 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_set_value(new_value: number): void;
         }
 
-        export const Value: ValueNamespace;
+        export const Value: ValueNamespace & {
+            new (): Value; // This allows `obj instanceof Value`
+        };
 
         module Window {
             // Constructor properties interface
@@ -10153,7 +10181,9 @@ declare module 'gi://Atk?version=1.0' {
         }
         interface Window extends Object {}
 
-        export const Window: WindowNamespace;
+        export const Window: WindowNamespace & {
+            new (): Window; // This allows `obj instanceof Window`
+        };
 
         type AttributeSet = GLib.SList;
         type State = number;

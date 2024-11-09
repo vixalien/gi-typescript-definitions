@@ -1613,7 +1613,7 @@ declare module 'gi://GstMpegts?version=1.0' {
          * @returns the #GstMpegtsDescriptor or %NULL on fail
          */
         function descriptor_from_dvb_service(
-            service_type: DVBServiceType,
+            service_type: DVBServiceType | null,
             service_name?: string | null,
             service_provider?: string | null,
         ): Descriptor;

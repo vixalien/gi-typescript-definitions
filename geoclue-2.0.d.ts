@@ -844,7 +844,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -885,7 +885,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -1504,7 +1504,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1545,7 +1545,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -2391,7 +2391,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -2432,7 +2432,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -2909,7 +2909,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -2950,7 +2950,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -4025,7 +4025,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -4066,7 +4066,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -4772,7 +4772,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -4813,7 +4813,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -5536,7 +5536,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -5577,7 +5577,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -6202,7 +6202,9 @@ declare module 'gi://Geoclue?version=2.0' {
             vfunc_location_updated(arg_old: string, arg_new: string): void;
         }
 
-        export const Client: ClientNamespace;
+        export const Client: ClientNamespace & {
+            new (): Client; // This allows `obj instanceof Client`
+        };
 
         module Location {
             // Constructor properties interface
@@ -6296,7 +6298,9 @@ declare module 'gi://Geoclue?version=2.0' {
             set timestamp(val: GLib.Variant);
         }
 
-        export const Location: LocationNamespace;
+        export const Location: LocationNamespace & {
+            new (): Location; // This allows `obj instanceof Location`
+        };
 
         module Manager {
             // Constructor properties interface
@@ -6621,7 +6625,9 @@ declare module 'gi://Geoclue?version=2.0' {
             vfunc_handle_get_client(invocation: Gio.DBusMethodInvocation): boolean;
         }
 
-        export const Manager: ManagerNamespace;
+        export const Manager: ManagerNamespace & {
+            new (): Manager; // This allows `obj instanceof Manager`
+        };
 
         /**
          * Name of the imported GIR library

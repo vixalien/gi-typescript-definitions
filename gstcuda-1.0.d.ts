@@ -103,7 +103,10 @@ declare module 'gi://GstCuda?version=1.0' {
          * @param config a buffer pool config
          * @param method
          */
-        function buffer_pool_config_set_cuda_alloc_method(config: Gst.Structure, method: CudaMemoryAllocMethod): void;
+        function buffer_pool_config_set_cuda_alloc_method(
+            config: Gst.Structure,
+            method: CudaMemoryAllocMethod | null,
+        ): void;
         /**
          * Sets `stream` on `config`
          * @param config a buffer pool config
@@ -285,7 +288,7 @@ declare module 'gi://GstCuda?version=1.0' {
                 stream: CudaStream,
                 info: GstVideo.VideoInfo,
                 prop: CudaGst.memAllocationProp,
-                granularity_flags: CudaGst.memAllocationGranularity_flags,
+                granularity_flags: CudaGst.memAllocationGranularity_flags | null,
             ): Gst.Memory | null;
         }
 
@@ -538,7 +541,7 @@ declare module 'gi://GstCuda?version=1.0' {
              * @param filter_mode filter mode
              * @returns %TRUE if successful
              */
-            get_texture(plane: number, filter_mode: CudaGst.filter_mode): [boolean, CudaGst.texObject];
+            get_texture(plane: number, filter_mode: CudaGst.filter_mode | null): [boolean, CudaGst.texObject];
             /**
              * Gets back user data pointer stored via gst_cuda_memory_set_token_data()
              * @param token an user token

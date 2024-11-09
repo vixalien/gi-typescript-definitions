@@ -129,13 +129,13 @@ declare module 'gi://GstTranscoder?version=1.0' {
          * @param error a #GstTranscoderError
          * @returns a string with the given error.
          */
-        function transcoder_error_get_name(error: TranscoderError): string;
+        function transcoder_error_get_name(error: TranscoderError | null): string;
         function transcoder_error_quark(): GLib.Quark;
         /**
          * Returns (transfer none): The message name
          * @param message a #GstTranscoderMessage
          */
-        function transcoder_message_get_name(message: TranscoderMessage): string;
+        function transcoder_message_get_name(message: TranscoderMessage | null): string;
         /**
          * Parse the given duration `msg` and extract the corresponding #GstClockTime
          * @param msg A #GstMessage
@@ -166,7 +166,7 @@ declare module 'gi://GstTranscoder?version=1.0' {
          * @param state a #GstTranscoderState
          * @returns a string with the name of the state.
          */
-        function transcoder_state_get_name(state: TranscoderState): string;
+        function transcoder_state_get_name(state: TranscoderState | null): string;
         module Transcoder {
             // Constructor properties interface
 

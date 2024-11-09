@@ -641,7 +641,7 @@ declare module 'gi://Gee?version=0.8' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -682,7 +682,7 @@ declare module 'gi://Gee?version=0.8' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -1342,7 +1342,7 @@ declare module 'gi://Gee?version=0.8' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1383,7 +1383,7 @@ declare module 'gi://Gee?version=0.8' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -1852,7 +1852,7 @@ declare module 'gi://Gee?version=0.8' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1893,7 +1893,7 @@ declare module 'gi://Gee?version=0.8' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -4160,7 +4160,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_last(): boolean;
         }
 
-        export const BidirIterator: BidirIteratorNamespace;
+        export const BidirIterator: BidirIteratorNamespace & {
+            new (): BidirIterator; // This allows `obj instanceof BidirIterator`
+        };
 
         module BidirList {
             // Constructor properties interface
@@ -4192,7 +4194,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): BidirList;
         }
 
-        export const BidirList: BidirListNamespace;
+        export const BidirList: BidirListNamespace & {
+            new (): BidirList; // This allows `obj instanceof BidirList`
+        };
 
         module BidirListIterator {
             // Constructor properties interface
@@ -4214,7 +4218,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_insert(item: any): void;
         }
 
-        export const BidirListIterator: BidirListIteratorNamespace;
+        export const BidirListIterator: BidirListIteratorNamespace & {
+            new (): BidirListIterator; // This allows `obj instanceof BidirListIterator`
+        };
 
         module BidirMapIterator {
             // Constructor properties interface
@@ -4242,7 +4248,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_last(): boolean;
         }
 
-        export const BidirMapIterator: BidirMapIteratorNamespace;
+        export const BidirMapIterator: BidirMapIteratorNamespace & {
+            new (): BidirMapIterator; // This allows `obj instanceof BidirMapIterator`
+        };
 
         module BidirSortedSet {
             // Constructor properties interface
@@ -4276,7 +4284,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): BidirSortedSet;
         }
 
-        export const BidirSortedSet: BidirSortedSetNamespace;
+        export const BidirSortedSet: BidirSortedSetNamespace & {
+            new (): BidirSortedSet; // This allows `obj instanceof BidirSortedSet`
+        };
 
         module BidirSortedMap {
             // Constructor properties interface
@@ -4315,7 +4325,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): BidirSortedMap;
         }
 
-        export const BidirSortedMap: BidirSortedMapNamespace;
+        export const BidirSortedMap: BidirSortedMapNamespace & {
+            new (): BidirSortedMap; // This allows `obj instanceof BidirSortedMap`
+        };
 
         module Collection {
             // Constructor properties interface
@@ -4389,7 +4401,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): Collection;
         }
 
-        export const Collection: CollectionNamespace;
+        export const Collection: CollectionNamespace & {
+            new (): Collection; // This allows `obj instanceof Collection`
+        };
 
         module Comparable {
             // Constructor properties interface
@@ -4411,7 +4425,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_compare_to(object: any): number;
         }
 
-        export const Comparable: ComparableNamespace;
+        export const Comparable: ComparableNamespace & {
+            new (): Comparable; // This allows `obj instanceof Comparable`
+        };
 
         module Deque {
             // Constructor properties interface
@@ -4447,7 +4463,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_drain_tail(recipient: Collection, amount: number): number;
         }
 
-        export const Deque: DequeNamespace;
+        export const Deque: DequeNamespace & {
+            new (): Deque; // This allows `obj instanceof Deque`
+        };
 
         module Future {
             interface MapFunc {
@@ -4567,7 +4585,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_exception(): GLib.Error | null;
         }
 
-        export const Future: FutureNamespace;
+        export const Future: FutureNamespace & {
+            new (): Future; // This allows `obj instanceof Future`
+        };
 
         module Hashable {
             // Constructor properties interface
@@ -4591,7 +4611,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_equal_to(object: any): boolean;
         }
 
-        export const Hashable: HashableNamespace;
+        export const Hashable: HashableNamespace & {
+            new (): Hashable; // This allows `obj instanceof Hashable`
+        };
 
         module Iterable {
             // Constructor properties interface
@@ -4613,7 +4635,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_iterator(): Iterator;
         }
 
-        export const Iterable: IterableNamespace;
+        export const Iterable: IterableNamespace & {
+            new (): Iterable; // This allows `obj instanceof Iterable`
+        };
 
         module Iterator {
             // Constructor properties interface
@@ -4663,7 +4687,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only(): boolean;
         }
 
-        export const Iterator: IteratorNamespace;
+        export const Iterator: IteratorNamespace & {
+            new (): Iterator; // This allows `obj instanceof Iterator`
+        };
 
         module List {
             // Constructor properties interface
@@ -4719,7 +4745,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): List;
         }
 
-        export const List: ListNamespace;
+        export const List: ListNamespace & {
+            new (): List; // This allows `obj instanceof List`
+        };
 
         module ListIterator {
             // Constructor properties interface
@@ -4747,7 +4775,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_index(): number;
         }
 
-        export const ListIterator: ListIteratorNamespace;
+        export const ListIterator: ListIteratorNamespace & {
+            new (): ListIterator; // This allows `obj instanceof ListIterator`
+        };
 
         module Map {
             // Constructor properties interface
@@ -4836,7 +4866,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): Map;
         }
 
-        export const Map: MapNamespace;
+        export const Map: MapNamespace & {
+            new (): Map; // This allows `obj instanceof Map`
+        };
 
         module MapIterator {
             // Constructor properties interface
@@ -4890,7 +4922,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only(): boolean;
         }
 
-        export const MapIterator: MapIteratorNamespace;
+        export const MapIterator: MapIteratorNamespace & {
+            new (): MapIterator; // This allows `obj instanceof MapIterator`
+        };
 
         module MultiMap {
             // Constructor properties interface
@@ -4950,7 +4984,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): MultiMap;
         }
 
-        export const MultiMap: MultiMapNamespace;
+        export const MultiMap: MultiMapNamespace & {
+            new (): MultiMap; // This allows `obj instanceof MultiMap`
+        };
 
         module MultiSet {
             // Constructor properties interface
@@ -4976,7 +5012,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): MultiSet;
         }
 
-        export const MultiSet: MultiSetNamespace;
+        export const MultiSet: MultiSetNamespace & {
+            new (): MultiSet; // This allows `obj instanceof MultiSet`
+        };
 
         module Queue {
             // Constructor properties interface
@@ -5024,7 +5062,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_is_full(): boolean;
         }
 
-        export const Queue: QueueNamespace;
+        export const Queue: QueueNamespace & {
+            new (): Queue; // This allows `obj instanceof Queue`
+        };
 
         module Set {
             // Constructor properties interface
@@ -5056,7 +5096,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): Set;
         }
 
-        export const Set: SetNamespace;
+        export const Set: SetNamespace & {
+            new (): Set; // This allows `obj instanceof Set`
+        };
 
         module SortedMap {
             // Constructor properties interface
@@ -5111,7 +5153,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): SortedMap;
         }
 
-        export const SortedMap: SortedMapNamespace;
+        export const SortedMap: SortedMapNamespace & {
+            new (): SortedMap; // This allows `obj instanceof SortedMap`
+        };
 
         module SortedSet {
             // Constructor properties interface
@@ -5163,7 +5207,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_read_only_view(): SortedSet;
         }
 
-        export const SortedSet: SortedSetNamespace;
+        export const SortedSet: SortedSetNamespace & {
+            new (): SortedSet; // This allows `obj instanceof SortedSet`
+        };
 
         module Traversable {
             // Constructor properties interface
@@ -5215,7 +5261,9 @@ declare module 'gi://Gee?version=0.8' {
             vfunc_get_element_type(): GObject.GType;
         }
 
-        export const Traversable: TraversableNamespace;
+        export const Traversable: TraversableNamespace & {
+            new (): Traversable; // This allows `obj instanceof Traversable`
+        };
 
         /**
          * Name of the imported GIR library

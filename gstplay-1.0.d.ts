@@ -196,15 +196,15 @@ declare module 'gi://GstPlay?version=1.0' {
          * @param type a #GstPlayColorBalanceType
          * @returns a string with the name of the color   balance type.
          */
-        function play_color_balance_type_get_name(type: PlayColorBalanceType): string;
+        function play_color_balance_type_get_name(type: PlayColorBalanceType | null): string;
         /**
          * Gets a string representing the given error.
          * @param error a #GstPlayError
          * @returns a string with the given error.
          */
-        function play_error_get_name(error: PlayError): string;
+        function play_error_get_name(error: PlayError | null): string;
         function play_error_quark(): GLib.Quark;
-        function play_message_get_name(message_type: PlayMessage): string;
+        function play_message_get_name(message_type: PlayMessage | null): string;
         /**
          * Parse the given buffering-percent `msg` and extract the corresponding value
          * @param msg A #GstMessage
@@ -265,7 +265,7 @@ declare module 'gi://GstPlay?version=1.0' {
          * @param state a #GstPlayState
          * @returns a string with the name of the state.
          */
-        function play_state_get_name(state: PlayState): string;
+        function play_state_get_name(state: PlayState | null): string;
         module Play {
             // Constructor properties interface
 
@@ -462,7 +462,7 @@ declare module 'gi://GstPlay?version=1.0' {
              * @param type #GstPlayColorBalanceType
              * @returns The current value of @type, between [0,1]. In case of   error -1 is returned.
              */
-            get_color_balance(type: PlayColorBalanceType): number;
+            get_color_balance(type: PlayColorBalanceType | null): number;
             /**
              * Get a copy of the current configuration of the play. This configuration
              * can either be modified and used for the gst_play_set_config() call
@@ -552,7 +552,7 @@ declare module 'gi://GstPlay?version=1.0' {
              * @param config Additional configuration
              * @returns Current video snapshot sample or %NULL on failure
              */
-            get_video_snapshot(format: PlaySnapshotFormat, config?: Gst.Structure | null): Gst.Sample | null;
+            get_video_snapshot(format: PlaySnapshotFormat | null, config?: Gst.Structure | null): Gst.Sample | null;
             /**
              * Returns the current volume level, as a percentage between 0 and 1.
              * @returns the volume as percentage between 0 and 1.
@@ -594,7 +594,7 @@ declare module 'gi://GstPlay?version=1.0' {
              * @param type #GstPlayColorBalanceType
              * @param value The new value for the @type, ranged [0,1]
              */
-            set_color_balance(type: PlayColorBalanceType, value: number): void;
+            set_color_balance(type: PlayColorBalanceType | null, value: number): void;
             /**
              * Set the configuration of the play. If the play is already configured, and
              * the configuration hasn't changed, this function will return %TRUE. If the
@@ -614,13 +614,13 @@ declare module 'gi://GstPlay?version=1.0' {
              * value.
              * @param flags The new value for the @type
              */
-            set_multiview_flags(flags: GstVideo.VideoMultiviewFlags): void;
+            set_multiview_flags(flags: GstVideo.VideoMultiviewFlags | null): void;
             /**
              * Sets the current value of the indicated mode `type` to the passed
              * value.
              * @param mode The new value for the @type
              */
-            set_multiview_mode(mode: GstVideo.VideoMultiviewFramePacking): void;
+            set_multiview_mode(mode: GstVideo.VideoMultiviewFramePacking | null): void;
             /**
              * %TRUE if the currently-playing stream should be muted.
              * @param val Mute state the should be set
@@ -1115,7 +1115,7 @@ declare module 'gi://GstPlay?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1156,7 +1156,7 @@ declare module 'gi://GstPlay?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -1529,7 +1529,9 @@ declare module 'gi://GstPlay?version=1.0' {
         }
         interface PlayVideoRenderer extends GObject.Object {}
 
-        export const PlayVideoRenderer: PlayVideoRendererNamespace;
+        export const PlayVideoRenderer: PlayVideoRendererNamespace & {
+            new (): PlayVideoRenderer; // This allows `obj instanceof PlayVideoRenderer`
+        };
 
         /**
          * Name of the imported GIR library

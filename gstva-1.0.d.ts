@@ -109,7 +109,7 @@ declare module 'gi://GstVa?version=1.0' {
         function buffer_pool_config_set_va_allocation_params(
             config: Gst.Structure,
             usage_hint: number,
-            use_derived: VaFeature,
+            use_derived: VaFeature | null,
         ): void;
         function context_get_va_display(
             context: Gst.Context,
@@ -147,7 +147,7 @@ declare module 'gi://GstVa?version=1.0' {
          */
         function va_dmabuf_get_modifier_for_format(
             display: VaDisplay,
-            format: GstVideo.VideoFormat,
+            format: GstVideo.VideoFormat | null,
             usage_hint: number,
         ): number;
         /**

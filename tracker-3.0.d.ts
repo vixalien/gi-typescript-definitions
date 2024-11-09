@@ -482,7 +482,12 @@ declare module 'gi://Tracker?version=3.0' {
              * @param default_graph Default graph that will receive the RDF data
              * @param stream Input stream with RDF data
              */
-            add_rdf(flags: DeserializeFlags, format: RdfFormat, default_graph: string, stream: Gio.InputStream): void;
+            add_rdf(
+                flags: DeserializeFlags | null,
+                format: RdfFormat | null,
+                default_graph: string,
+                stream: Gio.InputStream,
+            ): void;
             /**
              * Adds the RDF represented by `resource` to `batch`.
              * @param graph RDF graph to insert the resource to
@@ -980,7 +985,7 @@ declare module 'gi://Tracker?version=3.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1021,7 +1026,7 @@ declare module 'gi://Tracker?version=3.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -1576,7 +1581,7 @@ declare module 'gi://Tracker?version=3.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -1617,7 +1622,7 @@ declare module 'gi://Tracker?version=3.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -2456,7 +2461,7 @@ declare module 'gi://Tracker?version=3.0' {
              * @param graph target graph of the resource RDF, or %NULL for the default graph
              * @returns a newly-allocated string containing RDF data in the requested format.
              */
-            print_rdf(namespaces: NamespaceManager, format: RdfFormat, graph?: string | null): string;
+            print_rdf(namespaces: NamespaceManager, format: RdfFormat | null, graph?: string | null): string;
             /**
              * Generates a SPARQL command to update a database with the information
              * stored in `resource`.
@@ -2819,8 +2824,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param cancellable Optional [type@Gio.Cancellable]
              */
             deserialize_async(
-                flags: DeserializeFlags,
-                format: RdfFormat,
+                flags: DeserializeFlags | null,
+                format: RdfFormat | null,
                 default_graph: string,
                 stream: Gio.InputStream,
                 cancellable?: Gio.Cancellable | null,
@@ -2846,8 +2851,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param callback User-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
              */
             deserialize_async(
-                flags: DeserializeFlags,
-                format: RdfFormat,
+                flags: DeserializeFlags | null,
+                format: RdfFormat | null,
                 default_graph: string,
                 stream: Gio.InputStream,
                 cancellable: Gio.Cancellable | null,
@@ -2874,8 +2879,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param callback User-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
              */
             deserialize_async(
-                flags: DeserializeFlags,
-                format: RdfFormat,
+                flags: DeserializeFlags | null,
+                format: RdfFormat | null,
                 default_graph: string,
                 stream: Gio.InputStream,
                 cancellable?: Gio.Cancellable | null,
@@ -3039,8 +3044,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param cancellable Optional [type@Gio.Cancellable]
              */
             serialize_async(
-                flags: SerializeFlags,
-                format: RdfFormat,
+                flags: SerializeFlags | null,
+                format: RdfFormat | null,
                 query: string,
                 cancellable?: Gio.Cancellable | null,
             ): Promise<Gio.InputStream>;
@@ -3062,8 +3067,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param callback User-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
              */
             serialize_async(
-                flags: SerializeFlags,
-                format: RdfFormat,
+                flags: SerializeFlags | null,
+                format: RdfFormat | null,
                 query: string,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
@@ -3086,8 +3091,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param callback User-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
              */
             serialize_async(
-                flags: SerializeFlags,
-                format: RdfFormat,
+                flags: SerializeFlags | null,
+                format: RdfFormat | null,
                 query: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
@@ -3862,8 +3867,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param cancellable Optional [type@Gio.Cancellable]
              */
             serialize_async(
-                flags: SerializeFlags,
-                format: RdfFormat,
+                flags: SerializeFlags | null,
+                format: RdfFormat | null,
                 cancellable?: Gio.Cancellable | null,
             ): Promise<Gio.InputStream>;
             /**
@@ -3886,8 +3891,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param callback user-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
              */
             serialize_async(
-                flags: SerializeFlags,
-                format: RdfFormat,
+                flags: SerializeFlags | null,
+                format: RdfFormat | null,
                 cancellable: Gio.Cancellable | null,
                 callback: Gio.AsyncReadyCallback<this> | null,
             ): void;
@@ -3911,8 +3916,8 @@ declare module 'gi://Tracker?version=3.0' {
              * @param callback user-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
              */
             serialize_async(
-                flags: SerializeFlags,
-                format: RdfFormat,
+                flags: SerializeFlags | null,
+                format: RdfFormat | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): Promise<Gio.InputStream> | void;

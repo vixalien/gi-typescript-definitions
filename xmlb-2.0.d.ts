@@ -87,7 +87,7 @@ declare module 'gi://Xmlb?version=2.0' {
          * @param kind a #XbOpcodeKind, e.g. %XB_OPCODE_KIND_FUNCTION
          * @returns opcode kind, e.g. `FUNC`
          */
-        function opcode_kind_to_string(kind: OpcodeKind): string;
+        function opcode_kind_to_string(kind: OpcodeKind | null): string;
         /**
          * Escapes XPath control sequences such as newlines, tabs, and forward slashes.
          * @param str string, e.g. `app/org.gnome.ghex/x86_64/stable`
@@ -516,7 +516,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param cancellable a #GCancellable, or %NULL
              * @returns a #XbSilo, or %NULL for error
              */
-            compile(flags: BuilderCompileFlags, cancellable?: Gio.Cancellable | null): Silo;
+            compile(flags: BuilderCompileFlags | null, cancellable?: Gio.Cancellable | null): Silo;
             /**
              * Ensures `file` is up to date, and returns a compiled #XbSilo.
              *
@@ -530,7 +530,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param cancellable a #GCancellable, or %NULL
              * @returns a #XbSilo, or %NULL for error
              */
-            ensure(file: Gio.File, flags: BuilderCompileFlags, cancellable?: Gio.Cancellable | null): Silo;
+            ensure(file: Gio.File, flags: BuilderCompileFlags | null, cancellable?: Gio.Cancellable | null): Silo;
             /**
              * Adds a node tree to the builder.
              *
@@ -555,7 +555,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * Enables or disables the collection of profiling data.
              * @param profile_flags some #XbSiloProfileFlags, e.g. %XB_SILO_PROFILE_FLAG_DEBUG
              */
-            set_profile_flags(profile_flags: SiloProfileFlags): void;
+            set_profile_flags(profile_flags: SiloProfileFlags | null): void;
         }
 
         module BuilderFixup {
@@ -621,7 +621,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * Adds a flag to the builder node.
              * @param flag a #XbBuilderNodeFlags
              */
-            add_flag(flag: BuilderNodeFlags): void;
+            add_flag(flag: BuilderNodeFlags | null): void;
             /**
              * Adds a token to the builder node.
              * @param token a new token
@@ -636,7 +636,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
              * @returns XML data, or %NULL for an error
              */
-            ['export'](flags: NodeExportFlags): string;
+            ['export'](flags: NodeExportFlags | null): string;
             /**
              * Gets an attribute from the builder node.
              * @param name attribute name, e.g. `type`
@@ -706,7 +706,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param flag a #XbBuilderNodeFlags
              * @returns %TRUE if @flag is set
              */
-            has_flag(flag: BuilderNodeFlags): boolean;
+            has_flag(flag: BuilderNodeFlags | null): boolean;
             /**
              * Removes an attribute from the builder node.
              * @param name attribute name, e.g. `type`
@@ -773,8 +773,8 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param func a #XbBuilderNodeTraverseFunc
              */
             traverse(
-                order: GLib.TraverseType,
-                flags: GLib.TraverseFlags,
+                order: GLib.TraverseType | null,
+                flags: GLib.TraverseFlags | null,
                 max_depth: number,
                 func: BuilderNodeTraverseFunc,
             ): void;
@@ -820,7 +820,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
              * @returns %TRUE for success
              */
-            load_bytes(bytes: GLib.Bytes | Uint8Array, flags: BuilderSourceFlags): boolean;
+            load_bytes(bytes: GLib.Bytes | Uint8Array, flags: BuilderSourceFlags | null): boolean;
             /**
              * Loads an optionally compressed XML file to build a #XbSilo.
              * @param file a #GFile
@@ -828,14 +828,14 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param cancellable a #GCancellable, or %NULL
              * @returns %TRUE for success
              */
-            load_file(file: Gio.File, flags: BuilderSourceFlags, cancellable?: Gio.Cancellable | null): boolean;
+            load_file(file: Gio.File, flags: BuilderSourceFlags | null, cancellable?: Gio.Cancellable | null): boolean;
             /**
              * Loads XML data and begins to build a #XbSilo.
              * @param xml XML data
              * @param flags some #XbBuilderSourceFlags, e.g. %XB_BUILDER_SOURCE_FLAG_LITERAL_TEXT
              * @returns %TRUE for success
              */
-            load_xml(xml: string, flags: BuilderSourceFlags): boolean;
+            load_xml(xml: string, flags: BuilderSourceFlags | null): boolean;
             /**
              * Sets an optional information metadata node on the root node.
              * @param info a #XbBuilderNode
@@ -978,7 +978,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param flags #XbMachineParseFlags, e.g. %XB_MACHINE_PARSE_FLAG_OPTIMIZE
              * @returns opcodes, or %NULL on error
              */
-            parse_full(text: string, text_len: number, flags: MachineParseFlags): Stack;
+            parse_full(text: string, text_len: number, flags: MachineParseFlags | null): Stack;
             /**
              * Runs a set of opcodes on the virtual machine.
              *
@@ -1009,7 +1009,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * Sets the debug level of the virtual machine.
              * @param flags #XbMachineDebugFlags, e.g. %XB_MACHINE_DEBUG_FLAG_SHOW_STACK
              */
-            set_debug_flags(flags: MachineDebugFlags): void;
+            set_debug_flags(flags: MachineDebugFlags | null): void;
             /**
              * Sets the maximum stack size used for the machine.
              *
@@ -1093,7 +1093,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
              * @returns XML data, or %NULL for an error
              */
-            ['export'](flags: NodeExportFlags): string;
+            ['export'](flags: NodeExportFlags | null): string;
             /**
              * Gets some attribute text data for a specific node.
              * @param name an attribute name, e.g. "type"
@@ -1383,7 +1383,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * Sets the flags to use for this query.
              * @param flags a #XbQueryFlags, e.g. %XB_QUERY_FLAG_USE_INDEXES
              */
-            set_flags(flags: QueryFlags): void;
+            set_flags(flags: QueryFlags | null): void;
             /**
              * Sets the results limit on this query, where 0 is 'all'.
              * @param limit integer
@@ -1466,7 +1466,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param flags some #XbNodeExportFlags, e.g. #XB_NODE_EXPORT_FLAG_NONE
              * @returns XML data, or %NULL for an error
              */
-            ['export'](flags: NodeExportFlags): string;
+            ['export'](flags: NodeExportFlags | null): string;
             /**
              * Exports the silo back to an XML file.
              * @param file a #GFile
@@ -1474,7 +1474,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param cancellable a #GCancellable, or %NULL
              * @returns %TRUE on success
              */
-            export_file(file: Gio.File, flags: NodeExportFlags, cancellable?: Gio.Cancellable | null): boolean;
+            export_file(file: Gio.File, flags: NodeExportFlags | null, cancellable?: Gio.Cancellable | null): boolean;
             /**
              * Gets the backing object that created the blob.
              *
@@ -1524,7 +1524,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param flags #XbSiloLoadFlags, e.g. %XB_SILO_LOAD_FLAG_NONE
              * @returns %TRUE for success, otherwise @error is set.
              */
-            load_from_bytes(blob: GLib.Bytes | Uint8Array, flags: SiloLoadFlags): boolean;
+            load_from_bytes(blob: GLib.Bytes | Uint8Array, flags: SiloLoadFlags | null): boolean;
             /**
              * Loads a silo from file.
              * @param file a #GFile
@@ -1532,7 +1532,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * @param cancellable a #GCancellable, or %NULL
              * @returns %TRUE for success, otherwise @error is set.
              */
-            load_from_file(file: Gio.File, flags: SiloLoadFlags, cancellable?: Gio.Cancellable | null): boolean;
+            load_from_file(file: Gio.File, flags: SiloLoadFlags | null, cancellable?: Gio.Cancellable | null): boolean;
             /**
              * Create an #XbQuery from the given `xpath` XPath string, or return it from the
              * query cache in the #XbSilo.
@@ -1640,7 +1640,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * Enables or disables the collection of profiling data.
              * @param profile_flags some #XbSiloProfileFlags, e.g. %XB_SILO_PROFILE_FLAG_DEBUG
              */
-            set_profile_flags(profile_flags: SiloProfileFlags): void;
+            set_profile_flags(profile_flags: SiloProfileFlags | null): void;
             /**
              * Converts the silo to an internal string representation. This is only
              * really useful for debugging #XbSilo itself.
@@ -1907,7 +1907,7 @@ declare module 'gi://Xmlb?version=2.0' {
              * Set flags which affect the behaviour of the query.
              * @param flags query flags, or %XB_QUERY_FLAG_NONE for none
              */
-            set_flags(flags: QueryFlags): void;
+            set_flags(flags: QueryFlags | null): void;
             /**
              * Set the limit on the number of results to return from the query.
              * @param limit number of query results to return, or `0` for unlimited

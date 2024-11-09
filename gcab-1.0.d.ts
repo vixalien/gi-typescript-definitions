@@ -167,7 +167,7 @@ declare module 'gi://GCab?version=1.0' {
              * will be used in functions like gcab_cabinet_load().
              * @param compression a #GCabCompression kind, e.g. %GCAB_COMPRESSION_MSZIP
              */
-            add_allowed_compression(compression: Compression): void;
+            add_allowed_compression(compression: Compression | null): void;
             /**
              * Add `folder` to `cabinet`.
              * @param folder a #GCabFolder

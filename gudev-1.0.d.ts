@@ -141,7 +141,7 @@ declare module 'gi://GUdev?version=1.0' {
              * @param number A device number.
              * @returns A #GUdevDevice object or %NULL if the device was not found. Free with g_object_unref().
              */
-            query_by_device_number(type: DeviceType, number: DeviceNumber): Device | null;
+            query_by_device_number(type: DeviceType | null, number: DeviceNumber): Device | null;
             /**
              * Gets all devices belonging to `subsystem`.
              * @param subsystem The subsystem to get devices for or %NULL to get all devices.

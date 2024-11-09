@@ -2451,8 +2451,8 @@ declare module 'gi://GstVideo?version=1.0' {
         function buffer_add_video_afd_meta(
             buffer: Gst.Buffer,
             field: number,
-            spec: VideoAFDSpec,
-            afd: VideoAFDValue,
+            spec: VideoAFDSpec | null,
+            afd: VideoAFDValue | null,
         ): VideoAFDMeta;
         /**
          * Attaches GstVideoAffineTransformationMeta metadata to `buffer` with
@@ -2488,7 +2488,7 @@ declare module 'gi://GstVideo?version=1.0' {
          */
         function buffer_add_video_caption_meta(
             buffer: Gst.Buffer,
-            caption_type: VideoCaptionType,
+            caption_type: VideoCaptionType | null,
             data: Uint8Array | string,
         ): VideoCaptionMeta;
         /**
@@ -2513,9 +2513,9 @@ declare module 'gi://GstVideo?version=1.0' {
          */
         function buffer_add_video_gl_texture_upload_meta(
             buffer: Gst.Buffer,
-            texture_orientation: VideoGLTextureOrientation,
+            texture_orientation: VideoGLTextureOrientation | null,
             n_textures: number,
-            texture_type: VideoGLTextureType,
+            texture_type: VideoGLTextureType | null,
             upload: VideoGLTextureUpload,
             user_data_copy: GObject.BoxedCopyFunc,
             user_data_free: GObject.BoxedFreeFunc,
@@ -2535,8 +2535,8 @@ declare module 'gi://GstVideo?version=1.0' {
          */
         function buffer_add_video_meta(
             buffer: Gst.Buffer,
-            flags: VideoFrameFlags,
-            format: VideoFormat,
+            flags: VideoFrameFlags | null,
+            format: VideoFormat | null,
             width: number,
             height: number,
         ): VideoMeta;
@@ -2554,8 +2554,8 @@ declare module 'gi://GstVideo?version=1.0' {
          */
         function buffer_add_video_meta_full(
             buffer: Gst.Buffer,
-            flags: VideoFrameFlags,
-            format: VideoFormat,
+            flags: VideoFrameFlags | null,
+            format: VideoFormat | null,
             width: number,
             height: number,
             n_planes: number,
@@ -2655,7 +2655,7 @@ declare module 'gi://GstVideo?version=1.0' {
             fps_n: number,
             fps_d: number,
             latest_daily_jam: GLib.DateTime,
-            flags: VideoTimeCodeFlags,
+            flags: VideoTimeCodeFlags | null,
             hours: number,
             minutes: number,
             seconds: number,
@@ -2733,21 +2733,21 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param command The navigation command to use.
          * @returns a new #GstEvent
          */
-        function navigation_event_new_command(command: NavigationCommand): Gst.Event;
+        function navigation_event_new_command(command: NavigationCommand | null): Gst.Event;
         /**
          * Create a new navigation event for the given key press.
          * @param key A string identifying the key press.
          * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
          * @returns a new #GstEvent
          */
-        function navigation_event_new_key_press(key: string, state: NavigationModifierType): Gst.Event;
+        function navigation_event_new_key_press(key: string, state: NavigationModifierType | null): Gst.Event;
         /**
          * Create a new navigation event for the given key release.
          * @param key A string identifying the released key.
          * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
          * @returns a new #GstEvent
          */
-        function navigation_event_new_key_release(key: string, state: NavigationModifierType): Gst.Event;
+        function navigation_event_new_key_release(key: string, state: NavigationModifierType | null): Gst.Event;
         /**
          * Create a new navigation event for the given key mouse button press.
          * @param button The number of the pressed mouse button.
@@ -2760,7 +2760,7 @@ declare module 'gi://GstVideo?version=1.0' {
             button: number,
             x: number,
             y: number,
-            state: NavigationModifierType,
+            state: NavigationModifierType | null,
         ): Gst.Event;
         /**
          * Create a new navigation event for the given key mouse button release.
@@ -2774,7 +2774,7 @@ declare module 'gi://GstVideo?version=1.0' {
             button: number,
             x: number,
             y: number,
-            state: NavigationModifierType,
+            state: NavigationModifierType | null,
         ): Gst.Event;
         /**
          * Create a new navigation event for the new mouse location.
@@ -2783,7 +2783,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
          * @returns a new #GstEvent
          */
-        function navigation_event_new_mouse_move(x: number, y: number, state: NavigationModifierType): Gst.Event;
+        function navigation_event_new_mouse_move(x: number, y: number, state: NavigationModifierType | null): Gst.Event;
         /**
          * Create a new navigation event for the mouse scroll.
          * @param x The x coordinate of the mouse cursor.
@@ -2798,7 +2798,7 @@ declare module 'gi://GstVideo?version=1.0' {
             y: number,
             delta_x: number,
             delta_y: number,
-            state: NavigationModifierType,
+            state: NavigationModifierType | null,
         ): Gst.Event;
         /**
          * Create a new navigation event signalling that all currently active touch
@@ -2808,7 +2808,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
          * @returns a new #GstEvent
          */
-        function navigation_event_new_touch_cancel(state: NavigationModifierType): Gst.Event;
+        function navigation_event_new_touch_cancel(state: NavigationModifierType | null): Gst.Event;
         /**
          * Create a new navigation event for an added touch point.
          * @param identifier A number uniquely identifying this touch point. It must stay    unique to this touch point at least until an up event is sent for    the same identifier, or all touch points are cancelled.
@@ -2823,7 +2823,7 @@ declare module 'gi://GstVideo?version=1.0' {
             x: number,
             y: number,
             pressure: number,
-            state: NavigationModifierType,
+            state: NavigationModifierType | null,
         ): Gst.Event;
         /**
          * Create a new navigation event signalling the end of a touch frame. Touch
@@ -2832,7 +2832,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
          * @returns a new #GstEvent
          */
-        function navigation_event_new_touch_frame(state: NavigationModifierType): Gst.Event;
+        function navigation_event_new_touch_frame(state: NavigationModifierType | null): Gst.Event;
         /**
          * Create a new navigation event for a moved touch point.
          * @param identifier A number uniquely identifying this touch point. It must    correlate to exactly one previous touch_start event.
@@ -2847,7 +2847,7 @@ declare module 'gi://GstVideo?version=1.0' {
             x: number,
             y: number,
             pressure: number,
-            state: NavigationModifierType,
+            state: NavigationModifierType | null,
         ): Gst.Event;
         /**
          * Create a new navigation event for a removed touch point.
@@ -2861,7 +2861,7 @@ declare module 'gi://GstVideo?version=1.0' {
             identifier: number,
             x: number,
             y: number,
-            state: NavigationModifierType,
+            state: NavigationModifierType | null,
         ): Gst.Event;
         /**
          * Inspect a #GstNavigation command event and retrieve the enum value of the
@@ -2878,7 +2878,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param event A #GstEvent to inspect.
          */
         function navigation_event_parse_key_event(event: Gst.Event): [boolean, string];
-        function navigation_event_parse_modifier_state(event: Gst.Event, state: NavigationModifierType): boolean;
+        function navigation_event_parse_modifier_state(event: Gst.Event, state: NavigationModifierType | null): boolean;
         /**
          * Retrieve the details of either a #GstNavigation mouse button press event or
          * a mouse button release event. Determine which type the event is using
@@ -3051,7 +3051,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param query a #GstQuery
          * @param cmds An array containing @n_cmds     @GstNavigationCommand values.
          */
-        function navigation_query_set_commandsv(query: Gst.Query, cmds: NavigationCommand[]): void;
+        function navigation_query_set_commandsv(query: Gst.Query, cmds: NavigationCommand[] | null): void;
         function video_afd_meta_api_get_type(): GObject.GType;
         function video_afd_meta_get_info(): Gst.MetaInfo;
         function video_affine_transformation_meta_api_get_type(): GObject.GType;
@@ -3117,7 +3117,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param type #GstVideoCaptionType
          * @returns new #GstCaps
          */
-        function video_caption_type_to_caps(type: VideoCaptionType): Gst.Caps;
+        function video_caption_type_to_caps(type: VideoCaptionType | null): Gst.Caps;
         /**
          * Takes `src` rectangle and position it at the center of `dst` rectangle with or
          * without `scaling`. It handles clipping if the `src` rectangle is bigger than
@@ -3151,13 +3151,13 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param site a #GstVideoChromaSite
          * @returns a string representation of @site          or %NULL if @site contains undefined value or          is equal to %GST_VIDEO_CHROMA_SITE_UNKNOWN
          */
-        function video_chroma_site_to_string(site: VideoChromaSite): string | null;
+        function video_chroma_site_to_string(site: VideoChromaSite | null): string | null;
         /**
          * Converts `site` to its string representation.
          * @param site a #GstVideoChromaSite
          * @returns a string describing @site.
          */
-        function video_chroma_to_string(site: VideoChromaSite): string;
+        function video_chroma_to_string(site: VideoChromaSite | null): string;
         function video_codec_alpha_meta_api_get_type(): GObject.GType;
         function video_codec_alpha_meta_get_info(): Gst.MetaInfo;
         /**
@@ -3204,7 +3204,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param matrix a #GstVideoColorMatrix
          * @returns TRUE if @matrix was a YUV color format and @Kr and @Kb contain valid    values.
          */
-        function video_color_matrix_get_Kr_Kb(matrix: VideoColorMatrix): [boolean, number, number];
+        function video_color_matrix_get_Kr_Kb(matrix: VideoColorMatrix | null): [boolean, number, number];
         /**
          * Converts #GstVideoColorMatrix to the "matrix coefficients"
          * (MatrixCoefficients) value defined by "ISO/IEC 23001-8 Section 7.3 Table 4"
@@ -3213,7 +3213,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param matrix a #GstVideoColorMatrix
          * @returns The value of ISO/IEC 23001-8 matrix coefficients.
          */
-        function video_color_matrix_to_iso(matrix: VideoColorMatrix): number;
+        function video_color_matrix_to_iso(matrix: VideoColorMatrix | null): number;
         /**
          * Converts the `value` to the #GstVideoColorPrimaries
          * The colour primaries (ColourPrimaries) value is
@@ -3228,7 +3228,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param primaries a #GstVideoColorPrimaries
          * @returns a #GstVideoColorPrimariesInfo for @primaries.
          */
-        function video_color_primaries_get_info(primaries: VideoColorPrimaries): VideoColorPrimariesInfo;
+        function video_color_primaries_get_info(primaries: VideoColorPrimaries | null): VideoColorPrimariesInfo;
         /**
          * Checks whether `primaries` and `other` are functionally equivalent
          * @param primaries a #GstVideoColorPrimaries
@@ -3236,8 +3236,8 @@ declare module 'gi://GstVideo?version=1.0' {
          * @returns TRUE if @primaries and @other can be considered equivalent.
          */
         function video_color_primaries_is_equivalent(
-            primaries: VideoColorPrimaries,
-            other: VideoColorPrimaries,
+            primaries: VideoColorPrimaries | null,
+            other: VideoColorPrimaries | null,
         ): boolean;
         /**
          * Converts #GstVideoColorPrimaries to the "colour primaries" (ColourPrimaries)
@@ -3247,7 +3247,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param primaries a #GstVideoColorPrimaries
          * @returns The value of ISO/IEC 23001-8 colour primaries.
          */
-        function video_color_primaries_to_iso(primaries: VideoColorPrimaries): number;
+        function video_color_primaries_to_iso(primaries: VideoColorPrimaries | null): number;
         /**
          * Compute the offset and scale values for each component of `info`. For each
          * component, (c[i] - offset[i]) / scale[i] will scale the component c[i] to the
@@ -3259,9 +3259,9 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param range a #GstVideoColorRange
          * @param info a #GstVideoFormatInfo
          */
-        function video_color_range_offsets(range: VideoColorRange, info: VideoFormatInfo): [number[], number[]];
-        function video_color_transfer_decode(func: VideoTransferFunction, val: number): number;
-        function video_color_transfer_encode(func: VideoTransferFunction, val: number): number;
+        function video_color_range_offsets(range: VideoColorRange | null, info: VideoFormatInfo): [number[], number[]];
+        function video_color_transfer_decode(func: VideoTransferFunction | null, val: number): number;
+        function video_color_transfer_encode(func: VideoTransferFunction | null, val: number): number;
         /**
          * Converts a raw video buffer into the specified output caps.
          *
@@ -3307,7 +3307,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param format a #GstVideoFormat
          * @returns the DRM_FORMAT_* corresponding to the @format.
          */
-        function video_dma_drm_fourcc_from_format(format: VideoFormat): number;
+        function video_dma_drm_fourcc_from_format(format: VideoFormat | null): number;
         /**
          * Convert the `format_str` string into the drm fourcc value. The `modifier` is
          * also parsed if we want. Please note that the `format_str` should follow the
@@ -3440,7 +3440,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param order a #GstVideoFieldOrder
          * @returns @order as a string.
          */
-        function video_field_order_to_string(order: VideoFieldOrder): string;
+        function video_field_order_to_string(order: VideoFieldOrder | null): string;
         /**
          * Converts a FOURCC value into the corresponding #GstVideoFormat.
          * If the FOURCC cannot be represented by #GstVideoFormat,
@@ -3480,14 +3480,14 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param format a #GstVideoFormat
          * @returns The #GstVideoFormatInfo for @format.
          */
-        function video_format_get_info(format: VideoFormat): VideoFormatInfo;
+        function video_format_get_info(format: VideoFormat | null): VideoFormatInfo;
         /**
          * Get the default palette of `format`. This the palette used in the pack
          * function for paletted formats.
          * @param format a #GstVideoFormat
          * @returns the default palette of @format or %NULL when @format does not have a palette.
          */
-        function video_format_get_palette(format: VideoFormat): [any | null, number];
+        function video_format_get_palette(format: VideoFormat | null): [any | null, number];
         /**
          * Converts a #GstVideoFormat value into the corresponding FOURCC.  Only
          * a few YUV formats have corresponding FOURCC values.  If `format` has
@@ -3495,14 +3495,14 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param format a #GstVideoFormat video format
          * @returns the FOURCC corresponding to @format
          */
-        function video_format_to_fourcc(format: VideoFormat): number;
+        function video_format_to_fourcc(format: VideoFormat | null): number;
         /**
          * Returns a string containing a descriptive name for
          * the #GstVideoFormat if there is one, or NULL otherwise.
          * @param format a #GstVideoFormat video format
          * @returns the name corresponding to @format
          */
-        function video_format_to_string(format: VideoFormat): string;
+        function video_format_to_string(format: VideoFormat | null): string;
         /**
          * Return all the raw video formats supported by GStreamer including
          * special opaque formats such as %GST_VIDEO_FORMAT_DMA_DRM for which
@@ -3567,7 +3567,11 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param flags #GstMapFlags
          * @returns %TRUE on success.
          */
-        function video_frame_map(info: VideoInfo, buffer: Gst.Buffer, flags: Gst.MapFlags): [boolean, VideoFrame];
+        function video_frame_map(
+            info: VideoInfo,
+            buffer: Gst.Buffer,
+            flags: Gst.MapFlags | null,
+        ): [boolean, VideoFrame];
         /**
          * Use `info` and `buffer` to fill in the values of `frame` with the video frame
          * information of frame `id`.
@@ -3587,7 +3591,7 @@ declare module 'gi://GstVideo?version=1.0' {
             info: VideoInfo,
             buffer: Gst.Buffer,
             id: number,
-            flags: Gst.MapFlags,
+            flags: Gst.MapFlags | null,
         ): [boolean, VideoFrame];
         function video_gl_texture_upload_meta_api_get_type(): GObject.GType;
         function video_gl_texture_upload_meta_get_info(): Gst.MetaInfo;
@@ -3645,7 +3649,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param mode a #GstVideoInterlaceMode
          * @returns @mode as a string.
          */
-        function video_interlace_mode_to_string(mode: VideoInterlaceMode): string;
+        function video_interlace_mode_to_string(mode: VideoInterlaceMode | null): string;
         /**
          * Given a frame's dimensions and pixel aspect ratio, this function will
          * calculate the frame's aspect ratio and compare it against a set of
@@ -3704,7 +3708,7 @@ declare module 'gi://GstVideo?version=1.0' {
         function video_multiview_get_mono_modes(): unknown;
         function video_multiview_get_unpacked_modes(): unknown;
         function video_multiview_guess_half_aspect(
-            mv_mode: VideoMultiviewMode,
+            mv_mode: VideoMultiviewMode | null,
             width: number,
             height: number,
             par_n: number,
@@ -3717,7 +3721,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param mview_mode A #GstVideoMultiviewMode value
          * @returns The caps string representation of the mode, or NULL if invalid.
          */
-        function video_multiview_mode_to_caps_string(mview_mode: VideoMultiviewMode): string | null;
+        function video_multiview_mode_to_caps_string(mview_mode: VideoMultiviewMode | null): string | null;
         /**
          * Utility function that transforms the width/height/PAR
          * and multiview mode and flags of a #GstVideoInfo into
@@ -3728,8 +3732,8 @@ declare module 'gi://GstVideo?version=1.0' {
          */
         function video_multiview_video_info_change_mode(
             info: VideoInfo,
-            out_mview_mode: VideoMultiviewMode,
-            out_mview_flags: VideoMultiviewFlags,
+            out_mview_mode: VideoMultiviewMode | null,
+            out_mview_flags: VideoMultiviewFlags | null,
         ): void;
         /**
          * Parses the "image-orientation" tag and transforms it into the
@@ -3791,7 +3795,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @returns the index of the tile at @x and @y in the tiled image of   @x_tiles by @y_tiles.
          */
         function video_tile_get_index(
-            mode: VideoTileMode,
+            mode: VideoTileMode | null,
             x: number,
             y: number,
             x_tiles: number,
@@ -3818,7 +3822,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param val a value
          * @returns the gamma decoded value of @val
          */
-        function video_transfer_function_decode(func: VideoTransferFunction, val: number): number;
+        function video_transfer_function_decode(func: VideoTransferFunction | null, val: number): number;
         /**
          * Convert `val` to its gamma encoded value.
          *
@@ -3837,7 +3841,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param val a value
          * @returns the gamma encoded value of @val
          */
-        function video_transfer_function_encode(func: VideoTransferFunction, val: number): number;
+        function video_transfer_function_encode(func: VideoTransferFunction | null, val: number): number;
         /**
          * Converts the `value` to the #GstVideoTransferFunction
          * The transfer characteristics (TransferCharacteristics) value is
@@ -3861,9 +3865,9 @@ declare module 'gi://GstVideo?version=1.0' {
          * @returns TRUE if @from_func and @to_func can be considered equivalent.
          */
         function video_transfer_function_is_equivalent(
-            from_func: VideoTransferFunction,
+            from_func: VideoTransferFunction | null,
             from_bpp: number,
-            to_func: VideoTransferFunction,
+            to_func: VideoTransferFunction | null,
             to_bpp: number,
         ): boolean;
         /**
@@ -3874,7 +3878,7 @@ declare module 'gi://GstVideo?version=1.0' {
          * @param func a #GstVideoTransferFunction
          * @returns The value of ISO/IEC 23001-8 transfer characteristics.
          */
-        function video_transfer_function_to_iso(func: VideoTransferFunction): number;
+        function video_transfer_function_to_iso(func: VideoTransferFunction | null): number;
         interface VideoAffineTransformationGetMatrix {
             (meta: VideoAffineTransformationMeta, matrix: number): boolean;
         }
@@ -5517,7 +5521,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param tags a #GstTagList to merge, or NULL to unset     previously-set tags
              * @param mode the #GstTagMergeMode to use, usually #GST_TAG_MERGE_REPLACE
              */
-            merge_tags(tags: Gst.TagList | null, mode: Gst.TagMergeMode): void;
+            merge_tags(tags: Gst.TagList | null, mode: Gst.TagMergeMode | null): void;
             /**
              * Negotiate with downstream elements to currently configured #GstVideoCodecState.
              * Unmark GST_PAD_FLAG_NEED_RECONFIGURE in any case. But mark it again if
@@ -5568,7 +5572,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param frame a #GstVideoCodecFrame
              * @param flags #GstVideoDecoderRequestSyncPointFlags
              */
-            request_sync_point(frame: VideoCodecFrame, flags: VideoDecoderRequestSyncPointFlags): void;
+            request_sync_point(frame: VideoCodecFrame, flags: VideoDecoderRequestSyncPointFlags | null): void;
             /**
              * Allows baseclass to perform byte to time estimated conversion.
              * @param enabled whether to enable byte to time conversion
@@ -5585,8 +5589,8 @@ declare module 'gi://GstVideo?version=1.0' {
              * @returns the newly configured output state.
              */
             set_interlaced_output_state(
-                fmt: VideoFormat,
-                interlace_mode: VideoInterlaceMode,
+                fmt: VideoFormat | null,
+                interlace_mode: VideoInterlaceMode | null,
                 width: number,
                 height: number,
                 reference?: VideoCodecState | null,
@@ -5653,7 +5657,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @returns the newly configured output state.
              */
             set_output_state(
-                fmt: VideoFormat,
+                fmt: VideoFormat | null,
                 width: number,
                 height: number,
                 reference?: VideoCodecState | null,
@@ -6057,7 +6061,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param tags a #GstTagList to merge, or NULL to unset     previously-set tags
              * @param mode the #GstTagMergeMode to use, usually #GST_TAG_MERGE_REPLACE
              */
-            merge_tags(tags: Gst.TagList | null, mode: Gst.TagMergeMode): void;
+            merge_tags(tags: Gst.TagList | null, mode: Gst.TagMergeMode | null): void;
             /**
              * Negotiate with downstream elements to currently configured #GstVideoCodecState.
              * Unmark GST_PAD_FLAG_NEED_RECONFIGURE in any case. But mark it again if
@@ -6284,7 +6288,7 @@ declare module 'gi://GstVideo?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
             ): GObject.Binding;
             /**
              * Complete version of g_object_bind_property().
@@ -6325,7 +6329,7 @@ declare module 'gi://GstVideo?version=1.0' {
                 source_property: string,
                 target: GObject.Object,
                 target_property: string,
-                flags: GObject.BindingFlags,
+                flags: GObject.BindingFlags | null,
                 transform_to?: GObject.BindingTransformFunc | null,
                 transform_from?: GObject.BindingTransformFunc | null,
                 notify?: GLib.DestroyNotify | null,
@@ -7725,7 +7729,11 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param dest_format #GstFormat of the @dest_value
              * @returns TRUE if the conversion was successful.
              */
-            convert(src_format: Gst.Format, src_value: number, dest_format: Gst.Format): [boolean, number];
+            convert(
+                src_format: Gst.Format | null,
+                src_value: number,
+                dest_format: Gst.Format | null,
+            ): [boolean, number];
             /**
              * Copy a GstVideoInfo structure.
              * @returns a new #GstVideoInfo. free with gst_video_info_free.
@@ -7753,7 +7761,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param height a height
              * @returns %FALSE if the returned video info is invalid, e.g. because the   size of a frame can't be represented as a 32 bit integer (Since: 1.12)
              */
-            set_format(format: VideoFormat, width: number, height: number): boolean;
+            set_format(format: VideoFormat | null, width: number, height: number): boolean;
             /**
              * Same as #gst_video_info_set_format but also allowing to set the interlaced
              * mode.
@@ -7764,8 +7772,8 @@ declare module 'gi://GstVideo?version=1.0' {
              * @returns %FALSE if the returned video info is invalid, e.g. because the   size of a frame can't be represented as a 32 bit integer.
              */
             set_interlaced_format(
-                format: VideoFormat,
-                mode: VideoInterlaceMode,
+                format: VideoFormat | null,
+                mode: VideoInterlaceMode | null,
                 width: number,
                 height: number,
             ): boolean;
@@ -8008,7 +8016,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param flags @GstMapFlags
              * @returns TRUE if the map operation was successful.
              */
-            map(plane: number, info: Gst.MapInfo, flags: Gst.MapFlags): [boolean, any, number];
+            map(plane: number, info: Gst.MapInfo, flags: Gst.MapFlags | null): [boolean, any, number];
             /**
              * Set the alignment of `meta` to `alignment`. This function checks that
              * the paddings defined in `alignment` are compatible with the strides
@@ -8205,9 +8213,9 @@ declare module 'gi://GstVideo?version=1.0' {
              * @returns the global-alpha value associated with the rectangle.
              */
             get_global_alpha(): number;
-            get_pixels_argb(flags: VideoOverlayFormatFlags): Gst.Buffer;
-            get_pixels_ayuv(flags: VideoOverlayFormatFlags): Gst.Buffer;
-            get_pixels_raw(flags: VideoOverlayFormatFlags): Gst.Buffer;
+            get_pixels_argb(flags: VideoOverlayFormatFlags | null): Gst.Buffer;
+            get_pixels_ayuv(flags: VideoOverlayFormatFlags | null): Gst.Buffer;
+            get_pixels_raw(flags: VideoOverlayFormatFlags | null): Gst.Buffer;
             /**
              * Retrieves the pixel data as it is. This is useful if the caller can
              * do the scaling itself when handling the overlaying. The rectangle will
@@ -8216,7 +8224,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param flags flags.    If a global_alpha value != 1 is set for the rectangle, the caller    should set the #GST_VIDEO_OVERLAY_FORMAT_FLAG_GLOBAL_ALPHA flag    if he wants to apply global-alpha himself. If the flag is not set    global_alpha is applied internally before returning the pixel-data.
              * @returns a #GstBuffer holding the ARGB pixel data with    #GstVideoMeta set. This function does not return a reference, the caller    should obtain a reference of her own with gst_buffer_ref() if needed.
              */
-            get_pixels_unscaled_argb(flags: VideoOverlayFormatFlags): Gst.Buffer;
+            get_pixels_unscaled_argb(flags: VideoOverlayFormatFlags | null): Gst.Buffer;
             /**
              * Retrieves the pixel data as it is. This is useful if the caller can
              * do the scaling itself when handling the overlaying. The rectangle will
@@ -8225,7 +8233,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param flags flags.    If a global_alpha value != 1 is set for the rectangle, the caller    should set the #GST_VIDEO_OVERLAY_FORMAT_FLAG_GLOBAL_ALPHA flag    if he wants to apply global-alpha himself. If the flag is not set    global_alpha is applied internally before returning the pixel-data.
              * @returns a #GstBuffer holding the AYUV pixel data with    #GstVideoMeta set. This function does not return a reference, the caller    should obtain a reference of her own with gst_buffer_ref() if needed.
              */
-            get_pixels_unscaled_ayuv(flags: VideoOverlayFormatFlags): Gst.Buffer;
+            get_pixels_unscaled_ayuv(flags: VideoOverlayFormatFlags | null): Gst.Buffer;
             /**
              * Retrieves the pixel data as it is. This is useful if the caller can
              * do the scaling itself when handling the overlaying. The rectangle will
@@ -8234,7 +8242,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param flags flags.    If a global_alpha value != 1 is set for the rectangle, the caller    should set the #GST_VIDEO_OVERLAY_FORMAT_FLAG_GLOBAL_ALPHA flag    if he wants to apply global-alpha himself. If the flag is not set    global_alpha is applied internally before returning the pixel-data.
              * @returns a #GstBuffer holding the pixel data with    #GstVideoMeta set. This function does not return a reference, the caller    should obtain a reference of her own with gst_buffer_ref() if needed.
              */
-            get_pixels_unscaled_raw(flags: VideoOverlayFormatFlags): Gst.Buffer;
+            get_pixels_unscaled_raw(flags: VideoOverlayFormatFlags | null): Gst.Buffer;
             /**
              * Retrieves the render position and render dimension of the overlay
              * rectangle on the video.
@@ -8405,8 +8413,8 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             clear(): void;
             init(
-                method: VideoResamplerMethod,
-                flags: VideoResamplerFlags,
+                method: VideoResamplerMethod | null,
+                flags: VideoResamplerFlags | null,
                 n_phases: number,
                 n_taps: number,
                 shift: number,
@@ -8472,7 +8480,7 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             ['2d'](
                 vscale: VideoScaler,
-                format: VideoFormat,
+                format: VideoFormat | null,
                 src: any | null,
                 src_stride: number,
                 dest: any | null,
@@ -8511,7 +8519,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param width the number of pixels to scale
              */
             horizontal(
-                format: VideoFormat,
+                format: VideoFormat | null,
                 src: any | null,
                 dest: any | null,
                 dest_offset: number,
@@ -8528,7 +8536,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param width the number of pixels to scale
              */
             vertical(
-                format: VideoFormat,
+                format: VideoFormat | null,
                 src_lines: any | null,
                 dest: any | null,
                 dest_offset: number,
@@ -8703,7 +8711,7 @@ declare module 'gi://GstVideo?version=1.0' {
                 fps_n: number,
                 fps_d: number,
                 latest_daily_jam: GLib.DateTime | null,
-                flags: VideoTimeCodeFlags,
+                flags: VideoTimeCodeFlags | null,
                 hours: number,
                 minutes: number,
                 seconds: number,
@@ -8726,7 +8734,7 @@ declare module 'gi://GstVideo?version=1.0' {
                 fps_n: number,
                 fps_d: number,
                 dt: GLib.DateTime,
-                flags: VideoTimeCodeFlags,
+                flags: VideoTimeCodeFlags | null,
                 field_count: number,
             ): void;
             /**
@@ -8743,7 +8751,7 @@ declare module 'gi://GstVideo?version=1.0' {
                 fps_n: number,
                 fps_d: number,
                 dt: GLib.DateTime,
-                flags: VideoTimeCodeFlags,
+                flags: VideoTimeCodeFlags | null,
                 field_count: number,
             ): boolean;
             is_valid(): boolean;
@@ -9021,7 +9029,9 @@ declare module 'gi://GstVideo?version=1.0' {
             vfunc_value_changed(channel: ColorBalanceChannel, value: number): void;
         }
 
-        export const ColorBalance: ColorBalanceNamespace;
+        export const ColorBalance: ColorBalanceNamespace & {
+            new (): ColorBalance; // This allows `obj instanceof ColorBalance`
+        };
 
         module Navigation {
             // Constructor properties interface
@@ -9331,7 +9341,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * Sends the indicated command to the navigation interface.
              * @param command The command to issue
              */
-            send_command(command: NavigationCommand): void;
+            send_command(command: NavigationCommand | null): void;
             send_event(structure: Gst.Structure): void;
             /**
              * Sends an event to the navigation interface.
@@ -9376,7 +9386,9 @@ declare module 'gi://GstVideo?version=1.0' {
             vfunc_send_event_simple(event: Gst.Event): void;
         }
 
-        export const Navigation: NavigationNamespace;
+        export const Navigation: NavigationNamespace & {
+            new (): Navigation; // This allows `obj instanceof Navigation`
+        };
 
         module VideoDirection {
             // Constructor properties interface
@@ -9400,7 +9412,9 @@ declare module 'gi://GstVideo?version=1.0' {
             set videoDirection(val: VideoOrientationMethod);
         }
 
-        export const VideoDirection: VideoDirectionNamespace;
+        export const VideoDirection: VideoDirectionNamespace & {
+            new (): VideoDirection; // This allows `obj instanceof VideoDirection`
+        };
 
         module VideoOrientation {
             // Constructor properties interface
@@ -9507,7 +9521,9 @@ declare module 'gi://GstVideo?version=1.0' {
             vfunc_set_vflip(flip: boolean): boolean;
         }
 
-        export const VideoOrientation: VideoOrientationNamespace;
+        export const VideoOrientation: VideoOrientationNamespace & {
+            new (): VideoOrientation; // This allows `obj instanceof VideoOrientation`
+        };
 
         module VideoOverlay {
             // Constructor properties interface
@@ -9640,7 +9656,9 @@ declare module 'gi://GstVideo?version=1.0' {
             vfunc_set_window_handle(handle: never): void;
         }
 
-        export const VideoOverlay: VideoOverlayNamespace;
+        export const VideoOverlay: VideoOverlayNamespace & {
+            new (): VideoOverlay; // This allows `obj instanceof VideoOverlay`
+        };
 
         /**
          * Name of the imported GIR library

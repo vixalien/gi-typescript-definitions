@@ -508,21 +508,21 @@ declare module 'gi://Nice?version=0.1' {
          * @param transport a #NiceCandidateTransport
          * @returns a static string with the candidate transport
          */
-        function candidate_transport_to_string(transport: CandidateTransport): string;
+        function candidate_transport_to_string(transport: CandidateTransport | null): string;
         /**
          * Useful for debugging functions, just returns a static string with the
          * candidate type.
          * @param type a #NiceCandidateType
          * @returns a static string with the candidate type
          */
-        function candidate_type_to_string(type: CandidateType): string;
+        function candidate_type_to_string(type: CandidateType | null): string;
         /**
          * Returns a string representation of the state, generally to use in debug
          * messages.
          * @param state a #NiceComponentState
          * @returns a string representation of @state
          */
-        function component_state_to_string(state: ComponentState): string;
+        function component_state_to_string(state: ComponentState | null): string;
         /**
          * Disables libnice debug output to the terminal
          * @param with_stun Also disable stun debugging messages
@@ -572,7 +572,7 @@ declare module 'gi://Nice?version=0.1' {
          * Sets the debug level to enable/disable normal/verbose debug messages.
          * @param level The level of debug to set
          */
-        function pseudo_tcp_set_debug_level(level: PseudoTcpDebugLevel): void;
+        function pseudo_tcp_set_debug_level(level: PseudoTcpDebugLevel | null): void;
         interface AgentRecvFunc {
             (agent: Agent, stream_id: number, component_id: number, len: number, buf: string): void;
         }
@@ -1946,7 +1946,7 @@ declare module 'gi://Nice?version=0.1' {
                 server_port: number,
                 username: string,
                 password: string,
-                type: RelayType,
+                type: RelayType | null,
             ): boolean;
             /**
              * Sets, adds or updates the remote candidates for a component of a stream.
@@ -2327,7 +2327,7 @@ declare module 'gi://Nice?version=0.1' {
              * %PSEUDO_TCP_SHUTDOWN_RDWR is equivalent to calling pseudo_tcp_socket_close().
              * @param how The directions of the connection to shut down.
              */
-            shutdown(how: PseudoTcpShutdown): void;
+            shutdown(how: PseudoTcpShutdown | null): void;
         }
 
         /**

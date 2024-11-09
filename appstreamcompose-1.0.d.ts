@@ -225,7 +225,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
          */
         function globals_add_hint_tag(
             tag: string,
-            severity: AppStream.IssueSeverity,
+            severity: AppStream.IssueSeverity | null,
             explanation: string,
             overrideExisting: boolean,
         ): boolean;
@@ -302,7 +302,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
          * @param istate the #AscIconState.
          * @returns string version of @istate
          */
-        function icon_state_to_string(istate: IconState): string;
+        function icon_state_to_string(istate: IconState | null): string;
         function image_error_quark(): GLib.Quark;
         /**
          * Returns the image format type based on the given file's filename.
@@ -321,7 +321,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
          * @param format the %AscImageFormat.
          * @returns string version of @format
          */
-        function image_format_to_string(format: ImageFormat): string;
+        function image_format_to_string(format: ImageFormat | null): string;
         /**
          * Optimizes a PNG graphic for size with optipng, if its binary
          * is available and this feature is enabled.
@@ -489,7 +489,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * Add compose flags.
              * @param flags The compose flags to add.
              */
-            add_flags(flags: ComposeFlags): void;
+            add_flags(flags: ComposeFlags | null): void;
             /**
              * Add an #AscUnit as data source for metadata processing.
              * @param unit The #AscUnit to add
@@ -589,7 +589,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * Remove compose flags.
              * @param flags The compose flags to remove.
              */
-            remove_flags(flags: ComposeFlags): void;
+            remove_flags(flags: ComposeFlags | null): void;
             /**
              * Reset the results, units and run-specific settings so the
              * instance can be reused for another metadata generation run.
@@ -628,12 +628,12 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * for this #AscCompose.
              * @param flags The compose flags bitfield.
              */
-            set_flags(flags: ComposeFlags): void;
+            set_flags(flags: ComposeFlags | null): void;
             /**
              * Set the format kind of the catalog metadata that we should generate.
              * @param kind The format, e.g. %AS_FORMAT_KIND_XML
              */
-            set_format(kind: AppStream.FormatKind): void;
+            set_format(kind: AppStream.FormatKind | null): void;
             /**
              * Set an output location for HTML reports of issues generated
              * during a compose run.
@@ -790,7 +790,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * Sets the issue severity of this hint.
              * @param severity
              */
-            set_severity(severity: AppStream.IssueSeverity): void;
+            set_severity(severity: AppStream.IssueSeverity | null): void;
             /**
              * Sets the unique tag for the type of this hint.
              * @param tag
@@ -828,7 +828,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * @param icon_scale the icon scale factor, e.g. 1
              * @param state the designated #AscIconState
              */
-            set_policy(icon_size: number, icon_scale: number, state: IconState): void;
+            set_policy(icon_size: number, icon_scale: number, state: IconState | null): void;
             /**
              * Converts the current icon policy into a textual representation.
              * @returns The icon policy serialized into a string. Free with g_free()
@@ -894,7 +894,12 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * @param flags a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
              * @returns %TRUE for success
              */
-            load_filename(filename: string, dest_size: number, src_size_min: number, flags: ImageLoadFlags): boolean;
+            load_filename(
+                filename: string,
+                dest_size: number,
+                src_size_min: number,
+                flags: ImageLoadFlags | null,
+            ): boolean;
             /**
              * Saves the image to a file.
              * @param filename filename to write to
@@ -903,7 +908,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * @param flags some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
              * @returns %TRUE for success
              */
-            save_filename(filename: string, width: number, height: number, flags: ImageSaveFlags): boolean;
+            save_filename(filename: string, width: number, height: number, flags: ImageSaveFlags | null): boolean;
             /**
              * Resamples a pixbuf to a specific size.
              * @param width target width, or 0 for default
@@ -911,7 +916,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * @param flags some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
              * @returns A #GdkPixbuf of the specified size
              */
-            save_pixbuf(width: number, height: number, flags: ImageSaveFlags): GdkPixbuf.Pixbuf;
+            save_pixbuf(width: number, height: number, flags: ImageSaveFlags | null): GdkPixbuf.Pixbuf;
             /**
              * Scale the image to the given size.
              * @param new_width The new width.
@@ -1090,7 +1095,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * Sets the kind of the bundle these results are for.
              * @param kind
              */
-            set_bundle_kind(kind: AppStream.BundleKind): void;
+            set_bundle_kind(kind: AppStream.BundleKind | null): void;
             unit_ignored(): boolean;
             /**
              * Update the global component ID for the given component.
@@ -1224,7 +1229,7 @@ declare module 'gi://AppStreamCompose?version=1.0' {
              * Sets the kind of the bundle this unit represents.
              * @param kind
              */
-            set_bundle_kind(kind: AppStream.BundleKind): void;
+            set_bundle_kind(kind: AppStream.BundleKind | null): void;
             /**
              * Set list of files this unit contains.
              * @param contents A list of files contained by this unit.

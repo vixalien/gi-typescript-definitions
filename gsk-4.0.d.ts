@@ -2668,7 +2668,7 @@ declare module 'gi://Gsk?version=4.0' {
              * @param func the function to call for operations
              * @returns `FALSE` if @func returned FALSE`, `TRUE` otherwise.
              */
-            foreach(flags: PathForeachFlags, func: PathForeachFunc): boolean;
+            foreach(flags: PathForeachFlags | null, func: PathForeachFunc): boolean;
             /**
              * Computes the bounds of the given path.
              *
@@ -2737,7 +2737,7 @@ declare module 'gi://Gsk?version=4.0' {
              * @param fill_rule the fill rule to follow
              * @returns `TRUE` if @point is inside
              */
-            in_fill(point: Graphene.Point, fill_rule: FillRule): boolean;
+            in_fill(point: Graphene.Point, fill_rule: FillRule | null): boolean;
             /**
              * Returns if the path represents a single closed
              * contour.
@@ -3359,7 +3359,7 @@ declare module 'gi://Gsk?version=4.0' {
              * @param direction the direction for which to return the curvature
              * @returns The curvature of the path at the given point
              */
-            get_curvature(path: Path, direction: PathDirection): [number, Graphene.Point | null];
+            get_curvature(path: Path, direction: PathDirection | null): [number, Graphene.Point | null];
             /**
              * Returns the distance from the beginning of the path
              * to `point`.
@@ -3383,7 +3383,7 @@ declare module 'gi://Gsk?version=4.0' {
              * @param direction the direction for which to return the rotation
              * @returns the angle between the tangent and the X axis, in degrees
              */
-            get_rotation(path: Path, direction: PathDirection): number;
+            get_rotation(path: Path, direction: PathDirection | null): number;
             /**
              * Gets the tangent of the path at the point.
              *
@@ -3402,7 +3402,7 @@ declare module 'gi://Gsk?version=4.0' {
              * @param path the path that @point is on
              * @param direction the direction for which to return the tangent
              */
-            get_tangent(path: Path, direction: PathDirection): Graphene.Vec2;
+            get_tangent(path: Path, direction: PathDirection | null): Graphene.Vec2;
         }
 
         type RendererClass = typeof Renderer;
@@ -3776,14 +3776,14 @@ declare module 'gi://Gsk?version=4.0' {
              * See [enum`Gsk`.LineCap] for details.
              * @param line_cap the `GskLineCap`
              */
-            set_line_cap(line_cap: LineCap): void;
+            set_line_cap(line_cap: LineCap | null): void;
             /**
              * Sets the line join to be used when stroking.
              *
              * See [enum`Gsk`.LineJoin] for details.
              * @param line_join The line join to use
              */
-            set_line_join(line_join: LineJoin): void;
+            set_line_join(line_join: LineJoin | null): void;
             /**
              * Sets the line width to be used when stroking.
              *
