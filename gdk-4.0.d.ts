@@ -4345,7 +4345,7 @@ declare module 'gi://Gdk?version=4.0' {
          * Apple, CapsLock or ShiftLock.
          *
          * Note that GDK may add internal values to events which include values outside
-         * of this enumeration. Your code should preserve and ignore them.  You can use
+         * of this enumeration. Your code should preserve and ignore them. You can use
          * %GDK_MODIFIER_MASK to remove all private values.
          */
 
@@ -4357,7 +4357,7 @@ declare module 'gi://Gdk?version=4.0' {
          * Apple, CapsLock or ShiftLock.
          *
          * Note that GDK may add internal values to events which include values outside
-         * of this enumeration. Your code should preserve and ignore them.  You can use
+         * of this enumeration. Your code should preserve and ignore them. You can use
          * %GDK_MODIFIER_MASK to remove all private values.
          */
         export namespace ModifierType {
@@ -4374,8 +4374,8 @@ declare module 'gi://Gdk?version=4.0' {
              */
             SHIFT_MASK,
             /**
-             * a Lock key (depending on the modifier mapping of the
-             *  X server this may either be CapsLock or ShiftLock).
+             * a Lock key (depending on the Windowing System configuration,
+             *    this may either be <kbd>CapsLock</kbd> or <kbd>ShiftLock</kbd>).
              */
             LOCK_MASK,
             /**
@@ -4383,9 +4383,9 @@ declare module 'gi://Gdk?version=4.0' {
              */
             CONTROL_MASK,
             /**
-             * the fourth modifier key (it depends on the modifier
-             *  mapping of the X server which key is interpreted as this modifier, but
-             *  normally it is the Alt key).
+             * the fourth modifier key (it depends on the Windowing System
+             *    configuration which key is interpreted as this modifier, but normally it
+             *    is the <kbd>Alt</kbd> key).
              */
             ALT_MASK,
             /**
@@ -8775,12 +8775,12 @@ declare module 'gi://Gdk?version=4.0' {
             get premultiplied(): boolean;
             set premultiplied(val: boolean);
             /**
-             * The update region for [property`Gdk`.GLTextureBuilder:update-texture].
+             * The update region for [property`Gdk`.DmabufTextureBuilder:update-texture].
              */
             get update_region(): cairo.Region;
             set update_region(val: cairo.Region);
             /**
-             * The update region for [property`Gdk`.GLTextureBuilder:update-texture].
+             * The update region for [property`Gdk`.DmabufTextureBuilder:update-texture].
              */
             get updateRegion(): cairo.Region;
             set updateRegion(val: cairo.Region);
@@ -8937,14 +8937,14 @@ declare module 'gi://Gdk?version=4.0' {
              *
              * The format is specified as a fourcc code.
              *
-             * The format must be set before calling [method`Gdk`.GLTextureBuilder.build].
+             * The format must be set before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param fourcc the texture's format or 0 to unset
              */
             set_fourcc(fourcc: number): void;
             /**
              * Sets the height of the texture.
              *
-             * The height must be set before calling [method`Gdk`.GLTextureBuilder.build].
+             * The height must be set before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param height the texture's height or 0 to unset
              */
             set_height(height: number): void;
@@ -8975,7 +8975,7 @@ declare module 'gi://Gdk?version=4.0' {
             /**
              * Sets the stride for a plane.
              *
-             * The stride must be set for all planes before calling [method`Gdk`.GLTextureBuilder.build].
+             * The stride must be set for all planes before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param plane the plane to set the stride for
              * @param stride the stride value
              */
@@ -9003,7 +9003,7 @@ declare module 'gi://Gdk?version=4.0' {
             /**
              * Sets the width of the texture.
              *
-             * The width must be set before calling [method`Gdk`.GLTextureBuilder.build].
+             * The width must be set before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param width The texture's width or 0 to unset
              */
             set_width(width: number): void;
