@@ -206,12 +206,12 @@ declare module 'gi://GstPlay?version=1.0' {
         function play_error_quark(): GLib.Quark;
         function play_message_get_name(message_type: PlayMessage | null): string;
         /**
-         * Parse the given buffering-percent `msg` and extract the corresponding value
+         * Parse the given buffering `msg` and extract the corresponding value
          * @param msg A #GstMessage
          */
         function play_message_parse_buffering_percent(msg: Gst.Message): number;
         /**
-         * Parse the given duration `msg` and extract the corresponding #GstClockTime
+         * Parse the given duration-changed `msg` and extract the corresponding #GstClockTime
          * @param msg A #GstMessage
          */
         function play_message_parse_duration_updated(msg: Gst.Message): Gst.ClockTime | null;
@@ -221,22 +221,22 @@ declare module 'gi://GstPlay?version=1.0' {
          */
         function play_message_parse_error(msg: Gst.Message): [GLib.Error | null, Gst.Structure | null];
         /**
-         * Parse the given `msg` and extract the corresponding media information
+         * Parse the given media-info-updated `msg` and extract the corresponding media information
          * @param msg A #GstMessage
          */
         function play_message_parse_media_info_updated(msg: Gst.Message): PlayMediaInfo | null;
         /**
-         * Parse the given `msg` and extract the corresponding audio muted state
+         * Parse the given mute-changed `msg` and extract the corresponding audio muted state
          * @param msg A #GstMessage
          */
         function play_message_parse_muted_changed(msg: Gst.Message): boolean;
         /**
-         * Parse the given position `msg` and extract the corresponding #GstClockTime
+         * Parse the given position-updated `msg` and extract the corresponding #GstClockTime
          * @param msg A #GstMessage
          */
         function play_message_parse_position_updated(msg: Gst.Message): Gst.ClockTime | null;
         /**
-         * Parse the given state `msg` and extract the corresponding #GstPlayState
+         * Parse the given state-changed `msg` and extract the corresponding #GstPlayState
          * @param msg A #GstMessage
          */
         function play_message_parse_state_changed(msg: Gst.Message): PlayState | null;
@@ -246,17 +246,17 @@ declare module 'gi://GstPlay?version=1.0' {
          */
         function play_message_parse_type(msg: Gst.Message): PlayMessage | null;
         /**
-         * Parse the given `msg` and extract the corresponding video dimensions
+         * Parse the given video-dimensions-changed `msg` and extract the corresponding video dimensions
          * @param msg A #GstMessage
          */
         function play_message_parse_video_dimensions_changed(msg: Gst.Message): [number, number];
         /**
-         * Parse the given `msg` and extract the corresponding audio volume
+         * Parse the given volume-changed `msg` and extract the corresponding audio volume
          * @param msg A #GstMessage
          */
         function play_message_parse_volume_changed(msg: Gst.Message): number;
         /**
-         * Parse the given error `msg` and extract the corresponding #GError warning
+         * Parse the given warning `msg` and extract the corresponding #GError
          * @param msg A #GstMessage
          */
         function play_message_parse_warning(msg: Gst.Message): [GLib.Error | null, Gst.Structure | null];

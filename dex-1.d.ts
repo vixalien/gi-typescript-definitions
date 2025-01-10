@@ -214,6 +214,22 @@ declare module 'gi://Dex?version=1' {
             flags: Gio.FileCreateFlags | null,
             io_priority: number,
         ): Future;
+        /**
+         * Wraps g_file_replace_contents_bytes_async().
+         * @param file a #GFile
+         * @param contents a #GBytes
+         * @param etag the etag or %NULL
+         * @param make_backup if a backup file should be created
+         * @param flags A set of #GFileCreateFlags
+         * @returns a #DexFuture which resolves to the   new etag. Therefore, it is possible to be %NULL without an   error having occurred.
+         */
+        function file_replace_contents_bytes(
+            file: Gio.File,
+            contents: GLib.Bytes | Uint8Array,
+            etag: string | null,
+            make_backup: boolean,
+            flags: Gio.FileCreateFlags | null,
+        ): Future;
         function get_min_stack_size(): number;
         function get_page_size(): number;
         function init(): void;
@@ -1053,6 +1069,8 @@ declare module 'gi://Dex?version=1' {
 
             static new_for_error(error: GLib.Error): Future;
 
+            static new_for_fd(fd: number): Future;
+
             static new_for_float(v_float: number): Future;
 
             static new_for_int(v_int: number): Future;
@@ -1359,6 +1377,15 @@ declare module 'gi://Dex?version=1' {
             resolve(value: GObject.Value | any): void;
             resolve_boolean(value: boolean): void;
             resolve_double(value: number): void;
+            /**
+             * Resolves the promise to `fd`.
+             *
+             * The file-descriptor may be dup()'d by this function and
+             * `fd` closed immediately.
+             *
+             * Use dex_await_fd() or similar to retrieve the resolved FD.
+             * @param fd a file-descriptor for the resolve to resolve to
+             */
             resolve_fd(fd: number): void;
             resolve_float(value: number): void;
             resolve_int(value: number): void;

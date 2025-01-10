@@ -1402,40 +1402,42 @@ declare module 'gi://GLib?version=2.0' {
 
         /**
          * The type of file to return the filename for, when used with
-         * g_test_build_filename().
+         * [func`GLib`.test_build_filename].
          *
          * These two options correspond rather directly to the 'dist' and
          * 'built' terminology that automake uses and are explicitly used to
-         * distinguish between the 'srcdir' and 'builddir' being separate.  All
-         * files in your project should either be dist (in the
-         * `EXTRA_DIST` or `dist_schema_DATA`
-         * sense, in which case they will always be in the srcdir) or built (in
-         * the `BUILT_SOURCES` sense, in which case they will
-         * always be in the builddir).
+         * distinguish between the 'srcdir' and 'builddir' being separate. All
+         * files in your project should either be dist (in the `EXTRA_DIST` or
+         * `dist_schema_DATA` sense, in which case they will always be in the
+         * srcdir) or built (in the `BUILT_SOURCES` sense, in which case they
+         * will always be in the builddir).
          *
-         * Note: as a general rule of automake, files that are generated only as
+         * Note: As a general rule of automake, files that are generated only as
          * part of the build-from-git process (but then are distributed with the
          * tarball) always go in srcdir (even if doing a srcdir != builddir
          * build from git) and are considered as distributed files.
+         *
+         * The same principles apply for other build systems, such as meson.
          */
 
         /**
          * The type of file to return the filename for, when used with
-         * g_test_build_filename().
+         * [func`GLib`.test_build_filename].
          *
          * These two options correspond rather directly to the 'dist' and
          * 'built' terminology that automake uses and are explicitly used to
-         * distinguish between the 'srcdir' and 'builddir' being separate.  All
-         * files in your project should either be dist (in the
-         * `EXTRA_DIST` or `dist_schema_DATA`
-         * sense, in which case they will always be in the srcdir) or built (in
-         * the `BUILT_SOURCES` sense, in which case they will
-         * always be in the builddir).
+         * distinguish between the 'srcdir' and 'builddir' being separate. All
+         * files in your project should either be dist (in the `EXTRA_DIST` or
+         * `dist_schema_DATA` sense, in which case they will always be in the
+         * srcdir) or built (in the `BUILT_SOURCES` sense, in which case they
+         * will always be in the builddir).
          *
-         * Note: as a general rule of automake, files that are generated only as
+         * Note: As a general rule of automake, files that are generated only as
          * part of the build-from-git process (but then are distributed with the
          * tarball) always go in srcdir (even if doing a srcdir != builddir
          * build from git) and are considered as distributed files.
+         *
+         * The same principles apply for other build systems, such as meson.
          */
         export namespace TestFileType {
             export const $gtype: GObject.GType<TestFileType>;
@@ -1977,15 +1979,23 @@ declare module 'gi://GLib?version=2.0' {
             ZERO_WIDTH_JOINER,
             /**
              * Aksara (AK). Since: 2.80
-             * `G_UNICODE_BREAK_AKSARA_PRE_BASE` (AP). Since: 2.80
-             * `G_UNICODE_BREAK_AKSARA_START` (AS). Since: 2.80
-             * `G_UNICODE_BREAK_VIRAMA_FINAL` (VF). Since: 2.80
-             * `G_UNICODE_BREAK_VIRAMA` (VI). Since: 2.80
              */
             AKSARA,
+            /**
+             * Aksara Pre-Base (AP). Since: 2.80
+             */
             AKSARA_PRE_BASE,
+            /**
+             * Aksara Start (AS). Since: 2.80
+             */
             AKSARA_START,
+            /**
+             * Virama Final (VF). Since: 2.80
+             */
             VIRAMA_FINAL,
+            /**
+             * Virama (VI). Since: 2.80
+             */
             VIRAMA,
         }
         /**
@@ -3258,12 +3268,14 @@ declare module 'gi://GLib?version=2.0' {
         const DATE_BAD_YEAR: number;
         /**
          * The directory separator character.
-         * This is '/' on UNIX machines and '\' under Windows.
+         *
+         * This is `'/'` on UNIX machines and `'\'` under Windows.
          */
         const DIR_SEPARATOR: number;
         /**
          * The directory separator as a string.
-         * This is "/" on UNIX machines and "\" under Windows.
+         *
+         * This is `"/"` on UNIX machines and `"\"` under Windows.
          */
         const DIR_SEPARATOR_S: string;
         /**
@@ -3711,29 +3723,31 @@ declare module 'gi://GLib?version=2.0' {
         /**
          * A value that can be passed as an option to [func`GLib`.test_init].
          *
-         * Creates a unique temporary directory for each unit test and uses
-         * g_set_user_dirs() to set XDG directories to point into subdirectories of it
-         * for the duration of the unit test. The directory tree is cleaned up after the
-         * test finishes successfully. Note that this doesn’t take effect until
-         * g_test_run() is called, so calls to (for example) g_get_user_home_dir() will
-         * return the system-wide value when made in a test program’s main() function.
+         * Creates a unique temporary directory for each unit test and uses sets
+         * XDG directories to point into subdirectories of it for the duration of
+         * the unit test. The directory tree is cleaned up after the test finishes
+         * successfully.
+         *
+         * Note that this doesn’t take effect until [func`GLib`.test_run] is called,
+         * so calls to (for example) [func`GLib`.get_home_dir] will return the
+         * system-wide value when made in a test program’s main() function.
          *
          * The following functions will return subdirectories of the temporary directory
          * when this option is used. The specific subdirectory paths in use are not
          * guaranteed to be stable API — always use a getter function to retrieve them.
          *
-         *  - g_get_home_dir()
-         *  - g_get_user_cache_dir()
-         *  - g_get_system_config_dirs()
-         *  - g_get_user_config_dir()
-         *  - g_get_system_data_dirs()
-         *  - g_get_user_data_dir()
-         *  - g_get_user_state_dir()
-         *  - g_get_user_runtime_dir()
+         *  - [func`GLib`.get_home_dir]
+         *  - [func`GLib`.get_user_cache_dir]
+         *  - [func`GLib`.get_system_config_dirs]
+         *  - [func`GLib`.get_user_config_dir]
+         *  - [func`GLib`.get_system_data_dirs]
+         *  - [func`GLib`.get_user_data_dir]
+         *  - [func`GLib`.get_user_state_dir]
+         *  - [func`GLib`.get_user_runtime_dir]
          *
          * The subdirectories may not be created by the test harness; as with normal
-         * calls to functions like g_get_user_cache_dir(), the caller must be prepared
-         * to create the directory if it doesn’t exist.
+         * calls to functions like [func`GLib`.get_user_cache_dir], the caller must
+         * be prepared to create the directory if it doesn’t exist.
          */
         const TEST_OPTION_ISOLATE_DIRS: string;
         /**
@@ -5185,8 +5199,8 @@ declare module 'gi://GLib?version=2.0' {
          */
         function chmod(filename: string, mode: number): number;
         /**
-         * If `err` or *`err` is %NULL, does nothing. Otherwise,
-         * calls g_error_free() on *`err` and sets *`err` to %NULL.
+         * If `err` or `*err` is %NULL, does nothing. Otherwise,
+         * calls g_error_free() on `*err` and sets `*err` to %NULL.
          */
         function clear_error(): void;
         /**
@@ -7433,6 +7447,9 @@ declare module 'gi://GLib?version=2.0' {
          *     which debug and informational messages are printed. By default
          *     these messages are not printed. If you need to set the allowed
          *     domains at runtime, use [func`GLib`.log_writer_default_set_debug_domains].
+         *   - `DEBUG_INVOCATION`: If set to `1`, this is equivalent to
+         *     `G_MESSAGES_DEBUG=all`. `DEBUG_INVOCATION` is a standard environment
+         *     variable set by systemd to prompt debug output. (Since: 2.84)
          *
          * `stderr` is used for levels [flags`GLib`.LogLevelFlags.LEVEL_ERROR],
          * [flags`GLib`.LogLevelFlags.LEVEL_CRITICAL], [flags`GLib`.LogLevelFlags.LEVEL_WARNING] and
@@ -7461,7 +7478,8 @@ declare module 'gi://GLib?version=2.0' {
          * implementations.
          *
          * Note also that the value of this does not depend on `G_MESSAGES_DEBUG`, nor
-         * [func`GLib`.log_writer_default_set_debug_domains]; see the docs for [func`GLib`.log_set_debug_enabled].
+         * `DEBUG_INVOCATION`, nor [func`GLib`.log_writer_default_set_debug_domains]; see
+         * the docs for [func`GLib`.log_set_debug_enabled].
          * @returns `TRUE` if debug output is enabled, `FALSE` otherwise
          */
         function log_get_debug_enabled(): boolean;
@@ -7499,7 +7517,7 @@ declare module 'gi://GLib?version=2.0' {
         /**
          * Enable or disable debug output from the GLib logging system for all domains.
          *
-         * This value interacts disjunctively with `G_MESSAGES_DEBUG` and
+         * This value interacts disjunctively with `G_MESSAGES_DEBUG`, `DEBUG_INVOCATION` and
          * [func`GLib`.log_writer_default_set_debug_domains] — if any of them would allow
          * a debug message to be outputted, it will be.
          *
@@ -7533,7 +7551,10 @@ declare module 'gi://GLib?version=2.0' {
          *
          * This has no effect if structured logging is enabled; see
          * [Using Structured Logging](logging.html#using-structured-logging).
-         * @param log_domain the log domain, or `NULL` for the default `""`   application domain
+         *
+         * The `log_domain` parameter can be set to `NULL` or an empty string to use the default
+         * application domain.
+         * @param log_domain the log domain   application domain
          * @param log_levels the log levels to apply the log handler for.   To handle fatal and recursive messages as well, combine   the log levels with the [flags@GLib.LogLevelFlags.FLAG_FATAL] and   [flags@GLib.LogLevelFlags.FLAG_RECURSION] bit flags.
          * @param log_func the log handler function
          * @returns the ID of the new handler
@@ -7612,7 +7633,8 @@ declare module 'gi://GLib?version=2.0' {
          *
          * As with [func`GLib`.log_default_handler], this function drops debug and informational
          * messages unless their log domain (or `all`) is listed in the space-separated
-         * `G_MESSAGES_DEBUG` environment variable, or set at runtime by [func`GLib`.log_writer_default_set_debug_domains].
+         * `G_MESSAGES_DEBUG` environment variable, or `DEBUG_INVOCATION=1` is set in
+         * the environment, or set at runtime by [func`GLib`.log_writer_default_set_debug_domains].
          *
          * [func`GLib`.log_writer_default] uses the mask set by [func`GLib`.log_set_always_fatal] to
          * determine which messages are fatal. When using a custom writer function instead it is
@@ -7629,7 +7651,7 @@ declare module 'gi://GLib?version=2.0' {
         ): LogWriterOutput;
         /**
          * Reset the list of domains to be logged, that might be initially set by the
-         * `G_MESSAGES_DEBUG` environment variable.
+         * `G_MESSAGES_DEBUG` or `DEBUG_INVOCATION` environment variables.
          *
          * This function is thread-safe.
          * @param domains `NULL`-terminated array with domains to be printed.   `NULL` or an array with no values means none. Array with a single value `"all"` means all.
@@ -7660,7 +7682,8 @@ declare module 'gi://GLib?version=2.0' {
          *
          * As with [func`GLib`.log_default_handler], this function drops debug and informational
          * messages unless their log domain (or `all`) is listed in the space-separated
-         * `G_MESSAGES_DEBUG` environment variable, or by [func`GLib`.log_writer_default_set_debug_domains].
+         * `G_MESSAGES_DEBUG` environment variable, or `DEBUG_INVOCATION=1` is set in
+         * the environment, or by [func`GLib`.log_writer_default_set_debug_domains].
          *
          * This can be used when implementing log writers with the same filtering
          * behaviour as the default, but a different destination or output format:
@@ -7672,7 +7695,7 @@ declare module 'gi://GLib?version=2.0' {
          *
          *
          * or to skip an expensive computation if it is only needed for a debugging
-         * message, and `G_MESSAGES_DEBUG` is not set:
+         * message, and `G_MESSAGES_DEBUG` and `DEBUG_INVOCATION` are not set:
          *
          * ```c
          * if (!g_log_writer_default_would_drop (G_LOG_LEVEL_DEBUG, G_LOG_DOMAIN))
@@ -8233,7 +8256,7 @@ declare module 'gi://GLib?version=2.0' {
          * While `location` has a `volatile` qualifier, this is a historical artifact and
          * the pointer passed to it should not be `volatile`.
          * @param location location of a static initializable variable    containing 0
-         * @param result new non-0 value for *@value_location
+         * @param result new non-0 value for `*value_location`
          */
         function once_init_leave(location: any, result: number): any;
         /**
@@ -8490,14 +8513,14 @@ declare module 'gi://GLib?version=2.0' {
          */
         function poll(fds: PollFD, nfds: number, timeout: number): number;
         /**
-         * Prefixes `prefix` to an existing error message. If `err` or *`err` is
+         * Prefixes `prefix` to an existing error message. If `err` or `*err` is
          * %NULL (i.e.: no error variable) then do nothing.
          * @param err a return location for a #GError, or %NULL
          * @param prefix string to prefix @err with
          */
         function prefix_error_literal(err: (Error | null) | null, prefix: string): (Error | null) | null;
         /**
-         * If `dest` is %NULL, free `src;` otherwise, moves `src` into *`dest`.
+         * If `dest` is %NULL, free `src;` otherwise, moves `src` into `*dest`.
          * The error variable `dest` points to must be %NULL.
          *
          * `src` must be non-%NULL.
@@ -9074,8 +9097,8 @@ declare module 'gi://GLib?version=2.0' {
          */
         function set_application_name(application_name: string): void;
         /**
-         * Does nothing if `err` is %NULL; if `err` is non-%NULL, then *`err`
-         * must be %NULL. A new #GError is created and assigned to *`err`.
+         * Does nothing if `err` is %NULL; if `err` is non-%NULL, then `*err`
+         * must be %NULL. A new #GError is created and assigned to `*err`.
          * Unlike g_set_error(), `message` is not a printf()-style format string.
          * Use this function if `message` contains text you don't have control over,
          * that could include printf() escape sequences.
@@ -10017,12 +10040,13 @@ declare module 'gi://GLib?version=2.0' {
          */
         function strchug(string: string): string;
         /**
-         * Compares `str1` and `str2` like strcmp(). Handles %NULL
-         * gracefully by sorting it before non-%NULL strings.
-         * Comparing two %NULL pointers returns 0.
-         * @param str1 a C string or %NULL
-         * @param str2 another C string or %NULL
-         * @returns an integer less than, equal to, or greater than zero, if @str1 is <, == or > than @str2.
+         * Compares `str1` and `str2` like `strcmp()`.
+         *
+         * Handles `NULL` gracefully by sorting it before non-`NULL` strings.
+         * Comparing two `NULL` pointers returns 0.
+         * @param str1 a string
+         * @param str2 another string
+         * @returns an integer less than, equal to, or greater than zero,   if @str1 is <, == or > than @str2
          */
         function strcmp0(str1?: string | null, str2?: string | null): number;
         /**
@@ -10386,10 +10410,6 @@ declare module 'gi://GLib?version=2.0' {
          * of order, sort the arrays first (using [func`GLib`.qsort_with_data]
          * or similar).
          *
-         * Elements are compared using [func`GLib`.str_equal]. To match independently
-         * of order, sort the arrays first (using [func`GLib`.qsort_with_data]
-         * or similar).
-         *
          * Two empty arrays are considered equal. Neither `strv1` nor `strv2` may be
          * `NULL`.
          * @param strv1 an array of strings to compare to @strv2
@@ -10405,69 +10425,76 @@ declare module 'gi://GLib?version=2.0' {
          */
         function strv_length(str_array: string[]): number;
         /**
-         * Create a new test case, similar to g_test_create_case(). However
-         * the test is assumed to use no fixture, and test suites are automatically
-         * created on the fly and added to the root fixture, based on the
-         * slash-separated portions of `testpath`. The `test_data` argument
-         * will be passed as first argument to `test_func`.
+         * Creates a new test case.
+         *
+         * This function is similar to [func`GLib`.test_create_case].
+         * However the test is assumed to use no fixture, and test suites are
+         * automatically created on the fly and added to the root fixture,
+         * based on the /-separated portions of `testpath`. The `test_data`
+         * argument will be passed as first argument to `test_func`.
          *
          * If `testpath` includes the component "subprocess" anywhere in it,
          * the test will be skipped by default, and only run if explicitly
-         * required via the `-p` command-line option or g_test_trap_subprocess().
+         * required via the `-p` command-line option or [func`GLib`.test_trap_subprocess].
          *
          * No component of `testpath` may start with a dot (`.`) if the
-         * %G_TEST_OPTION_ISOLATE_DIRS option is being used; and it is recommended to
-         * do so even if it isn’t.
-         * @param testpath /-separated test case path name for the test.
-         * @param test_data Test data argument for the test function.
-         * @param test_func The test function to invoke for this test.
+         * [const`GLib`.TEST_OPTION_ISOLATE_DIRS] option is being used;
+         * and it is recommended to do so even if it isn’t.
+         * @param testpath a /-separated name for the test
+         * @param test_data data for the @test_func
+         * @param test_func the test function to invoke for this test
          */
         function test_add_data_func(testpath: string, test_data: any | null, test_func: TestDataFunc): void;
         /**
-         * Create a new test case, as with g_test_add_data_func(), but freeing
-         * `test_data` after the test run is complete.
-         * @param testpath /-separated test case path name for the test.
-         * @param test_data Test data argument for the test function.
-         * @param test_func The test function to invoke for this test.
+         * Creates a new test case.
+         *
+         * In constract to [func`GLib`.test_add_data_func], this function
+         * is freeing `test_data` after the test run is complete.
+         * @param testpath a /-separated name for the test
+         * @param test_data data for @test_func
+         * @param test_func the test function to invoke for this test
          */
         function test_add_data_func_full(testpath: string, test_data: any | null, test_func: TestDataFunc): void;
         /**
-         * Create a new test case, similar to g_test_create_case(). However
-         * the test is assumed to use no fixture, and test suites are automatically
-         * created on the fly and added to the root fixture, based on the
-         * slash-separated portions of `testpath`.
+         * Creates a new test case.
+         *
+         * This function is similar to [func`GLib`.test_create_case].
+         * However the test is assumed to use no fixture, and test suites are
+         * automatically created on the fly and added to the root fixture,
+         * based on the /-separated portions of `testpath`.
          *
          * If `testpath` includes the component "subprocess" anywhere in it,
          * the test will be skipped by default, and only run if explicitly
-         * required via the `-p` command-line option or g_test_trap_subprocess().
+         * required via the `-p` command-line option or [func`GLib`.test_trap_subprocess].
          *
          * No component of `testpath` may start with a dot (`.`) if the
-         * %G_TEST_OPTION_ISOLATE_DIRS option is being used; and it is recommended to
-         * do so even if it isn’t.
-         * @param testpath /-separated test case path name for the test.
-         * @param test_func The test function to invoke for this test.
+         * [const`GLib`.TEST_OPTION_ISOLATE_DIRS] option is being used; and
+         * it is recommended to do so even if it isn’t.
+         * @param testpath a /-separated name for the test
+         * @param test_func the test function to invoke for this test
          */
         function test_add_func(testpath: string, test_func: TestFunc): void;
         function test_assert_expected_messages_internal(domain: string, file: string, line: number, func: string): void;
         /**
-         * This function adds a message to test reports that
-         * associates a bug URI with a test case.
+         * Adds a message to test reports that associates a bug URI with a test case.
          *
-         * Bug URIs are constructed from a base URI set with g_test_bug_base()
-         * and `bug_uri_snippet`. If g_test_bug_base() has not been called, it is
+         * Bug URIs are constructed from a base URI set with [func`GLib`.test_bug_base]
+         * and `bug_uri_snippet`. If [func`GLib`.test_bug_base] has not been called, it is
          * assumed to be the empty string, so a full URI can be provided to
-         * g_test_bug() instead.
+         * [func`GLib`.test_bug] instead.
          *
-         * Since GLib 2.70, the base URI is not prepended to `bug_uri_snippet` if it
-         * is already a valid URI.
+         * See also [func`GLib`.test_summary].
+         *
+         * Since GLib 2.70, the base URI is not prepended to `bug_uri_snippet`
+         * if it is already a valid URI.
          * @param bug_uri_snippet Bug specific bug tracker URI or URI portion.
          */
         function test_bug(bug_uri_snippet: string): void;
         /**
-         * Specify the base URI for bug reports.
+         * Specifies the base URI for bug reports.
          *
          * The base URI is used to construct bug report messages for
-         * g_test_message() when g_test_bug() is called.
+         * [func`GLib`.test_message] when [func`GLib`.test_bug] is called.
          * Calling this function outside of a test case sets the
          * default base URI for all test cases. Calling it from within
          * a test case changes the base URI for the scope of the test
@@ -10476,13 +10503,13 @@ declare module 'gi://GLib?version=2.0' {
          * portion to `uri_pattern,` or by replacing the special string
          * `%s` within `uri_pattern` if that is present.
          *
-         * If g_test_bug_base() is not called, bug URIs are formed solely
-         * from the value provided by g_test_bug().
+         * If [func`GLib`.test_bug_base] is not called, bug URIs are formed
+         * solely from the value provided by [func`GLib`.test_bug].
          * @param uri_pattern the base pattern for bug URIs
          */
         function test_bug_base(uri_pattern: string): void;
         /**
-         * Attempt to disable system crash reporting infrastructure.
+         * Attempts to disable system crash reporting infrastructure.
          *
          * This function should be called before exercising code paths that are
          * expected or intended to crash, to avoid wasting resources in system-wide
@@ -10531,9 +10558,10 @@ declare module 'gi://GLib?version=2.0' {
          */
         function test_expect_message(log_domain: string | null, log_level: LogLevelFlags | null, pattern: string): void;
         /**
-         * Indicates that a test failed. This function can be called
-         * multiple times from the same test. You can use this function
-         * if your test failed in a recoverable way.
+         * Indicates that a test failed.
+         *
+         * This function can be called multiple times from the same test.
+         * You can use this function if your test failed in a recoverable way.
          *
          * Do not use this function if the failure of a test could cause
          * other tests to malfunction.
@@ -10545,32 +10573,33 @@ declare module 'gi://GLib?version=2.0' {
          *
          * If not called from inside a test, this function does nothing.
          *
-         * Note that unlike g_test_skip() and g_test_incomplete(), this
-         * function does not log a message alongside the test failure.
+         * Note that unlike [func`GLib`.test_skip] and [func`GLib`.test_incomplete],
+         * this function does not log a message alongside the test failure.
          * If details of the test failure are available, either log them with
-         * g_test_message() before g_test_fail(), or use g_test_fail_printf()
-         * instead.
+         * [func`GLib`.test_message] before [func`GLib`.test_fail], or use
+         * [func`GLib`.test_fail_printf] instead.
          */
         function test_fail(): void;
         /**
-         * Returns whether a test has already failed. This will
-         * be the case when g_test_fail(), g_test_incomplete()
-         * or g_test_skip() have been called, but also if an
-         * assertion has failed.
+         * Returns whether a test has already failed.
+         *
+         * This will be the case when [func`GLib`.test_fail],
+         * [func`GLib`.test_incomplete] or [func`GLib`.test_skip] have
+         * been called, but also if an assertion has failed.
          *
          * This can be useful to return early from a test if
          * continuing after a failed assertion might be harmful.
          *
          * The return value of this function is only meaningful
          * if it is called from inside a test function.
-         * @returns %TRUE if the test has failed
+         * @returns true if the test has failed
          */
         function test_failed(): boolean;
         /**
          * Gets the pathname of the directory containing test files of the type
          * specified by `file_type`.
          *
-         * This is approximately the same as calling g_test_build_filename("."),
+         * This is approximately the same as calling `g_test_build_filename(".")`,
          * but you don't need to free the return value.
          * @param file_type the type of file (built vs. distributed)
          * @returns the path of the directory, owned by GLib
@@ -10579,8 +10608,8 @@ declare module 'gi://GLib?version=2.0' {
         /**
          * Gets the test path for the test currently being run.
          *
-         * In essence, it will be the same string passed as the first argument to
-         * e.g. g_test_add() when the test was added.
+         * In essence, it will be the same string passed as the first argument
+         * to e.g. [func`GLib`.test_add] when the test was added.
          *
          * This function returns a valid string only within a test function.
          *
@@ -10590,8 +10619,9 @@ declare module 'gi://GLib?version=2.0' {
         function test_get_path(): string;
         /**
          * Indicates that a test failed because of some incomplete
-         * functionality. This function can be called multiple times
-         * from the same test.
+         * functionality.
+         *
+         * This function can be called multiple times from the same test.
          *
          * Calling this function will not stop the test from running, you
          * need to return from the test function yourself. So you can
@@ -10607,36 +10637,40 @@ declare module 'gi://GLib?version=2.0' {
          * Enqueues a callback `destroy_func` to be executed during the next test case
          * teardown phase.
          *
-         * This is most useful to auto destroy allocated test resources at the end of a
-         * test run. Resources are released in reverse queue order, that means
+         * This is most useful to auto destroy allocated test resources at the end
+         * of a test run. Resources are released in reverse queue order, that means
          * enqueueing callback `A` before callback `B` will cause `B()` to be called
          * before `A()` during teardown.
-         * @param destroy_data Destroy callback data.
+         * @param destroy_data destroy callback data
          */
         function test_queue_destroy(destroy_data?: any | null): void;
         /**
-         * Enqueue a pointer to be released with g_free() during the next
-         * teardown phase. This is equivalent to calling g_test_queue_destroy()
-         * with a destroy callback of g_free().
-         * @param gfree_pointer the pointer to be stored.
+         * Enqueues a pointer to be released with [func`GLib`.free]
+         * during the next teardown phase.
+         *
+         * This is equivalent to calling [func`GLib`.test_queue_destroy]
+         * with a destroy callback of [func`GLib`.free].
+         * @param gfree_pointer the pointer to be stored
          */
         function test_queue_free(gfree_pointer?: any | null): void;
         /**
-         * Get a reproducible random floating point number,
-         * see g_test_rand_int() for details on test case random numbers.
-         * @returns a random number from the seeded random number generator.
+         * Gets a reproducible random floating point number.
+         *
+         * See [func`GLib`.test_rand_int] for details on test case random numbers.
+         * @returns a random number from the seeded random number generator
          */
         function test_rand_double(): number;
         /**
-         * Get a reproducible random floating pointer number out of a specified range,
-         * see g_test_rand_int() for details on test case random numbers.
+         * Gets a reproducible random floating point number out of a specified range.
+         *
+         * See [func`GLib`.test_rand_int] for details on test case random numbers.
          * @param range_start the minimum value returned by this function
          * @param range_end the minimum value not returned by this function
-         * @returns a number with @range_start <= number < @range_end.
+         * @returns a number with @range_start <= number < @range_end
          */
         function test_rand_double_range(range_start: number, range_end: number): number;
         /**
-         * Get a reproducible random integer number.
+         * Gets a reproducible random integer number.
          *
          * The random numbers generated by the g_test_rand_*() family of functions
          * change with every new test program start, unless the --seed option is
@@ -10645,24 +10679,27 @@ declare module 'gi://GLib?version=2.0' {
          * For individual test cases however, the random number generator is
          * reseeded, to avoid dependencies between tests and to make --seed
          * effective for all test cases.
-         * @returns a random number from the seeded random number generator.
+         * @returns a random number from the seeded random number generator
          */
         function test_rand_int(): number;
         /**
-         * Get a reproducible random integer number out of a specified range,
-         * see g_test_rand_int() for details on test case random numbers.
+         * Gets a reproducible random integer number out of a specified range.
+         *
+         * See [func`GLib`.test_rand_int] for details on test case random numbers.
          * @param begin the minimum value returned by this function
          * @param end the smallest value not to be returned by this function
-         * @returns a number with @begin <= number < @end.
+         * @returns a number with @begin <= number < @end
          */
         function test_rand_int_range(begin: number, end: number): number;
         /**
-         * Runs all tests under the toplevel suite which can be retrieved
-         * with g_test_get_root(). Similar to g_test_run_suite(), the test
-         * cases to be run are filtered according to test path arguments
-         * (`-p testpath` and `-s testpath`) as parsed by g_test_init().
-         * g_test_run_suite() or g_test_run() may only be called once in a
-         * program.
+         * Runs all tests under the toplevel suite.
+         *
+         * The toplevel suite can be retrieved with [func`GLib`.test_get_root].
+         *
+         * Similar to [func`GLib`.test_run_suite], the test cases to be run are
+         * filtered according to test path arguments (`-p testpath` and `-s testpath`)
+         * as parsed by [func`GLib`.test_init]. [func`GLib`.test_run_suite] or
+         * [func`GLib`.test_run] may only be called once in a program.
          *
          * In general, the tests and sub-suites within each suite are run in
          * the order in which they are defined. However, note that prior to
@@ -10670,7 +10707,7 @@ declare module 'gi://GLib?version=2.0' {
          * functions which caused them to create multiple suites with the same
          * name, meaning that if you created tests "/foo/simple",
          * "/bar/simple", and "/foo/using-bar" in that order, they would get
-         * run in that order (since g_test_run() would run the first "/foo"
+         * run in that order (since [func`GLib`.test_run] would run the first "/foo"
          * suite, then the "/bar" suite, then the second "/foo" suite). As of
          * 2.36, this bug is fixed, and adding the tests in that order would
          * result in a running order of "/foo/simple", "/foo/using-bar",
@@ -10684,39 +10721,44 @@ declare module 'gi://GLib?version=2.0' {
          * However, you should never make the actual result of a test depend
          * on the order that tests are run in. If you need to ensure that some
          * particular code runs before or after a given test case, use
-         * g_test_add(), which lets you specify setup and teardown functions.
+         * [func`GLib`.test_add], which lets you specify setup and teardown functions.
          *
          * If all tests are skipped or marked as incomplete (expected failures),
          * this function will return 0 if producing TAP output, or 77 (treated
          * as "skip test" by Automake) otherwise.
-         * @returns 0 on success, 1 on failure (assuming it returns at all),   0 or 77 if all tests were skipped with g_test_skip() and/or   g_test_incomplete()
+         * @returns 0 on success, 1 on failure (assuming it returns at all),   0 or 77 if all tests were skipped or marked as incomplete
          */
         function test_run(): number;
         /**
-         * Execute the tests within `suite` and all nested #GTestSuites.
+         * Executes the tests within `suite` and all nested test suites.
+         *
          * The test suites to be executed are filtered according to
          * test path arguments (`-p testpath` and `-s testpath`) as parsed by
-         * g_test_init(). See the g_test_run() documentation for more
-         * information on the order that tests are run in.
+         * [func`GLib`.test_init]. See the [func`GLib`.test_run] documentation
+         * for more information on the order that tests are run in.
          *
-         * g_test_run_suite() or g_test_run() may only be called once
-         * in a program.
-         * @param suite a #GTestSuite
+         * [func`GLib`.test_run_suite] or [func`GLib`.test_run] may only be
+         * called once in a program.
+         * @param suite a test suite
          * @returns 0 on success
          */
         function test_run_suite(suite: TestSuite): number;
         /**
-         * Changes the behaviour of the various `g_assert_*()` macros,
-         * g_test_assert_expected_messages() and the various
-         * `g_test_trap_assert_*()` macros to not abort to program, but instead
-         * call g_test_fail() and continue. (This also changes the behavior of
-         * g_test_fail() so that it will not cause the test program to abort
-         * after completing the failed test.)
+         * Changes the behaviour of the various assertion macros.
          *
-         * Note that the g_assert_not_reached() and g_assert() macros are not
-         * affected by this.
+         * The `g_assert_*()` macros, `g_test_assert_expected_messages()`
+         * and the various `g_test_trap_assert_*()` macros are changed
+         * to not abort to program.
          *
-         * This function can only be called after g_test_init().
+         * Instead, they will call [func`GLib`.test_fail] and continue.
+         * (This also changes the behavior of [func`GLib`.test_fail] so that
+         * it will not cause the test program to abort after completing
+         * the failed test.)
+         *
+         * Note that the [func`GLib`.assert_not_reached] and [func`GLib`.assert]
+         * macros are not affected by this.
+         *
+         * This function can only be called after [func`GLib`.test_init].
          */
         function test_set_nonfatal_assertions(): void;
         /**
@@ -10732,16 +10774,16 @@ declare module 'gi://GLib?version=2.0' {
          */
         function test_skip(msg?: string | null): void;
         /**
-         * Returns %TRUE (after g_test_init() has been called) if the test
-         * program is running under g_test_trap_subprocess().
-         * @returns %TRUE if the test program is running under g_test_trap_subprocess().
+         * Returns true if the test program is running under [func`GLib`.test_trap_subprocess].
+         * @returns true if the test program is running under [func@GLib.test_trap_subprocess]
          */
         function test_subprocess(): boolean;
         /**
-         * Set the summary for a test, which describes what the test checks, and how it
-         * goes about checking it. This may be included in test report output, and is
-         * useful documentation for anyone reading the source code or modifying a test
-         * in future. It must be a single line.
+         * Sets the summary for a test.
+         *
+         * This may be included in test report output, and is useful documentation for
+         * anyone reading the source code or modifying a test in future. It must be a
+         * single line, and it should summarise what the test checks, and how.
          *
          * This should be called at the top of a test function.
          *
@@ -10754,26 +10796,29 @@ declare module 'gi://GLib?version=2.0' {
          *   g_test_summary ("Test my_array_sort() sorts the array correctly and stably, "
          *                   "including testing zero length and one-element arrays.");
          *
-         *   …
+         *   // ...
          * }
          * ```
          *
-         * @param summary One or two sentences summarising what the test checks, and how it    checks it.
+         * See also [func`GLib`.test_bug].
+         * @param summary summary of the test purpose
          */
         function test_summary(summary: string): void;
         /**
-         * Get the number of seconds since the last start of the timer with
-         * g_test_timer_start().
-         * @returns the time since the last start of the timer in seconds, as a double
+         * Gets the number of seconds since the last start of the timer with
+         * [func`GLib`.test_timer_start].
+         * @returns the time since the last start of the timer in seconds
          */
         function test_timer_elapsed(): number;
         /**
-         * Report the last result of g_test_timer_elapsed().
-         * @returns the last result of g_test_timer_elapsed(), as a double
+         * Reports the last result of [func`GLib`.test_timer_elapsed].
+         * @returns the last result of [func@GLib.test_timer_elapsed]
          */
         function test_timer_last(): number;
         /**
-         * Start a timing test. Call g_test_timer_elapsed() when the task is supposed
+         * Starts a timing test.
+         *
+         * Call [func`GLib`.test_timer_elapsed] when the task is supposed
          * to be done. Call this function again to restart the timer.
          */
         function test_timer_start(): void;
@@ -10786,19 +10831,19 @@ declare module 'gi://GLib?version=2.0' {
             pattern: string,
         ): void;
         /**
-         * Fork the current test program to execute a test case that might
+         * Forks the current test program to execute a test case that might
          * not return or that might abort.
          *
          * If `usec_timeout` is non-0, the forked test case is aborted and
          * considered failing if its run time exceeds it.
          *
-         * The forking behavior can be configured with the #GTestTrapFlags flags.
+         * The forking behavior can be configured with [flags`GLib`.TestTrapFlags]
+         * flags.
          *
          * In the following example, the test code forks, the forked child
          * process produces some sample output and exits successfully.
          * The forking parent process then asserts successful child program
          * termination and validates child program outputs.
-         *
          *
          * ```c
          *   static void
@@ -10806,8 +10851,10 @@ declare module 'gi://GLib?version=2.0' {
          *   {
          *     if (g_test_trap_fork (0, G_TEST_TRAP_SILENCE_STDOUT | G_TEST_TRAP_SILENCE_STDERR))
          *       {
-         *         g_print ("some stdout text: somagic17\n");
-         *         g_printerr ("some stderr text: semagic43\n");
+         *         g_print ("some stdout text: somagic17
+         * ");
+         *         g_printerr ("some stderr text: semagic43
+         * ");
          *         exit (0); // successful test run
          *       }
          *     g_test_trap_assert_passed ();
@@ -10815,30 +10862,30 @@ declare module 'gi://GLib?version=2.0' {
          *     g_test_trap_assert_stderr ("*semagic43*");
          *   }
          * ```
-         *
-         * @param usec_timeout Timeout for the forked test in micro seconds.
-         * @param test_trap_flags Flags to modify forking behaviour.
-         * @returns %TRUE for the forked child and %FALSE for the executing parent process.
+         * @param usec_timeout timeout for the forked test in microseconds
+         * @param test_trap_flags flags to modify forking behaviour
+         * @returns true for the forked child and false for the executing parent process.
          */
         function test_trap_fork(usec_timeout: number, test_trap_flags: TestTrapFlags | null): boolean;
         /**
-         * Check the result of the last g_test_trap_subprocess() call.
-         * @returns %TRUE if the last test subprocess terminated successfully.
+         * Checks the result of the last [func`GLib`.test_trap_subprocess] call.
+         * @returns true if the last test subprocess terminated successfully
          */
         function test_trap_has_passed(): boolean;
         /**
-         * Check the result of the last g_test_trap_subprocess() call.
-         * @returns %TRUE if the last test subprocess got killed due to a timeout.
+         * Checks the result of the last [func`GLib`.test_trap_subprocess] call.
+         * @returns true if the last test subprocess got killed due to a timeout
          */
         function test_trap_reached_timeout(): boolean;
         /**
          * Respawns the test program to run only `test_path` in a subprocess.
          *
-         * This is equivalent to calling g_test_trap_subprocess_with_envp() with `envp`
-         * set to %NULL. See the documentation for that function for full details.
-         * @param test_path Test to run in a subprocess
-         * @param usec_timeout Timeout for the subprocess test in micro seconds.
-         * @param test_flags Flags to modify subprocess behaviour.
+         * This is equivalent to calling [func`GLib`.test_trap_subprocess_with_envp]
+         * with `envp` set to `NULL`. See the documentation for that function
+         * for full details.
+         * @param test_path test to run in a subprocess
+         * @param usec_timeout timeout for the subprocess test in microseconds.
+         * @param test_flags flags to modify subprocess behaviour
          */
         function test_trap_subprocess(
             test_path: string | null,
@@ -10846,15 +10893,15 @@ declare module 'gi://GLib?version=2.0' {
             test_flags: TestSubprocessFlags | null,
         ): void;
         /**
-         * Respawns the test program to run only `test_path` in a subprocess with the
-         * given `envp` environment.
+         * Respawns the test program to run only `test_path` in a subprocess with
+         * a given environment.
          *
          * This can be used for a test case that might not return, or that
          * might abort.
          *
-         * If `test_path` is %NULL then the same test is re-run in a subprocess.
-         * You can use g_test_subprocess() to determine whether the test is in
-         * a subprocess or not.
+         * If `test_path` is `NULL` then the same test is re-run in a subprocess.
+         * You can use [func`GLib`.test_subprocess] to determine whether the test
+         * is in a subprocess or not.
          *
          * `test_path` can also be the name of the parent test, followed by
          * "`/subprocess/`" and then a name for the specific subtest (or just
@@ -10862,34 +10909,32 @@ declare module 'gi://GLib?version=2.0' {
          * tests with names of this form will automatically be skipped in the
          * parent process.
          *
-         * If `envp` is %NULL, the parent process’ environment will be inherited.
+         * If `envp` is `NULL`, the parent process’ environment will be inherited.
          *
          * If `usec_timeout` is non-0, the test subprocess is aborted and
          * considered failing if its run time exceeds it.
          *
-         * The subprocess behavior can be configured with the
-         * #GTestSubprocessFlags flags.
+         * The subprocess behavior can be configured with [flags`GLib`.TestSubprocessFlags]
+         * flags.
          *
-         * You can use methods such as g_test_trap_assert_passed(),
-         * g_test_trap_assert_failed(), and g_test_trap_assert_stderr() to
+         * You can use methods such as [func`GLib`.test_trap_assert_passed],
+         * [func`GLib`.test_trap_assert_failed], and [func`GLib`.test_trap_assert_stderr] to
          * check the results of the subprocess. (But note that
-         * g_test_trap_assert_stdout() and g_test_trap_assert_stderr()
+         * [func`GLib`.test_trap_assert_stdout] and [func`GLib`.test_trap_assert_stderr]
          * cannot be used if `test_flags` specifies that the child should
          * inherit the parent stdout/stderr.)
          *
-         * If your `main ()` needs to behave differently in
-         * the subprocess, you can call g_test_subprocess() (after calling
-         * g_test_init()) to see whether you are in a subprocess.
+         * If your `main ()` needs to behave differently in the subprocess, you can
+         * call [func`GLib`.test_subprocess] (after calling [func`GLib`.test_init])
+         * to see whether you are in a subprocess.
          *
          * Internally, this function tracks the child process using
-         * g_child_watch_source_new(), so your process must not ignore `SIGCHLD`, and
-         * must not attempt to watch or wait for the child process via another
-         * mechanism.
+         * [func`GLib`.child_watch_source_new], so your process must not ignore
+         * `SIGCHLD`, and must not attempt to watch or wait for the child process
+         * via another mechanism.
          *
-         * The following example tests that calling
-         * `my_object_new(1000000)` will abort with an error
-         * message.
-         *
+         * The following example tests that calling `my_object_new(1000000)` will
+         * abort with an error message.
          *
          * ```c
          *   static void
@@ -10937,11 +10982,10 @@ declare module 'gi://GLib?version=2.0' {
          *     return g_test_run ();
          *   }
          * ```
-         *
-         * @param test_path Test to run in a subprocess
-         * @param envp Environment   to run the test in, or %NULL to inherit the parent’s environment. This must   be in the GLib filename encoding.
-         * @param usec_timeout Timeout for the subprocess test in micro seconds.
-         * @param test_flags Flags to modify subprocess behaviour.
+         * @param test_path test to run in a subprocess
+         * @param envp environment   to run the test in
+         * @param usec_timeout timeout for the subprocess test in microseconds
+         * @param test_flags flags to modify subprocess behaviour
          */
         function test_trap_subprocess_with_envp(
             test_path: string | null,
@@ -11005,7 +11049,7 @@ declare module 'gi://GLib?version=2.0' {
          * If `max_threads` is -1, no limit is imposed on the number
          * of unused threads.
          *
-         * The default value is 2.
+         * The default value is 8 since GLib 2.84. Previously the default value was 2.
          * @param max_threads maximal number of unused threads
          */
         function thread_pool_set_max_unused_threads(max_threads: number): void;
@@ -11321,10 +11365,10 @@ declare module 'gi://GLib?version=2.0' {
          * decompositions. It does, however, include algorithmic
          * Hangul Jamo decomposition, as well as 'singleton'
          * decompositions which replace a character by a single
-         * other character. In the case of singletons *`b` will
+         * other character. In the case of singletons `*b` will
          * be set to zero.
          *
-         * If `ch` is not decomposable, *`a` is set to `ch` and *`b`
+         * If `ch` is not decomposable, `*a` is set to `ch` and `*b`
          * is set to zero.
          *
          * Note that the way Unicode decomposition pairs are
@@ -12890,7 +12934,7 @@ declare module 'gi://GLib?version=2.0' {
             (source: IOChannel, condition: IOCondition, data?: any | null): boolean;
         }
         interface LogFunc {
-            (log_domain: string, log_level: LogLevelFlags, message: string): void;
+            (log_domain: string | null, log_level: LogLevelFlags, message: string): void;
         }
         interface LogWriterFunc {
             (log_level: LogLevelFlags, fields: LogField[]): LogWriterOutput;
@@ -13882,17 +13926,19 @@ declare module 'gi://GLib?version=2.0' {
             STDIN_FROM_DEV_NULL,
         }
         /**
-         * Flags to pass to g_test_trap_subprocess() to control input and output.
+         * Flags to pass to [func`GLib`.test_trap_subprocess] to control input and output.
          *
-         * Note that in contrast with g_test_trap_fork(), the default is to
-         * not show stdout and stderr.
+         * Note that in contrast with [func`GLib`.test_trap_fork], the default
+         * behavior of [func`GLib`.test_trap_subprocess] is to not show stdout
+         * and stderr.
          */
 
         /**
-         * Flags to pass to g_test_trap_subprocess() to control input and output.
+         * Flags to pass to [func`GLib`.test_trap_subprocess] to control input and output.
          *
-         * Note that in contrast with g_test_trap_fork(), the default is to
-         * not show stdout and stderr.
+         * Note that in contrast with [func`GLib`.test_trap_fork], the default
+         * behavior of [func`GLib`.test_trap_subprocess] is to not show stdout
+         * and stderr.
          */
         export namespace TestSubprocessFlags {
             export const $gtype: GObject.GType<TestSubprocessFlags>;
@@ -13905,33 +13951,35 @@ declare module 'gi://GLib?version=2.0' {
             DEFAULT,
             /**
              * If this flag is given, the child
-             *     process will inherit the parent's stdin. Otherwise, the child's
-             *     stdin is redirected to `/dev/null`.
+             *   process will inherit the parent's stdin. Otherwise, the child's
+             *   stdin is redirected to `/dev/null`.
              */
             INHERIT_STDIN,
             /**
              * If this flag is given, the child
-             *     process will inherit the parent's stdout. Otherwise, the child's
-             *     stdout will not be visible, but it will be captured to allow
-             *     later tests with g_test_trap_assert_stdout().
+             *   process will inherit the parent's stdout. Otherwise, the child's
+             *   stdout will not be visible, but it will be captured to allow
+             *   later tests with [func`GLib`.test_trap_assert_stdout].
              */
             INHERIT_STDOUT,
             /**
              * If this flag is given, the child
-             *     process will inherit the parent's stderr. Otherwise, the child's
-             *     stderr will not be visible, but it will be captured to allow
-             *     later tests with g_test_trap_assert_stderr().
+             *   process will inherit the parent's stderr. Otherwise, the child's
+             *   stderr will not be visible, but it will be captured to allow
+             *   later tests with [func`GLib`.test_trap_assert_stderr].
              */
             INHERIT_STDERR,
         }
         /**
-         * Test traps are guards around forked tests.
-         * These flags determine what traps to set.
+         * Flags to pass to [func`GLib`.test_trap_fork] to control input and output.
+         *
+         * Test traps are guards around forked tests. These flags determine what traps to set.
          */
 
         /**
-         * Test traps are guards around forked tests.
-         * These flags determine what traps to set.
+         * Flags to pass to [func`GLib`.test_trap_fork] to control input and output.
+         *
+         * Test traps are guards around forked tests. These flags determine what traps to set.
          */
         export namespace TestTrapFlags {
             export const $gtype: GObject.GType<TestTrapFlags>;
@@ -19864,7 +19912,7 @@ declare module 'gi://GLib?version=2.0' {
              * While `location` has a `volatile` qualifier, this is a historical artifact and
              * the pointer passed to it should not be `volatile`.
              * @param location location of a static initializable variable    containing 0
-             * @param result new non-0 value for *@value_location
+             * @param result new non-0 value for `*value_location`
              */
             static init_leave(location: any, result: number): any;
             /**
@@ -23628,16 +23676,16 @@ declare module 'gi://GLib?version=2.0' {
 
             /**
              * Adds `test_case` to `suite`.
-             * @param test_case a #GTestCase
+             * @param test_case a test case
              */
             add(test_case: TestCase): void;
             /**
              * Adds `nestedsuite` to `suite`.
-             * @param nestedsuite another #GTestSuite
+             * @param nestedsuite another test suite
              */
             add_suite(nestedsuite: TestSuite): void;
             /**
-             * Free the `suite` and all nested #GTestSuites.
+             * Frees the `suite` and all nested suites.
              */
             free(): void;
         }
@@ -23711,6 +23759,13 @@ declare module 'gi://GLib?version=2.0' {
 
             // Methods
 
+            /**
+             * Gets the name of the thread.
+             *
+             * This function is intended for debugging purposes.
+             * @returns the name of the thread
+             */
+            get_name(): string;
             /**
              * Waits until `thread` finishes, i.e. the function `func,` as
              * given to g_thread_new(), returns or g_thread_exit() is called.
@@ -23825,7 +23880,7 @@ declare module 'gi://GLib?version=2.0' {
              * If `max_threads` is -1, no limit is imposed on the number
              * of unused threads.
              *
-             * The default value is 2.
+             * The default value is 8 since GLib 2.84. Previously the default value was 2.
              * @param max_threads maximal number of unused threads
              */
             static set_max_unused_threads(max_threads: number): void;

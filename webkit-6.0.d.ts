@@ -11263,6 +11263,9 @@ declare module 'gi://WebKit?version=6.0' {
              * otherwise it will not have any effect. You can connect to
              * #WebKitWebContext::initialize-web-process-extensions to call this method
              * before anything is loaded.
+             *
+             * If your web process extension is installed to an unusual location,
+             * then you may also need to call webkit_web_context_add_path_to_sandbox().
              * @param directory the directory to add
              */
             set_web_process_extensions_directory(directory: string): void;
@@ -11953,15 +11956,29 @@ declare module 'gi://WebKit?version=6.0' {
              */
             get favicon(): Gdk.Texture;
             /**
-             * Whether the #WebKitWebView is controlled by automation. This should only be used when
-             * creating a new #WebKitWebView as a response to #WebKitAutomationSession::create-web-view
-             * signal request.
+             * Whether the #WebKitWebView is controlled by automation tools (e.g. WebDriver, Selenium). This is
+             * required for views returned as a response to #WebKitAutomationSession::create-web-view signal,
+             * alongside any view you want to control during an automation session.
+             *
+             * As a %G_PARAM_CONSTRUCT_ONLY, you need to set it during construction and it can't be modified.
+             *
+             * If #WebKitWebView:related-view is also passed during construction, #WebKitWebView:is-controlled-by-automation
+             * ignores its own parameter and inherits directly from the related view #WebKitWebView:is-controlled-by-automation
+             * property. This is the recommended way when creating new views as a response to the #WebKitWebView::create
+             * signal. For example, as response to JavaScript `window.open()` calls during an automation session.
              */
             get is_controlled_by_automation(): boolean;
             /**
-             * Whether the #WebKitWebView is controlled by automation. This should only be used when
-             * creating a new #WebKitWebView as a response to #WebKitAutomationSession::create-web-view
-             * signal request.
+             * Whether the #WebKitWebView is controlled by automation tools (e.g. WebDriver, Selenium). This is
+             * required for views returned as a response to #WebKitAutomationSession::create-web-view signal,
+             * alongside any view you want to control during an automation session.
+             *
+             * As a %G_PARAM_CONSTRUCT_ONLY, you need to set it during construction and it can't be modified.
+             *
+             * If #WebKitWebView:related-view is also passed during construction, #WebKitWebView:is-controlled-by-automation
+             * ignores its own parameter and inherits directly from the related view #WebKitWebView:is-controlled-by-automation
+             * property. This is the recommended way when creating new views as a response to the #WebKitWebView::create
+             * signal. For example, as response to JavaScript `window.open()` calls during an automation session.
              */
             get isControlledByAutomation(): boolean;
             /**
@@ -14149,7 +14166,7 @@ declare module 'gi://WebKit?version=6.0' {
              */
             get_accessible_role(): Gtk.AccessibleRole;
             /**
-             * Retrieves the accessible implementation for the given `GtkAccessible`.
+             * Retrieves the implementation for the given accessible object.
              * @returns the accessible implementation object
              */
             get_at_context(): Gtk.ATContext;
@@ -14173,30 +14190,28 @@ declare module 'gi://WebKit?version=6.0' {
              */
             get_next_accessible_sibling(): Gtk.Accessible | null;
             /**
-             * Query a platform state, such as focus.
-             *
-             * See gtk_accessible_platform_changed().
+             * Queries a platform state, such as focus.
              *
              * This functionality can be overridden by `GtkAccessible`
              * implementations, e.g. to get platform state from an ignored
              * child widget, as is the case for `GtkText` wrappers.
              * @param state platform state to query
-             * @returns the value of @state for the accessible
+             * @returns the value of state for the accessible
              */
             get_platform_state(state: Gtk.AccessiblePlatformState | null): boolean;
             /**
-             * Resets the accessible `property` to its default value.
-             * @param property a `GtkAccessibleProperty`
+             * Resets the accessible property to its default value.
+             * @param property the accessible property
              */
             reset_property(property: Gtk.AccessibleProperty | null): void;
             /**
-             * Resets the accessible `relation` to its default value.
-             * @param relation a `GtkAccessibleRelation`
+             * Resets the accessible relation to its default value.
+             * @param relation the accessible relation
              */
             reset_relation(relation: Gtk.AccessibleRelation | null): void;
             /**
-             * Resets the accessible `state` to its default value.
-             * @param state a `GtkAccessibleState`
+             * Resets the accessible state to its default value.
+             * @param state the accessible state
              */
             reset_state(state: Gtk.AccessibleState | null): void;
             /**
@@ -14214,9 +14229,9 @@ declare module 'gi://WebKit?version=6.0' {
              */
             set_accessible_parent(parent?: Gtk.Accessible | null, next_sibling?: Gtk.Accessible | null): void;
             /**
-             * Updates the next accessible sibling of `self`.
+             * Updates the next accessible sibling.
              *
-             * That might be useful when a new child of a custom `GtkAccessible`
+             * That might be useful when a new child of a custom accessible
              * is created, and it needs to be linked to a previous child.
              * @param new_sibling the new next accessible sibling to set
              */
@@ -14228,7 +14243,7 @@ declare module 'gi://WebKit?version=6.0' {
              * property change must be communicated to assistive technologies.
              *
              * This function is meant to be used by language bindings.
-             * @param properties an array of `GtkAccessibleProperty`
+             * @param properties an array of accessible properties
              * @param values an array of `GValues`, one for each property
              */
             update_property(properties: Gtk.AccessibleProperty[] | null, values: (GObject.Value | any)[]): void;
@@ -14239,7 +14254,7 @@ declare module 'gi://WebKit?version=6.0' {
              * relation change must be communicated to assistive technologies.
              *
              * This function is meant to be used by language bindings.
-             * @param relations an array of `GtkAccessibleRelation`
+             * @param relations an array of accessible relations
              * @param values an array of `GValues`, one for each relation
              */
             update_relation(relations: Gtk.AccessibleRelation[] | null, values: (GObject.Value | any)[]): void;
@@ -14250,7 +14265,7 @@ declare module 'gi://WebKit?version=6.0' {
              * state change must be communicated to assistive technologies.
              *
              * This function is meant to be used by language bindings.
-             * @param states an array of `GtkAccessibleState`
+             * @param states an array of accessible states
              * @param values an array of `GValues`, one for each state
              */
             update_state(states: Gtk.AccessibleState[] | null, values: (GObject.Value | any)[]): void;
@@ -14261,7 +14276,7 @@ declare module 'gi://WebKit?version=6.0' {
              */
             vfunc_get_accessible_parent(): Gtk.Accessible | null;
             /**
-             * Retrieves the accessible implementation for the given `GtkAccessible`.
+             * Retrieves the implementation for the given accessible object.
              */
             vfunc_get_at_context(): Gtk.ATContext | null;
             /**
@@ -14281,9 +14296,7 @@ declare module 'gi://WebKit?version=6.0' {
              */
             vfunc_get_next_accessible_sibling(): Gtk.Accessible | null;
             /**
-             * Query a platform state, such as focus.
-             *
-             * See gtk_accessible_platform_changed().
+             * Queries a platform state, such as focus.
              *
              * This functionality can be overridden by `GtkAccessible`
              * implementations, e.g. to get platform state from an ignored

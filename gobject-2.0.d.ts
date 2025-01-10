@@ -1519,8 +1519,13 @@ declare module 'gi://GObject?version=2.0' {
          * If `closure` is a floating reference (see g_closure_sink()), this function
          * takes ownership of `closure`.
          *
-         * This function cannot fail. If the given signal doesn’t exist, a critical
-         * warning is emitted.
+         * This function cannot fail. If the given signal name doesn’t exist,
+         * a critical warning is emitted. No validation is performed on the
+         * ‘detail’ string when specified in `detailed_signal,` other than a
+         * non-empty check.
+         *
+         * Refer to the [signals documentation](signals.html) for more
+         * details.
          * @param instance the instance to connect to.
          * @param detailed_signal a string of the form "signal-name::detail".
          * @param closure the closure to connect.
@@ -1539,8 +1544,13 @@ declare module 'gi://GObject?version=2.0' {
          * If `closure` is a floating reference (see g_closure_sink()), this function
          * takes ownership of `closure`.
          *
-         * This function cannot fail. If the given signal doesn’t exist, a critical
-         * warning is emitted.
+         * This function cannot fail. If the given signal name doesn’t exist,
+         * a critical warning is emitted. No validation is performed on the
+         * ‘detail’ string when specified in `detailed_signal,` other than a
+         * non-empty check.
+         *
+         * Refer to the [signals documentation](signals.html) for more
+         * details.
          * @param instance the instance to connect to.
          * @param signal_id the id of the signal.
          * @param detail the detail.
@@ -2609,11 +2619,13 @@ declare module 'gi://GObject?version=2.0' {
              */
             READWRITE,
             /**
-             * the parameter will be set upon object construction
+             * the parameter will be set upon object construction.
+             *   See [vfunc`Object`.constructed] for more details
              */
             CONSTRUCT,
             /**
-             * the parameter can only be set upon object construction
+             * the parameter can only be set upon object construction.
+             *   See [vfunc`Object`.constructed] for more details
              */
             CONSTRUCT_ONLY,
             /**

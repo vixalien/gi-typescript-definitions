@@ -775,8 +775,7 @@ declare module 'gi://Gsk?version=4.0' {
             IDENTITY,
         }
         /**
-         * This is a convenience function that constructs a `GskPath`
-         * from a serialized form.
+         * Constructs a path from a serialized form.
          *
          * The string is expected to be in (a superset of)
          * [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
@@ -810,52 +809,53 @@ declare module 'gi://Gsk?version=4.0' {
          */
         function serialization_error_quark(): GLib.Quark;
         /**
-         * Checks if 2 strokes are identical.
-         * @param stroke1 the first `GskStroke`
-         * @param stroke2 the second `GskStroke`
-         * @returns `TRUE` if the 2 strokes are equal, `FALSE` otherwise
+         * Checks if two strokes are identical.
+         * @param stroke1 the first stroke
+         * @param stroke2 the second stroke
+         * @returns true if the two strokes are equal, false otherwise
          */
         function stroke_equal(stroke1?: any | null, stroke2?: any | null): boolean;
         /**
-         * Parses the given `string` into a transform and puts it in
-         * `out_transform`.
+         * Parses a given into a transform.
          *
          * Strings printed via [method`Gsk`.Transform.to_string]
          * can be read in again successfully using this function.
          *
-         * If `string` does not describe a valid transform, %FALSE is
-         * returned and %NULL is put in `out_transform`.
+         * If `string` does not describe a valid transform, false
+         * is returned and `NULL` is put in `out_transform`.
          * @param string the string to parse
-         * @returns %TRUE if @string described a valid transform.
+         * @returns true if @string described a valid transform
          */
         function transform_parse(string: string): [boolean, Transform];
         /**
-         * Retrieves the `GskRenderNode` stored inside the given `value`, and acquires
-         * a reference to it.
+         * Retrieves the render node stored inside a `GValue`,
+         * and acquires a reference to it.
          * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
-         * @returns a `GskRenderNode`
+         * @returns the render node
          */
         function value_dup_render_node(value: GObject.Value | any): RenderNode | null;
         /**
-         * Retrieves the `GskRenderNode` stored inside the given `value`.
+         * Retrieves the render node stored inside a `GValue`.
          * @param value a `GValue` initialized with type `GSK_TYPE_RENDER_NODE`
-         * @returns a `GskRenderNode`
+         * @returns the render node
          */
         function value_get_render_node(value: GObject.Value | any): RenderNode | null;
         /**
-         * Stores the given `GskRenderNode` inside `value`.
+         * Stores the given render node inside a `GValue`.
          *
-         * The [struct`GObject`.Value] will acquire a reference to the `node`.
+         * The [struct`GObject`.Value] will acquire a reference
+         * to the render node.
          * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
-         * @param node a `GskRenderNode`
+         * @param node a render node
          */
         function value_set_render_node(value: GObject.Value | any, node: RenderNode): void;
         /**
-         * Stores the given `GskRenderNode` inside `value`.
+         * Stores the given render node inside a `GValue`.
          *
-         * This function transfers the ownership of the `node` to the `GValue`.
+         * This function transfers the ownership of the
+         * render node to the `GValue`.
          * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
-         * @param node a `GskRenderNode`
+         * @param node a render node
          */
         function value_take_render_node(value: GObject.Value | any, node?: RenderNode | null): void;
         interface ParseErrorFunc {
@@ -2009,17 +2009,17 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * For a discussion of the supported format, see that function.
              * @param bytes the bytes containing the data
-             * @param error_func Callback on parsing errors
+             * @param error_func callback on parsing errors
              */
             static deserialize(bytes: GLib.Bytes | Uint8Array, error_func?: ParseErrorFunc | null): RenderNode | null;
 
             // Methods
 
             /**
-             * Draw the contents of `node` to the given cairo context.
+             * Draws the contents of a render node on a cairo context.
              *
              * Typically, you'll use this function to implement fallback rendering
-             * of `GskRenderNode`s on an intermediate Cairo context, instead of using
+             * of render nodes on an intermediate Cairo context, instead of using
              * the drawing context associated to a [class`Gdk`.Surface]'s rendering buffer.
              *
              * For advanced nodes that cannot be supported using Cairo, in particular
@@ -2034,8 +2034,8 @@ declare module 'gi://Gsk?version=4.0' {
              */
             get_bounds(): Graphene.Rect;
             /**
-             * Returns the type of the `node`.
-             * @returns the type of the `GskRenderNode`
+             * Returns the type of the render node.
+             * @returns the type of @node
              */
             get_node_type(): RenderNodeType;
             /**
@@ -2047,12 +2047,12 @@ declare module 'gi://Gsk?version=4.0' {
              * effort with that goal.
              *
              * The rectangle will be fully contained in the bounds of the node.
-             * @returns %TRUE if part or all of the rendernode is opaque, %FALSE if no   opaque region could be found.
+             * @returns true if part or all of the rendernode is opaque, false if no   opaque region could be found.
              */
             get_opaque_rect(): [boolean, Graphene.Rect];
             /**
              * Acquires a reference on the given `GskRenderNode`.
-             * @returns the `GskRenderNode` with an additional reference
+             * @returns the render node with an additional reference
              */
             ref(): RenderNode;
             /**
@@ -2083,8 +2083,8 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * It is mostly intended for use inside a debugger to quickly dump a render
              * node to a file for later inspection.
-             * @param filename the file to save it to.
-             * @returns %TRUE if saving was successful
+             * @param filename the file to save it to
+             * @returns true if saving was successful
              */
             write_to_file(filename: string): boolean;
         }
@@ -2099,8 +2099,8 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * `GskRenderer` is a class that renders a scene graph defined via a
-         * tree of [class`Gsk`.RenderNode] instances.
+         * A class that renders a scene graph defined via a tree of
+         * [class`Gsk`.RenderNode] instances.
          *
          * Typically you will use a `GskRenderer` instance to repeatedly call
          * [method`Gsk`.Renderer.render] to update the contents of its associated
@@ -2136,45 +2136,43 @@ declare module 'gi://Gsk?version=4.0' {
             // Methods
 
             /**
-             * Retrieves the `GdkSurface` set using gsk_enderer_realize().
+             * Retrieves the surface that the renderer is associated with.
              *
-             * If the renderer has not been realized yet, %NULL will be returned.
-             * @returns a `GdkSurface`
+             * If the renderer has not been realized yet, `NULL` will be returned.
+             * @returns the surface
              */
             get_surface(): Gdk.Surface | null;
             /**
-             * Checks whether the `renderer` is realized or not.
-             * @returns %TRUE if the `GskRenderer` was realized, and %FALSE otherwise
+             * Checks whether the renderer is realized or not.
+             * @returns true if the renderer was realized, false otherwise
              */
             is_realized(): boolean;
             /**
-             * Creates the resources needed by the `renderer` to render the scene
-             * graph.
+             * Creates the resources needed by the renderer.
              *
              * Since GTK 4.6, the surface may be `NULL`, which allows using
-             * renderers without having to create a surface.
-             * Since GTK 4.14, it is recommended to use [method`Gsk`.Renderer.realize_for_display]
-             * instead.
+             * renderers without having to create a surface. Since GTK 4.14,
+             * it is recommended to use [method`Gsk`.Renderer.realize_for_display]
+             * for this case.
              *
-             * Note that it is mandatory to call [method`Gsk`.Renderer.unrealize] before
-             * destroying the renderer.
-             * @param surface the `GdkSurface` renderer will be used on
-             * @returns Whether the renderer was successfully realized
+             * Note that it is mandatory to call [method`Gsk`.Renderer.unrealize]
+             * before destroying the renderer.
+             * @param surface the surface that renderer will be used on
+             * @returns whether the renderer was successfully realized
              */
             realize(surface?: Gdk.Surface | null): boolean;
             /**
-             * Creates the resources needed by the `renderer` to render the scene
-             * graph.
+             * Creates the resources needed by the renderer.
              *
-             * Note that it is mandatory to call [method`Gsk`.Renderer.unrealize] before
-             * destroying the renderer.
-             * @param display the `GdkDisplay` renderer will be used on
-             * @returns Whether the renderer was successfully realized
+             * Note that it is mandatory to call [method`Gsk`.Renderer.unrealize]
+             * before destroying the renderer.
+             * @param display the display that the renderer will be used on
+             * @returns whether the renderer was successfully realized
              */
             realize_for_display(display: Gdk.Display): boolean;
             /**
              * Renders the scene graph, described by a tree of `GskRenderNode` instances
-             * to the renderer's surface,  ensuring that the given `region` gets redrawn.
+             * to the renderer's surface, ensuring that the given region gets redrawn.
              *
              * If the renderer has no associated surface, this function does nothing.
              *
@@ -2183,28 +2181,28 @@ declare module 'gi://Gsk?version=4.0' {
              * free to not redraw any pixel outside of `region` if they can guarantee that
              * it didn't change.
              *
-             * The `renderer` will acquire a reference on the `GskRenderNode` tree while
+             * The renderer will acquire a reference on the `GskRenderNode` tree while
              * the rendering is in progress.
-             * @param root a `GskRenderNode`
-             * @param region the `cairo_region_t` that must be redrawn or %NULL   for the whole window
+             * @param root the render node to render
+             * @param region the `cairo_region_t` that must be redrawn or `NULL`   for the whole surface
              */
             render(root: RenderNode, region?: cairo.Region | null): void;
             /**
-             * Renders the scene graph, described by a tree of `GskRenderNode` instances,
-             * to a `GdkTexture`.
+             * Renders a scene graph, described by a tree of `GskRenderNode` instances,
+             * to a texture.
              *
-             * The `renderer` will acquire a reference on the `GskRenderNode` tree while
+             * The renderer will acquire a reference on the `GskRenderNode` tree while
              * the rendering is in progress.
              *
              * If you want to apply any transformations to `root,` you should put it into a
              * transform node and pass that node instead.
-             * @param root a `GskRenderNode`
-             * @param viewport the section to draw or %NULL to use @root's bounds
-             * @returns a `GdkTexture` with the rendered contents of @root.
+             * @param root the render node to render
+             * @param viewport the section to draw or `NULL` to use @root's bounds
+             * @returns a texture with the rendered contents of @root
              */
             render_texture(root: RenderNode, viewport?: Graphene.Rect | null): Gdk.Texture;
             /**
-             * Releases all the resources created by gsk_renderer_realize().
+             * Releases all the resources created by [method`Gsk`.Renderer.realize].
              */
             unrealize(): void;
         }
@@ -2589,8 +2587,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A `GskPath` describes lines and curves that are more complex
-         * than simple rectangles.
+         * Describes lines and curves that are more complex than simple rectangles.
          *
          * Paths can used for rendering (filling or stroking) and for animations
          * (e.g. as trajectories).
@@ -2619,8 +2616,7 @@ declare module 'gi://Gsk?version=4.0' {
             // Static methods
 
             /**
-             * This is a convenience function that constructs a `GskPath`
-             * from a serialized form.
+             * Constructs a path from a serialized form.
              *
              * The string is expected to be in (a superset of)
              * [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
@@ -2664,9 +2660,9 @@ declare module 'gi://Gsk?version=4.0' {
              *   unmodified data of the path.
              * - When the `flags` disallow certain operations, it provides
              *   an approximation of the path using just the allowed operations.
-             * @param flags flags to pass to the foreach function. See [flags@Gsk.PathForeachFlags]   for details about flags
+             * @param flags flags to pass to the foreach function
              * @param func the function to call for operations
-             * @returns `FALSE` if @func returned FALSE`, `TRUE` otherwise.
+             * @returns false if @func returned false, true otherwise.
              */
             foreach(flags: PathForeachFlags | null, func: PathForeachFunc): boolean;
             /**
@@ -2680,93 +2676,87 @@ declare module 'gi://Gsk?version=4.0' {
              * This can happen when the path only describes a point or an
              * axis-aligned line.
              *
-             * If the path is empty, `FALSE` is returned and `bounds` are set to
+             * If the path is empty, false is returned and `bounds` are set to
              * graphene_rect_zero(). This is different from the case where the path
              * is a single point at the origin, where the `bounds` will also be set to
-             * the zero rectangle but `TRUE` will be returned.
-             * @returns `TRUE` if the path has bounds, `FALSE` if the path is known   to be empty and have no bounds.
+             * the zero rectangle but true will be returned.
+             * @returns true if the path has bounds, false if the path is known   to be empty and have no bounds
              */
             get_bounds(): [boolean, Graphene.Rect];
             /**
-             * Computes the closest point on the path to the given point
-             * and sets the `result` to it.
+             * Computes the closest point on the path to the given point.
              *
              * If there is no point closer than the given threshold,
-             * `FALSE` is returned.
+             * false is returned.
              * @param point the point
              * @param threshold maximum allowed distance
-             * @returns `TRUE` if @point was set to the closest point   on @self, `FALSE` if no point is closer than @threshold
+             * @returns true if @point was set to the closest point   on @self, false if no point is closer than @threshold
              */
             get_closest_point(point: Graphene.Point, threshold: number): [boolean, PathPoint, number];
             /**
              * Gets the end point of the path.
              *
-             * An empty path has no points, so `FALSE`
+             * An empty path has no points, so false
              * is returned in this case.
-             * @returns `TRUE` if @result was filled
+             * @returns true if @result was filled
              */
             get_end_point(): [boolean, PathPoint];
             /**
              * Gets the start point of the path.
              *
-             * An empty path has no points, so `FALSE`
+             * An empty path has no points, so false
              * is returned in this case.
-             * @returns `TRUE` if @result was filled
+             * @returns true if @result was filled
              */
             get_start_point(): [boolean, PathPoint];
             /**
              * Computes the bounds for stroking the given path with the
-             * parameters in `stroke`.
+             * given parameters.
              *
              * The returned bounds may be larger than necessary, because this
              * function aims to be fast, not accurate. The bounds are guaranteed
              * to contain the area affected by the stroke, including protrusions
              * like miters.
              * @param stroke stroke parameters
-             * @returns `TRUE` if the path has bounds, `FALSE` if the path is known   to be empty and have no bounds.
+             * @returns true if the path has bounds, false if the path is known   to be empty and have no bounds.
              */
             get_stroke_bounds(stroke: Stroke): [boolean, Graphene.Rect];
             /**
-             * Returns whether the given point is inside the area
-             * that would be affected if the path was filled according
-             * to `fill_rule`.
+             * Returns whether a point is inside the fill area of a path.
              *
              * Note that this function assumes that filling a contour
              * implicitly closes it.
              * @param point the point to test
              * @param fill_rule the fill rule to follow
-             * @returns `TRUE` if @point is inside
+             * @returns true if @point is inside
              */
             in_fill(point: Graphene.Point, fill_rule: FillRule | null): boolean;
             /**
-             * Returns if the path represents a single closed
-             * contour.
-             * @returns `TRUE` if the path is closed
+             * Returns if the path represents a single closed contour.
+             * @returns true if the path is closed
              */
             is_closed(): boolean;
             /**
              * Checks if the path is empty, i.e. contains no lines or curves.
-             * @returns `TRUE` if the path is empty
+             * @returns true if the path is empty
              */
             is_empty(): boolean;
             /**
-             * Converts `self` into a human-readable string representation suitable
-             * for printing.
+             * Converts the path into a human-readable representation.
              *
              * The string is compatible with (a superset of)
              * [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
              * see [func`Gsk`.Path.parse] for a summary of the syntax.
-             * @param string The string to print into
+             * @param string the string to print into
              */
             print(string: GLib.String): void;
             /**
-             * Increases the reference count of a `GskPath` by one.
-             * @returns the passed in `GskPath`.
+             * Increases the reference count of a path by one.
+             * @returns the passed in `GskPath`
              */
             ref(): Path;
             /**
-             * Appends the given `path` to the given cairo context for drawing
-             * with Cairo.
+             * Appends the path to a cairo context for drawing with Cairo.
              *
              * This may cause some suboptimal conversions to be performed as
              * Cairo does not support all features of `GskPath`.
@@ -2777,18 +2767,18 @@ declare module 'gi://Gsk?version=4.0' {
              */
             to_cairo(cr: cairo.Context): void;
             /**
-             * Converts the path into a string that is suitable for printing.
+             * Converts the path into a human-readable string.
              *
              * You can use this function in a debugger to get a quick overview
              * of the path.
              *
              * This is a wrapper around [method`Gsk`.Path.print], see that function
              * for details.
-             * @returns A new string for @self
+             * @returns a new string for @self
              */
             to_string(): string;
             /**
-             * Decreases the reference count of a `GskPath` by one.
+             * Decreases the reference count of a path by one.
              *
              * If the resulting reference count is zero, frees the path.
              */
@@ -2796,8 +2786,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * `GskPathBuilder` is an auxiliary object for constructing
-         * `GskPath` objects.
+         * An auxiliary object for constructing `GskPath` objects.
          *
          * A path is constructed like this:
          *
@@ -2859,7 +2848,7 @@ declare module 'gi://Gsk?version=4.0' {
              */
             add_cairo_path(path: cairo.Path): void;
             /**
-             * Adds a circle with the `center` and `radius`.
+             * Adds a circle as a new contour.
              *
              * The path is going around the circle in clockwise direction.
              *
@@ -2879,13 +2868,13 @@ declare module 'gi://Gsk?version=4.0' {
              */
             add_path(path: Path): void;
             /**
-             * Adds `rect` as a new contour to the path built by the builder.
+             * Adds a rectangle as a new contour.
              *
              * The path is going around the rectangle in clockwise direction.
              *
              * If the the width or height are 0, the path will be a closed
              * horizontal or vertical line. If both are 0, it'll be a closed dot.
-             * @param rect The rectangle to create a path for
+             * @param rect the rectangle to create a path for
              */
             add_rect(rect: Graphene.Rect): void;
             /**
@@ -2894,14 +2883,14 @@ declare module 'gi://Gsk?version=4.0' {
              */
             add_reverse_path(path: Path): void;
             /**
-             * Adds `rect` as a new contour to the path built in `self`.
+             * Adds a rounded rectangle as a new contour.
              *
              * The path is going around the rectangle in clockwise direction.
              * @param rect the rounded rect
              */
             add_rounded_rect(rect: RoundedRect): void;
             /**
-             * Adds to `self` the segment of `path` from `start` to `end`.
+             * Adds a segment of a path to the builder.
              *
              * If `start` is equal to or after `end,` the path will first add the
              * segment from `start` to the end of the path, and then add the segment
@@ -2910,7 +2899,7 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * Note that this method always adds a path with the given start point
              * and end point. To add a closed path, use [method`Gsk`.PathBuilder.add_path].
-             * @param path the `GskPath` to take the segment to
+             * @param path the path to take the segment to
              * @param start the point on @path to start at
              * @param end the point on @path to end at
              */
@@ -2998,7 +2987,7 @@ declare module 'gi://Gsk?version=4.0' {
              * When the builder is created, the default current point is set
              * to `0, 0`. Note that this is different from cairo, which starts
              * out without a current point.
-             * @returns The current point
+             * @returns the current point
              */
             get_current_point(): Graphene.Point;
             /**
@@ -3011,11 +3000,11 @@ declare module 'gi://Gsk?version=4.0' {
              * After this, the current point will be the point where
              * the circle with the given radius touches the line from
              * `x1`, `y1` to `x2`, `y2`.
-             * @param x1 X coordinate of first control point
-             * @param y1 Y coordinate of first control point
-             * @param x2 X coordinate of second control point
-             * @param y2 Y coordinate of second control point
-             * @param radius Radius of the circle
+             * @param x1 x coordinate of first control point
+             * @param y1 y coordinate of first control point
+             * @param x2 x coordinate of second control point
+             * @param y2 y coordinate of second control point
+             * @param radius radius of the circle
              */
             html_arc_to(x1: number, y1: number, x2: number, y2: number, radius: number): void;
             /**
@@ -3061,7 +3050,7 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * This function is intended primarily for language bindings.
              * `GskPathBuilder` objects should not be kept around.
-             * @returns the given `GskPathBuilder` with   its reference count increased
+             * @returns the given path builder with   its reference count increased
              */
             ref(): PathBuilder;
             /**
@@ -3114,11 +3103,11 @@ declare module 'gi://Gsk?version=4.0' {
              * All coordinates are given relative to the current point.
              *
              * This is the relative version of [method`Gsk`.PathBuilder.html_arc_to].
-             * @param x1 X coordinate of first control point
-             * @param y1 Y coordinate of first control point
-             * @param x2 X coordinate of second control point
-             * @param y2 Y coordinate of second control point
-             * @param radius Radius of the circle
+             * @param x1 x coordinate of first control point
+             * @param y1 y coordinate of first control point
+             * @param x2 x coordinate of second control point
+             * @param y2 y coordinate of second control point
+             * @param radius radius of the circle
              */
             rel_html_arc_to(x1: number, y1: number, x2: number, y2: number, radius: number): void;
             /**
@@ -3158,13 +3147,13 @@ declare module 'gi://Gsk?version=4.0' {
              * All coordinates are given relative to the current point.
              *
              * This is the relative version of [method`Gsk`.PathBuilder.svg_arc_to].
-             * @param rx X radius
-             * @param ry Y radius
+             * @param rx x radius
+             * @param ry y radius
              * @param x_axis_rotation the rotation of the ellipsis
              * @param large_arc whether to add the large arc
              * @param positive_sweep whether to sweep in the positive direction
-             * @param x the X coordinate of the endpoint
-             * @param y the Y coordinate of the endpoint
+             * @param x x coordinate of the endpoint
+             * @param y y coordinate of the endpoint
              */
             rel_svg_arc_to(
                 rx: number,
@@ -3183,13 +3172,13 @@ declare module 'gi://Gsk?version=4.0' {
              * functionality.
              *
              * After this, `x,` `y` will be the new current point.
-             * @param rx X radius
-             * @param ry Y radius
+             * @param rx x radius
+             * @param ry y radius
              * @param x_axis_rotation the rotation of the ellipsis
              * @param large_arc whether to add the large arc
              * @param positive_sweep whether to sweep in the positive direction
-             * @param x the X coordinate of the endpoint
-             * @param y the Y coordinate of the endpoint
+             * @param x x coordinate of the endpoint
+             * @param y y coordinate of the endpoint
              */
             svg_arc_to(
                 rx: number,
@@ -3201,7 +3190,7 @@ declare module 'gi://Gsk?version=4.0' {
                 y: number,
             ): void;
             /**
-             * Creates a new `GskPath` from the given builder.
+             * Creates a new path from the given builder.
              *
              * The given `GskPathBuilder` is reset once this function returns;
              * you cannot call this function multiple times on the same builder
@@ -3209,7 +3198,7 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * This function is intended primarily for language bindings.
              * C code should use [method`Gsk`.PathBuilder.free_to_path].
-             * @returns the newly created `GskPath`   with all the contours added to the builder
+             * @returns the newly created path   with all the contours added to the builder
              */
             to_path(): Path;
             /**
@@ -3219,8 +3208,8 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * `GskPathMeasure` is an object that allows measurements
-         * on `GskPath`s such as determining the length of the path.
+         * An object that allows measurements on paths such as determining
+         * the length of the path.
          *
          * Many measuring operations require sampling the path length
          * at intermediate points. Therefore, a `GskPathMeasure` has
@@ -3248,7 +3237,7 @@ declare module 'gi://Gsk?version=4.0' {
              * Gets the length of the path being measured.
              *
              * The length is cached, so this function does not do any work.
-             * @returns The length of the path measured by @self
+             * @returns the length of the path measured by @self
              */
             get_length(): number;
             /**
@@ -3257,11 +3246,11 @@ declare module 'gi://Gsk?version=4.0' {
              */
             get_path(): Path;
             /**
-             * Sets `result` to the point at the given distance into the path.
+             * Gets the point at the given distance into the path.
              *
-             * An empty path has no points, so `FALSE` is returned in that case.
+             * An empty path has no points, so false is returned in that case.
              * @param distance the distance
-             * @returns `TRUE` if @result was set
+             * @returns true if @result was set
              */
             get_point(distance: number): [boolean, PathPoint];
             /**
@@ -3283,10 +3272,10 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * `GskPathPoint` is an opaque type representing a point on a path.
+         * An opaque type representing a point on a path.
          *
-         * It can be queried for properties of the path at that point, such as
-         * its tangent or its curvature.
+         * It can be queried for properties of the path at that point,
+         * such as its tangent or its curvature.
          *
          * To obtain a `GskPathPoint`, use [method`Gsk`.Path.get_closest_point],
          * [method`Gsk`.Path.get_start_point], [method`Gsk`.Path.get_end_point]
@@ -3308,7 +3297,7 @@ declare module 'gi://Gsk?version=4.0' {
 
             /**
              * Returns whether `point1` is before or after `point2`.
-             * @param point2 another `GskPathPoint`
+             * @param point2 another path point
              * @returns -1 if @point1 is before @point2,   1 if @point1 is after @point2,   0 if they are equal
              */
             compare(point2: PathPoint): number;
@@ -3326,8 +3315,8 @@ declare module 'gi://Gsk?version=4.0' {
              * Use [method`Gsk`.Path.is_closed] to find out if the
              * start- and endpoint of a concrete path refer to the
              * same location.
-             * @param point2 another `GskPathPoint`
-             * @returns `TRUE` if @point1 and @point2 are equal
+             * @param point2 another path point
+             * @returns true if @point1 and @point2 are equal
              */
             equal(point2: PathPoint): boolean;
             /**
@@ -3341,15 +3330,15 @@ declare module 'gi://Gsk?version=4.0' {
              * The curvature is the inverse of the radius of the osculating circle.
              *
              * Lines have a curvature of zero (indicating an osculating circle of
-             * infinite radius. In this case, the `center` is not modified.
+             * infinite radius). In this case, the `center` is not modified.
              *
              * Circles with a radius of zero have `INFINITY` as curvature
              *
              * Note that certain points on a path may not have a single curvature,
-             * such as sharp turns. At such points, there are two curvatures --
-             * the (limit of) the curvature of the path going into the point,
-             * and the (limit of) the curvature of the path coming out of it.
-             * The `direction` argument lets you choose which one to get.
+             * such as sharp turns. At such points, there are two curvatures — the
+             * (limit of) the curvature of the path going into the point, and the
+             * (limit of) the curvature of the path coming out of it. The `direction`
+             * argument lets you choose which one to get.
              *
              * <picture>
              *   <source srcset="curvature-dark.png" media="(prefers-color-scheme: dark)">
@@ -3357,13 +3346,13 @@ declare module 'gi://Gsk?version=4.0' {
              * </picture>
              * @param path the path that @point is on
              * @param direction the direction for which to return the curvature
-             * @returns The curvature of the path at the given point
+             * @returns the curvature of the path at the given point
              */
             get_curvature(path: Path, direction: PathDirection | null): [number, Graphene.Point | null];
             /**
              * Returns the distance from the beginning of the path
-             * to `point`.
-             * @param measure a `GskPathMeasure` for the path
+             * to the point.
+             * @param measure a path measure for the path
              * @returns the distance of @point
              */
             get_distance(measure: PathMeasure): number;
@@ -3389,12 +3378,12 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * Note that certain points on a path may not have a single
              * tangent, such as sharp turns. At such points, there are
-             * two tangents -- the direction of the path going into the
+             * two tangents — the direction of the path going into the
              * point, and the direction coming out of it. The `direction`
              * argument lets you choose which one to get.
              *
              * If the path is just a single point (e.g. a circle with
-             * radius zero), then `tangent` is set to `0, 0`.
+             * radius zero), then the tangent is set to `0, 0`.
              *
              * If you want to orient something in the direction of the
              * path, [method`Gsk`.PathPoint.get_rotation] may be more
@@ -3442,28 +3431,28 @@ declare module 'gi://Gsk?version=4.0' {
             // Methods
 
             /**
-             * Checks if the given `point` is inside the rounded rectangle.
+             * Checks if the given point is inside the rounded rectangle.
              * @param point the point to check
-             * @returns %TRUE if the @point is inside the rounded rectangle
+             * @returns true if the point is inside the rounded rectangle
              */
             contains_point(point: Graphene.Point): boolean;
             /**
-             * Checks if the given `rect` is contained inside the rounded rectangle.
+             * Checks if the given rectangle is contained inside the rounded rectangle.
              * @param rect the rectangle to check
-             * @returns %TRUE if the @rect is fully contained inside the rounded rectangle
+             * @returns true if the @rect is fully contained inside the rounded rectangle
              */
             contains_rect(rect: Graphene.Rect): boolean;
             /**
-             * Initializes the given `GskRoundedRect` with the given values.
+             * Initializes a rounded rectangle with the given values.
              *
-             * This function will implicitly normalize the `GskRoundedRect`
+             * This function will implicitly normalize the rounded rectangle
              * before returning.
              * @param bounds a `graphene_rect_t` describing the bounds
              * @param top_left the rounding radius of the top left corner
              * @param top_right the rounding radius of the top right corner
              * @param bottom_right the rounding radius of the bottom right corner
              * @param bottom_left the rounding radius of the bottom left corner
-             * @returns the initialized rectangle
+             * @returns the initialized rounded rectangle
              */
             init(
                 bounds: Graphene.Rect,
@@ -3473,69 +3462,70 @@ declare module 'gi://Gsk?version=4.0' {
                 bottom_left: Graphene.Size,
             ): RoundedRect;
             /**
-             * Initializes `self` using the given `src` rectangle.
+             * Initializes a rounded rectangle with a copy.
              *
-             * This function will not normalize the `GskRoundedRect`,
+             * This function will not normalize the rounded rectangle,
              * so make sure the source is normalized.
-             * @param src a `GskRoundedRect`
-             * @returns the initialized rectangle
+             * @param src another rounded rectangle
+             * @returns the initialized rounded rectangle
              */
             init_copy(src: RoundedRect): RoundedRect;
             /**
-             * Initializes `self` to the given `bounds` and sets the radius
-             * of all four corners to `radius`.
+             * Initializes a rounded rectangle to the given bounds
+             * and sets the radius of all four corners equally.
              * @param bounds a `graphene_rect_t`
              * @param radius the border radius
-             * @returns the initialized rectangle
+             * @returns the initialized rounded rectangle
              */
             init_from_rect(bounds: Graphene.Rect, radius: number): RoundedRect;
             /**
-             * Checks if part of the given `rect` is contained inside the rounded rectangle.
+             * Checks if part a rectangle is contained
+             * inside the rounded rectangle.
              * @param rect the rectangle to check
-             * @returns %TRUE if the @rect intersects with the rounded rectangle
+             * @returns true if the @rect intersects with the rounded rectangle
              */
             intersects_rect(rect: Graphene.Rect): boolean;
             /**
-             * Checks if all corners of `self` are right angles and the
-             * rectangle covers all of its bounds.
+             * Checks if all corners of a rounded rectangle are right angles
+             * and the rectangle covers all of its bounds.
              *
              * This information can be used to decide if [ctor`Gsk`.ClipNode.new]
              * or [ctor`Gsk`.RoundedClipNode.new] should be called.
-             * @returns %TRUE if the rectangle is rectilinear
+             * @returns true if the rounded rectangle is rectilinear
              */
             is_rectilinear(): boolean;
             /**
-             * Normalizes the passed rectangle.
+             * Normalizes a rounded rectangle.
              *
-             * This function will ensure that the bounds of the rectangle
+             * This function will ensure that the bounds of the rounded rectangle
              * are normalized and ensure that the corner values are positive
              * and the corners do not overlap.
-             * @returns the normalized rectangle
+             * @returns the normalized rounded rectangle
              */
             normalize(): RoundedRect;
             /**
-             * Offsets the bound's origin by `dx` and `dy`.
+             * Offsets the rounded rectangle's origin by `dx` and `dy`.
              *
-             * The size and corners of the rectangle are unchanged.
+             * The size and corners of the rounded rectangle are unchanged.
              * @param dx the horizontal offset
              * @param dy the vertical offset
-             * @returns the offset rectangle
+             * @returns the offset rounded rectangle
              */
             offset(dx: number, dy: number): RoundedRect;
             /**
-             * Shrinks (or grows) the given rectangle by moving the 4 sides
+             * Shrinks (or grows) a rounded rectangle by moving the 4 sides
              * according to the offsets given.
              *
              * The corner radii will be changed in a way that tries to keep
              * the center of the corner circle intact. This emulates CSS behavior.
              *
-             * This function also works for growing rectangles if you pass
-             * negative values for the `top,` `right,` `bottom` or `left`.
-             * @param top How far to move the top side downwards
-             * @param right How far to move the right side to the left
-             * @param bottom How far to move the bottom side upwards
-             * @param left How far to move the left side to the right
-             * @returns the resized `GskRoundedRect`
+             * This function also works for growing rounded rectangles
+             * if you pass negative values for the `top,` `right,` `bottom` or `left`.
+             * @param top how far to move the top side downwards
+             * @param right how far to move the right side to the left
+             * @param bottom how far to move the bottom side upwards
+             * @param left how far to move the left side to the right
+             * @returns the resized rounded rectangle
              */
             shrink(top: number, right: number, bottom: number, left: number): RoundedRect;
         }
@@ -3666,8 +3656,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A `GskStroke` struct collects the parameters that influence
-         * the operation of stroking a path.
+         * Collects the parameters that influence the operation of stroking a path.
          */
         class Stroke {
             static $gtype: GObject.GType<Stroke>;
@@ -3682,16 +3671,16 @@ declare module 'gi://Gsk?version=4.0' {
             // Static methods
 
             /**
-             * Checks if 2 strokes are identical.
-             * @param stroke1 the first `GskStroke`
-             * @param stroke2 the second `GskStroke`
+             * Checks if two strokes are identical.
+             * @param stroke1 the first stroke
+             * @param stroke2 the second stroke
              */
             static equal(stroke1?: any | null, stroke2?: any | null): boolean;
 
             // Methods
 
             /**
-             * Creates a copy of the given `other` stroke.
+             * Creates a copy of a `GskStroke`.
              * @returns a new `GskStroke`. Use [method@Gsk.Stroke.free] to free it
              */
             copy(): Stroke;
@@ -3700,41 +3689,41 @@ declare module 'gi://Gsk?version=4.0' {
              */
             free(): void;
             /**
-             * Gets the dash array in use or `NULL` if dashing is disabled.
-             * @returns The dash array or `NULL` if the dash array is empty.
+             * Gets the dash array in use.
+             * @returns the dash array or `NULL` if the dash array is empty
              */
             get_dash(): number[] | null;
             /**
-             * Returns the dash_offset of a `GskStroke`.
-             * @returns the dash_offset
+             * Gets the dash offset.
+             * @returns the dash offset
              */
             get_dash_offset(): number;
             /**
              * Gets the line cap used.
              *
              * See [enum`Gsk`.LineCap] for details.
-             * @returns The line cap
+             * @returns the line cap
              */
             get_line_cap(): LineCap;
             /**
              * Gets the line join used.
              *
              * See [enum`Gsk`.LineJoin] for details.
-             * @returns The line join
+             * @returns the line join
              */
             get_line_join(): LineJoin;
             /**
              * Gets the line width used.
-             * @returns The line width
+             * @returns the line width
              */
             get_line_width(): number;
             /**
-             * Returns the miter limit of a `GskStroke`.
+             * Gets the miter limit.
              * @returns the miter limit
              */
             get_miter_limit(): number;
             /**
-             * Sets the dash pattern to use by this stroke.
+             * Sets the dash pattern to use.
              *
              * A dash pattern is specified by an array of alternating non-negative
              * values. Each value provides the length of alternate "on" and "off"
@@ -3742,8 +3731,8 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * Each "on" segment will have caps applied as if the segment were a
              * separate contour. In particular, it is valid to use an "on" length
-             * of 0 with `GSK_LINE_CAP_ROUND` or `GSK_LINE_CAP_SQUARE` to draw dots
-             * or squares along a path.
+             * of 0 with [enum`Gsk`.LineCap.round] or [enum`Gsk`.LineCap.square]
+             * to draw dots or squares along a path.
              *
              * If `n_dash` is 0, if all elements in `dash` are 0, or if there are
              * negative values in `dash,` then dashing is disabled.
@@ -3774,14 +3763,14 @@ declare module 'gi://Gsk?version=4.0' {
              * Sets the line cap to be used when stroking.
              *
              * See [enum`Gsk`.LineCap] for details.
-             * @param line_cap the `GskLineCap`
+             * @param line_cap the line cap
              */
             set_line_cap(line_cap: LineCap | null): void;
             /**
              * Sets the line join to be used when stroking.
              *
              * See [enum`Gsk`.LineJoin] for details.
-             * @param line_join The line join to use
+             * @param line_join the line join to use
              */
             set_line_join(line_join: LineJoin | null): void;
             /**
@@ -3792,27 +3781,28 @@ declare module 'gi://Gsk?version=4.0' {
              */
             set_line_width(line_width: number): void;
             /**
-             * Sets the limit for the distance from the corner where sharp
+             * Sets the miter limit to be used when stroking.
+             *
+             * The miter limit is the distance from the corner where sharp
              * turns of joins get cut off.
              *
-             * The miter limit is in units of line width and must be non-negative.
+             * The limit is specfied in units of line width and must be non-negative.
              *
-             * For joins of type `GSK_LINE_JOIN_MITER` that exceed the miter
-             * limit, the join gets rendered as if it was of type
-             * `GSK_LINE_JOIN_BEVEL`.
+             * For joins of type [enum`Gsk`.LineJoin.miter] that exceed the miter limit,
+             * the join gets rendered as if it was of type [enum`Gsk`.LineJoin.bevel].
              * @param limit the miter limit
              */
             set_miter_limit(limit: number): void;
             /**
              * A helper function that sets the stroke parameters
-             * of `cr` from the values found in `self`.
+             * of a cairo context from a `GskStroke`.
              * @param cr the cairo context to configure
              */
             to_cairo(cr: cairo.Context): void;
         }
 
         /**
-         * `GskTransform` is an object to describe transform matrices.
+         * An object to describe transform matrices.
          *
          * Unlike `graphene_matrix_t`, `GskTransform` retains the steps in how
          * a transform was constructed, and allows inspecting them. It is modeled
@@ -3835,14 +3825,13 @@ declare module 'gi://Gsk?version=4.0' {
             // Static methods
 
             /**
-             * Parses the given `string` into a transform and puts it in
-             * `out_transform`.
+             * Parses a given into a transform.
              *
              * Strings printed via [method`Gsk`.Transform.to_string]
              * can be read in again successfully using this function.
              *
-             * If `string` does not describe a valid transform, %FALSE is
-             * returned and %NULL is put in `out_transform`.
+             * If `string` does not describe a valid transform, false
+             * is returned and `NULL` is put in `out_transform`.
              * @param string the string to parse
              */
             static parse(string: string): [boolean, Transform];
@@ -3852,7 +3841,7 @@ declare module 'gi://Gsk?version=4.0' {
             /**
              * Checks two transforms for equality.
              * @param second the second transform
-             * @returns %TRUE if the two transforms perform the same operation
+             * @returns true if the two transforms perform the same operation
              */
             equal(second?: Transform | null): boolean;
             /**
@@ -3863,10 +3852,10 @@ declare module 'gi://Gsk?version=4.0' {
             /**
              * Inverts the given transform.
              *
-             * If `self` is not invertible, %NULL is returned.
-             * Note that inverting %NULL also returns %NULL, which is
-             * the correct inverse of %NULL. If you need to differentiate
-             * between those cases, you should check `self` is not %NULL
+             * If `self` is not invertible, `NULL` is returned.
+             * Note that inverting `NULL` also returns `NULL`, which is
+             * the correct inverse of `NULL`. If you need to differentiate
+             * between those cases, you should check `self` is not `NULL`
              * before calling this function.
              *
              * This function consumes `self`. Use [method`Gsk`.Transform.ref] first
@@ -3898,8 +3887,7 @@ declare module 'gi://Gsk?version=4.0' {
              */
             perspective(depth: number): Transform;
             /**
-             * Converts `self` into a human-readable string representation suitable
-             * for printing.
+             * Converts the transform into a human-readable representation.
              *
              * The result of this function can later be parsed with
              * [func`Gsk`.Transform.parse].
@@ -3907,12 +3895,13 @@ declare module 'gi://Gsk?version=4.0' {
              */
             print(string: GLib.String): void;
             /**
-             * Acquires a reference on the given `GskTransform`.
-             * @returns the `GskTransform` with an additional reference
+             * Acquires a reference on the given transform.
+             * @returns the transform with an additional reference
              */
             ref(): Transform | null;
             /**
-             * Rotates `next` `angle` degrees in 2D - or in 3D-speak, around the Z axis.
+             * Rotates `next` by an angle around the Z axis.
+             *
              * The rotation happens around the origin point of (0, 0).
              *
              * This function consumes `next`. Use [method`Gsk`.Transform.ref] first
@@ -3967,13 +3956,18 @@ declare module 'gi://Gsk?version=4.0' {
              */
             skew(skew_x: number, skew_y: number): Transform | null;
             /**
-             * Converts a `GskTransform` to a 2D transformation matrix.
+             * Converts a transform to a 2D transformation matrix.
              *
              * `self` must be a 2D transformation. If you are not
-             * sure, use gsk_transform_get_category() >=
-             * %GSK_TRANSFORM_CATEGORY_2D to check.
+             * sure, use
              *
-             * The returned values have the following layout:
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
+             *
+             * to check.
+             *
+             * The returned values are a subset of the full 4x4 matrix that
+             * is computed by [method`Gsk`.Transform.to_matrix] and have the
+             * following layout:
              *
              * ```
              *   | xx yx |   |  a  b  0 |
@@ -3987,7 +3981,7 @@ declare module 'gi://Gsk?version=4.0' {
              */
             to_2d(): [number, number, number, number, number, number];
             /**
-             * Converts a `GskTransform` to 2D transformation factors.
+             * Converts a transform to 2D transformation factors.
              *
              * To recreate an equivalent transform from the factors returned
              * by this function, use
@@ -4002,37 +3996,39 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * `self` must be a 2D transformation. If you are not sure, use
              *
-             *     gsk_transform_get_category() >= %GSK_TRANSFORM_CATEGORY_2D
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
              *
              * to check.
              */
             to_2d_components(): [number, number, number, number, number, number, number];
             /**
-             * Converts a `GskTransform` to 2D affine transformation factors.
+             * Converts a transform to 2D affine transformation factors.
              *
              * To recreate an equivalent transform from the factors returned
              * by this function, use
              *
-             *     gsk_transform_scale (gsk_transform_translate (NULL,
-             *                                                   &GRAPHENE_POINT_T (dx, dy)),
-             *                          sx, sy)
+             *     gsk_transform_scale (
+             *         gsk_transform_translate (
+             *             NULL,
+             *             &GRAPHENE_POINT_T (dx, dy)),
+             *         sx, sy)
              *
              * `self` must be a 2D affine transformation. If you are not
              * sure, use
              *
-             *     gsk_transform_get_category() >= %GSK_TRANSFORM_CATEGORY_2D_AFFINE
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_AFFINE
              *
              * to check.
              */
             to_affine(): [number, number, number, number];
             /**
-             * Computes the actual value of `self` and stores it in `out_matrix`.
+             * Computes the 4x4 matrix for the transform.
              *
              * The previous value of `out_matrix` will be ignored.
              */
             to_matrix(): Graphene.Matrix;
             /**
-             * Converts a matrix into a string that is suitable for printing.
+             * Converts the transform into a human-readable string.
              *
              * The resulting string can be parsed with [func`Gsk`.Transform.parse].
              *
@@ -4041,12 +4037,12 @@ declare module 'gi://Gsk?version=4.0' {
              */
             to_string(): string;
             /**
-             * Converts a `GskTransform` to a translation operation.
+             * Converts a transform to a translation operation.
              *
              * `self` must be a 2D transformation. If you are not
              * sure, use
              *
-             *     gsk_transform_get_category() >= %GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
+             *     gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
              *
              * to check.
              */
@@ -4056,20 +4052,20 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * This function consumes `next`. Use [method`Gsk`.Transform.ref] first
              * if you want to keep it around.
-             * @param other Transform to apply
+             * @param other transform to apply
              * @returns The new transform
              */
             transform(other?: Transform | null): Transform | null;
             /**
-             * Transforms a `graphene_rect_t` using the given transform `self`.
+             * Transforms a rectangle using the given transform.
              *
              * The result is the bounding box containing the coplanar quad.
-             * @param rect a `graphene_rect_t`
+             * @param rect the rectangle to transform
              */
             transform_bounds(rect: Graphene.Rect): Graphene.Rect;
             /**
-             * Transforms a `graphene_point_t` using the given transform `self`.
-             * @param point a `graphene_point_t`
+             * Transforms a point using the given transform.
+             * @param point the point to transform
              */
             transform_point(point: Graphene.Point): Graphene.Point;
             /**
@@ -4091,7 +4087,7 @@ declare module 'gi://Gsk?version=4.0' {
              */
             translate_3d(point: Graphene.Point3D): Transform | null;
             /**
-             * Releases a reference on the given `GskTransform`.
+             * Releases a reference on the given transform.
              *
              * If the reference was the last, the resources associated to the `self` are
              * freed.

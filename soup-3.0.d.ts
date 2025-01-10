@@ -1410,6 +1410,17 @@ declare module 'gi://Soup?version=3.0' {
          */
         function message_headers_iter_init(hdrs: MessageHeaders): MessageHeadersIter;
         /**
+         * Yields the next name/value pair in the [struct`MessageHeaders]` being
+         * iterated by `iter`.
+         *
+         * If `iter` has already yielded the last header, then
+         * [method`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
+         * will be unchanged.
+         * @param iter a %SoupMessageHeadersIter
+         * @returns %TRUE if another name and value were returned, %FALSE   if the end of the headers has been reached.
+         */
+        function message_headers_iter_next(iter: MessageHeadersIter): [boolean, MessageHeadersIter, string, string];
+        /**
          * Registers error quark for SoupSession if needed.
          * @returns Error quark for SoupSession.
          */
@@ -12782,9 +12793,6 @@ declare module 'gi://Soup?version=3.0' {
              * @param hdrs a %SoupMessageHeaders
              */
             static init(hdrs: MessageHeaders): MessageHeadersIter;
-
-            // Methods
-
             /**
              * Yields the next name/value pair in the [struct`MessageHeaders]` being
              * iterated by `iter`.
@@ -12792,9 +12800,9 @@ declare module 'gi://Soup?version=3.0' {
              * If `iter` has already yielded the last header, then
              * [method`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
              * will be unchanged.
-             * @returns %TRUE if another name and value were returned, %FALSE   if the end of the headers has been reached.
+             * @param iter a %SoupMessageHeadersIter
              */
-            next(): [boolean, string, string];
+            static next(iter: MessageHeadersIter): [boolean, MessageHeadersIter, string, string];
         }
 
         /**

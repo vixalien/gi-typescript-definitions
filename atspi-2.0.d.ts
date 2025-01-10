@@ -2128,12 +2128,7 @@ declare module 'gi://Atspi?version=2.0' {
          * @param name a string indicating which mouse event to be synthesized        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
          * @param callback a callback to be called when a reply is received. May be NULL.
          */
-        function generate_mouse_event_async(
-            x: number,
-            y: number,
-            name: string,
-            callback?: GenerateMouseEventCB | null,
-        ): void;
+        function generate_mouse_event_async(x: number, y: number, name: string, callback: GenerateMouseEventCB): void;
         /**
          * Gets the virtual desktop indicated by index `i`.
          * NOTE: currently multiple virtual desktops are not implemented;
@@ -4261,7 +4256,7 @@ declare module 'gi://Atspi?version=2.0' {
             /**
              * Add a callback that will receive a notification whenever a key is
              * pressed or released.
-             * @param callback the function to call when the given key is            pressed.
+             * @param callback the   function to call when the given key is pressed.
              */
             add_key_watcher(callback: KeyCallback): void;
             /**
@@ -4368,7 +4363,7 @@ declare module 'gi://Atspi?version=2.0' {
 
             _init(...args: any[]): void;
 
-            static ['new'](callback: DeviceListenerCB): DeviceListener;
+            static ['new'](callback?: DeviceListenerCB | null): DeviceListener;
 
             // Virtual methods
 
@@ -4378,7 +4373,7 @@ declare module 'gi://Atspi?version=2.0' {
 
             /**
              * Adds an in-process callback function to an existing #AtspiDeviceListener.
-             * @param callback an #AtspiDeviceListenerCB function pointer.
+             * @param callback an   #AtspiDeviceListenerCB function pointer.
              */
             add_callback(callback: DeviceListenerCB): void;
             /**
@@ -4443,15 +4438,15 @@ declare module 'gi://Atspi?version=2.0' {
 
             /**
              * Deregisters an #AtspiEventListenerCB from the registry, for a specific
-             *             event type.
-             * @param callback the #AtspiEventListenerCB registered against an            event type.
-             * @param event_type a string specifying the event type for which this             listener is to be deregistered.
+             * event type.
+             * @param callback the #AtspiEventListenerCB   registered against an event type.
+             * @param event_type a string specifying the event type for which this   listener is to be deregistered.
              */
             static deregister_from_callback(callback: EventListenerCB, event_type: string): boolean;
             /**
              * Registers an #AtspiEventListenerCB against an `event_type`.
-             * @param callback the #AtspiEventListenerCB to be registered against an event type.
-             * @param event_type a character string indicating the type of events for which            notification is requested.  See #atspi_event_listener_register for a description of the format.
+             * @param callback the   #AtspiEventListenerCB to be registered against an event type.
+             * @param event_type a character string indicating the type of events for which    notification is requested.  See atspi_event_listener_register()    for a description of the format.
              */
             static register_from_callback(callback: EventListenerCB, event_type: string): boolean;
             static register_from_callback_full(

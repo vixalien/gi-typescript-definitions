@@ -4901,7 +4901,7 @@ declare module 'gi://Gdk?version=4.0' {
              * with an error message that can be presented to the user.
              * @returns A newly allocated `GdkColorState`
              */
-            build_color_state(): ColorState | null;
+            build_color_state(): ColorState;
             /**
              * Returns the value of the color-primaries property
              * of `self`.
@@ -15046,6 +15046,11 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get_mime_types(): string[] | null;
             /**
+             * Returns whether the content formats contain any formats.
+             * @returns true if @formats contains no mime types and no GTypes
+             */
+            is_empty(): boolean;
+            /**
              * Checks if `first` and `second` have any matching formats.
              * @param second the `GdkContentFormats` to intersect with
              * @returns %TRUE if a matching format was found.
@@ -15132,8 +15137,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkContentFormatsBuilder` is an auxiliary struct used to create
-         * new `GdkContentFormats`, and should not be kept around.
+         * Auxiliary object to create a `GdkContentFormats`.
          */
         class ContentFormatsBuilder {
             static $gtype: GObject.GType<ContentFormatsBuilder>;

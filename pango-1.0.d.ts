@@ -2156,7 +2156,7 @@ declare module 'gi://Pango?version=1.0' {
          *
          * The string must have the form
          *
-         *     "[FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS]",
+         *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS]
          *
          * where FAMILY-LIST is a comma-separated list of families optionally
          * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
@@ -2195,7 +2195,7 @@ declare module 'gi://Pango?version=1.0' {
          *
          * A typical example:
          *
-         *     "Cantarell Italic Light 15 `‍`wght=200"
+         *     Cantarell Italic Light 15 `‍`wght=200
          * @param str string representation of a font description.
          * @returns a new `PangoFontDescription`.
          */
@@ -4503,6 +4503,15 @@ declare module 'gi://Pango?version=1.0' {
             // Methods
 
             /**
+             * Loads a font file with one or more fonts into the `PangoFontMap`.
+             *
+             * The added fonts will take precedence over preexisting
+             * fonts with the same name.
+             * @param filename Path to the font file
+             * @returns True if the font file is successfully loaded     into the fontmap, false if an error occurred.
+             */
+            add_font_file(filename: string): boolean;
+            /**
              * Forces a change in the context, which will cause any `PangoContext`
              * using this fontmap to change.
              *
@@ -5625,6 +5634,12 @@ declare module 'gi://Pango?version=1.0' {
              */
             is_ellipsized(): boolean;
             /**
+             * Queries whether the layout does not show all content because of
+             * height limitations.
+             * @returns true if any paragraphs have been omitted due to height
+             */
+            is_truncated(): boolean;
+            /**
              * Queries whether the layout had to wrap any paragraphs.
              *
              * This returns %TRUE if a positive width is set on `layout,`
@@ -6721,11 +6736,13 @@ declare module 'gi://Pango?version=1.0' {
              * In the resulting string, serialized attributes are separated by newlines or commas.
              * Individual attributes are serialized to a string of the form
              *
-             *   START END TYPE VALUE
+             *     [START END] TYPE VALUE
              *
              * Where START and END are the indices (with -1 being accepted in place
              * of MAXUINT), TYPE is the nickname of the attribute value type, e.g.
              * _weight_ or _stretch_, and the value is serialized according to its type:
+             *
+             * Optionally, START and END can be omitted to indicate unlimited extent.
              *
              * - enum values as nick or numeric value
              * - boolean values as _true_ or _false_
@@ -6738,14 +6755,12 @@ declare module 'gi://Pango?version=1.0' {
              *
              * Examples:
              *
-             * ```
-             * 0 10 foreground red, 5 15 weight bold, 0 200 font-desc "Sans 10"
-             * ```
+             *     0 10 foreground red, 5 15 weight bold, 0 200 font-desc "Sans 10"
              *
-             * ```
-             * 0 -1 weight 700
-             * 0 100 family Times
-             * ```
+             *     0 -1 weight 700
+             *     0 100 family Times
+             *
+             *     weight bold
              *
              * To parse the returned value, use [func`Pango`.AttrList.from_string].
              *
@@ -7110,7 +7125,7 @@ declare module 'gi://Pango?version=1.0' {
              *
              * The string must have the form
              *
-             *     "[FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS]",
+             *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS]
              *
              * where FAMILY-LIST is a comma-separated list of families optionally
              * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
@@ -7149,7 +7164,7 @@ declare module 'gi://Pango?version=1.0' {
              *
              * A typical example:
              *
-             *     "Cantarell Italic Light 15 `‍`wght=200"
+             *     Cantarell Italic Light 15 `‍`wght=200
              * @param str string representation of a font description.
              */
             static from_string(str: string): FontDescription;
@@ -9007,12 +9022,22 @@ declare module 'gi://Pango?version=1.0' {
             /**
              * Serializes a `PangoTabArray` to a string.
              *
-             * No guarantees are made about the format of the string,
-             * it may change between Pango versions.
+             * In the resulting string, serialized tabs are separated by newlines or commas.
              *
-             * The intended use of this function is testing and
-             * debugging. The format is not meant as a permanent
-             * storage format.
+             * Individual tabs are serialized to a string of the form
+             *
+             *     [ALIGNMENT:]POSITION[:DECIMAL_POINT]
+             *
+             * Where ALIGNMENT is one of _left_, _right_, _center_ or _decimal_, and
+             * POSITION is the position of the tab, optionally followed by the unit _px_.
+             * If ALIGNMENT is omitted, it defaults to _left_. If ALIGNMENT is _decimal_,
+             * the DECIMAL_POINT character may be specified as a Unicode codepoint.
+             *
+             * Note that all tabs in the array must use the same unit.
+             *
+             * A typical example:
+             *
+             *     100px 200px center:300px right:400px
              * @returns a newly allocated string
              */
             to_string(): string;
