@@ -266,7 +266,7 @@ declare module 'gi://GstPlay?version=1.0' {
          * @returns a string with the name of the state.
          */
         function play_state_get_name(state: PlayState | null): string;
-        module Play {
+        namespace Play {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -678,7 +678,7 @@ declare module 'gi://GstPlay?version=1.0' {
             stop(): void;
         }
 
-        module PlayAudioInfo {
+        namespace PlayAudioInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends PlayStreamInfo.ConstructorProps {}
@@ -705,7 +705,7 @@ declare module 'gi://GstPlay?version=1.0' {
             get_sample_rate(): number;
         }
 
-        module PlayMediaInfo {
+        namespace PlayMediaInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -748,7 +748,7 @@ declare module 'gi://GstPlay?version=1.0' {
             is_seekable(): boolean;
         }
 
-        module PlaySignalAdapter {
+        namespace PlaySignalAdapter {
             // Signal callback interfaces
 
             interface Buffering {
@@ -900,7 +900,7 @@ declare module 'gi://GstPlay?version=1.0' {
             get_play(): Play;
         }
 
-        module PlayStreamInfo {
+        namespace PlayStreamInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -943,7 +943,7 @@ declare module 'gi://GstPlay?version=1.0' {
             get_tags(): Gst.TagList | null;
         }
 
-        module PlaySubtitleInfo {
+        namespace PlaySubtitleInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends PlayStreamInfo.ConstructorProps {}
@@ -966,7 +966,7 @@ declare module 'gi://GstPlay?version=1.0' {
             get_language(): string | null;
         }
 
-        module PlayVideoInfo {
+        namespace PlayVideoInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends PlayStreamInfo.ConstructorProps {}
@@ -997,7 +997,7 @@ declare module 'gi://GstPlay?version=1.0' {
             get_width(): number;
         }
 
-        module PlayVideoOverlayVideoRenderer {
+        namespace PlayVideoOverlayVideoRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PlayVideoRenderer.ConstructorProps {
@@ -1517,7 +1517,7 @@ declare module 'gi://GstPlay?version=1.0' {
             free(): void;
         }
 
-        module PlayVideoRenderer {
+        namespace PlayVideoRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

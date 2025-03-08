@@ -1441,6 +1441,10 @@ declare module 'gi://Atspi?version=2.0' {
              */
             PUSH_BUTTON_MENU,
             /**
+             * A switch that can be toggled on/off. `Since` 2.56
+             */
+            SWITCH,
+            /**
              * Not a valid role, used for finding end of
              * enumeration.
              */
@@ -1987,6 +1991,7 @@ declare module 'gi://Atspi?version=2.0' {
         const DBUS_INTERFACE_HYPERLINK: string;
         const DBUS_INTERFACE_HYPERTEXT: string;
         const DBUS_INTERFACE_IMAGE: string;
+        const DBUS_INTERFACE_KEYBOARD_MONITOR: string;
         const DBUS_INTERFACE_REGISTRY: string;
         const DBUS_INTERFACE_SELECTION: string;
         const DBUS_INTERFACE_SOCKET: string;
@@ -1994,12 +1999,16 @@ declare module 'gi://Atspi?version=2.0' {
         const DBUS_INTERFACE_TABLE_CELL: string;
         const DBUS_INTERFACE_TEXT: string;
         const DBUS_INTERFACE_VALUE: string;
+        const DBUS_NAME_A11Y_MANAGER: string;
         const DBUS_NAME_REGISTRY: string;
+        const DBUS_PATH_A11Y_MANAGER: string;
         const DBUS_PATH_DEC: string;
         const DBUS_PATH_NULL: string;
         const DBUS_PATH_REGISTRY: string;
         const DBUS_PATH_ROOT: string;
         const DBUS_PATH_SCREEN_READER: string;
+        const DEVICE_A11Y_MANAGER_VIRTUAL_MOD_END: number;
+        const DEVICE_A11Y_MANAGER_VIRTUAL_MOD_START: number;
         /**
          * One higher than the highest valid value of #AtspiEventType.
          */
@@ -2343,7 +2352,7 @@ declare module 'gi://Atspi?version=2.0' {
              */
             ALL_WINDOWS,
         }
-        module Accessible {
+        namespace Accessible {
             // Signal callback interfaces
 
             interface ModeChanged {
@@ -4138,7 +4147,7 @@ declare module 'gi://Atspi?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Application {
+        namespace Application {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4171,14 +4180,32 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module Device {
+        namespace Device {
             // Constructor properties interface
 
-            interface ConstructorProps extends GObject.Object.ConstructorProps {}
+            interface ConstructorProps extends GObject.Object.ConstructorProps {
+                app_id: string;
+                appId: string;
+            }
         }
 
         class Device extends GObject.Object {
             static $gtype: GObject.GType<Device>;
+
+            // Properties
+
+            /**
+             * The application ID of the application that created this device.
+             * The ID might be used for access control purposes
+             * by some device backends.
+             */
+            get app_id(): string;
+            /**
+             * The application ID of the application that created this device.
+             * The ID might be used for access control purposes
+             * by some device backends.
+             */
+            get appId(): string;
 
             // Constructors
 
@@ -4187,6 +4214,8 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Device;
+
+            static new_full(app_id?: string | null): Device;
 
             // Virtual methods
 
@@ -4204,6 +4233,14 @@ declare module 'gi://Atspi?version=2.0' {
              * @param name a string indicating which mouse event to be synthesized        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
              */
             vfunc_generate_mouse_event(obj: Accessible, x: number, y: number, name: string): void;
+            /**
+             * Gets the modifier for a given keysym, if one exists. Does not create a new
+             * mapping. This function should be used when the intention is to query a
+             * locking modifier such as num lock via atspi_device_get_locked_modifiers,
+             * rather than to add key grabs.
+             * @param keysym the XKB keysym to map.
+             */
+            vfunc_get_keysym_modifier(keysym: number): number;
             /**
              * Returns the locked modifiers (ie, num lock, caps lock) associated with this
              * keyboard.
@@ -4223,6 +4260,18 @@ declare module 'gi://Atspi?version=2.0' {
              * grab the keyboard.
              */
             vfunc_grab_keyboard(): boolean;
+            /**
+             * Maps the specified keysym to a modifier so that it can be used in
+             * conjunction with other keys to create a key grab. If the given keysym is
+             * already mapped, then this function will return the modifier that is
+             * currently mapped to the keysym, without doing anything else. Otherwise,
+             * it will use the last modifier that AT-SPI used to map a keysym. If no keys
+             * have yet been mapped using this device, then it will look for a modifier
+             * that is not currently being used. If no unused modifier can be found,
+             * then it will use the first modifier by default.
+             * @param keysym the XKB keysym to map.
+             */
+            vfunc_map_keysym_modifier(keysym: number): number;
             /**
              * Maps the specified key code to a modifier so that it can be used in
              * conjunction with other keys to create a key grab. If the given keycode is
@@ -4244,6 +4293,11 @@ declare module 'gi://Atspi?version=2.0' {
              * Removes a keyboard grab added via a call to atspi_device_add_keyboard.
              */
             vfunc_ungrab_keyboard(): void;
+            /**
+             * Removes a mapped modifier from the given keysym.
+             * @param keysym the XKB keysym to unmap.
+             */
+            vfunc_unmap_keysym_modifier(keysym: number): void;
             /**
              * Removes a mapped modifier from the given keycode.
              * @param keycode the keycode to unmap.
@@ -4272,7 +4326,20 @@ declare module 'gi://Atspi?version=2.0' {
              * @param name a string indicating which mouse event to be synthesized        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
              */
             generate_mouse_event(obj: Accessible, x: number, y: number, name: string): void;
+            /**
+             * Returns the application ID of the device.
+             */
+            get_app_id(): string;
             get_grab_by_id(id: number): KeyDefinition;
+            /**
+             * Gets the modifier for a given keysym, if one exists. Does not create a new
+             * mapping. This function should be used when the intention is to query a
+             * locking modifier such as num lock via atspi_device_get_locked_modifiers,
+             * rather than to add key grabs.
+             * @param keysym the XKB keysym to map.
+             * @returns the modifier that is mapped to this keysym.
+             */
+            get_keysym_modifier(keysym: number): number;
             /**
              * Returns the locked modifiers (ie, num lock, caps lock) associated with this
              * keyboard.
@@ -4296,6 +4363,19 @@ declare module 'gi://Atspi?version=2.0' {
              */
             grab_keyboard(): boolean;
             /**
+             * Maps the specified keysym to a modifier so that it can be used in
+             * conjunction with other keys to create a key grab. If the given keysym is
+             * already mapped, then this function will return the modifier that is
+             * currently mapped to the keysym, without doing anything else. Otherwise,
+             * it will use the last modifier that AT-SPI used to map a keysym. If no keys
+             * have yet been mapped using this device, then it will look for a modifier
+             * that is not currently being used. If no unused modifier can be found,
+             * then it will use the first modifier by default.
+             * @param keysym the XKB keysym to map.
+             * @returns the modifier that is now mapped to this keysym. This return value can be passed to atspi_device_add_key_grab.
+             */
+            map_keysym_modifier(keysym: number): number;
+            /**
              * Maps the specified key code to a modifier so that it can be used in
              * conjunction with other keys to create a key grab. If the given keycode is
              * already mapped, then this function will return the modifier that is
@@ -4315,9 +4395,19 @@ declare module 'gi://Atspi?version=2.0' {
              */
             remove_key_grab(id: number): void;
             /**
+             * Sets the application ID of the device.
+             * @param app_id the application ID.
+             */
+            set_app_id(app_id: string): void;
+            /**
              * Removes a keyboard grab added via a call to atspi_device_add_keyboard.
              */
             ungrab_keyboard(): void;
+            /**
+             * Removes a mapped modifier from the given keysym.
+             * @param keysym the XKB keysym to unmap.
+             */
+            unmap_keysym_modifier(keysym: number): void;
             /**
              * Removes a mapped modifier from the given keycode.
              * @param keycode the keycode to unmap.
@@ -4325,7 +4415,27 @@ declare module 'gi://Atspi?version=2.0' {
             unmap_modifier(keycode: number): void;
         }
 
-        module DeviceLegacy {
+        namespace DeviceA11yManager {
+            // Constructor properties interface
+
+            interface ConstructorProps extends Device.ConstructorProps {}
+        }
+
+        class DeviceA11yManager extends Device {
+            static $gtype: GObject.GType<DeviceA11yManager>;
+
+            // Constructors
+
+            constructor(properties?: Partial<DeviceA11yManager.ConstructorProps>, ...args: any[]);
+
+            _init(...args: any[]): void;
+
+            static try_new(): DeviceA11yManager;
+
+            static try_new_full(app_id?: string | null): DeviceA11yManager;
+        }
+
+        namespace DeviceLegacy {
             // Constructor properties interface
 
             interface ConstructorProps extends Device.ConstructorProps {}
@@ -4341,9 +4451,11 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): DeviceLegacy;
+
+            static new_full(app_id?: string | null): DeviceLegacy;
         }
 
-        module DeviceListener {
+        namespace DeviceListener {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4384,7 +4496,7 @@ declare module 'gi://Atspi?version=2.0' {
             remove_callback(callback: DeviceListenerCB): void;
         }
 
-        module DeviceX11 {
+        namespace DeviceX11 {
             // Constructor properties interface
 
             interface ConstructorProps extends Device.ConstructorProps {}
@@ -4400,9 +4512,11 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): DeviceX11;
+
+            static new_full(app_id?: string | null): DeviceX11;
         }
 
-        module EventListener {
+        namespace EventListener {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4576,7 +4690,7 @@ declare module 'gi://Atspi?version=2.0' {
             register_with_app(event_type: string, properties?: string[] | null, app?: Accessible | null): boolean;
         }
 
-        module Hyperlink {
+        namespace Hyperlink {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -4651,7 +4765,7 @@ declare module 'gi://Atspi?version=2.0' {
             is_valid(): boolean;
         }
 
-        module MatchRule {
+        namespace MatchRule {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4694,7 +4808,7 @@ declare module 'gi://Atspi?version=2.0' {
             ): MatchRule;
         }
 
-        module Object {
+        namespace Object {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4715,7 +4829,7 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module Relation {
+        namespace Relation {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4765,7 +4879,7 @@ declare module 'gi://Atspi?version=2.0' {
             get_target(i: number): Accessible;
         }
 
-        module StateSet {
+        namespace StateSet {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4854,6 +4968,7 @@ declare module 'gi://Atspi?version=2.0' {
         }
 
         type ApplicationClass = typeof Application;
+        type DeviceA11yManagerClass = typeof DeviceA11yManager;
         type DeviceClass = typeof Device;
         class DeviceEvent {
             static $gtype: GObject.GType<DeviceEvent>;
@@ -5119,7 +5234,7 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module Action {
+        namespace Action {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5210,7 +5325,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Action; // This allows `obj instanceof Action`
         };
 
-        module Collection {
+        namespace Collection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5290,7 +5405,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Collection; // This allows `obj instanceof Collection`
         };
 
-        module Component {
+        namespace Component {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5412,7 +5527,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Component; // This allows `obj instanceof Component`
         };
 
-        module Document {
+        namespace Document {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5486,7 +5601,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Document; // This allows `obj instanceof Document`
         };
 
-        module EditableText {
+        namespace EditableText {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5560,7 +5675,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): EditableText; // This allows `obj instanceof EditableText`
         };
 
-        module Hypertext {
+        namespace Hypertext {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5598,7 +5713,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Hypertext; // This allows `obj instanceof Hypertext`
         };
 
-        module Image {
+        namespace Image {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5652,7 +5767,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Image; // This allows `obj instanceof Image`
         };
 
-        module Selection {
+        namespace Selection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5739,7 +5854,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Selection; // This allows `obj instanceof Selection`
         };
 
-        module Table {
+        namespace Table {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5970,7 +6085,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Table; // This allows `obj instanceof Table`
         };
 
-        module TableCell {
+        namespace TableCell {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6030,7 +6145,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): TableCell; // This allows `obj instanceof TableCell`
         };
 
-        module Text {
+        namespace Text {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6298,7 +6413,7 @@ declare module 'gi://Atspi?version=2.0' {
             new (): Text; // This allows `obj instanceof Text`
         };
 
-        module Value {
+        namespace Value {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

@@ -422,7 +422,7 @@ declare module 'gi://Tracker?version=3.0' {
              */
             ANONYMOUS_BNODES,
         }
-        module Batch {
+        namespace Batch {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -579,7 +579,7 @@ declare module 'gi://Tracker?version=3.0' {
             get_connection(): SparqlConnection;
         }
 
-        module Endpoint {
+        namespace Endpoint {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -751,7 +751,7 @@ declare module 'gi://Tracker?version=3.0' {
             set_readonly(readonly: boolean): void;
         }
 
-        module EndpointDBus {
+        namespace EndpointDBus {
             // Signal callback interfaces
 
             interface BlockCall {
@@ -875,7 +875,7 @@ declare module 'gi://Tracker?version=3.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -918,7 +918,7 @@ declare module 'gi://Tracker?version=3.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -1343,7 +1343,7 @@ declare module 'gi://Tracker?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module EndpointHttp {
+        namespace EndpointHttp {
             // Signal callback interfaces
 
             interface BlockRemoteAddress {
@@ -1471,7 +1471,7 @@ declare module 'gi://Tracker?version=3.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -1514,7 +1514,7 @@ declare module 'gi://Tracker?version=3.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -1939,7 +1939,7 @@ declare module 'gi://Tracker?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module NamespaceManager {
+        namespace NamespaceManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -2038,7 +2038,7 @@ declare module 'gi://Tracker?version=3.0' {
             print_turtle(): string;
         }
 
-        module Notifier {
+        namespace Notifier {
             // Signal callback interfaces
 
             interface Events {
@@ -2156,7 +2156,7 @@ declare module 'gi://Tracker?version=3.0' {
             signal_unsubscribe(handler_id: number): void;
         }
 
-        module Resource {
+        namespace Resource {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -2612,7 +2612,7 @@ declare module 'gi://Tracker?version=3.0' {
             set_uri(property_uri: string, value: string): void;
         }
 
-        module SparqlConnection {
+        namespace SparqlConnection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -3416,7 +3416,7 @@ declare module 'gi://Tracker?version=3.0' {
             update_statement(sparql: string, cancellable?: Gio.Cancellable | null): SparqlStatement | null;
         }
 
-        module SparqlCursor {
+        namespace SparqlCursor {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -3654,7 +3654,7 @@ declare module 'gi://Tracker?version=3.0' {
             rewind(): void;
         }
 
-        module SparqlStatement {
+        namespace SparqlStatement {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

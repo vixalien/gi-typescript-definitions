@@ -131,7 +131,7 @@ declare module 'gi://GstAllocators?version=1.0' {
              */
             DONT_CLOSE,
         }
-        module DRMDumbAllocator {
+        namespace DRMDumbAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {
@@ -187,7 +187,7 @@ declare module 'gi://GstAllocators?version=1.0' {
             has_prime_export(): boolean;
         }
 
-        module DmaBufAllocator {
+        namespace DmaBufAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends FdAllocator.ConstructorProps {}
@@ -231,7 +231,7 @@ declare module 'gi://GstAllocators?version=1.0' {
             ): Gst.Memory | null;
         }
 
-        module FdAllocator {
+        namespace FdAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -263,7 +263,7 @@ declare module 'gi://GstAllocators?version=1.0' {
             static alloc(allocator: Gst.Allocator, fd: number, size: number, flags: FdMemoryFlags): Gst.Memory | null;
         }
 
-        module ShmAllocator {
+        namespace ShmAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends FdAllocator.ConstructorProps {}
@@ -308,7 +308,7 @@ declare module 'gi://GstAllocators?version=1.0' {
         type FdAllocatorClass = typeof FdAllocator;
         type PhysMemoryAllocatorInterface = typeof PhysMemoryAllocator;
         type ShmAllocatorClass = typeof ShmAllocator;
-        module PhysMemoryAllocator {
+        namespace PhysMemoryAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}

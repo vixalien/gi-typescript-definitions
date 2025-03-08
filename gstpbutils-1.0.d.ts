@@ -967,7 +967,7 @@ declare module 'gi://GstPbutils?version=1.0' {
              */
             METADATA,
         }
-        module AudioVisualizer {
+        namespace AudioVisualizer {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -1015,7 +1015,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             vfunc_setup(): boolean;
         }
 
-        module Discoverer {
+        namespace Discoverer {
             // Signal callback interfaces
 
             interface Discovered {
@@ -1172,7 +1172,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             stop(): void;
         }
 
-        module DiscovererAudioInfo {
+        namespace DiscovererAudioInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1201,7 +1201,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             get_sample_rate(): number;
         }
 
-        module DiscovererContainerInfo {
+        namespace DiscovererContainerInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1225,7 +1225,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             get_tags(): Gst.TagList | null;
         }
 
-        module DiscovererInfo {
+        namespace DiscovererInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1309,7 +1309,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             to_variant(flags: DiscovererSerializeFlags | null): GLib.Variant;
         }
 
-        module DiscovererStreamInfo {
+        namespace DiscovererStreamInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1363,7 +1363,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             get_toc(): Gst.Toc | null;
         }
 
-        module DiscovererSubtitleInfo {
+        namespace DiscovererSubtitleInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1387,7 +1387,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             get_language(): string | null;
         }
 
-        module DiscovererVideoInfo {
+        namespace DiscovererVideoInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1420,7 +1420,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             is_interlaced(): boolean;
         }
 
-        module EncodingAudioProfile {
+        namespace EncodingAudioProfile {
             // Constructor properties interface
 
             interface ConstructorProps extends EncodingProfile.ConstructorProps {}
@@ -1446,7 +1446,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             ): EncodingAudioProfile;
         }
 
-        module EncodingContainerProfile {
+        namespace EncodingContainerProfile {
             // Constructor properties interface
 
             interface ConstructorProps extends EncodingProfile.ConstructorProps {}
@@ -1492,7 +1492,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             get_profiles(): EncodingProfile[];
         }
 
-        module EncodingProfile {
+        namespace EncodingProfile {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1687,7 +1687,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             set_single_segment(single_segment: boolean): void;
         }
 
-        module EncodingTarget {
+        namespace EncodingTarget {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1765,7 +1765,7 @@ declare module 'gi://GstPbutils?version=1.0' {
             save_to_file(filepath: string): boolean;
         }
 
-        module EncodingVideoProfile {
+        namespace EncodingVideoProfile {
             // Constructor properties interface
 
             interface ConstructorProps extends EncodingProfile.ConstructorProps {}

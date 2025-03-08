@@ -27,7 +27,7 @@ declare module 'gi://GstInsertBin?version=1.0' {
         interface InsertBinCallback {
             (insertbin: InsertBin, element: Gst.Element, success: boolean): void;
         }
-        module InsertBin {
+        namespace InsertBin {
             // Signal callback interfaces
 
             interface Append {
@@ -688,6 +688,8 @@ declare module 'gi://GstInsertBin?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -710,6 +712,8 @@ declare module 'gi://GstInsertBin?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -724,6 +728,8 @@ declare module 'gi://GstInsertBin?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -735,6 +741,8 @@ declare module 'gi://GstInsertBin?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;

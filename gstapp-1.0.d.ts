@@ -81,7 +81,7 @@ declare module 'gi://GstApp?version=1.0' {
              */
             RANDOM_ACCESS,
         }
-        module AppSink {
+        namespace AppSink {
             // Signal callback interfaces
 
             interface Eos {
@@ -604,6 +604,16 @@ declare module 'gi://GstApp?version=1.0' {
              */
             set_uri(uri: string): boolean;
             /**
+             * Method to return the list of protocols handled by the element.
+             * @param type
+             */
+            vfunc_get_protocols(type: GObject.GType): string[];
+            /**
+             * Method to tell whether the element handles source or sink URI.
+             * @param type
+             */
+            vfunc_get_type(type: GObject.GType): Gst.URIType;
+            /**
              * Gets the currently handled URI.
              */
             vfunc_get_uri(): string | null;
@@ -962,6 +972,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -984,6 +996,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -998,6 +1012,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -1009,6 +1025,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -1016,7 +1034,7 @@ declare module 'gi://GstApp?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module AppSrc {
+        namespace AppSrc {
             // Signal callback interfaces
 
             interface EndOfStream {
@@ -1665,6 +1683,16 @@ declare module 'gi://GstApp?version=1.0' {
              */
             set_uri(uri: string): boolean;
             /**
+             * Method to return the list of protocols handled by the element.
+             * @param type
+             */
+            vfunc_get_protocols(type: GObject.GType): string[];
+            /**
+             * Method to tell whether the element handles source or sink URI.
+             * @param type
+             */
+            vfunc_get_type(type: GObject.GType): Gst.URIType;
+            /**
              * Gets the currently handled URI.
              */
             vfunc_get_uri(): string | null;
@@ -2023,6 +2051,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -2045,6 +2075,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -2059,6 +2091,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -2070,6 +2104,8 @@ declare module 'gi://GstApp?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;

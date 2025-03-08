@@ -970,7 +970,7 @@ declare module 'gi://Secret?version=1' {
              */
             LOAD_COLLECTIONS,
         }
-        module Collection {
+        namespace Collection {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -1765,7 +1765,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -1808,7 +1808,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -2233,7 +2233,7 @@ declare module 'gi://Secret?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Item {
+        namespace Item {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -3075,7 +3075,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -3118,7 +3118,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -3615,7 +3615,7 @@ declare module 'gi://Secret?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Prompt {
+        namespace Prompt {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -4037,7 +4037,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -4080,7 +4080,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -4505,7 +4505,7 @@ declare module 'gi://Secret?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Service {
+        namespace Service {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -6064,7 +6064,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -6107,7 +6107,7 @@ declare module 'gi://Secret?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -6823,7 +6823,7 @@ declare module 'gi://Secret?version=1' {
              * value.
              *
              * The content type must be `text/plain`.
-             * @returns the content type
+             * @returns the value
              */
             get_text(): string | null;
             /**
@@ -6849,7 +6849,7 @@ declare module 'gi://Secret?version=1' {
             unref_to_password(length: number): [string, number];
         }
 
-        module Backend {
+        namespace Backend {
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.AsyncInitable.ConstructorProps<Backend> {
@@ -6993,7 +6993,7 @@ declare module 'gi://Secret?version=1' {
             new (): Backend; // This allows `obj instanceof Backend`
         };
 
-        module Retrievable {
+        namespace Retrievable {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

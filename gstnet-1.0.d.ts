@@ -148,7 +148,7 @@ declare module 'gi://GstNet?version=1.0' {
         interface PtpStatisticsCallback {
             (domain: number, stats: Gst.Structure): boolean;
         }
-        module NetClientClock {
+        namespace NetClientClock {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.SystemClock.ConstructorProps {
@@ -238,7 +238,7 @@ declare module 'gi://GstNet?version=1.0' {
             ): NetClientClock;
         }
 
-        module NetTimeProvider {
+        namespace NetTimeProvider {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps, Gio.Initable.ConstructorProps {
@@ -305,7 +305,7 @@ declare module 'gi://GstNet?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -348,7 +348,7 @@ declare module 'gi://GstNet?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -721,6 +721,8 @@ declare module 'gi://GstNet?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -743,6 +745,8 @@ declare module 'gi://GstNet?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -757,6 +761,8 @@ declare module 'gi://GstNet?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -768,6 +774,8 @@ declare module 'gi://GstNet?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -775,7 +783,7 @@ declare module 'gi://GstNet?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module NtpClock {
+        namespace NtpClock {
             // Constructor properties interface
 
             interface ConstructorProps extends NetClientClock.ConstructorProps {}
@@ -802,7 +810,7 @@ declare module 'gi://GstNet?version=1.0' {
             ): NtpClock;
         }
 
-        module PtpClock {
+        namespace PtpClock {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.SystemClock.ConstructorProps {

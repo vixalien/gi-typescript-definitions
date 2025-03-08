@@ -1995,35 +1995,68 @@ declare module 'gi://GObject?version=2.0' {
         function type_children(type: GType): GType[];
         function type_class_adjust_private_offset(g_class: any | null, private_size_or_offset: number): void;
         /**
-         * This function is essentially the same as g_type_class_ref(),
-         * except that the classes reference count isn't incremented.
+         * Retrieves the type class of the given `type`.
+         *
+         * This function will create the class on demand if it does not exist
+         * already.
+         *
+         * If you don't want to create the class, use g_type_class_peek() instead.
+         * @param type type ID of a classed type
+         * @returns the class structure   for the type
+         */
+        function type_class_get(type: GType): TypeClass;
+        /**
+         * Retrieves the class for a give type.
+         *
+         * This function is essentially the same as g_type_class_get(),
+         * except that the class may have not been instantiated yet.
+         *
          * As a consequence, this function may return %NULL if the class
          * of the type passed in does not currently exist (hasn't been
          * referenced before).
          * @param type type ID of a classed type
-         * @returns the #GTypeClass     structure for the given type ID or %NULL if the class does not     currently exist
+         * @returns the   #GTypeClass structure for the given type ID or %NULL if the class   does not currently exist
          */
-        function type_class_peek(type: GType): TypeClass;
+        function type_class_peek(type: GType): TypeClass | null;
         /**
          * A more efficient version of g_type_class_peek() which works only for
          * static types.
          * @param type type ID of a classed type
-         * @returns the #GTypeClass     structure for the given type ID or %NULL if the class does not     currently exist or is dynamically loaded
+         * @returns the   #GTypeClass structure for the given type ID or %NULL if the class   does not currently exist or is dynamically loaded
          */
-        function type_class_peek_static(type: GType): TypeClass;
+        function type_class_peek_static(type: GType): TypeClass | null;
         /**
          * Increments the reference count of the class structure belonging to
-         * `type`. This function will demand-create the class if it doesn't
-         * exist already.
+         * `type`.
+         *
+         * This function will demand-create the class if it doesn't exist already.
          * @param type type ID of a classed type
-         * @returns the #GTypeClass     structure for the given type ID
+         * @returns the #GTypeClass   structure for the given type ID
          */
         function type_class_ref(type: GType): TypeClass;
+        /**
+         * Returns the default interface vtable for the given `g_type`.
+         *
+         * If the type is not currently in use, then the default vtable
+         * for the type will be created and initialized by calling
+         * the base interface init and default vtable init functions for
+         * the type (the `base_init` and `class_init` members of #GTypeInfo).
+         *
+         * If you don't want to create the interface vtable, you should use
+         * g_type_default_interface_peek() instead.
+         *
+         * Calling g_type_default_interface_get() is useful when you
+         * want to make sure that signals and properties for an interface
+         * have been installed.
+         * @param g_type an interface type
+         * @returns the default   vtable for the interface.
+         */
+        function type_default_interface_get(g_type: GType): TypeInterface;
         /**
          * If the interface type `g_type` is currently in use, returns its
          * default interface vtable.
          * @param g_type an interface type
-         * @returns the default     vtable for the interface, or %NULL if the type is not currently     in use
+         * @returns the default   vtable for the interface, or %NULL if the type is not currently   in use
          */
         function type_default_interface_peek(g_type: GType): TypeInterface;
         /**
@@ -2038,15 +2071,16 @@ declare module 'gi://GObject?version=2.0' {
          * want to make sure that signals and properties for an interface
          * have been installed.
          * @param g_type an interface type
-         * @returns the default     vtable for the interface; call g_type_default_interface_unref()     when you are done using the interface.
+         * @returns the default   vtable for the interface; call g_type_default_interface_unref()   when you are done using the interface.
          */
         function type_default_interface_ref(g_type: GType): TypeInterface;
         /**
          * Decrements the reference count for the type corresponding to the
-         * interface default vtable `g_iface`. If the type is dynamic, then
-         * when no one is using the interface and all references have
-         * been released, the finalize function for the interface's default
-         * vtable (the `class_finalize` member of #GTypeInfo) will be called.
+         * interface default vtable `g_iface`.
+         *
+         * If the type is dynamic, then when no one is using the interface and all
+         * references have been released, the finalize function for the interface's
+         * default vtable (the `class_finalize` member of #GTypeInfo) will be called.
          * @param g_iface the default vtable     structure for an interface, as returned by g_type_default_interface_ref()
          */
         function type_default_interface_unref(g_iface: TypeInterface): void;
@@ -2194,9 +2228,9 @@ declare module 'gi://GObject?version=2.0' {
          * passed in class conforms.
          * @param instance_class a #GTypeClass structure
          * @param iface_type an interface ID which this class conforms to
-         * @returns the #GTypeInterface     structure of @iface_type if implemented by @instance_class, %NULL     otherwise
+         * @returns the #GTypeInterface   structure of @iface_type if implemented by @instance_class, %NULL   otherwise
          */
-        function type_interface_peek(instance_class: TypeClass, iface_type: GType): TypeInterface;
+        function type_interface_peek(instance_class: TypeClass, iface_type: GType): TypeInterface | null;
         /**
          * Returns the prerequisites of an interfaces type.
          * @param interface_type an interface type
@@ -2220,11 +2254,12 @@ declare module 'gi://GObject?version=2.0' {
          */
         function type_is_a(type: GType, is_a_type: GType): boolean;
         /**
-         * Get the unique name that is assigned to a type ID.  Note that this
-         * function (like all other GType API) cannot cope with invalid type
-         * IDs. %G_TYPE_INVALID may be passed to this function, as may be any
-         * other validly registered type ID, but randomized type IDs should
-         * not be passed in and will most likely lead to a crash.
+         * Get the unique name that is assigned to a type ID.
+         *
+         * Note that this function (like all other GType API) cannot cope with
+         * invalid type IDs. %G_TYPE_INVALID may be passed to this function, as
+         * may be any other validly registered type ID, but randomized type IDs
+         * should not be passed in and will most likely lead to a crash.
          * @param type type to return name for
          * @returns static type name or %NULL
          */
@@ -2891,7 +2926,7 @@ declare module 'gi://GObject?version=2.0' {
              */
             DEEP_DERIVABLE,
         }
-        module Binding {
+        namespace Binding {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -3117,7 +3152,7 @@ declare module 'gi://GObject?version=2.0' {
             unbind(): void;
         }
 
-        module BindingGroup {
+        namespace BindingGroup {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -3232,7 +3267,7 @@ declare module 'gi://GObject?version=2.0' {
             set_source(source?: Object | null): void;
         }
 
-        module InitiallyUnowned {
+        namespace InitiallyUnowned {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -3252,9 +3287,89 @@ declare module 'gi://GObject?version=2.0' {
             constructor(properties?: Partial<InitiallyUnowned.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Virtual methods
+
+            /**
+             * the `constructed` function is called by g_object_new() as the
+             *  final step of the object creation process.  At the point of the call, all
+             *  construction properties have been set on the object.  The purpose of this
+             *  call is to allow for object initialisation steps that can only be performed
+             *  after construction properties have been set.  `constructed` implementors
+             *  should chain up to the `constructed` call of their parent class to allow it
+             *  to complete its initialisation.
+             * @param object
+             */
+            vfunc_constructed(object: Object): void;
+            // Conflicted with GObject.Object.vfunc_constructed
+            vfunc_constructed(...args: never[]): any;
+            /**
+             * emits property change notification for a bunch
+             *  of properties. Overriding `dispatch_properties_changed` should be rarely
+             *  needed.
+             * @param object
+             * @param n_pspecs
+             * @param pspecs
+             */
+            vfunc_dispatch_properties_changed(object: Object, n_pspecs: number, pspecs: ParamSpec): void;
+            // Conflicted with GObject.Object.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
+            /**
+             * the `dispose` function is supposed to drop all references to other
+             *  objects, but keep the instance otherwise intact, so that client method
+             *  invocations still work. It may be run multiple times (due to reference
+             *  loops). Before returning, `dispose` should chain up to the `dispose` method
+             *  of the parent class.
+             * @param object
+             */
+            vfunc_dispose(object: Object): void;
+            // Conflicted with GObject.Object.vfunc_dispose
+            vfunc_dispose(...args: never[]): any;
+            /**
+             * instance finalization function, should finish the finalization of
+             *  the instance begun in `dispose` and chain up to the `finalize` method of the
+             *  parent class.
+             * @param object
+             */
+            vfunc_finalize(object: Object): void;
+            // Conflicted with GObject.Object.vfunc_finalize
+            vfunc_finalize(...args: never[]): any;
+            /**
+             * the generic getter for all properties of this type. Should be
+             *  overridden for every type with properties.
+             * @param object
+             * @param property_id
+             * @param value
+             * @param pspec
+             */
+            vfunc_get_property(object: Object, property_id: number, value: Value | any, pspec: ParamSpec): void;
+            // Conflicted with GObject.Object.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
+            /**
+             * the class closure for the notify signal
+             * @param object a #GObject
+             * @param pspec
+             */
+            vfunc_notify(object: Object, pspec: ParamSpec): void;
+            // Conflicted with GObject.Object.vfunc_notify
+            vfunc_notify(...args: never[]): any;
+            /**
+             * the generic setter for all properties of this type. Should be
+             *  overridden for every type with properties. If implementations of
+             *  `set_property` don't emit property change notification explicitly, this will
+             *  be done implicitly by the type system. However, if the notify signal is
+             *  emitted explicitly, the type system will not emit it a second time.
+             * @param object
+             * @param property_id
+             * @param value
+             * @param pspec
+             */
+            vfunc_set_property(object: Object, property_id: number, value: Value | any, pspec: ParamSpec): void;
+            // Conflicted with GObject.Object.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
         }
 
-        module Object {
+        namespace Object {
             // Signal callback interfaces
 
             interface Notify {
@@ -3787,18 +3902,8 @@ declare module 'gi://GObject?version=2.0' {
         }
 
         /**
-         * `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject` properties.
-         *
-         * ## Parameter names
-         *
-         * A property name consists of one or more segments consisting of ASCII letters
-         * and digits, separated by either the `-` or `_` character. The first
-         * character of a property name must be a letter. These are the same rules as
-         * for signal naming (see [func`GObject`.signal_new]).
-         *
-         * When creating and looking up a `GParamSpec`, either separator can be
-         * used, but they cannot be mixed. Using `-` is considerably more
-         * efficient, and is the ‘canonical form’. Using `_` is discouraged.
+         * A GObject parameter specification that defines property characteristics.
+         * See https://gjs.guide/guides/gobject/basics.html#properties for more details.
          */
         abstract class ParamSpec<A = unknown> {
             static $gtype: GType<ParamSpec>;
@@ -3826,140 +3931,281 @@ declare module 'gi://GObject?version=2.0' {
              * @param name the canonical name of the property
              */
             static is_valid_name(name: string): boolean;
+            /**
+             * Creates a new GParamSpecChar instance specifying a G_TYPE_CHAR property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static ['char'](
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecUChar instance specifying a G_TYPE_UCHAR property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static uchar(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecInt instance specifying a G_TYPE_INT property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static int(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecUInt instance specifying a G_TYPE_UINT property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static uint(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecLong instance specifying a G_TYPE_LONG property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static long(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecULong instance specifying a G_TYPE_ULONG property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static ulong(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecInt64 instance specifying a G_TYPE_INT64 property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static int64(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecUInt64 instance specifying a G_TYPE_UINT64 property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static uint64(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecFloat instance specifying a G_TYPE_FLOAT property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static float(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecBoolean instance specifying a G_TYPE_BOOLEAN property. In many cases, it may be more appropriate to use an enum with g_param_spec_enum(), both to improve code clarity by using explicitly named values, and to allow for more values to be added in future without breaking API.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param defaultValue The default value for this property
+             */
             static ['boolean'](
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 defaultValue: boolean,
             ): ParamSpec<boolean>;
+            /**
+             * Creates a new GParamSpecEnum instance specifying a G_TYPE_ENUM property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param enumType
+             * @param defaultValue The default value for this property
+             */
             static ['enum']<T>(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 enumType: GType<T> | { $gtype: GType<T> },
                 defaultValue: any,
             ): ParamSpec<T>;
+            /**
+             * Creates a new GParamSpecDouble instance specifying a G_TYPE_DOUBLE property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property
+             */
             static double(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
                 defaultValue: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecString instance specifying a G_TYPE_STRING property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param defaultValue The default value for this property
+             */
             static string(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 defaultValue: string,
             ): ParamSpec<string>;
+            /**
+             * Creates a new GParamSpecBoxed instance specifying a G_TYPE_BOXED derived property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param boxedType
+             */
             static boxed<T>(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 boxedType: GType<T> | { $gtype: GType<T> },
             ): ParamSpec<T>;
             static object<T>(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: string,
                 objectType: GType<T> | { $gtype: GType<T> },
             ): ParamSpec<T>;
+            /**
+             * Creates a new GParamSpecParam instance specifying a G_TYPE_PARAM property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property
+             * @param blurb A longer description of the property
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param paramType
+             */
             static param(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 paramType: any,
             ): ParamSpec;
-            static jsobject<T>(name: string, nick: string, blurb: string, flags: any): ParamSpec<T>;
+            static jsobject<T>(name: string, nick: string | null, blurb: string | null, flags: any): ParamSpec<T>;
 
             // Virtual methods
 
@@ -4079,7 +4325,7 @@ declare module 'gi://GObject?version=2.0' {
             override(name: string, oclass: Object | Function | GType): void;
         }
 
-        module SignalGroup {
+        namespace SignalGroup {
             // Signal callback interfaces
 
             interface Bind {
@@ -4230,7 +4476,7 @@ declare module 'gi://GObject?version=2.0' {
             unblock(): void;
         }
 
-        module TypeModule {
+        namespace TypeModule {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps, TypePlugin.ConstructorProps {}
@@ -5543,24 +5789,38 @@ declare module 'gi://GObject?version=2.0' {
 
             static adjust_private_offset(g_class: any | null, private_size_or_offset: number): void;
             /**
-             * This function is essentially the same as g_type_class_ref(),
-             * except that the classes reference count isn't incremented.
+             * Retrieves the type class of the given `type`.
+             *
+             * This function will create the class on demand if it does not exist
+             * already.
+             *
+             * If you don't want to create the class, use g_type_class_peek() instead.
+             * @param type type ID of a classed type
+             */
+            static get(type: GType): TypeClass;
+            /**
+             * Retrieves the class for a give type.
+             *
+             * This function is essentially the same as g_type_class_get(),
+             * except that the class may have not been instantiated yet.
+             *
              * As a consequence, this function may return %NULL if the class
              * of the type passed in does not currently exist (hasn't been
              * referenced before).
              * @param type type ID of a classed type
              */
-            static peek(type: GType): TypeClass;
+            static peek(type: GType): TypeClass | null;
             /**
              * A more efficient version of g_type_class_peek() which works only for
              * static types.
              * @param type type ID of a classed type
              */
-            static peek_static(type: GType): TypeClass;
+            static peek_static(type: GType): TypeClass | null;
             /**
              * Increments the reference count of the class structure belonging to
-             * `type`. This function will demand-create the class if it doesn't
-             * exist already.
+             * `type`.
+             *
+             * This function will demand-create the class if it doesn't exist already.
              * @param type type ID of a classed type
              */
             static ref(type: GType): TypeClass;
@@ -5637,19 +5897,22 @@ declare module 'gi://GObject?version=2.0' {
             add_private(private_size: number): void;
             get_private(private_type: GType): any | null;
             /**
+             * Retrieves the class structure of the immediate parent type of the
+             * class passed in.
+             *
              * This is a convenience function often needed in class initializers.
-             * It returns the class structure of the immediate parent type of the
-             * class passed in.  Since derived classes hold a reference count on
-             * their parent classes as long as they are instantiated, the returned
-             * class will always exist.
+             *
+             * Since derived classes hold a reference on their parent classes as
+             * long as they are instantiated, the returned class will always exist.
              *
              * This function is essentially equivalent to:
              * g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
-             * @returns the parent class     of @g_class
+             * @returns the parent class   of @g_class
              */
             peek_parent(): TypeClass;
             /**
              * Decrements the reference count of the class structure being passed in.
+             *
              * Once the last reference count of a class has been released, classes
              * may be finalized by the type system, so further dereferencing of a
              * class pointer after g_type_class_unref() are invalid.
@@ -5766,7 +6029,7 @@ declare module 'gi://GObject?version=2.0' {
              * @param instance_class a #GTypeClass structure
              * @param iface_type an interface ID which this class conforms to
              */
-            static peek(instance_class: TypeClass, iface_type: GType): TypeInterface;
+            static peek(instance_class: TypeClass, iface_type: GType): TypeInterface | null;
             /**
              * Returns the prerequisites of an interfaces type.
              * @param interface_type an interface type
@@ -5777,12 +6040,13 @@ declare module 'gi://GObject?version=2.0' {
 
             /**
              * Returns the corresponding #GTypeInterface structure of the parent type
-             * of the instance type to which `g_iface` belongs. This is useful when
-             * deriving the implementation of an interface from the parent type and
-             * then possibly overriding some methods.
-             * @returns the     corresponding #GTypeInterface structure of the parent type of the     instance type to which @g_iface belongs, or %NULL if the parent     type doesn't conform to the interface
+             * of the instance type to which `g_iface` belongs.
+             *
+             * This is useful when deriving the implementation of an interface from the
+             * parent type and then possibly overriding some methods.
+             * @returns the   corresponding #GTypeInterface structure of the parent type of the   instance type to which @g_iface belongs, or %NULL if the parent   type doesn't conform to the interface
              */
-            peek_parent(): TypeInterface;
+            peek_parent(): TypeInterface | null;
         }
 
         type TypeModuleClass = typeof TypeModule;
@@ -5826,6 +6090,15 @@ declare module 'gi://GObject?version=2.0' {
         }
 
         /**
+         * - `'i'`: Integers, passed as `collect_values[].v_int`
+         *   - `'l'`: Longs, passed as `collect_values[].v_long`
+         *   - `'d'`: Doubles, passed as `collect_values[].v_double`
+         *   - `'p'`: Pointers, passed as `collect_values[].v_pointer`
+         *
+         *   It should be noted that for variable argument list construction,
+         *   ANSI C promotes every type smaller than an integer to an int, and
+         *   floats to doubles. So for collection of short int or char, `'i'`
+         *   needs to be used, and for collection of floats `'d'`.
          * The #GTypeValueTable provides the functions required by the #GValue
          * implementation, to serve as a container for values of a type.
          */
@@ -6472,7 +6745,7 @@ declare module 'gi://GObject?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module TypePlugin {
+        namespace TypePlugin {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}

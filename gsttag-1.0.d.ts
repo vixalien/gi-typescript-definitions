@@ -856,7 +856,7 @@ declare module 'gi://GstTag?version=1.0' {
              */
             FREE_SOFTWARE_FOUNDATION_LICENSE,
         }
-        module TagDemux {
+        namespace TagDemux {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {}
@@ -946,7 +946,7 @@ declare module 'gi://GstTag?version=1.0' {
             ): TagDemuxResult;
         }
 
-        module TagMux {
+        namespace TagMux {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.TagSetter.ConstructorProps {}
@@ -1962,7 +1962,7 @@ declare module 'gi://GstTag?version=1.0' {
         }
 
         type TagXmpWriterInterface = typeof TagXmpWriter;
-        module TagXmpWriter {
+        namespace TagXmpWriter {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {}

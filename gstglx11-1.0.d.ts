@@ -30,7 +30,7 @@ declare module 'gi://GstGLX11?version=1.0' {
          * GstGLX11-1.0
          */
 
-        module GLDisplayX11 {
+        namespace GLDisplayX11 {
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLDisplay.ConstructorProps {}

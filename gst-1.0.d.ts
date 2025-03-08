@@ -6748,7 +6748,7 @@ declare module 'gi://Gst?version=1.0' {
              */
             AGGREGATED,
         }
-        module Allocator {
+        namespace Allocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -6865,7 +6865,7 @@ declare module 'gi://Gst?version=1.0' {
             set_default(): void;
         }
 
-        module Bin {
+        namespace Bin {
             // Signal callback interfaces
 
             interface DeepElementAdded {
@@ -7732,6 +7732,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -7754,6 +7756,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -7768,6 +7772,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -7779,6 +7785,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -7797,7 +7805,7 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module BufferPool {
+        namespace BufferPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -8137,7 +8145,7 @@ declare module 'gi://Gst?version=1.0' {
             set_flushing(flushing: boolean): void;
         }
 
-        module Bus {
+        namespace Bus {
             // Signal callback interfaces
 
             interface Message {
@@ -8515,7 +8523,7 @@ declare module 'gi://Gst?version=1.0' {
             timed_pop_filtered(timeout: ClockTime, types: MessageType | null): Message | null;
         }
 
-        module Clock {
+        namespace Clock {
             // Signal callback interfaces
 
             interface Synced {
@@ -9014,7 +9022,7 @@ declare module 'gi://Gst?version=1.0' {
             wait_for_sync(timeout: ClockTime): boolean;
         }
 
-        module ControlBinding {
+        namespace ControlBinding {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -9135,7 +9143,7 @@ declare module 'gi://Gst?version=1.0' {
             sync_values(...args: never[]): any;
         }
 
-        module ControlSource {
+        namespace ControlSource {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -9190,7 +9198,7 @@ declare module 'gi://Gst?version=1.0' {
             control_source_get_value_array(timestamp: ClockTime, interval: ClockTime, values: number[]): boolean;
         }
 
-        module Device {
+        namespace Device {
             // Signal callback interfaces
 
             interface Removed {
@@ -9319,7 +9327,7 @@ declare module 'gi://Gst?version=1.0' {
             reconfigure_element(element: Element): boolean;
         }
 
-        module DeviceMonitor {
+        namespace DeviceMonitor {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -9480,7 +9488,7 @@ declare module 'gi://Gst?version=1.0' {
             stop(): void;
         }
 
-        module DeviceProvider {
+        namespace DeviceProvider {
             // Signal callback interfaces
 
             interface ProviderHidden {
@@ -9688,7 +9696,7 @@ declare module 'gi://Gst?version=1.0' {
             unhide_provider(name: string): void;
         }
 
-        module DeviceProviderFactory {
+        namespace DeviceProviderFactory {
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -9785,7 +9793,7 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module DynamicTypeFactory {
+        namespace DynamicTypeFactory {
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -9828,7 +9836,7 @@ declare module 'gi://Gst?version=1.0' {
             static load(factoryname: string): GObject.GType;
         }
 
-        module Element {
+        namespace Element {
             // Signal callback interfaces
 
             interface NoMorePads {
@@ -10917,7 +10925,7 @@ declare module 'gi://Gst?version=1.0' {
             unlink_pads(srcpadname: string, dest: Element, destpadname: string): void;
         }
 
-        module ElementFactory {
+        namespace ElementFactory {
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -11165,7 +11173,7 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module GhostPad {
+        namespace GhostPad {
             // Constructor properties interface
 
             interface ConstructorProps extends ProxyPad.ConstructorProps {}
@@ -11287,7 +11295,7 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module Object {
+        namespace Object {
             // Signal callback interfaces
 
             interface DeepNotify {
@@ -11658,7 +11666,7 @@ declare module 'gi://Gst?version=1.0' {
             unref(): void;
         }
 
-        module Pad {
+        namespace Pad {
             // Signal callback interfaces
 
             interface Linked {
@@ -12592,7 +12600,7 @@ declare module 'gi://Gst?version=1.0' {
             use_fixed_caps(): void;
         }
 
-        module PadTemplate {
+        namespace PadTemplate {
             // Signal callback interfaces
 
             interface PadCreated {
@@ -12781,7 +12789,7 @@ declare module 'gi://Gst?version=1.0' {
             set_documentation_caps(caps: Caps): void;
         }
 
-        module Pipeline {
+        namespace Pipeline {
             // Constructor properties interface
 
             interface ConstructorProps extends Bin.ConstructorProps, ChildProxy.ConstructorProps {
@@ -13448,6 +13456,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -13470,6 +13480,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -13484,6 +13496,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -13495,6 +13509,8 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -13502,7 +13518,7 @@ declare module 'gi://Gst?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Plugin {
+        namespace Plugin {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -13763,7 +13779,7 @@ declare module 'gi://Gst?version=1.0' {
             set_cache_data(cache_data: Structure): void;
         }
 
-        module PluginFeature {
+        namespace PluginFeature {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -13864,7 +13880,7 @@ declare module 'gi://Gst?version=1.0' {
             set_rank(rank: number): void;
         }
 
-        module ProxyPad {
+        namespace ProxyPad {
             // Constructor properties interface
 
             interface ConstructorProps extends Pad.ConstructorProps {}
@@ -13926,7 +13942,7 @@ declare module 'gi://Gst?version=1.0' {
             get_internal(): ProxyPad | null;
         }
 
-        module Registry {
+        namespace Registry {
             // Signal callback interfaces
 
             interface FeatureAdded {
@@ -14183,7 +14199,7 @@ declare module 'gi://Gst?version=1.0' {
             scan_path(path: string): boolean;
         }
 
-        module SharedTaskPool {
+        namespace SharedTaskPool {
             // Constructor properties interface
 
             interface ConstructorProps extends TaskPool.ConstructorProps {}
@@ -14217,7 +14233,7 @@ declare module 'gi://Gst?version=1.0' {
             set_max_threads(max_threads: number): void;
         }
 
-        module Stream {
+        namespace Stream {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -14343,7 +14359,7 @@ declare module 'gi://Gst?version=1.0' {
             set_tags(tags?: TagList | null): void;
         }
 
-        module StreamCollection {
+        namespace StreamCollection {
             // Signal callback interfaces
 
             interface StreamNotify {
@@ -14452,7 +14468,7 @@ declare module 'gi://Gst?version=1.0' {
             get_upstream_id(): string | null;
         }
 
-        module SystemClock {
+        namespace SystemClock {
             // Constructor properties interface
 
             interface ConstructorProps extends Clock.ConstructorProps {
@@ -14514,7 +14530,7 @@ declare module 'gi://Gst?version=1.0' {
             static set_default(new_clock?: Clock | null): void;
         }
 
-        module Task {
+        namespace Task {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -14694,7 +14710,7 @@ declare module 'gi://Gst?version=1.0' {
             stop(): boolean;
         }
 
-        module TaskPool {
+        namespace TaskPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -14811,7 +14827,7 @@ declare module 'gi://Gst?version=1.0' {
             push(func: TaskPoolFunction): any | null;
         }
 
-        module Tracer {
+        namespace Tracer {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -14851,7 +14867,7 @@ declare module 'gi://Gst?version=1.0' {
             static register(plugin: Plugin | null, name: string, type: GObject.GType): boolean;
         }
 
-        module TracerFactory {
+        namespace TracerFactory {
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -14893,7 +14909,7 @@ declare module 'gi://Gst?version=1.0' {
             get_tracer_type(): GObject.GType;
         }
 
-        module TracerRecord {
+        namespace TracerRecord {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -14913,7 +14929,7 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module TypeFindFactory {
+        namespace TypeFindFactory {
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -21961,7 +21977,7 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module ChildProxy {
+        namespace ChildProxy {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -22081,7 +22097,7 @@ declare module 'gi://Gst?version=1.0' {
             new (): ChildProxy; // This allows `obj instanceof ChildProxy`
         };
 
-        module Preset {
+        namespace Preset {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -22223,7 +22239,7 @@ declare module 'gi://Gst?version=1.0' {
             new (): Preset; // This allows `obj instanceof Preset`
         };
 
-        module TagSetter {
+        namespace TagSetter {
             // Constructor properties interface
 
             interface ConstructorProps extends Element.ConstructorProps {}
@@ -22281,7 +22297,7 @@ declare module 'gi://Gst?version=1.0' {
             new (): TagSetter; // This allows `obj instanceof TagSetter`
         };
 
-        module TocSetter {
+        namespace TocSetter {
             // Constructor properties interface
 
             interface ConstructorProps extends Element.ConstructorProps {}
@@ -22317,7 +22333,7 @@ declare module 'gi://Gst?version=1.0' {
             new (): TocSetter; // This allows `obj instanceof TocSetter`
         };
 
-        module URIHandler {
+        namespace URIHandler {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -22355,6 +22371,16 @@ declare module 'gi://Gst?version=1.0' {
 
             // Virtual methods
 
+            /**
+             * Method to return the list of protocols handled by the element.
+             * @param type
+             */
+            vfunc_get_protocols(type: GObject.GType): string[];
+            /**
+             * Method to tell whether the element handles source or sink URI.
+             * @param type
+             */
+            vfunc_get_type(type: GObject.GType): URIType;
             /**
              * Gets the currently handled URI.
              */

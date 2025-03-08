@@ -1384,6 +1384,44 @@ declare module 'gi://WebKit2?version=4.1' {
             AUTHOR,
         }
         /**
+         * Enum values used to denote errors happening when creating a #WebKitWebExtensionMatchPattern
+         */
+        class WebExtensionMatchPatternError extends GLib.Error {
+            static $gtype: GObject.GType<WebExtensionMatchPatternError>;
+
+            // Static fields
+
+            /**
+             * An unknown error occured.
+             */
+            static UNKNOWN: number;
+            /**
+             * The scheme component was invalid.
+             */
+            static INVALID_SCHEME: number;
+            /**
+             * The host component was invalid.
+             */
+            static INVALID_HOST: number;
+            /**
+             * The path component was invalid.
+             */
+            static INVALID_PATH: number;
+
+            // Constructors
+
+            constructor(options: { message: string; code: number });
+            _init(...args: any[]): void;
+
+            // Static methods
+
+            /**
+             * Gets the quark for the domain of Web Extension Match Pattern errors.
+             */
+            static quark(): GLib.Quark;
+        }
+
+        /**
          * Enum values used for setting if a #WebKitWebView is intended for
          * WebExtensions.
          */
@@ -1649,6 +1687,19 @@ declare module 'gi://WebKit2?version=4.1' {
          * @returns user message error domain.
          */
         function user_message_error_quark(): GLib.Quark;
+        /**
+         * Gets the quark for the domain of Web Extension Match Pattern errors.
+         * @returns web extension match pattern error domain.
+         */
+        function web_extension_match_pattern_error_quark(): GLib.Quark;
+        /**
+         * Registers a custom URL scheme that can be used in match patterns.
+         *
+         * This method should be used to register any custom URL schemes used by the app for the extension base URLs,
+         * other than `webkit-extension`, or if extensions should have access to other supported URL schemes when using `<all_urls>`.
+         * @param urlScheme The custom URL scheme to register
+         */
+        function web_extension_match_pattern_register_custom_URL_scheme(urlScheme: string): void;
         interface URISchemeRequestCallback {
             (request: URISchemeRequest): void;
         }
@@ -1838,6 +1889,35 @@ declare module 'gi://WebKit2?version=4.1' {
             TRANSPARENT_BACKGROUND,
         }
         /**
+         * Enum values representing matching options.
+         */
+
+        /**
+         * Enum values representing matching options.
+         */
+        export namespace WebExtensionMatchPatternOptions {
+            export const $gtype: GObject.GType<WebExtensionMatchPatternOptions>;
+        }
+
+        enum WebExtensionMatchPatternOptions {
+            /**
+             * No special matching options.
+             */
+            NONE,
+            /**
+             * The scheme components should be ignored while matching.
+             */
+            IGNORE_SCHEMES,
+            /**
+             * The host components should be ignored while matching.
+             */
+            IGNORE_PATHS,
+            /**
+             * Two patterns should be checked in either direction while matching (A matches B, or B matches A). Invalid for matching URLs.
+             */
+            MATCH_BIDIRECTIONALLY,
+        }
+        /**
          * Enum values with flags representing types of Website data.
          */
 
@@ -1910,7 +1990,7 @@ declare module 'gi://WebKit2?version=4.1' {
              */
             ALL,
         }
-        module AuthenticationRequest {
+        namespace AuthenticationRequest {
             // Signal callback interfaces
 
             interface Authenticated {
@@ -2071,7 +2151,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_proposed_credential(credential: Credential): void;
         }
 
-        module AutomationSession {
+        namespace AutomationSession {
             // Signal callback interfaces
 
             interface CreateWebView {
@@ -2155,7 +2235,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_application_info(info: ApplicationInfo): void;
         }
 
-        module BackForwardList {
+        namespace BackForwardList {
             // Signal callback interfaces
 
             interface Changed {
@@ -2260,7 +2340,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_nth_item(index: number): BackForwardListItem | null;
         }
 
-        module BackForwardListItem {
+        namespace BackForwardListItem {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {}
@@ -2306,7 +2386,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_uri(): string;
         }
 
-        module ClipboardPermissionRequest {
+        namespace ClipboardPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -2750,7 +2830,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ColorChooserRequest {
+        namespace ColorChooserRequest {
             // Signal callback interfaces
 
             interface Finished {
@@ -2843,7 +2923,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_rgba(rgba: Gdk.RGBA): void;
         }
 
-        module ContextMenu {
+        namespace ContextMenu {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -2986,7 +3066,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_user_data(user_data: GLib.Variant): void;
         }
 
-        module ContextMenuItem {
+        namespace ContextMenuItem {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {}
@@ -3064,7 +3144,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_submenu(submenu?: ContextMenu | null): void;
         }
 
-        module CookieManager {
+        namespace CookieManager {
             // Signal callback interfaces
 
             interface Changed {
@@ -3452,7 +3532,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_persistent_storage(filename: string, storage: CookiePersistentStorage | null): void;
         }
 
-        module DeviceInfoPermissionRequest {
+        namespace DeviceInfoPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -3896,7 +3976,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Download {
+        namespace Download {
             // Signal callback interfaces
 
             interface CreatedDestination {
@@ -4129,7 +4209,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_destination(destination: string): void;
         }
 
-        module EditorState {
+        namespace EditorState {
             // Signal callback interfaces
 
             interface Changed {
@@ -4221,7 +4301,7 @@ declare module 'gi://WebKit2?version=4.1' {
             is_undo_available(): boolean;
         }
 
-        module FaviconDatabase {
+        namespace FaviconDatabase {
             // Signal callback interfaces
 
             interface FaviconChanged {
@@ -4342,7 +4422,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_favicon_uri(page_uri: string): string;
         }
 
-        module FileChooserRequest {
+        namespace FileChooserRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4502,7 +4582,7 @@ declare module 'gi://WebKit2?version=4.1' {
             select_files(files: string[]): void;
         }
 
-        module FindController {
+        namespace FindController {
             // Signal callback interfaces
 
             interface CountedMatches {
@@ -4698,7 +4778,7 @@ declare module 'gi://WebKit2?version=4.1' {
             search_previous(): void;
         }
 
-        module FormSubmissionRequest {
+        namespace FormSubmissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4753,7 +4833,7 @@ declare module 'gi://WebKit2?version=4.1' {
             submit(): void;
         }
 
-        module GeolocationManager {
+        namespace GeolocationManager {
             // Signal callback interfaces
 
             interface Start {
@@ -4837,7 +4917,7 @@ declare module 'gi://WebKit2?version=4.1' {
             update_position(position: GeolocationPosition): void;
         }
 
-        module GeolocationPermissionRequest {
+        namespace GeolocationPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -5297,7 +5377,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module HitTestResult {
+        namespace HitTestResult {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -5474,7 +5554,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_media_uri(): string;
         }
 
-        module InputMethodContext {
+        namespace InputMethodContext {
             // Signal callback interfaces
 
             interface Committed {
@@ -5715,7 +5795,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_input_purpose(purpose: InputPurpose | null): void;
         }
 
-        module InstallMissingMediaPluginsPermissionRequest {
+        namespace InstallMissingMediaPluginsPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -6166,7 +6246,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module MediaKeySystemPermissionRequest {
+        namespace MediaKeySystemPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -6613,7 +6693,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module NavigationPolicyDecision {
+        namespace NavigationPolicyDecision {
             // Constructor properties interface
 
             interface ConstructorProps extends PolicyDecision.ConstructorProps {
@@ -6746,7 +6826,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_request(): URIRequest;
         }
 
-        module Notification {
+        namespace Notification {
             // Signal callback interfaces
 
             interface Clicked {
@@ -6845,7 +6925,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_title(): string;
         }
 
-        module NotificationPermissionRequest {
+        namespace NotificationPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -7289,7 +7369,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module OptionMenu {
+        namespace OptionMenu {
             // Signal callback interfaces
 
             interface Close {
@@ -7378,7 +7458,7 @@ declare module 'gi://WebKit2?version=4.1' {
             select_item(index: number): void;
         }
 
-        module Plugin {
+        namespace Plugin {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7430,7 +7510,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_path(): string | null;
         }
 
-        module PointerLockPermissionRequest {
+        namespace PointerLockPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -7874,7 +7954,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module PolicyDecision {
+        namespace PolicyDecision {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7934,7 +8014,7 @@ declare module 'gi://WebKit2?version=4.1' {
             use_with_policies(policies: WebsitePolicies): void;
         }
 
-        module PrintCustomWidget {
+        namespace PrintCustomWidget {
             // Signal callback interfaces
 
             interface Apply {
@@ -8037,7 +8117,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_widget(): Gtk.Widget;
         }
 
-        module PrintOperation {
+        namespace PrintOperation {
             // Signal callback interfaces
 
             interface CreateCustomWidget {
@@ -8204,7 +8284,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_print_settings(print_settings: Gtk.PrintSettings): void;
         }
 
-        module ResponsePolicyDecision {
+        namespace ResponsePolicyDecision {
             // Constructor properties interface
 
             interface ConstructorProps extends PolicyDecision.ConstructorProps {
@@ -8277,7 +8357,7 @@ declare module 'gi://WebKit2?version=4.1' {
             is_mime_type_supported(): boolean;
         }
 
-        module SecurityManager {
+        namespace SecurityManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8402,7 +8482,7 @@ declare module 'gi://WebKit2?version=4.1' {
             uri_scheme_is_secure(scheme: string): boolean;
         }
 
-        module Settings {
+        namespace Settings {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9472,8 +9552,7 @@ declare module 'gi://WebKit2?version=4.1' {
             /**
              * Convert `points` to the equivalent value in pixels.
              *
-             * Convert `points` to the equivalent value in pixels, based on the current
-             * screen DPI. Applications can use this function to convert font size values
+             * Applications can use this function to convert font size values
              * in points to font size values in pixels when setting the font size properties
              * of #WebKitSettings.
              * @param points the font size in points to convert to pixels
@@ -9482,8 +9561,7 @@ declare module 'gi://WebKit2?version=4.1' {
             /**
              * Convert `pixels` to the equivalent value in points.
              *
-             * Convert `pixels` to the equivalent value in points, based on the current
-             * screen DPI. Applications can use this function to convert font size values
+             * Applications can use this function to convert font size values
              * in pixels to font size values in points when getting the font size properties
              * of #WebKitSettings.
              * @param pixels the font size in pixels to convert to points
@@ -10203,7 +10281,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_zoom_text_only(zoom_text_only: boolean): void;
         }
 
-        module URIRequest {
+        namespace URIRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10261,7 +10339,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_uri(uri: string): void;
         }
 
-        module URIResponse {
+        namespace URIResponse {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10387,7 +10465,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_uri(): string;
         }
 
-        module URISchemeRequest {
+        namespace URISchemeRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -10470,7 +10548,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_web_view(): WebView;
         }
 
-        module URISchemeResponse {
+        namespace URISchemeResponse {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10545,7 +10623,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_status(status_code: number, reason_phrase?: string | null): void;
         }
 
-        module UserContentFilterStore {
+        namespace UserContentFilterStore {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10880,7 +10958,7 @@ declare module 'gi://WebKit2?version=4.1' {
             save_from_file_finish(result: Gio.AsyncResult): UserContentFilter;
         }
 
-        module UserContentManager {
+        namespace UserContentManager {
             // Signal callback interfaces
 
             interface ScriptMessageReceived {
@@ -11109,7 +11187,7 @@ declare module 'gi://WebKit2?version=4.1' {
             unregister_script_message_handler_in_world(name: string, world_name: string): void;
         }
 
-        module UserMediaPermissionRequest {
+        namespace UserMediaPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {
@@ -11577,7 +11655,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module UserMessage {
+        namespace UserMessage {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {
@@ -11664,7 +11742,7 @@ declare module 'gi://WebKit2?version=4.1' {
             send_reply(reply: UserMessage): void;
         }
 
-        module WebContext {
+        namespace WebContext {
             // Signal callback interfaces
 
             interface AutomationStarted {
@@ -11887,9 +11965,8 @@ declare module 'gi://WebKit2?version=4.1' {
             /**
              * Adds a path to be mounted in the sandbox.
              *
-             * `path` must exist before any web process has been created; otherwise,
-             * it will be silently ignored. It is a fatal error to add paths after
-             * a web process has been spawned.
+             * `path` must exist before any web process has been created. It is a fatal error
+             * to add paths after a web process has been spawned.
              *
              * Paths under `/sys`, `/proc`, and `/dev` are invalid. Attempting to
              * add all of `/` is not valid. Since 2.40, adding the user's entire
@@ -12339,7 +12416,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_web_process_count_limit(limit: number): void;
         }
 
-        module WebInspector {
+        namespace WebInspector {
             // Signal callback interfaces
 
             interface Attach {
@@ -12523,7 +12600,7 @@ declare module 'gi://WebKit2?version=4.1' {
             show(): void;
         }
 
-        module WebResource {
+        namespace WebResource {
             // Signal callback interfaces
 
             interface Failed {
@@ -12706,7 +12783,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_uri(): string;
         }
 
-        module WebView {
+        namespace WebView {
             // Signal callback interfaces
 
             interface Authenticate {
@@ -15471,6 +15548,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -15493,6 +15572,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -15507,6 +15588,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -15518,6 +15601,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -15525,7 +15610,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module WebViewBase {
+        namespace WebViewBase {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -15892,6 +15977,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -15914,6 +16001,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -15928,6 +16017,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -15939,6 +16030,8 @@ declare module 'gi://WebKit2?version=4.1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -15946,7 +16039,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module WebsiteDataAccessPermissionRequest {
+        namespace WebsiteDataAccessPermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PermissionRequest.ConstructorProps {}
@@ -16402,7 +16495,7 @@ declare module 'gi://WebKit2?version=4.1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module WebsiteDataManager {
+        namespace WebsiteDataManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -16957,7 +17050,7 @@ declare module 'gi://WebKit2?version=4.1' {
             set_tls_errors_policy(policy: TLSErrorsPolicy | null): void;
         }
 
-        module WebsitePolicies {
+        namespace WebsitePolicies {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -16998,7 +17091,7 @@ declare module 'gi://WebKit2?version=4.1' {
             get_autoplay_policy(): AutoplayPolicy;
         }
 
-        module WindowProperties {
+        namespace WindowProperties {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -18817,6 +18910,109 @@ declare module 'gi://WebKit2?version=4.1' {
             _init(...args: any[]): void;
         }
 
+        /**
+         * Represents a way to specify a group of URLs for use in WebExtensions.
+         *
+         * All match patterns are specified as strings. Apart from the special `<all_urls>` pattern, match patterns
+         * consist of three parts: scheme, host, and path.
+         *
+         * Generally, match patterns are returned from a #WebKitWebExtension.
+         */
+        class WebExtensionMatchPattern {
+            static $gtype: GObject.GType<WebExtensionMatchPattern>;
+
+            // Constructors
+
+            constructor(properties?: Partial<{}>);
+            _init(...args: any[]): void;
+
+            static new_all_hosts_and_schemes(): WebExtensionMatchPattern;
+
+            static new_all_urls(): WebExtensionMatchPattern;
+
+            static new_with_scheme(scheme: string, host: string, path: string): WebExtensionMatchPattern;
+
+            static new_with_string(string: string): WebExtensionMatchPattern;
+
+            // Static methods
+
+            /**
+             * Registers a custom URL scheme that can be used in match patterns.
+             *
+             * This method should be used to register any custom URL schemes used by the app for the extension base URLs,
+             * other than `webkit-extension`, or if extensions should have access to other supported URL schemes when using `<all_urls>`.
+             * @param urlScheme The custom URL scheme to register
+             */
+            static register_custom_URL_scheme(urlScheme: string): void;
+
+            // Methods
+
+            /**
+             * Gets the host part of the pattern string, unless `webkit_web_extension_match_pattern_get_matches_all_urls` is %TRUE.
+             * @returns The host string.
+             */
+            get_host(): string;
+            /**
+             * Gets whether the match pattern matches all host. This happens when
+             * the pattern is `<all_urls>`, or if `*` is set as the host string.
+             * @returns Whether this match pattern matches all hosts.
+             */
+            get_matches_all_hosts(): boolean;
+            /**
+             * Gets whether the match pattern matches all URLs, in other words, whether
+             * the pattern is `<all_urls>`.
+             * @returns Whether this match pattern matches all URLs.
+             */
+            get_matches_all_urls(): boolean;
+            /**
+             * Gets the path part of the pattern string, unless [method`WebExtensionMatchPattern`.get_matches_all_urls] is %TRUE.
+             * @returns The path string.
+             */
+            get_path(): string;
+            /**
+             * Gets the scheme part of the pattern string, unless `webkit_web_extension_match_pattern_get_matches_all_urls` is %TRUE.
+             * @returns The scheme string.
+             */
+            get_scheme(): string;
+            /**
+             * Gets the original pattern string.
+             * @returns The original pattern string.
+             */
+            get_string(): string;
+            /**
+             * Matches the `matchPattern` against the specified `pattern` with options.
+             * @param pattern The #WebKitWebExtensionMatchPattern to match with @matchPattern.
+             * @param options The #WebKitWebExtensionMatchPatternOptions use while matching.
+             * @returns Whether the pattern matches the specified @pattern.
+             */
+            matches_pattern(
+                pattern: WebExtensionMatchPattern,
+                options: WebExtensionMatchPatternOptions | null,
+            ): boolean;
+            /**
+             * Matches the `matchPattern` against the specified URL with options.
+             * @param url The URL to match against the pattern.
+             * @param options The #WebKitWebExtensionMatchPatternOptions use while matching.
+             * @returns Whether the pattern matches the specified URL.
+             */
+            matches_url(url: string, options: WebExtensionMatchPatternOptions | null): boolean;
+            /**
+             * Atomically acquires a reference on the given `matchPattern`.
+             *
+             * This function is MT-safe and may be called from any thread.
+             * @returns The same @matchPattern with an additional reference.
+             */
+            ref(): WebExtensionMatchPattern;
+            /**
+             * Atomically releases a reference on the given `matchPattern`.
+             *
+             * If the reference was the last, the resources associated to the
+             * `matchPattern` are freed. This function is MT-safe and may be called from
+             * any thread.
+             */
+            unref(): void;
+        }
+
         type WebInspectorClass = typeof WebInspector;
         abstract class WebInspectorPrivate {
             static $gtype: GObject.GType<WebInspectorPrivate>;
@@ -18996,7 +19192,7 @@ declare module 'gi://WebKit2?version=4.1' {
             _init(...args: any[]): void;
         }
 
-        module PermissionRequest {
+        namespace PermissionRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

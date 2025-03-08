@@ -26,7 +26,7 @@ declare module 'gi://GioUnix?version=2.0' {
 
         /**
          * Extension point for default handler to URI association. See
-         * [Extending GIO][extending-gio].
+         * [Extending GIO](overview.html#extending-gio).
          */
         const DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: string;
         /**
@@ -587,7 +587,7 @@ declare module 'gi://GioUnix?version=2.0' {
         interface DesktopAppLaunchCallback {
             (appinfo: Gio.DesktopAppInfo, pid: GLib.Pid): void;
         }
-        module DesktopAppInfo {
+        namespace DesktopAppInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AppInfo.ConstructorProps {
@@ -1724,7 +1724,7 @@ declare module 'gi://GioUnix?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module FDMessage {
+        namespace FDMessage {
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.SocketControlMessage.ConstructorProps {
@@ -1817,7 +1817,7 @@ declare module 'gi://GioUnix?version=2.0' {
             static steal_fds(message: Gio.UnixFDMessage): number[];
         }
 
-        module InputStream {
+        namespace InputStream {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -2008,6 +2008,11 @@ declare module 'gi://GioUnix?version=2.0' {
              * g_pollable_input_stream_can_poll() returns %FALSE for `stream`.
              */
             vfunc_read_nonblocking(): [number, Uint8Array | null];
+            /**
+             * Gets the underlying file descriptor.
+             * @param fd_based
+             */
+            vfunc_get_fd(fd_based: Gio.FileDescriptorBased): number;
             /**
              * Clears the pending flag on `stream`.
              */
@@ -3165,7 +3170,7 @@ declare module 'gi://GioUnix?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module MountMonitor {
+        namespace MountMonitor {
             // Signal callback interfaces
 
             interface MountpointsChanged {
@@ -3242,7 +3247,7 @@ declare module 'gi://GioUnix?version=2.0' {
             static set_rate_limit(mount_monitor: Gio.UnixMountMonitor, limit_msec: number): void;
         }
 
-        module OutputStream {
+        namespace OutputStream {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -3494,6 +3499,11 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param vectors the buffer containing the #GOutputVectors to write.
              */
             vfunc_writev_nonblocking(vectors: Gio.OutputVector[]): [Gio.PollableReturn, number];
+            /**
+             * Gets the underlying file descriptor.
+             * @param fd_based
+             */
+            vfunc_get_fd(fd_based: Gio.FileDescriptorBased): number;
             /**
              * Clears the pending flag on `stream`.
              */
@@ -5355,7 +5365,7 @@ declare module 'gi://GioUnix?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module DesktopAppInfoLookup {
+        namespace DesktopAppInfoLookup {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5386,7 +5396,7 @@ declare module 'gi://GioUnix?version=2.0' {
             new (): DesktopAppInfoLookup; // This allows `obj instanceof DesktopAppInfoLookup`
         };
 
-        module FileDescriptorBased {
+        namespace FileDescriptorBased {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5402,7 +5412,15 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             get_fd(fd_based: Gio.FileDescriptorBased): number;
         }
-        interface FileDescriptorBased extends GObject.Object {}
+        interface FileDescriptorBased extends GObject.Object {
+            // Virtual methods
+
+            /**
+             * Gets the underlying file descriptor.
+             * @param fd_based
+             */
+            vfunc_get_fd(fd_based: Gio.FileDescriptorBased): number;
+        }
 
         export const FileDescriptorBased: FileDescriptorBasedNamespace & {
             new (): FileDescriptorBased; // This allows `obj instanceof FileDescriptorBased`

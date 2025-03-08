@@ -387,6 +387,9 @@ declare module 'gi://JavaScriptCore?version=4.1' {
         interface ExceptionHandler {
             (context: Context, exception: Exception): void;
         }
+        interface Executor {
+            (resolve: Value, reject: Value): void;
+        }
         interface OptionsFunc {
             (option: string, type: OptionType, description?: string | null): boolean;
         }
@@ -420,7 +423,7 @@ declare module 'gi://JavaScriptCore?version=4.1' {
              */
             WRITABLE,
         }
-        module Class {
+        namespace Class {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -591,7 +594,7 @@ declare module 'gi://JavaScriptCore?version=4.1' {
             get_parent(): Class;
         }
 
-        module Context {
+        namespace Context {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -790,7 +793,7 @@ declare module 'gi://JavaScriptCore?version=4.1' {
             throw_with_name(error_name: string, error_message: string): void;
         }
 
-        module Exception {
+        namespace Exception {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -857,7 +860,7 @@ declare module 'gi://JavaScriptCore?version=4.1' {
             to_string(): string;
         }
 
-        module Value {
+        namespace Value {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -922,6 +925,8 @@ declare module 'gi://JavaScriptCore?version=4.1' {
             static new_number(context: Context, number: number): Value;
 
             static new_object(context: Context, instance?: any | null, jsc_class?: Class | null): Value;
+
+            static new_promise(context: Context, executor: Executor): Value;
 
             static new_string(context: Context, string?: string | null): Value;
 
@@ -1253,7 +1258,7 @@ declare module 'gi://JavaScriptCore?version=4.1' {
             typed_array_get_type(): TypedArrayType;
         }
 
-        module VirtualMachine {
+        namespace VirtualMachine {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1279,7 +1284,7 @@ declare module 'gi://JavaScriptCore?version=4.1' {
             static ['new'](): VirtualMachine;
         }
 
-        module WeakValue {
+        namespace WeakValue {
             // Signal callback interfaces
 
             interface Cleared {

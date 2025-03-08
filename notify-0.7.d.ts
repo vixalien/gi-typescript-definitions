@@ -169,7 +169,7 @@ declare module 'gi://Notify?version=0.7' {
         interface ActionCallback {
             (notification: Notification, action: string): void;
         }
-        module Notification {
+        namespace Notification {
             // Signal callback interfaces
 
             interface Closed {
@@ -448,14 +448,6 @@ declare module 'gi://Notify?version=0.7' {
         }
 
         type NotificationClass = typeof Notification;
-        abstract class NotificationPrivate {
-            static $gtype: GObject.GType<NotificationPrivate>;
-
-            // Constructors
-
-            _init(...args: any[]): void;
-        }
-
         /**
          * Name of the imported GIR library
          * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188

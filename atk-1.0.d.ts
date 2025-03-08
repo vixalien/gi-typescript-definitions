@@ -896,6 +896,11 @@ declare module 'gi://Atk?version=1.0' {
              */
             PUSH_BUTTON_MENU,
             /**
+             * A switch that can be toggled on/off.
+             * (Since: 2.56)
+             */
+            SWITCH,
+            /**
              * not a valid role, used for finding end of the enumeration
              */
             LAST_DEFINED,
@@ -1808,7 +1813,7 @@ declare module 'gi://Atk?version=1.0' {
              */
             INLINE,
         }
-        module GObjectAccessible {
+        namespace GObjectAccessible {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -1839,6 +1844,11 @@ declare module 'gi://Atk?version=1.0' {
              */
             static for_object(obj: GObject.Object): Object;
 
+            // Virtual methods
+
+            vfunc_pad1(): boolean;
+            vfunc_pad2(): boolean;
+
             // Methods
 
             /**
@@ -1848,7 +1858,7 @@ declare module 'gi://Atk?version=1.0' {
             get_object<T = GObject.Object>(): T;
         }
 
-        module Hyperlink {
+        namespace Hyperlink {
             // Signal callback interfaces
 
             interface LinkActivated {
@@ -1958,6 +1968,7 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_is_valid(): boolean;
             vfunc_link_activated(): void;
             vfunc_link_state(): number;
+            vfunc_pad1(): boolean;
 
             // Methods
 
@@ -2569,7 +2580,7 @@ declare module 'gi://Atk?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Misc {
+        namespace Misc {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -2642,7 +2653,7 @@ declare module 'gi://Atk?version=1.0' {
             threads_leave(): void;
         }
 
-        module NoOpObject {
+        namespace NoOpObject {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -5211,6 +5222,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param data a #gpointer which identifies the object for which the AtkObject was created.
              */
             vfunc_initialize(data?: any | null): void;
+            vfunc_pad1(): boolean;
             vfunc_property_change(values: PropertyValues): void;
             /**
              * Gets the #AtkRelationSet associated with the object.
@@ -5248,7 +5260,7 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_visible_data_changed(): void;
         }
 
-        module NoOpObjectFactory {
+        namespace NoOpObjectFactory {
             // Constructor properties interface
 
             interface ConstructorProps extends ObjectFactory.ConstructorProps {}
@@ -5273,7 +5285,7 @@ declare module 'gi://Atk?version=1.0' {
             static ['new'](): NoOpObjectFactory;
         }
 
-        module Object {
+        namespace Object {
             // Signal callback interfaces
 
             interface ActiveDescendantChanged {
@@ -5609,6 +5621,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param data a #gpointer which identifies the object for which the AtkObject was created.
              */
             vfunc_initialize(data?: any | null): void;
+            vfunc_pad1(): boolean;
             vfunc_property_change(values: PropertyValues): void;
             /**
              * Gets the #AtkRelationSet associated with the object.
@@ -5840,7 +5853,7 @@ declare module 'gi://Atk?version=1.0' {
             set_role(role: Role | null): void;
         }
 
-        module ObjectFactory {
+        namespace ObjectFactory {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5868,6 +5881,16 @@ declare module 'gi://Atk?version=1.0' {
             // Virtual methods
 
             /**
+             * Provides an #AtkObject that implements an accessibility interface
+             * on behalf of `obj`
+             * @param obj a #GObject
+             */
+            vfunc_create_accessible(obj: GObject.Object): Object;
+            /**
+             * Gets the GType of the accessible which is created by the factory.
+             */
+            vfunc_get_accessible_type(): GObject.GType;
+            /**
              * Inform `factory` that it is no longer being used to create
              * accessibles. When called, `factory` may need to inform
              * #AtkObjects which it has created that they need to be re-instantiated.
@@ -5875,6 +5898,8 @@ declare module 'gi://Atk?version=1.0' {
              * in object registries.
              */
             vfunc_invalidate(): void;
+            vfunc_pad1(): boolean;
+            vfunc_pad2(): boolean;
 
             // Methods
 
@@ -5900,7 +5925,7 @@ declare module 'gi://Atk?version=1.0' {
             invalidate(): void;
         }
 
-        module Plug {
+        namespace Plug {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps, Component.ConstructorProps {}
@@ -6591,7 +6616,7 @@ declare module 'gi://Atk?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Registry {
+        namespace Registry {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6645,7 +6670,7 @@ declare module 'gi://Atk?version=1.0' {
             set_factory_type(type: GObject.GType, factory_type: GObject.GType): void;
         }
 
-        module Relation {
+        namespace Relation {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6714,7 +6739,7 @@ declare module 'gi://Atk?version=1.0' {
             remove_target(target: Object): boolean;
         }
 
-        module RelationSet {
+        namespace RelationSet {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6747,6 +6772,11 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): RelationSet;
+
+            // Virtual methods
+
+            vfunc_pad1(): boolean;
+            vfunc_pad2(): boolean;
 
             // Methods
 
@@ -6810,7 +6840,7 @@ declare module 'gi://Atk?version=1.0' {
             remove(relation: Relation): void;
         }
 
-        module Socket {
+        namespace Socket {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps, Component.ConstructorProps {}
@@ -7531,7 +7561,7 @@ declare module 'gi://Atk?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module StateSet {
+        namespace StateSet {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7635,7 +7665,7 @@ declare module 'gi://Atk?version=1.0' {
             xor_sets(compare_set: StateSet): StateSet;
         }
 
-        module Util {
+        namespace Util {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7657,6 +7687,32 @@ declare module 'gi://Atk?version=1.0' {
             constructor(properties?: Partial<Util.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Virtual methods
+
+            /**
+             * gets name string for the GUI toolkit
+             *  implementing ATK for this application.
+             */
+            vfunc_get_toolkit_name(): string;
+            /**
+             * gets version string for the GUI toolkit
+             *  implementing ATK for this application.
+             */
+            vfunc_get_toolkit_version(): string;
+            /**
+             * removes the specified function to
+             *  the list of functions to be called when an ATK event occurs. ATK
+             *  implementors are discouraged from reimplementing this method.
+             * @param listener_id
+             */
+            vfunc_remove_global_event_listener(listener_id: number): void;
+            /**
+             * remove the specified function to the
+             *  list of functions to be called when a key event occurs.
+             * @param listener_id
+             */
+            vfunc_remove_key_event_listener(listener_id: number): void;
         }
 
         type ActionIface = typeof Action;
@@ -7957,7 +8013,7 @@ declare module 'gi://Atk?version=1.0' {
         type UtilClass = typeof Util;
         type ValueIface = typeof Value;
         type WindowIface = typeof Window;
-        module Action {
+        namespace Action {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8128,7 +8184,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Action; // This allows `obj instanceof Action`
         };
 
-        module Component {
+        namespace Component {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8384,7 +8440,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Component; // This allows `obj instanceof Component`
         };
 
-        module Document {
+        namespace Document {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8526,7 +8582,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Document; // This allows `obj instanceof Document`
         };
 
-        module EditableText {
+        namespace EditableText {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8643,7 +8699,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): EditableText; // This allows `obj instanceof EditableText`
         };
 
-        module HyperlinkImpl {
+        namespace HyperlinkImpl {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8674,7 +8730,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): HyperlinkImpl; // This allows `obj instanceof HyperlinkImpl`
         };
 
-        module Hypertext {
+        namespace Hypertext {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8732,7 +8788,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Hypertext; // This allows `obj instanceof Hypertext`
         };
 
-        module Image {
+        namespace Image {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8819,7 +8875,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Image; // This allows `obj instanceof Image`
         };
 
-        module ImplementorIface {
+        namespace ImplementorIface {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8835,7 +8891,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): ImplementorIface; // This allows `obj instanceof ImplementorIface`
         };
 
-        module Selection {
+        namespace Selection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8961,7 +9017,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Selection; // This allows `obj instanceof Selection`
         };
 
-        module StreamableContent {
+        namespace StreamableContent {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9035,13 +9091,16 @@ declare module 'gi://Atk?version=1.0' {
              * @param mime_type a gchar* representing the mime type, or NULL to request a URI for the default mime type.
              */
             vfunc_get_uri(mime_type: string): string | null;
+            vfunc_pad1(): boolean;
+            vfunc_pad2(): boolean;
+            vfunc_pad3(): boolean;
         }
 
         export const StreamableContent: StreamableContentNamespace & {
             new (): StreamableContent; // This allows `obj instanceof StreamableContent`
         };
 
-        module Table {
+        namespace Table {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9411,7 +9470,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Table; // This allows `obj instanceof Table`
         };
 
-        module TableCell {
+        namespace TableCell {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -9504,7 +9563,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): TableCell; // This allows `obj instanceof TableCell`
         };
 
-        module Text {
+        namespace Text {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -10017,7 +10076,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Text; // This allows `obj instanceof Text`
         };
 
-        module Value {
+        namespace Value {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -10169,7 +10228,7 @@ declare module 'gi://Atk?version=1.0' {
             new (): Value; // This allows `obj instanceof Value`
         };
 
-        module Window {
+        namespace Window {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}

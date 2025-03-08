@@ -1869,7 +1869,7 @@ declare module 'gi://GstAudio?version=1.0' {
              */
             VARIABLE_RATE,
         }
-        module AudioAggregator {
+        namespace AudioAggregator {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.Aggregator.ConstructorProps {
@@ -2039,7 +2039,7 @@ declare module 'gi://GstAudio?version=1.0' {
             set_sink_caps(pad: AudioAggregatorPad, caps: Gst.Caps): void;
         }
 
-        module AudioAggregatorConvertPad {
+        namespace AudioAggregatorConvertPad {
             // Constructor properties interface
 
             interface ConstructorProps extends AudioAggregatorPad.ConstructorProps {
@@ -2070,7 +2070,7 @@ declare module 'gi://GstAudio?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module AudioAggregatorPad {
+        namespace AudioAggregatorPad {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.AggregatorPad.ConstructorProps {
@@ -2120,7 +2120,7 @@ declare module 'gi://GstAudio?version=1.0' {
             vfunc_update_conversion_info(): void;
         }
 
-        module AudioBaseSink {
+        namespace AudioBaseSink {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseSink.ConstructorProps {
@@ -2318,7 +2318,7 @@ declare module 'gi://GstAudio?version=1.0' {
             set_slave_method(method: AudioBaseSinkSlaveMethod | null): void;
         }
 
-        module AudioBaseSrc {
+        namespace AudioBaseSrc {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.PushSrc.ConstructorProps {
@@ -2436,7 +2436,7 @@ declare module 'gi://GstAudio?version=1.0' {
             set_slave_method(method: AudioBaseSrcSlaveMethod | null): void;
         }
 
-        module AudioCdSrc {
+        namespace AudioCdSrc {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.PushSrc.ConstructorProps, Gst.URIHandler.ConstructorProps {
@@ -2565,6 +2565,16 @@ declare module 'gi://GstAudio?version=1.0' {
              * @returns %TRUE if the URI was set successfully, else %FALSE.
              */
             set_uri(uri: string): boolean;
+            /**
+             * Method to return the list of protocols handled by the element.
+             * @param type
+             */
+            vfunc_get_protocols(type: GObject.GType): string[];
+            /**
+             * Method to tell whether the element handles source or sink URI.
+             * @param type
+             */
+            vfunc_get_type(type: GObject.GType): Gst.URIType;
             /**
              * Gets the currently handled URI.
              */
@@ -2924,6 +2934,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -2946,6 +2958,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -2960,6 +2974,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -2971,6 +2987,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -2978,7 +2996,7 @@ declare module 'gi://GstAudio?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module AudioClock {
+        namespace AudioClock {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.SystemClock.ConstructorProps {}
@@ -3041,7 +3059,7 @@ declare module 'gi://GstAudio?version=1.0' {
             reset(time: Gst.ClockTime): void;
         }
 
-        module AudioDecoder {
+        namespace AudioDecoder {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -3539,7 +3557,7 @@ declare module 'gi://GstAudio?version=1.0' {
             set_use_default_pad_acceptcaps(use: boolean): void;
         }
 
-        module AudioEncoder {
+        namespace AudioEncoder {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.Preset.ConstructorProps {
@@ -4476,6 +4494,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -4498,6 +4518,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -4512,6 +4534,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -4523,6 +4547,8 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -4530,7 +4556,7 @@ declare module 'gi://GstAudio?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module AudioFilter {
+        namespace AudioFilter {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseTransform.ConstructorProps {}
@@ -4577,7 +4603,7 @@ declare module 'gi://GstAudio?version=1.0' {
             vfunc_setup(info: AudioInfo): boolean;
         }
 
-        module AudioRingBuffer {
+        namespace AudioRingBuffer {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -4963,7 +4989,7 @@ declare module 'gi://GstAudio?version=1.0' {
             stop(): boolean;
         }
 
-        module AudioSink {
+        namespace AudioSink {
             // Constructor properties interface
 
             interface ConstructorProps extends AudioBaseSink.ConstructorProps {}
@@ -5064,7 +5090,7 @@ declare module 'gi://GstAudio?version=1.0' {
             vfunc_write(data: Uint8Array | string): number;
         }
 
-        module AudioSrc {
+        namespace AudioSrc {
             // Constructor properties interface
 
             interface ConstructorProps extends AudioBaseSrc.ConstructorProps {}
@@ -6240,7 +6266,7 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         type StreamVolumeInterface = typeof StreamVolume;
-        module StreamVolume {
+        namespace StreamVolume {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

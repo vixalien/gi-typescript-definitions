@@ -5441,7 +5441,7 @@ declare module 'gi://IBus?version=1.0' {
              */
             RESERVED_2,
         }
-        module AttrList {
+        namespace AttrList {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -5480,7 +5480,7 @@ declare module 'gi://IBus?version=1.0' {
             get(index: number): Attribute;
         }
 
-        module Attribute {
+        namespace Attribute {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -5539,7 +5539,7 @@ declare module 'gi://IBus?version=1.0' {
             get_value(): number;
         }
 
-        module Bus {
+        namespace Bus {
             // Signal callback interfaces
 
             interface Connected {
@@ -6687,7 +6687,7 @@ declare module 'gi://IBus?version=1.0' {
             set_watch_ibus_signal(watch: boolean): void;
         }
 
-        module Component {
+        namespace Component {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -6865,7 +6865,7 @@ declare module 'gi://IBus?version=1.0' {
             output_engines(output: GLib.String, indent: number): void;
         }
 
-        module Config {
+        namespace Config {
             // Signal callback interfaces
 
             interface ValueChanged {
@@ -7760,7 +7760,7 @@ declare module 'gi://IBus?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ConfigService {
+        namespace ConfigService {
             // Constructor properties interface
 
             interface ConstructorProps extends Service.ConstructorProps {}
@@ -7902,7 +7902,7 @@ declare module 'gi://IBus?version=1.0' {
             value_changed(section: string, name: string, value: GLib.Variant): void;
         }
 
-        module EmojiData {
+        namespace EmojiData {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -7991,7 +7991,7 @@ declare module 'gi://IBus?version=1.0' {
             set_description(description: string): void;
         }
 
-        module Engine {
+        namespace Engine {
             // Signal callback interfaces
 
             interface CancelHandWriting {
@@ -8475,7 +8475,7 @@ declare module 'gi://IBus?version=1.0' {
             update_property(prop: Property): void;
         }
 
-        module EngineDesc {
+        namespace EngineDesc {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -8719,7 +8719,7 @@ declare module 'gi://IBus?version=1.0' {
             output(output: GLib.String, indent: number): void;
         }
 
-        module EngineSimple {
+        namespace EngineSimple {
             // Constructor properties interface
 
             interface ConstructorProps extends Engine.ConstructorProps {}
@@ -8768,7 +8768,7 @@ declare module 'gi://IBus?version=1.0' {
             add_table_by_locale(locale?: string | null): boolean;
         }
 
-        module ExtensionEvent {
+        namespace ExtensionEvent {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -8840,7 +8840,7 @@ declare module 'gi://IBus?version=1.0' {
             get_version(): number;
         }
 
-        module Factory {
+        namespace Factory {
             // Signal callback interfaces
 
             interface CreateEngine {
@@ -8909,7 +8909,7 @@ declare module 'gi://IBus?version=1.0' {
             create_engine(engine_name: string): Engine;
         }
 
-        module HotkeyProfile {
+        namespace HotkeyProfile {
             // Signal callback interfaces
 
             interface Trigger {
@@ -9002,7 +9002,7 @@ declare module 'gi://IBus?version=1.0' {
             remove_hotkey_by_event(event: GLib.Quark): boolean;
         }
 
-        module InputContext {
+        namespace InputContext {
             // Signal callback interfaces
 
             interface CommitText {
@@ -10175,7 +10175,7 @@ declare module 'gi://IBus?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Keymap {
+        namespace Keymap {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -10236,7 +10236,7 @@ declare module 'gi://IBus?version=1.0' {
             lookup_keysym(keycode: number, state: number): number;
         }
 
-        module LookupTable {
+        namespace LookupTable {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -10412,7 +10412,7 @@ declare module 'gi://IBus?version=1.0' {
             set_round(round: boolean): void;
         }
 
-        module Object {
+        namespace Object {
             // Signal callback interfaces
 
             interface Destroy {
@@ -10476,7 +10476,7 @@ declare module 'gi://IBus?version=1.0' {
             destroy(): void;
         }
 
-        module ObservedPath {
+        namespace ObservedPath {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -10534,7 +10534,7 @@ declare module 'gi://IBus?version=1.0' {
             traverse(dir_only: boolean): ObservedPath[];
         }
 
-        module PanelService {
+        namespace PanelService {
             // Signal callback interfaces
 
             interface CandidateClickedLookupTable {
@@ -10972,7 +10972,7 @@ declare module 'gi://IBus?version=1.0' {
             update_preedit_text_received(text: Text, cursor_pos: number, visible: boolean): void;
         }
 
-        module PropList {
+        namespace PropList {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -11017,7 +11017,7 @@ declare module 'gi://IBus?version=1.0' {
             update_property(prop: Property): boolean;
         }
 
-        module Property {
+        namespace Property {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -11192,7 +11192,7 @@ declare module 'gi://IBus?version=1.0' {
             update(prop_update: Property): boolean;
         }
 
-        module Proxy {
+        namespace Proxy {
             // Signal callback interfaces
 
             interface Destroy {
@@ -11523,7 +11523,7 @@ declare module 'gi://IBus?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -11566,7 +11566,7 @@ declare module 'gi://IBus?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -11991,7 +11991,7 @@ declare module 'gi://IBus?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Registry {
+        namespace Registry {
             // Signal callback interfaces
 
             interface Changed {
@@ -12097,7 +12097,7 @@ declare module 'gi://IBus?version=1.0' {
             start_monitor_changes(): void;
         }
 
-        module Serializable {
+        namespace Serializable {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -12186,7 +12186,7 @@ declare module 'gi://IBus?version=1.0' {
             set_qattachment(key: GLib.Quark, value: GLib.Variant): void;
         }
 
-        module Service {
+        namespace Service {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -12322,7 +12322,7 @@ declare module 'gi://IBus?version=1.0' {
             unregister(connection: Gio.DBusConnection): void;
         }
 
-        module Text {
+        namespace Text {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -12387,7 +12387,7 @@ declare module 'gi://IBus?version=1.0' {
             set_attributes(attrs: AttrList): void;
         }
 
-        module UnicodeBlock {
+        namespace UnicodeBlock {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -12451,7 +12451,7 @@ declare module 'gi://IBus?version=1.0' {
             get_start(): number;
         }
 
-        module UnicodeData {
+        namespace UnicodeData {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -12555,7 +12555,7 @@ declare module 'gi://IBus?version=1.0' {
             set_block_name(block_name: string): void;
         }
 
-        module XEvent {
+        namespace XEvent {
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {

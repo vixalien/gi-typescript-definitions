@@ -139,7 +139,7 @@ declare module 'gi://GstPlayer?version=1.0' {
         interface PlayerSignalDispatcherFunc {
             (data?: any | null): void;
         }
-        module Player {
+        namespace Player {
             // Signal callback interfaces
 
             interface Buffering {
@@ -609,7 +609,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             stop(): void;
         }
 
-        module PlayerAudioInfo {
+        namespace PlayerAudioInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends PlayerStreamInfo.ConstructorProps {}
@@ -636,7 +636,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             get_sample_rate(): number;
         }
 
-        module PlayerGMainContextSignalDispatcher {
+        namespace PlayerGMainContextSignalDispatcher {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -1074,7 +1074,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module PlayerMediaInfo {
+        namespace PlayerMediaInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1117,7 +1117,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             is_seekable(): boolean;
         }
 
-        module PlayerStreamInfo {
+        namespace PlayerStreamInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1160,7 +1160,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             get_tags(): Gst.TagList | null;
         }
 
-        module PlayerSubtitleInfo {
+        namespace PlayerSubtitleInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends PlayerStreamInfo.ConstructorProps {}
@@ -1183,7 +1183,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             get_language(): string | null;
         }
 
-        module PlayerVideoInfo {
+        namespace PlayerVideoInfo {
             // Constructor properties interface
 
             interface ConstructorProps extends PlayerStreamInfo.ConstructorProps {}
@@ -1214,7 +1214,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             get_width(): number;
         }
 
-        module PlayerVideoOverlayVideoRenderer {
+        namespace PlayerVideoOverlayVideoRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, PlayerVideoRenderer.ConstructorProps {
@@ -1735,7 +1735,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             free(): void;
         }
 
-        module PlayerSignalDispatcher {
+        namespace PlayerSignalDispatcher {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1755,7 +1755,7 @@ declare module 'gi://GstPlayer?version=1.0' {
             new (): PlayerSignalDispatcher; // This allows `obj instanceof PlayerSignalDispatcher`
         };
 
-        module PlayerVideoRenderer {
+        namespace PlayerVideoRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

@@ -1111,7 +1111,7 @@ declare module 'gi://GstGL?version=1.0' {
              */
             ANY,
         }
-        module GLBaseFilter {
+        namespace GLBaseFilter {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseTransform.ConstructorProps {
@@ -1167,7 +1167,7 @@ declare module 'gi://GstGL?version=1.0' {
             get_gl_context(): GLContext | null;
         }
 
-        module GLBaseMemoryAllocator {
+        namespace GLBaseMemoryAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -1194,9 +1194,39 @@ declare module 'gi://GstGL?version=1.0' {
             vfunc_alloc(params: GLAllocationParams): GLBaseMemory | null;
             // Conflicted with Gst.Allocator.vfunc_alloc
             vfunc_alloc(...args: never[]): any;
+            /**
+             * a #GstGLBaseMemoryAllocatorCopyFunction
+             * @param mem a #GstGLBaseMemory
+             * @param offset the offset to copy from
+             * @param size the number of bytes to copy
+             */
+            vfunc_copy(mem: GLBaseMemory, offset: number, size: number): GLBaseMemory | null;
+            /**
+             * a #GstGLBaseMemoryAllocatorCreateFunction
+             * @param mem a #GstGLBaseMemory
+             */
+            vfunc_create(mem: GLBaseMemory): boolean;
+            /**
+             * a #GstGLBaseMemoryAllocatorDestroyFunction
+             * @param mem a #GstGLBaseMemory
+             */
+            vfunc_destroy(mem: GLBaseMemory): void;
+            /**
+             * a #GstGLBaseMemoryAllocatorMapFunction
+             * @param mem a #GstGLBaseMemory
+             * @param info a #GstMapInfo to map with
+             * @param maxsize the size to map
+             */
+            vfunc_map(mem: GLBaseMemory, info: Gst.MapInfo, maxsize: number): any | null;
+            /**
+             * a #GstGLBaseMemoryAllocatorUnmapFunction
+             * @param mem a #GstGLBaseMemory
+             * @param info a #GstMapInfo to map with
+             */
+            vfunc_unmap(mem: GLBaseMemory, info: Gst.MapInfo): void;
         }
 
-        module GLBaseMixer {
+        namespace GLBaseMixer {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoAggregator.ConstructorProps {
@@ -1245,7 +1275,7 @@ declare module 'gi://GstGL?version=1.0' {
             get_gl_context(): GLContext | null;
         }
 
-        module GLBaseMixerPad {
+        namespace GLBaseMixerPad {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoAggregatorPad.ConstructorProps {}
@@ -1261,7 +1291,7 @@ declare module 'gi://GstGL?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module GLBaseSrc {
+        namespace GLBaseSrc {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.PushSrc.ConstructorProps {
@@ -1315,7 +1345,7 @@ declare module 'gi://GstGL?version=1.0' {
             vfunc_gl_stop(): void;
         }
 
-        module GLBufferAllocator {
+        namespace GLBufferAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends GLBaseMemoryAllocator.ConstructorProps {}
@@ -1334,7 +1364,7 @@ declare module 'gi://GstGL?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module GLBufferPool {
+        namespace GLBufferPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -1381,7 +1411,7 @@ declare module 'gi://GstGL?version=1.0' {
             get_gl_allocation_params(): GLAllocationParams | null;
         }
 
-        module GLColorConvert {
+        namespace GLColorConvert {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1473,7 +1503,7 @@ declare module 'gi://GstGL?version=1.0' {
             set_caps(in_caps: Gst.Caps, out_caps: Gst.Caps): boolean;
         }
 
-        module GLContext {
+        namespace GLContext {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1592,6 +1622,7 @@ declare module 'gi://GstGL?version=1.0' {
              * return %NULL when not supported.
              */
             vfunc_get_config(): Gst.Structure | null;
+            vfunc_get_current_context(): never;
             /**
              * Get the currently enabled OpenGL api.
              *
@@ -1612,6 +1643,12 @@ declare module 'gi://GstGL?version=1.0' {
              * after a call to gst_gl_context_create().
              */
             vfunc_get_gl_platform_version(): [number, number];
+            /**
+             * get an function pointer to an OpenGL function
+             * @param gl_api
+             * @param name
+             */
+            vfunc_get_proc_address(gl_api: GLAPI, name: string): any | null;
             /**
              * Set the OpenGL configuration for this context.  The context must not
              * have been created for this function to succeed.  Setting a %NULL
@@ -1830,7 +1867,7 @@ declare module 'gi://GstGL?version=1.0' {
             thread_add(func: GLContextThreadFunc): void;
         }
 
-        module GLDisplay {
+        namespace GLDisplay {
             // Signal callback interfaces
 
             interface CreateContext {
@@ -1958,7 +1995,7 @@ declare module 'gi://GstGL?version=1.0' {
             retrieve_window(data: any | null, compare_func: GLib.CompareFunc): GLWindow | null;
         }
 
-        module GLFilter {
+        namespace GLFilter {
             // Constructor properties interface
 
             interface ConstructorProps extends GLBaseFilter.ConstructorProps {}
@@ -2058,7 +2095,7 @@ declare module 'gi://GstGL?version=1.0' {
             render_to_target_with_shader(input: GLMemory, output: GLMemory, shader: GLShader): void;
         }
 
-        module GLFramebuffer {
+        namespace GLFramebuffer {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -2130,7 +2167,7 @@ declare module 'gi://GstGL?version=1.0' {
             get_id(): number;
         }
 
-        module GLMemoryAllocator {
+        namespace GLMemoryAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends GLBaseMemoryAllocator.ConstructorProps {}
@@ -2151,9 +2188,32 @@ declare module 'gi://GstGL?version=1.0' {
             // Static methods
 
             static get_default(context: GLContext): GLMemoryAllocator;
+
+            // Virtual methods
+
+            /**
+             * provide a custom copy implementation
+             * @param mem a #GstGLBaseMemory
+             * @param offset the offset to copy from
+             * @param size the number of bytes to copy
+             */
+            vfunc_copy(mem: GLBaseMemory, offset: number, size: number): GLBaseMemory | null;
+            /**
+             * provide a custom map implementation
+             * @param mem a #GstGLBaseMemory
+             * @param info a #GstMapInfo to map with
+             * @param maxsize the size to map
+             */
+            vfunc_map(mem: GLBaseMemory, info: Gst.MapInfo, maxsize: number): any | null;
+            /**
+             * provide a custom unmap implementation
+             * @param mem a #GstGLBaseMemory
+             * @param info a #GstMapInfo to map with
+             */
+            vfunc_unmap(mem: GLBaseMemory, info: Gst.MapInfo): void;
         }
 
-        module GLMemoryPBOAllocator {
+        namespace GLMemoryPBOAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends GLMemoryAllocator.ConstructorProps {}
@@ -2172,7 +2232,7 @@ declare module 'gi://GstGL?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module GLMixer {
+        namespace GLMixer {
             // Constructor properties interface
 
             interface ConstructorProps extends GLBaseMixer.ConstructorProps {}
@@ -2223,7 +2283,7 @@ declare module 'gi://GstGL?version=1.0' {
             process_textures(outbuf: Gst.Buffer): boolean;
         }
 
-        module GLMixerPad {
+        namespace GLMixerPad {
             // Constructor properties interface
 
             interface ConstructorProps extends GLBaseMixerPad.ConstructorProps {}
@@ -2243,7 +2303,7 @@ declare module 'gi://GstGL?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module GLOverlayCompositor {
+        namespace GLOverlayCompositor {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -2281,7 +2341,7 @@ declare module 'gi://GstGL?version=1.0' {
             upload_overlays(buf: Gst.Buffer): void;
         }
 
-        module GLRenderbufferAllocator {
+        namespace GLRenderbufferAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends GLBaseMemoryAllocator.ConstructorProps {}
@@ -2300,7 +2360,7 @@ declare module 'gi://GstGL?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module GLSLStage {
+        namespace GLSLStage {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -2356,7 +2416,7 @@ declare module 'gi://GstGL?version=1.0' {
             set_strings(version: GLSLVersion | null, profile: GLSLProfile | null, str: string[]): boolean;
         }
 
-        module GLShader {
+        namespace GLShader {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -2679,7 +2739,7 @@ declare module 'gi://GstGL?version=1.0' {
             use(): void;
         }
 
-        module GLUpload {
+        namespace GLUpload {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -2749,7 +2809,7 @@ declare module 'gi://GstGL?version=1.0' {
             ): Gst.Caps;
         }
 
-        module GLViewConvert {
+        namespace GLViewConvert {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -2870,7 +2930,7 @@ declare module 'gi://GstGL?version=1.0' {
             transform_caps(direction: Gst.PadDirection | null, caps: Gst.Caps, filter: Gst.Caps): Gst.Caps;
         }
 
-        module GLWindow {
+        namespace GLWindow {
             // Signal callback interfaces
 
             interface KeyEvent {

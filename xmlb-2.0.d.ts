@@ -473,7 +473,7 @@ declare module 'gi://Xmlb?version=2.0' {
              */
             OPTIMIZER,
         }
-        module Builder {
+        namespace Builder {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -558,7 +558,7 @@ declare module 'gi://Xmlb?version=2.0' {
             set_profile_flags(profile_flags: SiloProfileFlags | null): void;
         }
 
-        module BuilderFixup {
+        namespace BuilderFixup {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -593,7 +593,7 @@ declare module 'gi://Xmlb?version=2.0' {
             set_max_depth(max_depth: number): void;
         }
 
-        module BuilderNode {
+        namespace BuilderNode {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -789,7 +789,7 @@ declare module 'gi://Xmlb?version=2.0' {
             unlink(): void;
         }
 
-        module BuilderSource {
+        namespace BuilderSource {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -849,7 +849,7 @@ declare module 'gi://Xmlb?version=2.0' {
             set_prefix(prefix?: string | null): void;
         }
 
-        module BuilderSourceCtx {
+        namespace BuilderSourceCtx {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -888,7 +888,7 @@ declare module 'gi://Xmlb?version=2.0' {
             get_stream(): Gio.InputStream;
         }
 
-        module Machine {
+        namespace Machine {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1071,7 +1071,7 @@ declare module 'gi://Xmlb?version=2.0' {
             stack_push_text_steal(stack: Stack, str: string): boolean;
         }
 
-        module Node {
+        namespace Node {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1329,7 +1329,7 @@ declare module 'gi://Xmlb?version=2.0' {
             transmogrify(func_text: NodeTransmogrifyFunc, func_tail: NodeTransmogrifyFunc): boolean;
         }
 
-        module Query {
+        namespace Query {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1391,7 +1391,7 @@ declare module 'gi://Xmlb?version=2.0' {
             set_limit(limit: number): void;
         }
 
-        module Silo {
+        namespace Silo {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

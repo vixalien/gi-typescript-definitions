@@ -1051,7 +1051,7 @@ declare module 'gi://Gcr?version=3' {
             HIDDEN,
             SORTABLE,
         }
-        module CertificateChain {
+        namespace CertificateChain {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1340,7 +1340,7 @@ declare module 'gi://Gcr?version=3' {
             get_status(): CertificateChainStatus;
         }
 
-        module CertificateRequest {
+        namespace CertificateRequest {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1489,7 +1489,7 @@ declare module 'gi://Gcr?version=3' {
             set_cn(cn: string): void;
         }
 
-        module FilterCollection {
+        namespace FilterCollection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Collection.ConstructorProps {
@@ -1993,7 +1993,7 @@ declare module 'gi://Gcr?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Parser {
+        namespace Parser {
             // Signal callback interfaces
 
             interface Authenticate {
@@ -2253,7 +2253,7 @@ declare module 'gi://Gcr?version=3' {
             set_filename(filename?: string | null): void;
         }
 
-        module Pkcs11Certificate {
+        namespace Pkcs11Certificate {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -2974,7 +2974,7 @@ declare module 'gi://Gcr?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SecretExchange {
+        namespace SecretExchange {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -3087,7 +3087,7 @@ declare module 'gi://Gcr?version=3' {
             send(secret: string | null, secret_len: number): string;
         }
 
-        module SimpleCertificate {
+        namespace SimpleCertificate {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -3743,7 +3743,7 @@ declare module 'gi://Gcr?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SimpleCollection {
+        namespace SimpleCollection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Collection.ConstructorProps {}
@@ -4226,7 +4226,7 @@ declare module 'gi://Gcr?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SshAskpass {
+        namespace SshAskpass {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4274,7 +4274,7 @@ declare module 'gi://Gcr?version=3' {
             get_interaction(): Gio.TlsInteraction;
         }
 
-        module SystemPrompt {
+        namespace SystemPrompt {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -5245,7 +5245,7 @@ declare module 'gi://Gcr?version=3' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -5288,7 +5288,7 @@ declare module 'gi://Gcr?version=3' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -5713,7 +5713,7 @@ declare module 'gi://Gcr?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SystemPrompter {
+        namespace SystemPrompter {
             // Signal callback interfaces
 
             interface NewPrompt {
@@ -5821,7 +5821,7 @@ declare module 'gi://Gcr?version=3' {
             unregister(wait: boolean): void;
         }
 
-        module UnionCollection {
+        namespace UnionCollection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Collection.ConstructorProps {}
@@ -6504,7 +6504,7 @@ declare module 'gi://Gcr?version=3' {
             _init(...args: any[]): void;
         }
 
-        module Certificate {
+        namespace Certificate {
             // Constructor properties interface
 
             interface ConstructorProps extends Comparable.ConstructorProps {
@@ -6760,7 +6760,7 @@ declare module 'gi://Gcr?version=3' {
             new (): Certificate; // This allows `obj instanceof Certificate`
         };
 
-        module Collection {
+        namespace Collection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6825,7 +6825,7 @@ declare module 'gi://Gcr?version=3' {
             new (): Collection; // This allows `obj instanceof Collection`
         };
 
-        module Comparable {
+        namespace Comparable {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6860,7 +6860,7 @@ declare module 'gi://Gcr?version=3' {
             new (): Comparable; // This allows `obj instanceof Comparable`
         };
 
-        module ImportInteraction {
+        namespace ImportInteraction {
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.TlsInteraction.ConstructorProps {}
@@ -7002,7 +7002,7 @@ declare module 'gi://Gcr?version=3' {
             new (): ImportInteraction; // This allows `obj instanceof ImportInteraction`
         };
 
-        module Importer {
+        namespace Importer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7167,7 +7167,7 @@ declare module 'gi://Gcr?version=3' {
             new (): Importer; // This allows `obj instanceof Importer`
         };
 
-        module Prompt {
+        namespace Prompt {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

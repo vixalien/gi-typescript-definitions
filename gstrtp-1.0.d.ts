@@ -960,7 +960,7 @@ declare module 'gi://GstRtp?version=1.0' {
              */
             TWO_BYTE,
         }
-        module RTPBaseAudioPayload {
+        namespace RTPBaseAudioPayload {
             // Constructor properties interface
 
             interface ConstructorProps extends RTPBasePayload.ConstructorProps {
@@ -1081,7 +1081,7 @@ declare module 'gi://GstRtp?version=1.0' {
             set_samplebits_options(sample_size: number): void;
         }
 
-        module RTPBaseDepayload {
+        namespace RTPBaseDepayload {
             // Signal callback interfaces
 
             interface AddExtension {
@@ -1389,7 +1389,7 @@ declare module 'gi://GstRtp?version=1.0' {
             set_source_info_enabled(enable: boolean): void;
         }
 
-        module RTPBasePayload {
+        namespace RTPBasePayload {
             // Signal callback interfaces
 
             interface AddExtension {
@@ -1763,7 +1763,7 @@ declare module 'gi://GstRtp?version=1.0' {
             set_source_info_enabled(enable: boolean): void;
         }
 
-        module RTPHeaderExtension {
+        namespace RTPHeaderExtension {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {}

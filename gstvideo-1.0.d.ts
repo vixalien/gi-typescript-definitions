@@ -2624,7 +2624,7 @@ declare module 'gi://GstVideo?version=1.0' {
         function buffer_add_video_sei_user_data_unregistered_meta(
             buffer: Gst.Buffer,
             uuid: number,
-            data: number,
+            data: number | null,
             size: number,
         ): VideoSEIUserDataUnregisteredMeta;
         /**
@@ -4598,7 +4598,7 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             INTERLACED,
         }
-        module ColorBalanceChannel {
+        namespace ColorBalanceChannel {
             // Signal callback interfaces
 
             interface ValueChanged {
@@ -4648,7 +4648,7 @@ declare module 'gi://GstVideo?version=1.0' {
             vfunc_value_changed(value: number): void;
         }
 
-        module VideoAggregator {
+        namespace VideoAggregator {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.Aggregator.ConstructorProps {
@@ -4739,7 +4739,7 @@ declare module 'gi://GstVideo?version=1.0' {
             get_execution_task_pool(): Gst.TaskPool;
         }
 
-        module VideoAggregatorConvertPad {
+        namespace VideoAggregatorConvertPad {
             // Constructor properties interface
 
             interface ConstructorProps extends VideoAggregatorPad.ConstructorProps {
@@ -4782,7 +4782,7 @@ declare module 'gi://GstVideo?version=1.0' {
             update_conversion_info(): void;
         }
 
-        module VideoAggregatorPad {
+        namespace VideoAggregatorPad {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.AggregatorPad.ConstructorProps {
@@ -4906,7 +4906,7 @@ declare module 'gi://GstVideo?version=1.0' {
             set_needs_alpha(needs_alpha: boolean): void;
         }
 
-        module VideoAggregatorParallelConvertPad {
+        namespace VideoAggregatorParallelConvertPad {
             // Constructor properties interface
 
             interface ConstructorProps extends VideoAggregatorConvertPad.ConstructorProps {}
@@ -4927,7 +4927,7 @@ declare module 'gi://GstVideo?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module VideoBufferPool {
+        namespace VideoBufferPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -4949,7 +4949,7 @@ declare module 'gi://GstVideo?version=1.0' {
             static ['new'](): VideoBufferPool;
         }
 
-        module VideoDecoder {
+        namespace VideoDecoder {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -5699,7 +5699,7 @@ declare module 'gi://GstVideo?version=1.0' {
             set_use_default_pad_acceptcaps(use: boolean): void;
         }
 
-        module VideoEncoder {
+        namespace VideoEncoder {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.Preset.ConstructorProps {
@@ -6594,6 +6594,8 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -6616,6 +6618,8 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -6630,6 +6634,8 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -6641,6 +6647,8 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -6648,7 +6656,7 @@ declare module 'gi://GstVideo?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module VideoFilter {
+        namespace VideoFilter {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseTransform.ConstructorProps {}
@@ -6708,7 +6716,7 @@ declare module 'gi://GstVideo?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module VideoSink {
+        namespace VideoSink {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseSink.ConstructorProps {
@@ -8932,7 +8940,7 @@ declare module 'gi://GstVideo?version=1.0' {
             get_ancillary(): [VideoVBIParserResult, VideoAncillary];
         }
 
-        module ColorBalance {
+        namespace ColorBalance {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9033,7 +9041,7 @@ declare module 'gi://GstVideo?version=1.0' {
             new (): ColorBalance; // This allows `obj instanceof ColorBalance`
         };
 
-        module Navigation {
+        namespace Navigation {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9390,7 +9398,7 @@ declare module 'gi://GstVideo?version=1.0' {
             new (): Navigation; // This allows `obj instanceof Navigation`
         };
 
-        module VideoDirection {
+        namespace VideoDirection {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9416,7 +9424,7 @@ declare module 'gi://GstVideo?version=1.0' {
             new (): VideoDirection; // This allows `obj instanceof VideoDirection`
         };
 
-        module VideoOrientation {
+        namespace VideoOrientation {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9525,7 +9533,7 @@ declare module 'gi://GstVideo?version=1.0' {
             new (): VideoOrientation; // This allows `obj instanceof VideoOrientation`
         };
 
-        module VideoOverlay {
+        namespace VideoOverlay {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

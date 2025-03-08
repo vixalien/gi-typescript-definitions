@@ -604,7 +604,7 @@ declare module 'gi://GtkSource?version=5' {
              */
             ALL,
         }
-        module Buffer {
+        namespace Buffer {
             // Signal callback interfaces
 
             interface BracketMatched {
@@ -688,6 +688,12 @@ declare module 'gi://GtkSource?version=5' {
          *
          * tag_table = gtk_text_buffer_get_tag_table (buffer);
          * tag = gtk_text_tag_table_lookup (tag_table, "gtksourceview:context-classes:string");
+         * ```
+         * ```python
+         * buffer = GtkSource.Buffer()
+         *
+         * tag_table = buffer.get_tag_table()
+         * tag = tag_table.lookup(name="gtksourceview:context-classes:string")
          * ```
          *
          * The tag must be used for read-only purposes.
@@ -1065,7 +1071,7 @@ declare module 'gi://GtkSource?version=5' {
             sort_lines(start: Gtk.TextIter, end: Gtk.TextIter, flags: SortFlags | null, column: number): void;
         }
 
-        module Completion {
+        namespace Completion {
             // Signal callback interfaces
 
             interface Hide {
@@ -1293,7 +1299,7 @@ declare module 'gi://GtkSource?version=5' {
             unblock_interactive(): void;
         }
 
-        module CompletionCell {
+        namespace CompletionCell {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -1481,6 +1487,15 @@ declare module 'gi://GtkSource?version=5' {
              * @param new_sibling the new next accessible sibling to set
              */
             update_next_accessible_sibling(new_sibling?: Gtk.Accessible | null): void;
+            /**
+             * Informs ATs that the platform state has changed.
+             *
+             * This function should be used by `GtkAccessible` implementations that
+             * have a platform state but are not widgets. Widgets handle platform
+             * states automatically.
+             * @param state the platform state to update
+             */
+            update_platform_state(state: Gtk.AccessiblePlatformState | null): void;
             /**
              * Updates an array of accessible properties.
              *
@@ -1990,6 +2005,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -2012,6 +2029,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -2026,6 +2045,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -2037,6 +2058,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -2044,7 +2067,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CompletionContext {
+        namespace CompletionContext {
             // Signal callback interfaces
 
             interface ProviderModelChanged {
@@ -2710,7 +2733,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CompletionSnippets {
+        namespace CompletionSnippets {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, CompletionProvider.ConstructorProps {
@@ -3422,7 +3445,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CompletionWords {
+        namespace CompletionWords {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, CompletionProvider.ConstructorProps {
@@ -4165,7 +4188,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module File {
+        namespace File {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4304,7 +4327,7 @@ declare module 'gi://GtkSource?version=5' {
             set_location(location?: Gio.File | null): void;
         }
 
-        module FileLoader {
+        namespace FileLoader {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4466,7 +4489,7 @@ declare module 'gi://GtkSource?version=5' {
             set_candidate_encodings(candidate_encodings: Encoding[]): void;
         }
 
-        module FileSaver {
+        namespace FileSaver {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4646,7 +4669,7 @@ declare module 'gi://GtkSource?version=5' {
             set_newline_type(newline_type: NewlineType | null): void;
         }
 
-        module Gutter {
+        namespace Gutter {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -4837,6 +4860,15 @@ declare module 'gi://GtkSource?version=5' {
              * @param new_sibling the new next accessible sibling to set
              */
             update_next_accessible_sibling(new_sibling?: Gtk.Accessible | null): void;
+            /**
+             * Informs ATs that the platform state has changed.
+             *
+             * This function should be used by `GtkAccessible` implementations that
+             * have a platform state but are not widgets. Widgets handle platform
+             * states automatically.
+             * @param state the platform state to update
+             */
+            update_platform_state(state: Gtk.AccessiblePlatformState | null): void;
             /**
              * Updates an array of accessible properties.
              *
@@ -5346,6 +5378,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -5368,6 +5402,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -5382,6 +5418,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -5393,6 +5431,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -5400,7 +5440,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module GutterLines {
+        namespace GutterLines {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5473,6 +5513,14 @@ declare module 'gi://GtkSource?version=5' {
              * @returns a line number starting from 0
              */
             get_last(): number;
+            /**
+             * Gets the Y range for a line based on `mode`.
+             *
+             * The value for `y` is relative to the renderers widget coordinates.
+             * @param line a line number starting from zero
+             * @param mode a #GtkSourceGutterRendererAlignmentMode
+             */
+            get_line_extent(line: number, mode: GutterRendererAlignmentMode | null): [number, number];
             /**
              * Gets the Y range for a line based on `mode`.
              *
@@ -5553,7 +5601,7 @@ declare module 'gi://GtkSource?version=5' {
             remove_qclass(line: number, qname: GLib.Quark): void;
         }
 
-        module GutterRenderer {
+        namespace GutterRenderer {
             // Signal callback interfaces
 
             interface Activate {
@@ -6025,6 +6073,15 @@ declare module 'gi://GtkSource?version=5' {
              */
             update_next_accessible_sibling(new_sibling?: Gtk.Accessible | null): void;
             /**
+             * Informs ATs that the platform state has changed.
+             *
+             * This function should be used by `GtkAccessible` implementations that
+             * have a platform state but are not widgets. Widgets handle platform
+             * states automatically.
+             * @param state the platform state to update
+             */
+            update_platform_state(state: Gtk.AccessiblePlatformState | null): void;
+            /**
              * Updates an array of accessible properties.
              *
              * This function should be called by `GtkWidget` types whenever an accessible
@@ -6533,6 +6590,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -6555,6 +6614,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -6569,6 +6630,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -6580,6 +6643,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -6587,7 +6652,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module GutterRendererPixbuf {
+        namespace GutterRendererPixbuf {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -7016,6 +7081,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -7038,6 +7105,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -7052,6 +7121,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -7063,6 +7134,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -7070,7 +7143,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module GutterRendererText {
+        namespace GutterRendererText {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -7475,6 +7548,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -7497,6 +7572,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -7511,6 +7588,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -7522,6 +7601,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -7529,7 +7610,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Hover {
+        namespace Hover {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7581,7 +7662,7 @@ declare module 'gi://GtkSource?version=5' {
             remove_provider(provider: HoverProvider): void;
         }
 
-        module HoverContext {
+        namespace HoverContext {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7627,11 +7708,15 @@ declare module 'gi://GtkSource?version=5' {
              * @returns The #GtkSourceBuffer for the view
              */
             get_buffer(): Buffer;
-            get_iter(iter: Gtk.TextIter): boolean;
+            /**
+             * Gets the location of the pointer where the request was made.
+             * @returns %TRUE if the mark is still valid and @iter was set.
+             */
+            get_iter(): [boolean, Gtk.TextIter];
             get_view(): View;
         }
 
-        module HoverDisplay {
+        namespace HoverDisplay {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -7783,6 +7868,15 @@ declare module 'gi://GtkSource?version=5' {
              * @param new_sibling the new next accessible sibling to set
              */
             update_next_accessible_sibling(new_sibling?: Gtk.Accessible | null): void;
+            /**
+             * Informs ATs that the platform state has changed.
+             *
+             * This function should be used by `GtkAccessible` implementations that
+             * have a platform state but are not widgets. Widgets handle platform
+             * states automatically.
+             * @param state the platform state to update
+             */
+            update_platform_state(state: Gtk.AccessiblePlatformState | null): void;
             /**
              * Updates an array of accessible properties.
              *
@@ -8292,6 +8386,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -8314,6 +8410,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -8328,6 +8426,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -8339,6 +8439,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -8346,7 +8448,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Language {
+        namespace Language {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -8453,7 +8555,7 @@ declare module 'gi://GtkSource?version=5' {
             get_style_name(style_id: string): string | null;
         }
 
-        module LanguageManager {
+        namespace LanguageManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -8543,6 +8645,11 @@ declare module 'gi://GtkSource?version=5' {
              * lang = gtk_source_language_manager_guess_language (manager, filename, NULL);
              * gtk_source_buffer_set_language (buffer, lang);
              * ```
+             * ```python
+             * manager = GtkSource.LanguageManager.get_default()
+             * language = manager.guess_language(filename=filename, content_type=None)
+             * buffer.set_language(language=language)
+             * ```
              *
              * or
              *
@@ -8564,6 +8671,15 @@ declare module 'gi://GtkSource?version=5' {
              * gtk_source_buffer_set_language (buffer, lang);
              *
              * g_free (content_type);
+             * ```
+             * ```python
+             * content_type, uncertain = Gio.content_type_guess(filename=filename, data=None)
+             * if uncertain:
+             *     content_type = None
+             *
+             * manager = GtkSource.LanguageManager.get_default()
+             * language = manager.guess_language(filename=filename, content_type=content_type)
+             * buffer.set_language(language=language)
              * ```
              *
              * etc. Use [method`Language`.get_mime_types] and [method`Language`.get_globs]
@@ -8600,7 +8716,7 @@ declare module 'gi://GtkSource?version=5' {
             set_search_path(dirs?: string[] | null): void;
         }
 
-        module Map {
+        namespace Map {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -9026,6 +9142,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -9048,6 +9166,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -9062,6 +9182,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -9073,6 +9195,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -9080,7 +9204,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Mark {
+        namespace Mark {
             // Constructor properties interface
 
             interface ConstructorProps extends Gtk.TextMark.ConstructorProps {
@@ -9156,7 +9280,7 @@ declare module 'gi://GtkSource?version=5' {
             prev(category?: string | null): Mark | null;
         }
 
-        module MarkAttributes {
+        namespace MarkAttributes {
             // Signal callback interfaces
 
             interface QueryTooltipMarkup {
@@ -9343,7 +9467,7 @@ declare module 'gi://GtkSource?version=5' {
             set_pixbuf(pixbuf: GdkPixbuf.Pixbuf): void;
         }
 
-        module PrintCompositor {
+        namespace PrintCompositor {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9667,6 +9791,16 @@ declare module 'gi://GtkSource?version=5' {
              *                                            page_nr);
              * }
              * ```
+             * ```python
+             * def on_draw_page(
+             *     operation: Gtk.PrintOperation,
+             *     context: Gtk.PrintContext,
+             *     page_nr: int,
+             *     compositor: GtkSource.PrintCompositor,
+             * ) -> None:
+             *     """Signal handler for draw-page that renders a single page."""
+             *     compositor.draw_page(context=context, page_nr=page_nr)
+             * ```
              * @param context the #GtkPrintContext encapsulating the context information that is required when           drawing the page for printing.
              * @param page_nr the number of the page to print.
              */
@@ -9829,6 +9963,18 @@ declare module 'gi://GtkSource?version=5' {
              *     return FALSE;
              * }
              * ```
+             * ```python
+             * def on_paginate(
+             *     operation: Gtk.PrintOperation,
+             *     context: Gtk.PrintContext,
+             *     compositor: GtkSource.PrintCompositor,
+             * ) -> bool:
+             *     if compositor.paginate(context=context):
+             *         n_pages = compositor.get_n_pages()
+             *         operation.set_n_pages(n_pages=n_pages)
+             *         return True
+             *     return False
+             * ```
              *
              * If you don't need to do pagination in chunks, you can simply do it all in the
              * [signal`Gtk`.PrintOperation::begin-print] handler, and set the number of pages from there, like
@@ -9852,6 +9998,19 @@ declare module 'gi://GtkSource?version=5' {
              *     n_pages = gtk_source_print_compositor_get_n_pages (compositor);
              *     gtk_print_operation_set_n_pages (operation, n_pages);
              * }
+             * ```
+             * ```python
+             * def on_begin_print(
+             *     operation: Gtk.PrintOperation,
+             *     context: Gtk.PrintContext,
+             *     compositor: GtkSource.PrintCompositor,
+             * ) -> None:
+             *     # Paginate until complete
+             *     while not compositor.paginate(context=context):
+             *         pass
+             *
+             *     n_pages = compositor.get_n_pages()
+             *     operation.set_n_pages(n_pages=n_pages)
              * ```
              * @param context the #GtkPrintContext whose parameters (e.g. paper size, print margins, etc.) are used by the the @compositor to paginate the document.
              * @returns %TRUE if the document has been completely paginated, %FALSE otherwise.
@@ -10060,7 +10219,7 @@ declare module 'gi://GtkSource?version=5' {
             set_wrap_mode(wrap_mode: Gtk.WrapMode | null): void;
         }
 
-        module Region {
+        namespace Region {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10110,6 +10269,20 @@ declare module 'gi://GtkSource?version=5' {
          *
          *         gtk_source_region_iter_next (&region_iter);
          * }
+         * ```
+         * ```python
+         * buffer: GtkSource.Buffer = GtkSource.Buffer()
+         * region: GtkSource.Region = GtkSource.Region(buffer=buffer)
+         * region_iter = region.get_start_region_iter()
+         *
+         * while not region_iter.is_end():
+         *     success, start, end = region_iter.get_subregion()
+         *     if not success:
+         *         break
+         *
+         *     # Do something useful with the subregion
+         *
+         *     region_iter.next()
          * ```
          */
         class Region extends GObject.Object {
@@ -10206,7 +10379,7 @@ declare module 'gi://GtkSource?version=5' {
             to_string(): string | null;
         }
 
-        module SearchContext {
+        namespace SearchContext {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10579,7 +10752,7 @@ declare module 'gi://GtkSource?version=5' {
             set_match_style(match_style?: Style | null): void;
         }
 
-        module SearchSettings {
+        namespace SearchSettings {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10768,7 +10941,7 @@ declare module 'gi://GtkSource?version=5' {
             set_wrap_around(wrap_around: boolean): void;
         }
 
-        module Snippet {
+        namespace Snippet {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10913,7 +11086,7 @@ declare module 'gi://GtkSource?version=5' {
             set_trigger(trigger: string): void;
         }
 
-        module SnippetChunk {
+        namespace SnippetChunk {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {
@@ -11064,7 +11237,7 @@ declare module 'gi://GtkSource?version=5' {
             set_tooltip_text(tooltip_text: string): void;
         }
 
-        module SnippetContext {
+        namespace SnippetContext {
             // Signal callback interfaces
 
             interface Changed {
@@ -11145,7 +11318,7 @@ declare module 'gi://GtkSource?version=5' {
             set_variable(key: string, value: string): void;
         }
 
-        module SnippetManager {
+        namespace SnippetManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -11264,7 +11437,7 @@ declare module 'gi://GtkSource?version=5' {
             set_search_path(dirs?: string[] | null): void;
         }
 
-        module SpaceDrawer {
+        namespace SpaceDrawer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -11309,6 +11482,22 @@ declare module 'gi://GtkSource?version=5' {
          *                                                  ~GTK_SOURCE_SPACE_TYPE_NEWLINE);
          *
          * gtk_source_space_drawer_set_enable_matrix (space_drawer, TRUE);
+         * ```
+         * ```python
+         * space_drawer.set_types_for_locations(
+         *     locations=GtkSource.SpaceLocationFlags.ALL,
+         *     types=GtkSource.SpaceTypeFlags.NBSP,
+         * )
+         *
+         * all_types_except_newline = GtkSource.SpaceTypeFlags(
+         *     int(GtkSource.SpaceTypeFlags.ALL) & ~int(GtkSource.SpaceTypeFlags.NEWLINE)
+         * )
+         * space_drawer.set_types_for_locations(
+         *     locations=GtkSource.SpaceLocationFlags.TRAILING,
+         *     types=all_types_except_newline,
+         * )
+         *
+         * space_drawer.set_enable_matrix(True)
          * ```
          *
          * # Use-case: draw unwanted white spaces
@@ -11430,7 +11619,7 @@ declare module 'gi://GtkSource?version=5' {
             set_types_for_locations(locations: SpaceLocationFlags | null, types: SpaceTypeFlags | null): void;
         }
 
-        module Style {
+        namespace Style {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -11542,7 +11731,7 @@ declare module 'gi://GtkSource?version=5' {
             copy(): Style;
         }
 
-        module StyleScheme {
+        namespace StyleScheme {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -11613,7 +11802,7 @@ declare module 'gi://GtkSource?version=5' {
             get_style(style_id: string): Style | null;
         }
 
-        module StyleSchemeChooserButton {
+        namespace StyleSchemeChooserButton {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -11849,6 +12038,26 @@ declare module 'gi://GtkSource?version=5' {
              */
             get layoutManager(): Gtk.LayoutManager;
             set layoutManager(val: Gtk.LayoutManager);
+            /**
+             * Makes this widget act like a modal dialog, with respect to
+             * event delivery.
+             *
+             * Global event controllers will not handle events with targets
+             * inside the widget, unless they are set up to ignore propagation
+             * limits. See [method`Gtk`.EventController.set_propagation_limit].
+             */
+            get limit_events(): boolean;
+            set limit_events(val: boolean);
+            /**
+             * Makes this widget act like a modal dialog, with respect to
+             * event delivery.
+             *
+             * Global event controllers will not handle events with targets
+             * inside the widget, unless they are set up to ignore propagation
+             * limits. See [method`Gtk`.EventController.set_propagation_limit].
+             */
+            get limitEvents(): boolean;
+            set limitEvents(val: boolean);
             /**
              * Margin on bottom side of widget.
              *
@@ -12563,6 +12772,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -12585,6 +12796,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -12599,6 +12812,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -12610,6 +12825,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -13204,6 +13421,10 @@ declare module 'gi://GtkSource?version=5' {
              * @returns the layout manager of @widget
              */
             get_layout_manager(): Gtk.LayoutManager | null;
+            /**
+             * Gets the value of the [property`Gtk`.Widget:limit-events] property.
+             */
+            get_limit_events(): boolean;
             /**
              * Returns whether the widget is mapped.
              * @returns true if the widget is mapped
@@ -14126,6 +14347,12 @@ declare module 'gi://GtkSource?version=5' {
              */
             set_layout_manager(layout_manager?: Gtk.LayoutManager | null): void;
             /**
+             * Sets whether the widget acts like a modal dialog,
+             * with respect to event delivery.
+             * @param limit_events whether to limit events
+             */
+            set_limit_events(limit_events: boolean): void;
+            /**
              * Sets the bottom margin of the widget.
              * @param margin the bottom margin
              */
@@ -14660,7 +14887,7 @@ declare module 'gi://GtkSource?version=5' {
             vfunc_unroot(): void;
         }
 
-        module StyleSchemeChooserWidget {
+        namespace StyleSchemeChooserWidget {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -14825,6 +15052,15 @@ declare module 'gi://GtkSource?version=5' {
              * @param new_sibling the new next accessible sibling to set
              */
             update_next_accessible_sibling(new_sibling?: Gtk.Accessible | null): void;
+            /**
+             * Informs ATs that the platform state has changed.
+             *
+             * This function should be used by `GtkAccessible` implementations that
+             * have a platform state but are not widgets. Widgets handle platform
+             * states automatically.
+             * @param state the platform state to update
+             */
+            update_platform_state(state: Gtk.AccessiblePlatformState | null): void;
             /**
              * Updates an array of accessible properties.
              *
@@ -15353,6 +15589,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -15375,6 +15613,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -15389,6 +15629,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -15400,6 +15642,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -15407,7 +15651,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module StyleSchemeManager {
+        namespace StyleSchemeManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -15505,7 +15749,7 @@ declare module 'gi://GtkSource?version=5' {
             set_search_path(path?: string[] | null): void;
         }
 
-        module StyleSchemePreview {
+        namespace StyleSchemePreview {
             // Signal callback interfaces
 
             interface Activate {
@@ -15772,6 +16016,26 @@ declare module 'gi://GtkSource?version=5' {
             get layoutManager(): Gtk.LayoutManager;
             set layoutManager(val: Gtk.LayoutManager);
             /**
+             * Makes this widget act like a modal dialog, with respect to
+             * event delivery.
+             *
+             * Global event controllers will not handle events with targets
+             * inside the widget, unless they are set up to ignore propagation
+             * limits. See [method`Gtk`.EventController.set_propagation_limit].
+             */
+            get limit_events(): boolean;
+            set limit_events(val: boolean);
+            /**
+             * Makes this widget act like a modal dialog, with respect to
+             * event delivery.
+             *
+             * Global event controllers will not handle events with targets
+             * inside the widget, unless they are set up to ignore propagation
+             * limits. See [method`Gtk`.EventController.set_propagation_limit].
+             */
+            get limitEvents(): boolean;
+            set limitEvents(val: boolean);
+            /**
              * Margin on bottom side of widget.
              *
              * This property adds margin outside of the widget's normal size
@@ -16110,6 +16374,15 @@ declare module 'gi://GtkSource?version=5' {
              * @param new_sibling the new next accessible sibling to set
              */
             update_next_accessible_sibling(new_sibling?: Gtk.Accessible | null): void;
+            /**
+             * Informs ATs that the platform state has changed.
+             *
+             * This function should be used by `GtkAccessible` implementations that
+             * have a platform state but are not widgets. Widgets handle platform
+             * states automatically.
+             * @param state the platform state to update
+             */
+            update_platform_state(state: Gtk.AccessiblePlatformState | null): void;
             /**
              * Updates an array of accessible properties.
              *
@@ -16724,6 +16997,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -16746,6 +17021,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -16760,6 +17037,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -16771,6 +17050,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -17365,6 +17646,10 @@ declare module 'gi://GtkSource?version=5' {
              * @returns the layout manager of @widget
              */
             get_layout_manager(): Gtk.LayoutManager | null;
+            /**
+             * Gets the value of the [property`Gtk`.Widget:limit-events] property.
+             */
+            get_limit_events(): boolean;
             /**
              * Returns whether the widget is mapped.
              * @returns true if the widget is mapped
@@ -18287,6 +18572,12 @@ declare module 'gi://GtkSource?version=5' {
              */
             set_layout_manager(layout_manager?: Gtk.LayoutManager | null): void;
             /**
+             * Sets whether the widget acts like a modal dialog,
+             * with respect to event delivery.
+             * @param limit_events whether to limit events
+             */
+            set_limit_events(limit_events: boolean): void;
+            /**
              * Sets the bottom margin of the widget.
              * @param margin the bottom margin
              */
@@ -18821,7 +19112,7 @@ declare module 'gi://GtkSource?version=5' {
             vfunc_unroot(): void;
         }
 
-        module Tag {
+        namespace Tag {
             // Constructor properties interface
 
             interface ConstructorProps extends Gtk.TextTag.ConstructorProps {
@@ -18890,7 +19181,7 @@ declare module 'gi://GtkSource?version=5' {
             static ['new'](name?: string | null): Tag;
         }
 
-        module View {
+        namespace View {
             // Signal callback interfaces
 
             interface ChangeCase {
@@ -19022,14 +19313,18 @@ declare module 'gi://GtkSource?version=5' {
          *
          * ```c
          * GtkCssProvider *provider = gtk_css_provider_new ();
-         * gtk_css_provider_load_from_data (provider,
-         *                                  "textview { font-family: Monospace; font-size: 8pt; }",
-         *                                  -1,
-         *                                  NULL);
+         * gtk_css_provider_load_from_string (provider,
+         *                                   "textview { font-family: Monospace; font-size: 8pt; }");
          * gtk_style_context_add_provider (gtk_widget_get_style_context (view),
          *                                 GTK_STYLE_PROVIDER (provider),
          *                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
          * g_object_unref (provider);
+         * ```
+         * ```python
+         * provider = Gtk.CssProvider()
+         * provider.load_from_string("textview { font-family: Monospace; font-size: 8pt; }")
+         * style_context = view.get_style_context()
+         * style_context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
          * ```
          *
          * If you need to adjust the font or size of font within a portion of the
@@ -20160,6 +20455,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -20182,6 +20479,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -20196,6 +20495,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -20207,6 +20508,8 @@ declare module 'gi://GtkSource?version=5' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -20214,7 +20517,7 @@ declare module 'gi://GtkSource?version=5' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module VimIMContext {
+        namespace VimIMContext {
             // Signal callback interfaces
 
             interface Edit {
@@ -20289,6 +20592,31 @@ declare module 'gi://GtkSource?version=5' {
          *
          * g_object_bind_property (im_context, "command-bar-text", command_bar_label, "label", 0);
          * g_object_bind_property (im_context, "command-text", command_label, "label", 0);
+         * ```
+         * ```python
+         * key = Gtk.EventControllerKey.new()
+         * im_context = GtkSource.VimIMContext.new()
+         * buffer = GtkSource.Buffer()
+         * view = GtkSource.View.new_with_buffer(buffer)
+         *
+         * key.set_im_context(im_context)
+         * key.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+         * view.add_controller(key)
+         * im_context.set_client_widget(view)
+         *
+         * im_context.bind_property(
+         *     source_property="command-text",
+         *     target=command_label,
+         *     target_property="label",
+         *     flags=GObject.BindingFlags.DEFAULT,
+         * )
+         *
+         * im_context.bind_property(
+         *     source_property="command-bar-text",
+         *     target=command_bar_label,
+         *     target_property="label",
+         *     flags=GObject.BindingFlags.DEFAULT,
+         * )
          * ```
          */
         class VimIMContext extends Gtk.IMContext {
@@ -20496,7 +20824,7 @@ declare module 'gi://GtkSource?version=5' {
         type TagClass = typeof Tag;
         type ViewClass = typeof View;
         type VimIMContextClass = typeof VimIMContext;
-        module CompletionProposal {
+        namespace CompletionProposal {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -20533,7 +20861,7 @@ declare module 'gi://GtkSource?version=5' {
             new (): CompletionProposal; // This allows `obj instanceof CompletionProposal`
         };
 
-        module CompletionProvider {
+        namespace CompletionProvider {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -20830,7 +21158,7 @@ declare module 'gi://GtkSource?version=5' {
             new (): CompletionProvider; // This allows `obj instanceof CompletionProvider`
         };
 
-        module HoverProvider {
+        namespace HoverProvider {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -20878,7 +21206,7 @@ declare module 'gi://GtkSource?version=5' {
             new (): HoverProvider; // This allows `obj instanceof HoverProvider`
         };
 
-        module Indenter {
+        namespace Indenter {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -20977,7 +21305,7 @@ declare module 'gi://GtkSource?version=5' {
             new (): Indenter; // This allows `obj instanceof Indenter`
         };
 
-        module StyleSchemeChooser {
+        namespace StyleSchemeChooser {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

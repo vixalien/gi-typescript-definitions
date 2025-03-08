@@ -32,7 +32,7 @@ declare module 'gi://GstVulkanXCB?version=1.0' {
          * GstVulkanXCB-1.0
          */
 
-        module VulkanDisplayXCB {
+        namespace VulkanDisplayXCB {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVulkan.VulkanDisplay.ConstructorProps {}

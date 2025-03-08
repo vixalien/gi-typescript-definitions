@@ -2173,7 +2173,7 @@ declare module 'gi://GstRtsp?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module RTSPExtension {
+        namespace RTSPExtension {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

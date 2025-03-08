@@ -141,7 +141,7 @@ declare module 'gi://GstGLEGL?version=1.0' {
         interface EGLImageDestroyNotify {
             (image: EGLImage, data?: any | null): void;
         }
-        module GLDisplayEGL {
+        namespace GLDisplayEGL {
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLDisplay.ConstructorProps {}
@@ -186,7 +186,7 @@ declare module 'gi://GstGLEGL?version=1.0' {
             static get_from_native(type: GstGL.GLDisplayType, display: never): any | null;
         }
 
-        module GLDisplayEGLDevice {
+        namespace GLDisplayEGLDevice {
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLDisplay.ConstructorProps {}
@@ -217,7 +217,7 @@ declare module 'gi://GstGLEGL?version=1.0' {
             static new_with_egl_device(device?: any | null): GLDisplayEGLDevice;
         }
 
-        module GLMemoryEGLAllocator {
+        namespace GLMemoryEGLAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLMemoryAllocator.ConstructorProps {}

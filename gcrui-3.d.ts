@@ -105,7 +105,7 @@ declare module 'gi://GcrUi?version=3' {
          * @returns a #GcrViewer which is also a #GtkWidget
          */
         function viewer_new_scrolled(): Viewer;
-        module CertificateRenderer {
+        namespace CertificateRenderer {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -837,7 +837,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CertificateWidget {
+        namespace CertificateWidget {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -1255,6 +1255,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -1277,6 +1279,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -1291,6 +1295,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -1302,6 +1308,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -1309,7 +1317,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CollectionModel {
+        namespace CollectionModel {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -2340,7 +2348,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ComboSelector {
+        namespace ComboSelector {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -3313,6 +3321,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -3335,6 +3345,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -3349,6 +3361,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -3360,6 +3374,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -6841,7 +6857,7 @@ declare module 'gi://GcrUi?version=3' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module FailureRenderer {
+        namespace FailureRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Renderer.ConstructorProps {
@@ -7325,7 +7341,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ImportButton {
+        namespace ImportButton {
             // Signal callback interfaces
 
             interface Imported {
@@ -8364,6 +8380,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -8386,6 +8404,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -8400,6 +8420,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -8411,6 +8433,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -11892,7 +11916,7 @@ declare module 'gi://GcrUi?version=3' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module KeyRenderer {
+        namespace KeyRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Renderer.ConstructorProps {
@@ -12381,7 +12405,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module KeyWidget {
+        namespace KeyWidget {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -12783,6 +12807,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -12805,6 +12831,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -12819,6 +12847,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -12830,6 +12860,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -12837,7 +12869,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ListSelector {
+        namespace ListSelector {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -13341,6 +13373,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -13363,6 +13397,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -13377,6 +13413,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -13388,6 +13426,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -13395,7 +13435,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module PromptDialog {
+        namespace PromptDialog {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -14358,6 +14398,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -14380,6 +14422,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -14394,6 +14438,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -14405,6 +14451,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -14412,7 +14460,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SecureEntryBuffer {
+        namespace SecureEntryBuffer {
             // Constructor properties interface
 
             interface ConstructorProps extends Gtk.EntryBuffer.ConstructorProps {}
@@ -14445,7 +14493,7 @@ declare module 'gi://GcrUi?version=3' {
             static ['new'](): SecureEntryBuffer;
         }
 
-        module TreeSelector {
+        namespace TreeSelector {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -14948,6 +14996,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -14970,6 +15020,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -14984,6 +15036,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -14995,6 +15049,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -15002,7 +15058,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module UnlockOptionsWidget {
+        namespace UnlockOptionsWidget {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -15451,6 +15507,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -15473,6 +15531,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -15487,6 +15547,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -15498,6 +15560,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -15505,7 +15569,7 @@ declare module 'gi://GcrUi?version=3' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ViewerWidget {
+        namespace ViewerWidget {
             // Signal callback interfaces
 
             interface Added {
@@ -16010,6 +16074,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -16032,6 +16098,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -16046,6 +16114,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -16057,6 +16127,8 @@ declare module 'gi://GcrUi?version=3' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -16184,7 +16256,7 @@ declare module 'gi://GcrUi?version=3' {
 
         type ViewerIface = typeof Viewer;
         type ViewerWidgetClass = typeof ViewerWidget;
-        module Renderer {
+        namespace Renderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -16285,7 +16357,7 @@ declare module 'gi://GcrUi?version=3' {
             new (): Renderer; // This allows `obj instanceof Renderer`
         };
 
-        module Viewer {
+        namespace Viewer {
             // Constructor properties interface
 
             interface ConstructorProps extends Gtk.Widget.ConstructorProps {}

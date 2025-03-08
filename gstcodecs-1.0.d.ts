@@ -348,7 +348,7 @@ declare module 'gi://GstCodecs?version=1.0' {
          * @returns %TRUE if feature is active
          */
         function vp9_seg_feature_active(params: Vp9SegmentationParams, segment_id: number, feature: number): boolean;
-        module AV1Decoder {
+        namespace AV1Decoder {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoDecoder.ConstructorProps {}
@@ -419,7 +419,7 @@ declare module 'gi://GstCodecs?version=1.0' {
             vfunc_start_picture(picture: AV1Picture, dpb: AV1Dpb): Gst.FlowReturn;
         }
 
-        module H264Decoder {
+        namespace H264Decoder {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoDecoder.ConstructorProps {
@@ -533,7 +533,7 @@ declare module 'gi://GstCodecs?version=1.0' {
             set_process_ref_pic_lists(process: boolean): void;
         }
 
-        module H265Decoder {
+        namespace H265Decoder {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoDecoder.ConstructorProps {}
@@ -615,7 +615,7 @@ declare module 'gi://GstCodecs?version=1.0' {
             set_process_ref_pic_lists(process: boolean): void;
         }
 
-        module Mpeg2Decoder {
+        namespace Mpeg2Decoder {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoDecoder.ConstructorProps {}
@@ -693,7 +693,7 @@ declare module 'gi://GstCodecs?version=1.0' {
             ): Gst.FlowReturn;
         }
 
-        module Vp8Decoder {
+        namespace Vp8Decoder {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoDecoder.ConstructorProps {}
@@ -754,7 +754,7 @@ declare module 'gi://GstCodecs?version=1.0' {
             vfunc_start_picture(picture: Vp8Picture): Gst.FlowReturn;
         }
 
-        module Vp9Decoder {
+        namespace Vp9Decoder {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVideo.VideoDecoder.ConstructorProps {}

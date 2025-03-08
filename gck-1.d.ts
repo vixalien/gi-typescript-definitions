@@ -392,7 +392,7 @@ declare module 'gi://Gck?version=1' {
              */
             FOR_ANY,
         }
-        module Enumerator {
+        namespace Enumerator {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -544,7 +544,7 @@ declare module 'gi://Gck?version=1' {
             set_object_type(object_type: GObject.GType, attr_types: number[]): void;
         }
 
-        module Module {
+        namespace Module {
             // Signal callback interfaces
 
             interface AuthenticateObject {
@@ -693,7 +693,7 @@ declare module 'gi://Gck?version=1' {
             match(uri: UriData): boolean;
         }
 
-        module Object {
+        namespace Object {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1199,7 +1199,7 @@ declare module 'gi://Gck?version=1' {
             set_template_finish(result: Gio.AsyncResult): boolean;
         }
 
-        module Password {
+        namespace Password {
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.TlsPassword.ConstructorProps {
@@ -1263,7 +1263,7 @@ declare module 'gi://Gck?version=1' {
             get_token(): Slot;
         }
 
-        module Session {
+        namespace Session {
             // Signal callback interfaces
 
             interface DiscardHandle {
@@ -2821,7 +2821,7 @@ declare module 'gi://Gck?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -2864,7 +2864,7 @@ declare module 'gi://Gck?version=1' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -3289,7 +3289,7 @@ declare module 'gi://Gck?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Slot {
+        namespace Slot {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4450,7 +4450,7 @@ declare module 'gi://Gck?version=1' {
             free(): void;
         }
 
-        module ObjectCache {
+        namespace ObjectCache {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {

@@ -84,7 +84,7 @@ declare module 'gi://Geoclue?version=2.0' {
             NONE,
             AUTO_DELETE,
         }
-        module ClientProxy {
+        namespace ClientProxy {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -734,7 +734,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -777,7 +777,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -1202,7 +1202,7 @@ declare module 'gi://Geoclue?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ClientSkeleton {
+        namespace ClientSkeleton {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -1862,7 +1862,7 @@ declare module 'gi://Geoclue?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module LocationProxy {
+        namespace LocationProxy {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -2281,7 +2281,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -2324,7 +2324,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -2749,7 +2749,7 @@ declare module 'gi://Geoclue?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module LocationSkeleton {
+        namespace LocationSkeleton {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -3267,7 +3267,7 @@ declare module 'gi://Geoclue?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ManagerProxy {
+        namespace ManagerProxy {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -3915,7 +3915,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -3958,7 +3958,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -4383,7 +4383,7 @@ declare module 'gi://Geoclue?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ManagerSkeleton {
+        namespace ManagerSkeleton {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -5130,7 +5130,7 @@ declare module 'gi://Geoclue?version=2.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Simple {
+        namespace Simple {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncInitable.ConstructorProps {
@@ -5960,7 +5960,7 @@ declare module 'gi://Geoclue?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module Client {
+        namespace Client {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6206,7 +6206,7 @@ declare module 'gi://Geoclue?version=2.0' {
             new (): Client; // This allows `obj instanceof Client`
         };
 
-        module Location {
+        namespace Location {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6302,7 +6302,7 @@ declare module 'gi://Geoclue?version=2.0' {
             new (): Location; // This allows `obj instanceof Location`
         };
 
-        module Manager {
+        namespace Manager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

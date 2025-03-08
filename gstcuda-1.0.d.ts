@@ -203,7 +203,7 @@ declare module 'gi://GstCuda?version=1.0' {
              */
             SYNC,
         }
-        module CudaAllocator {
+        namespace CudaAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -292,7 +292,7 @@ declare module 'gi://GstCuda?version=1.0' {
             ): Gst.Memory | null;
         }
 
-        module CudaBufferPool {
+        namespace CudaBufferPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -317,7 +317,7 @@ declare module 'gi://GstCuda?version=1.0' {
             static ['new'](...args: never[]): any;
         }
 
-        module CudaContext {
+        namespace CudaContext {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -404,7 +404,7 @@ declare module 'gi://GstCuda?version=1.0' {
             push(): boolean;
         }
 
-        module CudaPoolAllocator {
+        namespace CudaPoolAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends CudaAllocator.ConstructorProps {}

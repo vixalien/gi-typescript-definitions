@@ -546,7 +546,7 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             COMPLEX,
         }
-        module VulkanBufferMemoryAllocator {
+        namespace VulkanBufferMemoryAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -565,7 +565,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module VulkanBufferPool {
+        namespace VulkanBufferPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -608,7 +608,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             ): void;
         }
 
-        module VulkanCommandPool {
+        namespace VulkanCommandPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -647,7 +647,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             unlock(): void;
         }
 
-        module VulkanDecoder {
+        namespace VulkanDecoder {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -760,7 +760,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             wait(): boolean;
         }
 
-        module VulkanDescriptorCache {
+        namespace VulkanDescriptorCache {
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanHandlePool.ConstructorProps {}
@@ -788,7 +788,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             acquire(...args: never[]): any;
         }
 
-        module VulkanDescriptorPool {
+        namespace VulkanDescriptorPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -820,7 +820,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             get_max_sets(): number;
         }
 
-        module VulkanDevice {
+        namespace VulkanDevice {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -922,7 +922,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             select_queue(expected_flags: Vulkan.QueueFlagBits): VulkanQueue;
         }
 
-        module VulkanDisplay {
+        namespace VulkanDisplay {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1005,7 +1005,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             remove_window(window: VulkanWindow): boolean;
         }
 
-        module VulkanFenceCache {
+        namespace VulkanFenceCache {
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanHandlePool.ConstructorProps {}
@@ -1023,7 +1023,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             static ['new'](device: VulkanDevice): VulkanFenceCache;
         }
 
-        module VulkanFullScreenQuad {
+        namespace VulkanFullScreenQuad {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1110,7 +1110,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             submit(cmd: VulkanCommandBuffer, fence: VulkanFence): boolean;
         }
 
-        module VulkanHandlePool {
+        namespace VulkanHandlePool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1159,7 +1159,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             release(handle?: any | null): void;
         }
 
-        module VulkanImageBufferPool {
+        namespace VulkanImageBufferPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -1210,7 +1210,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             static config_set_decode_caps(config: Gst.Structure, caps: Gst.Caps): void;
         }
 
-        module VulkanImageMemoryAllocator {
+        namespace VulkanImageMemoryAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -1229,7 +1229,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module VulkanInstance {
+        namespace VulkanInstance {
             // Signal callback interfaces
 
             interface CreateDevice {
@@ -1386,7 +1386,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             open(): boolean;
         }
 
-        module VulkanMemoryAllocator {
+        namespace VulkanMemoryAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -1405,7 +1405,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module VulkanOperation {
+        namespace VulkanOperation {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -1563,7 +1563,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             wait(): boolean;
         }
 
-        module VulkanPhysicalDevice {
+        namespace VulkanPhysicalDevice {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -1624,7 +1624,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             get_layer_info(name: string): [boolean, string, number, number];
         }
 
-        module VulkanQueue {
+        namespace VulkanQueue {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1689,7 +1689,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             submit_unlock(): void;
         }
 
-        module VulkanSwapper {
+        namespace VulkanSwapper {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -1742,7 +1742,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             set_caps(caps: Gst.Caps): boolean;
         }
 
-        module VulkanTrashFenceList {
+        namespace VulkanTrashFenceList {
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanTrashList.ConstructorProps {}
@@ -1760,7 +1760,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             static ['new'](): VulkanTrashFenceList;
         }
 
-        module VulkanTrashList {
+        namespace VulkanTrashList {
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanHandlePool.ConstructorProps {}
@@ -1806,7 +1806,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             wait(timeout: number): boolean;
         }
 
-        module VulkanVideoFilter {
+        namespace VulkanVideoFilter {
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseTransform.ConstructorProps {}
@@ -1828,7 +1828,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module VulkanWindow {
+        namespace VulkanWindow {
             // Signal callback interfaces
 
             interface Close {

@@ -168,6 +168,14 @@ declare module 'gi://Dex?version=1' {
             flags: Gio.FileCopyFlags | null,
             io_priority: number,
         ): Future;
+        /**
+         * Asynchronously deletes a file and returns a #DexFuture which
+         * can be observed for the result.
+         * @param file a #GFile
+         * @param io_priority IO priority such as %G_PRIORITY_DEFAULT
+         * @returns a #DexFuture
+         */
+        function file_delete(file: Gio.File, io_priority: number): Future;
         function file_enumerate_children(
             file: Gio.File,
             attributes: string,
@@ -358,7 +366,7 @@ declare module 'gi://Dex?version=1' {
             set_cancel_on_discard(cancel_on_discard: boolean): void;
         }
 
-        module AsyncResult {
+        namespace AsyncResult {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncResult.ConstructorProps {}
@@ -1376,6 +1384,7 @@ declare module 'gi://Dex?version=1' {
              */
             resolve(value: GObject.Value | any): void;
             resolve_boolean(value: boolean): void;
+            resolve_boxed(boxed_type: GObject.GType, instance?: any | null): void;
             resolve_double(value: number): void;
             /**
              * Resolves the promise to `fd`.
@@ -1464,7 +1473,7 @@ declare module 'gi://Dex?version=1' {
              * Request `scheduler` to spawn a #DexFiber.
              *
              * The fiber will have its own stack and cooperatively schedules among other
-             * fibers sharing the schaeduler.
+             * fibers sharing the scheduler.
              *
              * If `stack_size` is 0, it will set to a sensible default. Otherwise, it is
              * rounded up to the nearest page size.

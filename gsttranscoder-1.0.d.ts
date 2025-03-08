@@ -167,7 +167,7 @@ declare module 'gi://GstTranscoder?version=1.0' {
          * @returns a string with the name of the state.
          */
         function transcoder_state_get_name(state: TranscoderState | null): string;
-        module Transcoder {
+        namespace Transcoder {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -310,7 +310,7 @@ declare module 'gi://GstTranscoder?version=1.0' {
             set_position_update_interval(interval: number): void;
         }
 
-        module TranscoderSignalAdapter {
+        namespace TranscoderSignalAdapter {
             // Signal callback interfaces
 
             interface Done {

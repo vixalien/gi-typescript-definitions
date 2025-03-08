@@ -183,7 +183,7 @@ declare module 'gi://GstMse?version=1.0' {
          * Any error type that can be reported by the Media Source API.
          */
         function media_source_error_quark(): GLib.Quark;
-        module MediaSource {
+        namespace MediaSource {
             // Signal callback interfaces
 
             interface OnSourceClose {
@@ -436,7 +436,7 @@ declare module 'gi://GstMse?version=1.0' {
             set_live_seekable_range(start: Gst.ClockTime, end: Gst.ClockTime): boolean;
         }
 
-        module MseSrc {
+        namespace MseSrc {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.URIHandler.ConstructorProps {
@@ -585,6 +585,16 @@ declare module 'gi://GstMse?version=1.0' {
              * @returns %TRUE if the URI was set successfully, else %FALSE.
              */
             set_uri(uri: string): boolean;
+            /**
+             * Method to return the list of protocols handled by the element.
+             * @param type
+             */
+            vfunc_get_protocols(type: GObject.GType): string[];
+            /**
+             * Method to tell whether the element handles source or sink URI.
+             * @param type
+             */
+            vfunc_get_type(type: GObject.GType): Gst.URIType;
             /**
              * Gets the currently handled URI.
              */
@@ -944,6 +954,8 @@ declare module 'gi://GstMse?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -966,6 +978,8 @@ declare module 'gi://GstMse?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -980,6 +994,8 @@ declare module 'gi://GstMse?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -991,6 +1007,8 @@ declare module 'gi://GstMse?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -998,7 +1016,7 @@ declare module 'gi://GstMse?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module MseSrcPad {
+        namespace MseSrcPad {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Pad.ConstructorProps {}
@@ -1014,7 +1032,7 @@ declare module 'gi://GstMse?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        module SourceBuffer {
+        namespace SourceBuffer {
             // Signal callback interfaces
 
             interface OnAbort {
@@ -1316,7 +1334,7 @@ declare module 'gi://GstMse?version=1.0' {
              * ignored.
              *
              * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowstart)
-             * @param start the append window end
+             * @param start the append window start
              * @returns `TRUE` on success, `FALSE` otherwise
              */
             set_append_window_start(start: Gst.ClockTime): boolean;
@@ -1331,7 +1349,7 @@ declare module 'gi://GstMse?version=1.0' {
             set_timestamp_offset(offset: Gst.ClockTime): boolean;
         }
 
-        module SourceBufferList {
+        namespace SourceBufferList {
             // Signal callback interfaces
 
             interface OnSourcebufferAdded {

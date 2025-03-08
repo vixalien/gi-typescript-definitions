@@ -886,36 +886,36 @@ declare module 'gi://GLib?version=2.0' {
              */
             INT,
             /**
-             * The option provides a callback (of type
-             *     #GOptionArgFunc) to parse the extra argument.
+             * The option provides a callback (of type #GOptionArgFunc)
+             *   to parse the extra argument.
              */
             CALLBACK,
             /**
              * The option takes a filename as argument, which will
-             *        be in the GLib filename encoding rather than UTF-8.
+             *      be in the GLib filename encoding rather than UTF-8.
              */
             FILENAME,
             /**
              * The option takes a string argument, multiple
-             *     uses of the option are collected into an array of strings.
+             *   uses of the option are collected into an array of strings.
              */
             STRING_ARRAY,
             /**
              * The option takes a filename as argument,
-             *     multiple uses of the option are collected into an array of strings.
+             *   multiple uses of the option are collected into an array of strings.
              */
             FILENAME_ARRAY,
             /**
              * The option takes a double argument. The argument
-             *     can be formatted either for the user's locale or for the "C" locale.
-             *     Since 2.12
+             *   can be formatted either for the user's locale or for the "C" locale.
+             *   Since 2.12
              */
             DOUBLE,
             /**
              * The option takes a 64-bit integer. Like
-             *     %G_OPTION_ARG_INT but for larger numbers. The number can be in
-             *     decimal base, or in hexadecimal (when prefixed with `0x`, for
-             *     example, `0xffffffff`). Since 2.12
+             *   %G_OPTION_ARG_INT but for larger numbers. The number can be in
+             *   decimal base, or in hexadecimal (when prefixed with `0x`, for
+             *   example, `0xffffffff`). Since 2.12
              */
             INT64,
         }
@@ -1755,7 +1755,7 @@ declare module 'gi://GLib?version=2.0' {
 
         enum TraverseType {
             /**
-             * vists a node's left child first, then the node itself,
+             * visits a node's left child first, then the node itself,
              *              then its right child. This is the one to use if you
              *              want the output sorted according to the compare
              *              function.
@@ -1771,9 +1771,9 @@ declare module 'gi://GLib?version=2.0' {
             POST_ORDER,
             /**
              * is not implemented for
-             *              [balanced binary trees][glib-Balanced-Binary-Trees].
-             *              For [n-ary trees][glib-N-ary-Trees], it
-             *              vists the root node first, then its children, then
+             *              [balanced binary trees](data-structures.html#binary-trees).
+             *              For [n-ary trees](data-structures.html#n-ary-trees), it
+             *              visits the root node first, then its children, then
              *              its grandchildren, and so on. Note that this is less
              *              efficient than the other orders.
              */
@@ -3333,147 +3333,153 @@ declare module 'gi://GLib?version=2.0' {
         const IEEE754_FLOAT_BIAS: number;
         /**
          * The name of the main group of a desktop entry file, as defined in the
-         * [Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec).
+         * [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/).
+         *
          * Consult the specification for more
          * details about the meanings of the keys below.
          */
         const KEY_FILE_DESKTOP_GROUP: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a string list
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a string list
          * giving the available application actions.
          */
         const KEY_FILE_DESKTOP_KEY_ACTIONS: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a list
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a list
          * of strings giving the categories in which the desktop entry
          * should be shown in a menu.
          */
         const KEY_FILE_DESKTOP_KEY_CATEGORIES: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a localized
          * string giving the tooltip for the desktop entry.
          */
         const KEY_FILE_DESKTOP_KEY_COMMENT: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a boolean
          * set to true if the application is D-Bus activatable.
          */
         const KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-         * giving the command line to execute. It is only valid for desktop
-         * entries with the `Application` type.
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a string
+         * giving the command line to execute.
+         *
+         * It is only valid for desktop entries with the `Application` type.
          */
         const KEY_FILE_DESKTOP_KEY_EXEC: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a localized
          * string giving the generic name of the desktop entry.
          */
         const KEY_FILE_DESKTOP_KEY_GENERIC_NAME: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a boolean
          * stating whether the desktop entry has been deleted by the user.
          */
         const KEY_FILE_DESKTOP_KEY_HIDDEN: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a localized
          * string giving the name of the icon to be displayed for the desktop
          * entry.
          */
         const KEY_FILE_DESKTOP_KEY_ICON: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a list
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a list
          * of strings giving the MIME types supported by this desktop entry.
          */
         const KEY_FILE_DESKTOP_KEY_MIME_TYPE: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a localized
          * string giving the specific name of the desktop entry.
          */
         const KEY_FILE_DESKTOP_KEY_NAME: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a list of
          * strings identifying the environments that should not display the
          * desktop entry.
          */
         const KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a boolean
          * stating whether the desktop entry should be shown in menus.
          */
         const KEY_FILE_DESKTOP_KEY_NO_DISPLAY: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a list of
          * strings identifying the environments that should display the
          * desktop entry.
          */
         const KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-         * containing the working directory to run the program in. It is only
-         * valid for desktop entries with the `Application` type.
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a string
+         * containing the working directory to run the program in.
+         *
+         * It is only valid for desktop entries with the `Application` type.
          */
         const KEY_FILE_DESKTOP_KEY_PATH: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a boolean
          * stating whether the application supports the
-         * [Startup Notification Protocol Specification](http://www.freedesktop.org/Standards/startup-notification-spec).
+         * [Startup Notification Protocol Specification](https://specifications.freedesktop.org/startup-notification-spec/latest/).
          */
         const KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is string
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is string
          * identifying the WM class or name hint of a window that the application
-         * will create, which can be used to emulate Startup Notification with
-         * older applications.
+         * will create, which can be used to emulate
+         * [Startup Notification](https://specifications.freedesktop.org/startup-notification-spec/latest/)
+         * with older applications.
          */
         const KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a boolean
          * stating whether the program should be run in a terminal window.
          *
          * It is only valid for desktop entries with the `Application` type.
          */
         const KEY_FILE_DESKTOP_KEY_TERMINAL: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a string
          * giving the file name of a binary on disk used to determine if the
-         * program is actually installed. It is only valid for desktop entries
-         * with the `Application` type.
+         * program is actually installed.
+         *
+         * It is only valid for desktop entries with the `Application` type.
          */
         const KEY_FILE_DESKTOP_KEY_TRY_EXEC: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a string
          * giving the type of the desktop entry.
          *
-         * Usually %G_KEY_FILE_DESKTOP_TYPE_APPLICATION,
-         * %G_KEY_FILE_DESKTOP_TYPE_LINK, or
-         * %G_KEY_FILE_DESKTOP_TYPE_DIRECTORY.
+         * Usually [const`GLib`.KEY_FILE_DESKTOP_TYPE_APPLICATION],
+         * [const`GLib`.KEY_FILE_DESKTOP_TYPE_LINK], or
+         * [const`GLib`.KEY_FILE_DESKTOP_TYPE_DIRECTORY].
          */
         const KEY_FILE_DESKTOP_KEY_TYPE: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-         * giving the URL to access. It is only valid for desktop entries
-         * with the `Link` type.
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a string
+         * giving the URL to access.
+         *
+         * It is only valid for desktop entries with the `Link` type.
          */
         const KEY_FILE_DESKTOP_KEY_URL: string;
         /**
-         * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+         * A key under [const`GLib`.KEY_FILE_DESKTOP_GROUP], whose value is a string
          * giving the version of the Desktop Entry Specification used for
          * the desktop entry file.
          */
         const KEY_FILE_DESKTOP_KEY_VERSION: string;
         /**
-         * The value of the %G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
+         * The value of the [const`GLib`.KEY_FILE_DESKTOP_KEY_TYPE], key for desktop
          * entries representing applications.
          */
         const KEY_FILE_DESKTOP_TYPE_APPLICATION: string;
         /**
-         * The value of the %G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
+         * The value of the [const`GLib`.KEY_FILE_DESKTOP_KEY_TYPE], key for desktop
          * entries representing directories.
          */
         const KEY_FILE_DESKTOP_TYPE_DIRECTORY: string;
         /**
-         * The value of the %G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
+         * The value of the [const`GLib`.KEY_FILE_DESKTOP_KEY_TYPE], key for desktop
          * entries representing links to documents.
          */
         const KEY_FILE_DESKTOP_TYPE_LINK: string;
@@ -5455,9 +5461,8 @@ declare module 'gi://GLib?version=2.0' {
          * This is more efficient than calling g_datalist_id_remove_data()
          * multiple times in a row.
          *
-         * Before 2.80, `n_keys` had to be not larger than 16. Now it can be larger, but
-         * note that GData does a linear search, so an excessive number of keys will
-         * perform badly.
+         * Before 2.80, `n_keys` had to be not larger than 16.
+         * Since 2.84, performance is improved for larger number of keys.
          * @param datalist a datalist
          * @param keys keys to remove
          */
@@ -5550,7 +5555,7 @@ declare module 'gi://GLib?version=2.0' {
         function date_is_leap_year(year: DateYear): boolean;
         /**
          * Generates a printed representation of the date, in a
-         * [locale][setlocale]-specific way.
+         * [locale](running.html#locale)-specific way.
          * Works just like the platform's C library strftime() function,
          * but only accepts date-related formats; time-related formats
          * give undefined results. Date must be valid. Unlike strftime()
@@ -6152,7 +6157,7 @@ declare module 'gi://GLib?version=2.0' {
          * Converts a string from UTF-8 to the encoding GLib uses for
          * filenames. Note that on Windows GLib uses UTF-8 for filenames;
          * on other platforms, this function indirectly depends on the
-         * [current locale][setlocale].
+         * [current locale](running.html#locale).
          *
          * The input string shall not contain nul characters even if the `len`
          * argument is positive. A nul character found inside the string will result
@@ -6176,7 +6181,7 @@ declare module 'gi://GLib?version=2.0' {
          * Converts a string which is in the encoding used by GLib for
          * filenames into a UTF-8 string. Note that on Windows GLib uses UTF-8
          * for filenames; on other platforms, this function indirectly depends on
-         * the [current locale][setlocale].
+         * the [current locale](running.html#locale).
          *
          * The input string shall not contain nul characters even if the `len`
          * argument is positive. A nul character found inside the string will result
@@ -6345,8 +6350,8 @@ declare module 'gi://GLib?version=2.0' {
          */
         function get_application_name(): string | null;
         /**
-         * Obtains the character set for the [current locale][setlocale]; you
-         * might use this character set as an argument to g_convert(), to convert
+         * Obtains the character set for the [current locale](running.html#locale);
+         * you might use this character set as an argument to g_convert(), to convert
          * from the current locale's encoding to some other encoding. (Frequently
          * g_locale_to_utf8() and g_locale_from_utf8() are nice shortcuts, though.)
          *
@@ -6442,8 +6447,8 @@ declare module 'gi://GLib?version=2.0' {
          * and said environment variables have no effect.
          *
          * `G_FILENAME_ENCODING` may be set to a comma-separated list of
-         * character set names. The special token "\`locale"` is taken
-         * to  mean the character set for the [current locale][setlocale].
+         * character set names. The special token ``locale`` is taken to mean the
+         * character set for the [current locale](running.html#locale).
          * If `G_FILENAME_ENCODING` is not set, but `G_BROKEN_FILENAMES` is,
          * the character set of the current locale is taken as the filename
          * encoding. If neither environment variable  is set, UTF-8 is taken
@@ -7399,8 +7404,8 @@ declare module 'gi://GLib?version=2.0' {
         /**
          * Converts a string from UTF-8 to the encoding used for strings by
          * the C runtime (usually the same as that used by the operating
-         * system) in the [current locale][setlocale]. On Windows this means
-         * the system codepage.
+         * system) in the [current locale](running.html#locale).
+         * On Windows this means the system codepage.
          *
          * The input string shall not contain nul characters even if the `len`
          * argument is positive. A nul character found inside the string will result
@@ -7414,7 +7419,7 @@ declare module 'gi://GLib?version=2.0' {
         /**
          * Converts a string which is in the encoding used for strings by
          * the C runtime (usually the same as that used by the operating
-         * system) in the [current locale][setlocale] into a UTF-8 string.
+         * system) in the [current locale](running.html#locale) into a UTF-8 string.
          *
          * If the source encoding is not UTF-8 and the conversion output contains a
          * nul character, the error %G_CONVERT_ERROR_EMBEDDED_NUL is set and the
@@ -9261,7 +9266,7 @@ declare module 'gi://GLib?version=2.0' {
          * The memory must have been allocated via g_slice_alloc() or
          * g_slice_alloc0() and the `block_size` has to match the size
          * specified upon allocation. Note that the exact release behaviour
-         * can be changed with the [`G_DEBUG=gc-friendly`][G_DEBUG] environment
+         * can be changed with the [`G_DEBUG=gc-friendly`](running.html#environment-variables) environment
          * variable.
          *
          * If `mem_block` is %NULL, this function does nothing.
@@ -9280,7 +9285,7 @@ declare module 'gi://GLib?version=2.0' {
          * `next` pointer (similar to #GSList). The offset of the `next`
          * field in each block is passed as third argument.
          * Note that the exact release behaviour can be changed with the
-         * [`G_DEBUG=gc-friendly`][G_DEBUG] environment variable.
+         * [`G_DEBUG=gc-friendly`](running.html#environment-variables) environment variable.
          *
          * If `mem_chain` is %NULL, this function does nothing.
          *
@@ -10143,14 +10148,14 @@ declare module 'gi://GLib?version=2.0' {
          * It replaces the following special characters in the string `source`
          * with their corresponding C escape sequence:
          *
-         *  Symbol | Escape
-         * ---|---
-         *  [U+0008 Backspace](https://en.wikipedia.org/wiki/Backspace) | `\b`
-         *  [U+000C Form Feed](https://en.wikipedia.org/wiki/Form_feed) | `\f`
-         *  [U+000A Line Feed](https://en.wikipedia.org/wiki/Newline) | `\n`
-         *  [U+000D Carriage Return](https://en.wikipedia.org/wiki/Carriage_return) | `\r`
-         *  [U+0009 Horizontal Tabulation](https://en.wikipedia.org/wiki/Tab_character) | `\t`
-         *  [U+000B Vertical Tabulation](https://en.wikipedia.org/wiki/Vertical_Tab) | `\v`
+         * | Symbol                                                                      | Escape |
+         * |-----------------------------------------------------------------------------|--------|
+         * | [U+0008 Backspace](https://en.wikipedia.org/wiki/Backspace)                 | `\b`   |
+         * | [U+000C Form Feed](https://en.wikipedia.org/wiki/Form_feed)                 | `\f`   |
+         * | [U+000A Line Feed](https://en.wikipedia.org/wiki/Newline)                   | `\n`   |
+         * | [U+000D Carriage Return](https://en.wikipedia.org/wiki/Carriage_return)     | `\r`   |
+         * | [U+0009 Horizontal Tabulation](https://en.wikipedia.org/wiki/Tab_character) | `\t`   |
+         * | [U+000B Vertical Tabulation](https://en.wikipedia.org/wiki/Vertical_Tab)    | `\v`   |
          *
          * It also inserts a backslash (`\`) before any backslash or a double quote (`"`).
          * Additionally all characters in the range 0x01-0x1F (everything
@@ -12288,7 +12293,7 @@ declare module 'gi://GLib?version=2.0' {
         function utf8_casefold(str: string, len: number): string;
         /**
          * Compares two strings for ordering using the linguistically
-         * correct rules for the [current locale][setlocale].
+         * correct rules for the [current locale](running.html#locale).
          * When sorting a large number of strings, it will be significantly
          * faster to obtain collation keys with g_utf8_collate_key() and
          * compare the keys with strcmp() when sorting instead of sorting
@@ -12311,7 +12316,7 @@ declare module 'gi://GLib?version=2.0' {
          * with strcmp() will always be the same as comparing the two
          * original keys with g_utf8_collate().
          *
-         * Note that this function depends on the [current locale][setlocale].
+         * Note that this function depends on the [current locale](running.html#locale).
          *
          * Note that the returned string is not guaranteed to be in any
          * encoding, especially UTF-8. The returned value is meant to be
@@ -12332,7 +12337,7 @@ declare module 'gi://GLib?version=2.0' {
          * would like to treat numbers intelligently so that "file1" "file10" "file5"
          * is sorted as "file1" "file5" "file10".
          *
-         * Note that this function depends on the [current locale][setlocale].
+         * Note that this function depends on the [current locale](running.html#locale).
          *
          * Note that the returned string is not guaranteed to be in any
          * encoding, especially UTF-8. The returned value is meant to be
@@ -13456,7 +13461,7 @@ declare module 'gi://GLib?version=2.0' {
              */
             STRDUP,
             /**
-             * expects a parameter of type (gboolean *)
+             * expects a parameter of type (`gboolean *`)
              *     and parses the attribute value as a boolean. Sets %FALSE if the
              *     attribute isn't present. Valid boolean values consist of
              *     (case-insensitive) "false", "f", "no", "n", "0" and "true", "t",
@@ -13466,7 +13471,7 @@ declare module 'gi://GLib?version=2.0' {
             /**
              * as with %G_MARKUP_COLLECT_BOOLEAN, but
              *     in the case of a missing attribute a value is set that compares
-             *     equal to neither %FALSE nor %TRUE G_MARKUP_COLLECT_OPTIONAL is
+             *     equal to neither %FALSE nor %TRUE %G_MARKUP_COLLECT_OPTIONAL is
              *     implied
              */
             TRISTATE,
@@ -13534,7 +13539,7 @@ declare module 'gi://GLib?version=2.0' {
 
         enum OptionFlags {
             /**
-             * No flags. Since: 2.42.
+             * No flags.
              */
             NONE,
             /**
@@ -13543,43 +13548,51 @@ declare module 'gi://GLib?version=2.0' {
             HIDDEN,
             /**
              * The option appears in the main section of the
-             *     `--help` output, even if it is defined in a group.
+             *   `--help` output, even if it is defined in a group.
              */
             IN_MAIN,
             /**
              * For options of the %G_OPTION_ARG_NONE kind, this
-             *     flag indicates that the sense of the option is reversed. i.e. %FALSE will
-             *     be stored into the argument rather than %TRUE.
+             *   flag indicates that the sense of the option is reversed. i.e. %FALSE will
+             *   be stored into the argument rather than %TRUE.
              */
             REVERSE,
             /**
              * For options of the %G_OPTION_ARG_CALLBACK kind,
-             *     this flag indicates that the callback does not take any argument
-             *     (like a %G_OPTION_ARG_NONE option). Since 2.8
+             *   this flag indicates that the callback does not take any argument
+             *   (like a %G_OPTION_ARG_NONE option). Since 2.8
              */
             NO_ARG,
             /**
              * For options of the %G_OPTION_ARG_CALLBACK
-             *     kind, this flag indicates that the argument should be passed to the
-             *     callback in the GLib filename encoding rather than UTF-8. Since 2.8
+             *   kind, this flag indicates that the argument should be passed to the
+             *   callback in the GLib filename encoding rather than UTF-8. Since 2.8
              */
             FILENAME,
             /**
              * For options of the %G_OPTION_ARG_CALLBACK
-             *     kind, this flag indicates that the argument supply is optional.
-             *     If no argument is given then data of %GOptionParseFunc will be
-             *     set to NULL. Since 2.8
+             *   kind, this flag indicates that the argument supply is optional.
+             *   If no argument is given then data of %GOptionParseFunc will be
+             *   set to NULL. Since 2.8
              */
             OPTIONAL_ARG,
             /**
              * This flag turns off the automatic conflict
-             *     resolution which prefixes long option names with `groupname-` if
-             *     there is a conflict. This option should only be used in situations
-             *     where aliasing is necessary to model some legacy commandline interface.
-             *     It is not safe to use this option, unless all option groups are under
-             *     your direct control. Since 2.8.
+             *   resolution which prefixes long option names with `groupname-` if
+             *   there is a conflict. This option should only be used in situations
+             *   where aliasing is necessary to model some legacy commandline interface.
+             *   It is not safe to use this option, unless all option groups are under
+             *   your direct control. Since 2.8.
              */
             NOALIAS,
+            /**
+             * This flag marks the option as deprecated in the `--help`.
+             *
+             * You should update the description of the option to describe what
+             * the user should do in response to the deprecation, for instance:
+             * remove the option, or replace it with another one.
+             */
+            DEPRECATED,
         }
         /**
          * Flags specifying compile-time options.
@@ -16013,7 +16026,7 @@ declare module 'gi://GLib?version=2.0' {
             static is_leap_year(year: DateYear): boolean;
             /**
              * Generates a printed representation of the date, in a
-             * [locale][setlocale]-specific way.
+             * [locale](running.html#locale)-specific way.
              * Works just like the platform's C library strftime() function,
              * but only accepts date-related formats; time-related formats
              * give undefined results. Date must be valid. Unlike strftime()
@@ -16242,10 +16255,10 @@ declare module 'gi://GLib?version=2.0' {
             set_month(month: DateMonth | null): void;
             /**
              * Parses a user-inputted string `str,` and try to figure out what date it
-             * represents, taking the [current locale][setlocale] into account. If the
-             * string is successfully parsed, the date will be valid after the call.
-             * Otherwise, it will be invalid. You should check using g_date_valid()
-             * to see whether the parsing succeeded.
+             * represents, taking the [current locale](running.html#locale)
+             * into account. If the string is successfully parsed, the date will be
+             * valid after the call. Otherwise, it will be invalid. You should check
+             * using g_date_valid() to see whether the parsing succeeded.
              *
              * This function is not appropriate for file formats and the like; it
              * isn't very precise, and its exact behavior varies with the locale.
@@ -17109,7 +17122,7 @@ declare module 'gi://GLib?version=2.0' {
 
         /**
          * The #GHashTable struct is an opaque data structure to represent a
-         * [Hash Table][glib-Hash-Tables]. It should only be accessed via the
+         * [Hash Table](data-structures.html#hash-tables). It should only be accessed via the
          * following functions.
          */
         abstract class HashTable<A = string, B = any> {
@@ -18032,13 +18045,13 @@ declare module 'gi://GLib?version=2.0' {
          * `GKeyFile` parses .ini-like config files.
          *
          * `GKeyFile` lets you parse, edit or create files containing groups of
-         * key-value pairs, which we call "key files" for lack of a better name.
-         * Several freedesktop.org specifications use key files now, e.g the
-         * [Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)
-         * and the [Icon Theme Specification](http://freedesktop.org/Standards/icon-theme-spec).
+         * key-value pairs, which we call ‘key files’ for lack of a better name.
+         * Several freedesktop.org specifications use key files. For example, the
+         * [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/)
+         * and the [Icon Theme Specification](https://specifications.freedesktop.org/icon-theme-spec/latest/).
          *
          * The syntax of key files is described in detail in the
-         * [Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec),
+         * [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/),
          * here is a quick summary: Key files consists of groups of key-value pairs, interspersed
          * with comments.
          *
@@ -18063,30 +18076,32 @@ declare module 'gi://GLib?version=2.0' {
          * Booleans=true;false;true;true
          * ```
          *
-         * Lines beginning with a '#' and blank lines are considered comments.
+         * Lines beginning with a `#` and blank lines are considered comments.
          *
          * Groups are started by a header line containing the group name enclosed
-         * in '[' and ']', and ended implicitly by the start of the next group or
+         * in `[` and `]`, and ended implicitly by the start of the next group or
          * the end of the file. Each key-value pair must be contained in a group.
          *
          * Key-value pairs generally have the form `key=value`, with the exception
          * of localized strings, which have the form `key[locale]=value`, with a
          * locale identifier of the form `lang_COUNTRY`MODIFIER`` where `COUNTRY`
-         * and `MODIFIER` are optional. Space before and after the '=' character
-         * are ignored. Newline, tab, carriage return and backslash characters in
-         * value are escaped as `\n`, `\t`, `\r`, and `\\\\`, respectively. To preserve
-         * leading spaces in values, these can also be escaped as `\s`.
+         * and `MODIFIER` are optional. As a special case, the locale `C` is associated
+         * with the untranslated pair `key=value` (since GLib 2.84). Space before and
+         * after the `=` character is ignored. Newline, tab, carriage return and
+         * backslash characters in value are escaped as `\n`, `\t`, `\r`, and `\\\\`,
+         * respectively. To preserve leading spaces in values, these can also be escaped
+         * as `\s`.
          *
          * Key files can store strings (possibly with localized variants), integers,
          * booleans and lists of these. Lists are separated by a separator character,
-         * typically ';' or ','. To use the list separator character in a value in
+         * typically `;` or `,`. To use the list separator character in a value in
          * a list, it has to be escaped by prefixing it with a backslash.
          *
          * This syntax is obviously inspired by the .ini files commonly met
          * on Windows, but there are some important differences:
          *
-         * - .ini files use the ';' character to begin comments,
-         *   key files use the '#' character.
+         * - .ini files use the `;` character to begin comments,
+         *   key files use the `#` character.
          *
          * - Key files do not allow for ungrouped keys meaning only
          *   comments can precede the first group.
@@ -18094,14 +18109,14 @@ declare module 'gi://GLib?version=2.0' {
          * - Key files are always encoded in UTF-8.
          *
          * - Key and Group names are case-sensitive. For example, a group called
-         *   [GROUP] is a different from [group].
+         *   `[GROUP]` is a different from `[group]`.
          *
-         * - .ini files don't have a strongly typed boolean entry type,
-         *    they only have GetProfileInt(). In key files, only
-         *    true and false (in lower case) are allowed.
+         * - .ini files don’t have a strongly typed boolean entry type,
+         *    they only have `GetProfileInt()`. In key files, only
+         *    `true` and `false` (in lower case) are allowed.
          *
          * Note that in contrast to the
-         * [Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec),
+         * [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/),
          * groups in key files may contain the same key multiple times; the last entry wins.
          * Key files may also contain multiple groups with the same name; they are merged
          * together. Another difference is that keys and group names in key files are not
@@ -18181,176 +18196,181 @@ declare module 'gi://GLib?version=2.0' {
              * Returns the value associated with `key` under `group_name` as a
              * boolean.
              *
-             * If `key` cannot be found then %FALSE is returned and `error` is set
-             * to %G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
-             * associated with `key` cannot be interpreted as a boolean then %FALSE
-             * is returned and `error` is set to %G_KEY_FILE_ERROR_INVALID_VALUE.
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. Likewise, if the value associated with `key` cannot be interpreted
+             * as a boolean then [error`GLib`.KeyFileError.INVALID_VALUE] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns the value associated with the key as a boolean,    or %FALSE if the key was not found or could not be parsed.
+             * @returns the value associated with the key as a boolean,    or false if the key was not found or could not be parsed.
              */
             get_boolean(group_name: string, key: string): boolean;
             /**
              * Returns the values associated with `key` under `group_name` as
              * booleans.
              *
-             * If `key` cannot be found then %NULL is returned and `error` is set to
-             * %G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-             * with `key` cannot be interpreted as booleans then %NULL is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_INVALID_VALUE.
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. Likewise, if the values associated with `key` cannot be interpreted
+             * as booleans then [error`GLib`.KeyFileError.INVALID_VALUE] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns the values associated with the key as a list of booleans, or %NULL if the    key was not found or could not be parsed. The returned list of booleans    should be freed with g_free() when no longer needed.
+             * @returns the values associated with the key as a list of booleans, or `NULL` if the    key was not found or could not be parsed. The returned list of booleans    should be freed with [func@GLib.free] when no longer needed.
              */
             get_boolean_list(group_name: string, key: string): boolean[];
             /**
              * Retrieves a comment above `key` from `group_name`.
-             * If `key` is %NULL then `comment` will be read from above
-             * `group_name`. If both `key` and `group_name` are %NULL, then
+             *
+             * If `key` is `NULL` then `comment` will be read from above
+             * `group_name`. If both `key` and `group_name` are `NULL`, then
              * `comment` will be read from above the first group in the file.
              *
-             * Note that the returned string does not include the '#' comment markers,
+             * Note that the returned string does not include the `#` comment markers,
              * but does include any whitespace after them (on each line). It includes
              * the line breaks between lines, but does not include the final line break.
-             * @param group_name a group name, or %NULL
-             * @param key a key
-             * @returns a comment that should be freed with g_free()
+             * @param group_name a group name, or `NULL` to get a top-level comment
+             * @param key a key, or `NULL` to get a group comment
+             * @returns a comment that should be freed with [func@GLib.free]
              */
             get_comment(group_name?: string | null, key?: string | null): string;
             /**
-             * Returns the value associated with `key` under `group_name` as a
-             * double. If `group_name` is %NULL, the start_group is used.
+             * Returns the value associated with `key` under `group_name` as a double.
              *
-             * If `key` cannot be found then 0.0 is returned and `error` is set to
-             * %G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-             * with `key` cannot be interpreted as a double then 0.0 is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_INVALID_VALUE.
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. Likewise, if the value associated with `key` cannot be interpreted
+             * as a double then [error`GLib`.KeyFileError.INVALID_VALUE] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns the value associated with the key as a double, or     0.0 if the key was not found or could not be parsed.
+             * @returns the value associated with the key as a double, or     `0.0` if the key was not found or could not be parsed.
              */
             get_double(group_name: string, key: string): number;
             /**
              * Returns the values associated with `key` under `group_name` as
              * doubles.
              *
-             * If `key` cannot be found then %NULL is returned and `error` is set to
-             * %G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-             * with `key` cannot be interpreted as doubles then %NULL is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_INVALID_VALUE.
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. Likewise, if the values associated with `key` cannot be interpreted
+             * as doubles then [error`GLib`.KeyFileError.INVALID_VALUE] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns the values associated with the key as a list of doubles, or %NULL if the     key was not found or could not be parsed. The returned list of doubles     should be freed with g_free() when no longer needed.
+             * @returns the values associated with the key as a list of doubles, or `NULL` if the     key was not found or could not be parsed. The returned list of doubles     should be freed with [func@GLib.free] when no longer needed.
              */
             get_double_list(group_name: string, key: string): number[];
             /**
              * Returns all groups in the key file loaded with `key_file`.
-             * The array of returned groups will be %NULL-terminated, so
-             * `length` may optionally be %NULL.
-             * @returns a newly-allocated %NULL-terminated array of strings.   Use g_strfreev() to free it.
+             *
+             * The array of returned groups will be `NULL`-terminated, so
+             * `length` may optionally be `NULL`.
+             * @returns a newly-allocated    `NULL`-terminated array of strings. Use [func@GLib.strfreev] to free it.
              */
             get_groups(): [string[], number];
             /**
              * Returns the value associated with `key` under `group_name` as a signed
-             * 64-bit integer. This is similar to g_key_file_get_integer() but can return
+             * 64-bit integer.
+             *
+             * This is similar to [method`GLib`.KeyFile.get_integer] but can return
              * 64-bit results without truncation.
-             * @param group_name a non-%NULL group name
-             * @param key a non-%NULL key
-             * @returns the value associated with the key as a signed 64-bit integer, or 0 if the key was not found or could not be parsed.
+             * @param group_name a group name
+             * @param key a key
+             * @returns the value associated with the key as a signed 64-bit integer, or    `0` if the key was not found or could not be parsed.
              */
             get_int64(group_name: string, key: string): number;
             /**
              * Returns the value associated with `key` under `group_name` as an
              * integer.
              *
-             * If `key` cannot be found then 0 is returned and `error` is set to
-             * %G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-             * with `key` cannot be interpreted as an integer, or is out of range
-             * for a #gint, then 0 is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_INVALID_VALUE.
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. Likewise, if the value associated with `key` cannot be interpreted
+             * as an integer, or is out of range for a `gint`, then
+             * [error`GLib`.KeyFileError.INVALID_VALUE] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns the value associated with the key as an integer, or     0 if the key was not found or could not be parsed.
+             * @returns the value associated with the key as an integer, or     `0` if the key was not found or could not be parsed.
              */
             get_integer(group_name: string, key: string): number;
             /**
              * Returns the values associated with `key` under `group_name` as
              * integers.
              *
-             * If `key` cannot be found then %NULL is returned and `error` is set to
-             * %G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-             * with `key` cannot be interpreted as integers, or are out of range for
-             * #gint, then %NULL is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_INVALID_VALUE.
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. Likewise, if the values associated with `key` cannot be interpreted
+             * as integers, or are out of range for `gint`, then
+             * [error`GLib`.KeyFileError.INVALID_VALUE] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns the values associated with the key as a list of integers, or %NULL if     the key was not found or could not be parsed. The returned list of     integers should be freed with g_free() when no longer needed.
+             * @returns the values associated with the key as a list of integers, or `NULL` if     the key was not found or could not be parsed. The returned list of     integers should be freed with [func@GLib.free] when no longer needed.
              */
             get_integer_list(group_name: string, key: string): number[];
             /**
-             * Returns all keys for the group name `group_name`.  The array of
-             * returned keys will be %NULL-terminated, so `length` may
-             * optionally be %NULL. In the event that the `group_name` cannot
-             * be found, %NULL is returned and `error` is set to
-             * %G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+             * Returns all keys for the group name `group_name`.
+             *
+             * The array of returned keys will be `NULL`-terminated, so `length` may
+             * optionally be `NULL`. If the `group_name` cannot be found,
+             * [error`GLib`.KeyFileError.GROUP_NOT_FOUND] is returned.
              * @param group_name a group name
-             * @returns a newly-allocated %NULL-terminated array of strings.     Use g_strfreev() to free it.
+             * @returns a newly-allocated    `NULL`-terminated array of strings. Use [func@GLib.strfreev] to free it.
              */
             get_keys(group_name: string): [string[], number];
             /**
              * Returns the actual locale which the result of
-             * g_key_file_get_locale_string() or g_key_file_get_locale_string_list()
-             * came from.
+             * [method`GLib`.KeyFile.get_locale_string] or
+             * [method`GLib`.KeyFile.get_locale_string_list] came from.
              *
-             * If calling g_key_file_get_locale_string() or
-             * g_key_file_get_locale_string_list() with exactly the same `key_file,`
+             * If calling [method`GLib`.KeyFile.get_locale_string] or
+             * [method`GLib`.KeyFile.get_locale_string_list] with exactly the same `key_file,`
              * `group_name,` `key` and `locale,` the result of those functions will
              * have originally been tagged with the locale that is the result of
              * this function.
              * @param group_name a group name
              * @param key a key
-             * @param locale a locale identifier or %NULL
-             * @returns the locale from the file, or %NULL if the key was not   found or the entry in the file was was untranslated
+             * @param locale a locale identifier or `NULL` to use the current locale
+             * @returns the locale from the file, or `NULL` if the key was not   found or the entry in the file was was untranslated
              */
             get_locale_for_key(group_name: string, key: string, locale?: string | null): string | null;
             /**
              * Returns the value associated with `key` under `group_name`
-             * translated in the given `locale` if available.  If `locale` is
-             * %NULL then the current locale is assumed.
+             * translated in the given `locale` if available.
              *
-             * If `locale` is to be non-%NULL, or if the current locale will change over
-             * the lifetime of the #GKeyFile, it must be loaded with
-             * %G_KEY_FILE_KEEP_TRANSLATIONS in order to load strings for all locales.
+             * If `locale` is `C` then the untranslated value is returned (since GLib 2.84).
              *
-             * If `key` cannot be found then %NULL is returned and `error` is set
-             * to %G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
+             * If `locale` is `NULL` then the current locale is assumed.
+             *
+             * If `locale` is to be non-`NULL`, or if the current locale will change over
+             * the lifetime of the [struct`GLib`.KeyFile], it must be loaded with
+             * [flags`GLib`.KeyFileFlags.KEEP_TRANSLATIONS] in order to load strings for all
+             * locales.
+             *
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. If the value associated
              * with `key` cannot be interpreted or no suitable translation can
              * be found then the untranslated value is returned.
              * @param group_name a group name
              * @param key a key
-             * @param locale a locale identifier or %NULL
-             * @returns a newly allocated string or %NULL if the specified   key cannot be found.
+             * @param locale a locale identifier or `NULL` to use the current locale
+             * @returns a newly allocated string or `NULL` if the specified   key cannot be found.
              */
             get_locale_string(group_name: string, key: string, locale?: string | null): string;
             /**
              * Returns the values associated with `key` under `group_name`
-             * translated in the given `locale` if available.  If `locale` is
-             * %NULL then the current locale is assumed.
+             * translated in the given `locale` if available.
              *
-             * If `locale` is to be non-%NULL, or if the current locale will change over
-             * the lifetime of the #GKeyFile, it must be loaded with
-             * %G_KEY_FILE_KEEP_TRANSLATIONS in order to load strings for all locales.
+             * If `locale` is `C` then the untranslated value is returned (since GLib 2.84).
              *
-             * If `key` cannot be found then %NULL is returned and `error` is set
-             * to %G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
+             * If `locale` is `NULL` then the current locale is assumed.
+             *
+             * If `locale` is to be non-`NULL`, or if the current locale will change over
+             * the lifetime of the [struct`GLib`.KeyFile], it must be loaded with
+             * [flags`GLib`.KeyFileFlags.KEEP_TRANSLATIONS] in order to load strings for all
+             * locales.
+             *
+             * If `key` cannot be found then [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. If the values associated
              * with `key` cannot be interpreted or no suitable translations
              * can be found then the untranslated values are returned. The
-             * returned array is %NULL-terminated, so `length` may optionally
-             * be %NULL.
+             * returned array is `NULL`-terminated, so `length` may optionally
+             * be `NULL`.
              * @param group_name a group name
              * @param key a key
-             * @param locale a locale identifier or %NULL
-             * @returns a newly allocated %NULL-terminated string array   or %NULL if the key isn't found. The string array should be freed   with g_strfreev().
+             * @param locale a locale identifier or `NULL` to use the current locale
+             * @returns a newly allocated `NULL`-terminated string array or `NULL` if the key    isn’t found. The string array should be freed with [func@GLib.strfreev].
              */
             get_locale_string_list(group_name: string, key: string, locale?: string | null): string[];
             /**
@@ -18360,164 +18380,174 @@ declare module 'gi://GLib?version=2.0' {
             get_start_group(): string | null;
             /**
              * Returns the string value associated with `key` under `group_name`.
-             * Unlike g_key_file_get_value(), this function handles escape sequences
-             * like \s.
              *
-             * In the event the key cannot be found, %NULL is returned and
-             * `error` is set to %G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-             * event that the `group_name` cannot be found, %NULL is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+             * Unlike [method`GLib`.KeyFile.get_value], this function handles escape
+             * sequences like `\s`.
+             *
+             * If the key cannot be found, [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. If the `group_name` cannot be found,
+             * [error`GLib`.KeyFileError.GROUP_NOT_FOUND] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns a newly allocated string or %NULL if the specified   key cannot be found.
+             * @returns a newly allocated string or `NULL` if the specified   key cannot be found.
              */
             get_string(group_name: string, key: string): string;
             /**
              * Returns the values associated with `key` under `group_name`.
              *
-             * In the event the key cannot be found, %NULL is returned and
-             * `error` is set to %G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-             * event that the `group_name` cannot be found, %NULL is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+             * If the key cannot be found, [error`GLib`.KeyFileError.KEY_NOT_FOUND] is
+             * returned. If the `group_name` cannot be found,
+             * [error`GLib`.KeyFileError.GROUP_NOT_FOUND] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns a %NULL-terminated string array or %NULL if the specified  key cannot be found. The array should be freed with g_strfreev().
+             * @returns a `NULL`-terminated string array or `NULL` if the specified  key cannot be found. The array should be freed with [func@GLib.strfreev].
              */
             get_string_list(group_name: string, key: string): string[];
             /**
              * Returns the value associated with `key` under `group_name` as an unsigned
-             * 64-bit integer. This is similar to g_key_file_get_integer() but can return
+             * 64-bit integer.
+             *
+             * This is similar to [method`GLib`.KeyFile.get_integer] but can return
              * large positive results without truncation.
-             * @param group_name a non-%NULL group name
-             * @param key a non-%NULL key
-             * @returns the value associated with the key as an unsigned 64-bit integer, or 0 if the key was not found or could not be parsed.
+             * @param group_name a group name
+             * @param key a key
+             * @returns the value associated with the key as an unsigned 64-bit integer,    or `0` if the key was not found or could not be parsed.
              */
             get_uint64(group_name: string, key: string): number;
             /**
              * Returns the raw value associated with `key` under `group_name`.
-             * Use g_key_file_get_string() to retrieve an unescaped UTF-8 string.
              *
-             * In the event the key cannot be found, %NULL is returned and
-             * `error` is set to %G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-             * event that the `group_name` cannot be found, %NULL is returned
-             * and `error` is set to %G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+             * Use [method`GLib`.KeyFile.get_string] to retrieve an unescaped UTF-8 string.
+             *
+             * If the key cannot be found, [error`GLib`.KeyFileError.KEY_NOT_FOUND]
+             * is returned.  If the `group_name` cannot be found,
+             * [error`GLib`.KeyFileError.GROUP_NOT_FOUND] is returned.
              * @param group_name a group name
              * @param key a key
-             * @returns a newly allocated string or %NULL if the specified  key cannot be found.
+             * @returns a newly allocated string or `NULL` if the specified  key cannot be found.
              */
             get_value(group_name: string, key: string): string;
             /**
              * Looks whether the key file has the group `group_name`.
              * @param group_name a group name
-             * @returns %TRUE if @group_name is a part of @key_file, %FALSE otherwise.
+             * @returns true if @group_name is a part of @key_file, false otherwise.
              */
             has_group(group_name: string): boolean;
             /**
-             * Loads a key file from the data in `bytes` into an empty #GKeyFile structure.
-             * If the object cannot be created then %error is set to a #GKeyFileError.
-             * @param bytes a #GBytes
-             * @param flags flags from #GKeyFileFlags
-             * @returns %TRUE if a key file could be loaded, %FALSE otherwise
+             * Loads a key file from the data in `bytes` into an empty [struct`GLib`.KeyFile]
+             * structure.
+             *
+             * If the object cannot be created then a [error`GLib`.KeyFileError] is returned.
+             * @param bytes a [struct@GLib.Bytes]
+             * @param flags flags from [flags@GLib.KeyFileFlags]
+             * @returns true if a key file could be loaded, false otherwise
              */
             load_from_bytes(bytes: Bytes | Uint8Array, flags: KeyFileFlags | null): boolean;
             /**
-             * Loads a key file from memory into an empty #GKeyFile structure.
-             * If the object cannot be created then %error is set to a #GKeyFileError.
+             * Loads a key file from memory into an empty [struct`GLib`.KeyFile] structure.
+             *
+             * If the object cannot be created then a [error`GLib`.KeyFileError is returned.
              * @param data key file loaded in memory
-             * @param length the length of @data in bytes (or (gsize)-1 if data is nul-terminated)
-             * @param flags flags from #GKeyFileFlags
-             * @returns %TRUE if a key file could be loaded, %FALSE otherwise
+             * @param length the length of @data in bytes (or `(gsize)-1` if data is nul-terminated)
+             * @param flags flags from [flags@GLib.KeyFileFlags]
+             * @returns true if a key file could be loaded, false otherwise
              */
             load_from_data(data: string, length: number, flags: KeyFileFlags | null): boolean;
             /**
-             * This function looks for a key file named `file` in the paths
-             * returned from g_get_user_data_dir() and g_get_system_data_dirs(),
-             * loads the file into `key_file` and returns the file's full path in
-             * `full_path`.  If the file could not be loaded then an %error is
-             * set to either a #GFileError or #GKeyFileError.
+             * Looks for a key file named `file` in the paths returned from
+             * [func`GLib`.get_user_data_dir] and [func`GLib`.get_system_data_dirs],
+             * loads the file into `key_file` and returns the file’s full path in
+             * `full_path`.
+             *
+             * If the file could not be loaded then either a [error`GLib`.FileError] or
+             * [error`GLib`.KeyFileError] is returned.
              * @param file a relative path to a filename to open and parse
-             * @param flags flags from #GKeyFileFlags
-             * @returns %TRUE if a key file could be loaded, %FALSE otherwise
+             * @param flags flags from [flags@GLib.KeyFileFlags]
+             * @returns true if a key file could be loaded, false otherwise
              */
             load_from_data_dirs(file: string, flags: KeyFileFlags | null): [boolean, string];
             /**
-             * This function looks for a key file named `file` in the paths
-             * specified in `search_dirs,` loads the file into `key_file` and
-             * returns the file's full path in `full_path`.
+             * Looks for a key file named `file` in the paths specified in `search_dirs,`
+             * loads the file into `key_file` and returns the file’s full path in `full_path`.
              *
              * If the file could not be found in any of the `search_dirs,`
-             * %G_KEY_FILE_ERROR_NOT_FOUND is returned. If
+             * [error`GLib`.KeyFileError.NOT_FOUND] is returned. If
              * the file is found but the OS returns an error when opening or reading the
-             * file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
-             * %G_KEY_FILE_ERROR is returned.
+             * file, a [error`GLib`.FileError] is returned. If there is a problem parsing the
+             * file, a [error`GLib`.KeyFileError] is returned.
              * @param file a relative path to a filename to open and parse
-             * @param search_dirs %NULL-terminated array of directories to search
-             * @param flags flags from #GKeyFileFlags
-             * @returns %TRUE if a key file could be loaded, %FALSE otherwise
+             * @param search_dirs `NULL`-terminated    array of directories to search
+             * @param flags flags from [flags@GLib.KeyFileFlags]
+             * @returns true if a key file could be loaded, false otherwise
              */
             load_from_dirs(file: string, search_dirs: string[], flags: KeyFileFlags | null): [boolean, string];
             /**
-             * Loads a key file into an empty #GKeyFile structure.
+             * Loads a key file into an empty [struct`GLib`.KeyFile] structure.
              *
              * If the OS returns an error when opening or reading the file, a
-             * %G_FILE_ERROR is returned. If there is a problem parsing the file, a
-             * %G_KEY_FILE_ERROR is returned.
+             * [error`GLib`.FileError] is returned. If there is a problem parsing the file,
+             * a [error`GLib`.KeyFileError] is returned.
              *
-             * This function will never return a %G_KEY_FILE_ERROR_NOT_FOUND error. If the
-             * `file` is not found, %G_FILE_ERROR_NOENT is returned.
+             * This function will never return a [error`GLib`.KeyFileError.NOT_FOUND]
+             * error. If the `file` is not found, [error`GLib`.FileError.NOENT] is returned.
              * @param file the path of a filename to load, in the GLib filename encoding
-             * @param flags flags from #GKeyFileFlags
-             * @returns %TRUE if a key file could be loaded, %FALSE otherwise
+             * @param flags flags from [flags@GLib.KeyFileFlags]
+             * @returns true if a key file could be loaded, false otherwise
              */
             load_from_file(file: string, flags: KeyFileFlags | null): boolean;
             /**
              * Removes a comment above `key` from `group_name`.
-             * If `key` is %NULL then `comment` will be removed above `group_name`.
-             * If both `key` and `group_name` are %NULL, then `comment` will
+             *
+             * If `key` is `NULL` then `comment` will be removed above `group_name`.
+             * If both `key` and `group_name` are `NULL`, then `comment` will
              * be removed above the first group in the file.
-             * @param group_name a group name, or %NULL
-             * @param key a key
-             * @returns %TRUE if the comment was removed, %FALSE otherwise
+             * @param group_name a group name, or `NULL` to get a top-level comment
+             * @param key a key, or `NULL` to get a group comment
+             * @returns true if the comment was removed, false otherwise
              */
             remove_comment(group_name?: string | null, key?: string | null): boolean;
             /**
              * Removes the specified group, `group_name,`
              * from the key file.
              * @param group_name a group name
-             * @returns %TRUE if the group was removed, %FALSE otherwise
+             * @returns true if the group was removed, false otherwise
              */
             remove_group(group_name: string): boolean;
             /**
              * Removes `key` in `group_name` from the key file.
              * @param group_name a group name
              * @param key a key name to remove
-             * @returns %TRUE if the key was removed, %FALSE otherwise
+             * @returns true if the key was removed, false otherwise
              */
             remove_key(group_name: string, key: string): boolean;
             /**
              * Writes the contents of `key_file` to `filename` using
-             * g_file_set_contents(). If you need stricter guarantees about durability of
-             * the written file than are provided by g_file_set_contents(), use
-             * g_file_set_contents_full() with the return value of g_key_file_to_data().
+             * [func`GLib`.file_set_contents].
+             *
+             * If you need stricter guarantees about durability of
+             * the written file than are provided by [func`GLib`.file_set_contents], use
+             * [func`GLib`.file_set_contents_full] with the return value of
+             * [method`GLib`.KeyFile.to_data].
              *
              * This function can fail for any of the reasons that
-             * g_file_set_contents() may fail.
+             * [func`GLib`.file_set_contents] may fail.
              * @param filename the name of the file to write to
-             * @returns %TRUE if successful, else %FALSE with @error set
+             * @returns true if successful, false otherwise
              */
             save_to_file(filename: string): boolean;
             /**
              * Associates a new boolean value with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
-             * @param value %TRUE or %FALSE
+             * @param value true or false
              */
             set_boolean(group_name: string, key: string, value: boolean): void;
             /**
              * Associates a list of boolean values with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
-             * If `group_name` is %NULL, the start_group is used.
              * @param group_name a group name
              * @param key a key
              * @param list an array of boolean values
@@ -18526,20 +18556,21 @@ declare module 'gi://GLib?version=2.0' {
             /**
              * Places a comment above `key` from `group_name`.
              *
-             * If `key` is %NULL then `comment` will be written above `group_name`.
-             * If both `key` and `group_name`  are %NULL, then `comment` will be
+             * If `key` is `NULL` then `comment` will be written above `group_name`.
+             * If both `key` and `group_name` are `NULL`, then `comment` will be
              * written above the first group in the file.
              *
-             * Note that this function prepends a '#' comment marker to
+             * Note that this function prepends a `#` comment marker to
              * each line of `comment`.
-             * @param group_name a group name, or %NULL
-             * @param key a key
+             * @param group_name a group name, or `NULL` to write a top-level comment
+             * @param key a key, or `NULL` to write a group comment
              * @param comment a comment
-             * @returns %TRUE if the comment was written, %FALSE otherwise
+             * @returns true if the comment was written, false otherwise
              */
             set_comment(group_name: string | null, key: string | null, comment: string): boolean;
             /**
              * Associates a new double value with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
@@ -18547,8 +18578,9 @@ declare module 'gi://GLib?version=2.0' {
              */
             set_double(group_name: string, key: string, value: number): void;
             /**
-             * Associates a list of double values with `key` under
-             * `group_name`.  If `key` cannot be found then it is created.
+             * Associates a list of double values with `key` under `group_name`.
+             *
+             * If `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
              * @param list an array of double values
@@ -18556,6 +18588,7 @@ declare module 'gi://GLib?version=2.0' {
             set_double_list(group_name: string, key: string, list: number[]): void;
             /**
              * Associates a new integer value with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
@@ -18564,6 +18597,7 @@ declare module 'gi://GLib?version=2.0' {
             set_int64(group_name: string, key: string, value: number): void;
             /**
              * Associates a new integer value with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
@@ -18572,6 +18606,7 @@ declare module 'gi://GLib?version=2.0' {
             set_integer(group_name: string, key: string, value: number): void;
             /**
              * Associates a list of integer values with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
@@ -18579,15 +18614,19 @@ declare module 'gi://GLib?version=2.0' {
              */
             set_integer_list(group_name: string, key: string, list: number[]): void;
             /**
-             * Sets the character which is used to separate
-             * values in lists. Typically ';' or ',' are used
-             * as separators. The default list separator is ';'.
+             * Sets the character which is used to separate values in lists.
+             *
+             * Typically `;` or `,` are used as separators. The default list separator
+             * is `;`.
              * @param separator the separator
              */
             set_list_separator(separator: number): void;
             /**
              * Associates a string value for `key` and `locale` under `group_name`.
+             *
              * If the translation for `key` cannot be found then it is created.
+             *
+             * If `locale` is `C` then the untranslated value is set (since GLib 2.84).
              * @param group_name a group name
              * @param key a key
              * @param locale a locale identifier
@@ -18596,19 +18635,23 @@ declare module 'gi://GLib?version=2.0' {
             set_locale_string(group_name: string, key: string, locale: string, string: string): void;
             /**
              * Associates a list of string values for `key` and `locale` under
-             * `group_name`.  If the translation for `key` cannot be found then
-             * it is created.
+             * `group_name`.
+             *
+             * If `locale` is `C` then the untranslated value is set (since GLib 2.84).
+             *
+             * If the translation for `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
              * @param locale a locale identifier
-             * @param list a %NULL-terminated array of locale string values
+             * @param list a `NULL`-terminated array of    locale string values
              */
             set_locale_string_list(group_name: string, key: string, locale: string, list: string[]): void;
             /**
              * Associates a new string value with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * If `group_name` cannot be found then it is created.
-             * Unlike g_key_file_set_value(), this function handles characters
+             * Unlike [method`GLib`.KeyFile.set_value], this function handles characters
              * that need escaping, such as newlines.
              * @param group_name a group name
              * @param key a key
@@ -18617,15 +18660,17 @@ declare module 'gi://GLib?version=2.0' {
             set_string(group_name: string, key: string, string: string): void;
             /**
              * Associates a list of string values for `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * If `group_name` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
-             * @param list an array of string values
+             * @param list an array    of string values
              */
             set_string_list(group_name: string, key: string, list: string[]): void;
             /**
              * Associates a new integer value with `key` under `group_name`.
+             *
              * If `key` cannot be found then it is created.
              * @param group_name a group name
              * @param key a key
@@ -18638,23 +18683,24 @@ declare module 'gi://GLib?version=2.0' {
              * If `key` cannot be found then it is created. If `group_name` cannot
              * be found then it is created. To set an UTF-8 string which may contain
              * characters that need escaping (such as newlines or spaces), use
-             * g_key_file_set_string().
+             * [method`GLib`.KeyFile.set_string].
              * @param group_name a group name
              * @param key a key
              * @param value a string
              */
             set_value(group_name: string, key: string, value: string): void;
             /**
-             * This function outputs `key_file` as a string.
+             * Outputs `key_file` as a string.
              *
-             * Note that this function never reports an error,
-             * so it is safe to pass %NULL as `error`.
-             * @returns a newly allocated string holding   the contents of the #GKeyFile
+             * Note that this function never reports an error.
+             * @returns a newly allocated string holding the contents of the key file
              */
             to_data(): [string, number];
             /**
-             * Decreases the reference count of `key_file` by 1. If the reference count
-             * reaches zero, frees the key file and all its allocated memory.
+             * Decreases the reference count of `key_file` by 1.
+             *
+             * If the reference count reaches zero, frees the key file and all its allocated
+             * memory.
              */
             unref(): void;
         }
@@ -18916,7 +18962,7 @@ declare module 'gi://GLib?version=2.0' {
             /**
              * Acquires `context` and sets it as the thread-default context for the
              * current thread. This will cause certain asynchronous operations
-             * (such as most [gio][gio]-based I/O) which are
+             * (such as most [Gio](../gio/index.html)-based I/O) which are
              * started in this thread to run under `context` and deliver their
              * results to its main loop, rather than running under the global
              * default main context in the main thread. Note that calling this function
@@ -19719,7 +19765,7 @@ declare module 'gi://GLib?version=2.0' {
         }
 
         /**
-         * The #GNode struct represents one node in a [n-ary tree][glib-N-ary-Trees].
+         * The #GNode struct represents one node in a [n-ary tree](data-structures.html#n-ary-trees).
          */
         class Node {
             static $gtype: GObject.GType<Node>;
@@ -20032,9 +20078,9 @@ declare module 'gi://GLib?version=2.0' {
              * this function will produce help output to stdout and
              * call `exit (0)`.
              *
-             * Note that function depends on the [current locale][setlocale] for
-             * automatic character set conversion of string and filename
-             * arguments.
+             * Note that function depends on the
+             * [current locale](running.html#locale) for automatic
+             * character set conversion of string and filename arguments.
              * @param argv a pointer to the array of command line arguments
              * @returns %TRUE if the parsing was successful,               %FALSE if an error occurred
              */
@@ -20159,6 +20205,19 @@ declare module 'gi://GLib?version=2.0' {
         }
 
         /**
+         * - %G_OPTION_ARG_NONE: %gboolean
+         *     - %G_OPTION_ARG_STRING: %gchar*
+         *     - %G_OPTION_ARG_INT: %gint
+         *     - %G_OPTION_ARG_FILENAME: %gchar*
+         *     - %G_OPTION_ARG_STRING_ARRAY: %gchar**
+         *     - %G_OPTION_ARG_FILENAME_ARRAY: %gchar**
+         *     - %G_OPTION_ARG_DOUBLE: %gdouble
+         *
+         *     If `arg` type is %G_OPTION_ARG_STRING or %G_OPTION_ARG_FILENAME,
+         *     the location will contain a newly allocated string if the option
+         *     was given. That string needs to be freed by the callee using g_free().
+         *     Likewise if `arg` type is %G_OPTION_ARG_STRING_ARRAY or
+         *     %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
          * A GOptionEntry struct defines a single option. To have an effect, they
          * must be added to a #GOptionGroup with g_option_context_add_main_entries()
          * or g_option_group_add_entries().
@@ -20669,7 +20728,7 @@ declare module 'gi://GLib?version=2.0' {
 
         /**
          * Contains the public fields of a
-         * [Queue][glib-Double-ended-Queues].
+         * [Queue](data-structures.html#double-ended-queues).
          */
         class Queue {
             static $gtype: GObject.GType<Queue>;
@@ -22120,7 +22179,7 @@ declare module 'gi://GLib?version=2.0' {
 
         /**
          * The #GSequence struct is an opaque data type representing a
-         * [sequence][glib-Sequences] data type.
+         * [sequence](data-structures.html#scalable-lists) data type.
          */
         abstract class Sequence {
             static $gtype: GObject.GType<Sequence>;
@@ -24347,7 +24406,7 @@ declare module 'gi://GLib?version=2.0' {
 
         /**
          * The GTree struct is an opaque data structure representing a
-         * [balanced binary tree][glib-Balanced-Binary-Trees]. It should be
+         * [balanced binary tree](data-structures.html#binary-trees). It should be
          * accessed only by using the following functions.
          */
         class Tree {

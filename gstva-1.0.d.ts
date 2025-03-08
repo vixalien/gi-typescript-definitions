@@ -205,7 +205,7 @@ declare module 'gi://GstVa?version=1.0' {
             render_device_path: string,
         ): [boolean, VaDisplay];
         function va_memory_peek_display(mem: Gst.Memory): VaDisplay;
-        module VaAllocator {
+        namespace VaAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -280,7 +280,7 @@ declare module 'gi://GstVa?version=1.0' {
             static setup_buffer(allocator: Gst.Allocator, buffer: Gst.Buffer): boolean;
         }
 
-        module VaDisplay {
+        namespace VaDisplay {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -351,7 +351,7 @@ declare module 'gi://GstVa?version=1.0' {
             initialize(): boolean;
         }
 
-        module VaDisplayDrm {
+        namespace VaDisplayDrm {
             // Constructor properties interface
 
             interface ConstructorProps extends VaDisplay.ConstructorProps {
@@ -378,7 +378,7 @@ declare module 'gi://GstVa?version=1.0' {
             static new_from_path(path: string): VaDisplayDrm;
         }
 
-        module VaDisplayWrapped {
+        namespace VaDisplayWrapped {
             // Constructor properties interface
 
             interface ConstructorProps extends VaDisplay.ConstructorProps {}
@@ -400,7 +400,7 @@ declare module 'gi://GstVa?version=1.0' {
             static ['new'](handle?: any | null): VaDisplayWrapped;
         }
 
-        module VaDmabufAllocator {
+        namespace VaDmabufAllocator {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -462,7 +462,7 @@ declare module 'gi://GstVa?version=1.0' {
             static setup_buffer(allocator: Gst.Allocator, buffer: Gst.Buffer): boolean;
         }
 
-        module VaPool {
+        namespace VaPool {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}

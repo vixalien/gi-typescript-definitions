@@ -166,7 +166,7 @@ declare module 'gi://Polkit?version=1.0' {
              */
             ALWAYS_CHECK,
         }
-        module ActionDescription {
+        namespace ActionDescription {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -247,7 +247,7 @@ declare module 'gi://Polkit?version=1.0' {
             get_vendor_url(): string;
         }
 
-        module Authority {
+        namespace Authority {
             // Signal callback interfaces
 
             interface Changed {
@@ -1423,7 +1423,7 @@ declare module 'gi://Polkit?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -1466,7 +1466,7 @@ declare module 'gi://Polkit?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -1891,7 +1891,7 @@ declare module 'gi://Polkit?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module AuthorizationResult {
+        namespace AuthorizationResult {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1977,7 +1977,7 @@ declare module 'gi://Polkit?version=1.0' {
             get_temporary_authorization_id(): string | null;
         }
 
-        module Details {
+        namespace Details {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -2020,7 +2020,7 @@ declare module 'gi://Polkit?version=1.0' {
             lookup(key: string): string | null;
         }
 
-        module Permission {
+        namespace Permission {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -2330,7 +2330,7 @@ declare module 'gi://Polkit?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -2373,7 +2373,7 @@ declare module 'gi://Polkit?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -2798,7 +2798,7 @@ declare module 'gi://Polkit?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SystemBusName {
+        namespace SystemBusName {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Subject.ConstructorProps {
@@ -3383,7 +3383,7 @@ declare module 'gi://Polkit?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module TemporaryAuthorization {
+        namespace TemporaryAuthorization {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -3436,7 +3436,7 @@ declare module 'gi://Polkit?version=1.0' {
             get_time_obtained(): number;
         }
 
-        module UnixGroup {
+        namespace UnixGroup {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Identity.ConstructorProps {
@@ -3929,7 +3929,7 @@ declare module 'gi://Polkit?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module UnixNetgroup {
+        namespace UnixNetgroup {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Identity.ConstructorProps {
@@ -4416,7 +4416,7 @@ declare module 'gi://Polkit?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module UnixProcess {
+        namespace UnixProcess {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Subject.ConstructorProps {
@@ -5130,7 +5130,7 @@ declare module 'gi://Polkit?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module UnixSession {
+        namespace UnixSession {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -5452,7 +5452,7 @@ declare module 'gi://Polkit?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -5495,7 +5495,7 @@ declare module 'gi://Polkit?version=1.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -6039,7 +6039,7 @@ declare module 'gi://Polkit?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module UnixUser {
+        namespace UnixUser {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Identity.ConstructorProps {
@@ -6550,7 +6550,7 @@ declare module 'gi://Polkit?version=1.0' {
         type UnixProcessClass = typeof UnixProcess;
         type UnixSessionClass = typeof UnixSession;
         type UnixUserClass = typeof UnixUser;
-        module Identity {
+        namespace Identity {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6614,7 +6614,7 @@ declare module 'gi://Polkit?version=1.0' {
             new (): Identity; // This allows `obj instanceof Identity`
         };
 
-        module Subject {
+        namespace Subject {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

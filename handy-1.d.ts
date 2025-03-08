@@ -384,7 +384,7 @@ declare module 'gi://Handy?version=1' {
         interface ComboRowGetNameFunc<A = GObject.Object> {
             (item: A): string;
         }
-        module ActionRow {
+        namespace ActionRow {
             // Signal callback interfaces
 
             interface Activated {
@@ -1355,6 +1355,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -1377,6 +1379,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -1391,6 +1395,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -1402,6 +1408,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -4875,7 +4883,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module ApplicationWindow {
+        namespace ApplicationWindow {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -5362,47 +5370,11 @@ declare module 'gi://Handy?version=1' {
              */
             add_action(action: Gio.Action): void;
             /**
-             * A convenience function for creating multiple [class`Gio`.SimpleAction]
-             * instances and adding them to a [iface`Gio`.ActionMap].
-             *
-             * Each action is constructed as per one [struct`Gio`.ActionEntry].
-             *
-             * ```c
-             * static void
-             * activate_quit (GSimpleAction *simple,
-             *                GVariant      *parameter,
-             *                gpointer       user_data)
-             * {
-             *   exit (0);
-             * }
-             *
-             * static void
-             * activate_print_string (GSimpleAction *simple,
-             *                        GVariant      *parameter,
-             *                        gpointer       user_data)
-             * {
-             *   g_print ("%s\n", g_variant_get_string (parameter, NULL));
-             * }
-             *
-             * static GActionGroup *
-             * create_action_group (void)
-             * {
-             *   const GActionEntry entries[] = {
-             *     { "quit",         activate_quit              },
-             *     { "print-string", activate_print_string, "s" }
-             *   };
-             *   GSimpleActionGroup *group;
-             *
-             *   group = g_simple_action_group_new ();
-             *   g_action_map_add_action_entries (G_ACTION_MAP (group), entries, G_N_ELEMENTS (entries), NULL);
-             *
-             *   return G_ACTION_GROUP (group);
-             * }
-             * ```
-             * @param entries a pointer to   the first item in an array of [struct@Gio.ActionEntry] structs
-             * @param user_data the user data for signal connections
+             * A convenience function for creating multiple simple actions.
+             * See Gio.ActionEntryObj for the structure of the action entry.
+             * @param entries Array of action entries to add
              */
-            add_action_entries(entries: Gio.ActionEntry[], user_data?: any | null): void;
+            add_action_entries(entries: Gio.ActionEntryObj[]): void;
             /**
              * Looks up the action with the name `action_name` in `action_map`.
              *
@@ -5816,6 +5788,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -5838,6 +5812,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -5852,6 +5828,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -5863,6 +5841,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -5870,7 +5850,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Avatar {
+        namespace Avatar {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -6456,6 +6436,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -6478,6 +6460,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -6492,6 +6476,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -6503,6 +6489,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -6510,7 +6498,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Carousel {
+        namespace Carousel {
             // Signal callback interfaces
 
             interface PageChanged {
@@ -7634,6 +7622,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -7656,6 +7646,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -7670,6 +7662,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -7681,6 +7675,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -11162,7 +11158,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module CarouselIndicatorDots {
+        namespace CarouselIndicatorDots {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -11590,6 +11586,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -11612,6 +11610,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -11626,6 +11626,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -11637,6 +11639,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -11644,7 +11648,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CarouselIndicatorLines {
+        namespace CarouselIndicatorLines {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -12071,6 +12075,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -12093,6 +12099,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -12107,6 +12115,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -12118,6 +12128,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -12125,7 +12137,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Clamp {
+        namespace Clamp {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -12614,6 +12626,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -12636,6 +12650,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -12650,6 +12666,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -12661,6 +12679,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -12668,7 +12688,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ComboRow {
+        namespace ComboRow {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -13549,6 +13569,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -13571,6 +13593,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -13585,6 +13609,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -13596,6 +13622,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -17079,7 +17107,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module Deck {
+        namespace Deck {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -18244,6 +18272,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -18266,6 +18296,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -18280,6 +18312,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -18291,6 +18325,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -21772,7 +21808,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module EnumValueObject {
+        namespace EnumValueObject {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -21814,7 +21850,7 @@ declare module 'gi://Handy?version=1' {
             get_value(): number;
         }
 
-        module ExpanderRow {
+        namespace ExpanderRow {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -22706,6 +22742,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -22728,6 +22766,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -22742,6 +22782,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -22753,6 +22795,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -26234,7 +26278,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module Flap {
+        namespace Flap {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -27502,6 +27546,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -27524,6 +27570,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -27538,6 +27586,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -27549,6 +27599,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -31030,7 +31082,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module HeaderBar {
+        namespace HeaderBar {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -31730,6 +31782,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -31752,6 +31806,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -31766,6 +31822,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -31777,6 +31835,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -31784,7 +31844,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module HeaderGroup {
+        namespace HeaderGroup {
             // Signal callback interfaces
 
             interface UpdateDecorationLayouts {
@@ -32526,7 +32586,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module HeaderGroupChild {
+        namespace HeaderGroupChild {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -32574,7 +32634,7 @@ declare module 'gi://Handy?version=1' {
             get_header_group(): HeaderGroup;
         }
 
-        module Keypad {
+        namespace Keypad {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -33118,6 +33178,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -33140,6 +33202,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -33154,6 +33218,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -33165,6 +33231,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -33172,7 +33240,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Leaflet {
+        namespace Leaflet {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -34428,6 +34496,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -34450,6 +34520,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -34464,6 +34536,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -34475,6 +34549,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -37956,7 +38032,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module PreferencesGroup {
+        namespace PreferencesGroup {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -38396,6 +38472,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -38418,6 +38496,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -38432,6 +38512,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -38443,6 +38525,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -38450,7 +38534,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module PreferencesPage {
+        namespace PreferencesPage {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -38874,6 +38958,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -38896,6 +38982,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -38910,6 +38998,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -38921,6 +39011,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -38928,7 +39020,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module PreferencesRow {
+        namespace PreferencesRow {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -39839,6 +39931,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -39861,6 +39955,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -39875,6 +39971,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -39886,6 +39984,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -43367,7 +43467,7 @@ declare module 'gi://Handy?version=1' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module PreferencesWindow {
+        namespace PreferencesWindow {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -43814,6 +43914,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -43836,6 +43938,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -43850,6 +43954,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -43861,6 +43967,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -43868,7 +43976,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SearchBar {
+        namespace SearchBar {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -44370,6 +44478,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -44392,6 +44502,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -44406,6 +44518,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -44417,6 +44531,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -44424,7 +44540,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Squeezer {
+        namespace Squeezer {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -45040,6 +45156,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -45062,6 +45180,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -45076,6 +45196,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -45087,6 +45209,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -45094,7 +45218,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module StatusPage {
+        namespace StatusPage {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -45534,6 +45658,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -45556,6 +45682,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -45570,6 +45698,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -45581,6 +45711,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -45588,7 +45720,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module StyleManager {
+        namespace StyleManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -45813,7 +45945,7 @@ declare module 'gi://Handy?version=1' {
             set_color_scheme(color_scheme: ColorScheme | null): void;
         }
 
-        module SwipeGroup {
+        namespace SwipeGroup {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gtk.Buildable.ConstructorProps {}
@@ -46470,7 +46602,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module SwipeTracker {
+        namespace SwipeTracker {
             // Signal callback interfaces
 
             interface BeginSwipe {
@@ -47081,7 +47213,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module TabBar {
+        namespace TabBar {
             // Signal callback interfaces
 
             interface ExtraDragDataReceived {
@@ -47751,6 +47883,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -47773,6 +47907,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -47787,6 +47923,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -47798,6 +47936,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -47805,7 +47945,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module TabPage {
+        namespace TabPage {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -48063,7 +48203,7 @@ declare module 'gi://Handy?version=1' {
             set_tooltip(tooltip?: string | null): void;
         }
 
-        module TabView {
+        namespace TabView {
             // Signal callback interfaces
 
             interface ClosePage {
@@ -49008,6 +49148,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -49030,6 +49172,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -49044,6 +49188,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -49055,6 +49201,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -49062,7 +49210,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module TitleBar {
+        namespace TitleBar {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -49478,6 +49626,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -49500,6 +49650,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -49514,6 +49666,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -49525,6 +49679,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -49532,7 +49688,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ValueObject {
+        namespace ValueObject {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -49588,7 +49744,7 @@ declare module 'gi://Handy?version=1' {
             get_value(): unknown;
         }
 
-        module ViewSwitcher {
+        namespace ViewSwitcher {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -50052,6 +50208,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -50074,6 +50232,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -50088,6 +50248,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -50099,6 +50261,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -50106,7 +50270,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ViewSwitcherBar {
+        namespace ViewSwitcherBar {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -50582,6 +50746,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -50604,6 +50770,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -50618,6 +50786,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -50629,6 +50799,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -50636,7 +50808,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ViewSwitcherTitle {
+        namespace ViewSwitcherTitle {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -51186,6 +51358,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -51208,6 +51382,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -51222,6 +51398,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -51233,6 +51411,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -51240,7 +51420,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Window {
+        namespace Window {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -51666,6 +51846,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -51688,6 +51870,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -51702,6 +51886,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -51713,6 +51899,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -51720,7 +51908,7 @@ declare module 'gi://Handy?version=1' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module WindowHandle {
+        namespace WindowHandle {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -52105,6 +52293,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
+            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -52127,6 +52317,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
+            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -52141,6 +52333,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
+            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -52152,6 +52346,8 @@ declare module 'gi://Handy?version=1' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
+            vfunc_set_property(...args: never[]): any;
             disconnect(id: number): void;
             set(properties: { [key: string]: any }): void;
             block_signal_handler(id: number): any;
@@ -52197,7 +52393,7 @@ declare module 'gi://Handy?version=1' {
         type ViewSwitcherTitleClass = typeof ViewSwitcherTitle;
         type WindowClass = typeof Window;
         type WindowHandleClass = typeof WindowHandle;
-        module Swipeable {
+        namespace Swipeable {
             // Constructor properties interface
 
             interface ConstructorProps extends Gtk.Widget.ConstructorProps {}

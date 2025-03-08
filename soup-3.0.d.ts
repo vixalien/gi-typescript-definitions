@@ -1757,7 +1757,7 @@ declare module 'gi://Soup?version=3.0' {
              */
             IPV6_ONLY,
         }
-        module Auth {
+        namespace Auth {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1994,7 +1994,7 @@ declare module 'gi://Soup?version=3.0' {
             update(msg: Message, auth_header: string): boolean;
         }
 
-        module AuthBasic {
+        namespace AuthBasic {
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2017,7 +2017,7 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
         }
 
-        module AuthDigest {
+        namespace AuthDigest {
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2040,7 +2040,7 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
         }
 
-        module AuthDomain {
+        namespace AuthDomain {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -2277,7 +2277,7 @@ declare module 'gi://Soup?version=3.0' {
             set_generic_auth_callback(auth_callback: AuthDomainGenericAuthCallback): void;
         }
 
-        module AuthDomainBasic {
+        namespace AuthDomainBasic {
             // Constructor properties interface
 
             interface ConstructorProps extends AuthDomain.ConstructorProps {
@@ -2345,7 +2345,7 @@ declare module 'gi://Soup?version=3.0' {
             set_auth_callback(callback: AuthDomainBasicAuthCallback): void;
         }
 
-        module AuthDomainDigest {
+        namespace AuthDomainDigest {
             // Constructor properties interface
 
             interface ConstructorProps extends AuthDomain.ConstructorProps {
@@ -2437,7 +2437,7 @@ declare module 'gi://Soup?version=3.0' {
             set_auth_callback(callback: AuthDomainDigestAuthCallback): void;
         }
 
-        module AuthManager {
+        namespace AuthManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -2896,7 +2896,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module AuthNTLM {
+        namespace AuthNTLM {
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2919,7 +2919,7 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
         }
 
-        module AuthNegotiate {
+        namespace AuthNegotiate {
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2958,7 +2958,7 @@ declare module 'gi://Soup?version=3.0' {
             static supported(): boolean;
         }
 
-        module Cache {
+        namespace Cache {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {
@@ -3456,7 +3456,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ContentDecoder {
+        namespace ContentDecoder {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -3900,7 +3900,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ContentSniffer {
+        namespace ContentSniffer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -4343,11 +4343,11 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CookieJar {
+        namespace CookieJar {
             // Signal callback interfaces
 
             interface Changed {
-                (old_cookie: Cookie, new_cookie: Cookie): void;
+                (old_cookie?: Cookie | null, new_cookie?: Cookie | null): void;
             }
 
             // Constructor properties interface
@@ -4410,13 +4410,13 @@ declare module 'gi://Soup?version=3.0' {
             emit(id: string, ...args: any[]): void;
             connect(
                 signal: 'changed',
-                callback: (_source: this, old_cookie: Cookie, new_cookie: Cookie) => void,
+                callback: (_source: this, old_cookie: Cookie | null, new_cookie: Cookie | null) => void,
             ): number;
             connect_after(
                 signal: 'changed',
-                callback: (_source: this, old_cookie: Cookie, new_cookie: Cookie) => void,
+                callback: (_source: this, old_cookie: Cookie | null, new_cookie: Cookie | null) => void,
             ): number;
-            emit(signal: 'changed', old_cookie: Cookie, new_cookie: Cookie): void;
+            emit(signal: 'changed', old_cookie?: Cookie | null, new_cookie?: Cookie | null): void;
 
             // Virtual methods
 
@@ -4482,6 +4482,8 @@ declare module 'gi://Soup?version=3.0' {
              *
              * The cookies in the list are a copy of the original, so
              * you have to free them when you are done with them.
+             *
+             * For historical reasons this list is in reverse order.
              * @returns a #GSList   with all the cookies in the @jar.
              */
             all_cookies(): Cookie[];
@@ -4991,7 +4993,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CookieJarDB {
+        namespace CookieJarDB {
             // Constructor properties interface
 
             interface ConstructorProps extends CookieJar.ConstructorProps, SessionFeature.ConstructorProps {
@@ -5433,7 +5435,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module CookieJarText {
+        namespace CookieJarText {
             // Constructor properties interface
 
             interface ConstructorProps extends CookieJar.ConstructorProps, SessionFeature.ConstructorProps {
@@ -5871,7 +5873,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module HSTSEnforcer {
+        namespace HSTSEnforcer {
             // Signal callback interfaces
 
             interface Changed {
@@ -6401,7 +6403,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module HSTSEnforcerDB {
+        namespace HSTSEnforcerDB {
             // Constructor properties interface
 
             interface ConstructorProps extends HSTSEnforcer.ConstructorProps, SessionFeature.ConstructorProps {
@@ -6839,7 +6841,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Logger {
+        namespace Logger {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {
@@ -7384,7 +7386,7 @@ declare module 'gi://Soup?version=3.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Message {
+        namespace Message {
             // Signal callback interfaces
 
             interface AcceptCertificate {
@@ -8109,7 +8111,7 @@ declare module 'gi://Soup?version=3.0' {
             tls_client_certificate_password_request_complete(): void;
         }
 
-        module MultipartInputStream {
+        namespace MultipartInputStream {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -9100,7 +9102,7 @@ declare module 'gi://Soup?version=3.0' {
             createSyncIterator(count?: number, priority?: number): IterableIterator<GLib.Bytes>;
         }
 
-        module Server {
+        namespace Server {
             // Signal callback interfaces
 
             interface RequestAborted {
@@ -9700,7 +9702,7 @@ declare module 'gi://Soup?version=3.0' {
             unpause_message(msg: ServerMessage): void;
         }
 
-        module ServerMessage {
+        namespace ServerMessage {
             // Signal callback interfaces
 
             interface AcceptCertificate {
@@ -10026,7 +10028,7 @@ declare module 'gi://Soup?version=3.0' {
             unpause(): void;
         }
 
-        module Session {
+        namespace Session {
             // Signal callback interfaces
 
             interface RequestQueued {
@@ -11022,7 +11024,7 @@ declare module 'gi://Soup?version=3.0' {
             websocket_connect_finish(result: Gio.AsyncResult): WebsocketConnection;
         }
 
-        module WebsocketConnection {
+        namespace WebsocketConnection {
             // Signal callback interfaces
 
             interface Closed {
@@ -11375,7 +11377,7 @@ declare module 'gi://Soup?version=3.0' {
             set_max_incoming_payload_size(max_incoming_payload_size: number): void;
         }
 
-        module WebsocketExtension {
+        namespace WebsocketExtension {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -11501,7 +11503,7 @@ declare module 'gi://Soup?version=3.0' {
             process_outgoing_message(header: number, payload: GLib.Bytes | Uint8Array): [GLib.Bytes, number];
         }
 
-        module WebsocketExtensionDeflate {
+        namespace WebsocketExtensionDeflate {
             // Constructor properties interface
 
             interface ConstructorProps extends WebsocketExtension.ConstructorProps {}
@@ -11524,7 +11526,7 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
         }
 
-        module WebsocketExtensionManager {
+        namespace WebsocketExtensionManager {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -13103,7 +13105,7 @@ declare module 'gi://Soup?version=3.0' {
         type WebsocketExtensionClass = typeof WebsocketExtension;
         type WebsocketExtensionDeflateClass = typeof WebsocketExtensionDeflate;
         type WebsocketExtensionManagerClass = typeof WebsocketExtensionManager;
-        module SessionFeature {
+        namespace SessionFeature {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

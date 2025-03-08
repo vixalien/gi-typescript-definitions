@@ -323,7 +323,7 @@ declare module 'gi://GstCheck?version=1.0' {
         interface HarnessPrepareEventFunc {
             (h: Harness, data?: any | null): Gst.Event;
         }
-        module TestClock {
+        namespace TestClock {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Clock.ConstructorProps {

@@ -326,7 +326,7 @@ declare module 'gi://Rsvg?version=2.0' {
              */
             FLAG_KEEP_IMAGE_DATA,
         }
-        module Handle {
+        namespace Handle {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

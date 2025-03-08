@@ -428,7 +428,7 @@ declare module 'gi://GstBase?version=1.0' {
              */
             LOCKED,
         }
-        module Adapter {
+        namespace Adapter {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -877,7 +877,7 @@ declare module 'gi://GstBase?version=1.0' {
             unmap(): void;
         }
 
-        module Aggregator {
+        namespace Aggregator {
             // Signal callback interfaces
 
             interface SamplesSelected {
@@ -1352,7 +1352,7 @@ declare module 'gi://GstBase?version=1.0' {
             update_segment(segment: Gst.Segment): void;
         }
 
-        module AggregatorPad {
+        namespace AggregatorPad {
             // Signal callback interfaces
 
             interface BufferConsumed {
@@ -1450,7 +1450,7 @@ declare module 'gi://GstBase?version=1.0' {
             pop_buffer(): Gst.Buffer | null;
         }
 
-        module BaseParse {
+        namespace BaseParse {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -1918,7 +1918,7 @@ declare module 'gi://GstBase?version=1.0' {
             set_ts_at_offset(offset: number): void;
         }
 
-        module BaseSink {
+        namespace BaseSink {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -2594,7 +2594,7 @@ declare module 'gi://GstBase?version=1.0' {
             wait_preroll(): Gst.FlowReturn;
         }
 
-        module BaseSrc {
+        namespace BaseSrc {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -3109,7 +3109,7 @@ declare module 'gi://GstBase?version=1.0' {
             wait_playing(): Gst.FlowReturn;
         }
 
-        module BaseTransform {
+        namespace BaseTransform {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -3528,7 +3528,7 @@ declare module 'gi://GstBase?version=1.0' {
             update_src_caps(updated_caps: Gst.Caps): boolean;
         }
 
-        module CollectPads {
+        namespace CollectPads {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -3858,7 +3858,7 @@ declare module 'gi://GstBase?version=1.0' {
             take_buffer(data: CollectData, size: number): Gst.Buffer | null;
         }
 
-        module DataQueue {
+        namespace DataQueue {
             // Signal callback interfaces
 
             interface Empty {
@@ -3926,7 +3926,7 @@ declare module 'gi://GstBase?version=1.0' {
             vfunc_full(): void;
         }
 
-        module PushSrc {
+        namespace PushSrc {
             // Constructor properties interface
 
             interface ConstructorProps extends BaseSrc.ConstructorProps {}

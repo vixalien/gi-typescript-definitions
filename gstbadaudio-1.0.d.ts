@@ -86,7 +86,7 @@ declare module 'gi://GstBadAudio?version=1.0' {
          * The name of the template for the source pad.
          */
         const NONSTREAM_AUDIO_DECODER_SRC_NAME: string;
-        module NonstreamAudioDecoder {
+        namespace NonstreamAudioDecoder {
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -566,7 +566,7 @@ declare module 'gi://GstBadAudio?version=1.0' {
             ): boolean;
         }
 
-        module PlanarAudioAdapter {
+        namespace PlanarAudioAdapter {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

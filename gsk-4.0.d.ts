@@ -162,7 +162,7 @@ declare module 'gi://Gsk?version=4.0' {
             BOTTOM_LEFT,
         }
         /**
-         * `GskFillRule` is used to select how paths are filled.
+         * Specifies how paths are filled.
          *
          * Whether or not a point is included in the fill is determined by taking
          * a ray from that point to infinity and looking at intersections with the
@@ -177,7 +177,7 @@ declare module 'gi://Gsk?version=4.0' {
          */
 
         /**
-         * `GskFillRule` is used to select how paths are filled.
+         * Specifies how paths are filled.
          *
          * Whether or not a point is included in the fill is determined by taking
          * a ray from that point to infinity and looking at intersections with the
@@ -212,16 +212,14 @@ declare module 'gi://Gsk?version=4.0' {
             EVEN_ODD,
         }
         /**
-         * This defines the types of the uniforms that `GskGLShaders`
-         * declare.
+         * Defines the types of the uniforms that `GskGLShaders` declare.
          *
          * It defines both what the type is called in the GLSL shader
          * code, and what the corresponding C type is on the Gtk side.
          */
 
         /**
-         * This defines the types of the uniforms that `GskGLShaders`
-         * declare.
+         * Defines the types of the uniforms that `GskGLShaders` declare.
          *
          * It defines both what the type is called in the GLSL shader
          * code, and what the corresponding C type is on the Gtk side.
@@ -401,8 +399,7 @@ declare module 'gi://Gsk?version=4.0' {
             INVERTED_LUMINANCE,
         }
         /**
-         * The values of the `GskPathDirection` enum are used to pick one
-         * of the four tangents at a given point on the path.
+         * Used to pick one of the four tangents at a given point on the path.
          *
          * Note that the directions for `GSK_PATH_FROM_START/``GSK_PATH_TO_END` and
          * `GSK_PATH_TO_START/``GSK_PATH_FROM_END` will coincide for smooth points.
@@ -415,8 +412,7 @@ declare module 'gi://Gsk?version=4.0' {
          */
 
         /**
-         * The values of the `GskPathDirection` enum are used to pick one
-         * of the four tangents at a given point on the path.
+         * Used to pick one of the four tangents at a given point on the path.
          *
          * Note that the directions for `GSK_PATH_FROM_START/``GSK_PATH_TO_END` and
          * `GSK_PATH_TO_START/``GSK_PATH_FROM_END` will coincide for smooth points.
@@ -454,13 +450,13 @@ declare module 'gi://Gsk?version=4.0' {
             FROM_END,
         }
         /**
-         * Path operations are used to describe the segments of a `GskPath`.
+         * Describes the segments of a `GskPath`.
          *
          * More values may be added in the future.
          */
 
         /**
-         * Path operations are used to describe the segments of a `GskPath`.
+         * Describes the segments of a `GskPath`.
          *
          * More values may be added in the future.
          */
@@ -978,9 +974,9 @@ declare module 'gi://Gsk?version=4.0' {
 
             /**
              * Retrieves the colors of the border.
-             * @returns an array of 4 `GdkRGBA` structs     for the top, right, bottom and left color of the border
+             * @returns an array of 4 `GdkRGBA`   structs for the top, right, bottom and left color of the border
              */
-            get_colors(): Gdk.RGBA;
+            get_colors(): Gdk.RGBA[];
             /**
              * Retrieves the outline of the border.
              * @returns the outline of the border
@@ -993,7 +989,7 @@ declare module 'gi://Gsk?version=4.0' {
             get_widths(): number[];
         }
 
-        module BroadwayRenderer {
+        namespace BroadwayRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends Renderer.ConstructorProps {}
@@ -1046,7 +1042,7 @@ declare module 'gi://Gsk?version=4.0' {
             get_surface(): cairo.Surface;
         }
 
-        module CairoRenderer {
+        namespace CairoRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends Renderer.ConstructorProps {}
@@ -1324,7 +1320,7 @@ declare module 'gi://Gsk?version=4.0' {
             get_path(): Path;
         }
 
-        module GLRenderer {
+        namespace GLRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends Renderer.ConstructorProps {}
@@ -1347,7 +1343,7 @@ declare module 'gi://Gsk?version=4.0' {
             static ['new'](): GLRenderer;
         }
 
-        module GLShader {
+        namespace GLShader {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1470,15 +1466,6 @@ declare module 'gi://Gsk?version=4.0' {
          *   fragColor = position * source1 + (1.0 - position) * source2;
          * }
          * ```
-         *
-         * # Deprecation
-         *
-         * This feature was deprecated in GTK 4.16 after the new rendering infrastructure
-         * introduced in 4.14 did not support it.
-         * The lack of Vulkan integration would have made it a very hard feature to support.
-         *
-         * If you want to use OpenGL directly, you should look at [GtkGLArea](../gtk4/class.GLArea.html)
-         * which uses a different approach and is still well supported.
          */
         class GLShader extends GObject.Object {
             static $gtype: GObject.GType<GLShader>;
@@ -1816,7 +1803,7 @@ declare module 'gi://Gsk?version=4.0' {
             get_source(): RenderNode;
         }
 
-        module NglRenderer {
+        namespace NglRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends Renderer.ConstructorProps {}
@@ -2089,7 +2076,7 @@ declare module 'gi://Gsk?version=4.0' {
             write_to_file(filename: string): boolean;
         }
 
-        module Renderer {
+        namespace Renderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -2458,7 +2445,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A render node for a `GdkTexture`.
+         * A render node for a `GdkTexture`, with control over scaling.
          */
         class TextureScaleNode extends RenderNode {
             static $gtype: GObject.GType<TextureScaleNode>;
@@ -2509,7 +2496,7 @@ declare module 'gi://Gsk?version=4.0' {
             get_transform(): Transform;
         }
 
-        module VulkanRenderer {
+        namespace VulkanRenderer {
             // Constructor properties interface
 
             interface ConstructorProps extends Renderer.ConstructorProps {}
@@ -2786,7 +2773,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * An auxiliary object for constructing `GskPath` objects.
+         * Constructs `GskPath` objects.
          *
          * A path is constructed like this:
          *
@@ -3208,8 +3195,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * An object that allows measurements on paths such as determining
-         * the length of the path.
+         * Performs measurements on paths such as determining the length of the path.
          *
          * Many measuring operations require sampling the path length
          * at intermediate points. Therefore, a `GskPathMeasure` has
@@ -3531,7 +3517,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * An object to build the uniforms data for a `GskGLShader`.
+         * Builds the uniforms data for a `GskGLShader`.
          */
         class ShaderArgsBuilder {
             static $gtype: GObject.GType<ShaderArgsBuilder>;
@@ -3656,7 +3642,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * Collects the parameters that influence the operation of stroking a path.
+         * Collects the parameters that are needed when stroking a path.
          */
         class Stroke {
             static $gtype: GObject.GType<Stroke>;
@@ -3802,7 +3788,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * An object to describe transform matrices.
+         * Describes a 3D transform.
          *
          * Unlike `graphene_matrix_t`, `GskTransform` retains the steps in how
          * a transform was constructed, and allows inspecting them. It is modeled

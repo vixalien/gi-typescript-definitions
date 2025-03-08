@@ -627,7 +627,7 @@ declare module 'gi://Nice?version=0.1' {
              */
             BYTESTREAM_TCP,
         }
-        module Agent {
+        namespace Agent {
             // Signal callback interfaces
 
             interface CandidateGatheringDone {
@@ -2072,7 +2072,7 @@ declare module 'gi://Nice?version=0.1' {
             set_stream_tos(stream_id: number, tos: number): void;
         }
 
-        module PseudoTcpSocket {
+        namespace PseudoTcpSocket {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {

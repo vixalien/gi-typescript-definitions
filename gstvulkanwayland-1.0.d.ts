@@ -32,7 +32,7 @@ declare module 'gi://GstVulkanWayland?version=1.0' {
          * GstVulkanWayland-1.0
          */
 
-        module VulkanDisplayWayland {
+        namespace VulkanDisplayWayland {
             // Constructor properties interface
 
             interface ConstructorProps extends GstVulkan.VulkanDisplay.ConstructorProps {}

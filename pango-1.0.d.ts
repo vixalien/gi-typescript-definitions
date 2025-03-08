@@ -1625,6 +1625,10 @@ declare module 'gi://Pango?version=1.0' {
              *   character boundaries if there is not enough space for a full word.
              */
             WORD_CHAR,
+            /**
+             * do not wrap.
+             */
+            NONE,
         }
         /**
          * Whether the segment should be shifted to center around the baseline.
@@ -1747,9 +1751,8 @@ declare module 'gi://Pango?version=1.0' {
          * @param length length of text in bytes (may be -1 if @text is nul-terminated)
          * @param attr_list `PangoAttrList` to apply
          * @param offset Byte offset of @text from the beginning of the paragraph
-         * @param attrs array with one `PangoLogAttr`   per character in @text, plus one extra, to be filled in
          */
-        function attr_break(text: string, length: number, attr_list: AttrList, offset: number, attrs: LogAttr[]): void;
+        function attr_break(text: string, length: number, attr_list: AttrList, offset: number): LogAttr[];
         /**
          * Create a new font fallback attribute.
          *
@@ -2076,9 +2079,8 @@ declare module 'gi://Pango?version=1.0' {
          * @param text the text to process. Must be valid UTF-8
          * @param length length of @text in bytes (may be -1 if @text is nul-terminated)
          * @param analysis `PangoAnalysis` structure for @text
-         * @param attrs an array to store character information in
          */
-        function __break(text: string, length: number, analysis: Analysis, attrs: LogAttr[]): void;
+        function __break(text: string, length: number, analysis: Analysis): LogAttr[];
         /**
          * This is the default break algorithm.
          *
@@ -2092,16 +2094,8 @@ declare module 'gi://Pango?version=1.0' {
          * @param text text to break. Must be valid UTF-8
          * @param length length of text in bytes (may be -1 if @text is nul-terminated)
          * @param analysis a `PangoAnalysis` structure for the @text
-         * @param attrs logical attributes to fill in
-         * @param attrs_len size of the array passed as @attrs
          */
-        function default_break(
-            text: string,
-            length: number,
-            analysis: Analysis | null,
-            attrs: LogAttr,
-            attrs_len: number,
-        ): void;
+        function default_break(text: string, length: number, analysis: Analysis | null): LogAttr[];
         /**
          * Converts extents from Pango units to device units.
          *
@@ -2156,15 +2150,13 @@ declare module 'gi://Pango?version=1.0' {
          *
          * The string must have the form
          *
-         *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS]
+         *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS] [FEATURES]
          *
          * where FAMILY-LIST is a comma-separated list of families optionally
          * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
          * of words where each word describes one of style, variant, weight,
          * stretch, or gravity, and SIZE is a decimal number (size in points)
          * or optionally followed by the unit modifier "px" for absolute size.
-         * VARIATIONS is a comma-separated list of font variation
-         * specifications of the form `‍`axis=value (the = sign is optional).
          *
          * The following words are understood as styles:
          * "Normal", "Roman", "Oblique", "Italic".
@@ -2187,6 +2179,12 @@ declare module 'gi://Pango?version=1.0' {
          * "Not-Rotated", "South", "Upside-Down", "North", "Rotated-Left",
          * "East", "Rotated-Right", "West".
          *
+         * VARIATIONS is a comma-separated list of font variations
+         * of the form `‍`axis1=value,axis2=value,...
+         *
+         * FEATURES is a comma-separated list of font features of the form
+         * \#‍feature1=value,feature2=value,...
+         *
          * Any one of the options may be absent. If FAMILY-LIST is absent, then
          * the family_name field of the resulting font description will be
          * initialized to %NULL. If STYLE-OPTIONS is missing, then all style
@@ -2195,7 +2193,7 @@ declare module 'gi://Pango?version=1.0' {
          *
          * A typical example:
          *
-         *     Cantarell Italic Light 15 `‍`wght=200
+         *     Cantarell Italic Light 15 `‍`wght=200 #‍tnum=1
          * @param str string representation of a font description.
          * @returns a new `PangoFontDescription`.
          */
@@ -2214,18 +2212,16 @@ declare module 'gi://Pango?version=1.0' {
          * @param length length in bytes of @text
          * @param level embedding level, or -1 if unknown
          * @param language language tag
-         * @param attrs array with one `PangoLogAttr`   per character in @text, plus one extra, to be filled in
          */
-        function get_log_attrs(text: string, length: number, level: number, language: Language, attrs: LogAttr[]): void;
+        function get_log_attrs(text: string, length: number, level: number, language: Language): LogAttr[];
         /**
          * Returns the mirrored character of a Unicode character.
          *
          * Mirror characters are determined by the Unicode mirrored property.
          * @param ch a Unicode character
-         * @param mirrored_ch location to store the mirrored character
          * @returns %TRUE if @ch has a mirrored character and @mirrored_ch is filled in, %FALSE otherwise
          */
-        function get_mirror_char(ch: number, mirrored_ch: number): boolean;
+        function get_mirror_char(ch: number): [boolean, number];
         /**
          * Finds the gravity that best matches the rotation component
          * in a `PangoMatrix`.
@@ -2432,9 +2428,13 @@ declare module 'gi://Pango?version=1.0' {
          * @param text the text to itemize.
          * @param length the number of bytes (not characters) to process, or -1   if @text is nul-terminated and the length should be calculated.
          * @param pbase_dir input base direction, and output resolved direction.
-         * @returns a newly allocated array of embedding levels, one item per   character (not byte), that should be freed using [func@GLib.free].
+         * @returns a newly allocated array of embedding   levels, one item per character (not byte), that should be freed using   [func@GLib.free].
          */
-        function log2vis_get_embedding_levels(text: string, length: number, pbase_dir: Direction | null): number;
+        function log2vis_get_embedding_levels(
+            text: string,
+            length: number,
+            pbase_dir: Direction | null,
+        ): [Uint8Array, Direction];
         /**
          * Finishes parsing markup.
          *
@@ -2706,9 +2706,8 @@ declare module 'gi://Pango?version=1.0' {
          * @param text the text to process
          * @param length the length (in bytes) of @text
          * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
-         * @param glyphs glyph string in which to store results
          */
-        function shape(text: string, length: number, analysis: Analysis, glyphs: GlyphString): void;
+        function shape(text: string, length: number, analysis: Analysis): GlyphString;
         /**
          * Convert the characters in `text` into glyphs.
          *
@@ -2736,7 +2735,6 @@ declare module 'gi://Pango?version=1.0' {
          * @param paragraph_text text of the paragraph (see details).
          * @param paragraph_length the length (in bytes) of @paragraph_text. -1 means nul-terminated text.
          * @param analysis `PangoAnalysis` structure from [func@Pango.itemize].
-         * @param glyphs glyph string in which to store results.
          */
         function shape_full(
             item_text: string,
@@ -2744,8 +2742,7 @@ declare module 'gi://Pango?version=1.0' {
             paragraph_text: string | null,
             paragraph_length: number,
             analysis: Analysis,
-            glyphs: GlyphString,
-        ): void;
+        ): GlyphString;
         /**
          * Convert the characters in `item` into glyphs.
          *
@@ -2764,7 +2761,6 @@ declare module 'gi://Pango?version=1.0' {
          * @param paragraph_text text of the paragraph (see details).
          * @param paragraph_length the length (in bytes) of @paragraph_text.     -1 means nul-terminated text.
          * @param log_attrs array of `PangoLogAttr` for @item
-         * @param glyphs glyph string in which to store results
          * @param flags flags influencing the shaping process
          */
         function shape_item(
@@ -2772,9 +2768,8 @@ declare module 'gi://Pango?version=1.0' {
             paragraph_text: string | null,
             paragraph_length: number,
             log_attrs: LogAttr | null,
-            glyphs: GlyphString,
             flags: ShapeFlags | null,
-        ): void;
+        ): GlyphString;
         /**
          * Convert the characters in `text` into glyphs.
          *
@@ -2799,7 +2794,6 @@ declare module 'gi://Pango?version=1.0' {
          * @param paragraph_text text of the paragraph (see details).
          * @param paragraph_length the length (in bytes) of @paragraph_text.     -1 means nul-terminated text.
          * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
-         * @param glyphs glyph string in which to store results
          * @param flags flags influencing the shaping process
          */
         function shape_with_flags(
@@ -2808,9 +2802,8 @@ declare module 'gi://Pango?version=1.0' {
             paragraph_text: string | null,
             paragraph_length: number,
             analysis: Analysis,
-            glyphs: GlyphString,
             flags: ShapeFlags | null,
-        ): void;
+        ): GlyphString;
         /**
          * Skips 0 or more characters of white space.
          * @param pos in/out string position
@@ -2847,9 +2840,8 @@ declare module 'gi://Pango?version=1.0' {
          * @param length length in bytes of @text
          * @param analysis `PangoAnalysis` for @text
          * @param offset Byte offset of @text from the beginning of the   paragraph, or -1 to ignore attributes from @analysis
-         * @param attrs array with one `PangoLogAttr`   per character in @text, plus one extra, to be filled in
          */
-        function tailor_break(text: string, length: number, analysis: Analysis, offset: number, attrs: LogAttr[]): void;
+        function tailor_break(text: string, length: number, analysis: Analysis, offset: number): LogAttr[];
         /**
          * Trims leading and trailing whitespace from a string.
          * @param str a string
@@ -2976,13 +2968,17 @@ declare module 'gi://Pango?version=1.0' {
              */
             SIZE,
             /**
-             * the font gravity is specified (Since: 1.16.)
+             * The font gravity is specified.
              */
             GRAVITY,
             /**
-             * OpenType font variations are specified (Since: 1.42)
+             * OpenType font variations are specified.
              */
             VARIATIONS,
+            /**
+             * OpenType font features are specified.
+             */
+            FEATURES,
         }
         /**
          * Flags that influence the behavior of [func`Pango`.Layout.deserialize].
@@ -3097,7 +3093,7 @@ declare module 'gi://Pango?version=1.0' {
              */
             IGNORABLES,
         }
-        module Context {
+        namespace Context {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -3326,7 +3322,7 @@ declare module 'gi://Pango?version=1.0' {
             set_round_glyph_positions(round_positions: boolean): void;
         }
 
-        module Coverage {
+        namespace Coverage {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -3407,7 +3403,7 @@ declare module 'gi://Pango?version=1.0' {
             unref(): void;
         }
 
-        module Font {
+        namespace Font {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -3631,7 +3627,7 @@ declare module 'gi://Pango?version=1.0' {
             serialize(): GLib.Bytes;
         }
 
-        module FontFace {
+        namespace FontFace {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -3735,7 +3731,7 @@ declare module 'gi://Pango?version=1.0' {
             list_sizes(): number[] | null;
         }
 
-        module FontFamily {
+        namespace FontFamily {
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
@@ -4393,7 +4389,7 @@ declare module 'gi://Pango?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module FontMap {
+        namespace FontMap {
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
@@ -4582,10 +4578,14 @@ declare module 'gi://Pango?version=1.0' {
              */
             load_fontset(context: Context, desc: FontDescription, language: Language): Fontset | null;
             /**
-             * Returns a new font that is like `font,` except that its size
-             * is multiplied by `scale,` its backend-dependent configuration
-             * (e.g. cairo font options) is replaced by the one in `context,`
-             * and its variations are replaced by `variations`.
+             * Returns a new font that is like `font,` except that it is scaled
+             * by `scale,` its backend-dependent configuration (e.g. cairo font options)
+             * is replaced by the one in `context,` and its variations are replaced
+             * by `variations`.
+             *
+             * Note that the scaling here is meant to be linear, so this
+             * scaling can be used to render a font on a hi-dpi display
+             * without changing its optical size.
              * @param font a font in @fontmap
              * @param scale the scale factor to apply
              * @param context a `PangoContext`
@@ -5091,7 +5091,7 @@ declare module 'gi://Pango?version=1.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module Fontset {
+        namespace Fontset {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5163,7 +5163,7 @@ declare module 'gi://Pango?version=1.0' {
             get_metrics(): FontMetrics;
         }
 
-        module FontsetSimple {
+        namespace FontsetSimple {
             // Constructor properties interface
 
             interface ConstructorProps extends Fontset.ConstructorProps {}
@@ -5203,7 +5203,7 @@ declare module 'gi://Pango?version=1.0' {
             size(): number;
         }
 
-        module Layout {
+        namespace Layout {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5634,16 +5634,9 @@ declare module 'gi://Pango?version=1.0' {
              */
             is_ellipsized(): boolean;
             /**
-             * Queries whether the layout does not show all content because of
-             * height limitations.
-             * @returns true if any paragraphs have been omitted due to height
-             */
-            is_truncated(): boolean;
-            /**
              * Queries whether the layout had to wrap any paragraphs.
              *
              * This returns %TRUE if a positive width is set on `layout,`
-             * ellipsization mode of `layout` is set to %PANGO_ELLIPSIZE_NONE,
              * and there are paragraphs exceeding the layout width that have
              * to be wrapped.
              * @returns %TRUE if any paragraphs had to be wrapped, %FALSE   otherwise
@@ -5944,7 +5937,7 @@ declare module 'gi://Pango?version=1.0' {
             set_text(text: string, length: number): void;
             /**
              * Sets the width to which the lines of the `PangoLayout` should wrap or
-             * ellipsized.
+             * get ellipsized.
              *
              * The default value is -1: no width set.
              * @param width the desired width in Pango units, or -1 to indicate that no   wrapping or ellipsization should be performed.
@@ -5993,7 +5986,7 @@ declare module 'gi://Pango?version=1.0' {
             xy_to_index(x: number, y: number): [boolean, number, number];
         }
 
-        module Renderer {
+        namespace Renderer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7125,15 +7118,13 @@ declare module 'gi://Pango?version=1.0' {
              *
              * The string must have the form
              *
-             *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS]
+             *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS] [FEATURES]
              *
              * where FAMILY-LIST is a comma-separated list of families optionally
              * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
              * of words where each word describes one of style, variant, weight,
              * stretch, or gravity, and SIZE is a decimal number (size in points)
              * or optionally followed by the unit modifier "px" for absolute size.
-             * VARIATIONS is a comma-separated list of font variation
-             * specifications of the form `‍`axis=value (the = sign is optional).
              *
              * The following words are understood as styles:
              * "Normal", "Roman", "Oblique", "Italic".
@@ -7156,6 +7147,12 @@ declare module 'gi://Pango?version=1.0' {
              * "Not-Rotated", "South", "Upside-Down", "North", "Rotated-Left",
              * "East", "Rotated-Right", "West".
              *
+             * VARIATIONS is a comma-separated list of font variations
+             * of the form `‍`axis1=value,axis2=value,...
+             *
+             * FEATURES is a comma-separated list of font features of the form
+             * \#‍feature1=value,feature2=value,...
+             *
              * Any one of the options may be absent. If FAMILY-LIST is absent, then
              * the family_name field of the resulting font description will be
              * initialized to %NULL. If STYLE-OPTIONS is missing, then all style
@@ -7164,7 +7161,7 @@ declare module 'gi://Pango?version=1.0' {
              *
              * A typical example:
              *
-             *     Cantarell Italic Light 15 `‍`wght=200
+             *     Cantarell Italic Light 15 `‍`wght=200 #‍tnum=1
              * @param str string representation of a font description.
              */
             static from_string(str: string): FontDescription;
@@ -7226,6 +7223,13 @@ declare module 'gi://Pango?version=1.0' {
              * @returns the family name field for the   font description, or %NULL if not previously set. This has the same   life-time as the font description itself and should not be freed.
              */
             get_family(): string | null;
+            /**
+             * Gets the features field of a font description.
+             *
+             * See [method`Pango`.FontDescription.set_features].
+             * @returns the features field for the font   description, or %NULL if not previously set. This has the same   life-time as the font description itself and should not be freed.
+             */
+            get_features(): string | null;
             /**
              * Gets the gravity field of a font description.
              *
@@ -7352,6 +7356,46 @@ declare module 'gi://Pango?version=1.0' {
              * @param family a string representing the family name
              */
             set_family_static(family: string): void;
+            /**
+             * Sets the features field of a font description.
+             *
+             * OpenType font features allow to enable or disable certain optional
+             * features of a font, such as tabular numbers.
+             *
+             * The format of the features string is comma-separated list of
+             * feature assignments, with each assignment being one of these forms:
+             *
+             *     FEATURE=n
+             *
+             * where FEATURE must be a 4 character tag that identifies and OpenType
+             * feature, and n an integer (depending on the feature, the allowed
+             * values may be 0, 1 or bigger numbers). Unknown features are ignored.
+             *
+             * Note that font features set in this way are enabled for the entire text
+             * that is using the font, which is not appropriate for all OpenType features.
+             * The intended use case is to select character variations (features cv01 - c99),
+             * style sets (ss01 - ss20) and the like.
+             *
+             * Pango does not currently have a way to find supported OpenType features
+             * of a font. Both harfbuzz and freetype have API for this. See for example
+             * [hb_ot_layout_table_get_feature_tags](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-table-get-feature-tags).
+             *
+             * Features that are not supported by the font are silently ignored.
+             * @param features a string representing the features
+             */
+            set_features(features?: string | null): void;
+            /**
+             * Sets the features field of a font description.
+             *
+             * This is like [method`Pango`.FontDescription.set_features], except
+             * that no copy of `featuresis` made. The caller must make sure that
+             * the string passed in stays around until `desc` has been freed
+             * or the name is set again. This function can be used if
+             * `features` is a static string such as a C string literal,
+             * or if `desc` is only needed temporarily.
+             * @param features a string representing the features
+             */
+            set_features_static(features: string): void;
             /**
              * Sets the gravity field of a font description.
              *
@@ -7723,9 +7767,8 @@ declare module 'gi://Pango?version=1.0' {
              *
              * See also [method`Pango`.GlyphString.get_logical_widths].
              * @param text text that @glyph_item corresponds to   (glyph_item->item->offset is an offset from the   start of @text)
-             * @param logical_widths an array whose length is the number of   characters in glyph_item (equal to glyph_item->item->num_chars)   to be filled in with the resulting character widths.
              */
-            get_logical_widths(text: string, logical_widths: number[]): void;
+            get_logical_widths(text: string): number[];
             /**
              * Adds spacing between the graphemes of `glyph_item` to
              * give the effect of typographic letter spacing.
@@ -7932,9 +7975,8 @@ declare module 'gi://Pango?version=1.0' {
              * @param text the text corresponding to the glyphs
              * @param length the length of @text, in bytes
              * @param embedding_level the embedding level of the string
-             * @param logical_widths an array whose length is the number of   characters in text (equal to `g_utf8_strlen (text, length)` unless   text has `NUL` bytes) to be filled in with the resulting character widths.
              */
-            get_logical_widths(text: string, length: number, embedding_level: number, logical_widths: number[]): void;
+            get_logical_widths(text: string, length: number, embedding_level: number): number[];
             /**
              * Computes the logical width of the glyph string.
              *

@@ -661,7 +661,7 @@ declare module 'gi://Gdk?version=4.0' {
             EXACT,
         }
         /**
-         * `GdkMemoryFormat` describes formats that image data can have in memory.
+         * Describes formats that image data can have in memory.
          *
          * It describes formats by listing the contents of the memory passed to it.
          * So `GDK_MEMORY_A8R8G8B8` will be 1 byte (8 bits) of alpha, followed by a
@@ -675,7 +675,7 @@ declare module 'gi://Gdk?version=4.0' {
          */
 
         /**
-         * `GdkMemoryFormat` describes formats that image data can have in memory.
+         * Describes formats that image data can have in memory.
          *
          * It describes formats by listing the contents of the memory passed to it.
          * So `GDK_MEMORY_A8R8G8B8` will be 1 byte (8 bits) of alpha, followed by a
@@ -1258,6 +1258,8 @@ declare module 'gi://Gdk?version=4.0' {
         const EVENT_STOP: boolean;
         const KEY_0: number;
         const KEY_1: number;
+        const KEY_10ChannelsDown: number;
+        const KEY_10ChannelsUp: number;
         const KEY_2: number;
         const KEY_3: number;
         const KEY_3270_AltCursor: number;
@@ -1290,6 +1292,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_3270_Rule: number;
         const KEY_3270_Setup: number;
         const KEY_3270_Test: number;
+        const KEY_3DMode: number;
         const KEY_4: number;
         const KEY_5: number;
         const KEY_6: number;
@@ -1298,6 +1301,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_9: number;
         const KEY_A: number;
         const KEY_AE: number;
+        const KEY_ALSToggle: number;
         const KEY_Aacute: number;
         const KEY_Abelowdot: number;
         const KEY_Abreve: number;
@@ -1308,6 +1312,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Abrevetilde: number;
         const KEY_AccessX_Enable: number;
         const KEY_AccessX_Feedback_Enable: number;
+        const KEY_Accessibility: number;
         const KEY_Acircumflex: number;
         const KEY_Acircumflexacute: number;
         const KEY_Acircumflexbelowdot: number;
@@ -1315,6 +1320,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Acircumflexhook: number;
         const KEY_Acircumflextilde: number;
         const KEY_AddFavorite: number;
+        const KEY_Addressbook: number;
         const KEY_Adiaeresis: number;
         const KEY_Agrave: number;
         const KEY_Ahook: number;
@@ -1322,6 +1328,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Alt_R: number;
         const KEY_Amacron: number;
         const KEY_Aogonek: number;
+        const KEY_AppSelect: number;
         const KEY_ApplicationLeft: number;
         const KEY_ApplicationRight: number;
         const KEY_Arabic_0: number;
@@ -1495,9 +1502,16 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Armenian_yentamna: number;
         const KEY_Armenian_za: number;
         const KEY_Armenian_zhe: number;
+        const KEY_AspectRatio: number;
+        const KEY_Assistant: number;
         const KEY_Atilde: number;
+        const KEY_AttendantOff: number;
+        const KEY_AttendantOn: number;
+        const KEY_AttendantToggle: number;
         const KEY_AudibleBell_Enable: number;
+        const KEY_Audio: number;
         const KEY_AudioCycleTrack: number;
+        const KEY_AudioDesc: number;
         const KEY_AudioForward: number;
         const KEY_AudioLowerVolume: number;
         const KEY_AudioMedia: number;
@@ -1514,6 +1528,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_AudioRepeat: number;
         const KEY_AudioRewind: number;
         const KEY_AudioStop: number;
+        const KEY_AutopilotEngageToggle: number;
         const KEY_Away: number;
         const KEY_B: number;
         const KEY_Babovedot: number;
@@ -1528,6 +1543,10 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_BounceKeys_Enable: number;
         const KEY_Break: number;
         const KEY_BrightnessAdjust: number;
+        const KEY_BrightnessAuto: number;
+        const KEY_BrightnessMax: number;
+        const KEY_BrightnessMin: number;
+        const KEY_Buttonconfig: number;
         const KEY_Byelorussian_SHORTU: number;
         const KEY_Byelorussian_shortu: number;
         const KEY_C: number;
@@ -1539,19 +1558,34 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Cacute: number;
         const KEY_Calculator: number;
         const KEY_Calendar: number;
+        const KEY_CameraAccessDisable: number;
+        const KEY_CameraAccessEnable: number;
+        const KEY_CameraAccessToggle: number;
+        const KEY_CameraDown: number;
+        const KEY_CameraFocus: number;
+        const KEY_CameraLeft: number;
+        const KEY_CameraRight: number;
+        const KEY_CameraUp: number;
+        const KEY_CameraZoomIn: number;
+        const KEY_CameraZoomOut: number;
         const KEY_Cancel: number;
         const KEY_Caps_Lock: number;
         const KEY_Ccaron: number;
         const KEY_Ccedilla: number;
         const KEY_Ccircumflex: number;
         const KEY_Ch: number;
+        const KEY_ChannelDown: number;
+        const KEY_ChannelUp: number;
         const KEY_Clear: number;
         const KEY_ClearGrab: number;
+        const KEY_ClearvuSonar: number;
         const KEY_Close: number;
         const KEY_Codeinput: number;
         const KEY_ColonSign: number;
         const KEY_Community: number;
+        const KEY_ContextMenu: number;
         const KEY_ContrastAdjust: number;
+        const KEY_ControlPanel: number;
         const KEY_Control_L: number;
         const KEY_Control_R: number;
         const KEY_Copy: number;
@@ -1664,14 +1698,22 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Cyrillic_zhe_descender: number;
         const KEY_D: number;
         const KEY_DOS: number;
+        const KEY_DVD: number;
         const KEY_Dabovedot: number;
+        const KEY_Data: number;
+        const KEY_Database: number;
         const KEY_Dcaron: number;
         const KEY_Delete: number;
+        const KEY_Dictate: number;
         const KEY_Display: number;
+        const KEY_DisplayOff: number;
+        const KEY_DisplayToggle: number;
+        const KEY_DoNotDisturb: number;
         const KEY_Documents: number;
         const KEY_DongSign: number;
         const KEY_Down: number;
         const KEY_Dstroke: number;
+        const KEY_DualRangeRadar: number;
         const KEY_E: number;
         const KEY_ENG: number;
         const KEY_ETH: number;
@@ -1688,12 +1730,14 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Ecircumflextilde: number;
         const KEY_EcuSign: number;
         const KEY_Ediaeresis: number;
+        const KEY_Editor: number;
         const KEY_Egrave: number;
         const KEY_Ehook: number;
         const KEY_Eisu_Shift: number;
         const KEY_Eisu_toggle: number;
         const KEY_Eject: number;
         const KEY_Emacron: number;
+        const KEY_EmojiPicker: number;
         const KEY_End: number;
         const KEY_Eogonek: number;
         const KEY_Escape: number;
@@ -1752,13 +1796,19 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Farsi_8: number;
         const KEY_Farsi_9: number;
         const KEY_Farsi_yeh: number;
+        const KEY_FastReverse: number;
         const KEY_Favorites: number;
         const KEY_Finance: number;
         const KEY_Find: number;
         const KEY_First_Virtual_Screen: number;
+        const KEY_FishingChart: number;
+        const KEY_Fn: number;
+        const KEY_FnRightShift: number;
+        const KEY_Fn_Esc: number;
         const KEY_Forward: number;
         const KEY_FrameBack: number;
         const KEY_FrameForward: number;
+        const KEY_FullScreen: number;
         const KEY_G: number;
         const KEY_Gabovedot: number;
         const KEY_Game: number;
@@ -1806,6 +1856,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Georgian_zen: number;
         const KEY_Georgian_zhar: number;
         const KEY_Go: number;
+        const KEY_GraphicsEditor: number;
         const KEY_Greek_ALPHA: number;
         const KEY_Greek_ALPHAaccent: number;
         const KEY_Greek_BETA: number;
@@ -1989,6 +2040,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Hangul_YU: number;
         const KEY_Hangul_YeorinHieuh: number;
         const KEY_Hangul_switch: number;
+        const KEY_HangupPhone: number;
         const KEY_Hankaku: number;
         const KEY_Hcircumflex: number;
         const KEY_Hebrew_switch: number;
@@ -2055,11 +2107,14 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Igrave: number;
         const KEY_Ihook: number;
         const KEY_Imacron: number;
+        const KEY_Images: number;
+        const KEY_Info: number;
         const KEY_Insert: number;
         const KEY_Iogonek: number;
         const KEY_Itilde: number;
         const KEY_J: number;
         const KEY_Jcircumflex: number;
+        const KEY_Journal: number;
         const KEY_K: number;
         const KEY_KP_0: number;
         const KEY_KP_1: number;
@@ -2105,6 +2160,17 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Katakana: number;
         const KEY_KbdBrightnessDown: number;
         const KEY_KbdBrightnessUp: number;
+        const KEY_KbdInputAssistAccept: number;
+        const KEY_KbdInputAssistCancel: number;
+        const KEY_KbdInputAssistNext: number;
+        const KEY_KbdInputAssistNextgroup: number;
+        const KEY_KbdInputAssistPrev: number;
+        const KEY_KbdInputAssistPrevgroup: number;
+        const KEY_KbdLcdMenu1: number;
+        const KEY_KbdLcdMenu2: number;
+        const KEY_KbdLcdMenu3: number;
+        const KEY_KbdLcdMenu4: number;
+        const KEY_KbdLcdMenu5: number;
         const KEY_KbdLightOnOff: number;
         const KEY_Kcedilla: number;
         const KEY_Keyboard: number;
@@ -2142,7 +2208,10 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Lcaron: number;
         const KEY_Lcedilla: number;
         const KEY_Left: number;
+        const KEY_LeftDown: number;
+        const KEY_LeftUp: number;
         const KEY_LightBulb: number;
+        const KEY_LightsToggle: number;
         const KEY_Linefeed: number;
         const KEY_LiraSign: number;
         const KEY_LogGrabInfo: number;
@@ -2157,11 +2226,50 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Macedonia_dse: number;
         const KEY_Macedonia_gje: number;
         const KEY_Macedonia_kje: number;
+        const KEY_Macro1: number;
+        const KEY_Macro10: number;
+        const KEY_Macro11: number;
+        const KEY_Macro12: number;
+        const KEY_Macro13: number;
+        const KEY_Macro14: number;
+        const KEY_Macro15: number;
+        const KEY_Macro16: number;
+        const KEY_Macro17: number;
+        const KEY_Macro18: number;
+        const KEY_Macro19: number;
+        const KEY_Macro2: number;
+        const KEY_Macro20: number;
+        const KEY_Macro21: number;
+        const KEY_Macro22: number;
+        const KEY_Macro23: number;
+        const KEY_Macro24: number;
+        const KEY_Macro25: number;
+        const KEY_Macro26: number;
+        const KEY_Macro27: number;
+        const KEY_Macro28: number;
+        const KEY_Macro29: number;
+        const KEY_Macro3: number;
+        const KEY_Macro30: number;
+        const KEY_Macro4: number;
+        const KEY_Macro5: number;
+        const KEY_Macro6: number;
+        const KEY_Macro7: number;
+        const KEY_Macro8: number;
+        const KEY_Macro9: number;
+        const KEY_MacroPreset1: number;
+        const KEY_MacroPreset2: number;
+        const KEY_MacroPreset3: number;
+        const KEY_MacroPresetCycle: number;
+        const KEY_MacroRecordStart: number;
+        const KEY_MacroRecordStop: number;
         const KEY_Mae_Koho: number;
         const KEY_Mail: number;
         const KEY_MailForward: number;
+        const KEY_MarkWaypoint: number;
         const KEY_Market: number;
         const KEY_Massyo: number;
+        const KEY_MediaRepeat: number;
+        const KEY_MediaTopMenu: number;
         const KEY_Meeting: number;
         const KEY_Memo: number;
         const KEY_Menu: number;
@@ -2173,6 +2281,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_MillSign: number;
         const KEY_ModeLock: number;
         const KEY_Mode_switch: number;
+        const KEY_MonBrightnessCycle: number;
         const KEY_MonBrightnessDown: number;
         const KEY_MonBrightnessUp: number;
         const KEY_MouseKeys_Accel_Enable: number;
@@ -2186,16 +2295,39 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_N: number;
         const KEY_Nacute: number;
         const KEY_NairaSign: number;
+        const KEY_NavChart: number;
+        const KEY_NavInfo: number;
         const KEY_Ncaron: number;
         const KEY_Ncedilla: number;
         const KEY_New: number;
         const KEY_NewSheqelSign: number;
         const KEY_News: number;
         const KEY_Next: number;
+        const KEY_NextElement: number;
+        const KEY_NextFavorite: number;
         const KEY_Next_VMode: number;
         const KEY_Next_Virtual_Screen: number;
+        const KEY_NotificationCenter: number;
         const KEY_Ntilde: number;
         const KEY_Num_Lock: number;
+        const KEY_Numeric0: number;
+        const KEY_Numeric1: number;
+        const KEY_Numeric11: number;
+        const KEY_Numeric12: number;
+        const KEY_Numeric2: number;
+        const KEY_Numeric3: number;
+        const KEY_Numeric4: number;
+        const KEY_Numeric5: number;
+        const KEY_Numeric6: number;
+        const KEY_Numeric7: number;
+        const KEY_Numeric8: number;
+        const KEY_Numeric9: number;
+        const KEY_NumericA: number;
+        const KEY_NumericB: number;
+        const KEY_NumericC: number;
+        const KEY_NumericD: number;
+        const KEY_NumericPound: number;
+        const KEY_NumericStar: number;
         const KEY_O: number;
         const KEY_OE: number;
         const KEY_Oacute: number;
@@ -2220,6 +2352,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Ohornhook: number;
         const KEY_Ohorntilde: number;
         const KEY_Omacron: number;
+        const KEY_OnScreenKeyboard: number;
         const KEY_Ooblique: number;
         const KEY_Open: number;
         const KEY_OpenURL: number;
@@ -2234,8 +2367,10 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Page_Up: number;
         const KEY_Paste: number;
         const KEY_Pause: number;
+        const KEY_PauseRecord: number;
         const KEY_PesetaSign: number;
         const KEY_Phone: number;
+        const KEY_PickupPhone: number;
         const KEY_Pictures: number;
         const KEY_Pointer_Accelerate: number;
         const KEY_Pointer_Button1: number;
@@ -2269,11 +2404,14 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Pointer_UpRight: number;
         const KEY_PowerDown: number;
         const KEY_PowerOff: number;
+        const KEY_Presentation: number;
         const KEY_Prev_VMode: number;
         const KEY_Prev_Virtual_Screen: number;
         const KEY_PreviousCandidate: number;
+        const KEY_PreviousElement: number;
         const KEY_Print: number;
         const KEY_Prior: number;
+        const KEY_PrivacyScreenToggle: number;
         const KEY_Q: number;
         const KEY_R: number;
         const KEY_R1: number;
@@ -2293,22 +2431,28 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_R9: number;
         const KEY_RFKill: number;
         const KEY_Racute: number;
+        const KEY_RadarOverlay: number;
         const KEY_Rcaron: number;
         const KEY_Rcedilla: number;
         const KEY_Red: number;
         const KEY_Redo: number;
         const KEY_Refresh: number;
+        const KEY_RefreshRateToggle: number;
         const KEY_Reload: number;
         const KEY_RepeatKeys_Enable: number;
         const KEY_Reply: number;
         const KEY_Return: number;
         const KEY_Right: number;
+        const KEY_RightDown: number;
+        const KEY_RightUp: number;
         const KEY_RockerDown: number;
         const KEY_RockerEnter: number;
         const KEY_RockerUp: number;
         const KEY_Romaji: number;
+        const KEY_RootMenu: number;
         const KEY_RotateWindows: number;
         const KEY_RotationKB: number;
+        const KEY_RotationLockToggle: number;
         const KEY_RotationPB: number;
         const KEY_RupeeSign: number;
         const KEY_S: number;
@@ -2320,6 +2464,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Scedilla: number;
         const KEY_Scircumflex: number;
         const KEY_ScreenSaver: number;
+        const KEY_Screensaver: number;
         const KEY_ScrollClick: number;
         const KEY_ScrollDown: number;
         const KEY_ScrollUp: number;
@@ -2327,6 +2472,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Search: number;
         const KEY_Select: number;
         const KEY_SelectButton: number;
+        const KEY_SelectiveScreenshot: number;
         const KEY_Send: number;
         const KEY_Serbian_DJE: number;
         const KEY_Serbian_DZE: number;
@@ -2344,7 +2490,9 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Shift_Lock: number;
         const KEY_Shift_R: number;
         const KEY_Shop: number;
+        const KEY_SidevuSonar: number;
         const KEY_SingleCandidate: number;
+        const KEY_SingleRangeRadar: number;
         const KEY_Sinh_a: number;
         const KEY_Sinh_aa: number;
         const KEY_Sinh_aa2: number;
@@ -2427,12 +2575,16 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Sinh_ya: number;
         const KEY_Sleep: number;
         const KEY_SlowKeys_Enable: number;
+        const KEY_SlowReverse: number;
+        const KEY_Sos: number;
         const KEY_Spell: number;
+        const KEY_SpellCheck: number;
         const KEY_SplitScreen: number;
         const KEY_Standby: number;
         const KEY_Start: number;
         const KEY_StickyKeys_Enable: number;
         const KEY_Stop: number;
+        const KEY_StopRecord: number;
         const KEY_Subtitle: number;
         const KEY_Super_L: number;
         const KEY_Super_R: number;
@@ -2456,6 +2608,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Tab: number;
         const KEY_Tabovedot: number;
         const KEY_TaskPane: number;
+        const KEY_Taskmanager: number;
         const KEY_Tcaron: number;
         const KEY_Tcedilla: number;
         const KEY_Terminal: number;
@@ -2553,6 +2706,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_TouchpadOn: number;
         const KEY_TouchpadToggle: number;
         const KEY_Touroku: number;
+        const KEY_TraditionalSonar: number;
         const KEY_Travel: number;
         const KEY_Tslash: number;
         const KEY_U: number;
@@ -2588,6 +2742,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Umacron: number;
         const KEY_Undo: number;
         const KEY_Ungrab: number;
+        const KEY_Unmute: number;
         const KEY_Uogonek: number;
         const KEY_Up: number;
         const KEY_Uring: number;
@@ -2596,12 +2751,17 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_UserPB: number;
         const KEY_Utilde: number;
         const KEY_V: number;
+        const KEY_VOD: number;
         const KEY_VendorHome: number;
         const KEY_Video: number;
+        const KEY_VideoPhone: number;
         const KEY_View: number;
+        const KEY_VoiceCommand: number;
+        const KEY_Voicemail: number;
         const KEY_VoidSymbol: number;
         const KEY_W: number;
         const KEY_WLAN: number;
+        const KEY_WPSButton: number;
         const KEY_WWAN: number;
         const KEY_WWW: number;
         const KEY_Wacute: number;
@@ -2635,6 +2795,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Zenkaku_Hankaku: number;
         const KEY_ZoomIn: number;
         const KEY_ZoomOut: number;
+        const KEY_ZoomReset: number;
         const KEY_Zstroke: number;
         const KEY_a: number;
         const KEY_aacute: number;
@@ -3555,7 +3716,7 @@ declare module 'gi://Gdk?version=4.0' {
          */
         const PRIORITY_REDRAW: number;
         /**
-         * The main way to not draw GL content in GTK.
+         * Draws GL content onto a cairo context.
          *
          * It takes a render buffer ID (`source_type` == GL_RENDERBUFFER) or a texture
          * id (`source_type` == GL_TEXTURE) and draws it onto `cr` with an OVER operation,
@@ -3705,9 +3866,9 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function color_state_get_srgb_linear(): ColorState;
         /**
-         * Read content from the given input stream and deserialize it, asynchronously.
+         * Reads content from the given input stream and deserialize it, asynchronously.
          *
-         * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
+         * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
          * indicate a higher priority.
          * @param stream a `GInputStream` to read the serialized content from
          * @param mime_type the mime type to deserialize from
@@ -3723,9 +3884,9 @@ declare module 'gi://Gdk?version=4.0' {
             cancellable?: Gio.Cancellable | null,
         ): Promise<[GObject.Value]>;
         /**
-         * Read content from the given input stream and deserialize it, asynchronously.
+         * Reads content from the given input stream and deserialize it, asynchronously.
          *
-         * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
+         * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
          * indicate a higher priority.
          * @param stream a `GInputStream` to read the serialized content from
          * @param mime_type the mime type to deserialize from
@@ -3743,9 +3904,9 @@ declare module 'gi://Gdk?version=4.0' {
             callback: Gio.AsyncReadyCallback<Gio.InputStream> | null,
         ): void;
         /**
-         * Read content from the given input stream and deserialize it, asynchronously.
+         * Reads content from the given input stream and deserialize it, asynchronously.
          *
-         * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
+         * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
          * indicate a higher priority.
          * @param stream a `GInputStream` to read the serialized content from
          * @param mime_type the mime type to deserialize from
@@ -3944,19 +4105,19 @@ declare module 'gi://Gdk?version=4.0' {
          * `gdk/gdkkeysyms.h` header file
          * but without the leading “GDK_KEY_”.
          * @param keyval_name a key name
-         * @returns the corresponding key value, or %GDK_KEY_VoidSymbol   if the key name is not a valid key
+         * @returns the corresponding key value, or `GDK_KEY_VoidSymbol`   if the key name is not a valid key
          */
         function keyval_from_name(keyval_name: string): number;
         /**
-         * Returns %TRUE if the given key value is in lower case.
+         * Returns true if the given key value is in lower case.
          * @param keyval a key value.
-         * @returns %TRUE if @keyval is in lower case, or if @keyval is not   subject to case conversion.
+         * @returns true if @keyval is in lower case, or if @keyval is not   subject to case conversion.
          */
         function keyval_is_lower(keyval: number): boolean;
         /**
-         * Returns %TRUE if the given key value is in upper case.
+         * Returns true if the given key value is in upper case.
          * @param keyval a key value.
-         * @returns %TRUE if @keyval is in upper case, or if @keyval is not subject to  case conversion.
+         * @returns true if @keyval is in upper case, or if @keyval is not subject to  case conversion.
          */
         function keyval_is_upper(keyval: number): boolean;
         /**
@@ -3976,12 +4137,12 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function keyval_to_lower(keyval: number): number;
         /**
-         * Convert from a GDK key symbol to the corresponding Unicode
+         * Converts from a GDK key symbol to the corresponding Unicode
          * character.
          *
          * Note that the conversion does not take the current locale
          * into consideration, which might be expected for particular
-         * keyvals, such as %GDK_KEY_KP_Decimal.
+         * keyvals, such as `GDK_KEY_KP_Decimal`.
          * @param keyval a GDK key symbol
          * @returns the corresponding unicode character, or 0 if there   is no corresponding character.
          */
@@ -4080,9 +4241,9 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function texture_error_quark(): GLib.Quark;
         /**
-         * Convert from a Unicode character to a key symbol.
+         * Converts from a Unicode character to a key symbol.
          * @param wc a Unicode character
-         * @returns the corresponding GDK key symbol, if one exists.   or, if there is no corresponding symbol, wc | 0x01000000
+         * @returns the corresponding GDK key symbol, if one exists,   or, if there is no corresponding symbol, `wc | 0x01000000`
          */
         function unicode_to_keyval(wc: number): number;
         /**
@@ -4588,7 +4749,7 @@ declare module 'gi://Gdk?version=4.0' {
              */
             SUSPENDED,
         }
-        module AppLaunchContext {
+        namespace AppLaunchContext {
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.AppLaunchContext.ConstructorProps {
@@ -4597,7 +4758,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkAppLaunchContext` handles launching an application in a graphical context.
+         * Handles launching an application in a graphical context.
          *
          * It is an implementation of `GAppLaunchContext` that provides startup
          * notification and allows to launch applications on a specific workspace.
@@ -4717,15 +4878,14 @@ declare module 'gi://Gdk?version=4.0' {
             get_button(): number;
         }
 
-        module CairoContext {
+        namespace CairoContext {
             // Constructor properties interface
 
             interface ConstructorProps extends DrawContext.ConstructorProps {}
         }
 
         /**
-         * `GdkCairoContext` is an object representing the platform-specific
-         * draw context.
+         * Represents the platform-specific draw context.
          *
          * `GdkCairoContext`s are created for a surface using
          * [method`Gdk`.Surface.create_cairo_context], and the context
@@ -4756,7 +4916,7 @@ declare module 'gi://Gdk?version=4.0' {
             cairo_create(): cairo.Context | null;
         }
 
-        module CicpParams {
+        namespace CicpParams {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4771,8 +4931,9 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkCicpParams` struct contains the parameters that define
-         * a colorstate according to the ITU-T H.273
+         * Contains the parameters that define a colorstate with cicp parameters.
+         *
+         * Cicp parameters are specified in the ITU-T H.273
          * [specification](https://www.itu.int/rec/T-REC-H.273/en).
          *
          * See the documentation of individual properties for supported values.
@@ -4946,7 +5107,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_transfer_function(transfer_function: number): void;
         }
 
-        module Clipboard {
+        namespace Clipboard {
             // Signal callback interfaces
 
             interface Changed {
@@ -4964,8 +5125,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkClipboard` object represents data shared between applications or
-         * inside an application.
+         * Represents data shared between applications or inside an application.
          *
          * To get a `GdkClipboard` object, use [method`Gdk`.Display.get_clipboard] or
          * [method`Gdk`.Display.get_primary_clipboard]. You can find out about the data
@@ -5346,15 +5506,14 @@ declare module 'gi://Gdk?version=4.0' {
             store_finish(result: Gio.AsyncResult): boolean;
         }
 
-        module ContentDeserializer {
+        namespace ContentDeserializer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncResult.ConstructorProps {}
         }
 
         /**
-         * A `GdkContentDeserializer` is used to deserialize content received via
-         * inter-application data transfers.
+         * Deserializes content received via inter-application data transfers.
          *
          * The `GdkContentDeserializer` transforms serialized content that is
          * identified by a mime type into an object identified by a GType.
@@ -5884,7 +6043,7 @@ declare module 'gi://Gdk?version=4.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module ContentProvider {
+        namespace ContentProvider {
             // Signal callback interfaces
 
             interface ContentChanged {
@@ -5901,8 +6060,8 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkContentProvider` is used to provide content for the clipboard or
-         * for drag-and-drop operations in a number of formats.
+         * Provides content for the clipboard or for drag-and-drop operations
+         * in a number of formats.
          *
          * To create a `GdkContentProvider`, use [ctor`Gdk`.ContentProvider.new_for_value]
          * or [ctor`Gdk`.ContentProvider.new_for_bytes].
@@ -6117,15 +6276,14 @@ declare module 'gi://Gdk?version=4.0' {
             write_mime_type_finish(result: Gio.AsyncResult): boolean;
         }
 
-        module ContentSerializer {
+        namespace ContentSerializer {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncResult.ConstructorProps {}
         }
 
         /**
-         * A `GdkContentSerializer` is used to serialize content for
-         * inter-application data transfers.
+         * Serializes content for inter-application data transfers.
          *
          * The `GdkContentSerializer` transforms an object that is identified
          * by a GType into a serialized form (i.e. a byte stream) that is
@@ -6685,7 +6843,7 @@ declare module 'gi://Gdk?version=4.0' {
             get_mode(): CrossingMode;
         }
 
-        module Cursor {
+        namespace Cursor {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6700,7 +6858,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkCursor` is used to create and destroy cursors.
+         * Used to create and destroy cursors.
          *
          * Cursors are immutable objects, so once you created them, there is no way
          * to modify them later. You should create a new cursor when you want to change
@@ -6871,7 +7029,7 @@ declare module 'gi://Gdk?version=4.0' {
             _init(...args: any[]): void;
         }
 
-        module Device {
+        namespace Device {
             // Signal callback interfaces
 
             interface Changed {
@@ -6885,6 +7043,8 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
+                active_layout_index: number;
+                activeLayoutIndex: number;
                 caps_lock_state: boolean;
                 capsLockState: boolean;
                 direction: Pango.Direction;
@@ -6893,6 +7053,8 @@ declare module 'gi://Gdk?version=4.0' {
                 hasBidiLayouts: boolean;
                 has_cursor: boolean;
                 hasCursor: boolean;
+                layout_names: string[];
+                layoutNames: string[];
                 modifier_state: ModifierType;
                 modifierState: ModifierType;
                 n_axes: number;
@@ -6915,8 +7077,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkDevice` object represents an input device, such
-         * as a keyboard, a mouse, or a touchpad.
+         * Represents an input device, such as a keyboard, mouse or touchpad.
          *
          * See the [class`Gdk`.Seat] documentation for more information
          * about the various kinds of devices, and their relationships.
@@ -6926,6 +7087,22 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Properties
 
+            /**
+             * The index of the keyboard active layout of a `GdkDevice`.
+             *
+             * Will be -1 if there is no valid active layout.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get active_layout_index(): number;
+            /**
+             * The index of the keyboard active layout of a `GdkDevice`.
+             *
+             * Will be -1 if there is no valid active layout.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get activeLayoutIndex(): number;
             /**
              * Whether Caps Lock is on.
              *
@@ -6968,6 +7145,18 @@ declare module 'gi://Gdk?version=4.0' {
              * Whether the device is represented by a cursor on the screen.
              */
             get hasCursor(): boolean;
+            /**
+             * The names of the keyboard layouts of a `GdkDevice`.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get layout_names(): string[];
+            /**
+             * The names of the keyboard layouts of a `GdkDevice`.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get layoutNames(): string[];
             /**
              * The current modifier state of the device.
              *
@@ -7089,6 +7278,16 @@ declare module 'gi://Gdk?version=4.0' {
             // Methods
 
             /**
+             * Retrieves the index of the active layout of the keyboard.
+             *
+             * If there is no valid active layout for the `GdkDevice`, this function will
+             * return -1;
+             *
+             * This is only relevant for keyboard devices.
+             * @returns The layout index of the active layout or -1.
+             */
+            get_active_layout_index(): number;
+            /**
              * Retrieves whether the Caps Lock modifier of the keyboard is locked.
              *
              * This is only relevant for keyboard devices.
@@ -7123,6 +7322,13 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns %TRUE if the pointer follows device motion
              */
             get_has_cursor(): boolean;
+            /**
+             * Retrieves the names of the layouts of the keyboard.
+             *
+             * This is only relevant for keyboard devices.
+             * @returns %NULL-terminated array of strings of layouts,
+             */
+            get_layout_names(): string[] | null;
             /**
              * Retrieves the current modifier state of the keyboard.
              *
@@ -7224,7 +7430,7 @@ declare module 'gi://Gdk?version=4.0' {
             get_vendor_id(): string | null;
         }
 
-        module DeviceTool {
+        namespace DeviceTool {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7313,7 +7519,7 @@ declare module 'gi://Gdk?version=4.0' {
             get_tool_type(): DeviceToolType;
         }
 
-        module Display {
+        namespace Display {
             // Signal callback interfaces
 
             interface Closed {
@@ -7351,7 +7557,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkDisplay` objects are the GDK representation of a workstation.
+         * A representation of a workstation.
          *
          * Their purpose are two-fold:
          *
@@ -7740,7 +7946,7 @@ declare module 'gi://Gdk?version=4.0' {
             ): [boolean, number, number, number, ModifierType | null];
         }
 
-        module DisplayManager {
+        namespace DisplayManager {
             // Signal callback interfaces
 
             interface DisplayOpened {
@@ -7756,8 +7962,9 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A singleton object that offers notification when displays appear or
-         * disappear.
+         * Offers notification when displays appear or disappear.
+         *
+         * `GdkDisplayManager` is a singleton object.
          *
          * You can use [func`Gdk`.DisplayManager.get] to obtain the `GdkDisplayManager`
          * singleton, but that should be rarely necessary. Typically, initializing
@@ -7870,7 +8077,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_default_display(display: Display): void;
         }
 
-        module DmabufTexture {
+        namespace DmabufTexture {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -8144,6 +8351,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param icon2 pointer to the second #GIcon.
              */
             vfunc_equal(icon2?: Gio.Icon | null): boolean;
+            /**
+             * Constructs a #GIcon from a list of `tokens`.
+             * @param tokens An array of tokens
+             * @param version Version of the serialized tokens
+             */
+            vfunc_from_tokens(tokens: string[], version: number): Gio.Icon | null;
             /**
              * Gets a hash for an icon.
              */
@@ -8636,7 +8849,7 @@ declare module 'gi://Gdk?version=4.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module DmabufTextureBuilder {
+        namespace DmabufTextureBuilder {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -8658,8 +8871,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkDmabufTextureBuilder` is a builder used to construct [class`Gdk`.Texture]
-         * objects from DMA buffers.
+         * Constructs [class`Gdk`.Texture] objects from DMA buffers.
          *
          * DMA buffers are commonly called **_dma-bufs_**.
          *
@@ -9009,7 +9221,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_width(width: number): void;
         }
 
-        module Drag {
+        namespace Drag {
             // Signal callback interfaces
 
             interface Cancel {
@@ -9039,7 +9251,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkDrag` object represents the source of an ongoing DND operation.
+         * Represents the source of an ongoing DND operation.
          *
          * A `GdkDrag` is created when a drag is started, and stays alive for duration of
          * the DND operation. After a drag has been started with [func`Gdk`.Drag.begin],
@@ -9219,7 +9431,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_hotspot(hot_x: number, hot_y: number): void;
         }
 
-        module DrawContext {
+        namespace DrawContext {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9333,7 +9545,7 @@ declare module 'gi://Gdk?version=4.0' {
             is_in_frame(): boolean;
         }
 
-        module Drop {
+        namespace Drop {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9347,7 +9559,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkDrop` object represents the target of an ongoing DND operation.
+         * Represents the target of an ongoing DND operation.
          *
          * Possible drop sites get informed about the status of the ongoing drag
          * operation with events of type %GDK_DRAG_ENTER, %GDK_DRAG_LEAVE,
@@ -9589,12 +9801,13 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkEvent`s are immutable data structures, created by GDK to
-         * represent windowing system events.
+         * Represents windowing system events.
          *
          * In GTK applications the events are handled automatically by toplevel
          * widgets and passed on to the event controllers of appropriate widgets,
          * so using `GdkEvent` and its related API is rarely needed.
+         *
+         * `GdkEvent` structs are immutable.
          */
         abstract class Event {
             static $gtype: GObject.GType<Event>;
@@ -9789,7 +10002,7 @@ declare module 'gi://Gdk?version=4.0' {
             get_in(): boolean;
         }
 
-        module FrameClock {
+        namespace FrameClock {
             // Signal callback interfaces
 
             interface AfterPaint {
@@ -9826,8 +10039,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkFrameClock` tells the application when to update and repaint
-         * a surface.
+         * Tells the application when to update and repaint a surface.
          *
          * This may be synced to the vertical refresh rate of the monitor, for example.
          * Even when the frame clock uses a simple timer rather than a hardware-based
@@ -9993,7 +10205,7 @@ declare module 'gi://Gdk?version=4.0' {
             request_phase(phase: FrameClockPhase | null): void;
         }
 
-        module GLContext {
+        namespace GLContext {
             // Constructor properties interface
 
             interface ConstructorProps extends DrawContext.ConstructorProps {
@@ -10006,8 +10218,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkGLContext` is an object representing a platform-specific
-         * OpenGL draw context.
+         * Represents a platform-specific OpenGL draw context.
          *
          * `GdkGLContext`s are created for a surface using
          * [method`Gdk`.Surface.create_gl_context], and the context will match
@@ -10292,7 +10503,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_use_es(use_es: number): void;
         }
 
-        module GLTexture {
+        namespace GLTexture {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -10303,7 +10514,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A GdkTexture representing a GL texture object.
+         * A `GdkTexture` representing a GL texture object.
          */
         class GLTexture extends Texture implements Paintable, Gio.Icon, Gio.LoadableIcon {
             static $gtype: GObject.GType<GLTexture>;
@@ -10574,6 +10785,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param icon2 pointer to the second #GIcon.
              */
             vfunc_equal(icon2?: Gio.Icon | null): boolean;
+            /**
+             * Constructs a #GIcon from a list of `tokens`.
+             * @param tokens An array of tokens
+             * @param version Version of the serialized tokens
+             */
+            vfunc_from_tokens(tokens: string[], version: number): Gio.Icon | null;
             /**
              * Gets a hash for an icon.
              */
@@ -11066,7 +11283,7 @@ declare module 'gi://Gdk?version=4.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module GLTextureBuilder {
+        namespace GLTextureBuilder {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -11088,8 +11305,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkGLTextureBuilder` is a builder used to construct [class`Gdk`.Texture] objects from
-         * GL textures.
+         * Constructs [class`Gdk`.Texture] objects from GL textures.
          *
          * The operation is quite simple: Create a texture builder, set all the necessary
          * properties - keep in mind that the properties [property`Gdk`.GLTextureBuilder:context],
@@ -11454,7 +11670,7 @@ declare module 'gi://Gdk?version=4.0' {
             matches(keyval: number, modifiers: ModifierType | null): KeyMatch;
         }
 
-        module MemoryTexture {
+        namespace MemoryTexture {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -11731,6 +11947,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param icon2 pointer to the second #GIcon.
              */
             vfunc_equal(icon2?: Gio.Icon | null): boolean;
+            /**
+             * Constructs a #GIcon from a list of `tokens`.
+             * @param tokens An array of tokens
+             * @param version Version of the serialized tokens
+             */
+            vfunc_from_tokens(tokens: string[], version: number): Gio.Icon | null;
             /**
              * Gets a hash for an icon.
              */
@@ -12223,7 +12445,7 @@ declare module 'gi://Gdk?version=4.0' {
             stop_emission_by_name(detailedName: string): any;
         }
 
-        module MemoryTextureBuilder {
+        namespace MemoryTextureBuilder {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -12242,8 +12464,8 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkMemoryTextureBuilder` is a builder used to construct [class`Gdk`.Texture] objects
-         * from system memory provided via [struct`GLib`.Bytes].
+         * Constructs [class`Gdk`.Texture] objects from system memory provided
+         * via [struct`GLib`.Bytes].
          *
          * The operation is quite simple: Create a texture builder, set all the necessary
          * properties - keep in mind that the properties [property`Gdk`.MemoryTextureBuilder:bytes],
@@ -12451,7 +12673,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_width(width: number): void;
         }
 
-        module Monitor {
+        namespace Monitor {
             // Signal callback interfaces
 
             interface Invalidate {
@@ -12483,8 +12705,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkMonitor` objects represent the individual outputs that are
-         * associated with a `GdkDisplay`.
+         * Represents the individual outputs that are associated with a `GdkDisplay`.
          *
          * `GdkDisplay` keeps a `GListModel` to enumerate and monitor
          * monitors with [method`Gdk`.Display.get_monitors]. You can use
@@ -12795,7 +13016,7 @@ declare module 'gi://Gdk?version=4.0' {
             is_stop(): boolean;
         }
 
-        module Seat {
+        namespace Seat {
             // Signal callback interfaces
 
             interface DeviceAdded {
@@ -12822,8 +13043,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkSeat` object represents a collection of input devices
-         * that belong to a user.
+         * Represents a collection of input devices that belong to a user.
          */
         abstract class Seat extends GObject.Object {
             static $gtype: GObject.GType<Seat>;
@@ -12894,7 +13114,7 @@ declare module 'gi://Gdk?version=4.0' {
             get_tools(): DeviceTool[];
         }
 
-        module Snapshot {
+        namespace Snapshot {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -12915,7 +13135,7 @@ declare module 'gi://Gdk?version=4.0' {
             _init(...args: any[]): void;
         }
 
-        module Surface {
+        namespace Surface {
             // Signal callback interfaces
 
             interface EnterMonitor {
@@ -12955,7 +13175,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkSurface` is a rectangular region on the screen.
+         * Represents a rectangular region on the screen.
          *
          * It’s a low-level object, used to implement high-level objects
          * such as [GtkWindow](../gtk4/class.Window.html).
@@ -13313,7 +13533,7 @@ declare module 'gi://Gdk?version=4.0' {
             translate_coordinates(to: Surface, x: number, y: number): [boolean, number, number];
         }
 
-        module Texture {
+        namespace Texture {
             // Constructor properties interface
 
             interface ConstructorProps
@@ -13329,7 +13549,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkTexture` is the basic element used to refer to pixel data.
+         * Refers to pixel data in various forms.
          *
          * It is primarily meant for pixel data that will not change over
          * multiple frames, and will be used for a long time.
@@ -13753,6 +13973,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param icon2 pointer to the second #GIcon.
              */
             vfunc_equal(icon2?: Gio.Icon | null): boolean;
+            /**
+             * Constructs a #GIcon from a list of `tokens`.
+             * @param tokens An array of tokens
+             * @param version Version of the serialized tokens
+             */
+            vfunc_from_tokens(tokens: string[], version: number): Gio.Icon | null;
             /**
              * Gets a hash for an icon.
              */
@@ -14307,7 +14533,7 @@ declare module 'gi://Gdk?version=4.0' {
             get_pinch_scale(): number;
         }
 
-        module VulkanContext {
+        namespace VulkanContext {
             // Signal callback interfaces
 
             interface ImagesUpdated {
@@ -14320,8 +14546,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkVulkanContext` is an object representing the platform-specific
-         * Vulkan draw context.
+         * Represents the platform-specific Vulkan draw context.
          *
          * `GdkVulkanContext`s are created for a surface using
          * [method`Gdk`.Surface.create_vulkan_context], and the context will match
@@ -14368,7 +14593,7 @@ declare module 'gi://Gdk?version=4.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -14411,7 +14636,7 @@ declare module 'gi://Gdk?version=4.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -14838,8 +15063,7 @@ declare module 'gi://Gdk?version=4.0' {
 
         type CicpParamsClass = typeof CicpParams;
         /**
-         * A `GdkColorState` object provides the information to interpret
-         * colors and pixels in a variety of ways.
+         * Provides information to interpret colors and pixels in a variety of ways.
          *
          * They are also known as
          * [*color spaces*](https://en.wikipedia.org/wiki/Color_space).
@@ -14955,8 +15179,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkContentFormats` structure is used to advertise and negotiate the
-         * format of content.
+         * Used to advertise and negotiate the format of content.
          *
          * You will encounter `GdkContentFormats` when interacting with objects
          * controlling operations that pass data between different widgets, window
@@ -15137,7 +15360,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * Auxiliary object to create a `GdkContentFormats`.
+         * Creates `GdkContentFormats` objects.
          */
         class ContentFormatsBuilder {
             static $gtype: GObject.GType<ContentFormatsBuilder>;
@@ -15195,8 +15418,7 @@ declare module 'gi://Gdk?version=4.0' {
         type ContentProviderClass = typeof ContentProvider;
         type DevicePadInterface = typeof DevicePad;
         /**
-         * The `GdkDmabufFormats` struct provides information about
-         * supported DMA buffer formats.
+         * Provides information about supported DMA buffer formats.
          *
          * You can query whether a given format is supported with
          * [method`Gdk`.DmabufFormats.contains] and you can iterate
@@ -15273,8 +15495,7 @@ declare module 'gi://Gdk?version=4.0' {
         type DmabufTextureClass = typeof DmabufTexture;
         type DragSurfaceInterface = typeof DragSurface;
         /**
-         * The `GdkDragSurfaceSize` struct contains information that is useful
-         * to compute the size of a drag surface.
+         * Contains information that is useful to compute the size of a drag surface.
          */
         abstract class DragSurfaceSize {
             static $gtype: GObject.GType<DragSurfaceSize>;
@@ -15294,8 +15515,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkEventSequence` is an opaque type representing a sequence
-         * of related touch events.
+         * An opaque type representing a sequence of related events.
          */
         abstract class EventSequence {
             static $gtype: GObject.GType<EventSequence>;
@@ -15341,8 +15561,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkFrameTimings` object holds timing information for a single frame
-         * of the application’s displays.
+         * Holds timing information for a single frame of the application’s displays.
          *
          * To retrieve `GdkFrameTimings` objects, use [method`Gdk`.FrameClock.get_timings]
          * or [method`Gdk`.FrameClock.get_current_timings]. The information in
@@ -15438,7 +15657,7 @@ declare module 'gi://Gdk?version=4.0' {
         type GLTextureBuilderClass = typeof GLTextureBuilder;
         type GLTextureClass = typeof GLTexture;
         /**
-         * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
+         * Represents a hardware key that can be mapped to a keyval.
          */
         class KeymapKey {
             static $gtype: GObject.GType<KeymapKey>;
@@ -15467,8 +15686,8 @@ declare module 'gi://Gdk?version=4.0' {
         type PaintableInterface = typeof Paintable;
         type PopupInterface = typeof Popup;
         /**
-         * The `GdkPopupLayout` struct contains information that is
-         * necessary position a [iface`Gdk`.Popup] relative to its parent.
+         * Contains information that is necessary position a [iface`Gdk`.Popup]
+         * relative to its parent.
          *
          * The positioning requires a negotiation with the windowing system,
          * since it depends on external constraints, such as the position of
@@ -15608,8 +15827,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkRGBA` is used to represent a color, in a way that is compatible
-         * with cairo’s notion of color.
+         * Represents a color, in a way that is compatible with cairo’s notion of color.
          *
          * `GdkRGBA` is a convenient way to pass colors around. It’s based on
          * cairo’s way to deal with colors and mirrors its behavior. All values
@@ -15725,7 +15943,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkRectangle` data type for representing rectangles.
+         * Represents a rectangle.
          *
          * `GdkRectangle` is identical to `cairo_rectangle_t`. Together with Cairo’s
          * `cairo_region_t` data type, these are the central types for representing
@@ -15808,8 +16026,7 @@ declare module 'gi://Gdk?version=4.0' {
         type SurfaceClass = typeof Surface;
         type TextureClass = typeof Texture;
         /**
-         * The `GdkTextureDownloader` is used to download the contents of a
-         * [class`Gdk`.Texture].
+         * Used to download the contents of a [class`Gdk`.Texture].
          *
          * It is intended to be created as a short-term object for a single download,
          * but can be used for multiple downloads of different textures or with different
@@ -15897,7 +16114,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkTimeCoord` stores a single event in a motion history.
+         * Stores a single event in a motion history.
          *
          * To check whether an axis is present, check whether the corresponding
          * flag from the [flags`Gdk`.AxisFlags] enumeration is set in the `flags`
@@ -15920,8 +16137,8 @@ declare module 'gi://Gdk?version=4.0' {
 
         type ToplevelInterface = typeof Toplevel;
         /**
-         * The `GdkToplevelLayout` struct contains information that
-         * is necessary to present a sovereign window on screen.
+         * Contains information that is necessary to present a sovereign
+         * window on screen.
          *
          * The `GdkToplevelLayout` struct is necessary for using
          * [method`Gdk`.Toplevel.present].
@@ -16010,8 +16227,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkToplevelSize` struct contains information that is useful
-         * to compute the size of a toplevel.
+         * Contains information that is useful to compute the size of a toplevel.
          */
         abstract class ToplevelSize {
             static $gtype: GObject.GType<ToplevelSize>;
@@ -16074,7 +16290,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_size(width: number, height: number): void;
         }
 
-        module DevicePad {
+        namespace DevicePad {
             // Constructor properties interface
 
             interface ConstructorProps extends Device.ConstructorProps {}
@@ -16123,7 +16339,7 @@ declare module 'gi://Gdk?version=4.0' {
             new (): DevicePad; // This allows `obj instanceof DevicePad`
         };
 
-        module DragSurface {
+        namespace DragSurface {
             // Constructor properties interface
 
             interface ConstructorProps extends Surface.ConstructorProps {}
@@ -16149,7 +16365,7 @@ declare module 'gi://Gdk?version=4.0' {
             new (): DragSurface; // This allows `obj instanceof DragSurface`
         };
 
-        module Paintable {
+        namespace Paintable {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -16385,7 +16601,7 @@ declare module 'gi://Gdk?version=4.0' {
             new (): Paintable; // This allows `obj instanceof Paintable`
         };
 
-        module Popup {
+        namespace Popup {
             // Constructor properties interface
 
             interface ConstructorProps extends Surface.ConstructorProps {
@@ -16476,7 +16692,7 @@ declare module 'gi://Gdk?version=4.0' {
             new (): Popup; // This allows `obj instanceof Popup`
         };
 
-        module Toplevel {
+        namespace Toplevel {
             // Constructor properties interface
 
             interface ConstructorProps extends Surface.ConstructorProps {
