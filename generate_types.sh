@@ -14,7 +14,7 @@ YARN_GLOBAL_DIR=/tmp/yarn-global
 
 message "Installing ts-for-gir..."
 export PATH="$YARN_GLOBAL_DIR/node_modules/.bin:$PATH"
-yarn --global-folder $YARN_GLOBAL_DIR global add @ts-for-gir/cli@4.0.0-beta.21
+yarn --global-folder $YARN_GLOBAL_DIR global add @ts-for-gir/cli@4.0.0-beta.23
 
 message "Finding all modules..."
 LIST_OUTPUT=$(ts-for-gir list)
