@@ -3,6 +3,7 @@
 /// <reference path="./glib-2.0.d.ts" />
 /// <reference path="./gdk-4.0.d.ts" />
 /// <reference path="./cairo-1.0.d.ts" />
+/// <reference path="./cairo.d.ts" />
 /// <reference path="./pangocairo-1.0.d.ts" />
 /// <reference path="./pango-1.0.d.ts" />
 /// <reference path="./harfbuzz-0.0.d.ts" />
@@ -26,7 +27,7 @@ declare module 'gi://Gsk?version=4.0' {
     import type GObject from 'gi://GObject?version=2.0';
     import type GLib from 'gi://GLib?version=2.0';
     import type Gdk from 'gi://Gdk?version=4.0';
-    import type cairo from 'gi://cairo?version=1.0';
+    import type cairo from 'cairo';
     import type PangoCairo from 'gi://PangoCairo?version=1.0';
     import type Pango from 'gi://Pango?version=1.0';
     import type HarfBuzz from 'gi://HarfBuzz?version=0.0';
@@ -1049,7 +1050,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A GSK renderer that is using cairo.
+         * Renders a GSK rendernode tree with cairo.
          *
          * Since it is using cairo, this renderer cannot support
          * 3D transformations.
@@ -1327,7 +1328,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A GL based renderer.
+         * Renders a GSK rendernode tree with OpenGL.
          *
          * See [class`Gsk`.Renderer].
          */
@@ -1353,8 +1354,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A `GskGLShader` is a snippet of GLSL that is meant to run in the
-         * fragment shader of the rendering pipeline.
+         * Implements a fragment shader using GLSL.
          *
          * A fragment shader gets the coordinates being rendered as input and
          * produces the pixel values for that particular pixel. Additionally,
@@ -1968,8 +1968,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * `GskRenderNode` is the basic block in a scene graph to be
-         * rendered using [class`Gsk`.Renderer].
+         * The basic block in a scene graph to be rendered using [class`Gsk`.Renderer].
          *
          * Each node has a parent, except the top-level node; each node may have
          * children nodes.
@@ -2086,8 +2085,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A class that renders a scene graph defined via a tree of
-         * [class`Gsk`.RenderNode] instances.
+         * Renders a scene graph defined via a tree of [class`Gsk`.RenderNode] instances.
          *
          * Typically you will use a `GskRenderer` instance to repeatedly call
          * [method`Gsk`.Renderer.render] to update the contents of its associated
@@ -2503,7 +2501,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * A GSK renderer that is using Vulkan.
+         * Renders a GSK rendernode tree with Vulkan.
          *
          * This renderer will fail to realize if Vulkan is not supported.
          */
@@ -2777,7 +2775,6 @@ declare module 'gi://Gsk?version=4.0' {
          *
          * A path is constructed like this:
          *
-         *
          * ```c
          * GskPath *
          * construct_path (void)
@@ -2790,7 +2787,6 @@ declare module 'gi://Gsk?version=4.0' {
          *
          *   return gsk_path_builder_free_to_path (builder);
          * ```
-         *
          *
          * Adding contours to the path can be done in two ways.
          * The easiest option is to use the `gsk_path_builder_add_*` group
@@ -3258,7 +3254,7 @@ declare module 'gi://Gsk?version=4.0' {
         }
 
         /**
-         * An opaque type representing a point on a path.
+         * Represents a point on a path.
          *
          * It can be queried for properties of the path at that point,
          * such as its tangent or its curvature.

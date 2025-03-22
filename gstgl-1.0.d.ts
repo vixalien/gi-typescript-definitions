@@ -1194,36 +1194,6 @@ declare module 'gi://GstGL?version=1.0' {
             vfunc_alloc(params: GLAllocationParams): GLBaseMemory | null;
             // Conflicted with Gst.Allocator.vfunc_alloc
             vfunc_alloc(...args: never[]): any;
-            /**
-             * a #GstGLBaseMemoryAllocatorCopyFunction
-             * @param mem a #GstGLBaseMemory
-             * @param offset the offset to copy from
-             * @param size the number of bytes to copy
-             */
-            vfunc_copy(mem: GLBaseMemory, offset: number, size: number): GLBaseMemory | null;
-            /**
-             * a #GstGLBaseMemoryAllocatorCreateFunction
-             * @param mem a #GstGLBaseMemory
-             */
-            vfunc_create(mem: GLBaseMemory): boolean;
-            /**
-             * a #GstGLBaseMemoryAllocatorDestroyFunction
-             * @param mem a #GstGLBaseMemory
-             */
-            vfunc_destroy(mem: GLBaseMemory): void;
-            /**
-             * a #GstGLBaseMemoryAllocatorMapFunction
-             * @param mem a #GstGLBaseMemory
-             * @param info a #GstMapInfo to map with
-             * @param maxsize the size to map
-             */
-            vfunc_map(mem: GLBaseMemory, info: Gst.MapInfo, maxsize: number): any | null;
-            /**
-             * a #GstGLBaseMemoryAllocatorUnmapFunction
-             * @param mem a #GstGLBaseMemory
-             * @param info a #GstMapInfo to map with
-             */
-            vfunc_unmap(mem: GLBaseMemory, info: Gst.MapInfo): void;
         }
 
         namespace GLBaseMixer {
@@ -1622,7 +1592,6 @@ declare module 'gi://GstGL?version=1.0' {
              * return %NULL when not supported.
              */
             vfunc_get_config(): Gst.Structure | null;
-            vfunc_get_current_context(): never;
             /**
              * Get the currently enabled OpenGL api.
              *
@@ -1643,12 +1612,6 @@ declare module 'gi://GstGL?version=1.0' {
              * after a call to gst_gl_context_create().
              */
             vfunc_get_gl_platform_version(): [number, number];
-            /**
-             * get an function pointer to an OpenGL function
-             * @param gl_api
-             * @param name
-             */
-            vfunc_get_proc_address(gl_api: GLAPI, name: string): any | null;
             /**
              * Set the OpenGL configuration for this context.  The context must not
              * have been created for this function to succeed.  Setting a %NULL
@@ -2188,29 +2151,6 @@ declare module 'gi://GstGL?version=1.0' {
             // Static methods
 
             static get_default(context: GLContext): GLMemoryAllocator;
-
-            // Virtual methods
-
-            /**
-             * provide a custom copy implementation
-             * @param mem a #GstGLBaseMemory
-             * @param offset the offset to copy from
-             * @param size the number of bytes to copy
-             */
-            vfunc_copy(mem: GLBaseMemory, offset: number, size: number): GLBaseMemory | null;
-            /**
-             * provide a custom map implementation
-             * @param mem a #GstGLBaseMemory
-             * @param info a #GstMapInfo to map with
-             * @param maxsize the size to map
-             */
-            vfunc_map(mem: GLBaseMemory, info: Gst.MapInfo, maxsize: number): any | null;
-            /**
-             * provide a custom unmap implementation
-             * @param mem a #GstGLBaseMemory
-             * @param info a #GstMapInfo to map with
-             */
-            vfunc_unmap(mem: GLBaseMemory, info: Gst.MapInfo): void;
         }
 
         namespace GLMemoryPBOAllocator {

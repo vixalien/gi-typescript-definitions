@@ -7352,8 +7352,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param value new #GValue for the property
              */
             set_property(name: string, value: GObject.Value | any): void;
-            // Conflicted with GObject.Object.set_property
-            set_property(...args: never[]): any;
             /**
              * Emits the #GstChildProxy::child-added signal.
              * @param child the newly added child
@@ -7732,8 +7730,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
-            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -7756,8 +7752,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
-            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -7772,8 +7766,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
-            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -7785,13 +7777,31 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
-            vfunc_set_property(...args: never[]): any;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
         /**
@@ -13076,8 +13086,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param value new #GValue for the property
              */
             set_property(name: string, value: GObject.Value | any): void;
-            // Conflicted with GObject.Object.set_property
-            set_property(...args: never[]): any;
             /**
              * Emits the #GstChildProxy::child-added signal.
              * @param child the newly added child
@@ -13456,8 +13464,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspecs
              */
             vfunc_dispatch_properties_changed(n_pspecs: number, pspecs: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_dispatch_properties_changed
-            vfunc_dispatch_properties_changed(...args: never[]): any;
             /**
              * the `dispose` function is supposed to drop all references to other
              *  objects, but keep the instance otherwise intact, so that client method
@@ -13480,8 +13486,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_get_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_get_property
-            vfunc_get_property(...args: never[]): any;
             /**
              * Emits a "notify" signal for the property `property_name` on `object`.
              *
@@ -13496,8 +13500,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_notify(pspec: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_notify
-            vfunc_notify(...args: never[]): any;
             /**
              * the generic setter for all properties of this type. Should be
              *  overridden for every type with properties. If implementations of
@@ -13509,13 +13511,31 @@ declare module 'gi://Gst?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
-            // Conflicted with GObject.InitiallyUnowned.vfunc_set_property
-            vfunc_set_property(...args: never[]): any;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
         namespace Plugin {
@@ -22056,8 +22076,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param value new #GValue for the property
              */
             set_property(name: string, value: GObject.Value | any): void;
-            // Conflicted with GObject.Object.set_property
-            set_property(...args: never[]): any;
 
             // Virtual methods
 
@@ -22371,16 +22389,6 @@ declare module 'gi://Gst?version=1.0' {
 
             // Virtual methods
 
-            /**
-             * Method to return the list of protocols handled by the element.
-             * @param type
-             */
-            vfunc_get_protocols(type: GObject.GType): string[];
-            /**
-             * Method to tell whether the element handles source or sink URI.
-             * @param type
-             */
-            vfunc_get_type(type: GObject.GType): URIType;
             /**
              * Gets the currently handled URI.
              */
