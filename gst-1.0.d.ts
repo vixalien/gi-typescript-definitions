@@ -2962,6 +2962,30 @@ declare module 'gi://Gst?version=1.0' {
          */
         function buffer_get_max_memory(): number;
         /**
+         * Modifies a pointer to a #GstBufferList to point to a different
+         * #GstBufferList. The modification is done atomically (so this is useful for
+         * ensuring thread safety in some cases), and the reference counts are updated
+         * appropriately (the old buffer list is unreffed, the new is reffed).
+         *
+         * Either `new_list` or the #GstBufferList pointed to by `old_list` may be %NULL.
+         * @param old_list pointer to a pointer to a     #GstBufferList to be replaced.
+         * @param new_list pointer to a #GstBufferList that     will replace the buffer list pointed to by @old_list.
+         * @returns %TRUE if @new_list was different from @old_list
+         */
+        function buffer_list_replace(
+            old_list?: BufferList | null,
+            new_list?: BufferList | null,
+        ): [boolean, BufferList | null];
+        /**
+         * Modifies a pointer to a #GstBufferList to point to a different
+         * #GstBufferList. This function is similar to gst_buffer_list_replace() except
+         * that it takes ownership of `new_list`.
+         * @param old_list pointer to a pointer to a #GstBufferList     to be replaced.
+         * @param new_list pointer to a #GstBufferList     that will replace the bufferlist pointed to by @old_list.
+         * @returns %TRUE if @new_list was different from @old_list
+         */
+        function buffer_list_take(old_list: BufferList, new_list?: BufferList | null): [boolean, BufferList];
+        /**
          * Creates a #GstCapsFeatures from a string representation.
          * @param features a string representation of a #GstCapsFeatures.
          * @returns a new #GstCapsFeatures or     %NULL when the string could not be parsed.
@@ -2976,6 +3000,18 @@ declare module 'gi://Gst?version=1.0' {
          * @returns a newly allocated #GstCaps
          */
         function caps_from_string(string: string): Caps | null;
+        /**
+         * Modifies a pointer to a #GstContext to point to a different #GstContext. The
+         * modification is done atomically (so this is useful for ensuring thread safety
+         * in some cases), and the reference counts are updated appropriately (the old
+         * context is unreffed, the new one is reffed).
+         *
+         * Either `new_context` or the #GstContext pointed to by `old_context` may be %NULL.
+         * @param old_context pointer to a pointer to a #GstContext     to be replaced.
+         * @param new_context pointer to a #GstContext that will     replace the context pointed to by @old_context.
+         * @returns %TRUE if @new_context was different from @old_context
+         */
+        function context_replace(old_context: Context, new_context?: Context | null): [boolean, Context];
         function core_error_quark(): GLib.Quark;
         /**
          * Adds the logging function to the list of logging functions.
@@ -3167,6 +3203,29 @@ declare module 'gi://Gst?version=1.0' {
             object: GObject.Object | null,
             message_string: string,
         ): void;
+        /**
+         * Returns a string that represents `ptr`. This is safe to call with
+         * %GstStructure, %GstCapsFeatures, %GstMiniObject s (e.g. %GstCaps,
+         * %GstBuffer or %GstMessage), and %GObjects (e.g. %GstElement or %GstPad).
+         *
+         * The string representation is meant to be used for debugging purposes and
+         * might change between GStreamer versions.
+         *
+         * Passing other kind of pointers might or might not work and is generally
+         * unsafe to do.
+         * @param ptr the object
+         * @returns a string containing a string     representation of the object
+         */
+        function debug_print_object(ptr?: any | null): string;
+        /**
+         * Returns a string that represents `segments`.
+         *
+         * The string representation is meant to be used for debugging purposes and
+         * might change between GStreamer versions.
+         * @param segment the %GstSegment
+         * @returns a string containing a string     representation of the segment
+         */
+        function debug_print_segment(segment?: Segment | null): string;
         /**
          * If libunwind, glibc backtrace or DbgHelp are present
          * a stack trace is printed.
@@ -3427,6 +3486,15 @@ declare module 'gi://Gst?version=1.0' {
         function is_initialized(): boolean;
         function library_error_quark(): GLib.Quark;
         /**
+         * Modifies a pointer to a #GstMessage to point to a different #GstMessage. This
+         * function is similar to gst_message_replace() except that it takes ownership
+         * of `new_message`.
+         * @param old_message pointer to a pointer to a #GstMessage     to be replaced.
+         * @param new_message pointer to a #GstMessage that     will replace the message pointed to by @old_message.
+         * @returns %TRUE if @new_message was different from @old_message
+         */
+        function message_take(old_message: Message, new_message?: Message | null): [boolean, Message];
+        /**
          * Get a printable name for the given message type. Do not modify or free.
          * @param type the message type
          * @returns a reference to the static name of the message.
@@ -3438,6 +3506,24 @@ declare module 'gi://Gst?version=1.0' {
          * @returns the quark associated with the message type
          */
         function message_type_to_quark(type: MessageType | null): GLib.Quark;
+        /**
+         * When a element like `tee` decides the allocation, each downstream element may
+         * fill different parameters and pass them to gst_query_add_allocation_meta().
+         * In order to keep these parameters, a merge operation is needed. This
+         * aggregate function can combine the parameters from `params0` and `param1`, and
+         * write the result back into `aggregated_params`.
+         * @param api the GType of the API for which the parameters are being aggregated.
+         * @param aggregated_params This structure will be updated with the                     combined parameters from both @params0 and @params1.
+         * @param params0 a #GstStructure containing the new parameters to be aggregated.
+         * @param params1 a #GstStructure containing the new parameters to be aggregated.
+         * @returns %TRUE if the parameters were successfully aggregated, %FALSE otherwise.
+         */
+        function meta_api_type_aggregate_params(
+            api: GObject.GType,
+            aggregated_params: Structure,
+            params0: Structure,
+            params1: Structure,
+        ): boolean;
         function meta_api_type_get_tags(api: GObject.GType): string[];
         /**
          * Check if `api` was registered with `tag`.
@@ -3454,6 +3540,15 @@ declare module 'gi://Gst?version=1.0' {
          * @returns a unique GType for @api.
          */
         function meta_api_type_register(api: string, tags: string[]): GObject.GType;
+        /**
+         * This function sets the aggregator function for a specific API type.
+         * @param api the #GType of the API for which the aggregator function is being set.
+         * @param aggregator the aggregator function to be associated with the given API              type.
+         */
+        function meta_api_type_set_params_aggregator(
+            api: GObject.GType,
+            aggregator: AllocationMetaParamsAggregator,
+        ): void;
         /**
          * Recreate a #GstMeta from serialized data returned by
          * gst_meta_serialize() and add it to `buffer`.
@@ -3721,6 +3816,17 @@ declare module 'gi://Gst?version=1.0' {
          */
         function protection_select_system(system_identifiers: string[]): string | null;
         /**
+         * Modifies a pointer to a #GstQuery to point to a different #GstQuery. This
+         * function is similar to gst_query_replace() except that it takes ownership of
+         * `new_query`.
+         *
+         * Either `new_query` or the #GstQuery pointed to by `old_query` may be %NULL.
+         * @param old_query pointer to a     pointer to a #GstQuery to be stolen.
+         * @param new_query pointer to a #GstQuery that will     replace the query pointed to by @old_query.
+         * @returns %TRUE if @new_query was different from @old_query
+         */
+        function query_take(old_query?: Query | null, new_query?: Query | null): [boolean, Query | null];
+        /**
          * Gets the #GstQueryTypeFlags associated with `type`.
          * @param type a #GstQueryType
          * @returns a #GstQueryTypeFlags.
@@ -3838,6 +3944,31 @@ declare module 'gi://Gst?version=1.0' {
          * @returns %TRUE, if a value was copied, %FALSE if the tag didn't exist in the          given list.
          */
         function tag_list_copy_value(list: TagList, tag: string): [boolean, unknown];
+        /**
+         * Modifies a pointer to a #GstTagList to point to a different #GstTagList. The
+         * modification is done atomically (so this is useful for ensuring thread
+         * safety in some cases), and the reference counts are updated appropriately
+         * (the old tag list is unreffed, the new is reffed).
+         *
+         * Either `new_taglist` or the #GstTagList pointed to by `old_taglist` may be
+         * %NULL.
+         * @param old_taglist pointer to a pointer to a     #GstTagList to be replaced.
+         * @param new_taglist pointer to a #GstTagList that     will replace the tag list pointed to by @old_taglist.
+         * @returns %TRUE if @new_taglist was different from @old_taglist
+         */
+        function tag_list_replace(
+            old_taglist?: TagList | null,
+            new_taglist?: TagList | null,
+        ): [boolean, TagList | null];
+        /**
+         * Modifies a pointer to a #GstTagList to point to a different #GstTagList.
+         * This function is similar to gst_tag_list_replace() except that it takes
+         * ownership of `new_taglist`.
+         * @param old_taglist pointer to a pointer to a #GstTagList     to be replaced.
+         * @param new_taglist pointer to a #GstTagList that     will replace the taglist pointed to by @old_taglist.
+         * @returns %TRUE if @new_taglist was different from @old_taglist
+         */
+        function tag_list_take(old_taglist: TagList, new_taglist?: TagList | null): [boolean, TagList];
         /**
          * This is a convenience function for the func argument of gst_tag_register().
          * It concatenates all given strings using a comma. The tag must be registered
@@ -4036,7 +4167,7 @@ declare module 'gi://Gst?version=1.0' {
          * @param array the sorted input array
          * @param num_elements number of elements in the array
          * @param element_size size of every element in bytes
-         * @param search_func function to compare two elements, @search_data will always be passed as second argument
+         * @param search_func function to compare two    elements, @search_data will always be passed as second argument
          * @param mode search mode that should be used
          * @param search_data element that should be found
          * @returns The address of the found element or %NULL if nothing was found
@@ -4078,6 +4209,12 @@ declare module 'gi://Gst?version=1.0' {
          */
         function util_filename_compare(a: string, b: string): number;
         /**
+         * Returns smallest integral value not bigger than log2(v).
+         * @param v a #guint32 value.
+         * @returns a computed #guint val.
+         */
+        function util_floor_log2(v: number): number;
+        /**
          * Adds the fractions `a_n/``a_d` and `b_n/``b_d` and stores
          * the result in `res_n` and `res_d`.
          * @param a_n Numerator of first value
@@ -4107,6 +4244,21 @@ declare module 'gi://Gst?version=1.0' {
          * @returns %FALSE on overflow, %TRUE otherwise.
          */
         function util_fraction_multiply(a_n: number, a_d: number, b_n: number, b_d: number): [boolean, number, number];
+        /**
+         * Multiplies the fractions `a_n/``a_d` and `b_n/``b_d` and stores
+         * the result in `res_n` and `res_d`.
+         * @param a_n Numerator of first value
+         * @param a_d Denominator of first value
+         * @param b_n Numerator of second value
+         * @param b_d Denominator of second value
+         * @returns %FALSE on overflow, %TRUE otherwise.
+         */
+        function util_fraction_multiply_int64(
+            a_n: number,
+            a_d: number,
+            b_n: number,
+            b_d: number,
+        ): [boolean, number, number];
         /**
          * Transforms a fraction to a #gdouble.
          * @param src_n Fraction numerator as #gint
@@ -4685,6 +4837,9 @@ declare module 'gi://Gst?version=1.0' {
          * @returns a newly allocated string describing this version     of GStreamer.
          */
         function version_string(): string;
+        interface AllocationMetaParamsAggregator {
+            (aggregated_params: Structure, params0: Structure, params1: Structure): boolean;
+        }
         interface BufferForeachMetaFunc {
             (buffer: Buffer): boolean;
         }
@@ -4811,7 +4966,7 @@ declare module 'gi://Gst?version=1.0' {
             (obj: MiniObject): void;
         }
         interface MiniObjectNotify {
-            (obj: MiniObject): void;
+            (user_data: any | null, obj: MiniObject): void;
         }
         interface PadActivateFunction {
             (pad: Pad, parent: Object): boolean;
@@ -4873,11 +5028,20 @@ declare module 'gi://Gst?version=1.0' {
         interface StructureFilterMapFunc {
             (field_id: GLib.Quark, value: GObject.Value | any): boolean;
         }
+        interface StructureFilterMapIdStrFunc {
+            (fieldname: IdStr, value: GObject.Value | any): boolean;
+        }
         interface StructureForeachFunc {
             (field_id: GLib.Quark, value: GObject.Value | any): boolean;
         }
+        interface StructureForeachIdStrFunc {
+            (fieldname: IdStr, value: GObject.Value | any): boolean;
+        }
         interface StructureMapFunc {
             (field_id: GLib.Quark, value: GObject.Value | any): boolean;
+        }
+        interface StructureMapIdStrFunc {
+            (fieldname: IdStr, value: GObject.Value | any): boolean;
         }
         interface TagForeachFunc {
             (list: TagList, tag: string): void;
@@ -4886,10 +5050,10 @@ declare module 'gi://Gst?version=1.0' {
             (dest: GObject.Value | any, src: GObject.Value | any): void;
         }
         interface TaskFunction {
-            (): void;
+            (user_data?: any | null): void;
         }
         interface TaskPoolFunction {
-            (): void;
+            (user_data?: any | null): void;
         }
         interface TaskThreadFunc {
             (task: Task, thread: GLib.Thread): void;
@@ -6749,6 +6913,12 @@ declare module 'gi://Gst?version=1.0' {
             AGGREGATED,
         }
         namespace Allocator {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -6770,6 +6940,15 @@ declare module 'gi://Gst?version=1.0' {
         abstract class Allocator extends Object {
             static $gtype: GObject.GType<Allocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Allocator.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -6787,6 +6966,24 @@ declare module 'gi://Gst?version=1.0' {
             constructor(properties?: Partial<Allocator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Allocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Allocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Allocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Allocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Allocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Allocator.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -6866,26 +7063,17 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Bin {
-            // Signal callback interfaces
-
-            interface DeepElementAdded {
-                (sub_bin: Bin, element: Element): void;
-            }
-
-            interface DeepElementRemoved {
-                (sub_bin: Bin, element: Element): void;
-            }
-
-            interface DoLatency {
-                (): boolean;
-            }
-
-            interface ElementAdded {
-                (element: Element): void;
-            }
-
-            interface ElementRemoved {
-                (element: Element): void;
+            // Signal signatures
+            interface SignalSignatures extends Element.SignalSignatures {
+                'deep-element-added': (arg0: Bin, arg1: Element) => void;
+                'deep-element-removed': (arg0: Bin, arg1: Element) => void;
+                'do-latency': () => boolean | void;
+                'element-added': (arg0: Element) => void;
+                'element-removed': (arg0: Element) => void;
+                'notify::async-handling': (pspec: GObject.ParamSpec) => void;
+                'notify::message-forward': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -7046,6 +7234,15 @@ declare module 'gi://Gst?version=1.0' {
             get messageForward(): boolean;
             set messageForward(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Bin.SignalSignatures;
+
             // Fields
 
             element: Element;
@@ -7069,36 +7266,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'deep-element-added',
-                callback: (_source: this, sub_bin: Bin, element: Element) => void,
+            connect<K extends keyof Bin.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bin.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'deep-element-added',
-                callback: (_source: this, sub_bin: Bin, element: Element) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Bin.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bin.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'deep-element-added', sub_bin: Bin, element: Element): void;
-            connect(
-                signal: 'deep-element-removed',
-                callback: (_source: this, sub_bin: Bin, element: Element) => void,
-            ): number;
-            connect_after(
-                signal: 'deep-element-removed',
-                callback: (_source: this, sub_bin: Bin, element: Element) => void,
-            ): number;
-            emit(signal: 'deep-element-removed', sub_bin: Bin, element: Element): void;
-            connect(signal: 'do-latency', callback: (_source: this) => boolean): number;
-            connect_after(signal: 'do-latency', callback: (_source: this) => boolean): number;
-            emit(signal: 'do-latency'): void;
-            connect(signal: 'element-added', callback: (_source: this, element: Element) => void): number;
-            connect_after(signal: 'element-added', callback: (_source: this, element: Element) => void): number;
-            emit(signal: 'element-added', element: Element): void;
-            connect(signal: 'element-removed', callback: (_source: this, element: Element) => void): number;
-            connect_after(signal: 'element-removed', callback: (_source: this, element: Element) => void): number;
-            emit(signal: 'element-removed', element: Element): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Bin.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Bin.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -7804,6 +7986,11 @@ declare module 'gi://Gst?version=1.0' {
             stop_emission_by_name(detailedName: string): void;
         }
 
+        namespace Bitmask {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * A fundamental type that describes a 64-bit bitmask
          */
@@ -7813,9 +8000,33 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Bitmask.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bitmask.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Bitmask.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bitmask.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Bitmask.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Bitmask.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace BufferPool {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -7860,6 +8071,15 @@ declare module 'gi://Gst?version=1.0' {
         class BufferPool extends Object {
             static $gtype: GObject.GType<BufferPool>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BufferPool.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -7872,6 +8092,24 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): BufferPool;
+
+            // Signals
+
+            connect<K extends keyof BufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BufferPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BufferPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BufferPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BufferPool.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -8056,6 +8294,9 @@ declare module 'gi://Gst?version=1.0' {
             /**
              * Start the bufferpool. The default implementation will preallocate
              * min-buffers buffers and put them in the queue.
+             *
+             * Subclasses do not need to chain up to the parent's default implementation
+             * if they don't want min-buffers based preallocation.
              */
             vfunc_start(): boolean;
             /**
@@ -8156,14 +8397,19 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Bus {
-            // Signal callback interfaces
-
-            interface Message {
-                (message: Message): void;
-            }
-
-            interface SyncMessage {
-                (message: Message): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                message: (arg0: Message) => void;
+                'sync-message': (arg0: Message) => void;
+                'notify::enable-async': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'message::enable-async': (arg0: Message) => void;
+                'message::name': (arg0: Message) => void;
+                'message::parent': (arg0: Message) => void;
+                'sync-message::enable-async': (arg0: Message) => void;
+                'sync-message::name': (arg0: Message) => void;
+                'sync-message::parent': (arg0: Message) => void;
             }
 
             // Constructor properties interface
@@ -8239,6 +8485,15 @@ declare module 'gi://Gst?version=1.0' {
              */
             set enableAsync(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Bus.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -8253,15 +8508,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'message', callback: (_source: this, message: Message) => void): number;
-            connect_after(signal: 'message', callback: (_source: this, message: Message) => void): number;
-            emit(signal: 'message', message: Message): void;
-            connect(signal: 'sync-message', callback: (_source: this, message: Message) => void): number;
-            connect_after(signal: 'sync-message', callback: (_source: this, message: Message) => void): number;
-            emit(signal: 'sync-message', message: Message): void;
+            connect<K extends keyof Bus.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bus.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Bus.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bus.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Bus.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Bus.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -8534,10 +8795,14 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Clock {
-            // Signal callback interfaces
-
-            interface Synced {
-                (synced: boolean): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                synced: (arg0: boolean) => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::window-size': (pspec: GObject.ParamSpec) => void;
+                'notify::window-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -8641,6 +8906,15 @@ declare module 'gi://Gst?version=1.0' {
             get windowThreshold(): number;
             set windowThreshold(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Clock.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -8653,12 +8927,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'synced', callback: (_source: this, synced: boolean) => void): number;
-            connect_after(signal: 'synced', callback: (_source: this, synced: boolean) => void): number;
-            emit(signal: 'synced', synced: boolean): void;
+            connect<K extends keyof Clock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Clock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Clock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Clock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Clock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Clock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -8777,35 +9060,35 @@ declare module 'gi://Gst?version=1.0' {
             // Methods
 
             /**
-             * The time `master` of the master clock and the time `slave` of the slave
-             * clock are added to the list of observations. If enough observations
-             * are available, a linear regression algorithm is run on the
-             * observations and `clock` is recalibrated.
+             * The time `observation_external` of the external or master clock and the time
+             * `observation_internal` of the internal or slave clock are added to the list of
+             * observations. If enough observations are available, a linear regression
+             * algorithm is run on the observations and `clock` is recalibrated.
              *
              * If this functions returns %TRUE, `r_squared` will contain the
              * correlation coefficient of the interpolation. A value of 1.0
              * means a perfect regression was performed. This value can
              * be used to control the sampling frequency of the master and slave
              * clocks.
-             * @param slave a time on the slave
-             * @param master a time on the master
+             * @param observation_internal a time on the internal clock
+             * @param observation_external a time on the external clock
              * @returns %TRUE if enough observations were added to run the regression algorithm.
              */
-            add_observation(slave: ClockTime, master: ClockTime): [boolean, number];
+            add_observation(observation_internal: ClockTime, observation_external: ClockTime): [boolean, number];
             /**
              * Add a clock observation to the internal slaving algorithm the same as
-             * gst_clock_add_observation(), and return the result of the master clock
-             * estimation, without updating the internal calibration.
+             * gst_clock_add_observation(), and return the result of the external or master
+             * clock estimation, without updating the internal calibration.
              *
              * The caller can then take the results and call gst_clock_set_calibration()
              * with the values, or some modified version of them.
-             * @param slave a time on the slave
-             * @param master a time on the master
+             * @param observation_internal a time on the internal clock
+             * @param observation_external a time on the external clock
              * @returns %TRUE if enough observations were added to run the regression algorithm.
              */
             add_observation_unapplied(
-                slave: ClockTime,
-                master: ClockTime,
+                observation_internal: ClockTime,
+                observation_external: ClockTime,
             ): [boolean, number, ClockTime | null, ClockTime | null, ClockTime | null, ClockTime | null];
             /**
              * Converts the given `internal` clock time to the external time, adjusting for the
@@ -9033,6 +9316,13 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace ControlBinding {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::object': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -9056,6 +9346,15 @@ declare module 'gi://Gst?version=1.0' {
             // This accessor conflicts with a property or field in a parent class or interface.
             object: Object | any;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ControlBinding.SignalSignatures;
+
             // Fields
 
             pspec: GObject.ParamSpec;
@@ -9065,6 +9364,24 @@ declare module 'gi://Gst?version=1.0' {
             constructor(properties?: Partial<ControlBinding.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ControlBinding.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ControlBinding.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ControlBinding.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ControlBinding.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ControlBinding.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ControlBinding.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -9154,6 +9471,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace ControlSource {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -9177,6 +9500,15 @@ declare module 'gi://Gst?version=1.0' {
         abstract class ControlSource extends Object {
             static $gtype: GObject.GType<ControlSource>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ControlSource.SignalSignatures;
+
             // Fields
 
             // This field conflicts with a function in a parent class or interface.
@@ -9188,6 +9520,24 @@ declare module 'gi://Gst?version=1.0' {
             constructor(properties?: Partial<ControlSource.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ControlSource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ControlSource.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ControlSource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ControlSource.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ControlSource.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ControlSource.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9209,10 +9559,15 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Device {
-            // Signal callback interfaces
-
-            interface Removed {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                removed: () => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::device-class': (pspec: GObject.ParamSpec) => void;
+                'notify::display-name': (pspec: GObject.ParamSpec) => void;
+                'notify::properties': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -9247,6 +9602,15 @@ declare module 'gi://Gst?version=1.0' {
             get displayName(): string;
             get properties(): Structure;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Device.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Device.ConstructorProps>, ...args: any[]);
@@ -9255,12 +9619,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'removed', callback: (_source: this) => void): number;
-            connect_after(signal: 'removed', callback: (_source: this) => void): number;
-            emit(signal: 'removed'): void;
+            connect<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Device.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -9338,6 +9711,13 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace DeviceMonitor {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::show-all': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -9421,6 +9801,15 @@ declare module 'gi://Gst?version=1.0' {
             get showAll(): boolean;
             set showAll(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceMonitor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DeviceMonitor.ConstructorProps>, ...args: any[]);
@@ -9428,6 +9817,24 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): DeviceMonitor;
+
+            // Signals
+
+            connect<K extends keyof DeviceMonitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceMonitor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceMonitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceMonitor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceMonitor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceMonitor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9499,14 +9906,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace DeviceProvider {
-            // Signal callback interfaces
-
-            interface ProviderHidden {
-                (object: string): void;
-            }
-
-            interface ProviderUnhidden {
-                (object: string): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'provider-hidden': (arg0: string) => void;
+                'provider-unhidden': (arg0: string) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -9528,6 +9933,15 @@ declare module 'gi://Gst?version=1.0' {
         abstract class DeviceProvider extends Object {
             static $gtype: GObject.GType<DeviceProvider>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceProvider.SignalSignatures;
+
             // Fields
 
             devices: any[];
@@ -9540,15 +9954,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'provider-hidden', callback: (_source: this, object: string) => void): number;
-            connect_after(signal: 'provider-hidden', callback: (_source: this, object: string) => void): number;
-            emit(signal: 'provider-hidden', object: string): void;
-            connect(signal: 'provider-unhidden', callback: (_source: this, object: string) => void): number;
-            connect_after(signal: 'provider-unhidden', callback: (_source: this, object: string) => void): number;
-            emit(signal: 'provider-unhidden', object: string): void;
+            connect<K extends keyof DeviceProvider.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceProvider.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceProvider.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceProvider.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceProvider.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceProvider.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -9707,6 +10127,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace DeviceProviderFactory {
+            // Signal signatures
+            interface SignalSignatures extends PluginFeature.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -9725,11 +10151,40 @@ declare module 'gi://Gst?version=1.0' {
         class DeviceProviderFactory extends PluginFeature {
             static $gtype: GObject.GType<DeviceProviderFactory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceProviderFactory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DeviceProviderFactory.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DeviceProviderFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceProviderFactory.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceProviderFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceProviderFactory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceProviderFactory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceProviderFactory.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -9792,6 +10247,11 @@ declare module 'gi://Gst?version=1.0' {
             has_classesv(classes?: string[] | null): boolean;
         }
 
+        namespace DoubleRange {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * A fundamental type that describes a #gdouble range
          */
@@ -9801,9 +10261,33 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DoubleRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DoubleRange.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DoubleRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DoubleRange.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DoubleRange.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DoubleRange.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace DynamicTypeFactory {
+            // Signal signatures
+            interface SignalSignatures extends PluginFeature.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -9835,11 +10319,40 @@ declare module 'gi://Gst?version=1.0' {
         class DynamicTypeFactory extends PluginFeature {
             static $gtype: GObject.GType<DynamicTypeFactory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DynamicTypeFactory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DynamicTypeFactory.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DynamicTypeFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DynamicTypeFactory.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DynamicTypeFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DynamicTypeFactory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DynamicTypeFactory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DynamicTypeFactory.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -9847,18 +10360,13 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Element {
-            // Signal callback interfaces
-
-            interface NoMorePads {
-                (): void;
-            }
-
-            interface PadAdded {
-                (new_pad: Pad): void;
-            }
-
-            interface PadRemoved {
-                (old_pad: Pad): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'no-more-pads': () => void;
+                'pad-added': (arg0: Pad) => void;
+                'pad-removed': (arg0: Pad) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -9920,6 +10428,15 @@ declare module 'gi://Gst?version=1.0' {
         abstract class Element extends Object {
             static $gtype: GObject.GType<Element>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Element.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -9949,18 +10466,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'no-more-pads', callback: (_source: this) => void): number;
-            connect_after(signal: 'no-more-pads', callback: (_source: this) => void): number;
-            emit(signal: 'no-more-pads'): void;
-            connect(signal: 'pad-added', callback: (_source: this, new_pad: Pad) => void): number;
-            connect_after(signal: 'pad-added', callback: (_source: this, new_pad: Pad) => void): number;
-            emit(signal: 'pad-added', new_pad: Pad): void;
-            connect(signal: 'pad-removed', callback: (_source: this, old_pad: Pad) => void): number;
-            connect_after(signal: 'pad-removed', callback: (_source: this, old_pad: Pad) => void): number;
-            emit(signal: 'pad-removed', old_pad: Pad): void;
+            connect<K extends keyof Element.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Element.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Element.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Element.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Element.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Element.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -10936,6 +11456,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace ElementFactory {
+            // Signal signatures
+            interface SignalSignatures extends PluginFeature.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -10973,11 +11499,38 @@ declare module 'gi://Gst?version=1.0' {
         class ElementFactory extends PluginFeature {
             static $gtype: GObject.GType<ElementFactory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ElementFactory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ElementFactory.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ElementFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ElementFactory.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ElementFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ElementFactory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ElementFactory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ElementFactory.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -11138,6 +11691,11 @@ declare module 'gi://Gst?version=1.0' {
             list_is_type(type: ElementFactoryListType): boolean;
         }
 
+        namespace FlagSet {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * A fundamental type that describes a 32-bit flag bitfield, with 32-bit
          * mask indicating which of the bits in the field are explicitly set.
@@ -11148,6 +11706,24 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof FlagSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FlagSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FlagSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FlagSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FlagSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FlagSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -11160,6 +11736,11 @@ declare module 'gi://Gst?version=1.0' {
             static register(flags_type: GObject.GType): GObject.GType;
         }
 
+        namespace Fraction {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * A fundamental type that describes a fraction of an integer numerator
          * over an integer denominator
@@ -11170,6 +11751,29 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Fraction.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Fraction.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Fraction.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Fraction.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Fraction.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Fraction.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+        }
+
+        namespace FractionRange {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
         }
 
         /**
@@ -11181,9 +11785,37 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof FractionRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FractionRange.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FractionRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FractionRange.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FractionRange.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FractionRange.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace GhostPad {
+            // Signal signatures
+            interface SignalSignatures extends ProxyPad.SignalSignatures {
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends ProxyPad.ConstructorProps {}
@@ -11206,6 +11838,15 @@ declare module 'gi://Gst?version=1.0' {
          */
         class GhostPad extends ProxyPad {
             static $gtype: GObject.GType<GhostPad>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GhostPad.SignalSignatures;
 
             // Fields
 
@@ -11230,6 +11871,24 @@ declare module 'gi://Gst?version=1.0' {
             static new_no_target(name: string | null, dir: PadDirection): GhostPad;
 
             static new_no_target_from_template(name: string | null, templ: PadTemplate): GhostPad;
+
+            // Signals
+
+            connect<K extends keyof GhostPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GhostPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GhostPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GhostPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GhostPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GhostPad.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -11283,6 +11942,11 @@ declare module 'gi://Gst?version=1.0' {
             set_target(newtarget?: Pad | null): boolean;
         }
 
+        namespace Int64Range {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * A fundamental type that describes a #gint64 range
          */
@@ -11292,6 +11956,29 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Int64Range.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Int64Range.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Int64Range.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Int64Range.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Int64Range.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Int64Range.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+        }
+
+        namespace IntRange {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
         }
 
         /**
@@ -11303,13 +11990,34 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof IntRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, IntRange.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof IntRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, IntRange.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof IntRange.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<IntRange.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace Object {
-            // Signal callback interfaces
-
-            interface DeepNotify {
-                (prop_object: Object, prop: GObject.ParamSpec): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+                'deep-notify': (arg0: Object, arg1: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'deep-notify::name': (arg0: Object, arg1: GObject.ParamSpec) => void;
+                'deep-notify::parent': (arg0: Object, arg1: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -11388,6 +12096,15 @@ declare module 'gi://Gst?version=1.0' {
             get parent(): Object;
             set parent(val: Object);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Object.SignalSignatures;
+
             // Fields
 
             object: GObject.InitiallyUnowned;
@@ -11401,18 +12118,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'deep-notify',
-                callback: (_source: this, prop_object: Object, prop: GObject.ParamSpec) => void,
+            connect<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'deep-notify',
-                callback: (_source: this, prop_object: Object, prop: GObject.ParamSpec) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'deep-notify', prop_object: Object, prop: GObject.ParamSpec): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Object.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -11677,14 +12397,16 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Pad {
-            // Signal callback interfaces
-
-            interface Linked {
-                (peer: Pad): void;
-            }
-
-            interface Unlinked {
-                (peer: Pad): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                linked: (arg0: Pad) => void;
+                unlinked: (arg0: Pad) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -11773,6 +12495,15 @@ declare module 'gi://Gst?version=1.0' {
             get template(): PadTemplate;
             set template(val: PadTemplate);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Pad.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -11793,15 +12524,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'linked', callback: (_source: this, peer: Pad) => void): number;
-            connect_after(signal: 'linked', callback: (_source: this, peer: Pad) => void): number;
-            emit(signal: 'linked', peer: Pad): void;
-            connect(signal: 'unlinked', callback: (_source: this, peer: Pad) => void): number;
-            connect_after(signal: 'unlinked', callback: (_source: this, peer: Pad) => void): number;
-            emit(signal: 'unlinked', peer: Pad): void;
+            connect<K extends keyof Pad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Pad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Pad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Pad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Pad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Pad.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -11839,7 +12576,7 @@ declare module 'gi://Gst?version=1.0' {
              * In each of the groups, probes are called in the order in which they were
              * added.
              * @param mask the probe mask
-             * @param callback #GstPadProbeCallback that will be called with notifications of           the pad state
+             * @param callback #GstPadProbeCallback that will be called with           notifications of the pad state
              * @returns an id or 0 if no probe is pending. The id can be used to remove the probe with gst_pad_remove_probe(). When using GST_PAD_PROBE_TYPE_IDLE it can happen that the probe can be run immediately and if the probe returns GST_PAD_PROBE_REMOVE this functions returns 0. MT safe.
              */
             add_probe(mask: PadProbeType | null, callback: PadProbeCallback): number;
@@ -12325,7 +13062,7 @@ declare module 'gi://Gst?version=1.0' {
              *
              * This function takes ownership of the provided event so you should
              * gst_event_ref() it if you want to reuse the event after this call.
-             * @param event the #GstEvent to send to the pad.
+             * @param event the #GstEvent to push out of the pad.
              * @returns %TRUE if the event was handled. MT safe.
              */
             push_event(event: Event): boolean;
@@ -12538,7 +13275,10 @@ declare module 'gi://Gst?version=1.0' {
              */
             set_link_function_full(link: PadLinkFunction): void;
             /**
-             * Set the offset that will be applied to the running time of `pad`.
+             * Set the offset that will be applied to the running time of `pad`. Upon next
+             * buffer, every sticky events (notably segment) will be pushed again with
+             * their running time adjusted. For that reason this is only reliable on
+             * source pads.
              * @param offset the offset
              */
             set_offset(offset: number): void;
@@ -12569,7 +13309,7 @@ declare module 'gi://Gst?version=1.0' {
             /**
              * Iterates all sticky events on `pad` and calls `foreach_func` for every
              * event. If `foreach_func` returns %FALSE the iteration is immediately stopped.
-             * @param foreach_func the #GstPadStickyEventsForeachFunction that                should be called for every event.
+             * @param foreach_func the    #GstPadStickyEventsForeachFunction that should be called for every event.
              */
             sticky_events_foreach(foreach_func: PadStickyEventsForeachFunction): void;
             /**
@@ -12611,10 +13351,16 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace PadTemplate {
-            // Signal callback interfaces
-
-            interface PadCreated {
-                (pad: Pad): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'pad-created': (arg0: Pad) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::gtype': (pspec: GObject.ParamSpec) => void;
+                'notify::name-template': (pspec: GObject.ParamSpec) => void;
+                'notify::presence': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -12725,6 +13471,15 @@ declare module 'gi://Gst?version=1.0' {
              */
             get presence(): PadPresence;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PadTemplate.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -12757,12 +13512,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'pad-created', callback: (_source: this, pad: Pad) => void): number;
-            connect_after(signal: 'pad-created', callback: (_source: this, pad: Pad) => void): number;
-            emit(signal: 'pad-created', pad: Pad): void;
+            connect<K extends keyof PadTemplate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PadTemplate.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PadTemplate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PadTemplate.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PadTemplate.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PadTemplate.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -12800,6 +13564,17 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Pipeline {
+            // Signal signatures
+            interface SignalSignatures extends Bin.SignalSignatures {
+                'notify::auto-flush-bus': (pspec: GObject.ParamSpec) => void;
+                'notify::delay': (pspec: GObject.ParamSpec) => void;
+                'notify::latency': (pspec: GObject.ParamSpec) => void;
+                'notify::async-handling': (pspec: GObject.ParamSpec) => void;
+                'notify::message-forward': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Bin.ConstructorProps, ChildProxy.ConstructorProps {
@@ -12893,6 +13668,15 @@ declare module 'gi://Gst?version=1.0' {
             get latency(): number;
             set latency(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Pipeline.SignalSignatures;
+
             // Fields
 
             bin: Bin;
@@ -12906,6 +13690,24 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](name?: string | null): Pipeline;
+
+            // Signals
+
+            connect<K extends keyof Pipeline.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Pipeline.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Pipeline.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Pipeline.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Pipeline.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Pipeline.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -13539,6 +14341,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Plugin {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -13568,11 +14376,38 @@ declare module 'gi://Gst?version=1.0' {
         class Plugin extends Object {
             static $gtype: GObject.GType<Plugin>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Plugin.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Plugin.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Plugin.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Plugin.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Plugin.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Plugin.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Plugin.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Plugin.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -13800,6 +14635,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace PluginFeature {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -13811,11 +14652,38 @@ declare module 'gi://Gst?version=1.0' {
         abstract class PluginFeature extends Object {
             static $gtype: GObject.GType<PluginFeature>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PluginFeature.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<PluginFeature.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof PluginFeature.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PluginFeature.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PluginFeature.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PluginFeature.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PluginFeature.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PluginFeature.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -13901,6 +14769,16 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace ProxyPad {
+            // Signal signatures
+            interface SignalSignatures extends Pad.SignalSignatures {
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Pad.ConstructorProps {}
@@ -13908,6 +14786,15 @@ declare module 'gi://Gst?version=1.0' {
 
         class ProxyPad extends Pad {
             static $gtype: GObject.GType<ProxyPad>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ProxyPad.SignalSignatures;
 
             // Fields
 
@@ -13918,6 +14805,24 @@ declare module 'gi://Gst?version=1.0' {
             constructor(properties?: Partial<ProxyPad.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ProxyPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ProxyPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ProxyPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ProxyPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ProxyPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ProxyPad.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -13963,14 +14868,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Registry {
-            // Signal callback interfaces
-
-            interface FeatureAdded {
-                (feature: PluginFeature): void;
-            }
-
-            interface PluginAdded {
-                (plugin: Plugin): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'feature-added': (arg0: PluginFeature) => void;
+                'plugin-added': (arg0: Plugin) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -14041,6 +14944,15 @@ declare module 'gi://Gst?version=1.0' {
         class Registry extends Object {
             static $gtype: GObject.GType<Registry>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Registry.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -14053,15 +14965,21 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'feature-added', callback: (_source: this, feature: PluginFeature) => void): number;
-            connect_after(signal: 'feature-added', callback: (_source: this, feature: PluginFeature) => void): number;
-            emit(signal: 'feature-added', feature: PluginFeature): void;
-            connect(signal: 'plugin-added', callback: (_source: this, plugin: Plugin) => void): number;
-            connect_after(signal: 'plugin-added', callback: (_source: this, plugin: Plugin) => void): number;
-            emit(signal: 'plugin-added', plugin: Plugin): void;
+            connect<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Registry.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Registry.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Registry.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -14220,6 +15138,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace SharedTaskPool {
+            // Signal signatures
+            interface SignalSignatures extends TaskPool.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends TaskPool.ConstructorProps {}
@@ -14231,6 +15155,15 @@ declare module 'gi://Gst?version=1.0' {
         class SharedTaskPool extends TaskPool {
             static $gtype: GObject.GType<SharedTaskPool>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SharedTaskPool.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SharedTaskPool.ConstructorProps>, ...args: any[]);
@@ -14238,6 +15171,24 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): SharedTaskPool;
+
+            // Signals
+
+            connect<K extends keyof SharedTaskPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SharedTaskPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SharedTaskPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SharedTaskPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SharedTaskPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SharedTaskPool.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -14254,6 +15205,17 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Stream {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::stream-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::stream-id': (pspec: GObject.ParamSpec) => void;
+                'notify::stream-type': (pspec: GObject.ParamSpec) => void;
+                'notify::tags': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -14322,6 +15284,15 @@ declare module 'gi://Gst?version=1.0' {
             get tags(): TagList;
             set tags(val: TagList);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Stream.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Stream.ConstructorProps>, ...args: any[]);
@@ -14329,6 +15300,24 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](stream_id: string | null, caps: Caps | null, type: StreamType, flags: StreamFlags): Stream;
+
+            // Signals
+
+            connect<K extends keyof Stream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Stream.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Stream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Stream.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Stream.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Stream.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -14380,10 +15369,15 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace StreamCollection {
-            // Signal callback interfaces
-
-            interface StreamNotify {
-                (prop_stream: Stream, prop: GObject.ParamSpec): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'stream-notify': (arg0: Stream, arg1: GObject.ParamSpec) => void;
+                'notify::upstream-id': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'stream-notify::upstream-id': (arg0: Stream, arg1: GObject.ParamSpec) => void;
+                'stream-notify::name': (arg0: Stream, arg1: GObject.ParamSpec) => void;
+                'stream-notify::parent': (arg0: Stream, arg1: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -14428,6 +15422,15 @@ declare module 'gi://Gst?version=1.0' {
             get upstreamId(): string;
             set upstreamId(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: StreamCollection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<StreamCollection.ConstructorProps>, ...args: any[]);
@@ -14438,18 +15441,23 @@ declare module 'gi://Gst?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'stream-notify',
-                callback: (_source: this, prop_stream: Stream, prop: GObject.ParamSpec) => void,
+            connect<K extends keyof StreamCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StreamCollection.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'stream-notify',
-                callback: (_source: this, prop_stream: Stream, prop: GObject.ParamSpec) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StreamCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StreamCollection.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'stream-notify', prop_stream: Stream, prop: GObject.ParamSpec): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StreamCollection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StreamCollection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -14489,6 +15497,16 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace SystemClock {
+            // Signal signatures
+            interface SignalSignatures extends Clock.SignalSignatures {
+                'notify::clock-type': (pspec: GObject.ParamSpec) => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::window-size': (pspec: GObject.ParamSpec) => void;
+                'notify::window-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Clock.ConstructorProps {
@@ -14518,6 +15536,15 @@ declare module 'gi://Gst?version=1.0' {
             get clockType(): ClockType;
             set clockType(val: ClockType);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SystemClock.SignalSignatures;
+
             // Fields
 
             clock: Clock;
@@ -14527,6 +15554,24 @@ declare module 'gi://Gst?version=1.0' {
             constructor(properties?: Partial<SystemClock.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof SystemClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SystemClock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SystemClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SystemClock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SystemClock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SystemClock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -14551,6 +15596,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Task {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -14600,6 +15651,15 @@ declare module 'gi://Gst?version=1.0' {
         class Task extends Object {
             static $gtype: GObject.GType<Task>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Task.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -14618,6 +15678,24 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](func: TaskFunction): Task;
+
+            // Signals
+
+            connect<K extends keyof Task.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Task.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Task.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Task.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Task.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Task.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -14731,6 +15809,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace TaskPool {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -14745,6 +15829,15 @@ declare module 'gi://Gst?version=1.0' {
         class TaskPool extends Object {
             static $gtype: GObject.GType<TaskPool>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TaskPool.SignalSignatures;
+
             // Fields
 
             object: Object;
@@ -14756,6 +15849,24 @@ declare module 'gi://Gst?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): TaskPool;
+
+            // Signals
+
+            connect<K extends keyof TaskPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TaskPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TaskPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TaskPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TaskPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TaskPool.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -14848,6 +15959,13 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace Tracer {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::params': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -14869,11 +15987,38 @@ declare module 'gi://Gst?version=1.0' {
             get params(): string;
             set params(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Tracer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Tracer.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Tracer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Tracer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Tracer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Tracer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Tracer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Tracer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -14885,9 +16030,17 @@ declare module 'gi://Gst?version=1.0' {
              * @param type GType of tracer to register
              */
             static register(plugin: Plugin | null, name: string, type: GObject.GType): boolean;
+            static set_use_structure_params(use_structure_params: boolean): void;
+            static uses_structure_params(): boolean;
         }
 
         namespace TracerFactory {
+            // Signal signatures
+            interface SignalSignatures extends PluginFeature.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -14900,11 +16053,38 @@ declare module 'gi://Gst?version=1.0' {
         class TracerFactory extends PluginFeature {
             static $gtype: GObject.GType<TracerFactory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TracerFactory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TracerFactory.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TracerFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TracerFactory.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TracerFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TracerFactory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TracerFactory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TracerFactory.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -14930,6 +16110,12 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace TracerRecord {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -14942,14 +16128,47 @@ declare module 'gi://Gst?version=1.0' {
         class TracerRecord extends Object {
             static $gtype: GObject.GType<TracerRecord>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TracerRecord.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TracerRecord.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TracerRecord.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TracerRecord.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TracerRecord.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TracerRecord.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TracerRecord.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TracerRecord.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace TypeFindFactory {
+            // Signal signatures
+            interface SignalSignatures extends PluginFeature.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends PluginFeature.ConstructorProps {}
@@ -15011,11 +16230,40 @@ declare module 'gi://Gst?version=1.0' {
         class TypeFindFactory extends PluginFeature {
             static $gtype: GObject.GType<TypeFindFactory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TypeFindFactory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TypeFindFactory.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TypeFindFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TypeFindFactory.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TypeFindFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TypeFindFactory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TypeFindFactory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TypeFindFactory.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -15059,6 +16307,11 @@ declare module 'gi://Gst?version=1.0' {
             has_function(): boolean;
         }
 
+        namespace ValueArray {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * A fundamental type that describes an ordered list of #GValue
          */
@@ -15068,6 +16321,24 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ValueArray.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ValueArray.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ValueArray.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ValueArray.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ValueArray.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ValueArray.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -15109,6 +16380,11 @@ declare module 'gi://Gst?version=1.0' {
             static prepend_value(value: GObject.Value | any, prepend_value: GObject.Value | any): void;
         }
 
+        namespace ValueList {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * A fundamental type that describes an unordered list of #GValue
          */
@@ -15118,6 +16394,24 @@ declare module 'gi://Gst?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ValueList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ValueList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ValueList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ValueList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ValueList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ValueList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -15886,6 +17180,28 @@ declare module 'gi://Gst?version=1.0' {
 
             static new_sized(size: number): BufferList;
 
+            // Static methods
+
+            /**
+             * Modifies a pointer to a #GstBufferList to point to a different
+             * #GstBufferList. The modification is done atomically (so this is useful for
+             * ensuring thread safety in some cases), and the reference counts are updated
+             * appropriately (the old buffer list is unreffed, the new is reffed).
+             *
+             * Either `new_list` or the #GstBufferList pointed to by `old_list` may be %NULL.
+             * @param old_list pointer to a pointer to a     #GstBufferList to be replaced.
+             * @param new_list pointer to a #GstBufferList that     will replace the buffer list pointed to by @old_list.
+             */
+            static replace(old_list?: BufferList | null, new_list?: BufferList | null): [boolean, BufferList | null];
+            /**
+             * Modifies a pointer to a #GstBufferList to point to a different
+             * #GstBufferList. This function is similar to gst_buffer_list_replace() except
+             * that it takes ownership of `new_list`.
+             * @param old_list pointer to a pointer to a #GstBufferList     to be replaced.
+             * @param new_list pointer to a #GstBufferList     that will replace the bufferlist pointed to by @old_list.
+             */
+            static take(old_list: BufferList, new_list?: BufferList | null): [boolean, BufferList];
+
             // Methods
 
             /**
@@ -15916,18 +17232,18 @@ declare module 'gi://Gst?version=1.0' {
              * You must make sure that `idx` does not exceed the number of
              * buffers available.
              * @param idx the index
-             * @returns the buffer at @idx in @group     or %NULL when there is no buffer. The buffer remains valid as     long as @list is valid and buffer is not removed from the list.
+             * @returns the buffer at @idx in @group.     The returned buffer remains valid as long as @list is valid and     buffer is not removed from the list.
              */
-            get(idx: number): Buffer | null;
+            get(idx: number): Buffer;
             /**
              * Gets the buffer at `idx,` ensuring it is a writable buffer.
              *
              * You must make sure that `idx` does not exceed the number of
              * buffers available.
              * @param idx the index
-             * @returns the buffer at @idx in @group.     The returned  buffer remains valid as long as @list is valid and     the buffer is not removed from the list.
+             * @returns the buffer at @idx in @group.     The returned buffer remains valid as long as @list is valid and     the buffer is not removed from the list.
              */
-            get_writable(idx: number): Buffer | null;
+            get_writable(idx: number): Buffer;
             /**
              * Inserts `buffer` at `idx` in `list`. Other buffers are moved to make room for
              * this new buffer.
@@ -16075,6 +17391,10 @@ declare module 'gi://Gst?version=1.0' {
 
             static new_empty_simple(media_type: string): Caps;
 
+            static new_id_str_empty_simple(media_type: IdStr): Caps;
+
+            static new_static_str_empty_simple(media_type: string): Caps;
+
             // Static methods
 
             /**
@@ -16201,6 +17521,14 @@ declare module 'gi://Gst?version=1.0' {
              * @returns a pointer to the #GstStructure corresponding     to @index
              */
             get_structure(index: number): Structure;
+            /**
+             * Sets the given `field` on all structures of `caps` to the given `value`.
+             * This is a convenience function for calling gst_structure_set_value() on
+             * all structures of `caps`.
+             * @param field name of the field to set
+             * @param value value to set the field to
+             */
+            id_str_set_value(field: IdStr, value: GObject.Value | any): void;
             /**
              * Creates a new #GstCaps that contains all the formats that are common
              * to both `caps1` and `caps2`. Defaults to %GST_CAPS_INTERSECT_ZIG_ZAG mode.
@@ -16363,6 +17691,17 @@ declare module 'gi://Gst?version=1.0' {
              */
             set_value(field: string, value: GObject.Value | any): void;
             /**
+             * Sets the given `field` on all structures of `caps` to the given `value`.
+             * This is a convenience function for calling gst_structure_set_value() on
+             * all structures of `caps`.
+             *
+             * `field` needs to be valid for the remaining lifetime of the process, e.g.
+             * has to be a static string.
+             * @param field name of the field to set
+             * @param value value to set the field to
+             */
+            set_value_static_str(field: string, value: GObject.Value | any): void;
+            /**
              * Converts the given `caps` into a representation that represents the
              * same set of formats, but in a simpler form.  Component structures that are
              * identical are merged.  Component structures that have values that can be
@@ -16458,6 +17797,8 @@ declare module 'gi://Gst?version=1.0' {
 
             static new_single(feature: string): CapsFeatures;
 
+            static new_single_static_str(feature: string): CapsFeatures;
+
             // Static methods
 
             /**
@@ -16479,6 +17820,19 @@ declare module 'gi://Gst?version=1.0' {
              */
             add_id(feature: GLib.Quark): void;
             /**
+             * Adds `feature` to `features`.
+             * @param feature a feature.
+             */
+            add_id_str(feature: IdStr): void;
+            /**
+             * Adds `feature` to `features`.
+             *
+             * `feature` needs to be valid for the remaining lifetime of the process, e.g. has
+             * to be a static string.
+             * @param feature a feature.
+             */
+            add_static_str(feature: string): void;
+            /**
              * Checks if `features` contains `feature`.
              * @param feature a feature
              * @returns %TRUE if @features contains @feature.
@@ -16490,6 +17844,12 @@ declare module 'gi://Gst?version=1.0' {
              * @returns %TRUE if @features contains @feature.
              */
             contains_id(feature: GLib.Quark): boolean;
+            /**
+             * Checks if `features` contains `feature`.
+             * @param feature a feature
+             * @returns %TRUE if @features contains @feature.
+             */
+            contains_id_str(feature: IdStr): boolean;
             /**
              * Duplicates a #GstCapsFeatures and all its values.
              * @returns a new #GstCapsFeatures.
@@ -16512,6 +17872,12 @@ declare module 'gi://Gst?version=1.0' {
              * @returns The @i-th feature of @features.
              */
             get_nth_id(i: number): GLib.Quark;
+            /**
+             * Returns the `i-th` feature of `features`.
+             * @param i index of the feature
+             * @returns The @i-th feature of @features.
+             */
+            get_nth_id_str(i: number): IdStr;
             /**
              * Returns the number of features in `features`.
              * @returns The number of features in @features.
@@ -16538,6 +17904,11 @@ declare module 'gi://Gst?version=1.0' {
              * @param feature a feature.
              */
             remove_id(feature: GLib.Quark): void;
+            /**
+             * Removes `feature` from `features`.
+             * @param feature a feature.
+             */
+            remove_id_str(feature: IdStr): void;
             /**
              * Sets the parent_refcount field of #GstCapsFeatures. This field is used to
              * determine whether a caps features is mutable or not. This function should only be
@@ -16631,8 +18002,27 @@ declare module 'gi://Gst?version=1.0' {
 
             static ['new'](context_type: string, persistent: boolean): Context;
 
+            // Static methods
+
+            /**
+             * Modifies a pointer to a #GstContext to point to a different #GstContext. The
+             * modification is done atomically (so this is useful for ensuring thread safety
+             * in some cases), and the reference counts are updated appropriately (the old
+             * context is unreffed, the new one is reffed).
+             *
+             * Either `new_context` or the #GstContext pointed to by `old_context` may be %NULL.
+             * @param old_context pointer to a pointer to a #GstContext     to be replaced.
+             * @param new_context pointer to a #GstContext that will     replace the context pointed to by @old_context.
+             */
+            static replace(old_context: Context, new_context?: Context | null): [boolean, Context];
+
             // Methods
 
+            /**
+             * Creates a copy of the context. Returns a copy of the context.
+             * @returns a new copy of @context. MT safe
+             */
+            copy(): Context;
             /**
              * Gets the type of `context`.
              * @returns The type of the context.
@@ -16654,6 +18044,16 @@ declare module 'gi://Gst?version=1.0' {
              * @returns %TRUE if the context is persistent.
              */
             is_persistent(): boolean;
+            /**
+             * Convenience macro to increase the reference count of the context.
+             * @returns @context (for convenience when doing assignments)
+             */
+            ref(): Context;
+            /**
+             * Convenience macro to decrease the reference count of the context, possibly
+             * freeing it.
+             */
+            unref(): void;
             /**
              * Gets a writable version of the structure.
              * @returns The structure of the context. The structure is still owned by the context, which means that you should not free it and that the pointer becomes invalid when you free the context. This function checks if @context is writable.
@@ -17338,6 +18738,121 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         /**
+         * A #GstIdStr is string type optimized for short strings and used for structure
+         * names, structure field names and in other places.
+         *
+         * Strings up to 16 bytes (including NUL terminator) are stored inline, other
+         * strings are stored on the heap.
+         *
+         * ```cpp
+         * GstIdStr s = GST_ID_STR_INIT;
+         *
+         * gst_id_str_set (&s, "Hello, World!");
+         * g_print ("%s\n", gst_id_str_as_str (&s));
+         *
+         * gst_id_str_clear (&s);
+         * ```
+         */
+        class IdStr {
+            static $gtype: GObject.GType<IdStr>;
+
+            // Constructors
+
+            constructor(properties?: Partial<{}>);
+            _init(...args: any[]): void;
+
+            static ['new'](): IdStr;
+
+            // Methods
+
+            as_str(): string;
+            /**
+             * Clears `s` and sets it to the empty string.
+             */
+            clear(): void;
+            /**
+             * Copies `s` into newly allocated heap memory.
+             * @returns A heap-allocated copy of @s.
+             */
+            copy(): IdStr;
+            /**
+             * Copies `s` into `d`.
+             * @param s The source %GstIdStr
+             */
+            copy_into(s: IdStr): void;
+            /**
+             * Frees `s`. This should only be called for heap-allocated #GstIdStr.
+             */
+            free(): void;
+            /**
+             * Returns the length of `s,` exluding the NUL-terminator. This is equivalent to
+             * calling `strcmp()` but potentially faster.
+             */
+            get_len(): number;
+            /**
+             * Initializes a (usually stack-allocated) id string `s`. The newly-initialized
+             * id string will contain an empty string by default as value.
+             */
+            init(): void;
+            /**
+             * Compares `s1` and `s2` for equality.
+             * @param s2 A %GstIdStr
+             * @returns %TRUE if @s1 and @s2 are equal.
+             */
+            is_equal(s2: IdStr): boolean;
+            /**
+             * Compares `s1` and `s2` for equality.
+             * @param s2 A string
+             * @returns %TRUE if @s1 and @s2 are equal.
+             */
+            is_equal_to_str(s2: string): boolean;
+            /**
+             * Compares `s1` and `s2` with length `len` for equality. `s2` does not have to be
+             * NUL-terminated and `len` should not include the NUL-terminator.
+             *
+             * This is generally faster than gst_id_str_is_equal_to_str() if the length is
+             * already known.
+             * @param s2 A string
+             * @param len Length of @s2.
+             * @returns %TRUE if @s1 and @s2 are equal.
+             */
+            is_equal_to_str_with_len(s2: string, len: number): boolean;
+            /**
+             * Moves `s` into `d` and resets `s`.
+             * @param s The source %GstIdStr
+             */
+            move(s: IdStr): void;
+            /**
+             * Sets `s` to the string `value`.
+             * @param value A NUL-terminated string
+             */
+            set(value: string): void;
+            /**
+             * Sets `s` to the string `value`. `value` needs to be valid for the remaining
+             * lifetime of the process, e.g. has to be a static string.
+             * @param value A NUL-terminated string
+             */
+            set_static_str(value: string): void;
+            /**
+             * Sets `s` to the string `value` of length `len`. `value` needs to be valid for the
+             * remaining lifetime of the process, e.g. has to be a static string.
+             *
+             * `value` must be NUL-terminated and `len` should not include the
+             * NUL-terminator.
+             * @param value A string
+             * @param len Length of the string
+             */
+            set_static_str_with_len(value: string, len: number): void;
+            /**
+             * Sets `s` to the string `value` of length `len`. `value` does not have to be
+             * NUL-terminated and `len` should not include the NUL-terminator.
+             * @param value A string
+             * @param len Length of the string
+             */
+            set_with_len(value: string, len: number): void;
+        }
+
+        /**
          * A GstIterator is used to retrieve multiple objects from another object in
          * a threadsafe way.
          *
@@ -17872,6 +19387,17 @@ declare module 'gi://Gst?version=1.0' {
                 details?: Structure | null,
             ): Message;
 
+            // Static methods
+
+            /**
+             * Modifies a pointer to a #GstMessage to point to a different #GstMessage. This
+             * function is similar to gst_message_replace() except that it takes ownership
+             * of `new_message`.
+             * @param old_message pointer to a pointer to a #GstMessage     to be replaced.
+             * @param new_message pointer to a #GstMessage that     will replace the message pointed to by @old_message.
+             */
+            static take(old_message: Message, new_message?: Message | null): [boolean, Message];
+
             // Methods
 
             /**
@@ -17884,6 +19410,13 @@ declare module 'gi://Gst?version=1.0' {
              * @param entry_struct structure for the new entry
              */
             add_redirect_entry(location: string, tag_list?: TagList | null, entry_struct?: Structure | null): void;
+            /**
+             * Returns the optional details structure of the message. May be NULL if none.
+             *
+             * The returned structure must not be freed.
+             * @returns The details, or NULL if none.
+             */
+            get_details(): Structure | null;
             get_num_redirect_entries(): number;
             /**
              * Retrieve the sequence number of a message.
@@ -18009,6 +19542,11 @@ declare module 'gi://Gst?version=1.0' {
              */
             parse_error_details(): Structure | null;
             /**
+             * Returns the details structure if present or will create one if not present.
+             * The returned structure must not be freed.
+             */
+            parse_error_writable_details(): Structure | null;
+            /**
              * Extract the group from the STREAM_START message.
              * @returns %TRUE if the message had a group id set, %FALSE otherwise MT safe.
              */
@@ -18031,6 +19569,11 @@ declare module 'gi://Gst?version=1.0' {
              * The returned structure must not be freed.
              */
             parse_info_details(): Structure | null;
+            /**
+             * Returns the details structure if present or will create one if not present.
+             * The returned structure must not be freed.
+             */
+            parse_info_writable_details(): Structure | null;
             /**
              * Parses the rate_multiplier from the instant-rate-request message.
              */
@@ -18218,6 +19761,11 @@ declare module 'gi://Gst?version=1.0' {
              */
             parse_warning_details(): Structure | null;
             /**
+             * Returns the details structure if present or will create one if not present.
+             * The returned structure must not be freed.
+             */
+            parse_warning_writable_details(): Structure | null;
+            /**
              * Configures the buffering stats values in `message`.
              * @param mode a buffering mode
              * @param avg_in the average input rate
@@ -18230,6 +19778,12 @@ declare module 'gi://Gst?version=1.0' {
                 avg_out: number,
                 buffering_left: number,
             ): void;
+            /**
+             * Add `details` to `message`. Will fail if the message already has details set on
+             * it or if it is not writable.
+             * @param details A GstStructure with details
+             */
+            set_details(details?: Structure | null): void;
             /**
              * Sets the group id on the stream-start message.
              *
@@ -18299,6 +19853,15 @@ declare module 'gi://Gst?version=1.0' {
              */
             streams_selected_get_stream(idx: number): Stream | null;
             /**
+             * Returns the details structure of the `message`. If not present it will be
+             * created. Use this function (instead of gst_message_get_details()) if you
+             * want to write to the `details` structure.
+             *
+             * The returned structure must not be freed.
+             * @returns The details
+             */
+            writable_details(): Structure;
+            /**
              * Get a writable version of the structure.
              * @returns The structure of the message. The structure is still owned by the message, which means that you should not free it and that the pointer becomes invalid when you free the message. This function ensures that @message is writable, and if so, will never return %NULL. MT safe.
              */
@@ -18339,6 +19902,23 @@ declare module 'gi://Gst?version=1.0' {
 
             // Static methods
 
+            /**
+             * When a element like `tee` decides the allocation, each downstream element may
+             * fill different parameters and pass them to gst_query_add_allocation_meta().
+             * In order to keep these parameters, a merge operation is needed. This
+             * aggregate function can combine the parameters from `params0` and `param1`, and
+             * write the result back into `aggregated_params`.
+             * @param api the GType of the API for which the parameters are being aggregated.
+             * @param aggregated_params This structure will be updated with the                     combined parameters from both @params0 and @params1.
+             * @param params0 a #GstStructure containing the new parameters to be aggregated.
+             * @param params1 a #GstStructure containing the new parameters to be aggregated.
+             */
+            static api_type_aggregate_params(
+                api: GObject.GType,
+                aggregated_params: Structure,
+                params0: Structure,
+                params1: Structure,
+            ): boolean;
             static api_type_get_tags(api: GObject.GType): string[];
             /**
              * Check if `api` was registered with `tag`.
@@ -18353,6 +19933,12 @@ declare module 'gi://Gst?version=1.0' {
              * @param tags tags for @api
              */
             static api_type_register(api: string, tags: string[]): GObject.GType;
+            /**
+             * This function sets the aggregator function for a specific API type.
+             * @param api the #GType of the API for which the aggregator function is being set.
+             * @param aggregator the aggregator function to be associated with the given API              type.
+             */
+            static api_type_set_params_aggregator(api: GObject.GType, aggregator: AllocationMetaParamsAggregator): void;
             /**
              * Recreate a #GstMeta from serialized data returned by
              * gst_meta_serialize() and add it to `buffer`.
@@ -19143,6 +20729,11 @@ declare module 'gi://Gst?version=1.0' {
              */
             interrupt(): void;
             /**
+             * Increases the refcount of the given `promise` by one.
+             * @returns @promise
+             */
+            ref(): Promise;
+            /**
              * Set a reply on `promise`.  This will wake up any waiters with
              * %GST_PROMISE_RESULT_REPLIED.  Called by the producer of the value to
              * indicate success (or failure).
@@ -19152,6 +20743,11 @@ declare module 'gi://Gst?version=1.0' {
              * @param s a #GstStructure with the the reply contents
              */
             reply(s?: Structure | null): void;
+            /**
+             * Decreases the refcount of the promise. If the refcount reaches 0, the
+             * promise will be freed.
+             */
+            unref(): void;
             /**
              * Wait for `promise` to move out of the %GST_PROMISE_RESULT_PENDING state.
              * If `promise` is not in %GST_PROMISE_RESULT_PENDING then it will return
@@ -19265,6 +20861,19 @@ declare module 'gi://Gst?version=1.0' {
             static new_selectable(): Query;
 
             static new_uri(): Query;
+
+            // Static methods
+
+            /**
+             * Modifies a pointer to a #GstQuery to point to a different #GstQuery. This
+             * function is similar to gst_query_replace() except that it takes ownership of
+             * `new_query`.
+             *
+             * Either `new_query` or the #GstQuery pointed to by `old_query` may be %NULL.
+             * @param old_query pointer to a     pointer to a #GstQuery to be stolen.
+             * @param new_query pointer to a #GstQuery that will     replace the query pointed to by @old_query.
+             */
+            static take(old_query?: Query | null, new_query?: Query | null): [boolean, Query | null];
 
             // Methods
 
@@ -19530,6 +21139,11 @@ declare module 'gi://Gst?version=1.0' {
              * they should make all future requests to the original URI.
              */
             parse_uri_redirection_permanent(): boolean;
+            /**
+             * Increases the refcount of the given query by one.
+             * @returns @q
+             */
+            ref(): Query;
             /**
              * Remove the metadata API at `index` of the metadata API array.
              * @param index position in the metadata API array to remove
@@ -20346,14 +21960,17 @@ declare module 'gi://Gst?version=1.0' {
          *
          * Some types have special delimiters:
          *
-         * - [GstValueArray](GST_TYPE_ARRAY) are inside curly brackets (`{` and `}`).
-         *   For example `a-structure, array={1, 2, 3}`
+         * - [GstValueArray](GST_TYPE_ARRAY) are inside "less and greater than" (`<` and
+         *   `>`). For example `a-structure, array=<1, 2, 3>
          * - Ranges are inside brackets (`[` and `]`). For example `a-structure,
          *   range=[1, 6, 2]` 1 being the min value, 6 the maximum and 2 the step. To
          *   specify a #GST_TYPE_INT64_RANGE you need to explicitly specify it like:
          *   `a-structure, a-int64-range=(gint64) [1, 5]`
-         * - [GstValueList](GST_TYPE_LIST) are inside "less and greater than" (`<` and
-         *   `>`). For example `a-structure, list=<1, 2, 3>
+         * - [GstValueList](GST_TYPE_LIST) are inside curly brackets (`{` and `}`).
+         *   For example `a-structure, list={1, 2, 3}`
+         * - [GStrv](G_TYPE_STRV) are inside "less and greater than" (`<` and
+         *   `>`) and each string is double-quoted.
+         *   For example `a-structure, strv=(GStrv)<"foo", "bar">`. Since 1.26.0.
          *
          * Structures are delimited either by a null character `\0` or a semicolon `;`
          * the latter allowing to store multiple structures in the same string (see
@@ -20406,6 +22023,10 @@ declare module 'gi://Gst?version=1.0' {
 
             static new_id_empty(quark: GLib.Quark): Structure;
 
+            static new_id_str_empty(name: IdStr): Structure;
+
+            static new_static_str_empty(name: string): Structure;
+
             // Static methods
 
             /**
@@ -20447,6 +22068,15 @@ declare module 'gi://Gst?version=1.0' {
              * @param func a function to call for each field
              */
             filter_and_map_in_place(func: StructureFilterMapFunc): void;
+            /**
+             * Calls the provided function once for each field in the #GstStructure. In
+             * contrast to gst_structure_foreach_id_str(), the function may modify the fields.
+             * In contrast to gst_structure_map_in_place_id_str(), the field is removed from
+             * the structure if %FALSE is returned from the function.
+             * The structure must be mutable.
+             * @param func a function to call for each field
+             */
+            filter_and_map_in_place_id_str(func: StructureFilterMapIdStrFunc): void;
             /**
              * Fixate all values in `structure` using gst_value_fixate().
              * `structure` will be modified in-place and should be writable.
@@ -20512,6 +22142,14 @@ declare module 'gi://Gst?version=1.0' {
              * @returns %TRUE if the supplied function returns %TRUE For each of the fields, %FALSE otherwise.
              */
             foreach(func: StructureForeachFunc): boolean;
+            /**
+             * Calls the provided function once for each field in the #GstStructure. The
+             * function must not modify the fields. Also see gst_structure_map_in_place_id_str()
+             * and gst_structure_filter_and_map_in_place_id_str().
+             * @param func a function to call for each field
+             * @returns %TRUE if the supplied function returns %TRUE For each of the fields, %FALSE otherwise.
+             */
+            foreach_id_str(func: StructureForeachIdStrFunc): boolean;
             /**
              * Frees a #GstStructure and all its fields and values. The structure must not
              * have a parent when this function is called.
@@ -20653,6 +22291,11 @@ declare module 'gi://Gst?version=1.0' {
              */
             get_name_id(): GLib.Quark;
             /**
+             * Get the name of `structure` as a GstIdStr.
+             * @returns the name of the structure.
+             */
+            get_name_id_str(): IdStr;
+            /**
              * Finds the field corresponding to `fieldname,` and returns the string
              * contained in the field's value.  Caller is responsible for making
              * sure the field exists and has the correct type.
@@ -20732,6 +22375,62 @@ declare module 'gi://Gst?version=1.0' {
              */
             id_set_value(field: GLib.Quark, value: GObject.Value | any): void;
             /**
+             * Finds the field with the given name, and returns the type of the
+             * value it contains.  If the field is not found, G_TYPE_INVALID is
+             * returned.
+             * @param fieldname the name of the field
+             * @returns the #GValue of the field
+             */
+            id_str_get_field_type(fieldname: IdStr): GObject.GType;
+            /**
+             * Get the value of the field with name `fieldname`.
+             * @param fieldname the name of the field to get
+             * @returns the #GValue corresponding to the field with the given name.
+             */
+            id_str_get_value(fieldname: IdStr): GObject.Value | null;
+            /**
+             * Check if `structure` contains a field named `fieldname`.
+             * @param fieldname the name of a field
+             * @returns %TRUE if the structure contains a field with the given name
+             */
+            id_str_has_field(fieldname: IdStr): boolean;
+            /**
+             * Check if `structure` contains a field named `fieldname` and with GType `type`.
+             * @param fieldname the name of a field
+             * @param type the type of a value
+             * @returns %TRUE if the structure contains a field with the given name and type
+             */
+            id_str_has_field_typed(fieldname: IdStr, type: GObject.GType): boolean;
+            /**
+             * Get the name (as a GstIdStr) of the given field number,
+             * counting from 0 onwards.
+             * @param index the index to get the name of
+             * @returns the name of the given field number
+             */
+            id_str_nth_field_name(index: number): IdStr;
+            /**
+             * Removes the field with the given name.  If the field with the given
+             * name does not exist, the structure is unchanged.
+             * @param fieldname the name of the field to remove
+             */
+            id_str_remove_field(fieldname: IdStr): void;
+            /**
+             * Sets the field with the given name `field` to `value`.  If the field
+             * does not exist, it is created.  If the field exists, the previous
+             * value is replaced and freed.
+             * @param fieldname the name of the field to set
+             * @param value the new value of the field
+             */
+            id_str_set_value(fieldname: IdStr, value: GObject.Value | any): void;
+            /**
+             * Sets the field with the given GstIdStr `field` to `value`.  If the field
+             * does not exist, it is created.  If the field exists, the previous
+             * value is replaced and freed.
+             * @param fieldname the name of the field to set
+             * @param value the new value of the field
+             */
+            id_str_take_value(fieldname: IdStr, value: GObject.Value | any): void;
+            /**
              * Sets the field with the given GQuark `field` to `value`.  If the field
              * does not exist, it is created.  If the field exists, the previous
              * value is replaced and freed.
@@ -20760,6 +22459,12 @@ declare module 'gi://Gst?version=1.0' {
              */
             is_subset(superset: Structure): boolean;
             /**
+             * Checks if the structure is writable. %TRUE if parent
+             * is not set or its refcount is 1, %FALSE otherwise.
+             * @returns %TRUE if the structure is writable.
+             */
+            is_writable(): boolean;
+            /**
              * Calls the provided function once for each field in the #GstStructure. In
              * contrast to gst_structure_foreach(), the function may modify but not delete the
              * fields. The structure must be mutable.
@@ -20767,6 +22472,14 @@ declare module 'gi://Gst?version=1.0' {
              * @returns %TRUE if the supplied function returns %TRUE For each of the fields, %FALSE otherwise.
              */
             map_in_place(func: StructureMapFunc): boolean;
+            /**
+             * Calls the provided function once for each field in the #GstStructure. In
+             * contrast to gst_structure_foreach_id_str(), the function may modify but not delete the
+             * fields. The structure must be mutable.
+             * @param func a function to call for each field
+             * @returns %TRUE if the supplied function returns %TRUE For each of the fields, %FALSE otherwise.
+             */
+            map_in_place_id_str(func: StructureMapIdStrFunc): boolean;
             /**
              * Get the number of fields in the structure.
              * @returns the number of fields in the structure
@@ -20838,6 +22551,23 @@ declare module 'gi://Gst?version=1.0' {
              */
             set_name(name: string): void;
             /**
+             * Sets the name of the structure to the given `name`.  The string
+             * provided is copied before being used. It must not be empty, start with a
+             * letter and can be followed by letters, numbers and any of "/-_.:".
+             * @param name the new name of the structure
+             */
+            set_name_id_str(name: IdStr): void;
+            /**
+             * Sets the name of the structure to the given `name`.  The string
+             * provided is copied before being used. It must not be empty, start with a
+             * letter and can be followed by letters, numbers and any of "/-_.:".
+             *
+             * `name` needs to be valid for the remaining lifetime of the process, e.g. has
+             * to be a static string.
+             * @param name the new name of the structure
+             */
+            set_name_static_str(name: string): void;
+            /**
              * Sets the parent_refcount field of #GstStructure. This field is used to
              * determine whether a structure is mutable or not. This function should only be
              * called by code implementing parent objects of #GstStructure, as described in
@@ -20857,11 +22587,33 @@ declare module 'gi://Gst?version=1.0' {
             /**
              * Sets the field with the given name `field` to `value`.  If the field
              * does not exist, it is created.  If the field exists, the previous
+             * value is replaced and freed.
+             *
+             * `fieldname` needs to be valid for the remaining lifetime of the process, e.g.
+             * has to be a static string.
+             * @param fieldname the name of the field to set
+             * @param value the new value of the field
+             */
+            set_value_static_str(fieldname: string, value: GObject.Value | any): void;
+            /**
+             * Sets the field with the given name `field` to `value`.  If the field
+             * does not exist, it is created.  If the field exists, the previous
              * value is replaced and freed. The function will take ownership of `value`.
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
             take_value(fieldname: string, value: GObject.Value | any): void;
+            /**
+             * Sets the field with the given name `field` to `value`.  If the field
+             * does not exist, it is created.  If the field exists, the previous
+             * value is replaced and freed. The function will take ownership of `value`.
+             *
+             * `fieldname` needs to be valid for the remaining lifetime of the process, e.g.
+             * has to be a static string.
+             * @param fieldname the name of the field to set
+             * @param value the new value of the field
+             */
+            take_value_static_str(fieldname: string, value: GObject.Value | any): void;
             /**
              * Converts `structure` to a human-readable string representation.
              *
@@ -20924,6 +22676,26 @@ declare module 'gi://Gst?version=1.0' {
              * @param tag tag to read out
              */
             static copy_value(list: TagList, tag: string): [boolean, unknown];
+            /**
+             * Modifies a pointer to a #GstTagList to point to a different #GstTagList. The
+             * modification is done atomically (so this is useful for ensuring thread
+             * safety in some cases), and the reference counts are updated appropriately
+             * (the old tag list is unreffed, the new is reffed).
+             *
+             * Either `new_taglist` or the #GstTagList pointed to by `old_taglist` may be
+             * %NULL.
+             * @param old_taglist pointer to a pointer to a     #GstTagList to be replaced.
+             * @param new_taglist pointer to a #GstTagList that     will replace the tag list pointed to by @old_taglist.
+             */
+            static replace(old_taglist?: TagList | null, new_taglist?: TagList | null): [boolean, TagList | null];
+            /**
+             * Modifies a pointer to a #GstTagList to point to a different #GstTagList.
+             * This function is similar to gst_tag_list_replace() except that it takes
+             * ownership of `new_taglist`.
+             * @param old_taglist pointer to a pointer to a #GstTagList     to be replaced.
+             * @param new_taglist pointer to a #GstTagList that     will replace the taglist pointed to by @old_taglist.
+             */
+            static take(old_taglist: TagList, new_taglist?: TagList | null): [boolean, TagList];
 
             // Methods
 
@@ -21695,6 +23467,12 @@ declare module 'gi://Gst?version=1.0' {
              */
             append_path_segment(path_segment?: string | null): boolean;
             /**
+             * Create a new #GstUri object with the same data as this #GstUri object.
+             * If `uri` is %NULL then returns %NULL.
+             * @returns A new #GstUri object which is a copy of this          #GstUri or %NULL.
+             */
+            copy(): Uri;
+            /**
              * Compares two #GstUri objects to see if they represent the same normalized
              * URI.
              * @param second Second #GstUri to compare.
@@ -21879,6 +23657,12 @@ declare module 'gi://Gst?version=1.0' {
              */
             query_has_key(query_key: string): boolean;
             /**
+             * Add a reference to this #GstUri object. See gst_mini_object_ref() for further
+             * info.
+             * @returns This object with the reference count incremented.
+             */
+            ref(): Uri;
+            /**
              * Remove an entry from the query table by key.
              * @param query_key The key to remove.
              * @returns %TRUE if the key existed in the table and was removed.
@@ -21976,6 +23760,14 @@ declare module 'gi://Gst?version=1.0' {
              * @returns The string version of the URI.
              */
             to_string_with_keys(keys?: string[] | null): string;
+            /**
+             * Decrement the reference count to this #GstUri object.
+             *
+             * If the reference count drops to 0 then finalize this object.
+             *
+             * See gst_mini_object_unref() for further info.
+             */
+            unref(): void;
         }
 
         /**
@@ -21998,6 +23790,45 @@ declare module 'gi://Gst?version=1.0' {
         }
 
         namespace ChildProxy {
+            /**
+             * Interface for implementing ChildProxy.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Emits the #GstChildProxy::child-added signal.
+                 * @param child the newly added child
+                 * @param name the name of the new child
+                 */
+                vfunc_child_added(child: GObject.Object, name: string): void;
+                /**
+                 * Emits the #GstChildProxy::child-removed signal.
+                 * @param child the removed child
+                 * @param name the name of the old child
+                 */
+                vfunc_child_removed(child: GObject.Object, name: string): void;
+                /**
+                 * Fetches a child by its number.
+                 * @param index the child's position in the child list
+                 */
+                vfunc_get_child_by_index<T = GObject.Object>(index: number): T;
+                /**
+                 * Looks up a child element by the given name.
+                 *
+                 * This virtual method has a default implementation that uses #GstObject
+                 * together with gst_object_get_name(). If the interface is to be used with
+                 * #GObjects, this methods needs to be overridden.
+                 * @param name the child's name
+                 */
+                vfunc_get_child_by_name<T = GObject.Object>(name: string): T;
+                /**
+                 * Gets the number of child objects this parent contains.
+                 */
+                vfunc_get_children_count(): number;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -22007,7 +23838,7 @@ declare module 'gi://Gst?version=1.0' {
             $gtype: GObject.GType<ChildProxy>;
             prototype: ChildProxy;
         }
-        interface ChildProxy extends GObject.Object {
+        interface ChildProxy extends GObject.Object, ChildProxy.Interface {
             // Methods
 
             /**
@@ -22076,39 +23907,6 @@ declare module 'gi://Gst?version=1.0' {
              * @param value new #GValue for the property
              */
             set_property(name: string, value: GObject.Value | any): void;
-
-            // Virtual methods
-
-            /**
-             * Emits the #GstChildProxy::child-added signal.
-             * @param child the newly added child
-             * @param name the name of the new child
-             */
-            vfunc_child_added(child: GObject.Object, name: string): void;
-            /**
-             * Emits the #GstChildProxy::child-removed signal.
-             * @param child the removed child
-             * @param name the name of the old child
-             */
-            vfunc_child_removed(child: GObject.Object, name: string): void;
-            /**
-             * Fetches a child by its number.
-             * @param index the child's position in the child list
-             */
-            vfunc_get_child_by_index<T = GObject.Object>(index: number): T;
-            /**
-             * Looks up a child element by the given name.
-             *
-             * This virtual method has a default implementation that uses #GstObject
-             * together with gst_object_get_name(). If the interface is to be used with
-             * #GObjects, this methods needs to be overridden.
-             * @param name the child's name
-             */
-            vfunc_get_child_by_name<T = GObject.Object>(name: string): T;
-            /**
-             * Gets the number of child objects this parent contains.
-             */
-            vfunc_get_children_count(): number;
         }
 
         export const ChildProxy: ChildProxyNamespace & {
@@ -22116,6 +23914,62 @@ declare module 'gi://Gst?version=1.0' {
         };
 
         namespace Preset {
+            /**
+             * Interface for implementing Preset.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Delete the given preset.
+                 * @param name preset name to remove
+                 */
+                vfunc_delete_preset(name: string): boolean;
+                /**
+                 * Gets the `value` for an existing meta data `tag`. Meta data `tag` names can be
+                 * something like e.g. "comment". Returned values need to be released when done.
+                 * @param name preset name
+                 * @param tag meta data item name
+                 */
+                vfunc_get_meta(name: string, tag: string): [boolean, string];
+                /**
+                 * Get a copy of preset names as a %NULL terminated string array.
+                 */
+                vfunc_get_preset_names(): string[];
+                /**
+                 * Get a the names of the GObject properties that can be used for presets.
+                 */
+                vfunc_get_property_names(): string[];
+                /**
+                 * Load the given preset.
+                 * @param name preset name to load
+                 */
+                vfunc_load_preset(name: string): boolean;
+                /**
+                 * Renames a preset. If there is already a preset by the `new_name` it will be
+                 * overwritten.
+                 * @param old_name current preset name
+                 * @param new_name new preset name
+                 */
+                vfunc_rename_preset(old_name: string, new_name: string): boolean;
+                /**
+                 * Save the current object settings as a preset under the given name. If there
+                 * is already a preset by this `name` it will be overwritten.
+                 * @param name preset name to save
+                 */
+                vfunc_save_preset(name: string): boolean;
+                /**
+                 * Sets a new `value` for an existing meta data item or adds a new item. Meta
+                 * data `tag` names can be something like e.g. "comment". Supplying %NULL for the
+                 * `value` will unset an existing value.
+                 * @param name preset name
+                 * @param tag meta data item name
+                 * @param value new value
+                 */
+                vfunc_set_meta(name: string, tag: string, value?: string | null): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -22138,7 +23992,7 @@ declare module 'gi://Gst?version=1.0' {
              */
             set_app_dir(app_dir: string): boolean;
         }
-        interface Preset extends GObject.Object {
+        interface Preset extends GObject.Object, Preset.Interface {
             // Methods
 
             /**
@@ -22201,56 +24055,6 @@ declare module 'gi://Gst?version=1.0' {
              * @returns %TRUE for success, %FALSE if e.g. there is no preset with that @name
              */
             set_meta(name: string, tag: string, value?: string | null): boolean;
-
-            // Virtual methods
-
-            /**
-             * Delete the given preset.
-             * @param name preset name to remove
-             */
-            vfunc_delete_preset(name: string): boolean;
-            /**
-             * Gets the `value` for an existing meta data `tag`. Meta data `tag` names can be
-             * something like e.g. "comment". Returned values need to be released when done.
-             * @param name preset name
-             * @param tag meta data item name
-             */
-            vfunc_get_meta(name: string, tag: string): [boolean, string];
-            /**
-             * Get a copy of preset names as a %NULL terminated string array.
-             */
-            vfunc_get_preset_names(): string[];
-            /**
-             * Get a the names of the GObject properties that can be used for presets.
-             */
-            vfunc_get_property_names(): string[];
-            /**
-             * Load the given preset.
-             * @param name preset name to load
-             */
-            vfunc_load_preset(name: string): boolean;
-            /**
-             * Renames a preset. If there is already a preset by the `new_name` it will be
-             * overwritten.
-             * @param old_name current preset name
-             * @param new_name new preset name
-             */
-            vfunc_rename_preset(old_name: string, new_name: string): boolean;
-            /**
-             * Save the current object settings as a preset under the given name. If there
-             * is already a preset by this `name` it will be overwritten.
-             * @param name preset name to save
-             */
-            vfunc_save_preset(name: string): boolean;
-            /**
-             * Sets a new `value` for an existing meta data item or adds a new item. Meta
-             * data `tag` names can be something like e.g. "comment". Supplying %NULL for the
-             * `value` will unset an existing value.
-             * @param name preset name
-             * @param tag meta data item name
-             * @param value new value
-             */
-            vfunc_set_meta(name: string, tag: string, value?: string | null): boolean;
         }
 
         export const Preset: PresetNamespace & {
@@ -22352,6 +24156,24 @@ declare module 'gi://Gst?version=1.0' {
         };
 
         namespace URIHandler {
+            /**
+             * Interface for implementing URIHandler.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets the currently handled URI.
+                 */
+                vfunc_get_uri(): string | null;
+                /**
+                 * Tries to set the URI of the given handler.
+                 * @param uri URI to set
+                 */
+                vfunc_set_uri(uri: string): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -22361,7 +24183,7 @@ declare module 'gi://Gst?version=1.0' {
             $gtype: GObject.GType<URIHandler>;
             prototype: URIHandler;
         }
-        interface URIHandler extends GObject.Object {
+        interface URIHandler extends GObject.Object, URIHandler.Interface {
             // Methods
 
             /**
@@ -22386,18 +24208,6 @@ declare module 'gi://Gst?version=1.0' {
              * @returns %TRUE if the URI was set successfully, else %FALSE.
              */
             set_uri(uri: string): boolean;
-
-            // Virtual methods
-
-            /**
-             * Gets the currently handled URI.
-             */
-            vfunc_get_uri(): string | null;
-            /**
-             * Tries to set the URI of the given handler.
-             * @param uri URI to set
-             */
-            vfunc_set_uri(uri: string): boolean;
         }
 
         export const URIHandler: URIHandlerNamespace & {

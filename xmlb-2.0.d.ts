@@ -474,6 +474,9 @@ declare module 'gi://Xmlb?version=2.0' {
             OPTIMIZER,
         }
         namespace Builder {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -482,6 +485,15 @@ declare module 'gi://Xmlb?version=2.0' {
         class Builder extends GObject.Object {
             static $gtype: GObject.GType<Builder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Builder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Builder.ConstructorProps>, ...args: any[]);
@@ -489,6 +501,24 @@ declare module 'gi://Xmlb?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Builder;
+
+            // Signals
+
+            connect<K extends keyof Builder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Builder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Builder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Builder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Builder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Builder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -559,6 +589,9 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace BuilderFixup {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -567,6 +600,15 @@ declare module 'gi://Xmlb?version=2.0' {
         class BuilderFixup extends GObject.Object {
             static $gtype: GObject.GType<BuilderFixup>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BuilderFixup.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<BuilderFixup.ConstructorProps>, ...args: any[]);
@@ -574,6 +616,24 @@ declare module 'gi://Xmlb?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](id: string, func: BuilderFixupFunc): BuilderFixup;
+
+            // Signals
+
+            connect<K extends keyof BuilderFixup.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderFixup.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BuilderFixup.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderFixup.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BuilderFixup.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BuilderFixup.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -594,6 +654,9 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace BuilderNode {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -602,6 +665,15 @@ declare module 'gi://Xmlb?version=2.0' {
         class BuilderNode extends GObject.Object {
             static $gtype: GObject.GType<BuilderNode>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BuilderNode.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<BuilderNode.ConstructorProps>, ...args: any[]);
@@ -609,6 +681,24 @@ declare module 'gi://Xmlb?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](element: string): BuilderNode;
+
+            // Signals
+
+            connect<K extends keyof BuilderNode.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderNode.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BuilderNode.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderNode.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BuilderNode.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BuilderNode.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -790,6 +880,9 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace BuilderSource {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -798,6 +891,15 @@ declare module 'gi://Xmlb?version=2.0' {
         class BuilderSource extends GObject.Object {
             static $gtype: GObject.GType<BuilderSource>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BuilderSource.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<BuilderSource.ConstructorProps>, ...args: any[]);
@@ -805,6 +907,24 @@ declare module 'gi://Xmlb?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): BuilderSource;
+
+            // Signals
+
+            connect<K extends keyof BuilderSource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderSource.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BuilderSource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderSource.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BuilderSource.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BuilderSource.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -850,6 +970,9 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace BuilderSourceCtx {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -858,11 +981,40 @@ declare module 'gi://Xmlb?version=2.0' {
         class BuilderSourceCtx extends GObject.Object {
             static $gtype: GObject.GType<BuilderSourceCtx>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BuilderSourceCtx.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<BuilderSourceCtx.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof BuilderSourceCtx.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderSourceCtx.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BuilderSourceCtx.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BuilderSourceCtx.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BuilderSourceCtx.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BuilderSourceCtx.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -889,6 +1041,9 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace Machine {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -897,6 +1052,15 @@ declare module 'gi://Xmlb?version=2.0' {
         class Machine extends GObject.Object {
             static $gtype: GObject.GType<Machine>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Machine.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Machine.ConstructorProps>, ...args: any[]);
@@ -904,6 +1068,24 @@ declare module 'gi://Xmlb?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Machine;
+
+            // Signals
+
+            connect<K extends keyof Machine.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Machine.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Machine.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Machine.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Machine.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Machine.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1072,6 +1254,9 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace Node {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1080,11 +1265,38 @@ declare module 'gi://Xmlb?version=2.0' {
         class Node extends GObject.Object {
             static $gtype: GObject.GType<Node>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Node.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Node.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Node.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Node.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Node.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Node.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Node.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Node.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1330,6 +1542,9 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace Query {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1337,6 +1552,15 @@ declare module 'gi://Xmlb?version=2.0' {
 
         class Query extends GObject.Object {
             static $gtype: GObject.GType<Query>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Query.SignalSignatures;
 
             // Constructors
 
@@ -1347,6 +1571,24 @@ declare module 'gi://Xmlb?version=2.0' {
             static ['new'](silo: Silo, xpath: string): Query;
 
             static new_full(silo: Silo, xpath: string, flags: QueryFlags): Query;
+
+            // Signals
+
+            connect<K extends keyof Query.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Query.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Query.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Query.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Query.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Query.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1392,6 +1634,13 @@ declare module 'gi://Xmlb?version=2.0' {
         }
 
         namespace Silo {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::enable-node-cache': (pspec: GObject.ParamSpec) => void;
+                'notify::guid': (pspec: GObject.ParamSpec) => void;
+                'notify::valid': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1449,6 +1698,15 @@ declare module 'gi://Xmlb?version=2.0' {
             set guid(val: string);
             get valid(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Silo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Silo.ConstructorProps>, ...args: any[]);
@@ -1458,6 +1716,24 @@ declare module 'gi://Xmlb?version=2.0' {
             static ['new'](): Silo;
 
             static new_from_xml(xml: string): Silo;
+
+            // Signals
+
+            connect<K extends keyof Silo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Silo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Silo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Silo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Silo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Silo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1699,7 +1975,8 @@ declare module 'gi://Xmlb?version=2.0' {
              *
              * ```c
              * XbNodeAttrIter iter;
-             * const gchar *attr_name, *attr_value;
+             * const gchar *attr_name;
+             * const gchar *attr_value;
              *
              * xb_node_attr_iter_init (&iter, node);
              * while (xb_node_attr_iter_next (&iter, &attr_name, &attr_value)) {

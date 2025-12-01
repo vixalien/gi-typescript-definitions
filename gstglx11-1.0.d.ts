@@ -31,6 +31,12 @@ declare module 'gi://GstGLX11?version=1.0' {
          */
 
         namespace GLDisplayX11 {
+            // Signal signatures
+            interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLDisplay.ConstructorProps {}
@@ -43,6 +49,15 @@ declare module 'gi://GstGLX11?version=1.0' {
         class GLDisplayX11 extends GstGL.GLDisplay {
             static $gtype: GObject.GType<GLDisplayX11>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLDisplayX11.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GLDisplayX11.ConstructorProps>, ...args: any[]);
@@ -53,6 +68,24 @@ declare module 'gi://GstGLX11?version=1.0' {
             // Conflicted with GstGL.GLDisplay.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof GLDisplayX11.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayX11.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLDisplayX11.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayX11.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLDisplayX11.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLDisplayX11.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         type GLDisplayX11Class = typeof GLDisplayX11;

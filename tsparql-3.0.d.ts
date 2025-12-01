@@ -421,8 +421,24 @@ declare module 'gi://Tsparql?version=3.0' {
              *   SPARQL 1.1 syntax. Namely, they cannot be used as URIs. This flag is available since Tracker 3.3.
              */
             ANONYMOUS_BNODES,
+            /**
+             * Disables no longer recommended [legacy syntax extensions to the SPARQL 1.1
+             * specifications](sparql-and-tracker.md#legacy-syntax-extensions).
+             */
+            DISABLE_SYNTAX_EXTENSIONS,
+            /**
+             * Enables all behavior that provides most adherence to SPARQL 1.1 standards.
+             * Currently this is equivalent to `ANONYMOUS_BNODES | DISABLE_SYNTAX_EXTENSIONS`.
+             * More flags may be added in the future.
+             */
+            SPARQL_STRICT,
         }
         namespace Batch {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -459,11 +475,38 @@ declare module 'gi://Tsparql?version=3.0' {
              */
             get connection(): SparqlConnection;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Batch.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Batch.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Batch.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Batch.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Batch.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Batch.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Batch.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Batch.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -547,7 +590,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * finished `callback` will be executed.
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            execute_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            execute_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Executes the batch. This operation happens asynchronously, when
              * finished `callback` will be executed.
@@ -564,7 +607,7 @@ declare module 'gi://Tsparql?version=3.0' {
             execute_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes the operation started with [method`Batch`.execute_async].
              * @param res A [type@Gio.AsyncResult] with the result of the operation
@@ -580,6 +623,14 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace Endpoint {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::allowed-graphs': (pspec: GObject.ParamSpec) => void;
+                'notify::allowed-services': (pspec: GObject.ParamSpec) => void;
+                'notify::readonly': (pspec: GObject.ParamSpec) => void;
+                'notify::sparql-connection': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -670,11 +721,38 @@ declare module 'gi://Tsparql?version=3.0' {
              */
             get sparqlConnection(): SparqlConnection;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Endpoint.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Endpoint.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Endpoint.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Endpoint.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Endpoint.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Endpoint.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Endpoint.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Endpoint.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -752,10 +830,15 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace EndpointDBus {
-            // Signal callback interfaces
-
-            interface BlockCall {
-                (object: string): boolean;
+            // Signal signatures
+            interface SignalSignatures extends Endpoint.SignalSignatures {
+                'block-call': (arg0: string) => boolean | void;
+                'notify::dbus-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::object-path': (pspec: GObject.ParamSpec) => void;
+                'notify::allowed-graphs': (pspec: GObject.ParamSpec) => void;
+                'notify::allowed-services': (pspec: GObject.ParamSpec) => void;
+                'notify::readonly': (pspec: GObject.ParamSpec) => void;
+                'notify::sparql-connection': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -833,6 +916,15 @@ declare module 'gi://Tsparql?version=3.0' {
              */
             get objectPath(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EndpointDBus.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<EndpointDBus.ConstructorProps>, ...args: any[]);
@@ -848,12 +940,21 @@ declare module 'gi://Tsparql?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'block-call', callback: (_source: this, object: string) => boolean): number;
-            connect_after(signal: 'block-call', callback: (_source: this, object: string) => boolean): number;
-            emit(signal: 'block-call', object: string): void;
+            connect<K extends keyof EndpointDBus.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EndpointDBus.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EndpointDBus.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EndpointDBus.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EndpointDBus.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EndpointDBus.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -1383,10 +1484,15 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace EndpointHttp {
-            // Signal callback interfaces
-
-            interface BlockRemoteAddress {
-                (address: Gio.SocketAddress): boolean;
+            // Signal signatures
+            interface SignalSignatures extends Endpoint.SignalSignatures {
+                'block-remote-address': (arg0: Gio.SocketAddress) => boolean | void;
+                'notify::http-certificate': (pspec: GObject.ParamSpec) => void;
+                'notify::http-port': (pspec: GObject.ParamSpec) => void;
+                'notify::allowed-graphs': (pspec: GObject.ParamSpec) => void;
+                'notify::allowed-services': (pspec: GObject.ParamSpec) => void;
+                'notify::readonly': (pspec: GObject.ParamSpec) => void;
+                'notify::sparql-connection': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1462,6 +1568,15 @@ declare module 'gi://Tsparql?version=3.0' {
              */
             get httpPort(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EndpointHttp.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<EndpointHttp.ConstructorProps>, ...args: any[]);
@@ -1477,18 +1592,21 @@ declare module 'gi://Tsparql?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'block-remote-address',
-                callback: (_source: this, address: Gio.SocketAddress) => boolean,
+            connect<K extends keyof EndpointHttp.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EndpointHttp.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'block-remote-address',
-                callback: (_source: this, address: Gio.SocketAddress) => boolean,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EndpointHttp.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EndpointHttp.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'block-remote-address', address: Gio.SocketAddress): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EndpointHttp.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EndpointHttp.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -2018,6 +2136,9 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace NamespaceManager {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -2039,6 +2160,15 @@ declare module 'gi://Tsparql?version=3.0' {
         class NamespaceManager extends GObject.Object {
             static $gtype: GObject.GType<NamespaceManager>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: NamespaceManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<NamespaceManager.ConstructorProps>, ...args: any[]);
@@ -2046,6 +2176,26 @@ declare module 'gi://Tsparql?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): NamespaceManager;
+
+            // Signals
+
+            connect<K extends keyof NamespaceManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NamespaceManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof NamespaceManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NamespaceManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof NamespaceManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<NamespaceManager.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2062,10 +2212,7 @@ declare module 'gi://Tsparql?version=3.0' {
             // Methods
 
             /**
-             * Adds `prefix` as the recognised abbreviaton of `namespace`.
-             *
-             * Only one prefix is allowed for a given namespace, and all prefixes must
-             * be unique.
+             * Adds `prefix` as the recognised abbreviation of `namespace`.
              *
              * Since 3.3, The `TrackerNamespaceManager` instances obtained through
              * [method`SparqlConnection`.get_namespace_manager] are "sealed",
@@ -2117,10 +2264,10 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace Notifier {
-            // Signal callback interfaces
-
-            interface Events {
-                (service: string, graph: string, events: NotifierEvent[]): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                events: (arg0: string, arg1: string, arg2: NotifierEvent[]) => void;
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -2173,6 +2320,15 @@ declare module 'gi://Tsparql?version=3.0' {
              */
             get connection(): SparqlConnection;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Notifier.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Notifier.ConstructorProps>, ...args: any[]);
@@ -2181,18 +2337,21 @@ declare module 'gi://Tsparql?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'events',
-                callback: (_source: this, service: string, graph: string, events: NotifierEvent[]) => void,
+            connect<K extends keyof Notifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Notifier.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'events',
-                callback: (_source: this, service: string, graph: string, events: NotifierEvent[]) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Notifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Notifier.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'events', service: string, graph: string, events: NotifierEvent[]): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Notifier.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Notifier.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2235,6 +2394,11 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace Resource {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::identifier': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -2285,6 +2449,15 @@ declare module 'gi://Tsparql?version=3.0' {
             get identifier(): string;
             set identifier(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Resource.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Resource.ConstructorProps>, ...args: any[]);
@@ -2292,6 +2465,24 @@ declare module 'gi://Tsparql?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](identifier?: string | null): Resource;
+
+            // Signals
+
+            connect<K extends keyof Resource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Resource.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Resource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Resource.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Resource.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Resource.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2691,6 +2882,9 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace SparqlConnection {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -2760,6 +2954,15 @@ declare module 'gi://Tsparql?version=3.0' {
         abstract class SparqlConnection extends GObject.Object {
             static $gtype: GObject.GType<SparqlConnection>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SparqlConnection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SparqlConnection.ConstructorProps>, ...args: any[]);
@@ -2783,7 +2986,38 @@ declare module 'gi://Tsparql?version=3.0' {
 
             static new_finish(result: Gio.AsyncResult): SparqlConnection;
 
+            static new_from_rdf(
+                flags: SparqlConnectionFlags,
+                store: Gio.File | null,
+                deserialize_flags: DeserializeFlags,
+                rdf_format: RdfFormat,
+                rdf_stream: Gio.InputStream,
+                cancellable?: Gio.Cancellable | null,
+            ): SparqlConnection;
+
+            static new_from_rdf_finish(result: Gio.AsyncResult): SparqlConnection;
+
             static remote_new(uri_base: string): SparqlConnection;
+
+            // Signals
+
+            connect<K extends keyof SparqlConnection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SparqlConnection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SparqlConnection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SparqlConnection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SparqlConnection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SparqlConnection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2808,7 +3042,7 @@ declare module 'gi://Tsparql?version=3.0' {
              *
              * See [ctor`SparqlConnection`.new] for more information.
              * @param flags Connection flags to define the SPARQL connection behavior
-             * @param store The directory that contains the database as a [iface@Gio.File], or %NULL
+             * @param store The database location as a [iface@Gio.File], or %NULL
              * @param ontology The directory that contains the database schemas as a [iface@Gio.File], or %NULL
              * @param cancellable Optional [type@Gio.Cancellable]
              * @param callback User-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
@@ -2817,6 +3051,25 @@ declare module 'gi://Tsparql?version=3.0' {
                 flags: SparqlConnectionFlags,
                 store?: Gio.File | null,
                 ontology?: Gio.File | null,
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<SparqlConnection> | null,
+            ): void;
+            /**
+             * Asynchronous version of [ctor`SparqlConnection`.new_from_rdf].
+             * @param flags Connection flags to define the SPARQL connection behavior
+             * @param store The database location as a [iface@Gio.File], or %NULL
+             * @param deserialize_flags Deserialization flags
+             * @param rdf_format RDF format of the @rdf_stream argument
+             * @param rdf_stream RDF Schema definition of the database format
+             * @param cancellable Optional [type@Gio.Cancellable]
+             * @param callback User-defined [type@Gio.AsyncReadyCallback] to be called when            the asynchronous operation is finished.
+             */
+            static new_from_rdf_async(
+                flags: SparqlConnectionFlags,
+                store: Gio.File | null,
+                deserialize_flags: DeserializeFlags,
+                rdf_format: RdfFormat,
+                rdf_stream: Gio.InputStream,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<SparqlConnection> | null,
             ): void;
@@ -2839,7 +3092,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * No other API calls than g_object_unref() should happen after this call.
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            close_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            close_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Closes a SPARQL connection asynchronously.
              *
@@ -2858,7 +3111,7 @@ declare module 'gi://Tsparql?version=3.0' {
             close_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes the operation started with [method`SparqlConnection`.close_async].
              * @param res A [type@Gio.AsyncResult] with the result of the operation
@@ -2907,7 +3160,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 default_graph: string,
                 stream: Gio.InputStream,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Loads the RDF data contained in `stream` into the given `connection`.
              *
@@ -2963,7 +3216,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 stream: Gio.InputStream,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes the operation started with [method`SparqlConnection`.deserialize_async].
              * @param result A [type@Gio.AsyncResult] with the result of the operation
@@ -2987,10 +3240,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * @param cancellable Optional [type@Gio.Cancellable]
              * @returns A prepared statement
              */
-            load_statement_from_gresource(
-                resource_path: string,
-                cancellable?: Gio.Cancellable | null,
-            ): SparqlStatement | null;
+            load_statement_from_gresource(resource_path: string, cancellable?: Gio.Cancellable | null): SparqlStatement;
             /**
              * Maps a `TrackerSparqlConnection` onto another through a `private:`handle_name`` URI.
              *
@@ -3051,7 +3301,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * @param sparql String containing the SPARQL query
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            query_async(sparql: string, cancellable?: Gio.Cancellable | null): Promise<SparqlCursor>;
+            query_async(sparql: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<SparqlCursor>;
             /**
              * Executes asynchronously a SPARQL query on `connection`
              *
@@ -3087,7 +3337,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 sparql: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<SparqlCursor> | void;
+            ): globalThis.Promise<SparqlCursor> | void;
             /**
              * Finishes the operation started with [method`SparqlConnection`.query_async].
              * @param res A [type@Gio.AsyncResult] with the result of the operation
@@ -3104,7 +3354,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * @param cancellable Optional [type@Gio.Cancellable]
              * @returns A prepared statement
              */
-            query_statement(sparql: string, cancellable?: Gio.Cancellable | null): SparqlStatement | null;
+            query_statement(sparql: string, cancellable?: Gio.Cancellable | null): SparqlStatement;
             /**
              * Serializes a `DESCRIBE` or `CONSTRUCT` query into the specified RDF format.
              *
@@ -3126,7 +3376,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 format: RdfFormat | null,
                 query: string,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<Gio.InputStream>;
+            ): globalThis.Promise<Gio.InputStream>;
             /**
              * Serializes a `DESCRIBE` or `CONSTRUCT` query into the specified RDF format.
              *
@@ -3174,7 +3424,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 query: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Gio.InputStream> | void;
+            ): globalThis.Promise<Gio.InputStream> | void;
             /**
              * Finishes the operation started with [method`SparqlConnection`.serialize_async].
              * @param result A [type@Gio.AsyncResult] with the result of the operation
@@ -3222,7 +3472,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 sparql: string,
                 sparql_length: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Executes asynchronously an array of SPARQL updates. All updates in the
              * array are handled within a single transaction.
@@ -3266,7 +3516,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 sparql_length: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes the operation started with [method`SparqlConnection`.update_array_async].
              * @param res A [type@Gio.AsyncResult] with the result of the operation
@@ -3290,7 +3540,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * @param sparql String containing the SPARQL update query
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            update_async(sparql: string, cancellable?: Gio.Cancellable | null): Promise<void>;
+            update_async(sparql: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<void>;
             /**
              * Executes asynchronously a SPARQL update.
              *
@@ -3336,7 +3586,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 sparql: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<void> | void;
+            ): globalThis.Promise<void> | void;
             /**
              * Executes a SPARQL update and returns the names of the generated blank nodes.
              *
@@ -3367,7 +3617,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * @param sparql String containing the SPARQL update query
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            update_blank_async(sparql: string, cancellable?: Gio.Cancellable | null): Promise<GLib.Variant>;
+            update_blank_async(sparql: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<GLib.Variant>;
             /**
              * Executes asynchronously a SPARQL update and returns the names of the generated blank nodes.
              *
@@ -3395,7 +3645,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 sparql: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Variant> | void;
+            ): globalThis.Promise<GLib.Variant> | void;
             /**
              * Finishes the operation started with [method`SparqlConnection`.update_blank_async].
              *
@@ -3441,7 +3691,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 graph: string | null,
                 resource: Resource,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Inserts asynchronously a resource as described by `resource` on the given `graph`.
              *
@@ -3475,7 +3725,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 resource: Resource,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes the operation started with [method`SparqlConnection`.update_resource_async].
              * @param res A [type@Gio.AsyncResult] with the result of the operation
@@ -3491,10 +3741,16 @@ declare module 'gi://Tsparql?version=3.0' {
              * @param cancellable Optional [type@Gio.Cancellable]
              * @returns A prepared statement
              */
-            update_statement(sparql: string, cancellable?: Gio.Cancellable | null): SparqlStatement | null;
+            update_statement(sparql: string, cancellable?: Gio.Cancellable | null): SparqlStatement;
         }
 
         namespace SparqlCursor {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::n-columns': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -3549,11 +3805,38 @@ declare module 'gi://Tsparql?version=3.0' {
              */
             get nColumns(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SparqlCursor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SparqlCursor.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof SparqlCursor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SparqlCursor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SparqlCursor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SparqlCursor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SparqlCursor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SparqlCursor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3687,7 +3970,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * be iterated once at a time.
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            next_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            next_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Iterates the cursor asyncronously to the next result.
              *
@@ -3718,7 +4001,7 @@ declare module 'gi://Tsparql?version=3.0' {
             next_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes the asynchronous iteration to the next result started with
              * [method`SparqlCursor`.next_async].
@@ -3733,6 +4016,12 @@ declare module 'gi://Tsparql?version=3.0' {
         }
 
         namespace SparqlStatement {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::sparql': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -3787,11 +4076,40 @@ declare module 'gi://Tsparql?version=3.0' {
              */
             get sparql(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SparqlStatement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SparqlStatement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof SparqlStatement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SparqlStatement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SparqlStatement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SparqlStatement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SparqlStatement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SparqlStatement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3871,7 +4189,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * SPARQL query.
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            execute_async(cancellable?: Gio.Cancellable | null): Promise<SparqlCursor>;
+            execute_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<SparqlCursor>;
             /**
              * Executes asynchronously the `SELECT` or `ASK` SPARQL query with the currently bound values.
              *
@@ -3908,7 +4226,7 @@ declare module 'gi://Tsparql?version=3.0' {
             execute_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<SparqlCursor> | void;
+            ): globalThis.Promise<SparqlCursor> | void;
             /**
              * Finishes the asynchronous operation started through
              * [method`SparqlStatement`.execute_async].
@@ -3948,7 +4266,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 flags: SerializeFlags | null,
                 format: RdfFormat | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<Gio.InputStream>;
+            ): globalThis.Promise<Gio.InputStream>;
             /**
              * Serializes a `DESCRIBE` or `CONSTRUCT` query into the given RDF `format`.
              *
@@ -3998,7 +4316,7 @@ declare module 'gi://Tsparql?version=3.0' {
                 format: RdfFormat | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Gio.InputStream> | void;
+            ): globalThis.Promise<Gio.InputStream> | void;
             /**
              * Finishes the asynchronous operation started through
              * [method`SparqlStatement`.serialize_async].
@@ -4030,7 +4348,7 @@ declare module 'gi://Tsparql?version=3.0' {
              * `SELECT`/`ASK`/`DESCRIBE`/`CONSTRUCT` SPARQL queries.
              * @param cancellable Optional [type@Gio.Cancellable]
              */
-            update_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            update_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Executes asynchronously the `INSERT`/`DELETE` SPARQL query series with the currently bound values.
              *
@@ -4059,7 +4377,7 @@ declare module 'gi://Tsparql?version=3.0' {
             update_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes the asynchronous update started through
              * [method`SparqlStatement`.update_async].

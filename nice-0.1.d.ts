@@ -628,50 +628,48 @@ declare module 'gi://Nice?version=0.1' {
             BYTESTREAM_TCP,
         }
         namespace Agent {
-            // Signal callback interfaces
-
-            interface CandidateGatheringDone {
-                (stream_id: number): void;
-            }
-
-            interface ComponentStateChanged {
-                (stream_id: number, component_id: number, state: number): void;
-            }
-
-            interface InitialBindingRequestReceived {
-                (stream_id: number): void;
-            }
-
-            interface NewCandidate {
-                (stream_id: number, component_id: number, foundation: string): void;
-            }
-
-            interface NewCandidateFull {
-                (candidate: Candidate): void;
-            }
-
-            interface NewRemoteCandidate {
-                (stream_id: number, component_id: number, foundation: string): void;
-            }
-
-            interface NewRemoteCandidateFull {
-                (candidate: Candidate): void;
-            }
-
-            interface NewSelectedPair {
-                (stream_id: number, component_id: number, lfoundation: string, rfoundation: string): void;
-            }
-
-            interface NewSelectedPairFull {
-                (stream_id: number, component_id: number, lcandidate: Candidate, rcandidate: Candidate): void;
-            }
-
-            interface ReliableTransportWritable {
-                (stream_id: number, component_id: number): void;
-            }
-
-            interface StreamsRemoved {
-                (stream_ids: number[]): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'candidate-gathering-done': (arg0: number) => void;
+                'component-state-changed': (arg0: number, arg1: number, arg2: number) => void;
+                'initial-binding-request-received': (arg0: number) => void;
+                'new-candidate': (arg0: number, arg1: number, arg2: string) => void;
+                'new-candidate-full': (arg0: Candidate) => void;
+                'new-remote-candidate': (arg0: number, arg1: number, arg2: string) => void;
+                'new-remote-candidate-full': (arg0: Candidate) => void;
+                'new-selected-pair': (arg0: number, arg1: number, arg2: string, arg3: string) => void;
+                'new-selected-pair-full': (arg0: number, arg1: number, arg2: Candidate, arg3: Candidate) => void;
+                'reliable-transport-writable': (arg0: number, arg1: number) => void;
+                'streams-removed': (arg0: number[]) => void;
+                'notify::bytestream-tcp': (pspec: GObject.ParamSpec) => void;
+                'notify::compatibility': (pspec: GObject.ParamSpec) => void;
+                'notify::consent-freshness': (pspec: GObject.ParamSpec) => void;
+                'notify::controlling-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::force-relay': (pspec: GObject.ParamSpec) => void;
+                'notify::full-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::ice-tcp': (pspec: GObject.ParamSpec) => void;
+                'notify::ice-trickle': (pspec: GObject.ParamSpec) => void;
+                'notify::ice-udp': (pspec: GObject.ParamSpec) => void;
+                'notify::idle-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::keepalive-conncheck': (pspec: GObject.ParamSpec) => void;
+                'notify::main-context': (pspec: GObject.ParamSpec) => void;
+                'notify::max-connectivity-checks': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy-extra-headers': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy-ip': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy-password': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy-port': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy-type': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy-username': (pspec: GObject.ParamSpec) => void;
+                'notify::reliable': (pspec: GObject.ParamSpec) => void;
+                'notify::stun-initial-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::stun-max-retransmissions': (pspec: GObject.ParamSpec) => void;
+                'notify::stun-pacing-timer': (pspec: GObject.ParamSpec) => void;
+                'notify::stun-reliable-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::stun-server': (pspec: GObject.ParamSpec) => void;
+                'notify::stun-server-port': (pspec: GObject.ParamSpec) => void;
+                'notify::support-renomination': (pspec: GObject.ParamSpec) => void;
+                'notify::upnp': (pspec: GObject.ParamSpec) => void;
+                'notify::upnp-timeout': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1222,6 +1220,15 @@ declare module 'gi://Nice?version=0.1' {
             get upnpTimeout(): number;
             set upnpTimeout(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Agent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Agent.ConstructorProps>, ...args: any[]);
@@ -1236,132 +1243,21 @@ declare module 'gi://Nice?version=0.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'candidate-gathering-done', callback: (_source: this, stream_id: number) => void): number;
-            connect_after(
-                signal: 'candidate-gathering-done',
-                callback: (_source: this, stream_id: number) => void,
+            connect<K extends keyof Agent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Agent.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'candidate-gathering-done', stream_id: number): void;
-            connect(
-                signal: 'component-state-changed',
-                callback: (_source: this, stream_id: number, component_id: number, state: number) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Agent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Agent.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'component-state-changed',
-                callback: (_source: this, stream_id: number, component_id: number, state: number) => void,
-            ): number;
-            emit(signal: 'component-state-changed', stream_id: number, component_id: number, state: number): void;
-            connect(
-                signal: 'initial-binding-request-received',
-                callback: (_source: this, stream_id: number) => void,
-            ): number;
-            connect_after(
-                signal: 'initial-binding-request-received',
-                callback: (_source: this, stream_id: number) => void,
-            ): number;
-            emit(signal: 'initial-binding-request-received', stream_id: number): void;
-            connect(
-                signal: 'new-candidate',
-                callback: (_source: this, stream_id: number, component_id: number, foundation: string) => void,
-            ): number;
-            connect_after(
-                signal: 'new-candidate',
-                callback: (_source: this, stream_id: number, component_id: number, foundation: string) => void,
-            ): number;
-            emit(signal: 'new-candidate', stream_id: number, component_id: number, foundation: string): void;
-            connect(signal: 'new-candidate-full', callback: (_source: this, candidate: Candidate) => void): number;
-            connect_after(
-                signal: 'new-candidate-full',
-                callback: (_source: this, candidate: Candidate) => void,
-            ): number;
-            emit(signal: 'new-candidate-full', candidate: Candidate): void;
-            connect(
-                signal: 'new-remote-candidate',
-                callback: (_source: this, stream_id: number, component_id: number, foundation: string) => void,
-            ): number;
-            connect_after(
-                signal: 'new-remote-candidate',
-                callback: (_source: this, stream_id: number, component_id: number, foundation: string) => void,
-            ): number;
-            emit(signal: 'new-remote-candidate', stream_id: number, component_id: number, foundation: string): void;
-            connect(
-                signal: 'new-remote-candidate-full',
-                callback: (_source: this, candidate: Candidate) => void,
-            ): number;
-            connect_after(
-                signal: 'new-remote-candidate-full',
-                callback: (_source: this, candidate: Candidate) => void,
-            ): number;
-            emit(signal: 'new-remote-candidate-full', candidate: Candidate): void;
-            connect(
-                signal: 'new-selected-pair',
-                callback: (
-                    _source: this,
-                    stream_id: number,
-                    component_id: number,
-                    lfoundation: string,
-                    rfoundation: string,
-                ) => void,
-            ): number;
-            connect_after(
-                signal: 'new-selected-pair',
-                callback: (
-                    _source: this,
-                    stream_id: number,
-                    component_id: number,
-                    lfoundation: string,
-                    rfoundation: string,
-                ) => void,
-            ): number;
-            emit(
-                signal: 'new-selected-pair',
-                stream_id: number,
-                component_id: number,
-                lfoundation: string,
-                rfoundation: string,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Agent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Agent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(
-                signal: 'new-selected-pair-full',
-                callback: (
-                    _source: this,
-                    stream_id: number,
-                    component_id: number,
-                    lcandidate: Candidate,
-                    rcandidate: Candidate,
-                ) => void,
-            ): number;
-            connect_after(
-                signal: 'new-selected-pair-full',
-                callback: (
-                    _source: this,
-                    stream_id: number,
-                    component_id: number,
-                    lcandidate: Candidate,
-                    rcandidate: Candidate,
-                ) => void,
-            ): number;
-            emit(
-                signal: 'new-selected-pair-full',
-                stream_id: number,
-                component_id: number,
-                lcandidate: Candidate,
-                rcandidate: Candidate,
-            ): void;
-            connect(
-                signal: 'reliable-transport-writable',
-                callback: (_source: this, stream_id: number, component_id: number) => void,
-            ): number;
-            connect_after(
-                signal: 'reliable-transport-writable',
-                callback: (_source: this, stream_id: number, component_id: number) => void,
-            ): number;
-            emit(signal: 'reliable-transport-writable', stream_id: number, component_id: number): void;
-            connect(signal: 'streams-removed', callback: (_source: this, stream_ids: number[]) => void): number;
-            connect_after(signal: 'streams-removed', callback: (_source: this, stream_ids: number[]) => void): number;
-            emit(signal: 'streams-removed', stream_ids: number[]): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2073,6 +1969,18 @@ declare module 'gi://Nice?version=0.1' {
         }
 
         namespace PseudoTcpSocket {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::ack-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::callbacks': (pspec: GObject.ParamSpec) => void;
+                'notify::conversation': (pspec: GObject.ParamSpec) => void;
+                'notify::no-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::rcv-buf': (pspec: GObject.ParamSpec) => void;
+                'notify::snd-buf': (pspec: GObject.ParamSpec) => void;
+                'notify::state': (pspec: GObject.ParamSpec) => void;
+                'notify::support-fin-ack': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -2143,6 +2051,15 @@ declare module 'gi://Nice?version=0.1' {
              */
             get supportFinAck(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PseudoTcpSocket.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<PseudoTcpSocket.ConstructorProps>, ...args: any[]);
@@ -2150,6 +2067,26 @@ declare module 'gi://Nice?version=0.1' {
             _init(...args: any[]): void;
 
             static ['new'](conversation: number, callbacks: PseudoTcpCallbacks): PseudoTcpSocket;
+
+            // Signals
+
+            connect<K extends keyof PseudoTcpSocket.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PseudoTcpSocket.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PseudoTcpSocket.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PseudoTcpSocket.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PseudoTcpSocket.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PseudoTcpSocket.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

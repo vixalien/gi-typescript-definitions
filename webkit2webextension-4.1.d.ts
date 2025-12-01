@@ -546,6 +546,9 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             SELECTION,
         }
         namespace ContextMenu {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -569,6 +572,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class ContextMenu extends GObject.Object {
             static $gtype: GObject.GType<ContextMenu>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContextMenu.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ContextMenu.ConstructorProps>, ...args: any[]);
@@ -578,6 +590,24 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             static ['new'](): ContextMenu;
 
             static new_with_items(items: ContextMenuItem[]): ContextMenu;
+
+            // Signals
+
+            connect<K extends keyof ContextMenu.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenu.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContextMenu.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenu.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContextMenu.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContextMenu.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -689,6 +719,9 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace ContextMenuItem {
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {}
@@ -705,6 +738,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
          */
         class ContextMenuItem extends GObject.InitiallyUnowned {
             static $gtype: GObject.GType<ContextMenuItem>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContextMenuItem.SignalSignatures;
 
             // Constructors
 
@@ -723,6 +765,26 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             static new_separator(): ContextMenuItem;
 
             static new_with_submenu(label: string, submenu: ContextMenu): ContextMenuItem;
+
+            // Signals
+
+            connect<K extends keyof ContextMenuItem.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenuItem.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContextMenuItem.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenuItem.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContextMenuItem.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContextMenuItem.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -767,6 +829,31 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMAttr {
+            // Signal signatures
+            interface SignalSignatures extends DOMNode.SignalSignatures {
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-element': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::specified': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -800,11 +887,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get value(): string;
             set value(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMAttr.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMAttr.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMAttr.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMAttr.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMAttr.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMAttr.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMAttr.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMAttr.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1270,6 +1384,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMBlob {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -1284,11 +1404,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get size(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMBlob.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMBlob.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMBlob.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMBlob.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMBlob.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMBlob.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMBlob.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMBlob.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1296,6 +1443,27 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMCDATASection {
+            // Signal signatures
+            interface SignalSignatures extends DOMText.SignalSignatures {
+                'notify::whole-text': (pspec: GObject.ParamSpec) => void;
+                'notify::data': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMText.ConstructorProps, DOMEventTarget.ConstructorProps {}
@@ -1304,11 +1472,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class DOMCDATASection extends DOMText implements DOMEventTarget {
             static $gtype: GObject.GType<DOMCDATASection>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMCDATASection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMCDATASection.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMCDATASection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCDATASection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMCDATASection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCDATASection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMCDATASection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMCDATASection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -1757,6 +1954,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMCSSRule {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::css-text': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-rule': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-style-sheet': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -1785,11 +1991,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get parentStyleSheet(): DOMCSSStyleSheet;
             get type(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMCSSRule.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMCSSRule.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMCSSRule.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSRule.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMCSSRule.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSRule.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMCSSRule.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMCSSRule.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1801,6 +2034,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMCSSRuleList {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -1815,11 +2054,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMCSSRuleList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMCSSRuleList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMCSSRuleList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSRuleList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMCSSRuleList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSRuleList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMCSSRuleList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMCSSRuleList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1828,6 +2094,14 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMCSSStyleDeclaration {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::css-text': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-rule': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -1852,11 +2126,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get parent_rule(): DOMCSSRule;
             get parentRule(): DOMCSSRule;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMCSSStyleDeclaration.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMCSSStyleDeclaration.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMCSSStyleDeclaration.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSStyleDeclaration.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMCSSStyleDeclaration.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSStyleDeclaration.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMCSSStyleDeclaration.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMCSSStyleDeclaration.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1876,6 +2179,21 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMCSSStyleSheet {
+            // Signal signatures
+            interface SignalSignatures extends DOMStyleSheet.SignalSignatures {
+                'notify::css-rules': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-rule': (pspec: GObject.ParamSpec) => void;
+                'notify::rules': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::href': (pspec: GObject.ParamSpec) => void;
+                'notify::media': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-node': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-style-sheet': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMStyleSheet.ConstructorProps {
@@ -1898,11 +2216,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get ownerRule(): DOMCSSRule;
             get rules(): DOMCSSRuleList;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMCSSStyleSheet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMCSSStyleSheet.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMCSSStyleSheet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSStyleSheet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMCSSStyleSheet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSStyleSheet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMCSSStyleSheet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMCSSStyleSheet.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1916,6 +2263,13 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMCSSValue {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::css-text': (pspec: GObject.ParamSpec) => void;
+                'notify::css-value-type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -1938,11 +2292,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get css_value_type(): number;
             get cssValueType(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMCSSValue.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMCSSValue.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMCSSValue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSValue.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMCSSValue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCSSValue.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMCSSValue.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMCSSValue.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1952,6 +2333,26 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMCharacterData {
+            // Signal signatures
+            interface SignalSignatures extends DOMNode.SignalSignatures {
+                'notify::data': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -1969,11 +2370,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             set data(val: string);
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMCharacterData.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMCharacterData.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMCharacterData.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCharacterData.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMCharacterData.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMCharacterData.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMCharacterData.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMCharacterData.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2420,6 +2850,17 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMClientRect {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::bottom': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::left': (pspec: GObject.ParamSpec) => void;
+                'notify::right': (pspec: GObject.ParamSpec) => void;
+                'notify::top': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -2444,11 +2885,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get top(): number;
             get width(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMClientRect.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMClientRect.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMClientRect.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMClientRect.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMClientRect.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMClientRect.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMClientRect.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMClientRect.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2485,6 +2953,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMClientRectList {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -2499,11 +2973,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMClientRectList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMClientRectList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMClientRectList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMClientRectList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMClientRectList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMClientRectList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMClientRectList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMClientRectList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2521,6 +3024,26 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMComment {
+            // Signal signatures
+            interface SignalSignatures extends DOMCharacterData.SignalSignatures {
+                'notify::data': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMCharacterData.ConstructorProps, DOMEventTarget.ConstructorProps {}
@@ -2529,11 +3052,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class DOMComment extends DOMCharacterData implements DOMEventTarget {
             static $gtype: GObject.GType<DOMComment>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMComment.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMComment.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMComment.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMComment.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMComment.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMComment.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMComment.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMComment.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -2982,6 +3532,11 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMDOMImplementation {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {}
@@ -2990,11 +3545,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class DOMDOMImplementation extends DOMObject {
             static $gtype: GObject.GType<DOMDOMImplementation>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMDOMImplementation.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMDOMImplementation.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMDOMImplementation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMImplementation.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMDOMImplementation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMImplementation.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMDOMImplementation.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMDOMImplementation.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3010,6 +3594,22 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMDOMSelection {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::anchor-node': (pspec: GObject.ParamSpec) => void;
+                'notify::anchor-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-node': (pspec: GObject.ParamSpec) => void;
+                'notify::base-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::extent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::extent-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-node': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::is-collapsed': (pspec: GObject.ParamSpec) => void;
+                'notify::range-count': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -3064,11 +3664,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get rangeCount(): number;
             get type(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMDOMSelection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMDOMSelection.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMDOMSelection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMSelection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMDOMSelection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMSelection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMDOMSelection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMDOMSelection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3100,6 +3729,13 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMDOMTokenList {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -3117,11 +3753,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get value(): string;
             set value(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMDOMTokenList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMDOMTokenList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMDOMTokenList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMTokenList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMDOMTokenList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMTokenList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMDOMTokenList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMDOMTokenList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3135,6 +3800,41 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMDOMWindow {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::closed': (pspec: GObject.ParamSpec) => void;
+                'notify::default-status': (pspec: GObject.ParamSpec) => void;
+                'notify::device-pixel-ratio': (pspec: GObject.ParamSpec) => void;
+                'notify::document': (pspec: GObject.ParamSpec) => void;
+                'notify::frame-element': (pspec: GObject.ParamSpec) => void;
+                'notify::frames': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-height': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-width': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::offscreen-buffering': (pspec: GObject.ParamSpec) => void;
+                'notify::opener': (pspec: GObject.ParamSpec) => void;
+                'notify::orientation': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-height': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-width': (pspec: GObject.ParamSpec) => void;
+                'notify::page-x-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::page-xoffset': (pspec: GObject.ParamSpec) => void;
+                'notify::page-y-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::page-yoffset': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-left': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-top': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-x': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-y': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-x': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-y': (pspec: GObject.ParamSpec) => void;
+                'notify::self': (pspec: GObject.ParamSpec) => void;
+                'notify::status': (pspec: GObject.ParamSpec) => void;
+                'notify::top': (pspec: GObject.ParamSpec) => void;
+                'notify::window': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -3239,11 +3939,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get top(): DOMDOMWindow;
             get window(): DOMDOMWindow;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMDOMWindow.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMDOMWindow.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMDOMWindow.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMWindow.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMDOMWindow.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDOMWindow.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMDOMWindow.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMDOMWindow.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3760,6 +4487,75 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMDocument {
+            // Signal signatures
+            interface SignalSignatures extends DOMNode.SignalSignatures {
+                'notify::active-element': (pspec: GObject.ParamSpec) => void;
+                'notify::anchors': (pspec: GObject.ParamSpec) => void;
+                'notify::applets': (pspec: GObject.ParamSpec) => void;
+                'notify::body': (pspec: GObject.ParamSpec) => void;
+                'notify::character-set': (pspec: GObject.ParamSpec) => void;
+                'notify::charset': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::compat-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::content-type': (pspec: GObject.ParamSpec) => void;
+                'notify::cookie': (pspec: GObject.ParamSpec) => void;
+                'notify::current-script': (pspec: GObject.ParamSpec) => void;
+                'notify::default-view': (pspec: GObject.ParamSpec) => void;
+                'notify::design-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::doctype': (pspec: GObject.ParamSpec) => void;
+                'notify::document-element': (pspec: GObject.ParamSpec) => void;
+                'notify::document-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::domain': (pspec: GObject.ParamSpec) => void;
+                'notify::embeds': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::forms': (pspec: GObject.ParamSpec) => void;
+                'notify::head': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::images': (pspec: GObject.ParamSpec) => void;
+                'notify::implementation': (pspec: GObject.ParamSpec) => void;
+                'notify::input-encoding': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-modified': (pspec: GObject.ParamSpec) => void;
+                'notify::links': (pspec: GObject.ParamSpec) => void;
+                'notify::origin': (pspec: GObject.ParamSpec) => void;
+                'notify::plugins': (pspec: GObject.ParamSpec) => void;
+                'notify::pointer-lock-element': (pspec: GObject.ParamSpec) => void;
+                'notify::preferred-stylesheet-set': (pspec: GObject.ParamSpec) => void;
+                'notify::ready-state': (pspec: GObject.ParamSpec) => void;
+                'notify::referrer': (pspec: GObject.ParamSpec) => void;
+                'notify::scripts': (pspec: GObject.ParamSpec) => void;
+                'notify::scrolling-element': (pspec: GObject.ParamSpec) => void;
+                'notify::selected-stylesheet-set': (pspec: GObject.ParamSpec) => void;
+                'notify::style-sheets': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::url': (pspec: GObject.ParamSpec) => void;
+                'notify::visibility-state': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-current-full-screen-element': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-full-screen-keyboard-input-allowed': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-fullscreen-element': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-fullscreen-enabled': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-is-full-screen': (pspec: GObject.ParamSpec) => void;
+                'notify::xml-encoding': (pspec: GObject.ParamSpec) => void;
+                'notify::xml-standalone': (pspec: GObject.ParamSpec) => void;
+                'notify::xml-version': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -3946,11 +4742,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get xmlVersion(): string;
             set xmlVersion(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMDocument.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMDocument.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMDocument.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDocument.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMDocument.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDocument.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMDocument.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMDocument.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4546,6 +5369,28 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMDocumentFragment {
+            // Signal signatures
+            interface SignalSignatures extends DOMNode.SignalSignatures {
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -4572,11 +5417,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get last_element_child(): DOMElement;
             get lastElementChild(): DOMElement;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMDocumentFragment.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMDocumentFragment.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMDocumentFragment.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDocumentFragment.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMDocumentFragment.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDocumentFragment.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMDocumentFragment.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMDocumentFragment.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5041,6 +5915,30 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMDocumentType {
+            // Signal signatures
+            interface SignalSignatures extends DOMNode.SignalSignatures {
+                'notify::entities': (pspec: GObject.ParamSpec) => void;
+                'notify::internal-subset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::notations': (pspec: GObject.ParamSpec) => void;
+                'notify::public-id': (pspec: GObject.ParamSpec) => void;
+                'notify::system-id': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -5071,11 +5969,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get system_id(): string;
             get systemId(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMDocumentType.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMDocumentType.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMDocumentType.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDocumentType.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMDocumentType.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMDocumentType.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMDocumentType.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMDocumentType.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5539,6 +6466,55 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMNode.SignalSignatures {
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -5676,11 +6652,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get webkit_region_overset(): string;
             get webkitRegionOverset(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMElement.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6251,6 +7254,24 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMEntityReference {
+            // Signal signatures
+            interface SignalSignatures extends DOMNode.SignalSignatures {
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {}
@@ -6259,11 +7280,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class DOMEntityReference extends DOMNode implements DOMEventTarget {
             static $gtype: GObject.GType<DOMEntityReference>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMEntityReference.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMEntityReference.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMEntityReference.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMEntityReference.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMEntityReference.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMEntityReference.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMEntityReference.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMEntityReference.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             add_event_listener(event_name: string, handler: GObject.Callback, use_capture: boolean): boolean;
@@ -6718,6 +7768,21 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMEvent {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::bubbles': (pspec: GObject.ParamSpec) => void;
+                'notify::cancel-bubble': (pspec: GObject.ParamSpec) => void;
+                'notify::cancelable': (pspec: GObject.ParamSpec) => void;
+                'notify::current-target': (pspec: GObject.ParamSpec) => void;
+                'notify::event-phase': (pspec: GObject.ParamSpec) => void;
+                'notify::return-value': (pspec: GObject.ParamSpec) => void;
+                'notify::src-element': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::time-stamp': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -6766,11 +7831,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get timeStamp(): number;
             get type(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMEvent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMEvent.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6792,6 +7884,13 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMFile {
+            // Signal signatures
+            interface SignalSignatures extends DOMBlob.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMBlob.ConstructorProps {
@@ -6806,11 +7905,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get name(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMFile.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMFile.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMFile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMFile.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMFile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMFile.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMFile.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMFile.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6818,6 +7944,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMFileList {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -6832,11 +7964,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMFileList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMFileList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMFileList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMFileList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMFileList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMFileList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMFileList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMFileList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6845,6 +8004,87 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLAnchorElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::charset': (pspec: GObject.ParamSpec) => void;
+                'notify::coords': (pspec: GObject.ParamSpec) => void;
+                'notify::hash': (pspec: GObject.ParamSpec) => void;
+                'notify::host': (pspec: GObject.ParamSpec) => void;
+                'notify::hostname': (pspec: GObject.ParamSpec) => void;
+                'notify::href': (pspec: GObject.ParamSpec) => void;
+                'notify::hreflang': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::pathname': (pspec: GObject.ParamSpec) => void;
+                'notify::port': (pspec: GObject.ParamSpec) => void;
+                'notify::protocol': (pspec: GObject.ParamSpec) => void;
+                'notify::rel': (pspec: GObject.ParamSpec) => void;
+                'notify::rev': (pspec: GObject.ParamSpec) => void;
+                'notify::search': (pspec: GObject.ParamSpec) => void;
+                'notify::shape': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -6911,11 +8151,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get type(): string;
             set type(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLAnchorElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLAnchorElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLAnchorElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLAnchorElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLAnchorElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLAnchorElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLAnchorElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLAnchorElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7399,6 +8668,80 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLAppletElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::alt': (pspec: GObject.ParamSpec) => void;
+                'notify::archive': (pspec: GObject.ParamSpec) => void;
+                'notify::code': (pspec: GObject.ParamSpec) => void;
+                'notify::code-base': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::hspace': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::object': (pspec: GObject.ParamSpec) => void;
+                'notify::vspace': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -7447,11 +8790,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): string;
             set width(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLAppletElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLAppletElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLAppletElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLAppletElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLAppletElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLAppletElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLAppletElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLAppletElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7921,6 +9293,82 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLAreaElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::alt': (pspec: GObject.ParamSpec) => void;
+                'notify::coords': (pspec: GObject.ParamSpec) => void;
+                'notify::hash': (pspec: GObject.ParamSpec) => void;
+                'notify::host': (pspec: GObject.ParamSpec) => void;
+                'notify::hostname': (pspec: GObject.ParamSpec) => void;
+                'notify::href': (pspec: GObject.ParamSpec) => void;
+                'notify::no-href': (pspec: GObject.ParamSpec) => void;
+                'notify::pathname': (pspec: GObject.ParamSpec) => void;
+                'notify::port': (pspec: GObject.ParamSpec) => void;
+                'notify::protocol': (pspec: GObject.ParamSpec) => void;
+                'notify::search': (pspec: GObject.ParamSpec) => void;
+                'notify::shape': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -7975,11 +9423,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get target(): string;
             set target(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLAreaElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLAreaElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLAreaElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLAreaElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLAreaElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLAreaElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLAreaElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLAreaElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -8453,6 +9930,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLBRElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::clear': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -8468,11 +10009,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get clear(): string;
             set clear(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLBRElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLBRElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLBRElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBRElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLBRElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBRElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLBRElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLBRElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -8922,6 +10492,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLBaseElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::href': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -8940,11 +10575,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get target(): string;
             set target(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLBaseElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLBaseElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLBaseElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBaseElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLBaseElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBaseElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLBaseElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLBaseElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9396,6 +11060,69 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLBaseFontElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {}
@@ -9404,11 +11131,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class DOMHTMLBaseFontElement extends DOMHTMLElement implements DOMEventTarget {
             static $gtype: GObject.GType<DOMHTMLBaseFontElement>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLBaseFontElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLBaseFontElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLBaseFontElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBaseFontElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLBaseFontElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBaseFontElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLBaseFontElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLBaseFontElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9886,6 +11642,75 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLBodyElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::a-link': (pspec: GObject.ParamSpec) => void;
+                'notify::background': (pspec: GObject.ParamSpec) => void;
+                'notify::bg-color': (pspec: GObject.ParamSpec) => void;
+                'notify::link': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+                'notify::v-link': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -9925,11 +11750,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get vLink(): string;
             set vLink(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLBodyElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLBodyElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLBodyElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBodyElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLBodyElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLBodyElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLBodyElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLBodyElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -10389,6 +12243,76 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLButtonElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::autofocus': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::will-validate': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -10422,11 +12346,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get will_validate(): boolean;
             get willValidate(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLButtonElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLButtonElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLButtonElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLButtonElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLButtonElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLButtonElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLButtonElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLButtonElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -10886,6 +12839,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLCanvasElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -10904,11 +12922,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): number;
             set width(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLCanvasElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLCanvasElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLCanvasElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLCanvasElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLCanvasElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLCanvasElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLCanvasElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLCanvasElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11360,6 +13407,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLCollection {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -11374,11 +13427,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLCollection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLCollection.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLCollection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLCollection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLCollection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLCollection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11388,6 +13470,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLDListElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::compact': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -11403,11 +13549,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get compact(): boolean;
             set compact(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLDListElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLDListElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLDListElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDListElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLDListElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDListElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLDListElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLDListElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11857,6 +14032,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLDirectoryElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::compact': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -11872,11 +14111,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get compact(): boolean;
             set compact(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLDirectoryElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLDirectoryElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLDirectoryElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDirectoryElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLDirectoryElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDirectoryElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLDirectoryElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLDirectoryElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12326,6 +14594,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLDivElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -12341,11 +14673,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get align(): string;
             set align(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLDivElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLDivElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLDivElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDivElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLDivElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDivElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLDivElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLDivElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12795,6 +15156,82 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLDocument {
+            // Signal signatures
+            interface SignalSignatures extends DOMDocument.SignalSignatures {
+                'notify::alink-color': (pspec: GObject.ParamSpec) => void;
+                'notify::bg-color': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::fg-color': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::link-color': (pspec: GObject.ParamSpec) => void;
+                'notify::vlink-color': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::active-element': (pspec: GObject.ParamSpec) => void;
+                'notify::anchors': (pspec: GObject.ParamSpec) => void;
+                'notify::applets': (pspec: GObject.ParamSpec) => void;
+                'notify::body': (pspec: GObject.ParamSpec) => void;
+                'notify::character-set': (pspec: GObject.ParamSpec) => void;
+                'notify::charset': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::compat-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::content-type': (pspec: GObject.ParamSpec) => void;
+                'notify::cookie': (pspec: GObject.ParamSpec) => void;
+                'notify::current-script': (pspec: GObject.ParamSpec) => void;
+                'notify::default-view': (pspec: GObject.ParamSpec) => void;
+                'notify::design-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::doctype': (pspec: GObject.ParamSpec) => void;
+                'notify::document-element': (pspec: GObject.ParamSpec) => void;
+                'notify::document-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::domain': (pspec: GObject.ParamSpec) => void;
+                'notify::embeds': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::forms': (pspec: GObject.ParamSpec) => void;
+                'notify::head': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::images': (pspec: GObject.ParamSpec) => void;
+                'notify::implementation': (pspec: GObject.ParamSpec) => void;
+                'notify::input-encoding': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-modified': (pspec: GObject.ParamSpec) => void;
+                'notify::links': (pspec: GObject.ParamSpec) => void;
+                'notify::origin': (pspec: GObject.ParamSpec) => void;
+                'notify::plugins': (pspec: GObject.ParamSpec) => void;
+                'notify::pointer-lock-element': (pspec: GObject.ParamSpec) => void;
+                'notify::preferred-stylesheet-set': (pspec: GObject.ParamSpec) => void;
+                'notify::ready-state': (pspec: GObject.ParamSpec) => void;
+                'notify::referrer': (pspec: GObject.ParamSpec) => void;
+                'notify::scripts': (pspec: GObject.ParamSpec) => void;
+                'notify::scrolling-element': (pspec: GObject.ParamSpec) => void;
+                'notify::selected-stylesheet-set': (pspec: GObject.ParamSpec) => void;
+                'notify::style-sheets': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::url': (pspec: GObject.ParamSpec) => void;
+                'notify::visibility-state': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-current-full-screen-element': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-full-screen-keyboard-input-allowed': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-fullscreen-element': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-fullscreen-enabled': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-is-full-screen': (pspec: GObject.ParamSpec) => void;
+                'notify::xml-encoding': (pspec: GObject.ParamSpec) => void;
+                'notify::xml-standalone': (pspec: GObject.ParamSpec) => void;
+                'notify::xml-version': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMDocument.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -12844,11 +15281,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             set vlinkColor(val: string);
             get width(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLDocument.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLDocument.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLDocument.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDocument.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLDocument.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLDocument.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLDocument.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLDocument.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -13320,6 +15786,69 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMElement.SignalSignatures {
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -13390,11 +15919,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get webkitdropzone(): string;
             set webkitdropzone(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLElement.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -13875,6 +16431,75 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLEmbedElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::src': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -13905,11 +16530,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): number;
             set width(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLEmbedElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLEmbedElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLEmbedElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLEmbedElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLEmbedElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLEmbedElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLEmbedElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLEmbedElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -14369,6 +17023,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLFieldSetElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -14383,11 +17101,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get form(): DOMHTMLFormElement;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLFieldSetElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLFieldSetElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLFieldSetElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFieldSetElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLFieldSetElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFieldSetElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLFieldSetElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLFieldSetElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -14836,6 +17583,72 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLFontElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::color': (pspec: GObject.ParamSpec) => void;
+                'notify::face': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -14857,11 +17670,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get size(): string;
             set size(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLFontElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLFontElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLFontElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFontElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLFontElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFontElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLFontElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLFontElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -15315,6 +18157,78 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLFormElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::accept-charset': (pspec: GObject.ParamSpec) => void;
+                'notify::action': (pspec: GObject.ParamSpec) => void;
+                'notify::elements': (pspec: GObject.ParamSpec) => void;
+                'notify::encoding': (pspec: GObject.ParamSpec) => void;
+                'notify::enctype': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::method': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -15355,11 +18269,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get target(): string;
             set target(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLFormElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLFormElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLFormElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFormElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLFormElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFormElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLFormElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLFormElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -15825,6 +18768,81 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLFrameElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::content-document': (pspec: GObject.ParamSpec) => void;
+                'notify::content-window': (pspec: GObject.ParamSpec) => void;
+                'notify::frame-border': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::long-desc': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-height': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-width': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::no-resize': (pspec: GObject.ParamSpec) => void;
+                'notify::scrolling': (pspec: GObject.ParamSpec) => void;
+                'notify::src': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -15888,11 +18906,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             set src(val: string);
             get width(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLFrameElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLFrameElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLFrameElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFrameElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLFrameElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFrameElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLFrameElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLFrameElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -16360,6 +19407,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLFrameSetElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::cols': (pspec: GObject.ParamSpec) => void;
+                'notify::rows': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -16378,11 +19490,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get rows(): string;
             set rows(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLFrameSetElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLFrameSetElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLFrameSetElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFrameSetElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLFrameSetElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLFrameSetElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLFrameSetElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLFrameSetElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -16834,6 +19975,73 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLHRElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::no-shade': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -16861,11 +20069,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): string;
             set width(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLHRElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLHRElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLHRElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHRElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLHRElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHRElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLHRElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLHRElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -17321,6 +20558,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLHeadElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::profile': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -17336,11 +20637,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get profile(): string;
             set profile(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLHeadElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLHeadElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLHeadElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHeadElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLHeadElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHeadElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLHeadElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLHeadElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -17790,6 +21120,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLHeadingElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -17805,11 +21199,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get align(): string;
             set align(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLHeadingElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLHeadingElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLHeadingElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHeadingElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLHeadingElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHeadingElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLHeadingElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLHeadingElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -18259,6 +21682,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLHtmlElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::version': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -18274,11 +21761,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get version(): string;
             set version(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLHtmlElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLHtmlElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLHtmlElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHtmlElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLHtmlElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLHtmlElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLHtmlElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLHtmlElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -18728,6 +22244,81 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLIFrameElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::content-document': (pspec: GObject.ParamSpec) => void;
+                'notify::content-window': (pspec: GObject.ParamSpec) => void;
+                'notify::frame-border': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::long-desc': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-height': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-width': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::scrolling': (pspec: GObject.ParamSpec) => void;
+                'notify::src': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -18790,11 +22381,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): string;
             set width(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLIFrameElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLIFrameElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLIFrameElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLIFrameElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLIFrameElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLIFrameElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLIFrameElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLIFrameElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -19264,6 +22884,87 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLImageElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::alt': (pspec: GObject.ParamSpec) => void;
+                'notify::border': (pspec: GObject.ParamSpec) => void;
+                'notify::complete': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::hspace': (pspec: GObject.ParamSpec) => void;
+                'notify::is-map': (pspec: GObject.ParamSpec) => void;
+                'notify::long-desc': (pspec: GObject.ParamSpec) => void;
+                'notify::lowsrc': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::natural-height': (pspec: GObject.ParamSpec) => void;
+                'notify::natural-width': (pspec: GObject.ParamSpec) => void;
+                'notify::src': (pspec: GObject.ParamSpec) => void;
+                'notify::use-map': (pspec: GObject.ParamSpec) => void;
+                'notify::vspace': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::x': (pspec: GObject.ParamSpec) => void;
+                'notify::y': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -19338,11 +23039,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get x(): number;
             get y(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLImageElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLImageElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLImageElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLImageElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLImageElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLImageElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLImageElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLImageElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -19821,6 +23551,93 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLInputElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::accept': (pspec: GObject.ParamSpec) => void;
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::alt': (pspec: GObject.ParamSpec) => void;
+                'notify::autofocus': (pspec: GObject.ParamSpec) => void;
+                'notify::capture': (pspec: GObject.ParamSpec) => void;
+                'notify::checked': (pspec: GObject.ParamSpec) => void;
+                'notify::default-checked': (pspec: GObject.ParamSpec) => void;
+                'notify::default-value': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::files': (pspec: GObject.ParamSpec) => void;
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::indeterminate': (pspec: GObject.ParamSpec) => void;
+                'notify::max-length': (pspec: GObject.ParamSpec) => void;
+                'notify::multiple': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::src': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::use-map': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::will-validate': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -19919,11 +23736,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get will_validate(): boolean;
             get willValidate(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLInputElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLInputElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLInputElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLInputElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLInputElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLInputElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLInputElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLInputElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -20423,6 +24269,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLLIElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -20441,11 +24352,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get value(): number;
             set value(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLLIElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLLIElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLLIElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLIElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLLIElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLIElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLLIElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLLIElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -20897,6 +24837,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLLabelElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::html-for': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -20917,11 +24922,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get htmlFor(): string;
             set htmlFor(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLLabelElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLLabelElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLLabelElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLabelElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLLabelElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLabelElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLLabelElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLLabelElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -21372,6 +25406,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLLegendElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -21389,11 +25488,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             set align(val: string);
             get form(): DOMHTMLFormElement;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLLegendElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLLegendElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLLegendElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLegendElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLLegendElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLegendElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLLegendElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLLegendElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -21844,6 +25972,80 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLLinkElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::charset': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::href': (pspec: GObject.ParamSpec) => void;
+                'notify::hreflang': (pspec: GObject.ParamSpec) => void;
+                'notify::media': (pspec: GObject.ParamSpec) => void;
+                'notify::rel': (pspec: GObject.ParamSpec) => void;
+                'notify::rev': (pspec: GObject.ParamSpec) => void;
+                'notify::sheet': (pspec: GObject.ParamSpec) => void;
+                'notify::sizes': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -21887,11 +26089,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get type(): string;
             set type(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLLinkElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLLinkElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLLinkElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLinkElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLLinkElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLLinkElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLLinkElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLLinkElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -22360,6 +26591,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLMapElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::areas': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -22377,11 +26673,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get name(): string;
             set name(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLMapElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLMapElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLMapElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMapElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLMapElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMapElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLMapElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLMapElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -22832,6 +27157,69 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLMarqueeElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {}
@@ -22840,11 +27228,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class DOMHTMLMarqueeElement extends DOMHTMLElement implements DOMEventTarget {
             static $gtype: GObject.GType<DOMHTMLMarqueeElement>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLMarqueeElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLMarqueeElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLMarqueeElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMarqueeElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLMarqueeElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMarqueeElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLMarqueeElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLMarqueeElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -23294,6 +27711,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLMenuElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::compact': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -23309,11 +27790,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get compact(): boolean;
             set compact(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLMenuElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLMenuElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLMenuElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMenuElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLMenuElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMenuElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLMenuElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLMenuElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -23763,6 +28273,73 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLMetaElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::content': (pspec: GObject.ParamSpec) => void;
+                'notify::http-equiv': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::scheme': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -23790,11 +28367,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get scheme(): string;
             set scheme(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLMetaElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLMetaElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLMetaElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMetaElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLMetaElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLMetaElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLMetaElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLMetaElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -24250,6 +28856,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLModElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::cite': (pspec: GObject.ParamSpec) => void;
+                'notify::date-time': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -24271,11 +28942,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get dateTime(): string;
             set dateTime(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLModElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLModElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLModElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLModElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLModElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLModElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLModElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLModElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -24727,6 +29427,72 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLOListElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::compact': (pspec: GObject.ParamSpec) => void;
+                'notify::start': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -24748,11 +29514,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get type(): string;
             set type(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLOListElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLOListElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLOListElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOListElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLOListElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOListElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLOListElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLOListElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -25206,6 +30001,87 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLObjectElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::archive': (pspec: GObject.ParamSpec) => void;
+                'notify::border': (pspec: GObject.ParamSpec) => void;
+                'notify::code': (pspec: GObject.ParamSpec) => void;
+                'notify::code-base': (pspec: GObject.ParamSpec) => void;
+                'notify::code-type': (pspec: GObject.ParamSpec) => void;
+                'notify::content-document': (pspec: GObject.ParamSpec) => void;
+                'notify::data': (pspec: GObject.ParamSpec) => void;
+                'notify::declare': (pspec: GObject.ParamSpec) => void;
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::hspace': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::standby': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::use-map': (pspec: GObject.ParamSpec) => void;
+                'notify::vspace': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -25281,11 +30157,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): string;
             set width(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLObjectElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLObjectElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLObjectElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLObjectElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLObjectElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLObjectElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLObjectElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLObjectElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -25748,6 +30653,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLOptGroupElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -25766,11 +30736,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get label(): string;
             set label(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLOptGroupElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLOptGroupElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLOptGroupElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOptGroupElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLOptGroupElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOptGroupElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLOptGroupElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLOptGroupElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -26222,6 +31221,77 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLOptionElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::default-selected': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::index': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::selected': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -26258,11 +31328,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get value(): string;
             set value(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLOptionElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLOptionElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLOptionElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOptionElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLOptionElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOptionElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLOptionElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLOptionElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -26723,6 +31822,13 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLOptionsCollection {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLCollection.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::selected-index': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLCollection.ConstructorProps {
@@ -26743,11 +31849,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get selectedIndex(): number;
             set selectedIndex(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLOptionsCollection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLOptionsCollection.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLOptionsCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOptionsCollection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLOptionsCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLOptionsCollection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLOptionsCollection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLOptionsCollection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -26758,6 +31893,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLParagraphElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -26773,11 +31972,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get align(): string;
             set align(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLParagraphElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLParagraphElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLParagraphElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLParagraphElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLParagraphElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLParagraphElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLParagraphElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLParagraphElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -27227,6 +32455,73 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLParamElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::value-type': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -27254,11 +32549,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get valueType(): string;
             set valueType(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLParamElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLParamElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLParamElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLParamElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLParamElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLParamElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLParamElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLParamElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -27714,6 +33038,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLPreElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::wrap': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -27732,11 +33121,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get wrap(): boolean;
             set wrap(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLPreElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLPreElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLPreElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLPreElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLPreElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLPreElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLPreElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLPreElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -28188,6 +33606,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLQuoteElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::cite': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -28203,11 +33685,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get cite(): string;
             set cite(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLQuoteElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLQuoteElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLQuoteElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLQuoteElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLQuoteElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLQuoteElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLQuoteElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLQuoteElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -28657,6 +34168,76 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLScriptElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::charset': (pspec: GObject.ParamSpec) => void;
+                'notify::defer': (pspec: GObject.ParamSpec) => void;
+                'notify::event': (pspec: GObject.ParamSpec) => void;
+                'notify::html-for': (pspec: GObject.ParamSpec) => void;
+                'notify::src': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -28693,11 +34274,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get type(): string;
             set type(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLScriptElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLScriptElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLScriptElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLScriptElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLScriptElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLScriptElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLScriptElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLScriptElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -29159,6 +34769,81 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLSelectElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::autofocus': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::multiple': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::options': (pspec: GObject.ParamSpec) => void;
+                'notify::selected-index': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::will-validate': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -29208,11 +34893,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get will_validate(): boolean;
             get willValidate(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLSelectElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLSelectElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLSelectElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLSelectElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLSelectElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLSelectElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLSelectElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLSelectElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -29686,6 +35400,73 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLStyleElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::media': (pspec: GObject.ParamSpec) => void;
+                'notify::sheet': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -29709,11 +35490,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get type(): string;
             set type(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLStyleElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLStyleElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLStyleElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLStyleElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLStyleElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLStyleElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLStyleElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLStyleElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -30168,6 +35978,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTableCaptionElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -30183,11 +36057,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get align(): string;
             set align(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTableCaptionElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTableCaptionElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTableCaptionElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableCaptionElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTableCaptionElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableCaptionElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTableCaptionElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTableCaptionElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -30637,6 +36540,84 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTableCellElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::abbr': (pspec: GObject.ParamSpec) => void;
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::axis': (pspec: GObject.ParamSpec) => void;
+                'notify::bg-color': (pspec: GObject.ParamSpec) => void;
+                'notify::cell-index': (pspec: GObject.ParamSpec) => void;
+                'notify::ch': (pspec: GObject.ParamSpec) => void;
+                'notify::ch-off': (pspec: GObject.ParamSpec) => void;
+                'notify::col-span': (pspec: GObject.ParamSpec) => void;
+                'notify::headers': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::no-wrap': (pspec: GObject.ParamSpec) => void;
+                'notify::row-span': (pspec: GObject.ParamSpec) => void;
+                'notify::scope': (pspec: GObject.ParamSpec) => void;
+                'notify::v-align': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -30713,11 +36694,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): string;
             set width(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTableCellElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTableCellElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTableCellElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableCellElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTableCellElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableCellElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTableCellElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTableCellElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -31194,6 +37204,75 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTableColElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::ch': (pspec: GObject.ParamSpec) => void;
+                'notify::ch-off': (pspec: GObject.ParamSpec) => void;
+                'notify::span': (pspec: GObject.ParamSpec) => void;
+                'notify::v-align': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -31230,11 +37309,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): string;
             set width(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTableColElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTableColElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTableColElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableColElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTableColElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableColElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTableColElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTableColElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -31694,6 +37802,82 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTableElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::bg-color': (pspec: GObject.ParamSpec) => void;
+                'notify::border': (pspec: GObject.ParamSpec) => void;
+                'notify::caption': (pspec: GObject.ParamSpec) => void;
+                'notify::cell-padding': (pspec: GObject.ParamSpec) => void;
+                'notify::cell-spacing': (pspec: GObject.ParamSpec) => void;
+                'notify::rows': (pspec: GObject.ParamSpec) => void;
+                'notify::rules': (pspec: GObject.ParamSpec) => void;
+                'notify::summary': (pspec: GObject.ParamSpec) => void;
+                'notify::t-bodies': (pspec: GObject.ParamSpec) => void;
+                'notify::t-foot': (pspec: GObject.ParamSpec) => void;
+                'notify::t-head': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -31755,11 +37939,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get width(): string;
             set width(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTableElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTableElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTableElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTableElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTableElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTableElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -32239,6 +38452,77 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTableRowElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::bg-color': (pspec: GObject.ParamSpec) => void;
+                'notify::cells': (pspec: GObject.ParamSpec) => void;
+                'notify::ch': (pspec: GObject.ParamSpec) => void;
+                'notify::ch-off': (pspec: GObject.ParamSpec) => void;
+                'notify::row-index': (pspec: GObject.ParamSpec) => void;
+                'notify::section-row-index': (pspec: GObject.ParamSpec) => void;
+                'notify::v-align': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -32285,11 +38569,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get vAlign(): string;
             set vAlign(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTableRowElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTableRowElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTableRowElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableRowElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTableRowElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableRowElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTableRowElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTableRowElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -32752,6 +39065,74 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTableSectionElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::align': (pspec: GObject.ParamSpec) => void;
+                'notify::ch': (pspec: GObject.ParamSpec) => void;
+                'notify::ch-off': (pspec: GObject.ParamSpec) => void;
+                'notify::rows': (pspec: GObject.ParamSpec) => void;
+                'notify::v-align': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -32784,11 +39165,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get vAlign(): string;
             set vAlign(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTableSectionElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTableSectionElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTableSectionElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableSectionElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTableSectionElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTableSectionElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTableSectionElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTableSectionElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -33247,6 +39657,82 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTextAreaElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::autofocus': (pspec: GObject.ParamSpec) => void;
+                'notify::cols': (pspec: GObject.ParamSpec) => void;
+                'notify::default-value': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::form': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::rows': (pspec: GObject.ParamSpec) => void;
+                'notify::selection-end': (pspec: GObject.ParamSpec) => void;
+                'notify::selection-start': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::will-validate': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -33309,11 +39795,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get will_validate(): boolean;
             get willValidate(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTextAreaElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTextAreaElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTextAreaElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTextAreaElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTextAreaElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTextAreaElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTextAreaElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTextAreaElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -33787,6 +40302,70 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLTitleElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -33802,11 +40381,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get text(): string;
             set text(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLTitleElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLTitleElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLTitleElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTitleElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLTitleElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLTitleElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLTitleElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLTitleElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -34256,6 +40864,71 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMHTMLUListElement {
+            // Signal signatures
+            interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+                'notify::compact': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::access-key': (pspec: GObject.ParamSpec) => void;
+                'notify::content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::dir': (pspec: GObject.ParamSpec) => void;
+                'notify::draggable': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-text': (pspec: GObject.ParamSpec) => void;
+                'notify::is-content-editable': (pspec: GObject.ParamSpec) => void;
+                'notify::lang': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-text': (pspec: GObject.ParamSpec) => void;
+                'notify::spellcheck': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-index': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::translate': (pspec: GObject.ParamSpec) => void;
+                'notify::webkitdropzone': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::child-element-count': (pspec: GObject.ParamSpec) => void;
+                'notify::children': (pspec: GObject.ParamSpec) => void;
+                'notify::class-list': (pspec: GObject.ParamSpec) => void;
+                'notify::class-name': (pspec: GObject.ParamSpec) => void;
+                'notify::client-height': (pspec: GObject.ParamSpec) => void;
+                'notify::client-left': (pspec: GObject.ParamSpec) => void;
+                'notify::client-top': (pspec: GObject.ParamSpec) => void;
+                'notify::client-width': (pspec: GObject.ParamSpec) => void;
+                'notify::first-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::inner-html': (pspec: GObject.ParamSpec) => void;
+                'notify::last-element-child': (pspec: GObject.ParamSpec) => void;
+                'notify::local-name': (pspec: GObject.ParamSpec) => void;
+                'notify::namespace-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::next-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-height': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-left': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-top': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-width': (pspec: GObject.ParamSpec) => void;
+                'notify::outer-html': (pspec: GObject.ParamSpec) => void;
+                'notify::prefix': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-element-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-height': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-left': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-top': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-width': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-name': (pspec: GObject.ParamSpec) => void;
+                'notify::webkit-region-overset': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -34274,11 +40947,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get type(): string;
             set type(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMHTMLUListElement.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMHTMLUListElement.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMHTMLUListElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLUListElement.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMHTMLUListElement.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMHTMLUListElement.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMHTMLUListElement.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMHTMLUListElement.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -34730,6 +41432,36 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMKeyboardEvent {
+            // Signal signatures
+            interface SignalSignatures extends DOMUIEvent.SignalSignatures {
+                'notify::alt-graph-key': (pspec: GObject.ParamSpec) => void;
+                'notify::alt-key': (pspec: GObject.ParamSpec) => void;
+                'notify::ctrl-key': (pspec: GObject.ParamSpec) => void;
+                'notify::key-identifier': (pspec: GObject.ParamSpec) => void;
+                'notify::key-location': (pspec: GObject.ParamSpec) => void;
+                'notify::meta-key': (pspec: GObject.ParamSpec) => void;
+                'notify::shift-key': (pspec: GObject.ParamSpec) => void;
+                'notify::char-code': (pspec: GObject.ParamSpec) => void;
+                'notify::detail': (pspec: GObject.ParamSpec) => void;
+                'notify::key-code': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-x': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-y': (pspec: GObject.ParamSpec) => void;
+                'notify::page-x': (pspec: GObject.ParamSpec) => void;
+                'notify::page-y': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::bubbles': (pspec: GObject.ParamSpec) => void;
+                'notify::cancel-bubble': (pspec: GObject.ParamSpec) => void;
+                'notify::cancelable': (pspec: GObject.ParamSpec) => void;
+                'notify::current-target': (pspec: GObject.ParamSpec) => void;
+                'notify::event-phase': (pspec: GObject.ParamSpec) => void;
+                'notify::return-value': (pspec: GObject.ParamSpec) => void;
+                'notify::src-element': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::time-stamp': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMUIEvent.ConstructorProps {
@@ -34770,11 +41502,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get shift_key(): boolean;
             get shiftKey(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMKeyboardEvent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMKeyboardEvent.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMKeyboardEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMKeyboardEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMKeyboardEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMKeyboardEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMKeyboardEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMKeyboardEvent.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -34802,6 +41563,13 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMMediaList {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::media-text': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -34822,11 +41590,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get mediaText(): string;
             set mediaText(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMMediaList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMMediaList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMMediaList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMMediaList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMMediaList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMMediaList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMMediaList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMMediaList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -34839,6 +41634,45 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMMouseEvent {
+            // Signal signatures
+            interface SignalSignatures extends DOMUIEvent.SignalSignatures {
+                'notify::alt-key': (pspec: GObject.ParamSpec) => void;
+                'notify::button': (pspec: GObject.ParamSpec) => void;
+                'notify::client-x': (pspec: GObject.ParamSpec) => void;
+                'notify::client-y': (pspec: GObject.ParamSpec) => void;
+                'notify::ctrl-key': (pspec: GObject.ParamSpec) => void;
+                'notify::from-element': (pspec: GObject.ParamSpec) => void;
+                'notify::meta-key': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-x': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-y': (pspec: GObject.ParamSpec) => void;
+                'notify::related-target': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-x': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-y': (pspec: GObject.ParamSpec) => void;
+                'notify::shift-key': (pspec: GObject.ParamSpec) => void;
+                'notify::to-element': (pspec: GObject.ParamSpec) => void;
+                'notify::x': (pspec: GObject.ParamSpec) => void;
+                'notify::y': (pspec: GObject.ParamSpec) => void;
+                'notify::char-code': (pspec: GObject.ParamSpec) => void;
+                'notify::detail': (pspec: GObject.ParamSpec) => void;
+                'notify::key-code': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-x': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-y': (pspec: GObject.ParamSpec) => void;
+                'notify::page-x': (pspec: GObject.ParamSpec) => void;
+                'notify::page-y': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::bubbles': (pspec: GObject.ParamSpec) => void;
+                'notify::cancel-bubble': (pspec: GObject.ParamSpec) => void;
+                'notify::cancelable': (pspec: GObject.ParamSpec) => void;
+                'notify::current-target': (pspec: GObject.ParamSpec) => void;
+                'notify::event-phase': (pspec: GObject.ParamSpec) => void;
+                'notify::return-value': (pspec: GObject.ParamSpec) => void;
+                'notify::src-element': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::time-stamp': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMUIEvent.ConstructorProps {
@@ -34909,11 +41743,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get x(): number;
             get y(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMMouseEvent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMMouseEvent.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMMouseEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMMouseEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMMouseEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMMouseEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMMouseEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMMouseEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -34953,6 +41814,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMNamedNodeMap {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -34967,11 +41834,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMNamedNodeMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMNamedNodeMap.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMNamedNodeMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNamedNodeMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMNamedNodeMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNamedNodeMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMNamedNodeMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMNamedNodeMap.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -34986,6 +41882,24 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMNode {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -35054,11 +41968,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get textContent(): string;
             set textContent(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMNode.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMNode.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMNode.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNode.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMNode.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNode.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMNode.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMNode.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -35559,6 +42500,16 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMNodeIterator {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::filter': (pspec: GObject.ParamSpec) => void;
+                'notify::pointer-before-reference-node': (pspec: GObject.ParamSpec) => void;
+                'notify::reference-node': (pspec: GObject.ParamSpec) => void;
+                'notify::root': (pspec: GObject.ParamSpec) => void;
+                'notify::what-to-show': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -35587,11 +42538,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get what_to_show(): number;
             get whatToShow(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMNodeIterator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMNodeIterator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMNodeIterator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNodeIterator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMNodeIterator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNodeIterator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMNodeIterator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMNodeIterator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -35611,6 +42591,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMNodeList {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -35625,11 +42611,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMNodeList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMNodeList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMNodeList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNodeList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMNodeList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMNodeList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMNodeList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMNodeList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -35638,6 +42651,11 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMObject {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -35654,6 +42672,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             set core_object(val: any);
             set coreObject(val: any);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMObject.SignalSignatures;
+
             // Fields
 
             parentInstance: GObject.Object;
@@ -35663,9 +42690,49 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             constructor(properties?: Partial<DOMObject.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMObject.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMObject.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMObject.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMObject.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMObject.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMObject.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace DOMProcessingInstruction {
+            // Signal signatures
+            interface SignalSignatures extends DOMCharacterData.SignalSignatures {
+                'notify::sheet': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::data': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMCharacterData.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -35682,11 +42749,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get sheet(): DOMStyleSheet;
             get target(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMProcessingInstruction.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMProcessingInstruction.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMProcessingInstruction.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMProcessingInstruction.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMProcessingInstruction.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMProcessingInstruction.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMProcessingInstruction.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMProcessingInstruction.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36140,6 +43236,18 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMRange {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::collapsed': (pspec: GObject.ParamSpec) => void;
+                'notify::common-ancestor-container': (pspec: GObject.ParamSpec) => void;
+                'notify::end-container': (pspec: GObject.ParamSpec) => void;
+                'notify::end-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::start-container': (pspec: GObject.ParamSpec) => void;
+                'notify::start-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -36176,11 +43284,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get startOffset(): number;
             get text(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMRange.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMRange.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMRange.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMRange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMRange.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMRange.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMRange.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36218,6 +43353,18 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMStyleSheet {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::href': (pspec: GObject.ParamSpec) => void;
+                'notify::media': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-node': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-style-sheet': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -36249,11 +43396,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get title(): string;
             get type(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMStyleSheet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMStyleSheet.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMStyleSheet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMStyleSheet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMStyleSheet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMStyleSheet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMStyleSheet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMStyleSheet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36268,6 +43442,12 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMStyleSheetList {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -36282,11 +43462,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMStyleSheetList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMStyleSheetList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMStyleSheetList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMStyleSheetList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMStyleSheetList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMStyleSheetList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMStyleSheetList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMStyleSheetList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36295,6 +43504,27 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMText {
+            // Signal signatures
+            interface SignalSignatures extends DOMCharacterData.SignalSignatures {
+                'notify::whole-text': (pspec: GObject.ParamSpec) => void;
+                'notify::data': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::base-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::child-nodes': (pspec: GObject.ParamSpec) => void;
+                'notify::first-child': (pspec: GObject.ParamSpec) => void;
+                'notify::last-child': (pspec: GObject.ParamSpec) => void;
+                'notify::next-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::node-name': (pspec: GObject.ParamSpec) => void;
+                'notify::node-type': (pspec: GObject.ParamSpec) => void;
+                'notify::node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::owner-document': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-element': (pspec: GObject.ParamSpec) => void;
+                'notify::parent-node': (pspec: GObject.ParamSpec) => void;
+                'notify::previous-sibling': (pspec: GObject.ParamSpec) => void;
+                'notify::text-content': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMCharacterData.ConstructorProps, DOMEventTarget.ConstructorProps {
@@ -36311,11 +43541,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get whole_text(): string;
             get wholeText(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMText.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMText.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMText.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMText.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMText.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMText.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMText.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMText.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36770,6 +44027,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMTreeWalker {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::current-node': (pspec: GObject.ParamSpec) => void;
+                'notify::filter': (pspec: GObject.ParamSpec) => void;
+                'notify::root': (pspec: GObject.ParamSpec) => void;
+                'notify::what-to-show': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -36794,11 +44060,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get what_to_show(): number;
             get whatToShow(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMTreeWalker.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMTreeWalker.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMTreeWalker.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMTreeWalker.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMTreeWalker.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMTreeWalker.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMTreeWalker.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMTreeWalker.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36822,6 +44115,29 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMUIEvent {
+            // Signal signatures
+            interface SignalSignatures extends DOMEvent.SignalSignatures {
+                'notify::char-code': (pspec: GObject.ParamSpec) => void;
+                'notify::detail': (pspec: GObject.ParamSpec) => void;
+                'notify::key-code': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-x': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-y': (pspec: GObject.ParamSpec) => void;
+                'notify::page-x': (pspec: GObject.ParamSpec) => void;
+                'notify::page-y': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::bubbles': (pspec: GObject.ParamSpec) => void;
+                'notify::cancel-bubble': (pspec: GObject.ParamSpec) => void;
+                'notify::cancelable': (pspec: GObject.ParamSpec) => void;
+                'notify::current-target': (pspec: GObject.ParamSpec) => void;
+                'notify::event-phase': (pspec: GObject.ParamSpec) => void;
+                'notify::return-value': (pspec: GObject.ParamSpec) => void;
+                'notify::src-element': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::time-stamp': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMEvent.ConstructorProps {
@@ -36862,11 +44178,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get pageY(): number;
             get view(): DOMDOMWindow;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMUIEvent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMUIEvent.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMUIEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMUIEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMUIEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMUIEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMUIEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMUIEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36888,6 +44231,48 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMWheelEvent {
+            // Signal signatures
+            interface SignalSignatures extends DOMMouseEvent.SignalSignatures {
+                'notify::wheel-delta': (pspec: GObject.ParamSpec) => void;
+                'notify::wheel-delta-x': (pspec: GObject.ParamSpec) => void;
+                'notify::wheel-delta-y': (pspec: GObject.ParamSpec) => void;
+                'notify::alt-key': (pspec: GObject.ParamSpec) => void;
+                'notify::button': (pspec: GObject.ParamSpec) => void;
+                'notify::client-x': (pspec: GObject.ParamSpec) => void;
+                'notify::client-y': (pspec: GObject.ParamSpec) => void;
+                'notify::ctrl-key': (pspec: GObject.ParamSpec) => void;
+                'notify::from-element': (pspec: GObject.ParamSpec) => void;
+                'notify::meta-key': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-x': (pspec: GObject.ParamSpec) => void;
+                'notify::offset-y': (pspec: GObject.ParamSpec) => void;
+                'notify::related-target': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-x': (pspec: GObject.ParamSpec) => void;
+                'notify::screen-y': (pspec: GObject.ParamSpec) => void;
+                'notify::shift-key': (pspec: GObject.ParamSpec) => void;
+                'notify::to-element': (pspec: GObject.ParamSpec) => void;
+                'notify::x': (pspec: GObject.ParamSpec) => void;
+                'notify::y': (pspec: GObject.ParamSpec) => void;
+                'notify::char-code': (pspec: GObject.ParamSpec) => void;
+                'notify::detail': (pspec: GObject.ParamSpec) => void;
+                'notify::key-code': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-x': (pspec: GObject.ParamSpec) => void;
+                'notify::layer-y': (pspec: GObject.ParamSpec) => void;
+                'notify::page-x': (pspec: GObject.ParamSpec) => void;
+                'notify::page-y': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::bubbles': (pspec: GObject.ParamSpec) => void;
+                'notify::cancel-bubble': (pspec: GObject.ParamSpec) => void;
+                'notify::cancelable': (pspec: GObject.ParamSpec) => void;
+                'notify::current-target': (pspec: GObject.ParamSpec) => void;
+                'notify::event-phase': (pspec: GObject.ParamSpec) => void;
+                'notify::return-value': (pspec: GObject.ParamSpec) => void;
+                'notify::src-element': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+                'notify::time-stamp': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMMouseEvent.ConstructorProps {
@@ -36912,11 +44297,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get wheel_delta_y(): number;
             get wheelDeltaY(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMWheelEvent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMWheelEvent.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMWheelEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMWheelEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMWheelEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMWheelEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMWheelEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMWheelEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36939,6 +44351,11 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMXPathExpression {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {}
@@ -36947,11 +44364,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class DOMXPathExpression extends DOMObject {
             static $gtype: GObject.GType<DOMXPathExpression>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMXPathExpression.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMXPathExpression.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMXPathExpression.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMXPathExpression.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMXPathExpression.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMXPathExpression.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMXPathExpression.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMXPathExpression.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -36959,6 +44405,18 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMXPathResult {
+            // Signal signatures
+            interface SignalSignatures extends DOMObject.SignalSignatures {
+                'notify::boolean-value': (pspec: GObject.ParamSpec) => void;
+                'notify::invalid-iterator-state': (pspec: GObject.ParamSpec) => void;
+                'notify::number-value': (pspec: GObject.ParamSpec) => void;
+                'notify::result-type': (pspec: GObject.ParamSpec) => void;
+                'notify::single-node-value': (pspec: GObject.ParamSpec) => void;
+                'notify::snapshot-length': (pspec: GObject.ParamSpec) => void;
+                'notify::string-value': (pspec: GObject.ParamSpec) => void;
+                'notify::core-object': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DOMObject.ConstructorProps {
@@ -36999,11 +44457,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get string_value(): string;
             get stringValue(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DOMXPathResult.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DOMXPathResult.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DOMXPathResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMXPathResult.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DOMXPathResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DOMXPathResult.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DOMXPathResult.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DOMXPathResult.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37019,6 +44504,9 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace Frame {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -37033,11 +44521,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class Frame extends GObject.Object {
             static $gtype: GObject.GType<Frame>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Frame.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Frame.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Frame.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Frame.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Frame.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Frame.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Frame.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Frame.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37091,6 +44606,16 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace HitTestResult {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::context': (pspec: GObject.ParamSpec) => void;
+                'notify::image-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::link-label': (pspec: GObject.ParamSpec) => void;
+                'notify::link-title': (pspec: GObject.ParamSpec) => void;
+                'notify::link-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::media-uri': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -37191,11 +44716,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              */
             get mediaUri(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HitTestResult.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HitTestResult.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof HitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HitTestResult.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HitTestResult.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37268,10 +44820,9 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace ScriptWorld {
-            // Signal callback interfaces
-
-            interface WindowObjectCleared {
-                (page: WebPage, frame: Frame): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'window-object-cleared': (arg0: WebPage, arg1: Frame) => void;
             }
 
             // Constructor properties interface
@@ -37281,6 +44832,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
         class ScriptWorld extends GObject.Object {
             static $gtype: GObject.GType<ScriptWorld>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ScriptWorld.SignalSignatures;
 
             // Constructors
 
@@ -37294,18 +44854,21 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'window-object-cleared',
-                callback: (_source: this, page: WebPage, frame: Frame) => void,
+            connect<K extends keyof ScriptWorld.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ScriptWorld.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'window-object-cleared',
-                callback: (_source: this, page: WebPage, frame: Frame) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ScriptWorld.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ScriptWorld.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'window-object-cleared', page: WebPage, frame: Frame): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ScriptWorld.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ScriptWorld.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -37327,6 +44890,11 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace URIRequest {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -37352,6 +44920,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             get uri(): string;
             set uri(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: URIRequest.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<URIRequest.ConstructorProps>, ...args: any[]);
@@ -37359,6 +44936,24 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             _init(...args: any[]): void;
 
             static ['new'](uri: string): URIRequest;
+
+            // Signals
+
+            connect<K extends keyof URIRequest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIRequest.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof URIRequest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIRequest.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof URIRequest.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<URIRequest.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37385,6 +44980,16 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace URIResponse {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::content-length': (pspec: GObject.ParamSpec) => void;
+                'notify::http-headers': (pspec: GObject.ParamSpec) => void;
+                'notify::mime-type': (pspec: GObject.ParamSpec) => void;
+                'notify::status-code': (pspec: GObject.ParamSpec) => void;
+                'notify::suggested-filename': (pspec: GObject.ParamSpec) => void;
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -37459,11 +45064,38 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              */
             get uri(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: URIResponse.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<URIResponse.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof URIResponse.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIResponse.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof URIResponse.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIResponse.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof URIResponse.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<URIResponse.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37511,6 +45143,13 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace UserMessage {
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+                'notify::fd-list': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parameters': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {
@@ -37555,6 +45194,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              */
             get parameters(): GLib.Variant;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: UserMessage.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<UserMessage.ConstructorProps>, ...args: any[]);
@@ -37568,6 +45216,24 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
                 parameters?: GLib.Variant | null,
                 fd_list?: Gio.UnixFDList | null,
             ): UserMessage;
+
+            // Signals
+
+            connect<K extends keyof UserMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UserMessage.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UserMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UserMessage.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UserMessage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UserMessage.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -37605,10 +45271,9 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace WebEditor {
-            // Signal callback interfaces
-
-            interface SelectionChanged {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'selection-changed': () => void;
             }
 
             // Constructor properties interface
@@ -37626,6 +45291,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class WebEditor extends GObject.Object {
             static $gtype: GObject.GType<WebEditor>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebEditor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebEditor.ConstructorProps>, ...args: any[]);
@@ -37634,12 +45308,21 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'selection-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'selection-changed', callback: (_source: this) => void): number;
-            emit(signal: 'selection-changed'): void;
+            connect<K extends keyof WebEditor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebEditor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebEditor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebEditor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebEditor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebEditor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37651,14 +45334,10 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace WebExtension {
-            // Signal callback interfaces
-
-            interface PageCreated {
-                (web_page: WebPage): void;
-            }
-
-            interface UserMessageReceived {
-                (message: UserMessage): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'page-created': (arg0: WebPage) => void;
+                'user-message-received': (arg0: UserMessage) => void;
             }
 
             // Constructor properties interface
@@ -37742,6 +45421,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class WebExtension extends GObject.Object {
             static $gtype: GObject.GType<WebExtension>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebExtension.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebExtension.ConstructorProps>, ...args: any[]);
@@ -37750,18 +45438,21 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'page-created', callback: (_source: this, web_page: WebPage) => void): number;
-            connect_after(signal: 'page-created', callback: (_source: this, web_page: WebPage) => void): number;
-            emit(signal: 'page-created', web_page: WebPage): void;
-            connect(signal: 'user-message-received', callback: (_source: this, message: UserMessage) => void): number;
-            connect_after(
-                signal: 'user-message-received',
-                callback: (_source: this, message: UserMessage) => void,
+            connect<K extends keyof WebExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebExtension.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'user-message-received', message: UserMessage): void;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebExtension.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebExtension.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebExtension.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37780,7 +45471,10 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              * @param message a #WebKitUserMessage
              * @param cancellable a #GCancellable or %NULL to ignore
              */
-            send_message_to_context(message: UserMessage, cancellable?: Gio.Cancellable | null): Promise<UserMessage>;
+            send_message_to_context(
+                message: UserMessage,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<UserMessage>;
             /**
              * Send `message` to the #WebKitWebContext corresponding to `extension`. If `message` is floating, it's consumed.
              *
@@ -37810,7 +45504,7 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
                 message: UserMessage,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<UserMessage> | void;
+            ): globalThis.Promise<UserMessage> | void;
             /**
              * Finish an asynchronous operation started with webkit_web_extension_send_message_to_context().
              * @param result a #GAsyncResult
@@ -37820,18 +45514,11 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace WebFormManager {
-            // Signal callback interfaces
-
-            interface FormControlsAssociated {
-                (frame: Frame, elements: JavaScriptCore.Value[]): void;
-            }
-
-            interface WillSendSubmitEvent {
-                (form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame): void;
-            }
-
-            interface WillSubmitForm {
-                (form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'form-controls-associated': (arg0: Frame, arg1: JavaScriptCore.Value[]) => void;
+                'will-send-submit-event': (arg0: JavaScriptCore.Value, arg1: Frame, arg2: Frame) => void;
+                'will-submit-form': (arg0: JavaScriptCore.Value, arg1: Frame, arg2: Frame) => void;
             }
 
             // Constructor properties interface
@@ -37845,6 +45532,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         class WebFormManager extends GObject.Object {
             static $gtype: GObject.GType<WebFormManager>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebFormManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebFormManager.ConstructorProps>, ...args: any[]);
@@ -37853,46 +45549,21 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'form-controls-associated',
-                callback: (_source: this, frame: Frame, elements: JavaScriptCore.Value[]) => void,
+            connect<K extends keyof WebFormManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebFormManager.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'form-controls-associated',
-                callback: (_source: this, frame: Frame, elements: JavaScriptCore.Value[]) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebFormManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebFormManager.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'form-controls-associated', frame: Frame, elements: JavaScriptCore.Value[]): void;
-            connect(
-                signal: 'will-send-submit-event',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            connect_after(
-                signal: 'will-send-submit-event',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            emit(
-                signal: 'will-send-submit-event',
-                form: JavaScriptCore.Value,
-                source_frame: Frame,
-                target_frame: Frame,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebFormManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebFormManager.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(
-                signal: 'will-submit-form',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            connect_after(
-                signal: 'will-submit-form',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            emit(
-                signal: 'will-submit-form',
-                form: JavaScriptCore.Value,
-                source_frame: Frame,
-                target_frame: Frame,
-            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -37917,6 +45588,17 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace WebHitTestResult {
+            // Signal signatures
+            interface SignalSignatures extends HitTestResult.SignalSignatures {
+                'notify::node': (pspec: GObject.ParamSpec) => void;
+                'notify::context': (pspec: GObject.ParamSpec) => void;
+                'notify::image-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::link-label': (pspec: GObject.ParamSpec) => void;
+                'notify::link-title': (pspec: GObject.ParamSpec) => void;
+                'notify::link-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::media-uri': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends HitTestResult.ConstructorProps {
@@ -37940,11 +45622,40 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              */
             get node(): DOMNode;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebHitTestResult.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebHitTestResult.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof WebHitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebHitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebHitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebHitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebHitTestResult.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebHitTestResult.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -37962,45 +45673,24 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace WebPage {
-            // Signal callback interfaces
-
-            interface ConsoleMessageSent {
-                (console_message: ConsoleMessage): void;
-            }
-
-            interface ContextMenu {
-                (context_menu: ContextMenu, hit_test_result: WebHitTestResult): boolean;
-            }
-
-            interface DocumentLoaded {
-                (): void;
-            }
-
-            interface FormControlsAssociated {
-                (elements: DOMElement[]): void;
-            }
-
-            interface FormControlsAssociatedForFrame {
-                (elements: DOMElement[], frame: Frame): void;
-            }
-
-            interface SendRequest {
-                (request: URIRequest, redirected_response: URIResponse): boolean;
-            }
-
-            interface UserMessageReceived {
-                (message: UserMessage): boolean;
-            }
-
-            interface WillSubmitForm {
-                (
-                    form: DOMElement,
-                    step: FormSubmissionStep,
-                    source_frame: Frame,
-                    target_frame: Frame,
-                    text_field_names: string[],
-                    text_field_values: string[],
-                ): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'console-message-sent': (arg0: ConsoleMessage) => void;
+                'context-menu': (arg0: ContextMenu, arg1: WebHitTestResult) => boolean | void;
+                'document-loaded': () => void;
+                'form-controls-associated': (arg0: DOMElement[]) => void;
+                'form-controls-associated-for-frame': (arg0: DOMElement[], arg1: Frame) => void;
+                'send-request': (arg0: URIRequest, arg1: URIResponse) => boolean | void;
+                'user-message-received': (arg0: UserMessage) => boolean | void;
+                'will-submit-form': (
+                    arg0: DOMElement,
+                    arg1: FormSubmissionStep,
+                    arg2: Frame,
+                    arg3: Frame,
+                    arg4: string[],
+                    arg5: string[],
+                ) => void;
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -38023,6 +45713,15 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              */
             get uri(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebPage.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebPage.ConstructorProps>, ...args: any[]);
@@ -38031,99 +45730,21 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'console-message-sent',
-                callback: (_source: this, console_message: ConsoleMessage) => void,
+            connect<K extends keyof WebPage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebPage.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'console-message-sent',
-                callback: (_source: this, console_message: ConsoleMessage) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebPage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebPage.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'console-message-sent', console_message: ConsoleMessage): void;
-            connect(
-                signal: 'context-menu',
-                callback: (_source: this, context_menu: ContextMenu, hit_test_result: WebHitTestResult) => boolean,
-            ): number;
-            connect_after(
-                signal: 'context-menu',
-                callback: (_source: this, context_menu: ContextMenu, hit_test_result: WebHitTestResult) => boolean,
-            ): number;
-            emit(signal: 'context-menu', context_menu: ContextMenu, hit_test_result: WebHitTestResult): void;
-            connect(signal: 'document-loaded', callback: (_source: this) => void): number;
-            connect_after(signal: 'document-loaded', callback: (_source: this) => void): number;
-            emit(signal: 'document-loaded'): void;
-            connect(
-                signal: 'form-controls-associated',
-                callback: (_source: this, elements: DOMElement[]) => void,
-            ): number;
-            connect_after(
-                signal: 'form-controls-associated',
-                callback: (_source: this, elements: DOMElement[]) => void,
-            ): number;
-            emit(signal: 'form-controls-associated', elements: DOMElement[]): void;
-            connect(
-                signal: 'form-controls-associated-for-frame',
-                callback: (_source: this, elements: DOMElement[], frame: Frame) => void,
-            ): number;
-            connect_after(
-                signal: 'form-controls-associated-for-frame',
-                callback: (_source: this, elements: DOMElement[], frame: Frame) => void,
-            ): number;
-            emit(signal: 'form-controls-associated-for-frame', elements: DOMElement[], frame: Frame): void;
-            connect(
-                signal: 'send-request',
-                callback: (_source: this, request: URIRequest, redirected_response: URIResponse) => boolean,
-            ): number;
-            connect_after(
-                signal: 'send-request',
-                callback: (_source: this, request: URIRequest, redirected_response: URIResponse) => boolean,
-            ): number;
-            emit(signal: 'send-request', request: URIRequest, redirected_response: URIResponse): void;
-            connect(
-                signal: 'user-message-received',
-                callback: (_source: this, message: UserMessage) => boolean,
-            ): number;
-            connect_after(
-                signal: 'user-message-received',
-                callback: (_source: this, message: UserMessage) => boolean,
-            ): number;
-            emit(signal: 'user-message-received', message: UserMessage): void;
-            connect(
-                signal: 'will-submit-form',
-                callback: (
-                    _source: this,
-                    form: DOMElement,
-                    step: FormSubmissionStep,
-                    source_frame: Frame,
-                    target_frame: Frame,
-                    text_field_names: string[],
-                    text_field_values: string[],
-                ) => void,
-            ): number;
-            connect_after(
-                signal: 'will-submit-form',
-                callback: (
-                    _source: this,
-                    form: DOMElement,
-                    step: FormSubmissionStep,
-                    source_frame: Frame,
-                    target_frame: Frame,
-                    text_field_names: string[],
-                    text_field_values: string[],
-                ) => void,
-            ): number;
-            emit(
-                signal: 'will-submit-form',
-                form: DOMElement,
-                step: FormSubmissionStep,
-                source_frame: Frame,
-                target_frame: Frame,
-                text_field_names: string[],
-                text_field_values: string[],
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebPage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebPage.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -38170,7 +45791,10 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              * @param message a #WebKitUserMessage
              * @param cancellable a #GCancellable or %NULL to ignore
              */
-            send_message_to_view(message: UserMessage, cancellable?: Gio.Cancellable | null): Promise<UserMessage>;
+            send_message_to_view(
+                message: UserMessage,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<UserMessage>;
             /**
              * Send `message` to the #WebKitWebView corresponding to `web_page`. If `message` is floating, it's consumed.
              *
@@ -38200,7 +45824,7 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
                 message: UserMessage,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<UserMessage> | void;
+            ): globalThis.Promise<UserMessage> | void;
             /**
              * Finish an asynchronous operation started with webkit_web_page_send_message_to_view().
              * @param result a #GAsyncResult
@@ -38467,6 +46091,18 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         }
 
         namespace DOMEventTarget {
+            /**
+             * Interface for implementing DOMEventTarget.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+                vfunc_dispatch_event(event: DOMEvent): boolean;
+                vfunc_remove_event_listener(event_name: string, handler: any | null, use_capture: boolean): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -38476,7 +46112,7 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             $gtype: GObject.GType<DOMEventTarget>;
             prototype: DOMEventTarget;
         }
-        interface DOMEventTarget extends GObject.Object {
+        interface DOMEventTarget extends GObject.Object, DOMEventTarget.Interface {
             // Methods
 
             add_event_listener(event_name: string, handler: GObject.Callback, use_capture: boolean): boolean;
@@ -38500,12 +46136,6 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
              * @returns a #gboolean
              */
             remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
-
-            // Virtual methods
-
-            vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
-            vfunc_dispatch_event(event: DOMEvent): boolean;
-            vfunc_remove_event_listener(event_name: string, handler: any | null, use_capture: boolean): boolean;
         }
 
         export const DOMEventTarget: DOMEventTargetNamespace & {
@@ -38513,6 +46143,16 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         };
 
         namespace DOMNodeFilter {
+            /**
+             * Interface for implementing DOMNodeFilter.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_accept_node(node: DOMNode): number;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -38522,14 +46162,10 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             $gtype: GObject.GType<DOMNodeFilter>;
             prototype: DOMNodeFilter;
         }
-        interface DOMNodeFilter extends GObject.Object {
+        interface DOMNodeFilter extends GObject.Object, DOMNodeFilter.Interface {
             // Methods
 
             accept_node(node: DOMNode): number;
-
-            // Virtual methods
-
-            vfunc_accept_node(node: DOMNode): number;
         }
 
         export const DOMNodeFilter: DOMNodeFilterNamespace & {
@@ -38537,6 +46173,16 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
         };
 
         namespace DOMXPathNSResolver {
+            /**
+             * Interface for implementing DOMXPathNSResolver.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_lookup_namespace_uri(prefix: string): string;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -38546,14 +46192,10 @@ declare module 'gi://WebKit2WebExtension?version=4.1' {
             $gtype: GObject.GType<DOMXPathNSResolver>;
             prototype: DOMXPathNSResolver;
         }
-        interface DOMXPathNSResolver extends GObject.Object {
+        interface DOMXPathNSResolver extends GObject.Object, DOMXPathNSResolver.Interface {
             // Methods
 
             lookup_namespace_uri(prefix: string): string;
-
-            // Virtual methods
-
-            vfunc_lookup_namespace_uri(prefix: string): string;
         }
 
         export const DOMXPathNSResolver: DOMXPathNSResolverNamespace & {

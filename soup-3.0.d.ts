@@ -93,7 +93,7 @@ declare module 'gi://Soup?version=3.0' {
              *   from that page, reject any cookie that it could try to set unless it
              *   already has a cookie in the cookie jar. For libsoup to be able to tell
              *   apart first party cookies from the rest, the application must call
-             *   [method`Message`.set_first_party] on each outgoing #SoupMessage, setting the
+             *   [method`Message`.set_first_party] on each outgoing [class`Message]`, setting the
              *   [struct`GLib`.Uri] of the main document. If no first party is set in a
              *   message when this policy is in effect, cookies will be assumed to be third
              *   party by default.
@@ -306,23 +306,23 @@ declare module 'gi://Soup?version=3.0' {
             VERY_LOW,
             /**
              * Use this for low priority messages, a
-             *   #SoupMessage with the default priority will be processed first.
+             *   [class`Message]` with the default priority will be processed first.
              */
             LOW,
             /**
              * The default priotity, this is the
-             *   priority assigned to the #SoupMessage by default.
+             *   priority assigned to the [class`Message]` by default.
              */
             NORMAL,
             /**
-             * High priority, a #SoupMessage with
+             * High priority, a [class`Message]` with
              *   this priority will be processed before the ones with the default
              *   priority.
              */
             HIGH,
             /**
              * The highest priority, use this
-             *   for very urgent #SoupMessage as they will be the first ones to be
+             *   for very urgent [class`Message]` as they will be the first ones to be
              *   attended.
              */
             VERY_HIGH,
@@ -353,7 +353,7 @@ declare module 'gi://Soup?version=3.0' {
             STRICT,
         }
         /**
-         * A #SoupSession error.
+         * A [class`Session]` error.
          */
         class SessionError extends GLib.Error {
             static $gtype: GObject.GType<SessionError>;
@@ -1049,14 +1049,14 @@ declare module 'gi://Soup?version=3.0' {
          */
         function check_version(major: number, minor: number, micro: number): boolean;
         /**
-         * Parses `header` and returns a #SoupCookie.
+         * Parses `header` and returns a [struct`Cookie]`.
          *
          * If `header` contains multiple cookies, only the first one will be parsed.
          *
          * If `header` does not have "path" or "domain" attributes, they will
          * be defaulted from `origin`. If `origin` is %NULL, path will default
          * to "/", but domain will be left as %NULL. Note that this is not a
-         * valid state for a #SoupCookie, and you will need to fill in some
+         * valid state for a [struct`Cookie]`, and you will need to fill in some
          * appropriate string for the domain if you want to actually make use
          * of the cookie.
          *
@@ -1072,7 +1072,7 @@ declare module 'gi://Soup?version=3.0' {
          * `SoupCookie`s.
          *
          * As the "Cookie" header, unlike "Set-Cookie", only contains cookie names and
-         * values, none of the other #SoupCookie fields will be filled in. (Thus, you
+         * values, none of the other [struct`Cookie]` fields will be filled in. (Thus, you
          * can't generally pass a cookie returned from this method directly to
          * [func`cookies_to_response]`.)
          * @param msg a #SoupMessage containing a "Cookie" request header
@@ -1090,9 +1090,9 @@ declare module 'gi://Soup?version=3.0' {
          */
         function cookies_from_response(msg: Message): Cookie[];
         /**
-         * Serializes a [struct`GLib`.SList] of #SoupCookie into a string suitable for
+         * Serializes a [struct`GLib`.SList] of [struct`Cookie]` into a string suitable for
          * setting as the value of the "Cookie" header.
-         * @param cookies a #GSList of #SoupCookie
+         * @param cookies a #GSList of [struct@Cookie]
          * @returns the serialization of @cookies
          */
         function cookies_to_cookie_header(cookies: Cookie[]): string;
@@ -1103,7 +1103,7 @@ declare module 'gi://Soup?version=3.0' {
          * If `msg` already has a "Cookie" request header, these cookies will be appended
          * to the cookies already present. Be careful that you do not append the same
          * cookies twice, eg, when requeuing a message.
-         * @param cookies a #GSList of #SoupCookie
+         * @param cookies a #GSList of [struct@Cookie]
          * @param msg a #SoupMessage
          */
         function cookies_to_request(cookies: Cookie[], msg: Message): void;
@@ -1113,7 +1113,7 @@ declare module 'gi://Soup?version=3.0' {
          *
          * This is in addition to any other "Set-Cookie" headers
          * `msg` may already have.
-         * @param cookies a #GSList of #SoupCookie
+         * @param cookies a #GSList of [struct@Cookie]
          * @param msg a #SoupMessage
          */
         function cookies_to_response(cookies: Cookie[], msg: Message): void;
@@ -1245,6 +1245,16 @@ declare module 'gi://Soup?version=3.0' {
          * @returns whether or not @header contains @token
          */
         function header_contains(header: string, token: string): boolean;
+        /**
+         * Parses `header` to see if it contains the token `token` (matched
+         * case-sensitively).
+         *
+         * Note that this can't be used with lists that have qvalues.
+         * @param header An HTTP header suitable for parsing with   [func@header_parse_list]
+         * @param token a token
+         * @returns whether or not @header contains @token
+         */
+        function header_contains_case_sensitive(header: string, token: string): boolean;
         /**
          * Frees `param_list`.
          * @param param_list a #GHashTable returned from   [func@header_parse_param_list] or [func@header_parse_semi_param_list]
@@ -1406,7 +1416,7 @@ declare module 'gi://Soup?version=3.0' {
         function headers_parse_status_line(status_line: string): [boolean, HTTPVersion | null, number, string];
         /**
          * Initializes `iter` for iterating `hdrs`.
-         * @param hdrs a %SoupMessageHeaders
+         * @param hdrs a #SoupMessageHeaders
          */
         function message_headers_iter_init(hdrs: MessageHeaders): MessageHeadersIter;
         /**
@@ -1416,7 +1426,7 @@ declare module 'gi://Soup?version=3.0' {
          * If `iter` has already yielded the last header, then
          * [method`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
          * will be unchanged.
-         * @param iter a %SoupMessageHeadersIter
+         * @param iter a #SoupMessageHeadersIter
          * @returns %TRUE if another name and value were returned, %FALSE   if the end of the headers has been reached.
          */
         function message_headers_iter_next(iter: MessageHeadersIter): [boolean, MessageHeadersIter, string, string];
@@ -1671,13 +1681,11 @@ declare module 'gi://Soup?version=3.0' {
             CONTINUE,
         }
         /**
-         * Various flags that can be set on a #SoupMessage to alter its
-         * behavior.
+         * Various flags that can be set on a [class`Message]` to alter its behavior.
          */
 
         /**
-         * Various flags that can be set on a #SoupMessage to alter its
-         * behavior.
+         * Various flags that can be set on a [class`Message]` to alter its behavior.
          */
         export namespace MessageFlags {
             export const $gtype: GObject.GType<MessageFlags>;
@@ -1758,6 +1766,16 @@ declare module 'gi://Soup?version=3.0' {
             IPV6_ONLY,
         }
         namespace Auth {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::authority': (pspec: GObject.ParamSpec) => void;
+                'notify::is-authenticated': (pspec: GObject.ParamSpec) => void;
+                'notify::is-cancelled': (pspec: GObject.ParamSpec) => void;
+                'notify::is-for-proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+                'notify::scheme-name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1781,7 +1799,7 @@ declare module 'gi://Soup?version=3.0' {
          * but applications never need to be aware of the specific subclasses being
          * used.
          *
-         * #SoupAuth objects store the authentication data associated with a given bit
+         * [class`Auth]` objects store the authentication data associated with a given bit
          * of web space. They are created automatically by [class`Session]`.
          */
         abstract class Auth extends GObject.Object {
@@ -1834,6 +1852,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get schemeName(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Auth.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Auth.ConstructorProps>, ...args: any[]);
@@ -1841,6 +1868,24 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](type: GObject.GType, msg: Message, auth_header: string): Auth;
+
+            // Signals
+
+            connect<K extends keyof Auth.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Auth.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Auth.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Auth.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Auth.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Auth.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1920,7 +1965,7 @@ declare module 'gi://Soup?version=3.0' {
              *
              * You need to cancel an auth to complete an asynchronous authenticate operation
              * when no credentials are provided ([method`Auth`.authenticate] is not called).
-             * The #SoupAuth will be cancelled on dispose if it hans't been authenticated.
+             * The [class`Auth]` will be cancelled on dispose if it hasn't been authenticated.
              */
             cancel(): void;
             /**
@@ -1940,7 +1985,7 @@ declare module 'gi://Soup?version=3.0' {
             /**
              * Gets an opaque identifier for `auth`.
              *
-             * The identifier can be used as a hash key or the like. #SoupAuth objects from
+             * The identifier can be used as a hash key or the like. [class`Auth]` objects from
              * the same server with the same identifier refer to the same authentication
              * domain (eg, the URLs associated with them take the same usernames and
              * passwords).
@@ -1989,12 +2034,22 @@ declare module 'gi://Soup?version=3.0' {
              * As with [ctor`Auth`.new], this is normally only used by [class`Session]`.
              * @param msg the #SoupMessage @auth is being updated for
              * @param auth_header the WWW-Authenticate/Proxy-Authenticate header
-             * @returns %TRUE if @auth is still a valid (but potentially   unauthenticated) #SoupAuth. %FALSE if something about @auth_params   could not be parsed or incorporated into @auth at all.
+             * @returns %TRUE if @auth is still a valid (but potentially   unauthenticated) [class@Auth]. %FALSE if something about @auth_params   could not be parsed or incorporated into @auth at all.
              */
             update(msg: Message, auth_header: string): boolean;
         }
 
         namespace AuthBasic {
+            // Signal signatures
+            interface SignalSignatures extends Auth.SignalSignatures {
+                'notify::authority': (pspec: GObject.ParamSpec) => void;
+                'notify::is-authenticated': (pspec: GObject.ParamSpec) => void;
+                'notify::is-cancelled': (pspec: GObject.ParamSpec) => void;
+                'notify::is-for-proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+                'notify::scheme-name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2010,14 +2065,51 @@ declare module 'gi://Soup?version=3.0' {
         class AuthBasic extends Auth {
             static $gtype: GObject.GType<AuthBasic>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthBasic.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthBasic.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthBasic.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthBasic.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthBasic.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthBasic.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthBasic.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthBasic.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace AuthDigest {
+            // Signal signatures
+            interface SignalSignatures extends Auth.SignalSignatures {
+                'notify::authority': (pspec: GObject.ParamSpec) => void;
+                'notify::is-authenticated': (pspec: GObject.ParamSpec) => void;
+                'notify::is-cancelled': (pspec: GObject.ParamSpec) => void;
+                'notify::is-for-proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+                'notify::scheme-name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2033,14 +2125,51 @@ declare module 'gi://Soup?version=3.0' {
         class AuthDigest extends Auth {
             static $gtype: GObject.GType<AuthDigest>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthDigest.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthDigest.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthDigest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDigest.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthDigest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDigest.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthDigest.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthDigest.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace AuthDomain {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::filter': (pspec: GObject.ParamSpec) => void;
+                'notify::filter-data': (pspec: GObject.ParamSpec) => void;
+                'notify::generic-auth-callback': (pspec: GObject.ParamSpec) => void;
+                'notify::generic-auth-data': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -2059,9 +2188,9 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Server-side authentication.
          *
-         * A #SoupAuthDomain manages authentication for all or part of a
+         * A [class`AuthDomain]` manages authentication for all or part of a
          * [class`Server]`. To make a server require authentication, first create
-         * an appropriate subclass of #SoupAuthDomain, and then add it to the
+         * an appropriate subclass of [class`AuthDomain]`, and then add it to the
          * server with [method`Server`.add_auth_domain].
          *
          * In order for an auth domain to have any effect, you must add one or more
@@ -2124,11 +2253,38 @@ declare module 'gi://Soup?version=3.0' {
              */
             get realm(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthDomain.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthDomain.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthDomain.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDomain.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthDomain.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDomain.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthDomain.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthDomain.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2278,6 +2434,18 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace AuthDomainBasic {
+            // Signal signatures
+            interface SignalSignatures extends AuthDomain.SignalSignatures {
+                'notify::auth-callback': (pspec: GObject.ParamSpec) => void;
+                'notify::auth-data': (pspec: GObject.ParamSpec) => void;
+                'notify::filter': (pspec: GObject.ParamSpec) => void;
+                'notify::filter-data': (pspec: GObject.ParamSpec) => void;
+                'notify::generic-auth-callback': (pspec: GObject.ParamSpec) => void;
+                'notify::generic-auth-data': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AuthDomain.ConstructorProps {
@@ -2291,7 +2459,7 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Server-side "Basic" authentication.
          *
-         * #SoupAuthDomainBasic handles the server side of HTTP "Basic" (ie,
+         * [class`AuthDomainBasic]` handles the server side of HTTP "Basic" (ie,
          * cleartext password) authentication.
          */
         class AuthDomainBasic extends AuthDomain {
@@ -2320,11 +2488,40 @@ declare module 'gi://Soup?version=3.0' {
             get authData(): any;
             set authData(val: any);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthDomainBasic.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthDomainBasic.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthDomainBasic.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDomainBasic.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthDomainBasic.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDomainBasic.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthDomainBasic.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthDomainBasic.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2346,6 +2543,18 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace AuthDomainDigest {
+            // Signal signatures
+            interface SignalSignatures extends AuthDomain.SignalSignatures {
+                'notify::auth-callback': (pspec: GObject.ParamSpec) => void;
+                'notify::auth-data': (pspec: GObject.ParamSpec) => void;
+                'notify::filter': (pspec: GObject.ParamSpec) => void;
+                'notify::filter-data': (pspec: GObject.ParamSpec) => void;
+                'notify::generic-auth-callback': (pspec: GObject.ParamSpec) => void;
+                'notify::generic-auth-data': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AuthDomain.ConstructorProps {
@@ -2359,7 +2568,7 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Server-side "Digest" authentication.
          *
-         * #SoupAuthDomainDigest handles the server side of HTTP "Digest"
+         * [class`AuthDomainDigest]` handles the server side of HTTP "Digest"
          * authentication.
          */
         class AuthDomainDigest extends AuthDomain {
@@ -2388,11 +2597,40 @@ declare module 'gi://Soup?version=3.0' {
             get authData(): any;
             set authData(val: any);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthDomainDigest.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthDomainDigest.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthDomainDigest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDomainDigest.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthDomainDigest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthDomainDigest.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthDomainDigest.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthDomainDigest.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2403,7 +2641,7 @@ declare module 'gi://Soup?version=3.0' {
              * That is, it returns a stringified MD5 hash of
              * `username,` `realm,` and `password` concatenated together. This is
              * the form that is needed as the return value of
-             * #SoupAuthDomainDigest's auth handler.
+             * [class`AuthDomainDigest]`'s auth handler.
              *
              * For security reasons, you should store the encoded hash, rather
              * than storing the cleartext password itself and calling this method
@@ -2438,6 +2676,9 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace AuthManager {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -2446,10 +2687,10 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * HTTP client-side authentication handler.
          *
-         * #SoupAuthManager is the [iface`SessionFeature]` that handles HTTP
+         * [class`AuthManager]` is the [iface`SessionFeature]` that handles HTTP
          * authentication for a [class`Session]`.
          *
-         * A #SoupAuthManager is added to the session by default, and normally
+         * A [class`AuthManager]` is added to the session by default, and normally
          * you don't need to worry about it at all. However, if you want to
          * disable HTTP authentication, you can remove the feature from the
          * session with [method`Session`.remove_feature_by_type] or disable it on
@@ -2465,11 +2706,38 @@ declare module 'gi://Soup?version=3.0' {
         class AuthManager extends GObject.Object implements SessionFeature {
             static $gtype: GObject.GType<AuthManager>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthManager.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthManager.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2936,6 +3204,16 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace AuthNTLM {
+            // Signal signatures
+            interface SignalSignatures extends Auth.SignalSignatures {
+                'notify::authority': (pspec: GObject.ParamSpec) => void;
+                'notify::is-authenticated': (pspec: GObject.ParamSpec) => void;
+                'notify::is-cancelled': (pspec: GObject.ParamSpec) => void;
+                'notify::is-for-proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+                'notify::scheme-name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2951,14 +3229,51 @@ declare module 'gi://Soup?version=3.0' {
         class AuthNTLM extends Auth {
             static $gtype: GObject.GType<AuthNTLM>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthNTLM.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthNTLM.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthNTLM.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthNTLM.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthNTLM.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthNTLM.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthNTLM.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthNTLM.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace AuthNegotiate {
+            // Signal signatures
+            interface SignalSignatures extends Auth.SignalSignatures {
+                'notify::authority': (pspec: GObject.ParamSpec) => void;
+                'notify::is-authenticated': (pspec: GObject.ParamSpec) => void;
+                'notify::is-cancelled': (pspec: GObject.ParamSpec) => void;
+                'notify::is-for-proxy': (pspec: GObject.ParamSpec) => void;
+                'notify::realm': (pspec: GObject.ParamSpec) => void;
+                'notify::scheme-name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Auth.ConstructorProps {}
@@ -2979,11 +3294,38 @@ declare module 'gi://Soup?version=3.0' {
         class AuthNegotiate extends Auth {
             static $gtype: GObject.GType<AuthNegotiate>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AuthNegotiate.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AuthNegotiate.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AuthNegotiate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthNegotiate.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AuthNegotiate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AuthNegotiate.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AuthNegotiate.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AuthNegotiate.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2998,6 +3340,12 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace Cache {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::cache-dir': (pspec: GObject.ParamSpec) => void;
+                'notify::cache-type': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {
@@ -3033,6 +3381,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get cacheType(): CacheType;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Cache.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Cache.ConstructorProps>, ...args: any[]);
@@ -3040,6 +3397,24 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](cache_dir: string | null, cache_type: CacheType): Cache;
+
+            // Signals
+
+            connect<K extends keyof Cache.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Cache.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Cache.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Cache.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Cache.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Cache.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -3050,7 +3425,7 @@ declare module 'gi://Soup?version=3.0' {
             /**
              * Will remove all entries in the `cache` plus all the cache files.
              *
-             * This is not thread safe and must be called only from the thread that created the #SoupCache
+             * This is not thread safe and must be called only from the thread that created the [class`Cache]`
              */
             clear(): void;
             /**
@@ -3062,7 +3437,7 @@ declare module 'gi://Soup?version=3.0' {
              * You must call this before exiting if you want your cache data to
              * persist between sessions.
              *
-             * This is not thread safe and must be called only from the thread that created the #SoupCache
+             * This is not thread safe and must be called only from the thread that created the [class`Cache]`
              */
             dump(): void;
             /**
@@ -3083,7 +3458,7 @@ declare module 'gi://Soup?version=3.0' {
             /**
              * Loads the contents of `cache'`s index into memory.
              *
-             * This is not thread safe and must be called only from the thread that created the #SoupCache
+             * This is not thread safe and must be called only from the thread that created the [class`Cache]`
              */
             load(): void;
             /**
@@ -3535,6 +3910,9 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace ContentDecoder {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -3543,23 +3921,23 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Handles decoding of HTTP messages.
          *
-         * #SoupContentDecoder handles adding the "Accept-Encoding" header on
+         * [class`ContentDecoder]` handles adding the "Accept-Encoding" header on
          * outgoing messages, and processing the "Content-Encoding" header on
          * incoming ones. Currently it supports the "gzip", "deflate", and "br"
          * content codings.
          *
-         * A #SoupContentDecoder will automatically be
+         * A [class`ContentDecoder]` will automatically be
          * added to the session by default. (You can use
          * [method`Session`.remove_feature_by_type] if you don't
          * want this.)
          *
-         * If #SoupContentDecoder successfully decodes the Content-Encoding,
+         * If [class`ContentDecoder]` successfully decodes the Content-Encoding,
          * the message body will contain the decoded data; however, the message headers
          * will be unchanged (and so "Content-Encoding" will still be present,
          * "Content-Length" will describe the original encoded length, etc).
          *
          * If "Content-Encoding" contains any encoding types that
-         * #SoupContentDecoder doesn't recognize, then none of the encodings
+         * [class`ContentDecoder]` doesn't recognize, then none of the encodings
          * will be decoded.
          *
          * (Note that currently there is no way to (automatically) use
@@ -3569,11 +3947,38 @@ declare module 'gi://Soup?version=3.0' {
         class ContentDecoder extends GObject.Object implements SessionFeature {
             static $gtype: GObject.GType<ContentDecoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContentDecoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ContentDecoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ContentDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentDecoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContentDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentDecoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContentDecoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContentDecoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -4018,6 +4423,9 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace ContentSniffer {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -4026,15 +4434,24 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Sniffs the mime type of messages.
          *
-         * A #SoupContentSniffer tries to detect the actual content type of
+         * A [class`ContentSniffer]` tries to detect the actual content type of
          * the files that are being downloaded by looking at some of the data
          * before the [class`Message]` emits its [signal`Message:`:got-headers] signal.
-         * #SoupContentSniffer implements [iface`SessionFeature]`, so you can add
+         * [class`ContentSniffer]` implements [iface`SessionFeature]`, so you can add
          * content sniffing to a session with [method`Session`.add_feature] or
          * [method`Session`.add_feature_by_type].
          */
         class ContentSniffer extends GObject.Object implements SessionFeature {
             static $gtype: GObject.GType<ContentSniffer>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContentSniffer.SignalSignatures;
 
             // Constructors
 
@@ -4043,6 +4460,24 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): ContentSniffer;
+
+            // Signals
+
+            connect<K extends keyof ContentSniffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentSniffer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContentSniffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentSniffer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContentSniffer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContentSniffer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4500,10 +4935,11 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace CookieJar {
-            // Signal callback interfaces
-
-            interface Changed {
-                (old_cookie?: Cookie | null, new_cookie?: Cookie | null): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                changed: (arg0: Cookie | null, arg1: Cookie | null) => void;
+                'notify::accept-policy': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -4519,12 +4955,12 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Automatic cookie handling for SoupSession.
          *
-         * A #SoupCookieJar stores [struct`Cookie]`s and arrange for them to be sent with
-         * the appropriate [class`Message]`s. #SoupCookieJar implements
+         * A [class`CookieJar]` stores [struct`Cookie]`s and arrange for them to be sent with
+         * the appropriate [class`Message]`s. [class`CookieJar]` implements
          * [iface`SessionFeature]`, so you can add a cookie jar to a session with
          * [method`Session`.add_feature] or [method`Session`.add_feature_by_type].
          *
-         * Note that the base #SoupCookieJar class does not support any form
+         * Note that the base [class`CookieJar]` class does not support any form
          * of long-term cookie persistence.
          */
         class CookieJar extends GObject.Object implements SessionFeature {
@@ -4551,6 +4987,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get readOnly(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CookieJar.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CookieJar.ConstructorProps>, ...args: any[]);
@@ -4561,18 +5006,21 @@ declare module 'gi://Soup?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'changed',
-                callback: (_source: this, old_cookie: Cookie | null, new_cookie: Cookie | null) => void,
+            connect<K extends keyof CookieJar.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CookieJar.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'changed',
-                callback: (_source: this, old_cookie: Cookie | null, new_cookie: Cookie | null) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CookieJar.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CookieJar.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'changed', old_cookie?: Cookie | null, new_cookie?: Cookie | null): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CookieJar.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CookieJar.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4657,12 +5105,12 @@ declare module 'gi://Soup?version=3.0' {
             get_accept_policy(): CookieJarAcceptPolicy;
             /**
              * Retrieves the list of cookies that would be sent with a request to `uri`
-             * as a [struct`GLib`.List] of #SoupCookie objects.
+             * as a [struct`GLib`.List] of [struct`Cookie]` objects.
              *
              * If `for_http` is %TRUE, the return value will include cookies marked
              * "HttpOnly" (that is, cookies that the server wishes to keep hidden
              * from client-side scripting operations such as the JavaScript
-             * document.cookies property). Since #SoupCookieJar sets the Cookie
+             * document.cookies property). Since [class`CookieJar]` sets the Cookie
              * header itself when making the actual HTTP request, you should
              * almost certainly be setting `for_http` to %FALSE if you are calling
              * this.
@@ -4701,7 +5149,7 @@ declare module 'gi://Soup?version=3.0' {
              * If `for_http` is %TRUE, the return value will include cookies marked
              * "HttpOnly" (that is, cookies that the server wishes to keep hidden
              * from client-side scripting operations such as the JavaScript
-             * document.cookies property). Since #SoupCookieJar sets the Cookie
+             * document.cookies property). Since [class`CookieJar]` sets the Cookie
              * header itself when making the actual HTTP request, you should
              * almost certainly be setting `for_http` to %FALSE if you are calling
              * this.
@@ -5189,6 +5637,13 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace CookieJarDB {
+            // Signal signatures
+            interface SignalSignatures extends CookieJar.SignalSignatures {
+                'notify::filename': (pspec: GObject.ParamSpec) => void;
+                'notify::accept-policy': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends CookieJar.ConstructorProps, SessionFeature.ConstructorProps {
@@ -5199,7 +5654,7 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Database-based Cookie Jar.
          *
-         * #SoupCookieJarDB is a [class`CookieJar]` that reads cookies from and writes
+         * [class`CookieJarDB]` is a [class`CookieJar]` that reads cookies from and writes
          * them to a sqlite database in the new Mozilla format.
          *
          * (This is identical to `SoupCookieJarSqlite` in
@@ -5216,6 +5671,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get filename(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CookieJarDB.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CookieJarDB.ConstructorProps>, ...args: any[]);
@@ -5226,6 +5690,24 @@ declare module 'gi://Soup?version=3.0' {
             // Conflicted with Soup.CookieJar.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof CookieJarDB.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CookieJarDB.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CookieJarDB.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CookieJarDB.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CookieJarDB.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CookieJarDB.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -5670,6 +6152,13 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace CookieJarText {
+            // Signal signatures
+            interface SignalSignatures extends CookieJar.SignalSignatures {
+                'notify::filename': (pspec: GObject.ParamSpec) => void;
+                'notify::accept-policy': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends CookieJar.ConstructorProps, SessionFeature.ConstructorProps {
@@ -5680,7 +6169,7 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Text-file-based ("cookies.txt") Cookie Jar
          *
-         * #SoupCookieJarText is a [class`CookieJar]` that reads cookies from and writes
+         * [class`CookieJarText]` is a [class`CookieJar]` that reads cookies from and writes
          * them to a text file in format similar to Mozilla's "cookies.txt".
          */
         class CookieJarText extends CookieJar implements SessionFeature {
@@ -5693,6 +6182,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get filename(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CookieJarText.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CookieJarText.ConstructorProps>, ...args: any[]);
@@ -5703,6 +6201,24 @@ declare module 'gi://Soup?version=3.0' {
             // Conflicted with Soup.CookieJar.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof CookieJarText.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CookieJarText.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CookieJarText.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CookieJarText.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CookieJarText.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CookieJarText.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -6147,10 +6663,9 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace HSTSEnforcer {
-            // Signal callback interfaces
-
-            interface Changed {
-                (old_policy: HSTSPolicy, new_policy: HSTSPolicy): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                changed: (arg0: HSTSPolicy, arg1: HSTSPolicy) => void;
             }
 
             // Constructor properties interface
@@ -6161,29 +6676,38 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Automatic HTTP Strict Transport Security enforcing for [class`Session]`.
          *
-         * A #SoupHSTSEnforcer stores HSTS policies and enforces them when
-         * required. #SoupHSTSEnforcer implements [iface`SessionFeature]`, so you
+         * A [class`HSTSEnforcer]` stores HSTS policies and enforces them when
+         * required. [class`HSTSEnforcer]` implements [iface`SessionFeature]`, so you
          * can add an HSTS enforcer to a session with
          * [method`Session`.add_feature] or [method`Session`.add_feature_by_type].
          *
-         * #SoupHSTSEnforcer keeps track of all the HTTPS destinations that,
+         * [class`HSTSEnforcer]` keeps track of all the HTTPS destinations that,
          * when connected to, return the Strict-Transport-Security header with
-         * valid values. #SoupHSTSEnforcer will forget those destinations
+         * valid values. [class`HSTSEnforcer]` will forget those destinations
          * upon expiry or when the server requests it.
          *
-         * When the [class`Session]` the #SoupHSTSEnforcer is attached to queues or
-         * restarts a message, the #SoupHSTSEnforcer will rewrite the URI to HTTPS if
+         * When the [class`Session]` the [class`HSTSEnforcer]` is attached to queues or
+         * restarts a message, the [class`HSTSEnforcer]` will rewrite the URI to HTTPS if
          * the destination is a known HSTS host and is contacted over an insecure
-         * transport protocol (HTTP). Users of #SoupHSTSEnforcer are advised to listen
+         * transport protocol (HTTP). Users of [class`HSTSEnforcer]` are advised to listen
          * to changes in the [property`Message:`uri] property in order to be aware of
          * changes in the message URI.
          *
-         * Note that #SoupHSTSEnforcer does not support any form of long-term
+         * Note that [class`HSTSEnforcer]` does not support any form of long-term
          * HSTS policy persistence. See [class`HSTSEnforcerDB]` for a persistent
          * enforcer.
          */
         class HSTSEnforcer extends GObject.Object implements SessionFeature {
             static $gtype: GObject.GType<HSTSEnforcer>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HSTSEnforcer.SignalSignatures;
 
             // Constructors
 
@@ -6195,23 +6719,26 @@ declare module 'gi://Soup?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'changed',
-                callback: (_source: this, old_policy: HSTSPolicy, new_policy: HSTSPolicy) => void,
+            connect<K extends keyof HSTSEnforcer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HSTSEnforcer.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'changed',
-                callback: (_source: this, old_policy: HSTSPolicy, new_policy: HSTSPolicy) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HSTSEnforcer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HSTSEnforcer.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'changed', old_policy: HSTSPolicy, new_policy: HSTSPolicy): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HSTSEnforcer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HSTSEnforcer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
             /**
-             * The class closure for the #SoupHSTSEnforcer::changed signal.
+             * The class closure for the [signal`HSTSEnforcer:`:changed] signal.
              * @param old_policy
              * @param new_policy
              */
@@ -6716,6 +7243,11 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace HSTSEnforcerDB {
+            // Signal signatures
+            interface SignalSignatures extends HSTSEnforcer.SignalSignatures {
+                'notify::filename': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends HSTSEnforcer.ConstructorProps, SessionFeature.ConstructorProps {
@@ -6726,7 +7258,7 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Persistent HTTP Strict Transport Security enforcer.
          *
-         * #SoupHSTSEnforcerDB is a [class`HSTSEnforcer]` that uses a SQLite
+         * [class`HSTSEnforcerDB]` is a [class`HSTSEnforcer]` that uses a SQLite
          * database as a backend for persistency.
          */
         class HSTSEnforcerDB extends HSTSEnforcer implements SessionFeature {
@@ -6739,6 +7271,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get filename(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HSTSEnforcerDB.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HSTSEnforcerDB.ConstructorProps>, ...args: any[]);
@@ -6749,6 +7290,24 @@ declare module 'gi://Soup?version=3.0' {
             // Conflicted with Soup.HSTSEnforcer.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof HSTSEnforcerDB.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HSTSEnforcerDB.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HSTSEnforcerDB.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HSTSEnforcerDB.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HSTSEnforcerDB.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HSTSEnforcerDB.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -7193,6 +7752,12 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace Logger {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::level': (pspec: GObject.ParamSpec) => void;
+                'notify::max-body-size': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {
@@ -7205,12 +7770,12 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Debug logging support
          *
-         * #SoupLogger watches a [class`Session]` and logs the HTTP traffic that
+         * [class`Logger]` watches a [class`Session]` and logs the HTTP traffic that
          * it generates, for debugging purposes. Many applications use an
          * environment variable to determine whether or not to use
-         * #SoupLogger, and to determine the amount of debugging output.
+         * [class`Logger]`, and to determine the amount of debugging output.
          *
-         * To use #SoupLogger, first create a logger with [ctor`Logger`.new], optionally
+         * To use [class`Logger]`, first create a logger with [ctor`Logger`.new], optionally
          * configure it with [method`Logger`.set_request_filter],
          * [method`Logger`.set_response_filter], and [method`Logger`.set_printer], and
          * then attach it to a session (or multiple sessions) with
@@ -7227,11 +7792,11 @@ declare module 'gi://Soup?version=3.0' {
          * > Content-Type: text/plain
          * > Connection: close
          *
-         * &lt; HTTP/1.1 201 Created
-         * &lt; Soup-Debug-Timestamp: 1200171744
-         * &lt; Soup-Debug: SoupMessage 1 (0x617000)
-         * &lt; Date: Sun, 12 Jan 2008 21:02:24 GMT
-         * &lt; Content-Length: 0
+         * < HTTP/1.1 201 Created
+         * < Soup-Debug-Timestamp: 1200171744
+         * < Soup-Debug: SoupMessage 1 (0x617000)
+         * < Date: Sun, 12 Jan 2008 21:02:24 GMT
+         * < Content-Length: 0
          * ```
          *
          * The `Soup-Debug-Timestamp` line gives the time (as a `time_t`) when the
@@ -7241,7 +7806,7 @@ declare module 'gi://Soup?version=3.0' {
          * [class`Session]`, [class`Message]`, and [class`Gio`.Socket] involved; the hex
          * numbers are the addresses of the objects in question (which may be useful if
          * you are running in a debugger). The decimal IDs are simply counters that
-         * uniquely identify objects across the lifetime of the #SoupLogger. In
+         * uniquely identify objects across the lifetime of the [class`Logger]`. In
          * particular, this can be used to identify when multiple messages are sent
          * across the same connection.
          *
@@ -7253,7 +7818,7 @@ declare module 'gi://Soup?version=3.0' {
          * from the network (from the [signal`Message:`:got-body] or
          * [signal`Message:`:got-informational] signal), which means that the
          * [signal`Message:`:got-headers] signal, and anything triggered off it (such as
-         * #SoupMessage::authenticate) will be emitted *before* the response headers are
+         * [signal`Message:`:authenticate]) will be emitted *before* the response headers are
          * actually logged.
          *
          * If the response doesn't happen to trigger the [signal`Message:`:got-body] nor
@@ -7287,6 +7852,15 @@ declare module 'gi://Soup?version=3.0' {
             get maxBodySize(): number;
             set maxBodySize(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Logger.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Logger.ConstructorProps>, ...args: any[]);
@@ -7294,6 +7868,24 @@ declare module 'gi://Soup?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](level: LoggerLogLevel): Logger;
+
+            // Signals
+
+            connect<K extends keyof Logger.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Logger.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Logger.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Logger.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Logger.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Logger.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7777,74 +8369,43 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace Message {
-            // Signal callback interfaces
-
-            interface AcceptCertificate {
-                (tls_peer_certificate: Gio.TlsCertificate, tls_peer_errors: Gio.TlsCertificateFlags): boolean;
-            }
-
-            interface Authenticate {
-                (auth: Auth, retrying: boolean): boolean;
-            }
-
-            interface ContentSniffed {
-                (type: string, params: { [key: string]: any } | GLib.HashTable<string, string>): void;
-            }
-
-            interface Finished {
-                (): void;
-            }
-
-            interface GotBody {
-                (): void;
-            }
-
-            interface GotBodyData {
-                (chunk_size: number): void;
-            }
-
-            interface GotHeaders {
-                (): void;
-            }
-
-            interface GotInformational {
-                (): void;
-            }
-
-            interface HstsEnforced {
-                (): void;
-            }
-
-            interface NetworkEvent {
-                (event: Gio.SocketClientEvent, connection: Gio.IOStream): void;
-            }
-
-            interface RequestCertificate {
-                (tls_connection: Gio.TlsClientConnection): boolean;
-            }
-
-            interface RequestCertificatePassword {
-                (tls_password: Gio.TlsPassword): boolean;
-            }
-
-            interface Restarted {
-                (): void;
-            }
-
-            interface Starting {
-                (): void;
-            }
-
-            interface WroteBody {
-                (): void;
-            }
-
-            interface WroteBodyData {
-                (chunk_size: number): void;
-            }
-
-            interface WroteHeaders {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'accept-certificate': (arg0: Gio.TlsCertificate, arg1: Gio.TlsCertificateFlags) => boolean | void;
+                authenticate: (arg0: Auth, arg1: boolean) => boolean | void;
+                'content-sniffed': (arg0: string, arg1: GLib.HashTable<string, string>) => void;
+                finished: () => void;
+                'got-body': () => void;
+                'got-body-data': (arg0: number) => void;
+                'got-headers': () => void;
+                'got-informational': () => void;
+                'hsts-enforced': () => void;
+                'network-event': (arg0: Gio.SocketClientEvent, arg1: Gio.IOStream) => void;
+                'request-certificate': (arg0: Gio.TlsClientConnection) => boolean | void;
+                'request-certificate-password': (arg0: Gio.TlsPassword) => boolean | void;
+                restarted: () => void;
+                starting: () => void;
+                'wrote-body': () => void;
+                'wrote-body-data': (arg0: number) => void;
+                'wrote-headers': () => void;
+                'notify::first-party': (pspec: GObject.ParamSpec) => void;
+                'notify::flags': (pspec: GObject.ParamSpec) => void;
+                'notify::http-version': (pspec: GObject.ParamSpec) => void;
+                'notify::is-options-ping': (pspec: GObject.ParamSpec) => void;
+                'notify::is-top-level-navigation': (pspec: GObject.ParamSpec) => void;
+                'notify::method': (pspec: GObject.ParamSpec) => void;
+                'notify::priority': (pspec: GObject.ParamSpec) => void;
+                'notify::reason-phrase': (pspec: GObject.ParamSpec) => void;
+                'notify::remote-address': (pspec: GObject.ParamSpec) => void;
+                'notify::request-headers': (pspec: GObject.ParamSpec) => void;
+                'notify::response-headers': (pspec: GObject.ParamSpec) => void;
+                'notify::site-for-cookies': (pspec: GObject.ParamSpec) => void;
+                'notify::status-code': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-ciphersuite-name': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-peer-certificate': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-peer-certificate-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-protocol-version': (pspec: GObject.ParamSpec) => void;
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -7888,10 +8449,10 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Represents an HTTP message being sent or received.
          *
-         * A #SoupMessage represents an HTTP message that is being sent or
+         * A [class`Message]` represents an HTTP message that is being sent or
          * received.
          *
-         * You would create a #SoupMessage with [ctor`Message`.new] or
+         * You would create a [class`Message]` with [ctor`Message`.new] or
          * [ctor`Message`.new_from_uri], set up its fields appropriately, and send it.
          *
          * [property`Message:`status-code] will normally be a [enum`Status]` value, eg,
@@ -7906,7 +8467,7 @@ declare module 'gi://Soup?version=3.0' {
          *
          * Note that libsoup's terminology here does not quite match the HTTP
          * specification: in RFC 2616, an "HTTP-message" is *either* a Request, *or* a
-         * Response. In libsoup, a #SoupMessage combines both the request and the
+         * Response. In libsoup, a [class`Message]` combines both the request and the
          * response.
          */
         class Message extends GObject.Object {
@@ -7942,7 +8503,7 @@ declare module 'gi://Soup?version=3.0' {
             /**
              * Whether the message is an OPTIONS ping.
              *
-             * The #SoupMessage is intended to be used to send
+             * The [class`Message]` is intended to be used to send
              * `OPTIONS *` to a server. When set to %TRUE, the
              * path of [property`Message:`uri] will be ignored and
              * [property`Message:`method] set to %SOUP_METHOD_OPTIONS.
@@ -7952,7 +8513,7 @@ declare module 'gi://Soup?version=3.0' {
             /**
              * Whether the message is an OPTIONS ping.
              *
-             * The #SoupMessage is intended to be used to send
+             * The [class`Message]` is intended to be used to send
              * `OPTIONS *` to a server. When set to %TRUE, the
              * path of [property`Message:`uri] will be ignored and
              * [property`Message:`method] set to %SOUP_METHOD_OPTIONS.
@@ -7975,7 +8536,7 @@ declare module 'gi://Soup?version=3.0' {
             get method(): string;
             set method(val: string);
             /**
-             * Sets the priority of the #SoupMessage. See
+             * Sets the priority of the [class`Message]`. See
              * [method`Message`.set_priority] for further details.
              */
             get priority(): MessagePriority;
@@ -8070,6 +8631,15 @@ declare module 'gi://Soup?version=3.0' {
             get uri(): GLib.Uri;
             set uri(val: GLib.Uri);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Message.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Message.ConstructorProps>, ...args: any[]);
@@ -8088,112 +8658,21 @@ declare module 'gi://Soup?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'accept-certificate',
-                callback: (
-                    _source: this,
-                    tls_peer_certificate: Gio.TlsCertificate,
-                    tls_peer_errors: Gio.TlsCertificateFlags,
-                ) => boolean,
+            connect<K extends keyof Message.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Message.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'accept-certificate',
-                callback: (
-                    _source: this,
-                    tls_peer_certificate: Gio.TlsCertificate,
-                    tls_peer_errors: Gio.TlsCertificateFlags,
-                ) => boolean,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Message.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Message.SignalSignatures[K]>,
             ): number;
-            emit(
-                signal: 'accept-certificate',
-                tls_peer_certificate: Gio.TlsCertificate,
-                tls_peer_errors: Gio.TlsCertificateFlags,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Message.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Message.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(
-                signal: 'authenticate',
-                callback: (_source: this, auth: Auth, retrying: boolean) => boolean,
-            ): number;
-            connect_after(
-                signal: 'authenticate',
-                callback: (_source: this, auth: Auth, retrying: boolean) => boolean,
-            ): number;
-            emit(signal: 'authenticate', auth: Auth, retrying: boolean): void;
-            connect(
-                signal: 'content-sniffed',
-                callback: (_source: this, type: string, params: GLib.HashTable<string, string>) => void,
-            ): number;
-            connect_after(
-                signal: 'content-sniffed',
-                callback: (_source: this, type: string, params: GLib.HashTable<string, string>) => void,
-            ): number;
-            emit(
-                signal: 'content-sniffed',
-                type: string,
-                params: { [key: string]: any } | GLib.HashTable<string, string>,
-            ): void;
-            connect(signal: 'finished', callback: (_source: this) => void): number;
-            connect_after(signal: 'finished', callback: (_source: this) => void): number;
-            emit(signal: 'finished'): void;
-            connect(signal: 'got-body', callback: (_source: this) => void): number;
-            connect_after(signal: 'got-body', callback: (_source: this) => void): number;
-            emit(signal: 'got-body'): void;
-            connect(signal: 'got-body-data', callback: (_source: this, chunk_size: number) => void): number;
-            connect_after(signal: 'got-body-data', callback: (_source: this, chunk_size: number) => void): number;
-            emit(signal: 'got-body-data', chunk_size: number): void;
-            connect(signal: 'got-headers', callback: (_source: this) => void): number;
-            connect_after(signal: 'got-headers', callback: (_source: this) => void): number;
-            emit(signal: 'got-headers'): void;
-            connect(signal: 'got-informational', callback: (_source: this) => void): number;
-            connect_after(signal: 'got-informational', callback: (_source: this) => void): number;
-            emit(signal: 'got-informational'): void;
-            connect(signal: 'hsts-enforced', callback: (_source: this) => void): number;
-            connect_after(signal: 'hsts-enforced', callback: (_source: this) => void): number;
-            emit(signal: 'hsts-enforced'): void;
-            connect(
-                signal: 'network-event',
-                callback: (_source: this, event: Gio.SocketClientEvent, connection: Gio.IOStream) => void,
-            ): number;
-            connect_after(
-                signal: 'network-event',
-                callback: (_source: this, event: Gio.SocketClientEvent, connection: Gio.IOStream) => void,
-            ): number;
-            emit(signal: 'network-event', event: Gio.SocketClientEvent, connection: Gio.IOStream): void;
-            connect(
-                signal: 'request-certificate',
-                callback: (_source: this, tls_connection: Gio.TlsClientConnection) => boolean,
-            ): number;
-            connect_after(
-                signal: 'request-certificate',
-                callback: (_source: this, tls_connection: Gio.TlsClientConnection) => boolean,
-            ): number;
-            emit(signal: 'request-certificate', tls_connection: Gio.TlsClientConnection): void;
-            connect(
-                signal: 'request-certificate-password',
-                callback: (_source: this, tls_password: Gio.TlsPassword) => boolean,
-            ): number;
-            connect_after(
-                signal: 'request-certificate-password',
-                callback: (_source: this, tls_password: Gio.TlsPassword) => boolean,
-            ): number;
-            emit(signal: 'request-certificate-password', tls_password: Gio.TlsPassword): void;
-            connect(signal: 'restarted', callback: (_source: this) => void): number;
-            connect_after(signal: 'restarted', callback: (_source: this) => void): number;
-            emit(signal: 'restarted'): void;
-            connect(signal: 'starting', callback: (_source: this) => void): number;
-            connect_after(signal: 'starting', callback: (_source: this) => void): number;
-            emit(signal: 'starting'): void;
-            connect(signal: 'wrote-body', callback: (_source: this) => void): number;
-            connect_after(signal: 'wrote-body', callback: (_source: this) => void): number;
-            emit(signal: 'wrote-body'): void;
-            connect(signal: 'wrote-body-data', callback: (_source: this, chunk_size: number) => void): number;
-            connect_after(signal: 'wrote-body-data', callback: (_source: this, chunk_size: number) => void): number;
-            emit(signal: 'wrote-body-data', chunk_size: number): void;
-            connect(signal: 'wrote-headers', callback: (_source: this) => void): number;
-            connect_after(signal: 'wrote-headers', callback: (_source: this) => void): number;
-            emit(signal: 'wrote-headers'): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -8214,7 +8693,7 @@ declare module 'gi://Soup?version=3.0' {
              * a message that has already been queued is undefined. In particular,
              * you cannot call this on a message that is being requeued after a
              * redirect or authentication.
-             * @param feature_type the #GType of a #SoupSessionFeature
+             * @param feature_type the #GType of a [iface@SessionFeature]
              */
             disable_feature(feature_type: GObject.GType): void;
             /**
@@ -8299,12 +8778,12 @@ declare module 'gi://Soup?version=3.0' {
             get_remote_address(): Gio.SocketAddress | null;
             /**
              * Returns the headers sent with the request.
-             * @returns The #SoupMessageHeaders
+             * @returns The [struct@MessageHeaders]
              */
             get_request_headers(): MessageHeaders;
             /**
              * Returns the headers recieved with the response.
-             * @returns The #SoupMessageHeaders
+             * @returns The [struct@MessageHeaders]
              */
             get_response_headers(): MessageHeaders;
             /**
@@ -8354,7 +8833,7 @@ declare module 'gi://Soup?version=3.0' {
              * (or a subclass of that type) are disabled on `msg`.
              *
              * See [method`Message`.disable_feature].
-             * @param feature_type the #GType of a #SoupSessionFeature
+             * @param feature_type the #GType of a [iface@SessionFeature]
              * @returns %TRUE if feature is disabled, or %FALSE otherwise.
              */
             is_feature_disabled(feature_type: GObject.GType): boolean;
@@ -8436,7 +8915,7 @@ declare module 'gi://Soup?version=3.0' {
              */
             set_priority(priority: MessagePriority | null): void;
             /**
-             * Set the request body of a #SoupMessage.
+             * Set the request body of a [class`Message]`.
              *
              * If `content_type` is %NULL and `stream` is not %NULL the Content-Type header will
              * not be changed if present.
@@ -8448,7 +8927,7 @@ declare module 'gi://Soup?version=3.0' {
              */
             set_request_body(content_type: string | null, stream: Gio.InputStream | null, content_length: number): void;
             /**
-             * Set the request body of a #SoupMessage from [struct`GLib`.Bytes].
+             * Set the request body of a [class`Message]` from [struct`GLib`.Bytes].
              *
              * If `content_type` is %NULL and `bytes` is not %NULL the Content-Type header will
              * not be changed if present.
@@ -8502,11 +8981,17 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace MultipartInputStream {
+            // Signal signatures
+            interface SignalSignatures extends Gio.FilterInputStream.SignalSignatures {
+                'notify::message': (pspec: GObject.ParamSpec) => void;
+                'notify::base-stream': (pspec: GObject.ParamSpec) => void;
+                'notify::close-base-stream': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.FilterInputStream.ConstructorProps,
-                    Gio.PollableInputStream.ConstructorProps {
+                extends Gio.FilterInputStream.ConstructorProps, Gio.PollableInputStream.ConstructorProps {
                 message: Message;
             }
         }
@@ -8520,7 +9005,7 @@ declare module 'gi://Soup?version=3.0' {
          * [method`MultipartInputStream`.next_part] before reading. Responses
          * which are not wrapped will be treated like non-multipart responses.
          *
-         * Note that although #SoupMultipartInputStream is a [class`Gio`.InputStream],
+         * Note that although [class`MultipartInputStream]` is a [class`Gio`.InputStream],
          * you should not read directly from it, and the results are undefined
          * if you do.
          */
@@ -8534,6 +9019,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get message(): Message;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MultipartInputStream.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MultipartInputStream.ConstructorProps>, ...args: any[]);
@@ -8542,13 +9036,33 @@ declare module 'gi://Soup?version=3.0' {
 
             static ['new'](msg: Message, base_stream: Gio.InputStream): MultipartInputStream;
 
+            // Signals
+
+            connect<K extends keyof MultipartInputStream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MultipartInputStream.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MultipartInputStream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MultipartInputStream.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MultipartInputStream.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MultipartInputStream.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             /**
              * Obtains the headers for the part currently being processed.
              *
              * Note that the [struct`MessageHeaders]` that are returned are owned by the
-             * #SoupMultipartInputStream and will be replaced when a call is made to
+             * [class`MultipartInputStream]` and will be replaced when a call is made to
              * [method`MultipartInputStream`.next_part] or its async counterpart, so if
              * keeping the headers is required, a copy must be made.
              *
@@ -8561,7 +9075,7 @@ declare module 'gi://Soup?version=3.0' {
              * Obtains an input stream for the next part.
              *
              * When dealing with a multipart response the input stream needs to be wrapped
-             * in a #SoupMultipartInputStream and this function or its async counterpart
+             * in a [class`MultipartInputStream]` and this function or its async counterpart
              * need to be called to obtain the first part for reading.
              *
              * After calling this function,
@@ -8583,7 +9097,10 @@ declare module 'gi://Soup?version=3.0' {
              * @param io_priority the I/O priority for the request.
              * @param cancellable a #GCancellable.
              */
-            next_part_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<Gio.InputStream | null>;
+            next_part_async(
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<Gio.InputStream | null>;
             /**
              * Obtains a [class`Gio`.InputStream] for the next request.
              *
@@ -8609,7 +9126,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Gio.InputStream | null> | void;
+            ): globalThis.Promise<Gio.InputStream | null> | void;
             /**
              * Finishes an asynchronous request for the next part.
              * @param result a #GAsyncResult.
@@ -8781,7 +9298,7 @@ declare module 'gi://Soup?version=3.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional cancellable object
              */
-            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Requests an asynchronous closes of the stream, releasing resources related to it.
              * When the operation is finished `callback` will be called.
@@ -8821,7 +9338,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes closing a stream asynchronously, started from g_input_stream_close_async().
              * @param result a #GAsyncResult.
@@ -8902,7 +9419,10 @@ declare module 'gi://Soup?version=3.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore
              */
-            read_all_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            read_all_async(
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): [globalThis.Promise<number>, Uint8Array];
             /**
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
@@ -8942,7 +9462,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): [Promise<number> | void, Uint8Array];
+            ): [globalThis.Promise<number> | void, Uint8Array];
             /**
              * Finishes an asynchronous stream read operation started with
              * [method`InputStream`.read_all_async].
@@ -8984,7 +9504,10 @@ declare module 'gi://Soup?version=3.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            read_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            read_async(
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): [globalThis.Promise<number>, Uint8Array];
             /**
              * Request an asynchronous read of `count` bytes from the stream into the buffer
              * starting at `buffer`. When the operation is finished `callback` will be called.
@@ -9050,7 +9573,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): [Promise<number> | void, Uint8Array];
+            ): [globalThis.Promise<number> | void, Uint8Array];
             /**
              * Like g_input_stream_read(), this tries to read `count` bytes from
              * the stream in a blocking fashion. However, rather than reading into
@@ -9109,7 +9632,7 @@ declare module 'gi://Soup?version=3.0' {
                 count: number,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Bytes>;
+            ): globalThis.Promise<GLib.Bytes>;
             /**
              * Request an asynchronous read of `count` bytes from the stream into a
              * new #GBytes. When the operation is finished `callback` will be
@@ -9173,7 +9696,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Bytes> | void;
+            ): globalThis.Promise<GLib.Bytes> | void;
             /**
              * Finishes an asynchronous stream read-into-#GBytes operation.
              * @param result a #GAsyncResult.
@@ -9241,7 +9764,11 @@ declare module 'gi://Soup?version=3.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            skip_async(count: number, io_priority: number, cancellable?: Gio.Cancellable | null): Promise<number>;
+            skip_async(
+                count: number,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<number>;
             /**
              * Request an asynchronous skip of `count` bytes from the stream.
              * When the operation is finished `callback` will be called.
@@ -9311,7 +9838,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes a stream skip operation.
              * @param result a #GAsyncResult.
@@ -9493,22 +10020,17 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace Server {
-            // Signal callback interfaces
-
-            interface RequestAborted {
-                (message: ServerMessage): void;
-            }
-
-            interface RequestFinished {
-                (message: ServerMessage): void;
-            }
-
-            interface RequestRead {
-                (message: ServerMessage): void;
-            }
-
-            interface RequestStarted {
-                (message: ServerMessage): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'request-aborted': (arg0: ServerMessage) => void;
+                'request-finished': (arg0: ServerMessage) => void;
+                'request-read': (arg0: ServerMessage) => void;
+                'request-started': (arg0: ServerMessage) => void;
+                'notify::raw-paths': (pspec: GObject.ParamSpec) => void;
+                'notify::server-header': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-auth-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-certificate': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-database': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -9528,7 +10050,7 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         /**
-         * #SoupServer provides a basic implementation of an HTTP server. The
+         * [class`Server]` provides a basic implementation of an HTTP server. The
          * recommended usage of this server is for internal use, tasks like
          * a mock server for tests, a private service for IPC, etc. It is not
          * recommended to be exposed to untrusted clients as it may be vulnerable
@@ -9542,20 +10064,20 @@ declare module 'gi://Soup?version=3.0' {
          * the path.)
          *
          * When a new connection is accepted (or a new request is started on
-         * an existing persistent connection), the #SoupServer will emit
+         * an existing persistent connection), the [class`Server]` will emit
          * [signal`Server:`:request-started] and then begin processing the request
          * as described below, but note that once the message is assigned a
          * status-code, then callbacks after that point will be
          * skipped. Note also that it is not defined when the callbacks happen
          * relative to various [class`ServerMessage]` signals.
          *
-         * Once the headers have been read, #SoupServer will check if there is
+         * Once the headers have been read, [class`Server]` will check if there is
          * a [class`AuthDomain]` `(qv)` covering the Request-URI; if so, and if the
          * message does not contain suitable authorization, then the
          * [class`AuthDomain]` will set a status of %SOUP_STATUS_UNAUTHORIZED on
          * the message.
          *
-         * After checking for authorization, #SoupServer will look for "early"
+         * After checking for authorization, [class`Server]` will look for "early"
          * handlers (added with [method`Server`.add_early_handler]) matching the
          * Request-URI. If one is found, it will be run; in particular, this
          * can be used to connect to signals to do a streaming read of the
@@ -9563,10 +10085,10 @@ declare module 'gi://Soup?version=3.0' {
          *
          * (At this point, if the request headers contain `Expect:
          * 100-continue`, and a status code has been set, then
-         * #SoupServer will skip the remaining steps and return the response.
+         * [class`Server]` will skip the remaining steps and return the response.
          * If the request headers contain `Expect:
          * 100-continue` and no status code has been set,
-         * #SoupServer will return a %SOUP_STATUS_CONTINUE status before
+         * [class`Server]` will return a %SOUP_STATUS_CONTINUE status before
          * continuing.)
          *
          * The server will then read in the response body (if present). At
@@ -9580,7 +10102,7 @@ declare module 'gi://Soup?version=3.0' {
          * run.
          *
          * Then, if the path has a WebSocket handler registered (and has
-         * not yet been assigned a status), #SoupServer will attempt to
+         * not yet been assigned a status), [class`Server]` will attempt to
          * validate the WebSocket handshake, filling in the response and
          * setting a status of %SOUP_STATUS_SWITCHING_PROTOCOLS or
          * %SOUP_STATUS_BAD_REQUEST accordingly.
@@ -9605,13 +10127,13 @@ declare module 'gi://Soup?version=3.0' {
          * Once the server is set up, make one or more calls to
          * [method`Server`.listen], [method`Server`.listen_local], or
          * [method`Server`.listen_all] to tell it where to listen for
-         * connections. (All ports on a #SoupServer use the same handlers; if
+         * connections. (All ports on a [class`Server]` use the same handlers; if
          * you need to handle some ports differently, such as returning
          * different data for http and https, you'll need to create multiple
-         * `SoupServer`s, or else check the passed-in URI in the handler
+         * [class`Server]`s, or else check the passed-in URI in the handler
          * function.).
          *
-         * #SoupServer will begin processing connections as soon as you return
+         * [class`Server]` will begin processing connections as soon as you return
          * to (or start) the main loop for the current thread-default
          * [struct`GLib`.MainContext].
          */
@@ -9654,7 +10176,7 @@ declare module 'gi://Soup?version=3.0' {
              *
              * As with [property`Session:`user_agent], if you set a
              * [property`Server:`server-header] property that has trailing
-             * whitespace, #SoupServer will append its own product token (eg,
+             * whitespace, [class`Server]` will append its own product token (eg,
              * `libsoup/2.3.2`) to the end of the header for you.
              */
             get server_header(): string;
@@ -9683,7 +10205,7 @@ declare module 'gi://Soup?version=3.0' {
              *
              * As with [property`Session:`user_agent], if you set a
              * [property`Server:`server-header] property that has trailing
-             * whitespace, #SoupServer will append its own product token (eg,
+             * whitespace, [class`Server]` will append its own product token (eg,
              * `libsoup/2.3.2`) to the end of the header for you.
              */
             get serverHeader(): string;
@@ -9729,6 +10251,15 @@ declare module 'gi://Soup?version=3.0' {
             get tlsDatabase(): Gio.TlsDatabase;
             set tlsDatabase(val: Gio.TlsDatabase);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Server.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Server.ConstructorProps>, ...args: any[]);
@@ -9737,24 +10268,21 @@ declare module 'gi://Soup?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'request-aborted', callback: (_source: this, message: ServerMessage) => void): number;
-            connect_after(signal: 'request-aborted', callback: (_source: this, message: ServerMessage) => void): number;
-            emit(signal: 'request-aborted', message: ServerMessage): void;
-            connect(signal: 'request-finished', callback: (_source: this, message: ServerMessage) => void): number;
-            connect_after(
-                signal: 'request-finished',
-                callback: (_source: this, message: ServerMessage) => void,
+            connect<K extends keyof Server.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Server.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'request-finished', message: ServerMessage): void;
-            connect(signal: 'request-read', callback: (_source: this, message: ServerMessage) => void): number;
-            connect_after(signal: 'request-read', callback: (_source: this, message: ServerMessage) => void): number;
-            emit(signal: 'request-read', message: ServerMessage): void;
-            connect(signal: 'request-started', callback: (_source: this, message: ServerMessage) => void): number;
-            connect_after(signal: 'request-started', callback: (_source: this, message: ServerMessage) => void): number;
-            emit(signal: 'request-started', message: ServerMessage): void;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Server.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Server.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Server.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Server.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -9947,7 +10475,7 @@ declare module 'gi://Soup?version=3.0' {
              * Note that if you used [method`Server`.listen_all] the returned URIs will use
              * the addresses `0.0.0.0` and `::`, rather than actually returning separate
              * URIs for each interface on the system.
-             * @returns a list of #GUris, which you   must free when you are done with it.
+             * @returns a list of [struct@GLib.Uri], which you   must free with each element with [method@GLib.Uri.unref] when you are done with it.
              */
             get_uris(): GLib.Uri[];
             /**
@@ -9959,7 +10487,7 @@ declare module 'gi://Soup?version=3.0' {
              * certificate to use.
              *
              * If you are using the deprecated single-listener APIs, then a return value of
-             * %TRUE indicates that the #SoupServer serves https exclusively. If you are
+             * %TRUE indicates that the [class`Server]` serves https exclusively. If you are
              * using [method`Server`.listen], etc, then a %TRUE return value merely indicates
              * that the server is *able* to do https, regardless of whether it actually
              * currently is or not. Use [method`Server`.get_uris] to see if it currently has
@@ -10038,7 +10566,7 @@ declare module 'gi://Soup?version=3.0' {
              * resume I/O.
              *
              * This must only be called on a [class`ServerMessage]` which was created by the
-             * #SoupServer and are currently doing I/O, such as those passed into a
+             * [class`Server]` and are currently doing I/O, such as those passed into a
              * [callback`ServerCallback]` or emitted in a [signal`Server:`:request-read]
              * signal.
              * @param msg a #SoupServerMessage associated with @server.
@@ -10084,7 +10612,7 @@ declare module 'gi://Soup?version=3.0' {
              * I/O won't actually resume until you return to the main loop.
              *
              * This must only be called on a [class`ServerMessage]` which was created by the
-             * #SoupServer and are currently doing I/O, such as those passed into a
+             * [class`Server]` and are currently doing I/O, such as those passed into a
              * [callback`ServerCallback]` or emitted in a [signal`Server:`:request-read]
              * signal.
              * @param msg a #SoupServerMessage associated with @server.
@@ -10093,54 +10621,22 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace ServerMessage {
-            // Signal callback interfaces
-
-            interface AcceptCertificate {
-                (tls_peer_certificate: Gio.TlsCertificate, tls_peer_errors: Gio.TlsCertificateFlags): boolean;
-            }
-
-            interface Connected {
-                (): void;
-            }
-
-            interface Disconnected {
-                (): void;
-            }
-
-            interface Finished {
-                (): void;
-            }
-
-            interface GotBody {
-                (): void;
-            }
-
-            interface GotChunk {
-                (chunk: GLib.Bytes | Uint8Array): void;
-            }
-
-            interface GotHeaders {
-                (): void;
-            }
-
-            interface WroteBody {
-                (): void;
-            }
-
-            interface WroteBodyData {
-                (chunk_size: number): void;
-            }
-
-            interface WroteChunk {
-                (): void;
-            }
-
-            interface WroteHeaders {
-                (): void;
-            }
-
-            interface WroteInformational {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'accept-certificate': (arg0: Gio.TlsCertificate, arg1: Gio.TlsCertificateFlags) => boolean | void;
+                connected: () => void;
+                disconnected: () => void;
+                finished: () => void;
+                'got-body': () => void;
+                'got-chunk': (arg0: GLib.Bytes) => void;
+                'got-headers': () => void;
+                'wrote-body': () => void;
+                'wrote-body-data': (arg0: number) => void;
+                'wrote-chunk': () => void;
+                'wrote-headers': () => void;
+                'wrote-informational': () => void;
+                'notify::tls-peer-certificate': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-peer-certificate-errors': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -10156,15 +10652,15 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * An HTTP server request and response pair.
          *
-         * A SoupServerMessage represents an HTTP message that is being sent or
+         * A [class`ServerMessage]` represents an HTTP message that is being sent or
          * received on a [class`Server]`.
          *
-         * [class`Server]` will create `SoupServerMessage`s automatically for
+         * [class`Server]` will create [class`ServerMessage]`s automatically for
          * incoming requests, which your application will receive via handlers.
          *
          * Note that libsoup's terminology here does not quite match the HTTP
          * specification: in RFC 2616, an "HTTP-message" is *either* a Request, *or* a
-         * Response. In libsoup, a #SoupServerMessage combines both the request and the
+         * Response. In libsoup, a [class`ServerMessage]` combines both the request and the
          * response.
          */
         class ServerMessage extends GObject.Object {
@@ -10181,13 +10677,22 @@ declare module 'gi://Soup?version=3.0' {
              */
             get tlsPeerCertificate(): Gio.TlsCertificate;
             /**
-             * The verification errors on #SoupServerMessage:tls-peer-certificate
+             * The verification errors on [property`ServerMessage:`tls-peer-certificate]
              */
             get tls_peer_certificate_errors(): Gio.TlsCertificateFlags;
             /**
-             * The verification errors on #SoupServerMessage:tls-peer-certificate
+             * The verification errors on [property`ServerMessage:`tls-peer-certificate]
              */
             get tlsPeerCertificateErrors(): Gio.TlsCertificateFlags;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ServerMessage.SignalSignatures;
 
             // Constructors
 
@@ -10197,63 +10702,21 @@ declare module 'gi://Soup?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'accept-certificate',
-                callback: (
-                    _source: this,
-                    tls_peer_certificate: Gio.TlsCertificate,
-                    tls_peer_errors: Gio.TlsCertificateFlags,
-                ) => boolean,
+            connect<K extends keyof ServerMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ServerMessage.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'accept-certificate',
-                callback: (
-                    _source: this,
-                    tls_peer_certificate: Gio.TlsCertificate,
-                    tls_peer_errors: Gio.TlsCertificateFlags,
-                ) => boolean,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ServerMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ServerMessage.SignalSignatures[K]>,
             ): number;
-            emit(
-                signal: 'accept-certificate',
-                tls_peer_certificate: Gio.TlsCertificate,
-                tls_peer_errors: Gio.TlsCertificateFlags,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ServerMessage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ServerMessage.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(signal: 'connected', callback: (_source: this) => void): number;
-            connect_after(signal: 'connected', callback: (_source: this) => void): number;
-            emit(signal: 'connected'): void;
-            connect(signal: 'disconnected', callback: (_source: this) => void): number;
-            connect_after(signal: 'disconnected', callback: (_source: this) => void): number;
-            emit(signal: 'disconnected'): void;
-            connect(signal: 'finished', callback: (_source: this) => void): number;
-            connect_after(signal: 'finished', callback: (_source: this) => void): number;
-            emit(signal: 'finished'): void;
-            connect(signal: 'got-body', callback: (_source: this) => void): number;
-            connect_after(signal: 'got-body', callback: (_source: this) => void): number;
-            emit(signal: 'got-body'): void;
-            connect(signal: 'got-chunk', callback: (_source: this, chunk: GLib.Bytes) => void): number;
-            connect_after(signal: 'got-chunk', callback: (_source: this, chunk: GLib.Bytes) => void): number;
-            emit(signal: 'got-chunk', chunk: GLib.Bytes | Uint8Array): void;
-            connect(signal: 'got-headers', callback: (_source: this) => void): number;
-            connect_after(signal: 'got-headers', callback: (_source: this) => void): number;
-            emit(signal: 'got-headers'): void;
-            connect(signal: 'wrote-body', callback: (_source: this) => void): number;
-            connect_after(signal: 'wrote-body', callback: (_source: this) => void): number;
-            emit(signal: 'wrote-body'): void;
-            connect(signal: 'wrote-body-data', callback: (_source: this, chunk_size: number) => void): number;
-            connect_after(signal: 'wrote-body-data', callback: (_source: this, chunk_size: number) => void): number;
-            emit(signal: 'wrote-body-data', chunk_size: number): void;
-            connect(signal: 'wrote-chunk', callback: (_source: this) => void): number;
-            connect_after(signal: 'wrote-chunk', callback: (_source: this) => void): number;
-            emit(signal: 'wrote-chunk'): void;
-            connect(signal: 'wrote-headers', callback: (_source: this) => void): number;
-            connect_after(signal: 'wrote-headers', callback: (_source: this) => void): number;
-            emit(signal: 'wrote-headers'): void;
-            connect(signal: 'wrote-informational', callback: (_source: this) => void): number;
-            connect_after(signal: 'wrote-informational', callback: (_source: this) => void): number;
-            emit(signal: 'wrote-informational'): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -10378,7 +10841,7 @@ declare module 'gi://Soup?version=3.0' {
              */
             set_redirect(status_code: number, redirect_uri: string): void;
             /**
-             * Convenience function to set the response body of a #SoupServerMessage. If
+             * Convenience function to set the response body of a [class`ServerMessage]`. If
              * `content_type` is %NULL, the response body must be empty as well.
              * @param content_type MIME Content-Type of the body
              * @param resp_use a #SoupMemoryUse describing how to handle @resp_body
@@ -10395,7 +10858,7 @@ declare module 'gi://Soup?version=3.0' {
              */
             set_status(status_code: number, reason_phrase?: string | null): void;
             /**
-             * "Steals" the HTTP connection associated with `msg` from its #SoupServer. This
+             * "Steals" the HTTP connection associated with `msg` from its [class`Server]`. This
              * happens immediately, regardless of the current state of the connection; if
              * the response to `msg` has not yet finished being sent, then it will be
              * discarded; you can steal the connection from a
@@ -10419,14 +10882,22 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace Session {
-            // Signal callback interfaces
-
-            interface RequestQueued {
-                (msg: Message): void;
-            }
-
-            interface RequestUnqueued {
-                (msg: Message): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'request-queued': (arg0: Message) => void;
+                'request-unqueued': (arg0: Message) => void;
+                'notify::accept-language': (pspec: GObject.ParamSpec) => void;
+                'notify::accept-language-auto': (pspec: GObject.ParamSpec) => void;
+                'notify::idle-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::local-address': (pspec: GObject.ParamSpec) => void;
+                'notify::max-conns': (pspec: GObject.ParamSpec) => void;
+                'notify::max-conns-per-host': (pspec: GObject.ParamSpec) => void;
+                'notify::proxy-resolver': (pspec: GObject.ParamSpec) => void;
+                'notify::remote-connectable': (pspec: GObject.ParamSpec) => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-database': (pspec: GObject.ParamSpec) => void;
+                'notify::tls-interaction': (pspec: GObject.ParamSpec) => void;
+                'notify::user-agent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -10461,13 +10932,13 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * Soup session state object.
          *
-         * #SoupSession is the object that controls client-side HTTP. A
-         * #SoupSession encapsulates all of the state that libsoup is keeping
+         * [class`Session]` is the object that controls client-side HTTP. A
+         * [class`Session]` encapsulates all of the state that libsoup is keeping
          * on behalf of your program; cached HTTP connections, authentication
          * information, etc. It also keeps track of various global options
          * and features that you are using.
          *
-         * Most applications will only need a single #SoupSession; the primary
+         * Most applications will only need a single [class`Session]`; the primary
          * reason you might need multiple sessions is if you need to have
          * multiple independent authentication contexts. (Eg, you are
          * connecting to a server and authenticating as two different users at
@@ -10476,7 +10947,7 @@ declare module 'gi://Soup?version=3.0' {
          * one session for the first user, and a second session for the other
          * user.)
          *
-         * Additional #SoupSession functionality is provided by
+         * Additional [class`Session]` functionality is provided by
          * [iface`SessionFeature]` objects, which can be added to a session with
          * [method`Session`.add_feature] or [method`Session`.add_feature_by_type]
          * For example, [class`Logger]` provides support for
@@ -10488,7 +10959,7 @@ declare module 'gi://Soup?version=3.0' {
          *
          * All `SoupSession`s are created with a [class`AuthManager]`, and support
          * for %SOUP_TYPE_AUTH_BASIC and %SOUP_TYPE_AUTH_DIGEST. Additionally,
-         * sessions using the plain #SoupSession class (rather than one of its deprecated
+         * sessions using the plain [class`Session]` class (rather than one of its deprecated
          * subtypes) have a [class`ContentDecoder]` by default.
          *
          * Note that all async methods will invoke their callbacks on the thread-default
@@ -10516,7 +10987,7 @@ declare module 'gi://Soup?version=3.0' {
             get acceptLanguage(): string;
             set acceptLanguage(val: string);
             /**
-             * If %TRUE, #SoupSession will automatically set the string
+             * If %TRUE, [class`Session]` will automatically set the string
              * for the "Accept-Language" header on every [class`Message]`
              * sent, based on the return value of [func`GLib`.get_language_names].
              *
@@ -10526,7 +10997,7 @@ declare module 'gi://Soup?version=3.0' {
             get accept_language_auto(): boolean;
             set accept_language_auto(val: boolean);
             /**
-             * If %TRUE, #SoupSession will automatically set the string
+             * If %TRUE, [class`Session]` will automatically set the string
              * for the "Accept-Language" header on every [class`Message]`
              * sent, based on the return value of [func`GLib`.get_language_names].
              *
@@ -10709,7 +11180,7 @@ declare module 'gi://Soup?version=3.0' {
              * enclosed in parentheses, between or after the tokens.
              *
              * If you set a [property`Session:`user-agent] property that has trailing
-             * whitespace, #SoupSession will append its own product token
+             * whitespace, [class`Session]` will append its own product token
              * (eg, `libsoup/2.3.2`) to the end of the
              * header for you.
              */
@@ -10738,12 +11209,21 @@ declare module 'gi://Soup?version=3.0' {
              * enclosed in parentheses, between or after the tokens.
              *
              * If you set a [property`Session:`user-agent] property that has trailing
-             * whitespace, #SoupSession will append its own product token
+             * whitespace, [class`Session]` will append its own product token
              * (eg, `libsoup/2.3.2`) to the end of the
              * header for you.
              */
             get userAgent(): string;
             set userAgent(val: string);
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Session.SignalSignatures;
 
             // Constructors
 
@@ -10755,15 +11235,21 @@ declare module 'gi://Soup?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'request-queued', callback: (_source: this, msg: Message) => void): number;
-            connect_after(signal: 'request-queued', callback: (_source: this, msg: Message) => void): number;
-            emit(signal: 'request-queued', msg: Message): void;
-            connect(signal: 'request-unqueued', callback: (_source: this, msg: Message) => void): number;
-            connect_after(signal: 'request-unqueued', callback: (_source: this, msg: Message) => void): number;
-            emit(signal: 'request-unqueued', msg: Message): void;
+            connect<K extends keyof Session.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Session.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Session.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Session.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Session.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Session.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -10781,7 +11267,7 @@ declare module 'gi://Soup?version=3.0' {
              * Adds `feature'`s functionality to `session`. You cannot add multiple
              * features of the same [alias`GObject`.Type] to a session.
              *
-             * See the main #SoupSession documentation for information on what
+             * See the main [class`Session]` documentation for information on what
              * features are present in sessions by default.
              * @param feature an object that implements #SoupSessionFeature
              */
@@ -10797,7 +11283,7 @@ declare module 'gi://Soup?version=3.0' {
              * existing feature on `session` the chance to accept `feature_type` as
              * a "subfeature". This can be used to add new [class`Auth]` types, for instance.
              *
-             * See the main #SoupSession documentation for information on what
+             * See the main [class`Session]` documentation for information on what
              * features are present in sessions by default.
              * @param feature_type a #GType
              */
@@ -10914,7 +11400,11 @@ declare module 'gi://Soup?version=3.0' {
              * @param io_priority the I/O priority of the request
              * @param cancellable a #GCancellable
              */
-            preconnect_async(msg: Message, io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            preconnect_async(
+                msg: Message,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<boolean>;
             /**
              * Start a preconnection to `msg`.
              *
@@ -10960,7 +11450,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete a preconnect async operation started with [method`Session`.preconnect_async].
              * @param result the #GAsyncResult passed to your callback
@@ -11036,7 +11526,7 @@ declare module 'gi://Soup?version=3.0' {
                 msg: Message,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Bytes>;
+            ): globalThis.Promise<GLib.Bytes>;
             /**
              * Asynchronously sends `msg` and reads the response body.
              *
@@ -11078,7 +11568,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Bytes> | void;
+            ): globalThis.Promise<GLib.Bytes> | void;
             /**
              * Gets the response to a [method`Session`.send_and_read_async].
              *
@@ -11121,7 +11611,7 @@ declare module 'gi://Soup?version=3.0' {
                 flags: Gio.OutputStreamSpliceFlags | null,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Asynchronously sends `msg` and splices the response body stream into `out_stream`.
              * When `callback` is called, then either `msg` has been sent and its response body
@@ -11163,7 +11653,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Gets the response to a [method`Session`.send_and_splice_async].
              * @param result the #GAsyncResult passed to your callback
@@ -11187,7 +11677,7 @@ declare module 'gi://Soup?version=3.0' {
                 msg: Message,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<Gio.InputStream>;
+            ): globalThis.Promise<Gio.InputStream>;
             /**
              * Asynchronously sends `msg` and waits for the beginning of a response.
              *
@@ -11227,7 +11717,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Gio.InputStream> | void;
+            ): globalThis.Promise<Gio.InputStream> | void;
             /**
              * Gets the response to a [method`Session`.send_async] call.
              *
@@ -11338,7 +11828,7 @@ declare module 'gi://Soup?version=3.0' {
                 protocols: string[] | null,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<WebsocketConnection>;
+            ): globalThis.Promise<WebsocketConnection>;
             /**
              * Asynchronously creates a [class`WebsocketConnection]` to communicate with a
              * remote server.
@@ -11404,7 +11894,7 @@ declare module 'gi://Soup?version=3.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<WebsocketConnection> | void;
+            ): globalThis.Promise<WebsocketConnection> | void;
             /**
              * Gets the [class`WebsocketConnection]` response to a
              * [method`Session`.websocket_connect_async] call.
@@ -11418,26 +11908,23 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace WebsocketConnection {
-            // Signal callback interfaces
-
-            interface Closed {
-                (): void;
-            }
-
-            interface Closing {
-                (): void;
-            }
-
-            interface Error {
-                (error: GLib.Error): void;
-            }
-
-            interface Message {
-                (type: number, message: GLib.Bytes | Uint8Array): void;
-            }
-
-            interface Pong {
-                (message: GLib.Bytes | Uint8Array): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                closed: () => void;
+                closing: () => void;
+                error: (arg0: GLib.Error) => void;
+                message: (arg0: number, arg1: GLib.Bytes) => void;
+                pong: (arg0: GLib.Bytes) => void;
+                'notify::connection-type': (pspec: GObject.ParamSpec) => void;
+                'notify::extensions': (pspec: GObject.ParamSpec) => void;
+                'notify::io-stream': (pspec: GObject.ParamSpec) => void;
+                'notify::keepalive-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::keepalive-pong-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::max-incoming-payload-size': (pspec: GObject.ParamSpec) => void;
+                'notify::origin': (pspec: GObject.ParamSpec) => void;
+                'notify::protocol': (pspec: GObject.ParamSpec) => void;
+                'notify::state': (pspec: GObject.ParamSpec) => void;
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -11478,11 +11965,11 @@ declare module 'gi://Soup?version=3.0' {
          * WebSocket handshake, and [func`websocket_server_process_handshake]` for
          * handling the server side.)
          *
-         * #SoupWebsocketConnection handles the details of WebSocket communication. You
+         * [class`WebsocketConnection]` handles the details of WebSocket communication. You
          * can use [method`WebsocketConnection`.send_text] and
          * [method`WebsocketConnection`.send_binary] to send data, and the
          * [signal`WebsocketConnection:`:message] signal to receive data.
-         * (#SoupWebsocketConnection currently only supports asynchronous I/O.)
+         * ([class`WebsocketConnection]` currently only supports asynchronous I/O.)
          */
         class WebsocketConnection extends GObject.Object {
             static $gtype: GObject.GType<WebsocketConnection>;
@@ -11586,6 +12073,15 @@ declare module 'gi://Soup?version=3.0' {
              */
             get uri(): GLib.Uri;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebsocketConnection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebsocketConnection.ConstructorProps>, ...args: any[]);
@@ -11603,27 +12099,23 @@ declare module 'gi://Soup?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'closed', callback: (_source: this) => void): number;
-            connect_after(signal: 'closed', callback: (_source: this) => void): number;
-            emit(signal: 'closed'): void;
-            connect(signal: 'closing', callback: (_source: this) => void): number;
-            connect_after(signal: 'closing', callback: (_source: this) => void): number;
-            emit(signal: 'closing'): void;
-            connect(signal: 'error', callback: (_source: this, error: GLib.Error) => void): number;
-            connect_after(signal: 'error', callback: (_source: this, error: GLib.Error) => void): number;
-            emit(signal: 'error', error: GLib.Error): void;
-            connect(signal: 'message', callback: (_source: this, type: number, message: GLib.Bytes) => void): number;
-            connect_after(
-                signal: 'message',
-                callback: (_source: this, type: number, message: GLib.Bytes) => void,
+            connect<K extends keyof WebsocketConnection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketConnection.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'message', type: number, message: GLib.Bytes | Uint8Array): void;
-            connect(signal: 'pong', callback: (_source: this, message: GLib.Bytes) => void): number;
-            connect_after(signal: 'pong', callback: (_source: this, message: GLib.Bytes) => void): number;
-            emit(signal: 'pong', message: GLib.Bytes | Uint8Array): void;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebsocketConnection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketConnection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebsocketConnection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebsocketConnection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11771,6 +12263,9 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace WebsocketExtension {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -11779,16 +12274,45 @@ declare module 'gi://Soup?version=3.0' {
         /**
          * A WebSocket extension
          *
-         * #SoupWebsocketExtension is the base class for WebSocket extension objects.
+         * [class`WebsocketExtension]` is the base class for WebSocket extension objects.
          */
         abstract class WebsocketExtension extends GObject.Object {
             static $gtype: GObject.GType<WebsocketExtension>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebsocketExtension.SignalSignatures;
 
             // Constructors
 
             constructor(properties?: Partial<WebsocketExtension.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof WebsocketExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketExtension.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebsocketExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketExtension.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebsocketExtension.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebsocketExtension.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -11897,6 +12421,9 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         namespace WebsocketExtensionDeflate {
+            // Signal signatures
+            interface SignalSignatures extends WebsocketExtension.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends WebsocketExtension.ConstructorProps {}
@@ -11912,14 +12439,46 @@ declare module 'gi://Soup?version=3.0' {
         class WebsocketExtensionDeflate extends WebsocketExtension {
             static $gtype: GObject.GType<WebsocketExtensionDeflate>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebsocketExtensionDeflate.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebsocketExtensionDeflate.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof WebsocketExtensionDeflate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketExtensionDeflate.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebsocketExtensionDeflate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketExtensionDeflate.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebsocketExtensionDeflate.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebsocketExtensionDeflate.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace WebsocketExtensionManager {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, SessionFeature.ConstructorProps {}
@@ -11929,7 +12488,7 @@ declare module 'gi://Soup?version=3.0' {
          * SoupWebsocketExtensionManager is the [iface`SessionFeature]` that handles WebSockets
          * extensions for a [class`Session]`.
          *
-         * A #SoupWebsocketExtensionManager is added to the session by default, and normally
+         * A [class`WebsocketExtensionManager]` is added to the session by default, and normally
          * you don't need to worry about it at all. However, if you want to
          * disable WebSocket extensions, you can remove the feature from the
          * session with [method`Session`.remove_feature_by_type] or disable it on
@@ -11938,11 +12497,40 @@ declare module 'gi://Soup?version=3.0' {
         class WebsocketExtensionManager extends GObject.Object implements SessionFeature {
             static $gtype: GObject.GType<WebsocketExtensionManager>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebsocketExtensionManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebsocketExtensionManager.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof WebsocketExtensionManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketExtensionManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebsocketExtensionManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebsocketExtensionManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebsocketExtensionManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebsocketExtensionManager.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -12433,14 +13021,14 @@ declare module 'gi://Soup?version=3.0' {
             // Static methods
 
             /**
-             * Parses `header` and returns a #SoupCookie.
+             * Parses `header` and returns a [struct`Cookie]`.
              *
              * If `header` contains multiple cookies, only the first one will be parsed.
              *
              * If `header` does not have "path" or "domain" attributes, they will
              * be defaulted from `origin`. If `origin` is %NULL, path will default
              * to "/", but domain will be left as %NULL. Note that this is not a
-             * valid state for a #SoupCookie, and you will need to fill in some
+             * valid state for a [struct`Cookie]`, and you will need to fill in some
              * appropriate string for the domain if you want to actually make use
              * of the cookie.
              *
@@ -12619,7 +13207,7 @@ declare module 'gi://Soup?version=3.0' {
         type HSTSEnforcerClass = typeof HSTSEnforcer;
         type HSTSEnforcerDBClass = typeof HSTSEnforcerDB;
         /**
-         * #SoupHSTSPolicy implements HTTP policies, as described by
+         * [struct`HSTSPolicy]` implements HTTP policies, as described by
          * [RFC 6797](http://tools.ietf.org/html/rfc6797).
          *
          * `domain` represents the host that this policy applies to. The domain
@@ -12713,7 +13301,7 @@ declare module 'gi://Soup?version=3.0' {
 
         type LoggerClass = typeof Logger;
         /**
-         * #SoupMessageBody represents the request or response body of a
+         * [struct`MessageBody]` represents the request or response body of a
          * [class`Message]`.
          *
          * Note that while `length` always reflects the full length of the
@@ -12813,7 +13401,7 @@ declare module 'gi://Soup?version=3.0' {
              */
             get_chunk(offset: number): GLib.Bytes | null;
             /**
-             * Handles the #SoupMessageBody part of receiving a chunk of data from
+             * Handles the [struct`MessageBody]` part of receiving a chunk of data from
              * the network.
              *
              * Normally this means appending `chunk` to `body,` exactly as with
@@ -12859,7 +13447,7 @@ declare module 'gi://Soup?version=3.0' {
              */
             unref(): void;
             /**
-             * Handles the #SoupMessageBody part of writing a chunk of data to the
+             * Handles the [struct`MessageBody]` part of writing a chunk of data to the
              * network.
              *
              * Normally this is a no-op, but if you have set `body'`s accumulate flag to
@@ -13046,7 +13634,7 @@ declare module 'gi://Soup?version=3.0' {
              * Beware that even if given a `total_length,` this function does not
              * check that the ranges are satisfiable.
              *
-             * #SoupServer has built-in handling for range requests. If your
+             * [class`Server]` has built-in handling for range requests. If your
              * server handler returns a %SOUP_STATUS_OK response containing the
              * complete response body (rather than pausing the message and
              * returning some of the response body later), and there is a Range
@@ -13204,8 +13792,7 @@ declare module 'gi://Soup?version=3.0' {
         }
 
         /**
-         * An opaque type used to iterate over a %SoupMessageHeaders
-         * structure.
+         * An opaque type used to iterate over a [struct`MessageHeaders]` structure
          *
          * After intializing the iterator with [func`MessageHeadersIter`.init], call
          * [method`MessageHeadersIter`.next] to fetch data from it.
@@ -13224,7 +13811,7 @@ declare module 'gi://Soup?version=3.0' {
 
             /**
              * Initializes `iter` for iterating `hdrs`.
-             * @param hdrs a %SoupMessageHeaders
+             * @param hdrs a #SoupMessageHeaders
              */
             static init(hdrs: MessageHeaders): MessageHeadersIter;
             /**
@@ -13234,7 +13821,7 @@ declare module 'gi://Soup?version=3.0' {
              * If `iter` has already yielded the last header, then
              * [method`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
              * will be unchanged.
-             * @param iter a %SoupMessageHeadersIter
+             * @param iter a #SoupMessageHeadersIter
              */
             static next(iter: MessageHeadersIter): [boolean, MessageHeadersIter, string, string];
         }
@@ -13417,12 +14004,12 @@ declare module 'gi://Soup?version=3.0' {
          * Of particular interest to HTTP are `multipart/byte-ranges` and
          * `multipart/form-data`,
          *
-         * Although the headers of a #SoupMultipart body part will contain the
+         * Although the headers of a [struct`Multipart]` body part will contain the
          * full headers from that body part, libsoup does not interpret them
          * according to MIME rules. For example, each body part is assumed to
          * have "binary" Content-Transfer-Encoding, even if its headers
          * explicitly state otherwise. In other words, don't try to use
-         * #SoupMultipart for handling real MIME multiparts.
+         * [struct`Multipart]` for handling real MIME multiparts.
          */
         class Multipart {
             static $gtype: GObject.GType<Multipart>;

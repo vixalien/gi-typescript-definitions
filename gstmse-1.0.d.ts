@@ -184,18 +184,18 @@ declare module 'gi://GstMse?version=1.0' {
          */
         function media_source_error_quark(): GLib.Quark;
         namespace MediaSource {
-            // Signal callback interfaces
-
-            interface OnSourceClose {
-                (): void;
-            }
-
-            interface OnSourceEnded {
-                (): void;
-            }
-
-            interface OnSourceOpen {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'on-source-close': () => void;
+                'on-source-ended': () => void;
+                'on-source-open': () => void;
+                'notify::active-source-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::duration': (pspec: GObject.ParamSpec) => void;
+                'notify::position': (pspec: GObject.ParamSpec) => void;
+                'notify::ready-state': (pspec: GObject.ParamSpec) => void;
+                'notify::source-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -279,6 +279,15 @@ declare module 'gi://GstMse?version=1.0' {
              */
             get sourceBuffers(): SourceBufferList;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MediaSource.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MediaSource.ConstructorProps>, ...args: any[]);
@@ -289,18 +298,21 @@ declare module 'gi://GstMse?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'on-source-close', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-source-close', callback: (_source: this) => void): number;
-            emit(signal: 'on-source-close'): void;
-            connect(signal: 'on-source-ended', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-source-ended', callback: (_source: this) => void): number;
-            emit(signal: 'on-source-ended'): void;
-            connect(signal: 'on-source-open', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-source-open', callback: (_source: this) => void): number;
-            emit(signal: 'on-source-open'): void;
+            connect<K extends keyof MediaSource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MediaSource.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MediaSource.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MediaSource.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MediaSource.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MediaSource.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -437,6 +449,18 @@ declare module 'gi://GstMse?version=1.0' {
         }
 
         namespace MseSrc {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::duration': (pspec: GObject.ParamSpec) => void;
+                'notify::n-audio': (pspec: GObject.ParamSpec) => void;
+                'notify::n-text': (pspec: GObject.ParamSpec) => void;
+                'notify::n-video': (pspec: GObject.ParamSpec) => void;
+                'notify::position': (pspec: GObject.ParamSpec) => void;
+                'notify::ready-state': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.URIHandler.ConstructorProps {
@@ -526,11 +550,38 @@ declare module 'gi://GstMse?version=1.0' {
              */
             get readyState(): MseSrcReadyState;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MseSrc.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MseSrc.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof MseSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MseSrc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MseSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MseSrc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MseSrc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MseSrc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1038,6 +1089,16 @@ declare module 'gi://GstMse?version=1.0' {
         }
 
         namespace MseSrcPad {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Pad.SignalSignatures {
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Pad.ConstructorProps {}
@@ -1046,34 +1107,57 @@ declare module 'gi://GstMse?version=1.0' {
         class MseSrcPad extends Gst.Pad {
             static $gtype: GObject.GType<MseSrcPad>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MseSrcPad.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MseSrcPad.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof MseSrcPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MseSrcPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MseSrcPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MseSrcPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MseSrcPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MseSrcPad.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace SourceBuffer {
-            // Signal callback interfaces
-
-            interface OnAbort {
-                (): void;
-            }
-
-            interface OnError {
-                (): void;
-            }
-
-            interface OnUpdate {
-                (): void;
-            }
-
-            interface OnUpdateEnd {
-                (): void;
-            }
-
-            interface OnUpdateStart {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'on-abort': () => void;
+                'on-error': () => void;
+                'on-update': () => void;
+                'on-update-end': () => void;
+                'on-update-start': () => void;
+                'notify::append-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::append-window-end': (pspec: GObject.ParamSpec) => void;
+                'notify::append-window-start': (pspec: GObject.ParamSpec) => void;
+                'notify::buffered': (pspec: GObject.ParamSpec) => void;
+                'notify::content-type': (pspec: GObject.ParamSpec) => void;
+                'notify::timestamp-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::updating': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1220,6 +1304,15 @@ declare module 'gi://GstMse?version=1.0' {
              */
             get updating(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SourceBuffer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SourceBuffer.ConstructorProps>, ...args: any[]);
@@ -1228,24 +1321,21 @@ declare module 'gi://GstMse?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'on-abort', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-abort', callback: (_source: this) => void): number;
-            emit(signal: 'on-abort'): void;
-            connect(signal: 'on-error', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-error', callback: (_source: this) => void): number;
-            emit(signal: 'on-error'): void;
-            connect(signal: 'on-update', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-update', callback: (_source: this) => void): number;
-            emit(signal: 'on-update'): void;
-            connect(signal: 'on-update-end', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-update-end', callback: (_source: this) => void): number;
-            emit(signal: 'on-update-end'): void;
-            connect(signal: 'on-update-start', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-update-start', callback: (_source: this) => void): number;
-            emit(signal: 'on-update-start'): void;
+            connect<K extends keyof SourceBuffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SourceBuffer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SourceBuffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SourceBuffer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SourceBuffer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SourceBuffer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1371,14 +1461,13 @@ declare module 'gi://GstMse?version=1.0' {
         }
 
         namespace SourceBufferList {
-            // Signal callback interfaces
-
-            interface OnSourcebufferAdded {
-                (): void;
-            }
-
-            interface OnSourcebufferRemoved {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'on-sourcebuffer-added': () => void;
+                'on-sourcebuffer-removed': () => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1411,6 +1500,15 @@ declare module 'gi://GstMse?version=1.0' {
              */
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SourceBufferList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SourceBufferList.ConstructorProps>, ...args: any[]);
@@ -1419,15 +1517,23 @@ declare module 'gi://GstMse?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'on-sourcebuffer-added', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-sourcebuffer-added', callback: (_source: this) => void): number;
-            emit(signal: 'on-sourcebuffer-added'): void;
-            connect(signal: 'on-sourcebuffer-removed', callback: (_source: this) => void): number;
-            connect_after(signal: 'on-sourcebuffer-removed', callback: (_source: this) => void): number;
-            emit(signal: 'on-sourcebuffer-removed'): void;
+            connect<K extends keyof SourceBufferList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SourceBufferList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SourceBufferList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SourceBufferList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SourceBufferList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SourceBufferList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

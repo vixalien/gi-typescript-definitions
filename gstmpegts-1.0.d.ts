@@ -521,6 +521,34 @@ declare module 'gi://GstMpegts?version=1.0' {
             MPEG2_STEREOSCOPIC_VIDEO_FORMAT,
             STEREOSCOPIC_PROGRAM_INFO,
             STEREOSCOPIC_VIDEO_INFO,
+            /**
+             * Extension Descriptor.
+             */
+            EXTENSION,
+        }
+        /**
+         * The type of an extended descriptor
+         *
+         * The values correpond to the registered extended descriptor types from the
+         * base ISO 13818 / ITU H.222.0 specifications
+         *
+         * Consult the specification for more details
+         */
+
+        /**
+         * The type of an extended descriptor
+         *
+         * The values correpond to the registered extended descriptor types from the
+         * base ISO 13818 / ITU H.222.0 specifications
+         *
+         * Consult the specification for more details
+         */
+        export namespace ExtendedDescriptorType {
+            export const $gtype: GObject.GType<ExtendedDescriptorType>;
+        }
+
+        enum ExtendedDescriptorType {
+            MTS_DESC_EXT_JXS_VIDEO,
         }
         /**
          * Type of mpeg-ts streams for Blu-ray formats. To be matched with the
@@ -611,6 +639,30 @@ declare module 'gi://GstMpegts?version=1.0' {
             CLEAN_EFFECTS,
             HEARING_IMPAIRED,
             VISUAL_IMPAIRED_COMMENTARY,
+        }
+        /**
+         * `GST_MPEGTS_METADATA_APPLICATION_FORMAT_ISAN` ISO 15706-1 (ISAN) encoded in its binary form
+         * `GST_MPEGTS_METADATA_APPLICATION_FORMAT_VSAN` ISO 15706-2 (V-ISAN) encoded in its binary form
+         * `GST_MPEGTS_METADATA_APPLICATION_FORMAT_IDENTIFIER_FIELD` Defined by the metadata_application_format_identifier field
+         *
+         * metadata_application_format valid values. See ISO/IEC 13818-1:2023(E) Table 2-84.
+         */
+
+        /**
+         * `GST_MPEGTS_METADATA_APPLICATION_FORMAT_ISAN` ISO 15706-1 (ISAN) encoded in its binary form
+         * `GST_MPEGTS_METADATA_APPLICATION_FORMAT_VSAN` ISO 15706-2 (V-ISAN) encoded in its binary form
+         * `GST_MPEGTS_METADATA_APPLICATION_FORMAT_IDENTIFIER_FIELD` Defined by the metadata_application_format_identifier field
+         *
+         * metadata_application_format valid values. See ISO/IEC 13818-1:2023(E) Table 2-84.
+         */
+        export namespace MetadataApplicationFormat {
+            export const $gtype: GObject.GType<MetadataApplicationFormat>;
+        }
+
+        enum MetadataApplicationFormat {
+            ISAN,
+            VSAN,
+            IDENTIFIER_FIELD,
         }
         /**
          * metadata_descriptor metadata_format valid values. See ISO/IEC 13818-1:2018(E) Table 2-85.
@@ -1513,6 +1565,14 @@ declare module 'gi://GstMpegts?version=1.0' {
              */
             VIDEO_HEVC,
             /**
+             * JPEG-XS stream type
+             */
+            VIDEO_JPEG_XS,
+            /**
+             * VVC/H.266 video stream type
+             */
+            VIDEO_VVC,
+            /**
              * IPMP stream
              */
             IPMP_STREAM,
@@ -1580,9 +1640,9 @@ declare module 'gi://GstMpegts?version=1.0' {
          * Creates a #GstMpegtsDescriptor with custom `tag` and `data`
          * @param tag descriptor tag
          * @param data descriptor data (after tag and length field)
-         * @returns #GstMpegtsDescriptor
+         * @returns #GstMpegtsDescriptor, or %NULL if input is invalid
          */
-        function descriptor_from_custom(tag: number, data: Uint8Array | string): Descriptor;
+        function descriptor_from_custom(tag: number, data: Uint8Array | string): Descriptor | null;
         /**
          * Creates a #GstMpegtsDescriptor with custom `tag,` `tag_extension` and `data`
          * @param tag descriptor tag
@@ -1600,9 +1660,9 @@ declare module 'gi://GstMpegts?version=1.0' {
          * with the network name `name`. The data field of the #GstMpegtsDescriptor
          * will be allocated, and transferred to the caller.
          * @param name the network name to set
-         * @returns the #GstMpegtsDescriptor or %NULL on fail
+         * @returns the #GstMpegtsDescriptor or %NULL on failure.
          */
-        function descriptor_from_dvb_network_name(name: string): Descriptor;
+        function descriptor_from_dvb_network_name(name: string): Descriptor | null;
         /**
          * Fills a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_SERVICE.
          * The data field of the #GstMpegtsDescriptor will be allocated,
@@ -1610,13 +1670,13 @@ declare module 'gi://GstMpegts?version=1.0' {
          * @param service_type Service type defined as a #GstMpegtsDVBServiceType
          * @param service_name Name of the service
          * @param service_provider Name of the service provider
-         * @returns the #GstMpegtsDescriptor or %NULL on fail
+         * @returns the #GstMpegtsDescriptor or %NULL on failure
          */
         function descriptor_from_dvb_service(
             service_type: DVBServiceType | null,
             service_name?: string | null,
             service_provider?: string | null,
-        ): Descriptor;
+        ): Descriptor | null;
         function descriptor_from_dvb_subtitling(
             lang: string,
             type: number,
@@ -1630,6 +1690,14 @@ declare module 'gi://GstMpegts?version=1.0' {
          * @returns #GstMpegtsDescriptor, %NULL on failure
          */
         function descriptor_from_iso_639_language(language: string): Descriptor;
+        /**
+         * Create a new #GstMpegtsDescriptor based on the information in `jpegxs`
+         * @param jpegxs A #GstMpegtsJpegXsDescriptor
+         * @returns The #GstMpegtsDescriptor
+         */
+        function descriptor_from_jpeg_xs(jpegxs: JpegXsDescriptor): Descriptor;
+        function descriptor_from_metadata(metadata_descriptor: MetadataDescriptor): Descriptor;
+        function descriptor_from_metadata_pointer(metadata_pointer_descriptor: MetadataPointerDescriptor): Descriptor;
         /**
          * Creates a %GST_MTS_DESC_REGISTRATION #GstMpegtsDescriptor
          * @param format_identifier a 4 character format identifier string
@@ -1654,7 +1722,7 @@ declare module 'gi://GstMpegts?version=1.0' {
          * @param event #GstEvent containing a #GstMpegtsSection
          * @returns The extracted #GstMpegtsSection , or %NULL if the event did not contain a valid #GstMpegtsSection.
          */
-        function event_parse_mpegts_section(event: Gst.Event): Section;
+        function event_parse_mpegts_section(event: Gst.Event): Section | null;
         /**
          * Finds the first descriptor of type `tag` in the array.
          *
@@ -1664,7 +1732,7 @@ declare module 'gi://GstMpegts?version=1.0' {
          * @param tag the tag to look for
          * @returns the first descriptor matching @tag, else %NULL.
          */
-        function find_descriptor(descriptors: Descriptor[], tag: number): Descriptor;
+        function find_descriptor(descriptors: Descriptor[], tag: number): Descriptor | null;
         /**
          * Finds the first descriptor of type `tag` with `tag_extension` in the array.
          *
@@ -1679,7 +1747,7 @@ declare module 'gi://GstMpegts?version=1.0' {
             descriptors: Descriptor[],
             tag: number,
             tag_extension: number,
-        ): Descriptor;
+        ): Descriptor | null;
         /**
          * Initializes the MPEG-TS helper library. Must be called before any
          * usage.
@@ -1691,13 +1759,13 @@ declare module 'gi://GstMpegts?version=1.0' {
          * @param section The #GstMpegtsSection to put in a message
          * @returns The new #GstMessage to be posted, or %NULL if the section is not valid.
          */
-        function message_new_mpegts_section(parent: Gst.Object, section: Section): Gst.Message;
+        function message_new_mpegts_section(parent: Gst.Object, section: Section): Gst.Message | null;
         /**
          * Returns the #GstMpegtsSection contained in a message.
          * @param message a #GstMessage
          * @returns the contained #GstMpegtsSection, or %NULL.
          */
-        function message_parse_mpegts_section(message: Gst.Message): Section;
+        function message_parse_mpegts_section(message: Gst.Message): Section | null;
         /**
          * Parses the descriptors present in `buffer` and returns them as an
          * array.
@@ -1705,9 +1773,9 @@ declare module 'gi://GstMpegts?version=1.0' {
          * Note: The data provided in `buffer` will not be copied.
          * @param buffer descriptors to parse
          * @param buf_len Size of @buffer
-         * @returns an array of the parsed descriptors or %NULL if there was an error. Release with #g_array_unref when done with it.
+         * @returns an array of the parsed descriptors or %NULL if there was an error.  Release with #g_array_unref when done with it.
          */
-        function parse_descriptors(buffer: number, buf_len: number): Descriptor[];
+        function parse_descriptors(buffer: number, buf_len: number): Descriptor[] | null;
         /**
          * Allocates a new #GPtrArray for #GstMpegtsPatProgram. The array can be filled
          * and then converted to a PAT section with gst_mpegts_section_from_pat().
@@ -1762,15 +1830,15 @@ declare module 'gi://GstMpegts?version=1.0' {
          * @returns A newly allocated #GstMpegtsSCTESIT
          */
         function scte_splice_out_new(event_id: number, splice_time: Gst.ClockTime, duration: Gst.ClockTime): SCTESIT;
-        function section_from_atsc_mgt(mgt: AtscMGT): Section;
+        function section_from_atsc_mgt(mgt: AtscMGT): Section | null;
         function section_from_atsc_rrt(rrt: AtscRRT): Section;
         function section_from_atsc_stt(stt: AtscSTT): Section;
         /**
          * Ownership of `nit` is taken. The data in `nit` is managed by the #GstMpegtsSection
          * @param nit a #GstMpegtsNIT to create the #GstMpegtsSection from
-         * @returns the #GstMpegtsSection
+         * @returns the #GstMpegtsSection, or %NULL if @nit is invalid
          */
-        function section_from_nit(nit: NIT): Section;
+        function section_from_nit(nit: NIT): Section | null;
         /**
          * Creates a PAT #GstMpegtsSection from the `programs` array of #GstMpegtsPatPrograms
          * @param programs an array of #GstMpegtsPatProgram
@@ -1782,22 +1850,22 @@ declare module 'gi://GstMpegts?version=1.0' {
          * Creates a #GstMpegtsSection from `pmt` that is bound to `pid`
          * @param pmt a #GstMpegtsPMT to create a #GstMpegtsSection from
          * @param pid The PID that the #GstMpegtsPMT belongs to
-         * @returns #GstMpegtsSection
+         * @returns #GstMpegtsSection, or %NULL if @pmt is invalid
          */
-        function section_from_pmt(pmt: PMT, pid: number): Section;
+        function section_from_pmt(pmt: PMT, pid: number): Section | null;
         /**
          * Ownership of `sit` is taken. The data in `sit` is managed by the #GstMpegtsSection
          * @param sit a #GstMpegtsSCTESIT to create the #GstMpegtsSection from
          * @param pid
-         * @returns the #GstMpegtsSection
+         * @returns the #GstMpegtsSection, or %NULL if @sit is invalid
          */
-        function section_from_scte_sit(sit: SCTESIT, pid: number): Section;
+        function section_from_scte_sit(sit: SCTESIT, pid: number): Section | null;
         /**
          * Ownership of `sdt` is taken. The data in `sdt` is managed by the #GstMpegtsSection
          * @param sdt a #GstMpegtsSDT to create the #GstMpegtsSection from
-         * @returns the #GstMpegtsSection
+         * @returns the #GstMpegtsSection or %NULL if @sdt is invalid
          */
-        function section_from_sdt(sdt: SDT): Section;
+        function section_from_sdt(sdt: SDT): Section | null;
         interface PacketizeFunc {
             (section: Section): boolean;
         }
@@ -2446,9 +2514,9 @@ declare module 'gi://GstMpegts?version=1.0' {
             // Methods
 
             free(): void;
-            get_event(): DVBLinkageEvent;
-            get_extended_event(): DVBLinkageExtendedEvent[];
-            get_mobile_hand_over(): DVBLinkageMobileHandOver;
+            get_event(): DVBLinkageEvent | null;
+            get_extended_event(): DVBLinkageExtendedEvent[] | null;
+            get_mobile_hand_over(): DVBLinkageMobileHandOver | null;
         }
 
         class DVBLinkageEvent {
@@ -2622,7 +2690,7 @@ declare module 'gi://GstMpegts?version=1.0' {
              * @param tag descriptor tag
              * @param data descriptor data (after tag and length field)
              */
-            static from_custom(tag: number, data: Uint8Array | string): Descriptor;
+            static from_custom(tag: number, data: Uint8Array | string): Descriptor | null;
             /**
              * Creates a #GstMpegtsDescriptor with custom `tag,` `tag_extension` and `data`
              * @param tag descriptor tag
@@ -2640,7 +2708,7 @@ declare module 'gi://GstMpegts?version=1.0' {
              * will be allocated, and transferred to the caller.
              * @param name the network name to set
              */
-            static from_dvb_network_name(name: string): Descriptor;
+            static from_dvb_network_name(name: string): Descriptor | null;
             /**
              * Fills a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_SERVICE.
              * The data field of the #GstMpegtsDescriptor will be allocated,
@@ -2653,7 +2721,7 @@ declare module 'gi://GstMpegts?version=1.0' {
                 service_type: DVBServiceType,
                 service_name?: string | null,
                 service_provider?: string | null,
-            ): Descriptor;
+            ): Descriptor | null;
             static from_dvb_subtitling(lang: string, type: number, composition: number, ancillary: number): Descriptor;
             /**
              * Creates a %GST_MTS_DESC_ISO_639_LANGUAGE #GstMpegtsDescriptor with
@@ -2661,6 +2729,13 @@ declare module 'gi://GstMpegts?version=1.0' {
              * @param language ISO-639-2 language 3-char code
              */
             static from_iso_639_language(language: string): Descriptor;
+            /**
+             * Create a new #GstMpegtsDescriptor based on the information in `jpegxs`
+             * @param jpegxs A #GstMpegtsJpegXsDescriptor
+             */
+            static from_jpeg_xs(jpegxs: JpegXsDescriptor): Descriptor;
+            static from_metadata(metadata_descriptor: MetadataDescriptor): Descriptor;
+            static from_metadata_pointer(metadata_pointer_descriptor: MetadataPointerDescriptor): Descriptor;
             /**
              * Creates a %GST_MTS_DESC_REGISTRATION #GstMpegtsDescriptor
              * @param format_identifier a 4 character format identifier string
@@ -2672,6 +2747,11 @@ declare module 'gi://GstMpegts?version=1.0' {
 
             // Methods
 
+            /**
+             * Copy the given descriptor.
+             * @returns A copy of @desc.
+             */
+            copy(): Descriptor;
             /**
              * Frees `desc`
              */
@@ -2845,6 +2925,11 @@ declare module 'gi://GstMpegts?version=1.0' {
              */
             parse_iso_639_language_idx(idx: number): [boolean, string, Iso639AudioType | null];
             parse_iso_639_language_nb(): number;
+            /**
+             * Parses the JPEG-XS descriptor information from `descriptor:`
+             * @returns TRUE if the information could be parsed, else FALSE.
+             */
+            parse_jpeg_xs(): [boolean, JpegXsDescriptor];
             /**
              * Extracts the logical channels from `descriptor`.
              * @returns %TRUE if parsing succeeded, else %FALSE.
@@ -3085,6 +3170,80 @@ declare module 'gi://GstMpegts?version=1.0' {
             descriptor_free(): void;
         }
 
+        /**
+         * JPEG-XS descriptor
+         */
+        class JpegXsDescriptor {
+            static $gtype: GObject.GType<JpegXsDescriptor>;
+
+            // Fields
+
+            descriptor_version: number;
+            horizontal_size: number;
+            vertical_size: number;
+            brat: number;
+            frat: number;
+            schar: number;
+            Ppih: number;
+            Plev: number;
+            max_buffer_size: number;
+            buffer_model_type: number;
+            colour_primaries: number;
+            transfer_characteristics: number;
+            matrix_coefficients: number;
+            video_full_range_flag: boolean;
+            still_mode: boolean;
+            mdm_flag: boolean;
+            X_c0: number;
+            Y_c0: number;
+            X_c1: number;
+            Y_c1: number;
+            X_c2: number;
+            Y_c2: number;
+            X_wp: number;
+            Y_wp: number;
+            L_max: number;
+            L_min: number;
+            MaxCLL: number;
+            MaxFALL: number;
+
+            // Constructors
+
+            constructor(
+                properties?: Partial<{
+                    descriptor_version: number;
+                    horizontal_size: number;
+                    vertical_size: number;
+                    brat: number;
+                    frat: number;
+                    schar: number;
+                    Ppih: number;
+                    Plev: number;
+                    max_buffer_size: number;
+                    buffer_model_type: number;
+                    colour_primaries: number;
+                    transfer_characteristics: number;
+                    matrix_coefficients: number;
+                    video_full_range_flag: boolean;
+                    still_mode: boolean;
+                    mdm_flag: boolean;
+                    X_c0: number;
+                    Y_c0: number;
+                    X_c1: number;
+                    Y_c1: number;
+                    X_c2: number;
+                    Y_c2: number;
+                    X_wp: number;
+                    Y_wp: number;
+                    L_max: number;
+                    L_min: number;
+                    MaxCLL: number;
+                    MaxFALL: number;
+                }>,
+            );
+            _init(...args: any[]): void;
+        }
+
         class LogicalChannel {
             static $gtype: GObject.GType<LogicalChannel>;
 
@@ -3138,12 +3297,38 @@ declare module 'gi://GstMpegts?version=1.0' {
 
             // Fields
 
-            metadata_application_format: number;
+            metadata_application_format: MetadataApplicationFormat;
             metadata_format: MetadataFormat;
             metadata_format_identifier: number;
             metadata_service_id: number;
             decoder_config_flags: number;
             dsm_cc_flag: boolean;
+
+            // Constructors
+
+            _init(...args: any[]): void;
+        }
+
+        /**
+         * This structure is not complete. The following fields are missing in comparison to the standard (ISO/IEC 13818-1:2023 Section 2.6.58):
+         * * metadata_locator_record_flag: hardcoded to 0. Indicating no metadata_locator_record present in the descriptor.
+         * * MPEG_carriage_flags: hardcoded to 0b00, indicating the metadata is carried in the same transport steam.
+         * * metadata_locator_record_length.
+         * * transport_stream_location.
+         * * transport_stream_id.
+         *
+         * See also: gst_mpegts_descriptor_from_metadata_pointer
+         */
+        class MetadataPointerDescriptor {
+            static $gtype: GObject.GType<MetadataPointerDescriptor>;
+
+            // Fields
+
+            metadata_application_format: MetadataApplicationFormat;
+            metadata_format: MetadataFormat;
+            metadata_format_identifier: number;
+            metadata_service_id: number;
+            program_number: number;
 
             // Constructors
 
@@ -3611,14 +3796,14 @@ declare module 'gi://GstMpegts?version=1.0' {
 
             // Static methods
 
-            static from_atsc_mgt(mgt: AtscMGT): Section;
+            static from_atsc_mgt(mgt: AtscMGT): Section | null;
             static from_atsc_rrt(rrt: AtscRRT): Section;
             static from_atsc_stt(stt: AtscSTT): Section;
             /**
              * Ownership of `nit` is taken. The data in `nit` is managed by the #GstMpegtsSection
              * @param nit a #GstMpegtsNIT to create the #GstMpegtsSection from
              */
-            static from_nit(nit: NIT): Section;
+            static from_nit(nit: NIT): Section | null;
             /**
              * Creates a PAT #GstMpegtsSection from the `programs` array of #GstMpegtsPatPrograms
              * @param programs an array of #GstMpegtsPatProgram
@@ -3630,18 +3815,18 @@ declare module 'gi://GstMpegts?version=1.0' {
              * @param pmt a #GstMpegtsPMT to create a #GstMpegtsSection from
              * @param pid The PID that the #GstMpegtsPMT belongs to
              */
-            static from_pmt(pmt: PMT, pid: number): Section;
+            static from_pmt(pmt: PMT, pid: number): Section | null;
             /**
              * Ownership of `sit` is taken. The data in `sit` is managed by the #GstMpegtsSection
              * @param sit a #GstMpegtsSCTESIT to create the #GstMpegtsSection from
              * @param pid
              */
-            static from_scte_sit(sit: SCTESIT, pid: number): Section;
+            static from_scte_sit(sit: SCTESIT, pid: number): Section | null;
             /**
              * Ownership of `sdt` is taken. The data in `sdt` is managed by the #GstMpegtsSection
              * @param sdt a #GstMpegtsSDT to create the #GstMpegtsSection from
              */
-            static from_sdt(sdt: SDT): Section;
+            static from_sdt(sdt: SDT): Section | null;
 
             // Methods
 
@@ -3649,7 +3834,7 @@ declare module 'gi://GstMpegts?version=1.0' {
              * Returns the #GstMpegtsAtscVCT contained in the `section`
              * @returns The #GstMpegtsAtscVCT contained in the section, or %NULL if an error happened.
              */
-            get_atsc_cvct(): AtscVCT;
+            get_atsc_cvct(): AtscVCT | null;
             /**
              * Returns the #GstMpegtsAtscEIT contained in the `section`.
              * @returns The #GstMpegtsAtscEIT contained in the section, or %NULL if an error happened.
@@ -3664,7 +3849,7 @@ declare module 'gi://GstMpegts?version=1.0' {
              * Returns the #GstMpegtsAtscMGT contained in the `section`.
              * @returns The #GstMpegtsAtscMGT contained in the section, or %NULL if an error happened.
              */
-            get_atsc_mgt(): AtscMGT;
+            get_atsc_mgt(): AtscMGT | null;
             /**
              * Returns the #GstMpegtsAtscRRT contained in the `section`.
              * @returns The #GstMpegtsAtscRRT contained in the section, or %NULL if an error happened.
@@ -3679,12 +3864,12 @@ declare module 'gi://GstMpegts?version=1.0' {
              * Returns the #GstMpegtsAtscVCT contained in the `section`
              * @returns The #GstMpegtsAtscVCT contained in the section, or %NULL if an error happened.
              */
-            get_atsc_tvct(): AtscVCT;
+            get_atsc_tvct(): AtscVCT | null;
             /**
              * Returns the #GstMpegtsBAT contained in the `section`.
              * @returns The #GstMpegtsBAT contained in the section, or %NULL if an error happened.
              */
-            get_bat(): BAT;
+            get_bat(): BAT | null;
             /**
              * Parses a Conditional Access Table.
              *
@@ -3692,7 +3877,7 @@ declare module 'gi://GstMpegts?version=1.0' {
              * Access Table.
              * @returns The array of #GstMpegtsDescriptor contained in the section, or %NULL if an error happened. Release with #g_array_unref when done.
              */
-            get_cat(): Descriptor[];
+            get_cat(): Descriptor[] | null;
             /**
              * Gets the original unparsed section data.
              * @returns The original unparsed section data.
@@ -3702,12 +3887,12 @@ declare module 'gi://GstMpegts?version=1.0' {
              * Returns the #GstMpegtsEIT contained in the `section`.
              * @returns The #GstMpegtsEIT contained in the section, or %NULL if an error happened.
              */
-            get_eit(): EIT;
+            get_eit(): EIT | null;
             /**
              * Returns the #GstMpegtsNIT contained in the `section`.
              * @returns The #GstMpegtsNIT contained in the section, or %NULL if an error happened.
              */
-            get_nit(): NIT;
+            get_nit(): NIT | null;
             /**
              * Parses a Program Association Table (ITU H.222.0, ISO/IEC 13818-1).
              *
@@ -3717,44 +3902,44 @@ declare module 'gi://GstMpegts?version=1.0' {
              * "subtable_extension" field of the provided `section`.
              * @returns The #GstMpegtsPatProgram contained in the section, or %NULL if an error happened or the @section did not contain a valid PAT. Release with #g_ptr_array_unref when done.
              */
-            get_pat(): PatProgram[];
+            get_pat(): PatProgram[] | null;
             /**
              * Parses the Program Map Table contained in the `section`.
              * @returns The #GstMpegtsPMT contained in the section, or %NULL if an error happened.
              */
-            get_pmt(): PMT;
+            get_pmt(): PMT | null;
             /**
              * Returns the #GstMpegtsSCTESIT contained in the `section`.
              * @returns The #GstMpegtsSCTESIT contained in the section, or %NULL if an error happened.
              */
-            get_scte_sit(): SCTESIT;
+            get_scte_sit(): SCTESIT | null;
             /**
              * Returns the #GstMpegtsSDT contained in the `section`.
              * @returns The #GstMpegtsSDT contained in the section, or %NULL if an error happened.
              */
-            get_sdt(): SDT;
+            get_sdt(): SDT | null;
             /**
              * Returns the #GstMpegtsSIT contained in the `section`.
              * @returns The #GstMpegtsSIT contained in the section, or %NULL if an error happened.
              */
-            get_sit(): SIT;
+            get_sit(): SIT | null;
             /**
              * Returns the #GstDateTime of the TDT
              * @returns The #GstDateTime contained in the section, or %NULL if an error happened. Release with #gst_date_time_unref when done.
              */
-            get_tdt(): Gst.DateTime;
+            get_tdt(): Gst.DateTime | null;
             /**
              * Returns the #GstMpegtsTOT contained in the `section`.
              * @returns The #GstMpegtsTOT contained in the section, or %NULL if an error happened.
              */
-            get_tot(): TOT;
+            get_tot(): TOT | null;
             /**
              * Parses a Transport Stream Description Table.
              *
              * Returns the array of #GstMpegtsDescriptor contained in the section
              * @returns The array of #GstMpegtsDescriptor contained in the section, or %NULL if an error happened. Release with #g_array_unref when done.
              */
-            get_tsdt(): Descriptor[];
+            get_tsdt(): Descriptor[] | null;
             /**
              * Packetize (i.e. serialize) the `section`. If the data in `section` has already
              * been packetized, the data pointer is returned immediately. Otherwise, the

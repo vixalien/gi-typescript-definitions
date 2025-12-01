@@ -961,6 +961,30 @@ declare module 'gi://GstRtp?version=1.0' {
             TWO_BYTE,
         }
         namespace RTPBaseAudioPayload {
+            // Signal signatures
+            interface SignalSignatures extends RTPBasePayload.SignalSignatures {
+                'notify::buffer-list': (pspec: GObject.ParamSpec) => void;
+                'notify::auto-header-extension': (pspec: GObject.ParamSpec) => void;
+                'notify::extensions': (pspec: GObject.ParamSpec) => void;
+                'notify::max-ptime': (pspec: GObject.ParamSpec) => void;
+                'notify::min-ptime': (pspec: GObject.ParamSpec) => void;
+                'notify::mtu': (pspec: GObject.ParamSpec) => void;
+                'notify::onvif-no-rate-control': (pspec: GObject.ParamSpec) => void;
+                'notify::perfect-rtptime': (pspec: GObject.ParamSpec) => void;
+                'notify::pt': (pspec: GObject.ParamSpec) => void;
+                'notify::ptime-multiple': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-rtptime': (pspec: GObject.ParamSpec) => void;
+                'notify::seqnum': (pspec: GObject.ParamSpec) => void;
+                'notify::seqnum-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::source-info': (pspec: GObject.ParamSpec) => void;
+                'notify::ssrc': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::timestamp-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends RTPBasePayload.ConstructorProps {
@@ -1009,6 +1033,15 @@ declare module 'gi://GstRtp?version=1.0' {
             get bufferList(): boolean;
             set bufferList(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: RTPBaseAudioPayload.SignalSignatures;
+
             // Fields
 
             payload: RTPBasePayload;
@@ -1022,6 +1055,26 @@ declare module 'gi://GstRtp?version=1.0' {
             constructor(properties?: Partial<RTPBaseAudioPayload.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof RTPBaseAudioPayload.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPBaseAudioPayload.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof RTPBaseAudioPayload.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPBaseAudioPayload.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof RTPBaseAudioPayload.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<RTPBaseAudioPayload.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1082,18 +1135,18 @@ declare module 'gi://GstRtp?version=1.0' {
         }
 
         namespace RTPBaseDepayload {
-            // Signal callback interfaces
-
-            interface AddExtension {
-                (ext: RTPHeaderExtension): void;
-            }
-
-            interface ClearExtensions {
-                (): void;
-            }
-
-            interface RequestExtension {
-                (ext_id: number, ext_uri?: string | null): RTPHeaderExtension | null;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'add-extension': (arg0: RTPHeaderExtension) => void;
+                'clear-extensions': () => void;
+                'request-extension': (arg0: number, arg1: string | null) => RTPHeaderExtension | null;
+                'notify::auto-header-extension': (pspec: GObject.ParamSpec) => void;
+                'notify::extensions': (pspec: GObject.ParamSpec) => void;
+                'notify::max-reorder': (pspec: GObject.ParamSpec) => void;
+                'notify::source-info': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1225,6 +1278,15 @@ declare module 'gi://GstRtp?version=1.0' {
              */
             get stats(): Gst.Structure;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: RTPBaseDepayload.SignalSignatures;
+
             // Fields
 
             sinkpad: Gst.Pad;
@@ -1240,24 +1302,23 @@ declare module 'gi://GstRtp?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'add-extension', callback: (_source: this, ext: RTPHeaderExtension) => void): number;
-            connect_after(signal: 'add-extension', callback: (_source: this, ext: RTPHeaderExtension) => void): number;
-            emit(signal: 'add-extension', ext: RTPHeaderExtension): void;
-            connect(signal: 'clear-extensions', callback: (_source: this) => void): number;
-            connect_after(signal: 'clear-extensions', callback: (_source: this) => void): number;
-            emit(signal: 'clear-extensions'): void;
-            connect(
-                signal: 'request-extension',
-                callback: (_source: this, ext_id: number, ext_uri: string | null) => RTPHeaderExtension | null,
+            connect<K extends keyof RTPBaseDepayload.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPBaseDepayload.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'request-extension',
-                callback: (_source: this, ext_id: number, ext_uri: string | null) => RTPHeaderExtension | null,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof RTPBaseDepayload.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPBaseDepayload.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'request-extension', ext_id: number, ext_uri?: string | null): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof RTPBaseDepayload.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<RTPBaseDepayload.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1390,18 +1451,30 @@ declare module 'gi://GstRtp?version=1.0' {
         }
 
         namespace RTPBasePayload {
-            // Signal callback interfaces
-
-            interface AddExtension {
-                (ext: RTPHeaderExtension): void;
-            }
-
-            interface ClearExtensions {
-                (): void;
-            }
-
-            interface RequestExtension {
-                (ext_id: number, ext_uri: string): RTPHeaderExtension | null;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'add-extension': (arg0: RTPHeaderExtension) => void;
+                'clear-extensions': () => void;
+                'request-extension': (arg0: number, arg1: string) => RTPHeaderExtension | null;
+                'notify::auto-header-extension': (pspec: GObject.ParamSpec) => void;
+                'notify::extensions': (pspec: GObject.ParamSpec) => void;
+                'notify::max-ptime': (pspec: GObject.ParamSpec) => void;
+                'notify::min-ptime': (pspec: GObject.ParamSpec) => void;
+                'notify::mtu': (pspec: GObject.ParamSpec) => void;
+                'notify::onvif-no-rate-control': (pspec: GObject.ParamSpec) => void;
+                'notify::perfect-rtptime': (pspec: GObject.ParamSpec) => void;
+                'notify::pt': (pspec: GObject.ParamSpec) => void;
+                'notify::ptime-multiple': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-rtptime': (pspec: GObject.ParamSpec) => void;
+                'notify::seqnum': (pspec: GObject.ParamSpec) => void;
+                'notify::seqnum-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::source-info': (pspec: GObject.ParamSpec) => void;
+                'notify::ssrc': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::timestamp-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1618,6 +1691,15 @@ declare module 'gi://GstRtp?version=1.0' {
             get timestampOffset(): number;
             set timestampOffset(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: RTPBasePayload.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -1630,24 +1712,21 @@ declare module 'gi://GstRtp?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'add-extension', callback: (_source: this, ext: RTPHeaderExtension) => void): number;
-            connect_after(signal: 'add-extension', callback: (_source: this, ext: RTPHeaderExtension) => void): number;
-            emit(signal: 'add-extension', ext: RTPHeaderExtension): void;
-            connect(signal: 'clear-extensions', callback: (_source: this) => void): number;
-            connect_after(signal: 'clear-extensions', callback: (_source: this) => void): number;
-            emit(signal: 'clear-extensions'): void;
-            connect(
-                signal: 'request-extension',
-                callback: (_source: this, ext_id: number, ext_uri: string) => RTPHeaderExtension | null,
+            connect<K extends keyof RTPBasePayload.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPBasePayload.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'request-extension',
-                callback: (_source: this, ext_id: number, ext_uri: string) => RTPHeaderExtension | null,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof RTPBasePayload.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPBasePayload.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'request-extension', ext_id: number, ext_uri: string): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof RTPBasePayload.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<RTPBasePayload.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1764,6 +1843,12 @@ declare module 'gi://GstRtp?version=1.0' {
         }
 
         namespace RTPHeaderExtension {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {}
@@ -1775,11 +1860,40 @@ declare module 'gi://GstRtp?version=1.0' {
         abstract class RTPHeaderExtension extends Gst.Element {
             static $gtype: GObject.GType<RTPHeaderExtension>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: RTPHeaderExtension.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<RTPHeaderExtension.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof RTPHeaderExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPHeaderExtension.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof RTPHeaderExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RTPHeaderExtension.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof RTPHeaderExtension.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<RTPHeaderExtension.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 

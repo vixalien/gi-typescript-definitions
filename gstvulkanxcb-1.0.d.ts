@@ -33,6 +33,12 @@ declare module 'gi://GstVulkanXCB?version=1.0' {
          */
 
         namespace VulkanDisplayXCB {
+            // Signal signatures
+            interface SignalSignatures extends GstVulkan.VulkanDisplay.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstVulkan.VulkanDisplay.ConstructorProps {}
@@ -45,6 +51,15 @@ declare module 'gi://GstVulkanXCB?version=1.0' {
         class VulkanDisplayXCB extends GstVulkan.VulkanDisplay {
             static $gtype: GObject.GType<VulkanDisplayXCB>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanDisplayXCB.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanDisplayXCB.ConstructorProps>, ...args: any[]);
@@ -55,6 +70,26 @@ declare module 'gi://GstVulkanXCB?version=1.0' {
             // Conflicted with GstVulkan.VulkanDisplay.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof VulkanDisplayXCB.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDisplayXCB.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanDisplayXCB.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDisplayXCB.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanDisplayXCB.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanDisplayXCB.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         type VulkanDisplayXCBClass = typeof VulkanDisplayXCB;

@@ -37,6 +37,16 @@ declare module 'gi://GstGLEGL?version=1.0' {
         const GL_MEMORY_EGL_ALLOCATOR_NAME: string;
         function egl_get_error_string(err: number): string;
         /**
+         * Checks if the given `context` can emulate `format` using a limited subset of
+         * RGB texture formats. Such `format` is then suitable for importing using
+         * gst_egl_image_from_dmabuf() even when GL supports the video format as
+         * external-only or not at all.
+         * @param context a #GstGLContext (must be an EGL context)
+         * @param format a #GstVideoFormat
+         * @returns #TRUE if @format can be emulated
+         */
+        function egl_image_can_emulate(context: GstGL.GLContext, format: GstVideo.VideoFormat | null): boolean;
+        /**
          * Creates an EGL image that imports the dmabuf FD. The dmabuf data
          * is passed as RGBA data. Shaders later take this "RGBA" data and
          * convert it from its true format (described by in_info) to actual
@@ -142,6 +152,12 @@ declare module 'gi://GstGLEGL?version=1.0' {
             (image: EGLImage, data?: any | null): void;
         }
         namespace GLDisplayEGL {
+            // Signal signatures
+            interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLDisplay.ConstructorProps {}
@@ -153,6 +169,15 @@ declare module 'gi://GstGLEGL?version=1.0' {
          */
         class GLDisplayEGL extends GstGL.GLDisplay {
             static $gtype: GObject.GType<GLDisplayEGL>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLDisplayEGL.SignalSignatures;
 
             // Constructors
 
@@ -166,6 +191,24 @@ declare module 'gi://GstGLEGL?version=1.0' {
 
             static new_with_egl_display(display?: any | null): GLDisplayEGL;
 
+            // Signals
+
+            connect<K extends keyof GLDisplayEGL.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayEGL.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLDisplayEGL.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayEGL.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLDisplayEGL.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLDisplayEGL.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Static methods
 
             /**
@@ -173,6 +216,11 @@ declare module 'gi://GstGLEGL?version=1.0' {
              *
              * This function will return the same value for multiple calls with the same
              * `display`.
+             *
+             * The returned #GstGLDisplayEGL will *not* be marked as foreign and will free
+             * some display global EGL resources on finalization. If an external API/user
+             * will be also handling the lifetime of the `EGLDisplay`, you should mark the
+             * returned #GstGLDisplayEGL as foreign by calling gst_gl_display_egl_set_foreign().
              * @param display an existing #GstGLDisplay
              */
             static from_gl_display(display: GstGL.GLDisplay): GLDisplayEGL | null;
@@ -184,9 +232,36 @@ declare module 'gi://GstGLEGL?version=1.0' {
              * @param display pointer to a display (or 0)
              */
             static get_from_native(type: GstGL.GLDisplayType, display: never): any | null;
+
+            // Methods
+
+            /**
+             * Configure whether or not this EGL display is foreign and is managed by an
+             * external application/library.
+             *
+             * A display marked as foreign will not have display global resources freed when
+             * this display is finalized. As such, any external API using the same
+             * `EGLDisplay` must keep the `EGLDisplay` alive while GStreamer is using any
+             * EGL or GL resources associated with that `EGLDisplay`.  The reverse is also
+             * true and a foreign #GstGLDisplayEGL must not be used after the associated
+             * `EGLDisplay` has been destroyed externally with `eglTerminate()`.
+             *
+             * A non-foreign #GstGLDisplayEGL will destroy the associated `EGLDisplay` on
+             * finalization. This can also be useful when a user would like GStreamer to
+             * assume ownership of the `EGLDisplay` after calling e.g.
+             * gst_gl_display_egl_new_with_egl_display().
+             * @param foreign whether @display_egl should be marked as containing a foreign           `EGLDisplay`
+             */
+            set_foreign(foreign: boolean): void;
         }
 
         namespace GLDisplayEGLDevice {
+            // Signal signatures
+            interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLDisplay.ConstructorProps {}
@@ -198,6 +273,15 @@ declare module 'gi://GstGLEGL?version=1.0' {
          */
         class GLDisplayEGLDevice extends GstGL.GLDisplay {
             static $gtype: GObject.GType<GLDisplayEGLDevice>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLDisplayEGLDevice.SignalSignatures;
 
             // Fields
 
@@ -215,9 +299,35 @@ declare module 'gi://GstGLEGL?version=1.0' {
             static ['new'](...args: never[]): any;
 
             static new_with_egl_device(device?: any | null): GLDisplayEGLDevice;
+
+            // Signals
+
+            connect<K extends keyof GLDisplayEGLDevice.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayEGLDevice.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLDisplayEGLDevice.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayEGLDevice.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLDisplayEGLDevice.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLDisplayEGLDevice.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace GLMemoryEGLAllocator {
+            // Signal signatures
+            interface SignalSignatures extends GstGL.GLMemoryAllocator.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLMemoryAllocator.ConstructorProps {}
@@ -229,11 +339,40 @@ declare module 'gi://GstGLEGL?version=1.0' {
         class GLMemoryEGLAllocator extends GstGL.GLMemoryAllocator {
             static $gtype: GObject.GType<GLMemoryEGLAllocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLMemoryEGLAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GLMemoryEGLAllocator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof GLMemoryEGLAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLMemoryEGLAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLMemoryEGLAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLMemoryEGLAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLMemoryEGLAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLMemoryEGLAllocator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         /**
@@ -267,6 +406,15 @@ declare module 'gi://GstGLEGL?version=1.0' {
 
             // Static methods
 
+            /**
+             * Checks if the given `context` can emulate `format` using a limited subset of
+             * RGB texture formats. Such `format` is then suitable for importing using
+             * gst_egl_image_from_dmabuf() even when GL supports the video format as
+             * external-only or not at all.
+             * @param context a #GstGLContext (must be an EGL context)
+             * @param format a #GstVideoFormat
+             */
+            static can_emulate(context: GstGL.GLContext, format: GstVideo.VideoFormat): boolean;
             /**
              * Creates an EGL image that imports the dmabuf FD. The dmabuf data
              * is passed as RGBA data. Shaders later take this "RGBA" data and

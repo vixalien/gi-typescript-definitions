@@ -571,7 +571,7 @@ declare module 'gi://Gcr?version=4' {
          * Asynchronously initialize the registered PKCS#11 modules.
          * @param cancellable optional cancellable used to cancel the operation
          */
-        function pkcs11_initialize_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+        function pkcs11_initialize_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
         /**
          * Asynchronously initialize the registered PKCS#11 modules.
          * @param cancellable optional cancellable used to cancel the operation
@@ -589,7 +589,7 @@ declare module 'gi://Gcr?version=4' {
         function pkcs11_initialize_async(
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Gio.Cancellable | null> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Complete the asynchronous operation to initialize the registered PKCS#11
          * modules.
@@ -668,7 +668,7 @@ declare module 'gi://Gcr?version=4' {
             purpose: string,
             peer: string,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Add a pinned certificate for communication with `peer` for `purpose`. A pinned
          * certificate overrides all other certificate verification and should be used
@@ -716,7 +716,7 @@ declare module 'gi://Gcr?version=4' {
             peer: string,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Certificate> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Finishes an asynchronous operation started by
          * [func`Gcr`.trust_add_pinned_certificate_async].
@@ -760,7 +760,7 @@ declare module 'gi://Gcr?version=4' {
             certificate: Certificate,
             purpose: string,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Check if the `certificate` is a trust anchor for the given `purpose`. A trust
          * anchor is used to verify the signatures on other certificates when verifying
@@ -798,7 +798,7 @@ declare module 'gi://Gcr?version=4' {
             purpose: string,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Certificate> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Finishes an asynchronous operation started by
          * [func`Gcr`.trust_is_certificate_anchored_async].
@@ -847,7 +847,7 @@ declare module 'gi://Gcr?version=4' {
             serial_nr: Uint8Array | string,
             issuer: Uint8Array | string,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Asynchronously checks whether the certificate that can be uniquely
          * identified with the given `serial_nr` and `issuer` is marked as distrusted
@@ -893,7 +893,7 @@ declare module 'gi://Gcr?version=4' {
             issuer: Uint8Array | string,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Uint8Array> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Finishes an asynchronous operation started by
          * [func`trust_is_certificate_distrusted_async]`.
@@ -942,7 +942,7 @@ declare module 'gi://Gcr?version=4' {
             purpose: string,
             peer: string,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Check if `certificate` is pinned for `purpose` to communicate with `peer`. A
          * pinned certificate overrides all other certificate verification.
@@ -982,7 +982,7 @@ declare module 'gi://Gcr?version=4' {
             peer: string,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Certificate> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Finishes an asynchronous operation started by
          * [func`Gcr`.trust_is_certificate_pinned_async].
@@ -1032,7 +1032,7 @@ declare module 'gi://Gcr?version=4' {
             purpose: string,
             peer: string,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Remove a pinned certificate for communication with `peer` for `purpose`.
          *
@@ -1076,7 +1076,7 @@ declare module 'gi://Gcr?version=4' {
             peer: string,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Certificate> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Finishes an asynchronous operation started by
          * [func`Gcr`.trust_remove_pinned_certificate_async].
@@ -1118,6 +1118,9 @@ declare module 'gi://Gcr?version=4' {
             IMPORTANT,
         }
         namespace AccessDescription {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1132,11 +1135,40 @@ declare module 'gi://Gcr?version=4' {
         class AccessDescription extends GObject.Object {
             static $gtype: GObject.GType<AccessDescription>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AccessDescription.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AccessDescription.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AccessDescription.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AccessDescription.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AccessDescription.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AccessDescription.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AccessDescription.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AccessDescription.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1159,6 +1191,11 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateChain {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1207,6 +1244,15 @@ declare module 'gi://Gcr?version=4' {
              */
             get length(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateChain.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateChain.ConstructorProps>, ...args: any[]);
@@ -1214,6 +1260,26 @@ declare module 'gi://Gcr?version=4' {
             _init(...args: any[]): void;
 
             static ['new'](): CertificateChain;
+
+            // Signals
+
+            connect<K extends keyof CertificateChain.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateChain.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateChain.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateChain.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateChain.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateChain.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1311,7 +1377,7 @@ declare module 'gi://Gcr?version=4' {
                 peer: string | null,
                 flags: CertificateChainFlags | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Complete a certificate chain. Once a certificate chain has been built
              * its status can be examined.
@@ -1397,7 +1463,7 @@ declare module 'gi://Gcr?version=4' {
                 flags: CertificateChainFlags | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an asynchronous operation started by
              * gcr_certificate_chain_build_async().
@@ -1448,6 +1514,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtension {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1486,11 +1559,40 @@ declare module 'gi://Gcr?version=4' {
              */
             get value(): GLib.Bytes;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtension.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtension.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtension.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtension.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtension.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtension.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1517,11 +1619,18 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionAuthorityInfoAccess {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::n-items': (pspec: GObject.ParamSpec) => void;
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends CertificateExtension.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {
+                extends CertificateExtension.ConstructorProps, Gio.ListModel.ConstructorProps {
                 n_items: number;
                 nItems: number;
             }
@@ -1554,11 +1663,43 @@ declare module 'gi://Gcr?version=4' {
              */
             get nItems(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionAuthorityInfoAccess.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtensionAuthorityInfoAccess.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionAuthorityInfoAccess.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionAuthorityInfoAccess.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionAuthorityInfoAccess.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionAuthorityInfoAccess.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionAuthorityInfoAccess.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionAuthorityInfoAccess.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2108,6 +2249,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionAuthorityKeyIdentifier {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends CertificateExtension.ConstructorProps {}
@@ -2125,6 +2273,15 @@ declare module 'gi://Gcr?version=4' {
         class CertificateExtensionAuthorityKeyIdentifier extends CertificateExtension {
             static $gtype: GObject.GType<CertificateExtensionAuthorityKeyIdentifier>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionAuthorityKeyIdentifier.SignalSignatures;
+
             // Constructors
 
             constructor(
@@ -2133,6 +2290,29 @@ declare module 'gi://Gcr?version=4' {
             );
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionAuthorityKeyIdentifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionAuthorityKeyIdentifier.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionAuthorityKeyIdentifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionAuthorityKeyIdentifier.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionAuthorityKeyIdentifier.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionAuthorityKeyIdentifier.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2155,6 +2335,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionBasicConstraints {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends CertificateExtension.ConstructorProps {}
@@ -2167,11 +2354,43 @@ declare module 'gi://Gcr?version=4' {
         class CertificateExtensionBasicConstraints extends CertificateExtension {
             static $gtype: GObject.GType<CertificateExtensionBasicConstraints>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionBasicConstraints.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtensionBasicConstraints.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionBasicConstraints.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionBasicConstraints.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionBasicConstraints.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionBasicConstraints.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionBasicConstraints.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionBasicConstraints.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2195,11 +2414,18 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionCertificatePolicies {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::n-items': (pspec: GObject.ParamSpec) => void;
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends CertificateExtension.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {
+                extends CertificateExtension.ConstructorProps, Gio.ListModel.ConstructorProps {
                 n_items: number;
                 nItems: number;
             }
@@ -2228,11 +2454,43 @@ declare module 'gi://Gcr?version=4' {
              */
             get nItems(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionCertificatePolicies.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtensionCertificatePolicies.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionCertificatePolicies.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionCertificatePolicies.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionCertificatePolicies.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionCertificatePolicies.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionCertificatePolicies.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionCertificatePolicies.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2780,11 +3038,18 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionCrlDistributionPoints {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::n-items': (pspec: GObject.ParamSpec) => void;
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends CertificateExtension.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {
+                extends CertificateExtension.ConstructorProps, Gio.ListModel.ConstructorProps {
                 n_items: number;
                 nItems: number;
             }
@@ -2813,6 +3078,15 @@ declare module 'gi://Gcr?version=4' {
              */
             get nItems(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionCrlDistributionPoints.SignalSignatures;
+
             // Constructors
 
             constructor(
@@ -2821,6 +3095,29 @@ declare module 'gi://Gcr?version=4' {
             );
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionCrlDistributionPoints.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionCrlDistributionPoints.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionCrlDistributionPoints.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionCrlDistributionPoints.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionCrlDistributionPoints.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionCrlDistributionPoints.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3370,6 +3667,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionExtendedKeyUsage {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends CertificateExtension.ConstructorProps {}
@@ -3385,11 +3689,43 @@ declare module 'gi://Gcr?version=4' {
         class CertificateExtensionExtendedKeyUsage extends CertificateExtension {
             static $gtype: GObject.GType<CertificateExtensionExtendedKeyUsage>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionExtendedKeyUsage.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtensionExtendedKeyUsage.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionExtendedKeyUsage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionExtendedKeyUsage.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionExtendedKeyUsage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionExtendedKeyUsage.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionExtendedKeyUsage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionExtendedKeyUsage.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3406,6 +3742,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionKeyUsage {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends CertificateExtension.ConstructorProps {}
@@ -3421,11 +3764,43 @@ declare module 'gi://Gcr?version=4' {
         class CertificateExtensionKeyUsage extends CertificateExtension {
             static $gtype: GObject.GType<CertificateExtensionKeyUsage>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionKeyUsage.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtensionKeyUsage.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionKeyUsage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionKeyUsage.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionKeyUsage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionKeyUsage.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionKeyUsage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionKeyUsage.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3441,11 +3816,15 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionList {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::n-items': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends GObject.Object.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {
+                extends GObject.Object.ConstructorProps, Gio.ListModel.ConstructorProps {
                 n_items: number;
                 nItems: number;
             }
@@ -3465,11 +3844,40 @@ declare module 'gi://Gcr?version=4' {
             get n_items(): number;
             get nItems(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtensionList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4025,11 +4433,17 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionSubjectAltName {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends CertificateExtension.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {}
+                extends CertificateExtension.ConstructorProps, Gio.ListModel.ConstructorProps {}
         }
 
         /**
@@ -4046,11 +4460,43 @@ declare module 'gi://Gcr?version=4' {
         {
             static $gtype: GObject.GType<CertificateExtensionSubjectAltName>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionSubjectAltName.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateExtensionSubjectAltName.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionSubjectAltName.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionSubjectAltName.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionSubjectAltName.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionSubjectAltName.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionSubjectAltName.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionSubjectAltName.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4598,6 +5044,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateExtensionSubjectKeyIdentifier {
+            // Signal signatures
+            interface SignalSignatures extends CertificateExtension.SignalSignatures {
+                'notify::critical': (pspec: GObject.ParamSpec) => void;
+                'notify::oid': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends CertificateExtension.ConstructorProps {}
@@ -4609,6 +5062,15 @@ declare module 'gi://Gcr?version=4' {
         class CertificateExtensionSubjectKeyIdentifier extends CertificateExtension {
             static $gtype: GObject.GType<CertificateExtensionSubjectKeyIdentifier>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateExtensionSubjectKeyIdentifier.SignalSignatures;
+
             // Constructors
 
             constructor(
@@ -4617,6 +5079,29 @@ declare module 'gi://Gcr?version=4' {
             );
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateExtensionSubjectKeyIdentifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionSubjectKeyIdentifier.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateExtensionSubjectKeyIdentifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateExtensionSubjectKeyIdentifier.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateExtensionSubjectKeyIdentifier.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateExtensionSubjectKeyIdentifier.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4628,6 +5113,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateField {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::section': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4646,11 +5138,40 @@ declare module 'gi://Gcr?version=4' {
             get section(): CertificateSection;
             get value(): GObject.Value;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateField.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateField.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateField.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateField.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateField.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateField.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateField.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateField.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4680,11 +5201,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificatePolicy {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends GObject.Object.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {}
+                extends GObject.Object.ConstructorProps, Gio.ListModel.ConstructorProps {}
         }
 
         /**
@@ -4702,11 +5225,40 @@ declare module 'gi://Gcr?version=4' {
         {
             static $gtype: GObject.GType<CertificatePolicy>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificatePolicy.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificatePolicy.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificatePolicy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificatePolicy.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificatePolicy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificatePolicy.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificatePolicy.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificatePolicy.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5258,6 +5810,9 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificatePolicyQualifier {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5272,11 +5827,40 @@ declare module 'gi://Gcr?version=4' {
         class CertificatePolicyQualifier extends GObject.Object {
             static $gtype: GObject.GType<CertificatePolicyQualifier>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificatePolicyQualifier.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificatePolicyQualifier.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificatePolicyQualifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificatePolicyQualifier.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificatePolicyQualifier.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificatePolicyQualifier.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificatePolicyQualifier.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificatePolicyQualifier.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5293,6 +5877,11 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateRequest {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::private-key': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -5324,11 +5913,40 @@ declare module 'gi://Gcr?version=4' {
              */
             get privateKey(): Gck.Object;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateRequest.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateRequest.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateRequest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateRequest.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateRequest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateRequest.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateRequest.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateRequest.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -5382,7 +6000,7 @@ declare module 'gi://Gcr?version=4' {
              * This call will return immediately and complete later.
              * @param cancellable a cancellation object
              */
-            complete_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            complete_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously complete and sign a certificate request, so that it can
              * be encoded and sent to a certificate authority.
@@ -5403,7 +6021,7 @@ declare module 'gi://Gcr?version=4' {
             complete_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finish an asynchronous operation to complete and sign a certificate
              * request.
@@ -5442,6 +6060,12 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace CertificateSection {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::fields': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -5458,11 +6082,40 @@ declare module 'gi://Gcr?version=4' {
             get fields(): Gio.ListModel;
             get label(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CertificateSection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CertificateSection.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CertificateSection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateSection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CertificateSection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CertificateSection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CertificateSection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CertificateSection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5484,6 +6137,9 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace DistributionPoint {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5501,11 +6157,40 @@ declare module 'gi://Gcr?version=4' {
         class DistributionPoint extends GObject.Object {
             static $gtype: GObject.GType<DistributionPoint>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DistributionPoint.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DistributionPoint.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DistributionPoint.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DistributionPoint.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DistributionPoint.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DistributionPoint.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DistributionPoint.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DistributionPoint.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5528,6 +6213,9 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace GeneralName {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5540,11 +6228,38 @@ declare module 'gi://Gcr?version=4' {
         class GeneralName extends GObject.Object {
             static $gtype: GObject.GType<GeneralName>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GeneralName.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GeneralName.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof GeneralName.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GeneralName.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GeneralName.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GeneralName.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GeneralName.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GeneralName.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5563,11 +6278,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace GeneralNames {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends GObject.Object.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {}
+                extends GObject.Object.ConstructorProps, Gio.ListModel.ConstructorProps {}
         }
 
         /**
@@ -5579,11 +6296,38 @@ declare module 'gi://Gcr?version=4' {
         {
             static $gtype: GObject.GType<GeneralNames>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GeneralNames.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GeneralNames.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof GeneralNames.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GeneralNames.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GeneralNames.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GeneralNames.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GeneralNames.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GeneralNames.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6134,14 +6878,13 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace Parser {
-            // Signal callback interfaces
-
-            interface Authenticate {
-                (count: number): boolean;
-            }
-
-            interface Parsed {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                authenticate: (arg0: number) => boolean | void;
+                parsed: () => void;
+                'notify::parsed-attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::parsed-description': (pspec: GObject.ParamSpec) => void;
+                'notify::parsed-label': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -6208,6 +6951,15 @@ declare module 'gi://Gcr?version=4' {
              */
             get parsedLabel(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Parser.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Parser.ConstructorProps>, ...args: any[]);
@@ -6218,15 +6970,21 @@ declare module 'gi://Gcr?version=4' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'authenticate', callback: (_source: this, count: number) => boolean): number;
-            connect_after(signal: 'authenticate', callback: (_source: this, count: number) => boolean): number;
-            emit(signal: 'authenticate', count: number): void;
-            connect(signal: 'parsed', callback: (_source: this) => void): number;
-            connect_after(signal: 'parsed', callback: (_source: this) => void): number;
-            emit(signal: 'parsed'): void;
+            connect<K extends keyof Parser.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Parser.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Parser.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Parser.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Parser.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Parser.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -6351,7 +7109,10 @@ declare module 'gi://Gcr?version=4' {
              * @param input The input stream
              * @param cancellable An optional cancellation object
              */
-            parse_stream_async(input: Gio.InputStream, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            parse_stream_async(
+                input: Gio.InputStream,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<boolean>;
             /**
              * Parse items from the data in a #GInputStream. This function completes
              * asyncronously and doesn't block.
@@ -6381,7 +7142,7 @@ declare module 'gi://Gcr?version=4' {
                 input: Gio.InputStream,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete an operation to parse a stream.
              * @param result The operation result
@@ -6396,6 +7157,19 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace Pkcs11Certificate {
+            // Signal signatures
+            interface SignalSignatures extends Gck.Object.SignalSignatures {
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::handle': (pspec: GObject.ParamSpec) => void;
+                'notify::module': (pspec: GObject.ParamSpec) => void;
+                'notify::session': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::expiry-date': (pspec: GObject.ParamSpec) => void;
+                'notify::issuer-name': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::subject-name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gck.Object.ConstructorProps, Certificate.ConstructorProps {
@@ -6423,11 +7197,40 @@ declare module 'gi://Gcr?version=4' {
              */
             get attributes(): Gck.Attributes;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Pkcs11Certificate.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Pkcs11Certificate.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Pkcs11Certificate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Pkcs11Certificate.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Pkcs11Certificate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Pkcs11Certificate.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Pkcs11Certificate.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Pkcs11Certificate.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -7185,6 +7988,11 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace SecretExchange {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::protocol': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7230,6 +8038,15 @@ declare module 'gi://Gcr?version=4' {
              */
             get protocol(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SecretExchange.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SecretExchange.ConstructorProps>, ...args: any[]);
@@ -7237,6 +8054,24 @@ declare module 'gi://Gcr?version=4' {
             _init(...args: any[]): void;
 
             static ['new'](protocol?: string | null): SecretExchange;
+
+            // Signals
+
+            connect<K extends keyof SecretExchange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SecretExchange.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SecretExchange.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SecretExchange.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SecretExchange.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SecretExchange.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -7298,6 +8133,15 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace SimpleCertificate {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::expiry-date': (pspec: GObject.ParamSpec) => void;
+                'notify::issuer-name': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::subject-name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Certificate.ConstructorProps {}
@@ -7313,6 +8157,15 @@ declare module 'gi://Gcr?version=4' {
         class SimpleCertificate extends GObject.Object implements Certificate {
             static $gtype: GObject.GType<SimpleCertificate>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SimpleCertificate.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SimpleCertificate.ConstructorProps>, ...args: any[]);
@@ -7320,6 +8173,26 @@ declare module 'gi://Gcr?version=4' {
             _init(...args: any[]): void;
 
             static ['new'](data: Uint8Array | string): SimpleCertificate;
+
+            // Signals
+
+            connect<K extends keyof SimpleCertificate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SimpleCertificate.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SimpleCertificate.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SimpleCertificate.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SimpleCertificate.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SimpleCertificate.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited properties
             /**
@@ -7986,6 +8859,11 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace SshAskpass {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::interaction': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -8007,6 +8885,15 @@ declare module 'gi://Gcr?version=4' {
              */
             get interaction(): Gio.TlsInteraction;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SshAskpass.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SshAskpass.ConstructorProps>, ...args: any[]);
@@ -8014,6 +8901,24 @@ declare module 'gi://Gcr?version=4' {
             _init(...args: any[]): void;
 
             static ['new'](interaction: Gio.TlsInteraction): SshAskpass;
+
+            // Signals
+
+            connect<K extends keyof SshAskpass.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SshAskpass.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SshAskpass.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SshAskpass.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SshAskpass.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SshAskpass.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -8034,10 +8939,29 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace SystemPrompt {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::bus-name': (pspec: GObject.ParamSpec) => void;
+                'notify::secret-exchange': (pspec: GObject.ParamSpec) => void;
+                'notify::timeout-seconds': (pspec: GObject.ParamSpec) => void;
+                'notify::caller-window': (pspec: GObject.ParamSpec) => void;
+                'notify::cancel-label': (pspec: GObject.ParamSpec) => void;
+                'notify::choice-chosen': (pspec: GObject.ParamSpec) => void;
+                'notify::choice-label': (pspec: GObject.ParamSpec) => void;
+                'notify::continue-label': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::message': (pspec: GObject.ParamSpec) => void;
+                'notify::password-new': (pspec: GObject.ParamSpec) => void;
+                'notify::password-strength': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::warning': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends GObject.Object.ConstructorProps,
+                extends
+                    GObject.Object.ConstructorProps,
                     Prompt.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.Initable.ConstructorProps {
@@ -8099,11 +9023,38 @@ declare module 'gi://Gcr?version=4' {
              */
             set timeoutSeconds(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SystemPrompt.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SystemPrompt.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof SystemPrompt.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SystemPrompt.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SystemPrompt.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SystemPrompt.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SystemPrompt.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SystemPrompt.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -8211,7 +9162,7 @@ declare module 'gi://Gcr?version=4' {
              * This call returns immediately and completes asynchronously.
              * @param cancellable an optional cancellation object
              */
-            close_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            close_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Close this prompt asynchronously. After calling this function, no further
              * methods may be called on this object. The prompt object is not unreferenced
@@ -8234,7 +9185,7 @@ declare module 'gi://Gcr?version=4' {
             close_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete operation to close this prompt.
              *
@@ -8426,7 +9377,7 @@ declare module 'gi://Gcr?version=4' {
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
              */
-            confirm_async(cancellable?: Gio.Cancellable | null): Promise<PromptReply>;
+            confirm_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<PromptReply>;
             /**
              * Prompts for confirmation asking a cancel/continue style question.
              * Set the various properties on the prompt before calling this method to
@@ -8449,7 +9400,7 @@ declare module 'gi://Gcr?version=4' {
             confirm_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<PromptReply> | void;
+            ): globalThis.Promise<PromptReply> | void;
             /**
              * Complete an operation to prompt for confirmation.
              *
@@ -8591,7 +9542,7 @@ declare module 'gi://Gcr?version=4' {
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
              */
-            password_async(cancellable?: Gio.Cancellable | null): Promise<string>;
+            password_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Prompts for password. Set the various properties on the prompt before calling
              * this method to explain which password should be entered.
@@ -8612,7 +9563,7 @@ declare module 'gi://Gcr?version=4' {
             password_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Complete an operation to prompt for a password.
              *
@@ -8679,7 +9630,7 @@ declare module 'gi://Gcr?version=4' {
              * displayed by the prompt allowing the user to select or deselect it.
              *
              * The initial value of the choice can be set with the
-             * gcr_prompt_set_choice_label() method.
+             * gcr_prompt_set_choice_chosen() method.
              *
              * If this is %NULL, then no additional choice is being displayed.
              * @param choice_label the additional choice or %NULL
@@ -8826,7 +9777,7 @@ declare module 'gi://Gcr?version=4' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -8918,7 +9869,7 @@ declare module 'gi://Gcr?version=4' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -9512,10 +10463,11 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace SystemPrompter {
-            // Signal callback interfaces
-
-            interface NewPrompt {
-                (): Prompt;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'new-prompt': () => Prompt;
+                'notify::prompt-type': (pspec: GObject.ParamSpec) => void;
+                'notify::prompting': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -9559,6 +10511,15 @@ declare module 'gi://Gcr?version=4' {
              */
             get prompting(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SystemPrompter.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SystemPrompter.ConstructorProps>, ...args: any[]);
@@ -9569,12 +10530,21 @@ declare module 'gi://Gcr?version=4' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'new-prompt', callback: (_source: this) => Prompt): number;
-            connect_after(signal: 'new-prompt', callback: (_source: this) => Prompt): number;
-            emit(signal: 'new-prompt'): void;
+            connect<K extends keyof SystemPrompter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SystemPrompter.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SystemPrompter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SystemPrompter.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SystemPrompter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SystemPrompter.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9808,6 +10778,19 @@ declare module 'gi://Gcr?version=4' {
         }
 
         namespace Certificate {
+            /**
+             * Interface for implementing Certificate.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets the raw DER data for an X.509 certificate.
+                 */
+                vfunc_get_der_data(): Uint8Array;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9826,7 +10809,7 @@ declare module 'gi://Gcr?version=4' {
             $gtype: GObject.GType<Certificate>;
             prototype: Certificate;
         }
-        interface Certificate extends GObject.Object {
+        interface Certificate extends GObject.Object, Certificate.Interface {
             // Properties
 
             /**
@@ -10048,13 +11031,6 @@ declare module 'gi://Gcr?version=4' {
              * properties.
              */
             mixin_emit_notify(): void;
-
-            // Virtual methods
-
-            /**
-             * Gets the raw DER data for an X.509 certificate.
-             */
-            vfunc_get_der_data(): Uint8Array;
         }
 
         export const Certificate: CertificateNamespace & {
@@ -10062,6 +11038,60 @@ declare module 'gi://Gcr?version=4' {
         };
 
         namespace ImportInteraction {
+            /**
+             * Interface for implementing ImportInteraction.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Supplement attributes before import. This means prompting the user for
+                 * things like labels and the like. The needed attributes will have been passed
+                 * to gcr_import_interaction_supplement_prep().
+                 *
+                 * This method prompts the user and fills in the attributes. If the user or
+                 * cancellable cancels the operation the error should be set with %G_IO_ERROR_CANCELLED.
+                 * @param builder supplemented attributes
+                 * @param cancellable optional cancellable object
+                 */
+                vfunc_supplement(builder: Gck.Builder, cancellable?: Gio.Cancellable | null): Gio.TlsInteractionResult;
+                /**
+                 * Asynchronously supplement attributes before import. This means prompting the
+                 * user for things like labels and the like. The needed attributes will have
+                 * been passed to gcr_import_interaction_supplement_prep().
+                 *
+                 * This method prompts the user and fills in the attributes.
+                 * @param builder supplemented attributes
+                 * @param cancellable optional cancellable object
+                 * @param callback called when the operation completes
+                 */
+                vfunc_supplement_async(
+                    builder: Gck.Builder,
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * Complete operation to asynchronously supplement attributes before import.
+                 *
+                 * If the user or cancellable cancels the operation the error should be set
+                 * with %G_IO_ERROR_CANCELLED.
+                 * @param result the asynchronous result
+                 */
+                vfunc_supplement_finish(result: Gio.AsyncResult): Gio.TlsInteractionResult;
+                /**
+                 * Prepare for supplementing the given attributes before import. This means
+                 * prompting the user for things like labels and the like. The attributes
+                 * will contain attributes for values that the importer needs, either empty
+                 * or prefilled with suggested values.
+                 *
+                 * This method does not prompt the user, but rather just prepares the
+                 * interaction that these are the attributes that are needed.
+                 * @param builder attributes to supplement
+                 */
+                vfunc_supplement_prep(builder: Gck.Builder): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.TlsInteraction.ConstructorProps {}
@@ -10071,7 +11101,7 @@ declare module 'gi://Gcr?version=4' {
             $gtype: GObject.GType<ImportInteraction>;
             prototype: ImportInteraction;
         }
-        interface ImportInteraction extends Gio.TlsInteraction {
+        interface ImportInteraction extends Gio.TlsInteraction, ImportInteraction.Interface {
             // Methods
 
             /**
@@ -10098,7 +11128,7 @@ declare module 'gi://Gcr?version=4' {
             supplement_async(
                 builder: Gck.Builder,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<Gio.TlsInteractionResult>;
+            ): globalThis.Promise<Gio.TlsInteractionResult>;
             /**
              * Asynchronously supplement attributes before import. This means prompting the
              * user for things like labels and the like. The needed attributes will have
@@ -10128,7 +11158,7 @@ declare module 'gi://Gcr?version=4' {
                 builder: Gck.Builder,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Gio.TlsInteractionResult> | void;
+            ): globalThis.Promise<Gio.TlsInteractionResult> | void;
             /**
              * Complete operation to asynchronously supplement attributes before import.
              *
@@ -10149,54 +11179,6 @@ declare module 'gi://Gcr?version=4' {
              * @param builder attributes to supplement
              */
             supplement_prep(builder: Gck.Builder): void;
-
-            // Virtual methods
-
-            /**
-             * Supplement attributes before import. This means prompting the user for
-             * things like labels and the like. The needed attributes will have been passed
-             * to gcr_import_interaction_supplement_prep().
-             *
-             * This method prompts the user and fills in the attributes. If the user or
-             * cancellable cancels the operation the error should be set with %G_IO_ERROR_CANCELLED.
-             * @param builder supplemented attributes
-             * @param cancellable optional cancellable object
-             */
-            vfunc_supplement(builder: Gck.Builder, cancellable?: Gio.Cancellable | null): Gio.TlsInteractionResult;
-            /**
-             * Asynchronously supplement attributes before import. This means prompting the
-             * user for things like labels and the like. The needed attributes will have
-             * been passed to gcr_import_interaction_supplement_prep().
-             *
-             * This method prompts the user and fills in the attributes.
-             * @param builder supplemented attributes
-             * @param cancellable optional cancellable object
-             * @param callback called when the operation completes
-             */
-            vfunc_supplement_async(
-                builder: Gck.Builder,
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * Complete operation to asynchronously supplement attributes before import.
-             *
-             * If the user or cancellable cancels the operation the error should be set
-             * with %G_IO_ERROR_CANCELLED.
-             * @param result the asynchronous result
-             */
-            vfunc_supplement_finish(result: Gio.AsyncResult): Gio.TlsInteractionResult;
-            /**
-             * Prepare for supplementing the given attributes before import. This means
-             * prompting the user for things like labels and the like. The attributes
-             * will contain attributes for values that the importer needs, either empty
-             * or prefilled with suggested values.
-             *
-             * This method does not prompt the user, but rather just prepares the
-             * interaction that these are the attributes that are needed.
-             * @param builder attributes to supplement
-             */
-            vfunc_supplement_prep(builder: Gck.Builder): void;
         }
 
         export const ImportInteraction: ImportInteractionNamespace & {
@@ -10204,6 +11186,39 @@ declare module 'gi://Gcr?version=4' {
         };
 
         namespace Importer {
+            /**
+             * Interface for implementing Importer.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Import the queued items in the importer. This function returns immediately
+                 * and completes asynchronously.
+                 * @param cancellable a #GCancellable, or %NULL
+                 * @param callback called when the operation completes
+                 */
+                vfunc_import_async(
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * Complete an asynchronous operation to import queued items.
+                 * @param result an asynchronous result
+                 */
+                vfunc_import_finish(result: Gio.AsyncResult): boolean;
+                /**
+                 * Queues an additional item to be imported. The parsed item is represented
+                 * by the state of the [class`Parser]` at the time of calling this method.
+                 *
+                 * If the parsed item is incompatible with the importer, then this will
+                 * fail and the item will not be queued.
+                 * @param parsed a parsed item to import
+                 */
+                vfunc_queue_for_parsed(parsed: Parsed): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10247,7 +11262,7 @@ declare module 'gi://Gcr?version=4' {
              */
             register_well_known(): void;
         }
-        interface Importer extends GObject.Object {
+        interface Importer extends GObject.Object, Importer.Interface {
             // Properties
 
             /**
@@ -10277,7 +11292,7 @@ declare module 'gi://Gcr?version=4' {
              * and completes asynchronously.
              * @param cancellable a #GCancellable, or %NULL
              */
-            import_async(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            import_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Import the queued items in the importer. This function returns immediately
              * and completes asynchronously.
@@ -10294,7 +11309,7 @@ declare module 'gi://Gcr?version=4' {
             import_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete an asynchronous operation to import queued items.
              * @param result an asynchronous result
@@ -10317,33 +11332,6 @@ declare module 'gi://Gcr?version=4' {
              * @param interaction the interaction used by the importer
              */
             set_interaction(interaction: Gio.TlsInteraction): void;
-
-            // Virtual methods
-
-            /**
-             * Import the queued items in the importer. This function returns immediately
-             * and completes asynchronously.
-             * @param cancellable a #GCancellable, or %NULL
-             * @param callback called when the operation completes
-             */
-            vfunc_import_async(
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * Complete an asynchronous operation to import queued items.
-             * @param result an asynchronous result
-             */
-            vfunc_import_finish(result: Gio.AsyncResult): boolean;
-            /**
-             * Queues an additional item to be imported. The parsed item is represented
-             * by the state of the [class`Parser]` at the time of calling this method.
-             *
-             * If the parsed item is incompatible with the importer, then this will
-             * fail and the item will not be queued.
-             * @param parsed a parsed item to import
-             */
-            vfunc_queue_for_parsed(parsed: Parsed): boolean;
         }
 
         export const Importer: ImporterNamespace & {
@@ -10351,6 +11339,65 @@ declare module 'gi://Gcr?version=4' {
         };
 
         namespace Prompt {
+            /**
+             * Interface for implementing Prompt.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * close a prompt
+                 */
+                vfunc_prompt_close(): void;
+                /**
+                 * Prompts for confirmation asking a cancel/continue style question.
+                 * Set the various properties on the prompt before calling this method to
+                 * represent the question correctly.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                vfunc_prompt_confirm_async(
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * Complete an operation to prompt for confirmation.
+                 *
+                 * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
+                 * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
+                 * an error occurs. Check the `error` argument to tell the difference.
+                 * @param result asynchronous result passed to callback
+                 */
+                vfunc_prompt_confirm_finish(result: Gio.AsyncResult): PromptReply;
+                /**
+                 * Prompts for password. Set the various properties on the prompt before calling
+                 * this method to explain which password should be entered.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                vfunc_prompt_password_async(
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * Complete an operation to prompt for a password.
+                 *
+                 * A password will be returned if the user enters a password successfully.
+                 * The returned password is valid until the next time a method is called
+                 * to display another prompt.
+                 *
+                 * %NULL will be returned if the user cancels or if an error occurs. Check the
+                 * `error` argument to tell the difference.
+                 * @param result asynchronous result passed to callback
+                 */
+                vfunc_prompt_password_finish(result: Gio.AsyncResult): string;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -10379,7 +11426,7 @@ declare module 'gi://Gcr?version=4' {
             $gtype: GObject.GType<Prompt>;
             prototype: Prompt;
         }
-        interface Prompt extends GObject.Object {
+        interface Prompt extends GObject.Object, Prompt.Interface {
             // Properties
 
             /**
@@ -10567,7 +11614,7 @@ declare module 'gi://Gcr?version=4' {
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
              */
-            confirm_async(cancellable?: Gio.Cancellable | null): Promise<PromptReply>;
+            confirm_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<PromptReply>;
             /**
              * Prompts for confirmation asking a cancel/continue style question.
              * Set the various properties on the prompt before calling this method to
@@ -10590,7 +11637,7 @@ declare module 'gi://Gcr?version=4' {
             confirm_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<PromptReply> | void;
+            ): globalThis.Promise<PromptReply> | void;
             /**
              * Complete an operation to prompt for confirmation.
              *
@@ -10732,7 +11779,7 @@ declare module 'gi://Gcr?version=4' {
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
              */
-            password_async(cancellable?: Gio.Cancellable | null): Promise<string>;
+            password_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Prompts for password. Set the various properties on the prompt before calling
              * this method to explain which password should be entered.
@@ -10753,7 +11800,7 @@ declare module 'gi://Gcr?version=4' {
             password_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Complete an operation to prompt for a password.
              *
@@ -10820,7 +11867,7 @@ declare module 'gi://Gcr?version=4' {
              * displayed by the prompt allowing the user to select or deselect it.
              *
              * The initial value of the choice can be set with the
-             * gcr_prompt_set_choice_label() method.
+             * gcr_prompt_set_choice_chosen() method.
              *
              * If this is %NULL, then no additional choice is being displayed.
              * @param choice_label the additional choice or %NULL
@@ -10877,59 +11924,6 @@ declare module 'gi://Gcr?version=4' {
              * @param warning the warning or %NULL
              */
             set_warning(warning?: string | null): void;
-
-            // Virtual methods
-
-            /**
-             * close a prompt
-             */
-            vfunc_prompt_close(): void;
-            /**
-             * Prompts for confirmation asking a cancel/continue style question.
-             * Set the various properties on the prompt before calling this method to
-             * represent the question correctly.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            vfunc_prompt_confirm_async(
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * Complete an operation to prompt for confirmation.
-             *
-             * %GCR_PROMPT_REPLY_CONTINUE will be returned if the user confirms the prompt. The
-             * return value will also be %GCR_PROMPT_REPLY_CANCEL if the user cancels or if
-             * an error occurs. Check the `error` argument to tell the difference.
-             * @param result asynchronous result passed to callback
-             */
-            vfunc_prompt_confirm_finish(result: Gio.AsyncResult): PromptReply;
-            /**
-             * Prompts for password. Set the various properties on the prompt before calling
-             * this method to explain which password should be entered.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            vfunc_prompt_password_async(
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * Complete an operation to prompt for a password.
-             *
-             * A password will be returned if the user enters a password successfully.
-             * The returned password is valid until the next time a method is called
-             * to display another prompt.
-             *
-             * %NULL will be returned if the user cancels or if an error occurs. Check the
-             * `error` argument to tell the difference.
-             * @param result asynchronous result passed to callback
-             */
-            vfunc_prompt_password_finish(result: Gio.AsyncResult): string;
         }
 
         export const Prompt: PromptNamespace & {

@@ -429,6 +429,9 @@ declare module 'gi://GstBase?version=1.0' {
             LOCKED,
         }
         namespace Adapter {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -540,6 +543,15 @@ declare module 'gi://GstBase?version=1.0' {
         class Adapter extends GObject.Object {
             static $gtype: GObject.GType<Adapter>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Adapter.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Adapter.ConstructorProps>, ...args: any[]);
@@ -548,18 +560,43 @@ declare module 'gi://GstBase?version=1.0' {
 
             static ['new'](): Adapter;
 
+            // Signals
+
+            connect<K extends keyof Adapter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Adapter.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Adapter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Adapter.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Adapter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Adapter.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             /**
              * Gets the maximum amount of bytes available, that is it returns the maximum
              * value that can be supplied to gst_adapter_map() without that function
              * returning %NULL.
+             *
+             * Calling gst_adapter_map() with the amount of bytes returned by this function
+             * may require expensive operations (like copying the data into a temporary
+             * buffer) in some cases.
              * @returns number of bytes available in @adapter
              */
             available(): number;
             /**
-             * Gets the maximum number of bytes that are immediately available without
-             * requiring any expensive operations (like copying the data into a
+             * Gets the maximum number of bytes that can be retrieved in a single map
+             * operation without merging buffers.
+             *
+             * Calling gst_adapter_map() with the amount of bytes returned by this function
+             * will never require any expensive operations (like copying the data into a
              * temporary buffer).
              * @returns number of bytes that are available in @adapter without expensive operations
              */
@@ -718,7 +755,7 @@ declare module 'gi://GstBase?version=1.0' {
              *
              * The dts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
              * the adapter is first created or when it is cleared. This also means that before
-             * the first byte with a dts is removed from the adapter, the dts
+             * the first byte with a dts is added to the adapter, the dts
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @returns The previously seen dts.
              */
@@ -730,7 +767,7 @@ declare module 'gi://GstBase?version=1.0' {
              *
              * The dts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
              * the adapter is first created or when it is cleared. This also means that before
-             * the first byte with a dts is removed from the adapter, the dts
+             * the first byte with a dts is added to the adapter, the dts
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @param offset the offset in the adapter at which to get timestamp
              * @returns The previously seen dts at given offset.
@@ -743,7 +780,7 @@ declare module 'gi://GstBase?version=1.0' {
              *
              * The offset is reset to GST_BUFFER_OFFSET_NONE and the distance is set to 0
              * when the adapter is first created or when it is cleared. This also means that
-             * before the first byte with an offset is removed from the adapter, the offset
+             * before the first byte with an offset is added to the adapter, the offset
              * and distance returned are GST_BUFFER_OFFSET_NONE and 0 respectively.
              * @returns The previous seen offset.
              */
@@ -755,7 +792,7 @@ declare module 'gi://GstBase?version=1.0' {
              *
              * The pts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
              * the adapter is first created or when it is cleared. This also means that before
-             * the first byte with a pts is removed from the adapter, the pts
+             * the first byte with a pts is added to the adapter, the pts
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @returns The previously seen pts.
              */
@@ -767,7 +804,7 @@ declare module 'gi://GstBase?version=1.0' {
              *
              * The pts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
              * the adapter is first created or when it is cleared. This also means that before
-             * the first byte with a pts is removed from the adapter, the pts
+             * the first byte with a pts is added to the adapter, the pts
              * and distance returned are GST_CLOCK_TIME_NONE and 0 respectively.
              * @param offset the offset in the adapter at which to get timestamp
              * @returns The previously seen pts at given offset.
@@ -878,10 +915,22 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace Aggregator {
-            // Signal callback interfaces
-
-            interface SamplesSelected {
-                (segment: Gst.Segment, pts: number, dts: number, duration: number, info?: Gst.Structure | null): void;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'samples-selected': (
+                    arg0: Gst.Segment,
+                    arg1: number,
+                    arg2: number,
+                    arg3: number,
+                    arg4: Gst.Structure | null,
+                ) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::latency': (pspec: GObject.ParamSpec) => void;
+                'notify::min-upstream-latency': (pspec: GObject.ParamSpec) => void;
+                'notify::start-time': (pspec: GObject.ParamSpec) => void;
+                'notify::start-time-selection': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1006,6 +1055,15 @@ declare module 'gi://GstBase?version=1.0' {
             get startTimeSelection(): AggregatorStartTimeSelection;
             set startTimeSelection(val: AggregatorStartTimeSelection);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Aggregator.SignalSignatures;
+
             // Fields
 
             srcpad: Gst.Pad;
@@ -1018,39 +1076,21 @@ declare module 'gi://GstBase?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'samples-selected',
-                callback: (
-                    _source: this,
-                    segment: Gst.Segment,
-                    pts: number,
-                    dts: number,
-                    duration: number,
-                    info: Gst.Structure | null,
-                ) => void,
+            connect<K extends keyof Aggregator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Aggregator.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'samples-selected',
-                callback: (
-                    _source: this,
-                    segment: Gst.Segment,
-                    pts: number,
-                    dts: number,
-                    duration: number,
-                    info: Gst.Structure | null,
-                ) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Aggregator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Aggregator.SignalSignatures[K]>,
             ): number;
-            emit(
-                signal: 'samples-selected',
-                segment: Gst.Segment,
-                pts: number,
-                dts: number,
-                duration: number,
-                info?: Gst.Structure | null,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Aggregator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Aggregator.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1279,6 +1319,16 @@ declare module 'gi://GstBase?version=1.0' {
              */
             peek_next_sample(pad: AggregatorPad): Gst.Sample | null;
             /**
+             * This method will push the provided event downstream. If needed, mandatory
+             * events such as stream-start, caps, and segment events will be sent before
+             * pushing the event.
+             *
+             * This API does not allow pushing stream-start, caps, segment and EOS events.
+             * Specific API like gst_aggregator_set_src_caps() should be used for these.
+             * @param event the #GstEvent to push.
+             */
+            push_src_event(event: Gst.Event): boolean;
+            /**
              * Subclasses should call this when they have prepared the
              * buffers they will aggregate for each of their sink pads, but
              * before using any of the properties of the pads that govern
@@ -1353,10 +1403,16 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace AggregatorPad {
-            // Signal callback interfaces
-
-            interface BufferConsumed {
-                (object: Gst.Buffer): void;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Pad.SignalSignatures {
+                'buffer-consumed': (arg0: Gst.Buffer) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1388,6 +1444,15 @@ declare module 'gi://GstBase?version=1.0' {
             get emitSignals(): boolean;
             set emitSignals(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AggregatorPad.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AggregatorPad.ConstructorProps>, ...args: any[]);
@@ -1396,12 +1461,21 @@ declare module 'gi://GstBase?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'buffer-consumed', callback: (_source: this, object: Gst.Buffer) => void): number;
-            connect_after(signal: 'buffer-consumed', callback: (_source: this, object: Gst.Buffer) => void): number;
-            emit(signal: 'buffer-consumed', object: Gst.Buffer): void;
+            connect<K extends keyof AggregatorPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AggregatorPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AggregatorPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AggregatorPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AggregatorPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AggregatorPad.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1451,6 +1525,13 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace BaseParse {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::disable-passthrough': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -1622,6 +1703,15 @@ declare module 'gi://GstBase?version=1.0' {
             get disablePassthrough(): boolean;
             set disablePassthrough(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BaseParse.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -1634,6 +1724,24 @@ declare module 'gi://GstBase?version=1.0' {
             constructor(properties?: Partial<BaseParse.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof BaseParse.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseParse.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BaseParse.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseParse.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BaseParse.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BaseParse.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1919,6 +2027,25 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace BaseSink {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::async': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::enable-last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::max-bitrate': (pspec: GObject.ParamSpec) => void;
+                'notify::max-lateness': (pspec: GObject.ParamSpec) => void;
+                'notify::processing-deadline': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::render-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::sync': (pspec: GObject.ParamSpec) => void;
+                'notify::throttle-time': (pspec: GObject.ParamSpec) => void;
+                'notify::ts-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -2197,6 +2324,15 @@ declare module 'gi://GstBase?version=1.0' {
             get tsOffset(): number;
             set tsOffset(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BaseSink.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -2216,6 +2352,24 @@ declare module 'gi://GstBase?version=1.0' {
             constructor(properties?: Partial<BaseSink.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof BaseSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseSink.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BaseSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseSink.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BaseSink.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BaseSink.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2595,6 +2749,17 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace BaseSrc {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::automatic-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::do-timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::num-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::typefind': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -2753,6 +2918,15 @@ declare module 'gi://GstBase?version=1.0' {
             get typefind(): boolean;
             set typefind(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BaseSrc.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -2770,6 +2944,24 @@ declare module 'gi://GstBase?version=1.0' {
             constructor(properties?: Partial<BaseSrc.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof BaseSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseSrc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BaseSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseSrc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BaseSrc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BaseSrc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -3110,6 +3302,13 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace BaseTransform {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -3231,6 +3430,15 @@ declare module 'gi://GstBase?version=1.0' {
             get qos(): boolean;
             set qos(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BaseTransform.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -3243,6 +3451,24 @@ declare module 'gi://GstBase?version=1.0' {
             constructor(properties?: Partial<BaseTransform.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof BaseTransform.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseTransform.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BaseTransform.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseTransform.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BaseTransform.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BaseTransform.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -3529,6 +3755,12 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace CollectPads {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -3575,6 +3807,15 @@ declare module 'gi://GstBase?version=1.0' {
         class CollectPads extends Gst.Object {
             static $gtype: GObject.GType<CollectPads>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CollectPads.SignalSignatures;
+
             // Fields
 
             object: Gst.Object;
@@ -3586,6 +3827,24 @@ declare module 'gi://GstBase?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): CollectPads;
+
+            // Signals
+
+            connect<K extends keyof CollectPads.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CollectPads.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CollectPads.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CollectPads.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CollectPads.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CollectPads.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3859,14 +4118,13 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace DataQueue {
-            // Signal callback interfaces
-
-            interface Empty {
-                (): void;
-            }
-
-            interface Full {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                empty: () => void;
+                full: () => void;
+                'notify::current-level-bytes': (pspec: GObject.ParamSpec) => void;
+                'notify::current-level-time': (pspec: GObject.ParamSpec) => void;
+                'notify::current-level-visible': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -3898,6 +4156,15 @@ declare module 'gi://GstBase?version=1.0' {
             get current_level_visible(): number;
             get currentLevelVisible(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DataQueue.SignalSignatures;
+
             // Fields
 
             object: GObject.Object;
@@ -3910,15 +4177,21 @@ declare module 'gi://GstBase?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'empty', callback: (_source: this) => void): number;
-            connect_after(signal: 'empty', callback: (_source: this) => void): number;
-            emit(signal: 'empty'): void;
-            connect(signal: 'full', callback: (_source: this) => void): number;
-            connect_after(signal: 'full', callback: (_source: this) => void): number;
-            emit(signal: 'full'): void;
+            connect<K extends keyof DataQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DataQueue.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DataQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DataQueue.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DataQueue.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DataQueue.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -3927,6 +4200,17 @@ declare module 'gi://GstBase?version=1.0' {
         }
 
         namespace PushSrc {
+            // Signal signatures
+            interface SignalSignatures extends BaseSrc.SignalSignatures {
+                'notify::automatic-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::do-timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::num-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::typefind': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends BaseSrc.ConstructorProps {}
@@ -3956,11 +4240,38 @@ declare module 'gi://GstBase?version=1.0' {
         class PushSrc extends BaseSrc {
             static $gtype: GObject.GType<PushSrc>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PushSrc.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<PushSrc.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof PushSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PushSrc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PushSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PushSrc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PushSrc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PushSrc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 

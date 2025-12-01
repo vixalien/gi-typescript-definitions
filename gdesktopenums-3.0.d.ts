@@ -267,6 +267,15 @@ declare module 'gi://GDesktopEnums?version=3.0' {
             AUTO,
         }
 
+        export namespace ReducedMotion {
+            export const $gtype: GObject.GType<ReducedMotion>;
+        }
+
+        enum ReducedMotion {
+            NO_PREFERENCE,
+            REDUCE,
+        }
+
         export namespace ScreensaverMode {
             export const $gtype: GObject.GType<ScreensaverMode>;
         }
@@ -382,6 +391,21 @@ declare module 'gi://GDesktopEnums?version=3.0' {
         enum VisualBellType {
             FULLSCREEN_FLASH,
             FRAME_FLASH,
+        }
+
+        export namespace Weekday {
+            export const $gtype: GObject.GType<Weekday>;
+        }
+
+        enum Weekday {
+            DEFAULT,
+            MONDAY,
+            TUESDAY,
+            WEDNESDAY,
+            THURSDAY,
+            FRIDAY,
+            SATURDAY,
+            SUNDAY,
         }
         /**
          * Name of the imported GIR library

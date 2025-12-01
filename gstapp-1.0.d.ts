@@ -82,46 +82,42 @@ declare module 'gi://GstApp?version=1.0' {
             RANDOM_ACCESS,
         }
         namespace AppSink {
-            // Signal callback interfaces
-
-            interface Eos {
-                (): void;
-            }
-
-            interface NewPreroll {
-                (): Gst.FlowReturn;
-            }
-
-            interface NewSample {
-                (): Gst.FlowReturn;
-            }
-
-            interface NewSerializedEvent {
-                (): boolean;
-            }
-
-            interface ProposeAllocation {
-                (query: Gst.Query): boolean;
-            }
-
-            interface PullPreroll {
-                (): Gst.Sample | null;
-            }
-
-            interface PullSample {
-                (): Gst.Sample | null;
-            }
-
-            interface TryPullObject {
-                (timeout: number): Gst.MiniObject | null;
-            }
-
-            interface TryPullPreroll {
-                (timeout: number): Gst.Sample | null;
-            }
-
-            interface TryPullSample {
-                (timeout: number): Gst.Sample | null;
+            // Signal signatures
+            interface SignalSignatures extends GstBase.BaseSink.SignalSignatures {
+                eos: () => void;
+                'new-preroll': () => Gst.FlowReturn;
+                'new-sample': () => Gst.FlowReturn;
+                'new-serialized-event': () => boolean | void;
+                'propose-allocation': (arg0: Gst.Query) => boolean | void;
+                'pull-preroll': () => Gst.Sample | null;
+                'pull-sample': () => Gst.Sample | null;
+                'try-pull-object': (arg0: number) => Gst.MiniObject | null;
+                'try-pull-preroll': (arg0: number) => Gst.Sample | null;
+                'try-pull-sample': (arg0: number) => Gst.Sample | null;
+                'notify::buffer-list': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::drop': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::eos': (pspec: GObject.ParamSpec) => void;
+                'notify::max-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::max-bytes': (pspec: GObject.ParamSpec) => void;
+                'notify::max-time': (pspec: GObject.ParamSpec) => void;
+                'notify::wait-on-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::async': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::enable-last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::max-bitrate': (pspec: GObject.ParamSpec) => void;
+                'notify::max-lateness': (pspec: GObject.ParamSpec) => void;
+                'notify::processing-deadline': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::render-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::sync': (pspec: GObject.ParamSpec) => void;
+                'notify::throttle-time': (pspec: GObject.ParamSpec) => void;
+                'notify::ts-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -249,6 +245,15 @@ declare module 'gi://GstApp?version=1.0' {
             get waitOnEos(): boolean;
             set waitOnEos(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AppSink.SignalSignatures;
+
             // Fields
 
             basesink: GstBase.BaseSink;
@@ -261,54 +266,21 @@ declare module 'gi://GstApp?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'eos', callback: (_source: this) => void): number;
-            connect_after(signal: 'eos', callback: (_source: this) => void): number;
-            emit(signal: 'eos'): void;
-            connect(signal: 'new-preroll', callback: (_source: this) => Gst.FlowReturn): number;
-            connect_after(signal: 'new-preroll', callback: (_source: this) => Gst.FlowReturn): number;
-            emit(signal: 'new-preroll'): void;
-            connect(signal: 'new-sample', callback: (_source: this) => Gst.FlowReturn): number;
-            connect_after(signal: 'new-sample', callback: (_source: this) => Gst.FlowReturn): number;
-            emit(signal: 'new-sample'): void;
-            connect(signal: 'new-serialized-event', callback: (_source: this) => boolean): number;
-            connect_after(signal: 'new-serialized-event', callback: (_source: this) => boolean): number;
-            emit(signal: 'new-serialized-event'): void;
-            connect(signal: 'propose-allocation', callback: (_source: this, query: Gst.Query) => boolean): number;
-            connect_after(signal: 'propose-allocation', callback: (_source: this, query: Gst.Query) => boolean): number;
-            emit(signal: 'propose-allocation', query: Gst.Query): void;
-            connect(signal: 'pull-preroll', callback: (_source: this) => Gst.Sample | null): number;
-            connect_after(signal: 'pull-preroll', callback: (_source: this) => Gst.Sample | null): number;
-            emit(signal: 'pull-preroll'): void;
-            connect(signal: 'pull-sample', callback: (_source: this) => Gst.Sample | null): number;
-            connect_after(signal: 'pull-sample', callback: (_source: this) => Gst.Sample | null): number;
-            emit(signal: 'pull-sample'): void;
-            connect(
-                signal: 'try-pull-object',
-                callback: (_source: this, timeout: number) => Gst.MiniObject | null,
+            connect<K extends keyof AppSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AppSink.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'try-pull-object',
-                callback: (_source: this, timeout: number) => Gst.MiniObject | null,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AppSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AppSink.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'try-pull-object', timeout: number): void;
-            connect(
-                signal: 'try-pull-preroll',
-                callback: (_source: this, timeout: number) => Gst.Sample | null,
-            ): number;
-            connect_after(
-                signal: 'try-pull-preroll',
-                callback: (_source: this, timeout: number) => Gst.Sample | null,
-            ): number;
-            emit(signal: 'try-pull-preroll', timeout: number): void;
-            connect(signal: 'try-pull-sample', callback: (_source: this, timeout: number) => Gst.Sample | null): number;
-            connect_after(
-                signal: 'try-pull-sample',
-                callback: (_source: this, timeout: number) => Gst.Sample | null,
-            ): number;
-            emit(signal: 'try-pull-sample', timeout: number): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AppSink.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AppSink.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -350,6 +322,29 @@ declare module 'gi://GstApp?version=1.0' {
              * %NULL. Use gst_app_sink_is_eos () to check for the EOS condition.
              */
             vfunc_pull_sample(): Gst.Sample | null;
+            /**
+             * This function blocks until a sample or an event or EOS becomes available or the appsink
+             * element is set to the READY/NULL state or the timeout expires.
+             *
+             * This function will only return samples when the appsink is in the PLAYING
+             * state. All rendered buffers and events will be put in a queue so that the application
+             * can pull them at its own rate. Note that when the application does not
+             * pull samples fast enough, the queued buffers could consume a lot of memory,
+             * especially when dealing with raw video frames.
+             * Events can be pulled when the appsink is in the READY, PAUSED or PLAYING state.
+             *
+             * This function will only pull serialized events, excluding
+             * the EOS event for which this functions returns
+             * %NULL. Use gst_app_sink_is_eos() to check for the EOS condition.
+             *
+             * This method is a variant of gst_app_sink_try_pull_sample() that can be used
+             * to handle incoming events events as well as samples.
+             *
+             * Note that future releases may extend this API to return other object types
+             * so make sure that your code is checking for the actual type it is handling.
+             * @param timeout the maximum amount of time to wait for a sample
+             */
+            vfunc_try_pull_object(timeout: Gst.ClockTime): Gst.MiniObject | null;
             /**
              * Get the last preroll sample in `appsink`. This was the sample that caused the
              * appsink to preroll in the PAUSED state.
@@ -443,6 +438,29 @@ declare module 'gi://GstApp?version=1.0' {
              * @returns %TRUE if no more samples can be pulled and the appsink is EOS.
              */
             is_eos(): boolean;
+            /**
+             * This function blocks until a sample or an event becomes available or the appsink
+             * element is set to the READY/NULL state.
+             *
+             * This function will only return samples when the appsink is in the PLAYING
+             * state. All rendered buffers and events will be put in a queue so that the application
+             * can pull them at its own rate. Note that when the application does not
+             * pull samples fast enough, the queued buffers could consume a lot of memory,
+             * especially when dealing with raw video frames.
+             * Events can be pulled when the appsink is in the READY, PAUSED or PLAYING state.
+             *
+             * This function will only pull serialized events, excluding
+             * the EOS event for which this functions returns
+             * %NULL. Use gst_app_sink_is_eos() to check for the EOS condition.
+             *
+             * This method is a variant of gst_app_sink_pull_sample() that can be used
+             * to handle incoming events events as well as samples.
+             *
+             * Note that future releases may extend this API to return other object types
+             * so make sure that your code is checking for the actual type it is handling.
+             * @returns a #GstSample, or a #GstEvent or NULL when the appsink is stopped or EOS.          Call gst_mini_object_unref() after usage.
+             */
+            pull_object(): Gst.MiniObject | null;
             /**
              * Get the last preroll sample in `appsink`. This was the sample that caused the
              * appsink to preroll in the PAUSED state.
@@ -538,6 +556,30 @@ declare module 'gi://GstApp?version=1.0' {
              * @param wait the new state
              */
             set_wait_on_eos(wait: boolean): void;
+            /**
+             * This function blocks until a sample or an event or EOS becomes available or the appsink
+             * element is set to the READY/NULL state or the timeout expires.
+             *
+             * This function will only return samples when the appsink is in the PLAYING
+             * state. All rendered buffers and events will be put in a queue so that the application
+             * can pull them at its own rate. Note that when the application does not
+             * pull samples fast enough, the queued buffers could consume a lot of memory,
+             * especially when dealing with raw video frames.
+             * Events can be pulled when the appsink is in the READY, PAUSED or PLAYING state.
+             *
+             * This function will only pull serialized events, excluding
+             * the EOS event for which this functions returns
+             * %NULL. Use gst_app_sink_is_eos() to check for the EOS condition.
+             *
+             * This method is a variant of gst_app_sink_try_pull_sample() that can be used
+             * to handle incoming events events as well as samples.
+             *
+             * Note that future releases may extend this API to return other object types
+             * so make sure that your code is checking for the actual type it is handling.
+             * @param timeout the maximum amount of time to wait for a sample
+             * @returns a #GstSample, or #GstEvent or NULL when the appsink is stopped or EOS or the timeout expires. Call gst_mini_object_unref() after usage.
+             */
+            try_pull_object(timeout: Gst.ClockTime): Gst.MiniObject | null;
             /**
              * Get the last preroll sample in `appsink`. This was the sample that caused the
              * appsink to preroll in the PAUSED state.
@@ -1056,34 +1098,41 @@ declare module 'gi://GstApp?version=1.0' {
         }
 
         namespace AppSrc {
-            // Signal callback interfaces
-
-            interface EndOfStream {
-                (): Gst.FlowReturn;
-            }
-
-            interface EnoughData {
-                (): void;
-            }
-
-            interface NeedData {
-                (length: number): void;
-            }
-
-            interface PushBuffer {
-                (buffer: Gst.Buffer): Gst.FlowReturn;
-            }
-
-            interface PushBufferList {
-                (buffer_list: Gst.BufferList): Gst.FlowReturn;
-            }
-
-            interface PushSample {
-                (sample: Gst.Sample): Gst.FlowReturn;
-            }
-
-            interface SeekData {
-                (offset: number): boolean;
+            // Signal signatures
+            interface SignalSignatures extends GstBase.BaseSrc.SignalSignatures {
+                'end-of-stream': () => Gst.FlowReturn;
+                'enough-data': () => void;
+                'need-data': (arg0: number) => void;
+                'push-buffer': (arg0: Gst.Buffer) => Gst.FlowReturn;
+                'push-buffer-list': (arg0: Gst.BufferList) => Gst.FlowReturn;
+                'push-sample': (arg0: Gst.Sample) => Gst.FlowReturn;
+                'seek-data': (arg0: number) => boolean | void;
+                'notify::block': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::current-level-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::current-level-bytes': (pspec: GObject.ParamSpec) => void;
+                'notify::current-level-time': (pspec: GObject.ParamSpec) => void;
+                'notify::duration': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::format': (pspec: GObject.ParamSpec) => void;
+                'notify::handle-segment-change': (pspec: GObject.ParamSpec) => void;
+                'notify::is-live': (pspec: GObject.ParamSpec) => void;
+                'notify::leaky-type': (pspec: GObject.ParamSpec) => void;
+                'notify::max-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::max-bytes': (pspec: GObject.ParamSpec) => void;
+                'notify::max-latency': (pspec: GObject.ParamSpec) => void;
+                'notify::max-time': (pspec: GObject.ParamSpec) => void;
+                'notify::min-latency': (pspec: GObject.ParamSpec) => void;
+                'notify::min-percent': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::stream-type': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::do-timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::num-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::typefind': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1288,7 +1337,7 @@ declare module 'gi://GstApp?version=1.0' {
              * Instruct the source to behave like a live source. This includes that it
              * will only push out buffers in the PLAYING state.
              */
-            // This accessor conflicts with a property or field in a parent class or interface.
+            // This accessor conflicts with a field or function name in a parent class or interface.
             is_live: boolean | any;
             /**
              * Instruct the source to behave like a live source. This includes that it
@@ -1401,6 +1450,15 @@ declare module 'gi://GstApp?version=1.0' {
             get streamType(): AppStreamType;
             set streamType(val: AppStreamType);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AppSrc.SignalSignatures;
+
             // Fields
 
             basesrc: GstBase.BaseSrc;
@@ -1413,42 +1471,21 @@ declare module 'gi://GstApp?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'end-of-stream', callback: (_source: this) => Gst.FlowReturn): number;
-            connect_after(signal: 'end-of-stream', callback: (_source: this) => Gst.FlowReturn): number;
-            emit(signal: 'end-of-stream'): void;
-            connect(signal: 'enough-data', callback: (_source: this) => void): number;
-            connect_after(signal: 'enough-data', callback: (_source: this) => void): number;
-            emit(signal: 'enough-data'): void;
-            connect(signal: 'need-data', callback: (_source: this, length: number) => void): number;
-            connect_after(signal: 'need-data', callback: (_source: this, length: number) => void): number;
-            emit(signal: 'need-data', length: number): void;
-            connect(signal: 'push-buffer', callback: (_source: this, buffer: Gst.Buffer) => Gst.FlowReturn): number;
-            connect_after(
-                signal: 'push-buffer',
-                callback: (_source: this, buffer: Gst.Buffer) => Gst.FlowReturn,
+            connect<K extends keyof AppSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AppSrc.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'push-buffer', buffer: Gst.Buffer): void;
-            connect(
-                signal: 'push-buffer-list',
-                callback: (_source: this, buffer_list: Gst.BufferList) => Gst.FlowReturn,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AppSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AppSrc.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'push-buffer-list',
-                callback: (_source: this, buffer_list: Gst.BufferList) => Gst.FlowReturn,
-            ): number;
-            emit(signal: 'push-buffer-list', buffer_list: Gst.BufferList): void;
-            connect(signal: 'push-sample', callback: (_source: this, sample: Gst.Sample) => Gst.FlowReturn): number;
-            connect_after(
-                signal: 'push-sample',
-                callback: (_source: this, sample: Gst.Sample) => Gst.FlowReturn,
-            ): number;
-            emit(signal: 'push-sample', sample: Gst.Sample): void;
-            connect(signal: 'seek-data', callback: (_source: this, offset: number) => boolean): number;
-            connect_after(signal: 'seek-data', callback: (_source: this, offset: number) => boolean): number;
-            emit(signal: 'seek-data', offset: number): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AppSrc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AppSrc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 

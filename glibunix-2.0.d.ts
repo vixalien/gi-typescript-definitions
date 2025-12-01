@@ -49,6 +49,7 @@ declare module 'gi://GLibUnix?version=2.0' {
             condition: GLib.IOCondition | null,
             _function: GLib.UnixFDSourceFunc,
         ): number;
+        function fd_query_path(fd: number): string;
         function fd_source_new(fd: number, condition: GLib.IOCondition | null): GLib.Source;
         function fdwalk_set_cloexec(lowfd: number): number;
         function get_passwd_entry(user_name: string): any | null;

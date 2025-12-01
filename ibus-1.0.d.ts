@@ -2995,6 +2995,11 @@ declare module 'gi://IBus?version=1.0' {
         const KEY_circle: number;
         const KEY_club: number;
         const KEY_colon: number;
+        const KEY_combining_acute: number;
+        const KEY_combining_belowdot: number;
+        const KEY_combining_grave: number;
+        const KEY_combining_hook: number;
+        const KEY_combining_tilde: number;
         const KEY_comma: number;
         const KEY_containsas: number;
         const KEY_copyright: number;
@@ -3011,6 +3016,7 @@ declare module 'gi://IBus?version=1.0' {
         const KEY_dead_E: number;
         const KEY_dead_I: number;
         const KEY_dead_O: number;
+        const KEY_dead_SCHWA: number;
         const KEY_dead_U: number;
         const KEY_dead_a: number;
         const KEY_dead_abovecomma: number;
@@ -3041,6 +3047,7 @@ declare module 'gi://IBus?version=1.0' {
         const KEY_dead_e: number;
         const KEY_dead_grave: number;
         const KEY_dead_greek: number;
+        const KEY_dead_hamza: number;
         const KEY_dead_hook: number;
         const KEY_dead_horn: number;
         const KEY_dead_i: number;
@@ -3053,6 +3060,7 @@ declare module 'gi://IBus?version=1.0' {
         const KEY_dead_ogonek: number;
         const KEY_dead_perispomeni: number;
         const KEY_dead_psili: number;
+        const KEY_dead_schwa: number;
         const KEY_dead_semivoiced_sound: number;
         const KEY_dead_small_schwa: number;
         const KEY_dead_stroke: number;
@@ -3147,6 +3155,8 @@ declare module 'gi://IBus?version=1.0' {
         const KEY_grave: number;
         const KEY_greater: number;
         const KEY_greaterthanequal: number;
+        const KEY_guillemetleft: number;
+        const KEY_guillemetright: number;
         const KEY_guillemotleft: number;
         const KEY_guillemotright: number;
         const KEY_h: number;
@@ -3390,6 +3400,7 @@ declare module 'gi://IBus?version=1.0' {
         const KEY_opentribulletdown: number;
         const KEY_opentribulletup: number;
         const KEY_ordfeminine: number;
+        const KEY_ordmasculine: number;
         const KEY_oslash: number;
         const KEY_otilde: number;
         const KEY_overbar: number;
@@ -3638,6 +3649,10 @@ declare module 'gi://IBus?version=1.0' {
          * IBus minor version.
          */
         const MINOR_VERSION: number;
+        /**
+         * This is a filter for shortcut keys.
+         */
+        const MODIFIER_FILTER: number;
         const Mabovedot: number;
         const Macedonia_DSE: number;
         const Macedonia_GJE: number;
@@ -5072,7 +5087,7 @@ declare module 'gi://IBus?version=1.0' {
          * @param keyval an IBus key symbol
          * @returns the corresponding unicode character, or 0 if there          is no corresponding character.
          */
-        function keyval_to_unicode(keyval: number): number;
+        function keyval_to_unicode(keyval: number): string;
         /**
          * Converts a key value to upper case, if applicable.
          * @param keyval a key value.
@@ -5115,9 +5130,9 @@ declare module 'gi://IBus?version=1.0' {
         /**
          * Convert from a ISO10646 character to a key symbol.
          * @param wc a ISO10646 encoded character
-         * @returns the corresponding IBus key symbol, if one exists.          or, if there is no corresponding symbol,          wc | 0x01000000
+         * @returns the corresponding IBus key symbol, if one exists.          or, if there is no corresponding symbol,          `wc | 0x01000000`
          */
-        function unicode_to_keyval(wc: number): number;
+        function unicode_to_keyval(wc: string): number;
         /**
          * Remove the log handler which is set by ibus_set_log_handler.
          */
@@ -5442,6 +5457,9 @@ declare module 'gi://IBus?version=1.0' {
             RESERVED_2,
         }
         namespace AttrList {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -5452,6 +5470,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class AttrList extends Serializable {
             static $gtype: GObject.GType<AttrList>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AttrList.SignalSignatures;
 
             // Fields
 
@@ -5464,6 +5491,24 @@ declare module 'gi://IBus?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): AttrList;
+
+            // Signals
+
+            connect<K extends keyof AttrList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AttrList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AttrList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AttrList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AttrList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AttrList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5481,6 +5526,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Attribute {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -5493,6 +5541,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class Attribute extends Serializable {
             static $gtype: GObject.GType<Attribute>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Attribute.SignalSignatures;
 
             // Fields
 
@@ -5511,6 +5568,24 @@ declare module 'gi://IBus?version=1.0' {
             // Conflicted with IBus.Serializable.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof Attribute.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Attribute.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Attribute.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Attribute.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Attribute.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Attribute.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5540,26 +5615,21 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Bus {
-            // Signal callback interfaces
-
-            interface Connected {
-                (): void;
-            }
-
-            interface Disconnected {
-                (): void;
-            }
-
-            interface GlobalEngineChanged {
-                (name: string): void;
-            }
-
-            interface GlobalShortcutKeyResponded {
-                (type: number, is_pressed: boolean, is_backward: boolean): void;
-            }
-
-            interface NameOwnerChanged {
-                (name: string, old_owner: string, new_owner: string): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                connected: () => void;
+                disconnected: () => void;
+                'global-engine-changed': (arg0: string) => void;
+                'global-shortcut-key-responded': (
+                    arg0: number,
+                    arg1: number,
+                    arg2: number,
+                    arg3: number,
+                    arg4: boolean,
+                ) => void;
+                'name-owner-changed': (arg0: string, arg1: string, arg2: string) => void;
+                'notify::client-only': (pspec: GObject.ParamSpec) => void;
+                'notify::connect-async': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -5597,6 +5667,15 @@ declare module 'gi://IBus?version=1.0' {
              */
             get connectAsync(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Bus.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Bus.ConstructorProps>, ...args: any[]);
@@ -5611,41 +5690,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'connected', callback: (_source: this) => void): number;
-            connect_after(signal: 'connected', callback: (_source: this) => void): number;
-            emit(signal: 'connected'): void;
-            connect(signal: 'disconnected', callback: (_source: this) => void): number;
-            connect_after(signal: 'disconnected', callback: (_source: this) => void): number;
-            emit(signal: 'disconnected'): void;
-            connect(signal: 'global-engine-changed', callback: (_source: this, name: string) => void): number;
-            connect_after(signal: 'global-engine-changed', callback: (_source: this, name: string) => void): number;
-            emit(signal: 'global-engine-changed', name: string): void;
-            connect(
-                signal: 'global-shortcut-key-responded',
-                callback: (_source: this, type: number, is_pressed: boolean, is_backward: boolean) => void,
+            connect<K extends keyof Bus.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bus.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'global-shortcut-key-responded',
-                callback: (_source: this, type: number, is_pressed: boolean, is_backward: boolean) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Bus.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bus.SignalSignatures[K]>,
             ): number;
-            emit(
-                signal: 'global-shortcut-key-responded',
-                type: number,
-                is_pressed: boolean,
-                is_backward: boolean,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Bus.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Bus.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(
-                signal: 'name-owner-changed',
-                callback: (_source: this, name: string, old_owner: string, new_owner: string) => void,
-            ): number;
-            connect_after(
-                signal: 'name-owner-changed',
-                callback: (_source: this, name: string, old_owner: string, new_owner: string) => void,
-            ): number;
-            emit(signal: 'name-owner-changed', name: string, old_owner: string, new_owner: string): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5661,7 +5720,11 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            add_match_async(rule: string, timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            add_match_async(
+                rule: string,
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<boolean>;
             /**
              * Add a match rule to an #IBusBus asynchronously.
              * @param rule Match rule.
@@ -5687,7 +5750,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_add_match_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_add_match_async().
@@ -5710,7 +5773,7 @@ declare module 'gi://IBus?version=1.0' {
                 client_name: string,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<InputContext>;
+            ): globalThis.Promise<InputContext>;
             /**
              * Create an input context for client asynchronously.
              * @param client_name Name of client.
@@ -5736,7 +5799,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<InputContext> | void;
+            ): globalThis.Promise<InputContext> | void;
             /**
              * Finishes an operation started with ibus_bus_create_input_context_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_create_input_context_async().
@@ -5753,7 +5816,10 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            current_input_context_async(timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<string>;
+            current_input_context_async(
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<string>;
             /**
              * Get the current focused input context asynchronously.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -5775,7 +5841,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with ibus_bus_current_input_context_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_current_input_context_async().
@@ -5794,7 +5860,11 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            exit_async(restart: boolean, timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            exit_async(
+                restart: boolean,
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<boolean>;
             /**
              * Exit or restart ibus-daemon asynchronously.
              * @param restart Whether restarting the ibus.
@@ -5820,7 +5890,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_exit_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_exit_async().
@@ -5855,7 +5925,10 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            get_global_engine_async(timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<EngineDesc>;
+            get_global_engine_async(
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<EngineDesc>;
             /**
              * Get the description of current global engine asynchronously.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -5877,7 +5950,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<EngineDesc> | void;
+            ): globalThis.Promise<EngineDesc> | void;
             /**
              * Finishes an operation started with ibus_bus_get_global_engine_async_finish().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_global_engine_async_finish().
@@ -5900,7 +5973,7 @@ declare module 'gi://IBus?version=1.0' {
                 property_name: string,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Variant>;
+            ): globalThis.Promise<GLib.Variant>;
             /**
              * Get org.freedesktop.DBus.Properties asynchronously.
              * @param property_name property name in org.freedesktop.DBus.Properties.Get
@@ -5926,7 +5999,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Variant> | void;
+            ): globalThis.Promise<GLib.Variant> | void;
             /**
              * Finishes an operation started with ibus_bus_get_ibus_property_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_ibus_property_async().
@@ -5949,7 +6022,7 @@ declare module 'gi://IBus?version=1.0' {
                 name: string,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<string>;
+            ): globalThis.Promise<string>;
             /**
              * Return the name owner asynchronously.
              * @param name Name.
@@ -5975,7 +6048,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with ibus_bus_get_name_owner_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_name_owner_async().
@@ -5998,7 +6071,10 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            get_use_global_engine_async(timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            get_use_global_engine_async(
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<boolean>;
             /**
              * Check if the bus's "use_global_engine" option is enabled or not asynchronously.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -6020,7 +6096,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_get_use_global_engine_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_use_global_engine_async().
@@ -6037,7 +6113,10 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            get_use_sys_layout_async(timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            get_use_sys_layout_async(
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<boolean>;
             /**
              * Check if the bus's "use_sys_layout" option is enabled or not asynchronously.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -6059,7 +6138,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_get_use_sys_layout_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_use_sys_layout_async().
@@ -6090,7 +6169,7 @@ declare module 'gi://IBus?version=1.0' {
             is_global_engine_enabled_async(
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Check if the current global engine is enabled or not asynchronously.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -6112,7 +6191,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_is_global_engine_enabled_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_is_global_engine_enabled_async().
@@ -6132,7 +6211,7 @@ declare module 'gi://IBus?version=1.0' {
             list_active_engines_async(
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<EngineDesc[]>;
+            ): globalThis.Promise<EngineDesc[]>;
             /**
              * List active engines asynchronously.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -6154,7 +6233,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<EngineDesc[]> | void;
+            ): globalThis.Promise<EngineDesc[]> | void;
             /**
              * Finishes an operation started with ibus_bus_list_active_engines_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_list_active_engines_async().
@@ -6171,7 +6250,10 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            list_engines_async(timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<EngineDesc[]>;
+            list_engines_async(
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<EngineDesc[]>;
             /**
              * List engines asynchronously.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -6193,7 +6275,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<EngineDesc[]> | void;
+            ): globalThis.Promise<EngineDesc[]> | void;
             /**
              * Finishes an operation started with ibus_bus_list_engines_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_list_engines_async().
@@ -6230,7 +6312,7 @@ declare module 'gi://IBus?version=1.0' {
                 name: string,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Checks whether the name has owner asynchronously.
              * @param name Name to be checked.
@@ -6256,7 +6338,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_name_has_owner_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_name_has_owner_async().
@@ -6279,7 +6361,7 @@ declare module 'gi://IBus?version=1.0' {
                 names: string[],
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Start bus components by engine names asynchronously.
              * @param names A %NULL-terminated array of engine names.
@@ -6305,7 +6387,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_preload_engines_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_preload_engines_async().
@@ -6328,7 +6410,7 @@ declare module 'gi://IBus?version=1.0' {
                 component: Component,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Register a component to an #IBusBus asynchronously.
              * @param component A input engine component.
@@ -6354,7 +6436,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_register_component_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_register_component_async().
@@ -6377,7 +6459,7 @@ declare module 'gi://IBus?version=1.0' {
                 name: string,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Release a name to IBus daemon asynchronously.
              * @param name Name to be released.
@@ -6403,7 +6485,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes an operation started with ibus_bus_release_name_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_release_name_async().
@@ -6426,7 +6508,7 @@ declare module 'gi://IBus?version=1.0' {
                 rule: string,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Remove a match rule to an IBusBus asynchronously.
              * @param rule Match rule.
@@ -6452,7 +6534,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_remove_match_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_remove_match_async().
@@ -6478,7 +6560,7 @@ declare module 'gi://IBus?version=1.0' {
                 flags: number,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Request a name from IBus daemon asynchronously.
              * @param name Name to be requested.
@@ -6508,7 +6590,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes an operation started with ibus_bus_request_name_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_request_name_async().
@@ -6531,7 +6613,7 @@ declare module 'gi://IBus?version=1.0' {
                 global_engine: string,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Set current global engine asynchronously.
              * @param global_engine A new engine name.
@@ -6557,7 +6639,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_set_global_engine_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_set_global_engine_async().
@@ -6583,7 +6665,7 @@ declare module 'gi://IBus?version=1.0' {
                 keys: ProcessKeyEventData[],
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Sete global shorcut keys for the Wayland session asynchronously.
              * @param gtype A #IBusBusGlobalBindingType.
@@ -6613,7 +6695,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_set_global_shortcut_keys_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_set_global_shortcut_keys_async().
@@ -6638,7 +6720,7 @@ declare module 'gi://IBus?version=1.0' {
                 value: GLib.Variant,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Set org.freedesktop.DBus.Properties asynchronously.
              * @param property_name property name in org.freedesktop.DBus.Properties.Set
@@ -6668,7 +6750,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with ibus_bus_set_ibus_property_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_set_ibus_property_async().
@@ -6688,6 +6770,18 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Component {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::author': (pspec: GObject.ParamSpec) => void;
+                'notify::command-line': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::homepage': (pspec: GObject.ParamSpec) => void;
+                'notify::license': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::textdomain': (pspec: GObject.ParamSpec) => void;
+                'notify::version': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -6757,6 +6851,15 @@ declare module 'gi://IBus?version=1.0' {
              */
             get version(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Component.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Component.ConstructorProps>, ...args: any[]);
@@ -6780,6 +6883,24 @@ declare module 'gi://IBus?version=1.0' {
             static new_from_file(filename: string): Component;
 
             static new_from_xml_node(node: XML): Component;
+
+            // Signals
+
+            connect<K extends keyof Component.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Component.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Component.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Component.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Component.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Component.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6866,16 +6987,25 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Config {
-            // Signal callback interfaces
-
-            interface ValueChanged {
-                (section: string, name: string, value: GLib.Variant): void;
+            // Signal signatures
+            interface SignalSignatures extends Proxy.SignalSignatures {
+                'value-changed': (arg0: string, arg1: string, arg2: GLib.Variant) => void;
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Proxy.ConstructorProps,
+                extends
+                    Proxy.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
                     Gio.Initable.ConstructorProps {}
@@ -6889,6 +7019,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class Config extends Proxy implements Gio.AsyncInitable<Config>, Gio.DBusInterface, Gio.Initable {
             static $gtype: GObject.GType<Config>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Config.SignalSignatures;
 
             // Constructors
 
@@ -6905,18 +7044,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'value-changed',
-                callback: (_source: this, section: string, name: string, value: GLib.Variant) => void,
+            connect<K extends keyof Config.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Config.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'value-changed',
-                callback: (_source: this, section: string, name: string, value: GLib.Variant) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Config.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Config.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'value-changed', section: string, name: string, value: GLib.Variant): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Config.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Config.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -6964,7 +7106,7 @@ declare module 'gi://IBus?version=1.0' {
                 name: string,
                 timeout_ms: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Variant>;
+            ): globalThis.Promise<GLib.Variant>;
             /**
              * Get the value of a configuration option asynchronously.
              *
@@ -6998,7 +7140,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_ms: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Variant> | void;
+            ): globalThis.Promise<GLib.Variant> | void;
             /**
              * Finish get value of a configuration option.
              * @param result A #GAsyncResult.
@@ -7023,7 +7165,7 @@ declare module 'gi://IBus?version=1.0' {
                 section: string,
                 timeout_ms: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Variant>;
+            ): globalThis.Promise<GLib.Variant>;
             /**
              * Get all values in a section asynchronously.
              *
@@ -7053,7 +7195,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_ms: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Variant> | void;
+            ): globalThis.Promise<GLib.Variant> | void;
             /**
              * Finish get values in a section.
              * @param result A #GAsyncResult.
@@ -7084,7 +7226,7 @@ declare module 'gi://IBus?version=1.0' {
                 value: GLib.Variant,
                 timeout_ms: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Set the value of a configuration option asynchronously.
              *
@@ -7122,7 +7264,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_ms: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finish set value of a configuration option.
              * @param result A #GAsyncResult.
@@ -7197,7 +7339,7 @@ declare module 'gi://IBus?version=1.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -7289,7 +7431,7 @@ declare module 'gi://IBus?version=1.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -7800,6 +7942,12 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace ConfigService {
+            // Signal signatures
+            interface SignalSignatures extends Service.SignalSignatures {
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::object-path': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Service.ConstructorProps {}
@@ -7911,6 +8059,15 @@ declare module 'gi://IBus?version=1.0' {
         class ConfigService extends Service {
             static $gtype: GObject.GType<ConfigService>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ConfigService.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ConfigService.ConstructorProps>, ...args: any[]);
@@ -7921,6 +8078,24 @@ declare module 'gi://IBus?version=1.0' {
             // Conflicted with IBus.Object.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof ConfigService.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConfigService.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ConfigService.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConfigService.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ConfigService.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ConfigService.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -7942,6 +8117,14 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace EmojiData {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::annotations': (pspec: GObject.ParamSpec) => void;
+                'notify::category': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::emoji': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -7980,11 +8163,38 @@ declare module 'gi://IBus?version=1.0' {
              */
             get emoji(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EmojiData.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<EmojiData.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof EmojiData.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EmojiData.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EmojiData.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EmojiData.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EmojiData.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EmojiData.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -8031,94 +8241,35 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Engine {
-            // Signal callback interfaces
-
-            interface CancelHandWriting {
-                (n_strokes: number): void;
-            }
-
-            interface CandidateClicked {
-                (index: number, button: number, state: number): void;
-            }
-
-            interface CursorDown {
-                (): void;
-            }
-
-            interface CursorUp {
-                (): void;
-            }
-
-            interface Disable {
-                (): void;
-            }
-
-            interface Enable {
-                (): void;
-            }
-
-            interface FocusIn {
-                (): void;
-            }
-
-            interface FocusInId {
-                (object_path: string, client: string): void;
-            }
-
-            interface FocusOut {
-                (): void;
-            }
-
-            interface FocusOutId {
-                (object_path: string): void;
-            }
-
-            interface PageDown {
-                (): void;
-            }
-
-            interface PageUp {
-                (): void;
-            }
-
-            interface ProcessHandWritingEvent {
-                (coordinates: any | null, coordinates_len: number): void;
-            }
-
-            interface ProcessKeyEvent {
-                (keyval: number, keycode: number, state: number): boolean;
-            }
-
-            interface PropertyActivate {
-                (name: string, state: number): void;
-            }
-
-            interface PropertyHide {
-                (name: string): void;
-            }
-
-            interface PropertyShow {
-                (name: string): void;
-            }
-
-            interface Reset {
-                (): void;
-            }
-
-            interface SetCapabilities {
-                (caps: number): void;
-            }
-
-            interface SetContentType {
-                (purpose: number, hints: number): void;
-            }
-
-            interface SetCursorLocation {
-                (x: number, y: number, w: number, h: number): void;
-            }
-
-            interface SetSurroundingText {
-                (text: GObject.Object, cursor_pos: number, anchor_pos: number): void;
+            // Signal signatures
+            interface SignalSignatures extends Service.SignalSignatures {
+                'cancel-hand-writing': (arg0: number) => void;
+                'candidate-clicked': (arg0: number, arg1: number, arg2: number) => void;
+                'cursor-down': () => void;
+                'cursor-up': () => void;
+                disable: () => void;
+                enable: () => void;
+                'focus-in': () => void;
+                'focus-in-id': (arg0: string, arg1: string) => void;
+                'focus-out': () => void;
+                'focus-out-id': (arg0: string) => void;
+                'page-down': () => void;
+                'page-up': () => void;
+                'process-hand-writing-event': (arg0: any | null, arg1: number) => void;
+                'process-key-event': (arg0: number, arg1: number, arg2: number) => boolean | void;
+                'property-activate': (arg0: string, arg1: number) => void;
+                'property-hide': (arg0: string) => void;
+                'property-show': (arg0: string) => void;
+                reset: () => void;
+                'set-capabilities': (arg0: number) => void;
+                'set-content-type': (arg0: number, arg1: number) => void;
+                'set-cursor-location': (arg0: number, arg1: number, arg2: number, arg3: number) => void;
+                'set-surrounding-text': (arg0: GObject.Object, arg1: number, arg2: number) => void;
+                'notify::active-surrounding-text': (pspec: GObject.ParamSpec) => void;
+                'notify::engine-name': (pspec: GObject.ParamSpec) => void;
+                'notify::has-focus-id': (pspec: GObject.ParamSpec) => void;
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::object-path': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -8185,6 +8336,15 @@ declare module 'gi://IBus?version=1.0' {
              */
             get hasFocusId(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Engine.SignalSignatures;
+
             // Fields
 
             enabled: boolean;
@@ -8212,123 +8372,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'cancel-hand-writing', callback: (_source: this, n_strokes: number) => void): number;
-            connect_after(signal: 'cancel-hand-writing', callback: (_source: this, n_strokes: number) => void): number;
-            emit(signal: 'cancel-hand-writing', n_strokes: number): void;
-            connect(
-                signal: 'candidate-clicked',
-                callback: (_source: this, index: number, button: number, state: number) => void,
+            connect<K extends keyof Engine.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Engine.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'candidate-clicked',
-                callback: (_source: this, index: number, button: number, state: number) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Engine.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Engine.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'candidate-clicked', index: number, button: number, state: number): void;
-            connect(signal: 'cursor-down', callback: (_source: this) => void): number;
-            connect_after(signal: 'cursor-down', callback: (_source: this) => void): number;
-            emit(signal: 'cursor-down'): void;
-            connect(signal: 'cursor-up', callback: (_source: this) => void): number;
-            connect_after(signal: 'cursor-up', callback: (_source: this) => void): number;
-            emit(signal: 'cursor-up'): void;
-            connect(signal: 'disable', callback: (_source: this) => void): number;
-            connect_after(signal: 'disable', callback: (_source: this) => void): number;
-            emit(signal: 'disable'): void;
-            connect(signal: 'enable', callback: (_source: this) => void): number;
-            connect_after(signal: 'enable', callback: (_source: this) => void): number;
-            emit(signal: 'enable'): void;
-            connect(signal: 'focus-in', callback: (_source: this) => void): number;
-            connect_after(signal: 'focus-in', callback: (_source: this) => void): number;
-            emit(signal: 'focus-in'): void;
-            connect(
-                signal: 'focus-in-id',
-                callback: (_source: this, object_path: string, client: string) => void,
-            ): number;
-            connect_after(
-                signal: 'focus-in-id',
-                callback: (_source: this, object_path: string, client: string) => void,
-            ): number;
-            emit(signal: 'focus-in-id', object_path: string, client: string): void;
-            connect(signal: 'focus-out', callback: (_source: this) => void): number;
-            connect_after(signal: 'focus-out', callback: (_source: this) => void): number;
-            emit(signal: 'focus-out'): void;
-            connect(signal: 'focus-out-id', callback: (_source: this, object_path: string) => void): number;
-            connect_after(signal: 'focus-out-id', callback: (_source: this, object_path: string) => void): number;
-            emit(signal: 'focus-out-id', object_path: string): void;
-            connect(signal: 'page-down', callback: (_source: this) => void): number;
-            connect_after(signal: 'page-down', callback: (_source: this) => void): number;
-            emit(signal: 'page-down'): void;
-            connect(signal: 'page-up', callback: (_source: this) => void): number;
-            connect_after(signal: 'page-up', callback: (_source: this) => void): number;
-            emit(signal: 'page-up'): void;
-            connect(
-                signal: 'process-hand-writing-event',
-                callback: (_source: this, coordinates: any | null, coordinates_len: number) => void,
-            ): number;
-            connect_after(
-                signal: 'process-hand-writing-event',
-                callback: (_source: this, coordinates: any | null, coordinates_len: number) => void,
-            ): number;
-            emit(signal: 'process-hand-writing-event', coordinates: any | null, coordinates_len: number): void;
-            connect(
-                signal: 'process-key-event',
-                callback: (_source: this, keyval: number, keycode: number, state: number) => boolean,
-            ): number;
-            connect_after(
-                signal: 'process-key-event',
-                callback: (_source: this, keyval: number, keycode: number, state: number) => boolean,
-            ): number;
-            emit(signal: 'process-key-event', keyval: number, keycode: number, state: number): void;
-            connect(
-                signal: 'property-activate',
-                callback: (_source: this, name: string, state: number) => void,
-            ): number;
-            connect_after(
-                signal: 'property-activate',
-                callback: (_source: this, name: string, state: number) => void,
-            ): number;
-            emit(signal: 'property-activate', name: string, state: number): void;
-            connect(signal: 'property-hide', callback: (_source: this, name: string) => void): number;
-            connect_after(signal: 'property-hide', callback: (_source: this, name: string) => void): number;
-            emit(signal: 'property-hide', name: string): void;
-            connect(signal: 'property-show', callback: (_source: this, name: string) => void): number;
-            connect_after(signal: 'property-show', callback: (_source: this, name: string) => void): number;
-            emit(signal: 'property-show', name: string): void;
-            connect(signal: 'reset', callback: (_source: this) => void): number;
-            connect_after(signal: 'reset', callback: (_source: this) => void): number;
-            emit(signal: 'reset'): void;
-            connect(signal: 'set-capabilities', callback: (_source: this, caps: number) => void): number;
-            connect_after(signal: 'set-capabilities', callback: (_source: this, caps: number) => void): number;
-            emit(signal: 'set-capabilities', caps: number): void;
-            connect(
-                signal: 'set-content-type',
-                callback: (_source: this, purpose: number, hints: number) => void,
-            ): number;
-            connect_after(
-                signal: 'set-content-type',
-                callback: (_source: this, purpose: number, hints: number) => void,
-            ): number;
-            emit(signal: 'set-content-type', purpose: number, hints: number): void;
-            connect(
-                signal: 'set-cursor-location',
-                callback: (_source: this, x: number, y: number, w: number, h: number) => void,
-            ): number;
-            connect_after(
-                signal: 'set-cursor-location',
-                callback: (_source: this, x: number, y: number, w: number, h: number) => void,
-            ): number;
-            emit(signal: 'set-cursor-location', x: number, y: number, w: number, h: number): void;
-            connect(
-                signal: 'set-surrounding-text',
-                callback: (_source: this, text: GObject.Object, cursor_pos: number, anchor_pos: number) => void,
-            ): number;
-            connect_after(
-                signal: 'set-surrounding-text',
-                callback: (_source: this, text: GObject.Object, cursor_pos: number, anchor_pos: number) => void,
-            ): number;
-            emit(signal: 'set-surrounding-text', text: GObject.Object, cursor_pos: number, anchor_pos: number): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Engine.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Engine.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -8515,6 +8573,27 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace EngineDesc {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::author': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::hotkeys': (pspec: GObject.ParamSpec) => void;
+                'notify::icon': (pspec: GObject.ParamSpec) => void;
+                'notify::icon-prop-key': (pspec: GObject.ParamSpec) => void;
+                'notify::language': (pspec: GObject.ParamSpec) => void;
+                'notify::layout': (pspec: GObject.ParamSpec) => void;
+                'notify::layout-option': (pspec: GObject.ParamSpec) => void;
+                'notify::layout-variant': (pspec: GObject.ParamSpec) => void;
+                'notify::license': (pspec: GObject.ParamSpec) => void;
+                'notify::longname': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::rank': (pspec: GObject.ParamSpec) => void;
+                'notify::setup': (pspec: GObject.ParamSpec) => void;
+                'notify::symbol': (pspec: GObject.ParamSpec) => void;
+                'notify::textdomain': (pspec: GObject.ParamSpec) => void;
+                'notify::version': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -8639,6 +8718,15 @@ declare module 'gi://IBus?version=1.0' {
              */
             get version(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EngineDesc.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<EngineDesc.ConstructorProps>, ...args: any[]);
@@ -8660,6 +8748,24 @@ declare module 'gi://IBus?version=1.0' {
             static ['new'](...args: never[]): any;
 
             static new_from_xml_node(node: XML): EngineDesc;
+
+            // Signals
+
+            connect<K extends keyof EngineDesc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EngineDesc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EngineDesc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EngineDesc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EngineDesc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EngineDesc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -8759,6 +8865,15 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace EngineSimple {
+            // Signal signatures
+            interface SignalSignatures extends Engine.SignalSignatures {
+                'notify::active-surrounding-text': (pspec: GObject.ParamSpec) => void;
+                'notify::engine-name': (pspec: GObject.ParamSpec) => void;
+                'notify::has-focus-id': (pspec: GObject.ParamSpec) => void;
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::object-path': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Engine.ConstructorProps {}
@@ -8772,11 +8887,38 @@ declare module 'gi://IBus?version=1.0' {
         class EngineSimple extends Engine {
             static $gtype: GObject.GType<EngineSimple>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EngineSimple.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<EngineSimple.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof EngineSimple.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EngineSimple.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EngineSimple.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EngineSimple.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EngineSimple.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EngineSimple.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -8808,6 +8950,15 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace ExtensionEvent {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::is-enabled': (pspec: GObject.ParamSpec) => void;
+                'notify::is-extension': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::params': (pspec: GObject.ParamSpec) => void;
+                'notify::version': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -8866,11 +9017,38 @@ declare module 'gi://IBus?version=1.0' {
              */
             get version(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ExtensionEvent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ExtensionEvent.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ExtensionEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ExtensionEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ExtensionEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ExtensionEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ExtensionEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ExtensionEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -8880,10 +9058,11 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Factory {
-            // Signal callback interfaces
-
-            interface CreateEngine {
-                (engine_name: string): Engine | null;
+            // Signal signatures
+            interface SignalSignatures extends Service.SignalSignatures {
+                'create-engine': (arg0: string) => Engine | null;
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::object-path': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -8901,6 +9080,15 @@ declare module 'gi://IBus?version=1.0' {
         class Factory extends Service {
             static $gtype: GObject.GType<Factory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Factory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Factory.ConstructorProps>, ...args: any[]);
@@ -8914,15 +9102,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'create-engine', callback: (_source: this, engine_name: string) => Engine | null): number;
-            connect_after(
-                signal: 'create-engine',
-                callback: (_source: this, engine_name: string) => Engine | null,
+            connect<K extends keyof Factory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Factory.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'create-engine', engine_name: string): void;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Factory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Factory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Factory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Factory.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -8949,10 +9143,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace HotkeyProfile {
-            // Signal callback interfaces
-
-            interface Trigger {
-                (event: number, user_data?: any | null): void;
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                trigger: (arg0: number, arg1: any | null) => void;
             }
 
             // Constructor properties interface
@@ -8966,6 +9159,15 @@ declare module 'gi://IBus?version=1.0' {
         class HotkeyProfile extends Serializable {
             static $gtype: GObject.GType<HotkeyProfile>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HotkeyProfile.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HotkeyProfile.ConstructorProps>, ...args: any[]);
@@ -8976,15 +9178,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'trigger', callback: (_source: this, event: number, user_data: any | null) => void): number;
-            connect_after(
-                signal: 'trigger',
-                callback: (_source: this, event: number, user_data: any | null) => void,
+            connect<K extends keyof HotkeyProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HotkeyProfile.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'trigger', event: number, user_data?: any | null): void;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HotkeyProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HotkeyProfile.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HotkeyProfile.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HotkeyProfile.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -9042,100 +9250,46 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace InputContext {
-            // Signal callback interfaces
-
-            interface CommitText {
-                (text: Text): void;
-            }
-
-            interface CursorDownLookupTable {
-                (): void;
-            }
-
-            interface CursorUpLookupTable {
-                (): void;
-            }
-
-            interface DeleteSurroundingText {
-                (offset: number, n_chars: number): void;
-            }
-
-            interface Disabled {
-                (): void;
-            }
-
-            interface Enabled {
-                (): void;
-            }
-
-            interface ForwardKeyEvent {
-                (keyval: number, keycode: number, modifiers: number): void;
-            }
-
-            interface HideAuxiliaryText {
-                (): void;
-            }
-
-            interface HideLookupTable {
-                (): void;
-            }
-
-            interface HidePreeditText {
-                (): void;
-            }
-
-            interface PageDownLookupTable {
-                (): void;
-            }
-
-            interface PageUpLookupTable {
-                (): void;
-            }
-
-            interface RegisterProperties {
-                (props: PropList): void;
-            }
-
-            interface RequireSurroundingText {
-                (): void;
-            }
-
-            interface ShowAuxiliaryText {
-                (): void;
-            }
-
-            interface ShowLookupTable {
-                (): void;
-            }
-
-            interface ShowPreeditText {
-                (): void;
-            }
-
-            interface UpdateAuxiliaryText {
-                (text: Text, visible: boolean): void;
-            }
-
-            interface UpdateLookupTable {
-                (table: LookupTable, visible: boolean): void;
-            }
-
-            interface UpdatePreeditText {
-                (text: Text, cursor_pos: number, visible: boolean): void;
-            }
-
-            interface UpdatePreeditTextWithMode {
-                (text: Text, cursor_pos: number, visible: boolean, mode: number): void;
-            }
-
-            interface UpdateProperty {
-                (prop: Property): void;
+            // Signal signatures
+            interface SignalSignatures extends Proxy.SignalSignatures {
+                'commit-text': (arg0: Text) => void;
+                'cursor-down-lookup-table': () => void;
+                'cursor-up-lookup-table': () => void;
+                'delete-surrounding-text': (arg0: number, arg1: number) => void;
+                disabled: () => void;
+                enabled: () => void;
+                'forward-key-event': (arg0: number, arg1: number, arg2: number) => void;
+                'hide-auxiliary-text': () => void;
+                'hide-lookup-table': () => void;
+                'hide-preedit-text': () => void;
+                'page-down-lookup-table': () => void;
+                'page-up-lookup-table': () => void;
+                'register-properties': (arg0: PropList) => void;
+                'require-surrounding-text': () => void;
+                'show-auxiliary-text': () => void;
+                'show-lookup-table': () => void;
+                'show-preedit-text': () => void;
+                'update-auxiliary-text': (arg0: Text, arg1: boolean) => void;
+                'update-lookup-table': (arg0: LookupTable, arg1: boolean) => void;
+                'update-preedit-text': (arg0: Text, arg1: number, arg2: boolean) => void;
+                'update-preedit-text-with-mode': (arg0: Text, arg1: number, arg2: boolean, arg3: number) => void;
+                'update-property': (arg0: Property) => void;
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Proxy.ConstructorProps,
+                extends
+                    Proxy.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
                     Gio.Initable.ConstructorProps {}
@@ -9151,6 +9305,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class InputContext extends Proxy implements Gio.AsyncInitable<InputContext>, Gio.DBusInterface, Gio.Initable {
             static $gtype: GObject.GType<InputContext>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: InputContext.SignalSignatures;
 
             // Constructors
 
@@ -9171,117 +9334,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'commit-text', callback: (_source: this, text: Text) => void): number;
-            connect_after(signal: 'commit-text', callback: (_source: this, text: Text) => void): number;
-            emit(signal: 'commit-text', text: Text): void;
-            connect(signal: 'cursor-down-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'cursor-down-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'cursor-down-lookup-table'): void;
-            connect(signal: 'cursor-up-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'cursor-up-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'cursor-up-lookup-table'): void;
-            connect(
-                signal: 'delete-surrounding-text',
-                callback: (_source: this, offset: number, n_chars: number) => void,
+            connect<K extends keyof InputContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InputContext.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'delete-surrounding-text',
-                callback: (_source: this, offset: number, n_chars: number) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof InputContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InputContext.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'delete-surrounding-text', offset: number, n_chars: number): void;
-            connect(signal: 'disabled', callback: (_source: this) => void): number;
-            connect_after(signal: 'disabled', callback: (_source: this) => void): number;
-            emit(signal: 'disabled'): void;
-            connect(signal: 'enabled', callback: (_source: this) => void): number;
-            connect_after(signal: 'enabled', callback: (_source: this) => void): number;
-            emit(signal: 'enabled'): void;
-            connect(
-                signal: 'forward-key-event',
-                callback: (_source: this, keyval: number, keycode: number, modifiers: number) => void,
-            ): number;
-            connect_after(
-                signal: 'forward-key-event',
-                callback: (_source: this, keyval: number, keycode: number, modifiers: number) => void,
-            ): number;
-            emit(signal: 'forward-key-event', keyval: number, keycode: number, modifiers: number): void;
-            connect(signal: 'hide-auxiliary-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide-auxiliary-text', callback: (_source: this) => void): number;
-            emit(signal: 'hide-auxiliary-text'): void;
-            connect(signal: 'hide-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'hide-lookup-table'): void;
-            connect(signal: 'hide-preedit-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide-preedit-text', callback: (_source: this) => void): number;
-            emit(signal: 'hide-preedit-text'): void;
-            connect(signal: 'page-down-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'page-down-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'page-down-lookup-table'): void;
-            connect(signal: 'page-up-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'page-up-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'page-up-lookup-table'): void;
-            connect(signal: 'register-properties', callback: (_source: this, props: PropList) => void): number;
-            connect_after(signal: 'register-properties', callback: (_source: this, props: PropList) => void): number;
-            emit(signal: 'register-properties', props: PropList): void;
-            connect(signal: 'require-surrounding-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'require-surrounding-text', callback: (_source: this) => void): number;
-            emit(signal: 'require-surrounding-text'): void;
-            connect(signal: 'show-auxiliary-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-auxiliary-text', callback: (_source: this) => void): number;
-            emit(signal: 'show-auxiliary-text'): void;
-            connect(signal: 'show-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'show-lookup-table'): void;
-            connect(signal: 'show-preedit-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-preedit-text', callback: (_source: this) => void): number;
-            emit(signal: 'show-preedit-text'): void;
-            connect(
-                signal: 'update-auxiliary-text',
-                callback: (_source: this, text: Text, visible: boolean) => void,
-            ): number;
-            connect_after(
-                signal: 'update-auxiliary-text',
-                callback: (_source: this, text: Text, visible: boolean) => void,
-            ): number;
-            emit(signal: 'update-auxiliary-text', text: Text, visible: boolean): void;
-            connect(
-                signal: 'update-lookup-table',
-                callback: (_source: this, table: LookupTable, visible: boolean) => void,
-            ): number;
-            connect_after(
-                signal: 'update-lookup-table',
-                callback: (_source: this, table: LookupTable, visible: boolean) => void,
-            ): number;
-            emit(signal: 'update-lookup-table', table: LookupTable, visible: boolean): void;
-            connect(
-                signal: 'update-preedit-text',
-                callback: (_source: this, text: Text, cursor_pos: number, visible: boolean) => void,
-            ): number;
-            connect_after(
-                signal: 'update-preedit-text',
-                callback: (_source: this, text: Text, cursor_pos: number, visible: boolean) => void,
-            ): number;
-            emit(signal: 'update-preedit-text', text: Text, cursor_pos: number, visible: boolean): void;
-            connect(
-                signal: 'update-preedit-text-with-mode',
-                callback: (_source: this, text: Text, cursor_pos: number, visible: boolean, mode: number) => void,
-            ): number;
-            connect_after(
-                signal: 'update-preedit-text-with-mode',
-                callback: (_source: this, text: Text, cursor_pos: number, visible: boolean, mode: number) => void,
-            ): number;
-            emit(
-                signal: 'update-preedit-text-with-mode',
-                text: Text,
-                cursor_pos: number,
-                visible: boolean,
-                mode: number,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof InputContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<InputContext.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(signal: 'update-property', callback: (_source: this, prop: Property) => void): number;
-            connect_after(signal: 'update-property', callback: (_source: this, prop: Property) => void): number;
-            emit(signal: 'update-property', prop: Property): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -9357,7 +9424,10 @@ declare module 'gi://IBus?version=1.0' {
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
              * @param cancellable A #GCancellable or %NULL.
              */
-            get_engine_async(timeout_msec: number, cancellable?: Gio.Cancellable | null): Promise<EngineDesc>;
+            get_engine_async(
+                timeout_msec: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<EngineDesc>;
             /**
              * An asynchronous IPC will be performed.
              * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
@@ -9379,7 +9449,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<EngineDesc> | void;
+            ): globalThis.Promise<EngineDesc> | void;
             /**
              * Finishes an operation started with ibus_input_context_get_engine_async().
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_input_context_get_engine_async().
@@ -9456,7 +9526,7 @@ declare module 'gi://IBus?version=1.0' {
                 state: number,
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Pass the key event to input method engine.
              *
@@ -9526,7 +9596,7 @@ declare module 'gi://IBus?version=1.0' {
                 timeout_msec: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with
              *      ibus_input_context_process_key_event_async().
@@ -9651,7 +9721,7 @@ declare module 'gi://IBus?version=1.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -9743,7 +9813,7 @@ declare module 'gi://IBus?version=1.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -10254,6 +10324,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Keymap {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -10276,6 +10349,15 @@ declare module 'gi://IBus?version=1.0' {
         class Keymap extends Object {
             static $gtype: GObject.GType<Keymap>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Keymap.SignalSignatures;
+
             // Fields
 
             name: string;
@@ -10291,6 +10373,24 @@ declare module 'gi://IBus?version=1.0' {
             // Conflicted with IBus.Object.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof Keymap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Keymap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Keymap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Keymap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Keymap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Keymap.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -10315,6 +10415,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace LookupTable {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -10332,6 +10435,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class LookupTable extends Serializable {
             static $gtype: GObject.GType<LookupTable>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: LookupTable.SignalSignatures;
 
             // Fields
 
@@ -10353,6 +10465,24 @@ declare module 'gi://IBus?version=1.0' {
             // Conflicted with IBus.Serializable.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof LookupTable.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LookupTable.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof LookupTable.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LookupTable.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof LookupTable.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<LookupTable.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -10491,10 +10621,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Object {
-            // Signal callback interfaces
-
-            interface Destroy {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+                destroy: () => void;
             }
 
             // Constructor properties interface
@@ -10507,6 +10636,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class Object extends GObject.InitiallyUnowned {
             static $gtype: GObject.GType<Object>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Object.SignalSignatures;
 
             // Fields
 
@@ -10522,12 +10660,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'destroy', callback: (_source: this) => void): number;
-            connect_after(signal: 'destroy', callback: (_source: this) => void): number;
-            emit(signal: 'destroy'): void;
+            connect<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Object.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -10555,6 +10702,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace ObservedPath {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -10566,6 +10716,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class ObservedPath extends Serializable {
             static $gtype: GObject.GType<ObservedPath>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ObservedPath.SignalSignatures;
 
             // Fields
 
@@ -10586,6 +10745,24 @@ declare module 'gi://IBus?version=1.0' {
             static ['new'](...args: never[]): any;
 
             static new_from_xml_node(node: XML, fill_stat: boolean): ObservedPath;
+
+            // Signals
+
+            connect<K extends keyof ObservedPath.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ObservedPath.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ObservedPath.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ObservedPath.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ObservedPath.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ObservedPath.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -10613,126 +10790,40 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace PanelService {
-            // Signal callback interfaces
-
-            interface CandidateClickedLookupTable {
-                (object: number, p0: number, p1: number): void;
-            }
-
-            interface CommitTextReceived {
-                (text: Text): void;
-            }
-
-            interface CursorDownLookupTable {
-                (): void;
-            }
-
-            interface CursorUpLookupTable {
-                (): void;
-            }
-
-            interface DestroyContext {
-                (input_context_path: string): void;
-            }
-
-            interface FocusIn {
-                (input_context_path: string): void;
-            }
-
-            interface FocusOut {
-                (input_context_path: string): void;
-            }
-
-            interface HideAuxiliaryText {
-                (): void;
-            }
-
-            interface HideLanguageBar {
-                (): void;
-            }
-
-            interface HideLookupTable {
-                (): void;
-            }
-
-            interface HidePreeditText {
-                (): void;
-            }
-
-            interface PageDownLookupTable {
-                (): void;
-            }
-
-            interface PageUpLookupTable {
-                (): void;
-            }
-
-            interface PanelExtensionReceived {
-                (data: ExtensionEvent): void;
-            }
-
-            interface ProcessKeyEvent {
-                (keyval: number, keycode: number, state: number): boolean;
-            }
-
-            interface RegisterProperties {
-                (prop_list: PropList): void;
-            }
-
-            interface Reset {
-                (): void;
-            }
-
-            interface SetContentType {
-                (purpose: number, hints: number): void;
-            }
-
-            interface SetCursorLocation {
-                (x: number, y: number, w: number, h: number): void;
-            }
-
-            interface SetCursorLocationRelative {
-                (x: number, y: number, w: number, h: number): void;
-            }
-
-            interface ShowAuxiliaryText {
-                (): void;
-            }
-
-            interface ShowLanguageBar {
-                (): void;
-            }
-
-            interface ShowLookupTable {
-                (): void;
-            }
-
-            interface ShowPreeditText {
-                (): void;
-            }
-
-            interface StartSetup {
-                (): void;
-            }
-
-            interface StateChanged {
-                (): void;
-            }
-
-            interface UpdateAuxiliaryText {
-                (text: Text, visible: boolean): void;
-            }
-
-            interface UpdateLookupTable {
-                (lookup_table: LookupTable, visible: boolean): void;
-            }
-
-            interface UpdatePreeditText {
-                (text: Text, cursor_pos: number, visible: boolean): void;
-            }
-
-            interface UpdateProperty {
-                (prop: Property): void;
+            // Signal signatures
+            interface SignalSignatures extends Service.SignalSignatures {
+                'candidate-clicked-lookup-table': (arg0: number, arg1: number, arg2: number) => void;
+                'commit-text-received': (arg0: Text) => void;
+                'cursor-down-lookup-table': () => void;
+                'cursor-up-lookup-table': () => void;
+                'destroy-context': (arg0: string) => void;
+                'focus-in': (arg0: string) => void;
+                'focus-out': (arg0: string) => void;
+                'hide-auxiliary-text': () => void;
+                'hide-language-bar': () => void;
+                'hide-lookup-table': () => void;
+                'hide-preedit-text': () => void;
+                'page-down-lookup-table': () => void;
+                'page-up-lookup-table': () => void;
+                'panel-extension-received': (arg0: ExtensionEvent) => void;
+                'process-key-event': (arg0: number, arg1: number, arg2: number) => boolean | void;
+                'register-properties': (arg0: PropList) => void;
+                reset: () => void;
+                'set-content-type': (arg0: number, arg1: number) => void;
+                'set-cursor-location': (arg0: number, arg1: number, arg2: number, arg3: number) => void;
+                'set-cursor-location-relative': (arg0: number, arg1: number, arg2: number, arg3: number) => void;
+                'show-auxiliary-text': () => void;
+                'show-language-bar': () => void;
+                'show-lookup-table': () => void;
+                'show-preedit-text': () => void;
+                'start-setup': () => void;
+                'state-changed': () => void;
+                'update-auxiliary-text': (arg0: Text, arg1: boolean) => void;
+                'update-lookup-table': (arg0: LookupTable, arg1: boolean) => void;
+                'update-preedit-text': (arg0: Text, arg1: number, arg2: boolean) => void;
+                'update-property': (arg0: Property) => void;
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::object-path': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -10747,6 +10838,15 @@ declare module 'gi://IBus?version=1.0' {
         class PanelService extends Service {
             static $gtype: GObject.GType<PanelService>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PanelService.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<PanelService.ConstructorProps>, ...args: any[]);
@@ -10760,159 +10860,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'candidate-clicked-lookup-table',
-                callback: (_source: this, object: number, p0: number, p1: number) => void,
+            connect<K extends keyof PanelService.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PanelService.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'candidate-clicked-lookup-table',
-                callback: (_source: this, object: number, p0: number, p1: number) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PanelService.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PanelService.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'candidate-clicked-lookup-table', object: number, p0: number, p1: number): void;
-            connect(signal: 'commit-text-received', callback: (_source: this, text: Text) => void): number;
-            connect_after(signal: 'commit-text-received', callback: (_source: this, text: Text) => void): number;
-            emit(signal: 'commit-text-received', text: Text): void;
-            connect(signal: 'cursor-down-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'cursor-down-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'cursor-down-lookup-table'): void;
-            connect(signal: 'cursor-up-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'cursor-up-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'cursor-up-lookup-table'): void;
-            connect(signal: 'destroy-context', callback: (_source: this, input_context_path: string) => void): number;
-            connect_after(
-                signal: 'destroy-context',
-                callback: (_source: this, input_context_path: string) => void,
-            ): number;
-            emit(signal: 'destroy-context', input_context_path: string): void;
-            connect(signal: 'focus-in', callback: (_source: this, input_context_path: string) => void): number;
-            connect_after(signal: 'focus-in', callback: (_source: this, input_context_path: string) => void): number;
-            emit(signal: 'focus-in', input_context_path: string): void;
-            connect(signal: 'focus-out', callback: (_source: this, input_context_path: string) => void): number;
-            connect_after(signal: 'focus-out', callback: (_source: this, input_context_path: string) => void): number;
-            emit(signal: 'focus-out', input_context_path: string): void;
-            connect(signal: 'hide-auxiliary-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide-auxiliary-text', callback: (_source: this) => void): number;
-            emit(signal: 'hide-auxiliary-text'): void;
-            connect(signal: 'hide-language-bar', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide-language-bar', callback: (_source: this) => void): number;
-            emit(signal: 'hide-language-bar'): void;
-            connect(signal: 'hide-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'hide-lookup-table'): void;
-            connect(signal: 'hide-preedit-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide-preedit-text', callback: (_source: this) => void): number;
-            emit(signal: 'hide-preedit-text'): void;
-            connect(signal: 'page-down-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'page-down-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'page-down-lookup-table'): void;
-            connect(signal: 'page-up-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'page-up-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'page-up-lookup-table'): void;
-            connect(
-                signal: 'panel-extension-received',
-                callback: (_source: this, data: ExtensionEvent) => void,
-            ): number;
-            connect_after(
-                signal: 'panel-extension-received',
-                callback: (_source: this, data: ExtensionEvent) => void,
-            ): number;
-            emit(signal: 'panel-extension-received', data: ExtensionEvent): void;
-            connect(
-                signal: 'process-key-event',
-                callback: (_source: this, keyval: number, keycode: number, state: number) => boolean,
-            ): number;
-            connect_after(
-                signal: 'process-key-event',
-                callback: (_source: this, keyval: number, keycode: number, state: number) => boolean,
-            ): number;
-            emit(signal: 'process-key-event', keyval: number, keycode: number, state: number): void;
-            connect(signal: 'register-properties', callback: (_source: this, prop_list: PropList) => void): number;
-            connect_after(
-                signal: 'register-properties',
-                callback: (_source: this, prop_list: PropList) => void,
-            ): number;
-            emit(signal: 'register-properties', prop_list: PropList): void;
-            connect(signal: 'reset', callback: (_source: this) => void): number;
-            connect_after(signal: 'reset', callback: (_source: this) => void): number;
-            emit(signal: 'reset'): void;
-            connect(
-                signal: 'set-content-type',
-                callback: (_source: this, purpose: number, hints: number) => void,
-            ): number;
-            connect_after(
-                signal: 'set-content-type',
-                callback: (_source: this, purpose: number, hints: number) => void,
-            ): number;
-            emit(signal: 'set-content-type', purpose: number, hints: number): void;
-            connect(
-                signal: 'set-cursor-location',
-                callback: (_source: this, x: number, y: number, w: number, h: number) => void,
-            ): number;
-            connect_after(
-                signal: 'set-cursor-location',
-                callback: (_source: this, x: number, y: number, w: number, h: number) => void,
-            ): number;
-            emit(signal: 'set-cursor-location', x: number, y: number, w: number, h: number): void;
-            connect(
-                signal: 'set-cursor-location-relative',
-                callback: (_source: this, x: number, y: number, w: number, h: number) => void,
-            ): number;
-            connect_after(
-                signal: 'set-cursor-location-relative',
-                callback: (_source: this, x: number, y: number, w: number, h: number) => void,
-            ): number;
-            emit(signal: 'set-cursor-location-relative', x: number, y: number, w: number, h: number): void;
-            connect(signal: 'show-auxiliary-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-auxiliary-text', callback: (_source: this) => void): number;
-            emit(signal: 'show-auxiliary-text'): void;
-            connect(signal: 'show-language-bar', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-language-bar', callback: (_source: this) => void): number;
-            emit(signal: 'show-language-bar'): void;
-            connect(signal: 'show-lookup-table', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-lookup-table', callback: (_source: this) => void): number;
-            emit(signal: 'show-lookup-table'): void;
-            connect(signal: 'show-preedit-text', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-preedit-text', callback: (_source: this) => void): number;
-            emit(signal: 'show-preedit-text'): void;
-            connect(signal: 'start-setup', callback: (_source: this) => void): number;
-            connect_after(signal: 'start-setup', callback: (_source: this) => void): number;
-            emit(signal: 'start-setup'): void;
-            connect(signal: 'state-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'state-changed', callback: (_source: this) => void): number;
-            emit(signal: 'state-changed'): void;
-            connect(
-                signal: 'update-auxiliary-text',
-                callback: (_source: this, text: Text, visible: boolean) => void,
-            ): number;
-            connect_after(
-                signal: 'update-auxiliary-text',
-                callback: (_source: this, text: Text, visible: boolean) => void,
-            ): number;
-            emit(signal: 'update-auxiliary-text', text: Text, visible: boolean): void;
-            connect(
-                signal: 'update-lookup-table',
-                callback: (_source: this, lookup_table: LookupTable, visible: boolean) => void,
-            ): number;
-            connect_after(
-                signal: 'update-lookup-table',
-                callback: (_source: this, lookup_table: LookupTable, visible: boolean) => void,
-            ): number;
-            emit(signal: 'update-lookup-table', lookup_table: LookupTable, visible: boolean): void;
-            connect(
-                signal: 'update-preedit-text',
-                callback: (_source: this, text: Text, cursor_pos: number, visible: boolean) => void,
-            ): number;
-            connect_after(
-                signal: 'update-preedit-text',
-                callback: (_source: this, text: Text, cursor_pos: number, visible: boolean) => void,
-            ): number;
-            emit(signal: 'update-preedit-text', text: Text, cursor_pos: number, visible: boolean): void;
-            connect(signal: 'update-property', callback: (_source: this, prop: Property) => void): number;
-            connect_after(signal: 'update-property', callback: (_source: this, prop: Property) => void): number;
-            emit(signal: 'update-property', prop: Property): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PanelService.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PanelService.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -10973,6 +10935,14 @@ declare module 'gi://IBus?version=1.0' {
              * by sending a "CursorUp" to IBus service.
              */
             cursor_up(): void;
+            /**
+             * Forward key events when an IBus popup takes the focus and the events
+             * needs to be forwared to the target IBus engine.
+             * @param keyval Key symbol of a key event.
+             * @param keycode Keycode of a key event.
+             * @param state Key modifier flags.
+             */
+            forward_process_key_event(keyval: number, keycode: number, state: number): void;
             /**
              * Notify that the preedit is hidden by the panel extension
              */
@@ -11051,6 +11021,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace PropList {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -11061,6 +11034,15 @@ declare module 'gi://IBus?version=1.0' {
          */
         class PropList extends Serializable {
             static $gtype: GObject.GType<PropList>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PropList.SignalSignatures;
 
             // Fields
 
@@ -11073,6 +11055,24 @@ declare module 'gi://IBus?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): PropList;
+
+            // Signals
+
+            connect<K extends keyof PropList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PropList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PropList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PropList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PropList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PropList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11096,6 +11096,20 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Property {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::icon': (pspec: GObject.ParamSpec) => void;
+                'notify::key': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::prop-type': (pspec: GObject.ParamSpec) => void;
+                'notify::sensitive': (pspec: GObject.ParamSpec) => void;
+                'notify::state': (pspec: GObject.ParamSpec) => void;
+                'notify::sub-props': (pspec: GObject.ParamSpec) => void;
+                'notify::symbol': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -11151,6 +11165,15 @@ declare module 'gi://IBus?version=1.0' {
             get visible(): boolean;
             set visible(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Property.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Property.ConstructorProps>, ...args: any[]);
@@ -11171,6 +11194,24 @@ declare module 'gi://IBus?version=1.0' {
             // Conflicted with IBus.Serializable.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof Property.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Property.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Property.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Property.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Property.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Property.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11271,16 +11312,25 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Proxy {
-            // Signal callback interfaces
-
-            interface Destroy {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                destroy: () => void;
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
                     Gio.Initable.ConstructorProps {}
@@ -11300,6 +11350,15 @@ declare module 'gi://IBus?version=1.0' {
         class Proxy extends Gio.DBusProxy implements Gio.AsyncInitable<Proxy>, Gio.DBusInterface, Gio.Initable {
             static $gtype: GObject.GType<Proxy>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Proxy.SignalSignatures;
+
             // Fields
 
             flags: number;
@@ -11313,12 +11372,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'destroy', callback: (_source: this) => void): number;
-            connect_after(signal: 'destroy', callback: (_source: this) => void): number;
-            emit(signal: 'destroy'): void;
+            connect<K extends keyof Proxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Proxy.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Proxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Proxy.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Proxy.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Proxy.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -11387,7 +11455,7 @@ declare module 'gi://IBus?version=1.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -11479,7 +11547,7 @@ declare module 'gi://IBus?version=1.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -11556,9 +11624,14 @@ declare module 'gi://IBus?version=1.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -11573,8 +11646,13 @@ declare module 'gi://IBus?version=1.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -12109,10 +12187,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Registry {
-            // Signal callback interfaces
-
-            interface Changed {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                changed: () => void;
             }
 
             // Constructor properties interface
@@ -12128,6 +12205,15 @@ declare module 'gi://IBus?version=1.0' {
         class Registry extends Serializable {
             static $gtype: GObject.GType<Registry>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Registry.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Registry.ConstructorProps>, ...args: any[]);
@@ -12138,12 +12224,21 @@ declare module 'gi://IBus?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'changed', callback: (_source: this) => void): number;
-            emit(signal: 'changed'): void;
+            connect<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Registry.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Registry.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Registry.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12215,6 +12310,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Serializable {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -12243,6 +12341,15 @@ declare module 'gi://IBus?version=1.0' {
         class Serializable extends Object {
             static $gtype: GObject.GType<Serializable>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Serializable.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Serializable.ConstructorProps>, ...args: any[]);
@@ -12250,6 +12357,24 @@ declare module 'gi://IBus?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Serializable;
+
+            // Signals
+
+            connect<K extends keyof Serializable.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Serializable.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Serializable.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Serializable.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Serializable.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Serializable.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -12304,6 +12429,12 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Service {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::connection': (pspec: GObject.ParamSpec) => void;
+                'notify::object-path': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -12335,6 +12466,15 @@ declare module 'gi://IBus?version=1.0' {
              */
             get objectPath(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Service.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Service.ConstructorProps>, ...args: any[]);
@@ -12345,6 +12485,24 @@ declare module 'gi://IBus?version=1.0' {
             // Conflicted with IBus.Object.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof Service.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Service.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Service.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Service.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Service.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Service.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -12440,6 +12598,9 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace Text {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {}
@@ -12456,6 +12617,15 @@ declare module 'gi://IBus?version=1.0' {
         class Text extends Serializable {
             static $gtype: GObject.GType<Text>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Text.SignalSignatures;
+
             // Fields
 
             is_static: boolean;
@@ -12470,9 +12640,27 @@ declare module 'gi://IBus?version=1.0' {
 
             static new_from_string(str: string): Text;
 
-            static new_from_ucs4(str: number): Text;
+            static new_from_ucs4(str: string): Text;
 
-            static new_from_unichar(c: number): Text;
+            static new_from_unichar(c: string): Text;
+
+            // Signals
+
+            connect<K extends keyof Text.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Text.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Text.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Text.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Text.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Text.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12505,6 +12693,13 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace UnicodeBlock {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::end': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::start': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -12533,11 +12728,38 @@ declare module 'gi://IBus?version=1.0' {
              */
             get start(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: UnicodeBlock.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<UnicodeBlock.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof UnicodeBlock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnicodeBlock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UnicodeBlock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnicodeBlock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UnicodeBlock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UnicodeBlock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -12555,7 +12777,7 @@ declare module 'gi://IBus?version=1.0' {
              * Gets the end code point in #IBusUnicodeBlock.
              * @returns end property in #IBusUnicodeBlock
              */
-            get_end(): number;
+            get_end(): string;
             /**
              * Gets the name in #IBusUnicodeBlock. It should not be freed.
              * @returns name property in #IBusUnicodeBlock
@@ -12565,10 +12787,18 @@ declare module 'gi://IBus?version=1.0' {
              * Gets the start code point in #IBusUnicodeBlock.
              * @returns start property in #IBusUnicodeBlock
              */
-            get_start(): number;
+            get_start(): string;
         }
 
         namespace UnicodeData {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::alias': (pspec: GObject.ParamSpec) => void;
+                'notify::block-name': (pspec: GObject.ParamSpec) => void;
+                'notify::code': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -12614,11 +12844,38 @@ declare module 'gi://IBus?version=1.0' {
             get name(): string;
             set name(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: UnicodeData.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<UnicodeData.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof UnicodeData.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnicodeData.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UnicodeData.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnicodeData.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UnicodeData.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UnicodeData.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -12659,7 +12916,7 @@ declare module 'gi://IBus?version=1.0' {
              * Gets the code point in #IBusUnicodeData.
              * @returns code property in #IBusUnicodeData
              */
-            get_code(): number;
+            get_code(): string;
             /**
              * Gets the name in #IBusUnicodeData. It should not be freed.
              * @returns name property in #IBusUnicodeData
@@ -12673,6 +12930,31 @@ declare module 'gi://IBus?version=1.0' {
         }
 
         namespace XEvent {
+            // Signal signatures
+            interface SignalSignatures extends Serializable.SignalSignatures {
+                'notify::event-type': (pspec: GObject.ParamSpec) => void;
+                'notify::group': (pspec: GObject.ParamSpec) => void;
+                'notify::hardware-keycode': (pspec: GObject.ParamSpec) => void;
+                'notify::is-modifier': (pspec: GObject.ParamSpec) => void;
+                'notify::keyval': (pspec: GObject.ParamSpec) => void;
+                'notify::length': (pspec: GObject.ParamSpec) => void;
+                'notify::purpose': (pspec: GObject.ParamSpec) => void;
+                'notify::root': (pspec: GObject.ParamSpec) => void;
+                'notify::same-screen': (pspec: GObject.ParamSpec) => void;
+                'notify::send-event': (pspec: GObject.ParamSpec) => void;
+                'notify::serial': (pspec: GObject.ParamSpec) => void;
+                'notify::state': (pspec: GObject.ParamSpec) => void;
+                'notify::string': (pspec: GObject.ParamSpec) => void;
+                'notify::subwindow': (pspec: GObject.ParamSpec) => void;
+                'notify::time': (pspec: GObject.ParamSpec) => void;
+                'notify::version': (pspec: GObject.ParamSpec) => void;
+                'notify::window': (pspec: GObject.ParamSpec) => void;
+                'notify::x': (pspec: GObject.ParamSpec) => void;
+                'notify::x-root': (pspec: GObject.ParamSpec) => void;
+                'notify::y': (pspec: GObject.ParamSpec) => void;
+                'notify::y-root': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Serializable.ConstructorProps {
@@ -12830,11 +13112,38 @@ declare module 'gi://IBus?version=1.0' {
              */
             get yRoot(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: XEvent.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<XEvent.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof XEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, XEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof XEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, XEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof XEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<XEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

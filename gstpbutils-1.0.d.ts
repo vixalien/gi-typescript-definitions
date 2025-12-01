@@ -314,6 +314,30 @@ declare module 'gi://GstPbutils?version=1.0' {
          */
         function codec_utils_aac_get_sample_rate_from_index(sr_idx: number): number;
         /**
+         * Creates the corresponding AV1 Codec Configuration Record
+         * @param caps a video/x-av1 #GstCaps
+         * @returns The AV1 Codec Configuration Record, or %NULL if there was an error.
+         */
+        function codec_utils_av1_create_av1c_from_caps(caps: Gst.Caps): Gst.Buffer | null;
+        /**
+         * Parses the provided `av1`c and returns the corresponding caps
+         * @param av1c a #GstBuffer containing a AV1CodecConfigurationRecord
+         * @returns The parsed AV1 caps, or %NULL if there is an error
+         */
+        function codec_utils_av1_create_caps_from_av1c(av1c: Gst.Buffer): Gst.Caps | null;
+        /**
+         * Transform a seq_level_idx into the level string
+         * @param seq_level_idx A seq_level_idx
+         * @returns the level string or %NULL if the seq_level_idx is unknown
+         */
+        function codec_utils_av1_get_level(seq_level_idx: number): string | null;
+        /**
+         * Transform a level string from the caps into the seq_level_idx
+         * @param level A level string from caps
+         * @returns the seq_level_idx or 31 (max-level) if the level is unknown
+         */
+        function codec_utils_av1_get_seq_level_idx(level: string): number;
+        /**
          * Converts a RFC 6381 compatible codec string to #GstCaps. More than one codec
          * string can be present (separated by `,`).
          *
@@ -446,6 +470,46 @@ declare module 'gi://GstPbutils?version=1.0' {
          */
         function codec_utils_h265_get_tier(profile_tier_level: Uint8Array | string): string | null;
         /**
+         * Sets the level, tier and profile in `caps` if it can be determined from
+         * `decoder_configuration`. See gst_codec_utils_h266_get_level(),
+         * gst_codec_utils_h266_get_tier() and gst_codec_utils_h266_get_profile()
+         * for more details on the parameters.
+         * @param caps the #GstCaps to which the level, tier and profile are to be added
+         * @param decoder_configuration Pointer to the VvcDecoderConfigurationRecord struct as defined in ISO/IEC 14496-15
+         * @returns %TRUE if the level, tier, profile could be set, %FALSE otherwise.
+         */
+        function codec_utils_h266_caps_set_level_tier_and_profile(
+            caps: Gst.Caps,
+            decoder_configuration: Uint8Array | string,
+        ): boolean;
+        /**
+         * Converts the level indication (general_level_idc) in the stream's
+         * ptl_record structure into a string.
+         * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
+         * @returns The level as a const string, or %NULL if there is an error.
+         */
+        function codec_utils_h266_get_level(ptl_record: Uint8Array | string): string | null;
+        /**
+         * Transform a level string from the caps into the level_idc
+         * @param level A level string from caps
+         * @returns the level_idc or 0 if the level is unknown
+         */
+        function codec_utils_h266_get_level_idc(level: string): number;
+        /**
+         * Converts the profile indication (general_profile_idc) in the stream's
+         * ptl_record structure into a string.
+         * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
+         * @returns The profile as a const string, or %NULL if there is an error.
+         */
+        function codec_utils_h266_get_profile(ptl_record: Uint8Array | string): string | null;
+        /**
+         * Converts the tier indication (general_tier_flag) in the stream's
+         * ptl_record structure into a string.
+         * @param ptl_record Pointer to the VvcPTLRecord structure as defined in ISO/IEC 14496-15.
+         * @returns The tier as a const string, or %NULL if there is an error.
+         */
+        function codec_utils_h266_get_tier(ptl_record: Uint8Array | string): string | null;
+        /**
          * Sets the level and profile in `caps` if it can be determined from
          * `vis_obj_seq`. See gst_codec_utils_mpeg4video_get_level() and
          * gst_codec_utils_mpeg4video_get_profile() for more details on the
@@ -574,7 +638,7 @@ declare module 'gi://GstPbutils?version=1.0' {
          * installed but no suitable video decoder and no suitable audio decoder).
          * @param details NULL-terminated array     of installer string details (see below)
          * @param ctx a #GstInstallPluginsContext, or NULL
-         * @param func the function to call when the installer program returns
+         * @param func the function to call when the     installer program returns
          * @returns result code whether an external installer could be started
          */
         function install_plugins_async(
@@ -714,6 +778,18 @@ declare module 'gi://GstPbutils?version=1.0' {
          * @returns a newly-allocated detail string, or NULL on error. Free string          with g_free() when not needed any longer.
          */
         function missing_plugin_message_get_installer_detail(msg: Gst.Message): string | null;
+        /**
+         * Get the stream-id of the stream for which an element is missing.
+         * @param msg A missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
+         * @returns The stream-id or %NULL if none is specified.
+         */
+        function missing_plugin_message_get_stream_id(msg: Gst.Message): string | null;
+        /**
+         * Set the stream-id of the stream for which an element is missing.
+         * @param msg A missing-plugin #GstMessage of type #GST_MESSAGE_ELEMENT
+         * @param stream_id The stream id for which an element is missing
+         */
+        function missing_plugin_message_set_stream_id(msg: Gst.Message, stream_id: string): void;
         /**
          * Returns an opaque string containing all the details about the missing
          * element to be passed to an external installer called via
@@ -968,6 +1044,14 @@ declare module 'gi://GstPbutils?version=1.0' {
             METADATA,
         }
         namespace AudioVisualizer {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::shade-amount': (pspec: GObject.ParamSpec) => void;
+                'notify::shader': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -998,6 +1082,15 @@ declare module 'gi://GstPbutils?version=1.0' {
             get shader(): AudioVisualizerShader;
             set shader(val: AudioVisualizerShader);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioVisualizer.SignalSignatures;
+
             // Fields
 
             req_spf: number;
@@ -1008,6 +1101,26 @@ declare module 'gi://GstPbutils?version=1.0' {
 
             _init(...args: any[]): void;
 
+            // Signals
+
+            connect<K extends keyof AudioVisualizer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioVisualizer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioVisualizer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioVisualizer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioVisualizer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioVisualizer.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Virtual methods
 
             vfunc_decide_allocation(query: Gst.Query): boolean;
@@ -1016,26 +1129,15 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace Discoverer {
-            // Signal callback interfaces
-
-            interface Discovered {
-                (info: DiscovererInfo, error?: GLib.Error | null): void;
-            }
-
-            interface Finished {
-                (): void;
-            }
-
-            interface LoadSerializedInfo {
-                (uri: string): DiscovererInfo | null;
-            }
-
-            interface SourceSetup {
-                (source: Gst.Element): void;
-            }
-
-            interface Starting {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                discovered: (arg0: DiscovererInfo, arg1: GLib.Error | null) => void;
+                finished: () => void;
+                'load-serialized-info': (arg0: string) => DiscovererInfo | null;
+                'source-setup': (arg0: Gst.Element) => void;
+                starting: () => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::use-cache': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1084,6 +1186,15 @@ declare module 'gi://GstPbutils?version=1.0' {
             get useCache(): boolean;
             set useCache(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Discoverer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Discoverer.ConstructorProps>, ...args: any[]);
@@ -1094,36 +1205,21 @@ declare module 'gi://GstPbutils?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'discovered',
-                callback: (_source: this, info: DiscovererInfo, error: GLib.Error | null) => void,
+            connect<K extends keyof Discoverer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Discoverer.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'discovered',
-                callback: (_source: this, info: DiscovererInfo, error: GLib.Error | null) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Discoverer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Discoverer.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'discovered', info: DiscovererInfo, error?: GLib.Error | null): void;
-            connect(signal: 'finished', callback: (_source: this) => void): number;
-            connect_after(signal: 'finished', callback: (_source: this) => void): number;
-            emit(signal: 'finished'): void;
-            connect(
-                signal: 'load-serialized-info',
-                callback: (_source: this, uri: string) => DiscovererInfo | null,
-            ): number;
-            connect_after(
-                signal: 'load-serialized-info',
-                callback: (_source: this, uri: string) => DiscovererInfo | null,
-            ): number;
-            emit(signal: 'load-serialized-info', uri: string): void;
-            connect(signal: 'source-setup', callback: (_source: this, source: Gst.Element) => void): number;
-            connect_after(signal: 'source-setup', callback: (_source: this, source: Gst.Element) => void): number;
-            emit(signal: 'source-setup', source: Gst.Element): void;
-            connect(signal: 'starting', callback: (_source: this) => void): number;
-            connect_after(signal: 'starting', callback: (_source: this) => void): number;
-            emit(signal: 'starting'): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Discoverer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Discoverer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1173,6 +1269,9 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace DiscovererAudioInfo {
+            // Signal signatures
+            interface SignalSignatures extends DiscovererStreamInfo.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1184,11 +1283,40 @@ declare module 'gi://GstPbutils?version=1.0' {
         class DiscovererAudioInfo extends DiscovererStreamInfo {
             static $gtype: GObject.GType<DiscovererAudioInfo>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DiscovererAudioInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DiscovererAudioInfo.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DiscovererAudioInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererAudioInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DiscovererAudioInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererAudioInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DiscovererAudioInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DiscovererAudioInfo.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1202,6 +1330,9 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace DiscovererContainerInfo {
+            // Signal signatures
+            interface SignalSignatures extends DiscovererStreamInfo.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1213,11 +1344,40 @@ declare module 'gi://GstPbutils?version=1.0' {
         class DiscovererContainerInfo extends DiscovererStreamInfo {
             static $gtype: GObject.GType<DiscovererContainerInfo>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DiscovererContainerInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DiscovererContainerInfo.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DiscovererContainerInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererContainerInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DiscovererContainerInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererContainerInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DiscovererContainerInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DiscovererContainerInfo.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1226,6 +1386,9 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace DiscovererInfo {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1237,11 +1400,38 @@ declare module 'gi://GstPbutils?version=1.0' {
         class DiscovererInfo extends GObject.Object {
             static $gtype: GObject.GType<DiscovererInfo>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DiscovererInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DiscovererInfo.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DiscovererInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DiscovererInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DiscovererInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DiscovererInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1310,6 +1500,9 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace DiscovererStreamInfo {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1335,11 +1528,40 @@ declare module 'gi://GstPbutils?version=1.0' {
         class DiscovererStreamInfo extends GObject.Object {
             static $gtype: GObject.GType<DiscovererStreamInfo>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DiscovererStreamInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DiscovererStreamInfo.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DiscovererStreamInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererStreamInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DiscovererStreamInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererStreamInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DiscovererStreamInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DiscovererStreamInfo.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1364,6 +1586,9 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace DiscovererSubtitleInfo {
+            // Signal signatures
+            interface SignalSignatures extends DiscovererStreamInfo.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1376,11 +1601,40 @@ declare module 'gi://GstPbutils?version=1.0' {
         class DiscovererSubtitleInfo extends DiscovererStreamInfo {
             static $gtype: GObject.GType<DiscovererSubtitleInfo>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DiscovererSubtitleInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DiscovererSubtitleInfo.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DiscovererSubtitleInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererSubtitleInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DiscovererSubtitleInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererSubtitleInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DiscovererSubtitleInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DiscovererSubtitleInfo.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1388,6 +1642,9 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace DiscovererVideoInfo {
+            // Signal signatures
+            interface SignalSignatures extends DiscovererStreamInfo.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends DiscovererStreamInfo.ConstructorProps {}
@@ -1399,11 +1656,40 @@ declare module 'gi://GstPbutils?version=1.0' {
         class DiscovererVideoInfo extends DiscovererStreamInfo {
             static $gtype: GObject.GType<DiscovererVideoInfo>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DiscovererVideoInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DiscovererVideoInfo.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DiscovererVideoInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererVideoInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DiscovererVideoInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DiscovererVideoInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DiscovererVideoInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DiscovererVideoInfo.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1421,6 +1707,12 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace EncodingAudioProfile {
+            // Signal signatures
+            interface SignalSignatures extends EncodingProfile.SignalSignatures {
+                'notify::element-properties': (pspec: GObject.ParamSpec) => void;
+                'notify::restriction-caps': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends EncodingProfile.ConstructorProps {}
@@ -1431,6 +1723,15 @@ declare module 'gi://GstPbutils?version=1.0' {
          */
         class EncodingAudioProfile extends EncodingProfile {
             static $gtype: GObject.GType<EncodingAudioProfile>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EncodingAudioProfile.SignalSignatures;
 
             // Constructors
 
@@ -1444,9 +1745,35 @@ declare module 'gi://GstPbutils?version=1.0' {
                 restriction: Gst.Caps | null,
                 presence: number,
             ): EncodingAudioProfile;
+
+            // Signals
+
+            connect<K extends keyof EncodingAudioProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingAudioProfile.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EncodingAudioProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingAudioProfile.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EncodingAudioProfile.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EncodingAudioProfile.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace EncodingContainerProfile {
+            // Signal signatures
+            interface SignalSignatures extends EncodingProfile.SignalSignatures {
+                'notify::element-properties': (pspec: GObject.ParamSpec) => void;
+                'notify::restriction-caps': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends EncodingProfile.ConstructorProps {}
@@ -1457,6 +1784,15 @@ declare module 'gi://GstPbutils?version=1.0' {
          */
         class EncodingContainerProfile extends EncodingProfile {
             static $gtype: GObject.GType<EncodingContainerProfile>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EncodingContainerProfile.SignalSignatures;
 
             // Constructors
 
@@ -1470,6 +1806,26 @@ declare module 'gi://GstPbutils?version=1.0' {
                 format: Gst.Caps,
                 preset?: string | null,
             ): EncodingContainerProfile;
+
+            // Signals
+
+            connect<K extends keyof EncodingContainerProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingContainerProfile.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EncodingContainerProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingContainerProfile.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EncodingContainerProfile.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EncodingContainerProfile.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1493,6 +1849,12 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace EncodingProfile {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::element-properties': (pspec: GObject.ParamSpec) => void;
+                'notify::restriction-caps': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1541,11 +1903,40 @@ declare module 'gi://GstPbutils?version=1.0' {
             get restrictionCaps(): Gst.Caps;
             set restrictionCaps(val: Gst.Caps);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EncodingProfile.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<EncodingProfile.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof EncodingProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingProfile.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EncodingProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingProfile.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EncodingProfile.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EncodingProfile.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1567,6 +1958,13 @@ declare module 'gi://GstPbutils?version=1.0' {
              * @param info The #GstDiscovererInfo to read from
              */
             static from_discoverer(info: DiscovererInfo): EncodingProfile | null;
+            /**
+             * Converts a string in the "encoding profile serialization format" into a
+             * GstEncodingProfile. Refer to the encoding-profile documentation for details
+             * on the format.
+             * @param string The string to convert into a GstEncodingProfile.
+             */
+            static from_string(string: string): EncodingProfile | null;
 
             // Methods
 
@@ -1658,15 +2056,34 @@ declare module 'gi://GstPbutils?version=1.0' {
              */
             set_presence(presence: number): void;
             /**
-             * Sets the name of the #GstElement that implements the #GstPreset interface
-             * to use for the profile.
+             * Sets the name of the preset to be used in the profile.
              * This is the name that has been set when saving the preset.
+             * You can list the available presets for a specific element factory
+             * using  `$ gst-inspect-1.0 element-factory-name`, for example for
+             * `x264enc`:
+             *
+             * ``` bash
+             * $ gst-inspect-1.0 x264enc
+             * ...
+             * Presets:
+             *  "Profile Baseline": Baseline Profile
+             *  "Profile High": High Profile
+             *  "Profile Main": Main Profile
+             *  "Profile YouTube": YouTube recommended settings (https://support.google.com/youtube/answer/1722171)
+             *  "Quality High": High quality
+             *  "Quality Low": Low quality
+             *  "Quality Normal": Normal quality
+             *  "Zero Latency"
+             * ```
+             *  }
              * @param preset the element preset to use
              */
             set_preset(preset?: string | null): void;
             /**
-             * Sets the name of the #GstPreset's factory to be used in the profile.
-             * @param preset_name The name of the preset to use in this @profile.
+             * Sets the name of the #GstPreset's factory to be used in the profile. This
+             * is the name of the **element factory** that implements the #GstPreset interface not
+             * the name of the preset itself (see #gst_encoding_profile_set_preset).
+             * @param preset_name The name of the element factory to use in this @profile.
              */
             set_preset_name(preset_name?: string | null): void;
             /**
@@ -1685,9 +2102,18 @@ declare module 'gi://GstPbutils?version=1.0' {
              * @param single_segment #TRUE if the stream represented by @profile should use a single segment before the encoder, #FALSE otherwise.
              */
             set_single_segment(single_segment: boolean): void;
+            /**
+             * Converts a GstEncodingProfile to a string in the "Encoding Profile
+             * serialization format".
+             * @returns A string representation of the GstEncodingProfile.
+             */
+            to_string(): string;
         }
 
         namespace EncodingTarget {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1702,6 +2128,15 @@ declare module 'gi://GstPbutils?version=1.0' {
         class EncodingTarget extends GObject.Object {
             static $gtype: GObject.GType<EncodingTarget>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EncodingTarget.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<EncodingTarget.ConstructorProps>, ...args: any[]);
@@ -1714,6 +2149,24 @@ declare module 'gi://GstPbutils?version=1.0' {
                 description: string,
                 profiles: EncodingProfile[],
             ): EncodingTarget;
+
+            // Signals
+
+            connect<K extends keyof EncodingTarget.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingTarget.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EncodingTarget.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingTarget.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EncodingTarget.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EncodingTarget.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1766,6 +2219,12 @@ declare module 'gi://GstPbutils?version=1.0' {
         }
 
         namespace EncodingVideoProfile {
+            // Signal signatures
+            interface SignalSignatures extends EncodingProfile.SignalSignatures {
+                'notify::element-properties': (pspec: GObject.ParamSpec) => void;
+                'notify::restriction-caps': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends EncodingProfile.ConstructorProps {}
@@ -1776,6 +2235,15 @@ declare module 'gi://GstPbutils?version=1.0' {
          */
         class EncodingVideoProfile extends EncodingProfile {
             static $gtype: GObject.GType<EncodingVideoProfile>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EncodingVideoProfile.SignalSignatures;
 
             // Constructors
 
@@ -1789,6 +2257,26 @@ declare module 'gi://GstPbutils?version=1.0' {
                 restriction: Gst.Caps | null,
                 presence: number,
             ): EncodingVideoProfile;
+
+            // Signals
+
+            connect<K extends keyof EncodingVideoProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingVideoProfile.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EncodingVideoProfile.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EncodingVideoProfile.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EncodingVideoProfile.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EncodingVideoProfile.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

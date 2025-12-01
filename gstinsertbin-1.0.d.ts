@@ -28,26 +28,17 @@ declare module 'gi://GstInsertBin?version=1.0' {
             (insertbin: InsertBin, element: Gst.Element, success: boolean): void;
         }
         namespace InsertBin {
-            // Signal callback interfaces
-
-            interface Append {
-                (callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
-            }
-
-            interface InsertAfter {
-                (sibling: Gst.Element, callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
-            }
-
-            interface InsertBefore {
-                (sibling: Gst.Element, callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
-            }
-
-            interface Prepend {
-                (callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
-            }
-
-            interface Remove {
-                (callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Bin.SignalSignatures {
+                append: (arg0: Gst.Element, arg1: any | null, arg2: any | null) => void;
+                'insert-after': (arg0: Gst.Element, arg1: Gst.Element, arg2: any | null, arg3: any | null) => void;
+                'insert-before': (arg0: Gst.Element, arg1: Gst.Element, arg2: any | null, arg3: any | null) => void;
+                prepend: (arg0: Gst.Element, arg1: any | null, arg2: any | null) => void;
+                remove: (arg0: Gst.Element, arg1: any | null, arg2: any | null) => void;
+                'notify::async-handling': (pspec: GObject.ParamSpec) => void;
+                'notify::message-forward': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -95,6 +86,15 @@ declare module 'gi://GstInsertBin?version=1.0' {
         class InsertBin extends Gst.Bin implements Gst.ChildProxy {
             static $gtype: GObject.GType<InsertBin>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: InsertBin.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<InsertBin.ConstructorProps>, ...args: any[]);
@@ -105,90 +105,21 @@ declare module 'gi://GstInsertBin?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'append',
-                callback: (_source: this, callback: Gst.Element, user_data: any | null, user_data2: any | null) => void,
+            connect<K extends keyof InsertBin.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InsertBin.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'append',
-                callback: (_source: this, callback: Gst.Element, user_data: any | null, user_data2: any | null) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof InsertBin.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InsertBin.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'append', callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
-            connect(
-                signal: 'insert-after',
-                callback: (
-                    _source: this,
-                    sibling: Gst.Element,
-                    callback: Gst.Element,
-                    user_data: any | null,
-                    user_data2: any | null,
-                ) => void,
-            ): number;
-            connect_after(
-                signal: 'insert-after',
-                callback: (
-                    _source: this,
-                    sibling: Gst.Element,
-                    callback: Gst.Element,
-                    user_data: any | null,
-                    user_data2: any | null,
-                ) => void,
-            ): number;
-            emit(
-                signal: 'insert-after',
-                sibling: Gst.Element,
-                callback: Gst.Element,
-                user_data?: any | null,
-                user_data2?: any | null,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof InsertBin.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<InsertBin.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(
-                signal: 'insert-before',
-                callback: (
-                    _source: this,
-                    sibling: Gst.Element,
-                    callback: Gst.Element,
-                    user_data: any | null,
-                    user_data2: any | null,
-                ) => void,
-            ): number;
-            connect_after(
-                signal: 'insert-before',
-                callback: (
-                    _source: this,
-                    sibling: Gst.Element,
-                    callback: Gst.Element,
-                    user_data: any | null,
-                    user_data2: any | null,
-                ) => void,
-            ): number;
-            emit(
-                signal: 'insert-before',
-                sibling: Gst.Element,
-                callback: Gst.Element,
-                user_data?: any | null,
-                user_data2?: any | null,
-            ): void;
-            connect(
-                signal: 'prepend',
-                callback: (_source: this, callback: Gst.Element, user_data: any | null, user_data2: any | null) => void,
-            ): number;
-            connect_after(
-                signal: 'prepend',
-                callback: (_source: this, callback: Gst.Element, user_data: any | null, user_data2: any | null) => void,
-            ): number;
-            emit(signal: 'prepend', callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
-            connect(
-                signal: 'remove',
-                callback: (_source: this, callback: Gst.Element, user_data: any | null, user_data2: any | null) => void,
-            ): number;
-            connect_after(
-                signal: 'remove',
-                callback: (_source: this, callback: Gst.Element, user_data: any | null, user_data2: any | null) => void,
-            ): number;
-            emit(signal: 'remove', callback: Gst.Element, user_data?: any | null, user_data2?: any | null): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

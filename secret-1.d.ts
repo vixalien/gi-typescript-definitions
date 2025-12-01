@@ -333,7 +333,10 @@ declare module 'gi://Secret?version=1' {
          * @param flags flags for which service functionality to ensure is initialized
          * @param cancellable optional cancellation object
          */
-        function backend_get(flags: BackendFlags | null, cancellable?: Gio.Cancellable | null): Promise<Backend>;
+        function backend_get(
+            flags: BackendFlags | null,
+            cancellable?: Gio.Cancellable | null,
+        ): globalThis.Promise<Backend>;
         /**
          * Get a #SecretBackend instance.
          *
@@ -369,7 +372,7 @@ declare module 'gi://Secret?version=1' {
             flags: BackendFlags | null,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<BackendFlags | null> | null,
-        ): Promise<Backend> | void;
+        ): globalThis.Promise<Backend> | void;
         /**
          * Complete an asynchronous operation to get a #SecretBackend.
          * @param result the asynchronous result passed to the callback
@@ -413,7 +416,7 @@ declare module 'gi://Secret?version=1' {
             schema: Schema | null,
             attributes: { [key: string]: any } | GLib.HashTable<string, string>,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Remove unlocked matching passwords from the secret service.
          *
@@ -451,7 +454,7 @@ declare module 'gi://Secret?version=1' {
             attributes: { [key: string]: any } | GLib.HashTable<string, string>,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Schema | null> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Remove unlocked matching passwords from the secret service.
          *
@@ -493,7 +496,7 @@ declare module 'gi://Secret?version=1' {
             schema: Schema | null,
             attributes: { [key: string]: any } | GLib.HashTable<string, string>,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<string>;
+        ): globalThis.Promise<string>;
         /**
          * Lookup a password in the secret service.
          *
@@ -531,7 +534,7 @@ declare module 'gi://Secret?version=1' {
             attributes: { [key: string]: any } | GLib.HashTable<string, string>,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Schema | null> | null,
-        ): Promise<string> | void;
+        ): globalThis.Promise<string> | void;
         /**
          * Lookup a password in the secret service.
          *
@@ -573,7 +576,7 @@ declare module 'gi://Secret?version=1' {
             attributes: { [key: string]: any } | GLib.HashTable<string, string>,
             flags: SearchFlags | null,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<Retrievable[]>;
+        ): globalThis.Promise<Retrievable[]>;
         /**
          * Search for items in the secret service.
          *
@@ -611,7 +614,7 @@ declare module 'gi://Secret?version=1' {
             flags: SearchFlags | null,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Schema | null> | null,
-        ): Promise<Retrievable[]> | void;
+        ): globalThis.Promise<Retrievable[]> | void;
         /**
          * Search for items in the secret service.
          *
@@ -666,7 +669,7 @@ declare module 'gi://Secret?version=1' {
             label: string,
             password: string,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Store a password in the secret service.
          *
@@ -726,7 +729,7 @@ declare module 'gi://Secret?version=1' {
             password: string,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Schema | null> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Store a password in the secret service.
          *
@@ -971,10 +974,30 @@ declare module 'gi://Secret?version=1' {
             LOAD_COLLECTIONS,
         }
         namespace Collection {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                'notify::created': (pspec: GObject.ParamSpec) => void;
+                'notify::flags': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::locked': (pspec: GObject.ParamSpec) => void;
+                'notify::modified': (pspec: GObject.ParamSpec) => void;
+                'notify::service': (pspec: GObject.ParamSpec) => void;
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
                     Gio.Initable.ConstructorProps {
@@ -1048,11 +1071,38 @@ declare module 'gi://Secret?version=1' {
              */
             get service(): Service;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Collection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Collection.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Collection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Collection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Collection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Collection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Collection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Collection.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1176,7 +1226,7 @@ declare module 'gi://Secret?version=1' {
              * any prompts that show up.
              * @param cancellable optional cancellation object
              */
-            ['delete'](cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            ['delete'](cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Delete this collection.
              *
@@ -1199,7 +1249,7 @@ declare module 'gi://Secret?version=1' {
             ['delete'](
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete operation to delete this collection.
              * @param result asynchronous result passed to the callback
@@ -1278,7 +1328,7 @@ declare module 'gi://Secret?version=1' {
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
              */
-            load_items(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            load_items(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Ensure that the #SecretCollection proxy has loaded all the items present
              * in the Secret Service.
@@ -1309,7 +1359,7 @@ declare module 'gi://Secret?version=1' {
             load_items(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete an asynchronous operation to ensure that the #SecretCollection proxy
              * has loaded all the items present in the Secret Service.
@@ -1365,7 +1415,7 @@ declare module 'gi://Secret?version=1' {
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 flags: SearchFlags | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<Item[]>;
+            ): globalThis.Promise<Item[]>;
             /**
              * Search for items matching the `attributes` in the `collection`.
              * The `attributes` should be a table of string keys and string values.
@@ -1423,7 +1473,7 @@ declare module 'gi://Secret?version=1' {
                 flags: SearchFlags | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Item[]> | void;
+            ): globalThis.Promise<Item[]> | void;
             /**
              * Complete asynchronous operation to search for items in a collection.
              * @param result asynchronous result passed to callback
@@ -1466,7 +1516,7 @@ declare module 'gi://Secret?version=1' {
              * @param label a new label
              * @param cancellable optional cancellation object
              */
-            set_label(label: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            set_label(label: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Set the label of this collection.
              *
@@ -1492,7 +1542,7 @@ declare module 'gi://Secret?version=1' {
                 label: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete asynchronous operation to set the label of this collection.
              * @param result asynchronous result passed to callback
@@ -1551,7 +1601,7 @@ declare module 'gi://Secret?version=1' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -1643,7 +1693,7 @@ declare module 'gi://Secret?version=1' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -1720,9 +1770,14 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -1737,8 +1792,13 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -2273,10 +2333,31 @@ declare module 'gi://Secret?version=1' {
         }
 
         namespace Item {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                'notify::flags': (pspec: GObject.ParamSpec) => void;
+                'notify::locked': (pspec: GObject.ParamSpec) => void;
+                'notify::service': (pspec: GObject.ParamSpec) => void;
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
+                'notify::attributes': (pspec: GObject.ParamSpec) => void;
+                'notify::created': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::modified': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
                     Gio.Initable.ConstructorProps,
@@ -2338,11 +2419,38 @@ declare module 'gi://Secret?version=1' {
              */
             get service(): Service;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Item.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Item.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Item.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Item.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Item.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Item.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Item.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Item.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2454,7 +2562,7 @@ declare module 'gi://Secret?version=1' {
              * any prompts that show up.
              * @param cancellable optional cancellation object
              */
-            ['delete'](cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            ['delete'](cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Delete this item.
              *
@@ -2477,7 +2585,7 @@ declare module 'gi://Secret?version=1' {
             ['delete'](
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete asynchronous operation to delete the secret item.
              * @param result asynchronous result passed to the callback
@@ -2578,7 +2686,7 @@ declare module 'gi://Secret?version=1' {
              * This function returns immediately and completes asynchronously.
              * @param cancellable optional cancellation object
              */
-            load_secret(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            load_secret(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Load the secret value of this item.
              *
@@ -2607,7 +2715,7 @@ declare module 'gi://Secret?version=1' {
             load_secret(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete asynchronous operation to load the secret value of this item.
              *
@@ -2655,7 +2763,7 @@ declare module 'gi://Secret?version=1' {
                 schema: Schema | null,
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Set the attributes of this item.
              *
@@ -2693,7 +2801,7 @@ declare module 'gi://Secret?version=1' {
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete operation to set the attributes of this item.
              * @param result asynchronous result passed to the callback
@@ -2726,7 +2834,7 @@ declare module 'gi://Secret?version=1' {
              * @param label a new label
              * @param cancellable optional cancellation object
              */
-            set_label(label: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            set_label(label: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Set the label of this item.
              *
@@ -2752,7 +2860,7 @@ declare module 'gi://Secret?version=1' {
                 label: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete asynchronous operation to set the label of this collection.
              * @param result asynchronous result passed to callback
@@ -2779,7 +2887,7 @@ declare module 'gi://Secret?version=1' {
              * @param value a new secret value
              * @param cancellable optional cancellation object
              */
-            set_secret(value: Value, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            set_secret(value: Value, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Set the secret value of this item.
              *
@@ -2811,7 +2919,7 @@ declare module 'gi://Secret?version=1' {
                 value: Value,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete asynchronous operation to set the secret value of this item.
              * @param result asynchronous result passed to callback
@@ -2900,7 +3008,7 @@ declare module 'gi://Secret?version=1' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -2992,7 +3100,7 @@ declare module 'gi://Secret?version=1' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -3069,9 +3177,14 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -3086,8 +3199,13 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -3189,7 +3307,7 @@ declare module 'gi://Secret?version=1' {
              * This function returns immediately and completes asynchronously.
              * @param cancellable optional cancellation object
              */
-            retrieve_secret(cancellable?: Gio.Cancellable | null): Promise<Value | null>;
+            retrieve_secret(cancellable?: Gio.Cancellable | null): globalThis.Promise<Value | null>;
             /**
              * Retrieve the secret value of this object.
              *
@@ -3214,7 +3332,7 @@ declare module 'gi://Secret?version=1' {
             retrieve_secret(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Value | null> | void;
+            ): globalThis.Promise<Value | null> | void;
             /**
              * Complete asynchronous operation to retrieve the secret value of this object.
              * @param result asynchronous result passed to callback
@@ -3694,10 +3812,24 @@ declare module 'gi://Secret?version=1' {
         }
 
         namespace Prompt {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
                     Gio.Initable.ConstructorProps {}
@@ -3722,11 +3854,38 @@ declare module 'gi://Secret?version=1' {
         class Prompt extends Gio.DBusProxy implements Gio.AsyncInitable<Prompt>, Gio.DBusInterface, Gio.Initable {
             static $gtype: GObject.GType<Prompt>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Prompt.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Prompt.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Prompt.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Prompt.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Prompt.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Prompt.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Prompt.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Prompt.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3750,7 +3909,7 @@ declare module 'gi://Secret?version=1' {
                 window_id: string | null,
                 return_type: GLib.VariantType,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Variant>;
+            ): globalThis.Promise<GLib.Variant>;
             /**
              * Runs a prompt and performs the prompting.
              *
@@ -3796,7 +3955,7 @@ declare module 'gi://Secret?version=1' {
                 return_type: GLib.VariantType,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Variant> | void;
+            ): globalThis.Promise<GLib.Variant> | void;
             /**
              * Complete asynchronous operation to run a prompt and perform the prompting.
              *
@@ -3901,7 +4060,7 @@ declare module 'gi://Secret?version=1' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -3993,7 +4152,7 @@ declare module 'gi://Secret?version=1' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -4070,9 +4229,14 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -4087,8 +4251,13 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -4623,10 +4792,25 @@ declare module 'gi://Secret?version=1' {
         }
 
         namespace Service {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
+                'notify::flags': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
                     Gio.Initable.ConstructorProps,
@@ -4680,11 +4864,38 @@ declare module 'gi://Secret?version=1' {
         {
             static $gtype: GObject.GType<Service>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Service.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Service.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Service.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Service.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Service.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Service.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Service.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Service.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -4879,7 +5090,7 @@ declare module 'gi://Secret?version=1' {
                 schema: Schema | null,
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Remove unlocked items which match the attributes from the secret service.
              *
@@ -4919,7 +5130,7 @@ declare module 'gi://Secret?version=1' {
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finish asynchronous operation to remove items from the secret
              * service.
@@ -5018,7 +5229,7 @@ declare module 'gi://Secret?version=1' {
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
              */
-            ensure_session(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            ensure_session(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Ensure that the #SecretService proxy has established a session with the
              * Secret Service.
@@ -5053,7 +5264,7 @@ declare module 'gi://Secret?version=1' {
             ensure_session(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finish an asynchronous operation to ensure that the #SecretService proxy
              * has established a session with the Secret Service.
@@ -5144,7 +5355,7 @@ declare module 'gi://Secret?version=1' {
              * This method will return immediately and complete asynchronously.
              * @param cancellable optional cancellation object
              */
-            load_collections(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            load_collections(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Ensure that the #SecretService proxy has loaded all the collections present
              * in the Secret Service.
@@ -5177,7 +5388,7 @@ declare module 'gi://Secret?version=1' {
             load_collections(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Complete an asynchronous operation to ensure that the #SecretService proxy
              * has loaded all the collections present in the Secret Service.
@@ -5219,7 +5430,7 @@ declare module 'gi://Secret?version=1' {
             lock(
                 objects: Gio.DBusProxy[],
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<[number, Gio.DBusProxy[] | null]>;
+            ): globalThis.Promise<[number, Gio.DBusProxy[] | null]>;
             /**
              * Lock items or collections in the secret service.
              *
@@ -5261,7 +5472,7 @@ declare module 'gi://Secret?version=1' {
                 objects: Gio.DBusProxy[],
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[number, Gio.DBusProxy[] | null]> | void;
+            ): globalThis.Promise<[number, Gio.DBusProxy[] | null]> | void;
             /**
              * Complete asynchronous operation to lock items or collections in the secret
              * service.
@@ -5306,7 +5517,7 @@ declare module 'gi://Secret?version=1' {
                 schema: Schema | null,
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<Value>;
+            ): globalThis.Promise<Value>;
             /**
              * Lookup a secret value in the secret service.
              *
@@ -5346,7 +5557,7 @@ declare module 'gi://Secret?version=1' {
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Value> | void;
+            ): globalThis.Promise<Value> | void;
             /**
              * Finish asynchronous operation to lookup a secret value in the secret service.
              *
@@ -5392,7 +5603,7 @@ declare module 'gi://Secret?version=1' {
                 prompt: Prompt,
                 return_type?: GLib.VariantType | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Variant>;
+            ): globalThis.Promise<GLib.Variant>;
             /**
              * Perform prompting for a [class`Prompt]`.
              *
@@ -5432,7 +5643,7 @@ declare module 'gi://Secret?version=1' {
                 return_type?: GLib.VariantType | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Variant> | void;
+            ): globalThis.Promise<GLib.Variant> | void;
             /**
              * Complete asynchronous operation to perform prompting for a [class`Prompt]`.
              *
@@ -5498,7 +5709,7 @@ declare module 'gi://Secret?version=1' {
                 attributes: { [key: string]: any } | GLib.HashTable<string, string>,
                 flags: SearchFlags | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<Item[]>;
+            ): globalThis.Promise<Item[]>;
             /**
              * Search for items matching the `attributes`.
              *
@@ -5566,7 +5777,7 @@ declare module 'gi://Secret?version=1' {
                 flags: SearchFlags | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Item[]> | void;
+            ): globalThis.Promise<Item[]> | void;
             /**
              * Complete asynchronous operation to search for items.
              * @param result asynchronous result passed to callback
@@ -5626,7 +5837,7 @@ declare module 'gi://Secret?version=1' {
                 alias: string,
                 collection?: Collection | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Assign a collection to this alias.
              *
@@ -5666,7 +5877,7 @@ declare module 'gi://Secret?version=1' {
                 collection?: Collection | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finish an asynchronous operation to assign a collection to an alias.
              * @param result asynchronous result passed to callback
@@ -5721,7 +5932,7 @@ declare module 'gi://Secret?version=1' {
                 label: string,
                 value: Value,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Store a secret value in the secret service.
              *
@@ -5787,7 +5998,7 @@ declare module 'gi://Secret?version=1' {
                 value: Value,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finish asynchronous operation to store a secret value in the secret service.
              * @param result the asynchronous result passed to the callback
@@ -5845,7 +6056,7 @@ declare module 'gi://Secret?version=1' {
             unlock(
                 objects: Gio.DBusProxy[],
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<[number, Gio.DBusProxy[] | null]>;
+            ): globalThis.Promise<[number, Gio.DBusProxy[] | null]>;
             /**
              * Unlock items or collections in the secret service.
              *
@@ -5887,7 +6098,7 @@ declare module 'gi://Secret?version=1' {
                 objects: Gio.DBusProxy[],
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[number, Gio.DBusProxy[] | null]> | void;
+            ): globalThis.Promise<[number, Gio.DBusProxy[] | null]> | void;
             /**
              * Complete asynchronous operation to unlock items or collections in the secret
              * service.
@@ -5967,7 +6178,7 @@ declare module 'gi://Secret?version=1' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -6059,7 +6270,7 @@ declare module 'gi://Secret?version=1' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -6136,9 +6347,14 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -6153,8 +6369,13 @@ declare module 'gi://Secret?version=1' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -7006,6 +7227,106 @@ declare module 'gi://Secret?version=1' {
         }
 
         namespace Backend {
+            /**
+             * Interface for implementing Backend.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Gio.AsyncInitable.Interface {
+                // Virtual methods
+
+                /**
+                 * implementation of [func`password_clear]`, required
+                 * @param schema
+                 * @param attributes
+                 * @param cancellable
+                 * @param callback
+                 */
+                vfunc_clear(
+                    schema: Schema,
+                    attributes: { [key: string]: any } | GLib.HashTable<any, any>,
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * implementation of [func`password_clear_finish]`, required
+                 * @param result
+                 */
+                vfunc_clear_finish(result: Gio.AsyncResult): boolean;
+                /**
+                 * implementation of reinitialization step in constructor, optional
+                 * @param flags
+                 * @param cancellable
+                 * @param callback
+                 */
+                vfunc_ensure_for_flags(
+                    flags: BackendFlags,
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * implementation of reinitialization step in constructor, optional
+                 * @param result
+                 */
+                vfunc_ensure_for_flags_finish(result: Gio.AsyncResult): boolean;
+                /**
+                 * implementation of [func`password_lookup]`, required
+                 * @param schema
+                 * @param attributes
+                 * @param cancellable
+                 * @param callback
+                 */
+                vfunc_lookup(
+                    schema: Schema,
+                    attributes: { [key: string]: any } | GLib.HashTable<any, any>,
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * implementation of [func`password_lookup_finish]`, required
+                 * @param result
+                 */
+                vfunc_lookup_finish(result: Gio.AsyncResult): Value;
+                /**
+                 * implementation of [func`password_search]`, required
+                 * @param schema
+                 * @param attributes
+                 * @param flags
+                 * @param cancellable
+                 * @param callback
+                 */
+                vfunc_search(
+                    schema: Schema,
+                    attributes: { [key: string]: any } | GLib.HashTable<any, any>,
+                    flags: SearchFlags,
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * implementation of [func`password_store]`, required
+                 * @param schema
+                 * @param attributes
+                 * @param collection
+                 * @param label
+                 * @param value
+                 * @param cancellable
+                 * @param callback
+                 */
+                vfunc_store(
+                    schema: Schema,
+                    attributes: { [key: string]: any } | GLib.HashTable<any, any>,
+                    collection: string,
+                    label: string,
+                    value: Value,
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * implementation of [func`password_store_finish]`, required
+                 * @param result
+                 */
+                vfunc_store_finish(result: Gio.AsyncResult): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.AsyncInitable.ConstructorProps<Backend> {
@@ -7041,7 +7362,7 @@ declare module 'gi://Secret?version=1' {
              */
             get_finish(result: Gio.AsyncResult): Backend;
         }
-        interface Backend extends Gio.AsyncInitable {
+        interface Backend extends Gio.AsyncInitable, Backend.Interface {
             // Properties
 
             /**
@@ -7049,100 +7370,6 @@ declare module 'gi://Secret?version=1' {
              * been initialized.
              */
             get flags(): ServiceFlags;
-
-            // Virtual methods
-
-            /**
-             * implementation of [func`password_clear]`, required
-             * @param schema
-             * @param attributes
-             * @param cancellable
-             * @param callback
-             */
-            vfunc_clear(
-                schema: Schema,
-                attributes: { [key: string]: any } | GLib.HashTable<any, any>,
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * implementation of [func`password_clear_finish]`, required
-             * @param result
-             */
-            vfunc_clear_finish(result: Gio.AsyncResult): boolean;
-            /**
-             * implementation of reinitialization step in constructor, optional
-             * @param flags
-             * @param cancellable
-             * @param callback
-             */
-            vfunc_ensure_for_flags(
-                flags: BackendFlags,
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * implementation of reinitialization step in constructor, optional
-             * @param result
-             */
-            vfunc_ensure_for_flags_finish(result: Gio.AsyncResult): boolean;
-            /**
-             * implementation of [func`password_lookup]`, required
-             * @param schema
-             * @param attributes
-             * @param cancellable
-             * @param callback
-             */
-            vfunc_lookup(
-                schema: Schema,
-                attributes: { [key: string]: any } | GLib.HashTable<any, any>,
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * implementation of [func`password_lookup_finish]`, required
-             * @param result
-             */
-            vfunc_lookup_finish(result: Gio.AsyncResult): Value;
-            /**
-             * implementation of [func`password_search]`, required
-             * @param schema
-             * @param attributes
-             * @param flags
-             * @param cancellable
-             * @param callback
-             */
-            vfunc_search(
-                schema: Schema,
-                attributes: { [key: string]: any } | GLib.HashTable<any, any>,
-                flags: SearchFlags,
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * implementation of [func`password_store]`, required
-             * @param schema
-             * @param attributes
-             * @param collection
-             * @param label
-             * @param value
-             * @param cancellable
-             * @param callback
-             */
-            vfunc_store(
-                schema: Schema,
-                attributes: { [key: string]: any } | GLib.HashTable<any, any>,
-                collection: string,
-                label: string,
-                value: Value,
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * implementation of [func`password_store_finish]`, required
-             * @param result
-             */
-            vfunc_store_finish(result: Gio.AsyncResult): boolean;
         }
 
         export const Backend: BackendNamespace & {
@@ -7150,6 +7377,34 @@ declare module 'gi://Secret?version=1' {
         };
 
         namespace Retrievable {
+            /**
+             * Interface for implementing Retrievable.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Retrieve the secret value of this object.
+                 *
+                 * Each retrievable object has a single secret which might be a
+                 * password or some other secret binary value.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                vfunc_retrieve_secret(
+                    cancellable?: Gio.Cancellable | null,
+                    callback?: Gio.AsyncReadyCallback<this> | null,
+                ): void;
+                /**
+                 * Complete asynchronous operation to retrieve the secret value of this object.
+                 * @param result asynchronous result passed to callback
+                 */
+                vfunc_retrieve_secret_finish(result: Gio.AsyncResult): Value | null;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7164,7 +7419,7 @@ declare module 'gi://Secret?version=1' {
             $gtype: GObject.GType<Retrievable>;
             prototype: Retrievable;
         }
-        interface Retrievable extends GObject.Object {
+        interface Retrievable extends GObject.Object, Retrievable.Interface {
             // Properties
 
             /**
@@ -7236,7 +7491,7 @@ declare module 'gi://Secret?version=1' {
              * This function returns immediately and completes asynchronously.
              * @param cancellable optional cancellation object
              */
-            retrieve_secret(cancellable?: Gio.Cancellable | null): Promise<Value | null>;
+            retrieve_secret(cancellable?: Gio.Cancellable | null): globalThis.Promise<Value | null>;
             /**
              * Retrieve the secret value of this object.
              *
@@ -7261,7 +7516,7 @@ declare module 'gi://Secret?version=1' {
             retrieve_secret(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Value | null> | void;
+            ): globalThis.Promise<Value | null> | void;
             /**
              * Complete asynchronous operation to retrieve the secret value of this object.
              * @param result asynchronous result passed to callback
@@ -7280,28 +7535,6 @@ declare module 'gi://Secret?version=1' {
              * @returns the secret value which should be   released with [method@Value.unref], or %NULL
              */
             retrieve_secret_sync(cancellable?: Gio.Cancellable | null): Value | null;
-
-            // Virtual methods
-
-            /**
-             * Retrieve the secret value of this object.
-             *
-             * Each retrievable object has a single secret which might be a
-             * password or some other secret binary value.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            vfunc_retrieve_secret(
-                cancellable?: Gio.Cancellable | null,
-                callback?: Gio.AsyncReadyCallback<this> | null,
-            ): void;
-            /**
-             * Complete asynchronous operation to retrieve the secret value of this object.
-             * @param result asynchronous result passed to callback
-             */
-            vfunc_retrieve_secret_finish(result: Gio.AsyncResult): Value | null;
         }
 
         export const Retrievable: RetrievableNamespace & {

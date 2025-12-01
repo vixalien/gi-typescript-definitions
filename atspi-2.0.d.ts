@@ -1967,9 +1967,33 @@ declare module 'gi://Atspi?version=2.0' {
             PARAGRAPH,
         }
         /**
+         * The version of the Application D-Bus interface.
+         */
+        const ACCESSIBLE_VERSION: number;
+        /**
+         * The version of the Action D-Bus interface.
+         */
+        const ACTION_VERSION: number;
+        /**
+         * The version of the Application D-Bus interface.
+         */
+        const APPLICATION_VERSION: number;
+        /**
+         * The version of the Cache D-Bus interface.
+         */
+        const CACHE_VERSION: number;
+        /**
+         * The version of the Collection D-Bus interface.
+         */
+        const COLLECTION_VERSION: number;
+        /**
          * One higher than the highest valid value of #AtspiComponentLayer.
          */
         const COMPONENTLAYER_COUNT: number;
+        /**
+         * The version of the Component D-Bus interface.
+         */
+        const COMPONENT_VERSION: number;
         /**
          * One higher than the highest valid value of #AtspiCoordType.
          */
@@ -2010,9 +2034,41 @@ declare module 'gi://Atspi?version=2.0' {
         const DEVICE_A11Y_MANAGER_VIRTUAL_MOD_END: number;
         const DEVICE_A11Y_MANAGER_VIRTUAL_MOD_START: number;
         /**
+         * The version of the DeviceEventController D-Bus interface.
+         */
+        const DEVICE_EVENT_CONTROLLER_VERSION: number;
+        /**
+         * The version of the DeviceEventListener D-Bus interface.
+         */
+        const DEVICE_EVENT_LISTENER_VERSION: number;
+        /**
+         * The version of the Document D-Bus interface.
+         */
+        const DOCUMENT_VERSION: number;
+        /**
+         * The version of the EditableText D-Bus interface.
+         */
+        const EDITABLE_TEXT_VERSION: number;
+        /**
          * One higher than the highest valid value of #AtspiEventType.
          */
         const EVENTTYPE_COUNT: number;
+        /**
+         * The version of the Event D-Bus interface.
+         */
+        const EVENT_VERSION: number;
+        /**
+         * The version of the Hyperlink D-Bus interface.
+         */
+        const HYPERLINK_VERSION: number;
+        /**
+         * The version of the Hypertext D-Bus interface.
+         */
+        const HYPERTEXT_VERSION: number;
+        /**
+         * The version of the Image D-Bus interface.
+         */
+        const IMAGE_VERSION: number;
         /**
          * One higher than the highest valid value of #AtspiKeyEventType.
          */
@@ -2026,10 +2082,15 @@ declare module 'gi://Atspi?version=2.0' {
          */
         const LOCALE_TYPE_COUNT: number;
         const MATCHTYPES_COUNT: number;
+        const MAX_CHILDREN: number;
         /**
          * One higher than the highest valid value of #AtspiModifierType.
          */
         const MODIFIERTYPE_COUNT: number;
+        /**
+         * The version of the Registry D-Bus interface.
+         */
+        const REGISTRY_VERSION: number;
         /**
          * One higher than the highest valid value of #AtspiRelationType.
          */
@@ -2043,6 +2104,14 @@ declare module 'gi://Atspi?version=2.0' {
          */
         const SCROLLTYPE_COUNT: number;
         /**
+         * The version of the Selection D-Bus interface.
+         */
+        const SELECTION_VERSION: number;
+        /**
+         * The version of the Socket D-Bus interface.
+         */
+        const SOCKET_VERSION: number;
+        /**
          * One higher than the highest valid value of #AtspiCollectionSortOrder.
          */
         const SORTORDER_COUNT: number;
@@ -2050,6 +2119,14 @@ declare module 'gi://Atspi?version=2.0' {
          * One higher than the highest valid value of #AtspiStateType.
          */
         const STATETYPE_COUNT: number;
+        /**
+         * The version of the TableCell D-Bus interface.
+         */
+        const TABLE_CELL_VERSION: number;
+        /**
+         * The version of the Table D-Bus interface.
+         */
+        const TABLE_VERSION: number;
         /**
          * One higher than the highest valid value of #AtspiTextBoundaryType.
          */
@@ -2059,10 +2136,18 @@ declare module 'gi://Atspi?version=2.0' {
          */
         const TEXT_CLIP_TYPE_COUNT: number;
         /**
+         * The version of the Text D-Bus interface.
+         */
+        const TEXT_VERSION: number;
+        /**
          * One higher than the highest valid value of
          * #AtspiCollection_TreeTraversalType.
          */
         const TREETRAVERSALTYPE_COUNT: number;
+        /**
+         * The version of the Value D-Bus interface.
+         */
+        const VALUE_VERSION: number;
         /**
          * Removes a device event listener from the registry's listener queue,
          *            ceasing notification of events of the specified type.
@@ -2270,7 +2355,7 @@ declare module 'gi://Atspi?version=2.0' {
             (event: Event): void;
         }
         interface GenerateMouseEventCB {
-            (): void;
+            (user_data?: any | null): void;
         }
         interface KeyCallback {
             (
@@ -2353,20 +2438,17 @@ declare module 'gi://Atspi?version=2.0' {
             ALL_WINDOWS,
         }
         namespace Accessible {
-            // Signal callback interfaces
-
-            interface ModeChanged {
-                (arg1: number, why: string): void;
-            }
-
-            interface RegionChanged {
-                (arg1: number, arg2: number): void;
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'mode-changed': (arg0: number, arg1: string) => void;
+                'region-changed': (arg0: number, arg1: number) => void;
             }
 
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Object.ConstructorProps,
+                extends
+                    Object.ConstructorProps,
                     Action.ConstructorProps,
                     Collection.ConstructorProps,
                     Component.ConstructorProps,
@@ -2406,6 +2488,15 @@ declare module 'gi://Atspi?version=2.0' {
         {
             static $gtype: GObject.GType<Accessible>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Accessible.SignalSignatures;
+
             // Fields
 
             accessible_parent: Accessible;
@@ -2425,18 +2516,21 @@ declare module 'gi://Atspi?version=2.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'mode-changed', callback: (_source: this, arg1: number, why: string) => void): number;
-            connect_after(signal: 'mode-changed', callback: (_source: this, arg1: number, why: string) => void): number;
-            emit(signal: 'mode-changed', arg1: number, why: string): void;
-            connect(signal: 'region-changed', callback: (_source: this, arg1: number, arg2: number) => void): number;
-            connect_after(
-                signal: 'region-changed',
-                callback: (_source: this, arg1: number, arg2: number) => void,
+            connect<K extends keyof Accessible.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Accessible.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'region-changed', arg1: number, arg2: number): void;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Accessible.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Accessible.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Accessible.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Accessible.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2878,7 +2972,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param rule An #AtspiMatchRule describing the match criteria.
              * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to          be sorted.
              * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Not supported.
+             * @param traverse Whether to traverse the accessible subtree (in case         of #TRUE) or only the direct children (on case of #FALSE).
              * @returns All          #AtspiAccessible objects matching the given match rule.
              */
             get_matches(
@@ -2895,7 +2989,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to          be sorted.
              * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on          the objects to be traversed.
              * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Not supported.
+             * @param traverse Whether to traverse the accessible subtree (in case         of #TRUE) or only the direct children (on case of #FALSE).
              * @returns All          #AtspiAccessible objects matching the given match rule that preceed          @current_object.
              */
             get_matches_from(
@@ -2915,7 +3009,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on          the objects to be traversed.
              * @param limit_scope If #TRUE, only descendants of @current_object's parent          will be returned. Otherwise (if #FALSE), any accessible may be          returned if it would preceed @current_object in a flattened          hierarchy.
              * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Not supported.
+             * @param traverse Whether to traverse the accessible subtree (in case         of #TRUE) or only the direct children (on case of #FALSE).
              * @returns All          #AtspiAccessible objects matching the given match rule after          @current_object.
              */
             get_matches_to(
@@ -4187,6 +4281,9 @@ declare module 'gi://Atspi?version=2.0' {
         }
 
         namespace Application {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4201,6 +4298,15 @@ declare module 'gi://Atspi?version=2.0' {
          */
         class Application extends GObject.Object {
             static $gtype: GObject.GType<Application>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Application.SignalSignatures;
 
             // Fields
 
@@ -4217,9 +4323,32 @@ declare module 'gi://Atspi?version=2.0' {
             constructor(properties?: Partial<Application.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Application.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Application.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Application.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Application.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Application.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Application.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace Device {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::app-id': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4246,6 +4375,15 @@ declare module 'gi://Atspi?version=2.0' {
              */
             get appId(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Device.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Device.ConstructorProps>, ...args: any[]);
@@ -4255,6 +4393,24 @@ declare module 'gi://Atspi?version=2.0' {
             static ['new'](): Device;
 
             static new_full(app_id?: string | null): Device;
+
+            // Signals
+
+            connect<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Device.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4352,6 +4508,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param callback the   function to call when the given key is pressed.
              */
             add_key_watcher(callback: KeyCallback): void;
+            clear_key_grabs(): void;
             /**
              * Synthesizes a mouse event at a specific screen coordinate.
              * Most AT clients should use the #AccessibleAction interface when
@@ -4455,6 +4612,11 @@ declare module 'gi://Atspi?version=2.0' {
         }
 
         namespace DeviceA11yManager {
+            // Signal signatures
+            interface SignalSignatures extends Device.SignalSignatures {
+                'notify::app-id': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Device.ConstructorProps {}
@@ -4462,6 +4624,15 @@ declare module 'gi://Atspi?version=2.0' {
 
         class DeviceA11yManager extends Device {
             static $gtype: GObject.GType<DeviceA11yManager>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceA11yManager.SignalSignatures;
 
             // Constructors
 
@@ -4472,9 +4643,34 @@ declare module 'gi://Atspi?version=2.0' {
             static try_new(): DeviceA11yManager;
 
             static try_new_full(app_id?: string | null): DeviceA11yManager;
+
+            // Signals
+
+            connect<K extends keyof DeviceA11yManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceA11yManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceA11yManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceA11yManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceA11yManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceA11yManager.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace DeviceLegacy {
+            // Signal signatures
+            interface SignalSignatures extends Device.SignalSignatures {
+                'notify::app-id': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Device.ConstructorProps {}
@@ -4482,6 +4678,15 @@ declare module 'gi://Atspi?version=2.0' {
 
         class DeviceLegacy extends Device {
             static $gtype: GObject.GType<DeviceLegacy>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceLegacy.SignalSignatures;
 
             // Constructors
 
@@ -4492,9 +4697,30 @@ declare module 'gi://Atspi?version=2.0' {
             static ['new'](): DeviceLegacy;
 
             static new_full(app_id?: string | null): DeviceLegacy;
+
+            // Signals
+
+            connect<K extends keyof DeviceLegacy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceLegacy.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceLegacy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceLegacy.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceLegacy.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceLegacy.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace DeviceListener {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4502,6 +4728,15 @@ declare module 'gi://Atspi?version=2.0' {
 
         class DeviceListener extends GObject.Object {
             static $gtype: GObject.GType<DeviceListener>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceListener.SignalSignatures;
 
             // Fields
 
@@ -4515,6 +4750,24 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](callback?: DeviceListenerCB | null): DeviceListener;
+
+            // Signals
+
+            connect<K extends keyof DeviceListener.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceListener.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceListener.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceListener.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceListener.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceListener.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4536,6 +4789,11 @@ declare module 'gi://Atspi?version=2.0' {
         }
 
         namespace DeviceX11 {
+            // Signal signatures
+            interface SignalSignatures extends Device.SignalSignatures {
+                'notify::app-id': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Device.ConstructorProps {}
@@ -4543,6 +4801,15 @@ declare module 'gi://Atspi?version=2.0' {
 
         class DeviceX11 extends Device {
             static $gtype: GObject.GType<DeviceX11>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceX11.SignalSignatures;
 
             // Constructors
 
@@ -4553,9 +4820,30 @@ declare module 'gi://Atspi?version=2.0' {
             static ['new'](): DeviceX11;
 
             static new_full(app_id?: string | null): DeviceX11;
+
+            // Signals
+
+            connect<K extends keyof DeviceX11.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceX11.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceX11.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceX11.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceX11.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceX11.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace EventListener {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4573,6 +4861,15 @@ declare module 'gi://Atspi?version=2.0' {
         class EventListener extends GObject.Object {
             static $gtype: GObject.GType<EventListener>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: EventListener.SignalSignatures;
+
             // Fields
 
             callback: EventListenerCB;
@@ -4586,6 +4883,24 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](callback: EventListenerCB): EventListener;
+
+            // Signals
+
+            connect<K extends keyof EventListener.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EventListener.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EventListener.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EventListener.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EventListener.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EventListener.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -4730,6 +5045,9 @@ declare module 'gi://Atspi?version=2.0' {
         }
 
         namespace Hyperlink {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -4750,11 +5068,38 @@ declare module 'gi://Atspi?version=2.0' {
         class Hyperlink extends Object {
             static $gtype: GObject.GType<Hyperlink>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Hyperlink.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Hyperlink.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Hyperlink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Hyperlink.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Hyperlink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Hyperlink.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Hyperlink.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Hyperlink.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4805,6 +5150,9 @@ declare module 'gi://Atspi?version=2.0' {
         }
 
         namespace MatchRule {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4816,6 +5164,15 @@ declare module 'gi://Atspi?version=2.0' {
          */
         class MatchRule extends GObject.Object {
             static $gtype: GObject.GType<MatchRule>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MatchRule.SignalSignatures;
 
             // Fields
 
@@ -4845,9 +5202,30 @@ declare module 'gi://Atspi?version=2.0' {
                 interfacematchtype: CollectionMatchType,
                 invert: boolean,
             ): MatchRule;
+
+            // Signals
+
+            connect<K extends keyof MatchRule.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MatchRule.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MatchRule.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MatchRule.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MatchRule.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MatchRule.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace Object {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4855,6 +5233,15 @@ declare module 'gi://Atspi?version=2.0' {
 
         class Object extends GObject.Object {
             static $gtype: GObject.GType<Object>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Object.SignalSignatures;
 
             // Fields
 
@@ -4866,9 +5253,30 @@ declare module 'gi://Atspi?version=2.0' {
             constructor(properties?: Partial<Object.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Object.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace Relation {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4885,6 +5293,15 @@ declare module 'gi://Atspi?version=2.0' {
         class Relation extends GObject.Object {
             static $gtype: GObject.GType<Relation>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Relation.SignalSignatures;
+
             // Fields
 
             relation_type: RelationType;
@@ -4895,6 +5312,24 @@ declare module 'gi://Atspi?version=2.0' {
             constructor(properties?: Partial<Relation.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Relation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Relation.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Relation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Relation.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Relation.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Relation.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4919,6 +5354,9 @@ declare module 'gi://Atspi?version=2.0' {
         }
 
         namespace StateSet {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4930,6 +5368,15 @@ declare module 'gi://Atspi?version=2.0' {
          */
         class StateSet extends GObject.Object {
             static $gtype: GObject.GType<StateSet>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: StateSet.SignalSignatures;
 
             // Fields
 
@@ -4943,6 +5390,24 @@ declare module 'gi://Atspi?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](states: StateType[]): StateSet;
+
+            // Signals
+
+            connect<K extends keyof StateSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StateSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StateSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StateSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StateSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StateSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5384,7 +5849,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param rule An #AtspiMatchRule describing the match criteria.
              * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to          be sorted.
              * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Not supported.
+             * @param traverse Whether to traverse the accessible subtree (in case         of #TRUE) or only the direct children (on case of #FALSE).
              * @returns All          #AtspiAccessible objects matching the given match rule.
              */
             get_matches(
@@ -5401,7 +5866,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param sortby An #AtspiCollectionSortOrder specifying the way the results are to          be sorted.
              * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on          the objects to be traversed.
              * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Not supported.
+             * @param traverse Whether to traverse the accessible subtree (in case         of #TRUE) or only the direct children (on case of #FALSE).
              * @returns All          #AtspiAccessible objects matching the given match rule that preceed          @current_object.
              */
             get_matches_from(
@@ -5421,7 +5886,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param tree An #AtspiCollectionTreeTraversalType specifying restrictions on          the objects to be traversed.
              * @param limit_scope If #TRUE, only descendants of @current_object's parent          will be returned. Otherwise (if #FALSE), any accessible may be          returned if it would preceed @current_object in a flattened          hierarchy.
              * @param count The maximum number of results to return, or 0 for no limit.
-             * @param traverse Not supported.
+             * @param traverse Whether to traverse the accessible subtree (in case         of #TRUE) or only the direct children (on case of #FALSE).
              * @returns All          #AtspiAccessible objects matching the given match rule after          @current_object.
              */
             get_matches_to(

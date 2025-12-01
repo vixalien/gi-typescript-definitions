@@ -101,6 +101,9 @@ declare module 'gi://PangoFc?version=1.0' {
             (pattern: fontconfig.Pattern, data?: any | null): void;
         }
         namespace Decoder {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -121,11 +124,38 @@ declare module 'gi://PangoFc?version=1.0' {
         abstract class Decoder extends GObject.Object {
             static $gtype: GObject.GType<Decoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Decoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Decoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Decoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Decoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Decoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Decoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -181,6 +211,12 @@ declare module 'gi://PangoFc?version=1.0' {
         }
 
         namespace Font {
+            // Signal signatures
+            interface SignalSignatures extends Pango.Font.SignalSignatures {
+                'notify::fontmap': (pspec: GObject.ParamSpec) => void;
+                'notify::pattern': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Pango.Font.ConstructorProps {
@@ -213,6 +249,15 @@ declare module 'gi://PangoFc?version=1.0' {
              */
             get pattern(): any;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Font.SignalSignatures;
+
             // Fields
 
             priv: any;
@@ -226,6 +271,24 @@ declare module 'gi://PangoFc?version=1.0' {
             constructor(properties?: Partial<Font.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Font.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Font.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Font.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Font.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Font.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Font.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -252,7 +315,7 @@ declare module 'gi://PangoFc?version=1.0' {
              * @param wc Unicode character to look up
              * @returns the glyph index, or 0, if the Unicode   character doesn't exist in the font.
              */
-            get_glyph(wc: number): number;
+            get_glyph(wc: string): number;
             /**
              * Returns the languages that are supported by `font`.
              *
@@ -271,13 +334,13 @@ declare module 'gi://PangoFc?version=1.0' {
              * @param wc the Unicode character for which a glyph is needed.
              * @returns a glyph index into @font.
              */
-            get_unknown_glyph(wc: number): Pango.Glyph;
+            get_unknown_glyph(wc: string): Pango.Glyph;
             /**
              * Determines whether `font` has a glyph for the codepoint `wc`.
              * @param wc Unicode codepoint to look up
              * @returns %TRUE if @font has the requested codepoint.
              */
-            has_char(wc: number): boolean;
+            has_char(wc: string): boolean;
             /**
              * This function used to adjust each adjacent pair of glyphs
              * in `glyphs` according to kerning information in `font`.
@@ -294,11 +357,16 @@ declare module 'gi://PangoFc?version=1.0' {
         }
 
         namespace FontMap {
+            // Signal signatures
+            interface SignalSignatures extends Pango.FontMap.SignalSignatures {
+                'notify::item-type': (pspec: GObject.ParamSpec) => void;
+                'notify::n-items': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps<A extends GObject.Object = GObject.Object>
-                extends Pango.FontMap.ConstructorProps,
-                    Gio.ListModel.ConstructorProps {}
+                extends Pango.FontMap.ConstructorProps, Gio.ListModel.ConstructorProps {}
         }
 
         /**
@@ -316,11 +384,38 @@ declare module 'gi://PangoFc?version=1.0' {
         {
             static $gtype: GObject.GType<FontMap>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: FontMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<FontMap.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof FontMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FontMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FontMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FontMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FontMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FontMap.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

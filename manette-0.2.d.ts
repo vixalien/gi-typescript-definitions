@@ -139,30 +139,14 @@ declare module 'gi://Manette?version=0.2' {
         function get_minor_version(): number;
         function get_resource(): Gio.Resource;
         namespace Device {
-            // Signal callback interfaces
-
-            interface AbsoluteAxisEvent {
-                (event: Event): void;
-            }
-
-            interface ButtonPressEvent {
-                (event: Event): void;
-            }
-
-            interface ButtonReleaseEvent {
-                (event: Event): void;
-            }
-
-            interface Disconnected {
-                (): void;
-            }
-
-            interface Event {
-                (event: Event): void;
-            }
-
-            interface HatAxisEvent {
-                (event: Event): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'absolute-axis-event': (arg0: Event) => void;
+                'button-press-event': (arg0: Event) => void;
+                'button-release-event': (arg0: Event) => void;
+                disconnected: () => void;
+                event: (arg0: Event) => void;
+                'hat-axis-event': (arg0: Event) => void;
             }
 
             // Constructor properties interface
@@ -178,6 +162,15 @@ declare module 'gi://Manette?version=0.2' {
         class Device extends GObject.Object {
             static $gtype: GObject.GType<Device>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Device.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Device.ConstructorProps>, ...args: any[]);
@@ -186,27 +179,21 @@ declare module 'gi://Manette?version=0.2' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'absolute-axis-event', callback: (_source: this, event: Event) => void): number;
-            connect_after(signal: 'absolute-axis-event', callback: (_source: this, event: Event) => void): number;
-            emit(signal: 'absolute-axis-event', event: Event): void;
-            connect(signal: 'button-press-event', callback: (_source: this, event: Event) => void): number;
-            connect_after(signal: 'button-press-event', callback: (_source: this, event: Event) => void): number;
-            emit(signal: 'button-press-event', event: Event): void;
-            connect(signal: 'button-release-event', callback: (_source: this, event: Event) => void): number;
-            connect_after(signal: 'button-release-event', callback: (_source: this, event: Event) => void): number;
-            emit(signal: 'button-release-event', event: Event): void;
-            connect(signal: 'disconnected', callback: (_source: this) => void): number;
-            connect_after(signal: 'disconnected', callback: (_source: this) => void): number;
-            emit(signal: 'disconnected'): void;
-            connect(signal: 'event', callback: (_source: this, event: Event) => void): number;
-            connect_after(signal: 'event', callback: (_source: this, event: Event) => void): number;
-            emit(signal: 'event', event: Event): void;
-            connect(signal: 'hat-axis-event', callback: (_source: this, event: Event) => void): number;
-            connect_after(signal: 'hat-axis-event', callback: (_source: this, event: Event) => void): number;
-            emit(signal: 'hat-axis-event', event: Event): void;
+            connect<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Device.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -283,14 +270,10 @@ declare module 'gi://Manette?version=0.2' {
         }
 
         namespace Monitor {
-            // Signal callback interfaces
-
-            interface DeviceConnected {
-                (device: Device): void;
-            }
-
-            interface DeviceDisconnected {
-                (device: Device): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'device-connected': (arg0: Device) => void;
+                'device-disconnected': (arg0: Device) => void;
             }
 
             // Constructor properties interface
@@ -306,6 +289,15 @@ declare module 'gi://Manette?version=0.2' {
         class Monitor extends GObject.Object {
             static $gtype: GObject.GType<Monitor>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Monitor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Monitor.ConstructorProps>, ...args: any[]);
@@ -316,15 +308,21 @@ declare module 'gi://Manette?version=0.2' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'device-connected', callback: (_source: this, device: Device) => void): number;
-            connect_after(signal: 'device-connected', callback: (_source: this, device: Device) => void): number;
-            emit(signal: 'device-connected', device: Device): void;
-            connect(signal: 'device-disconnected', callback: (_source: this, device: Device) => void): number;
-            connect_after(signal: 'device-disconnected', callback: (_source: this, device: Device) => void): number;
-            emit(signal: 'device-disconnected', device: Device): void;
+            connect<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Monitor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Monitor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Monitor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

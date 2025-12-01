@@ -149,6 +149,24 @@ declare module 'gi://GstNet?version=1.0' {
             (domain: number, stats: Gst.Structure): boolean;
         }
         namespace NetClientClock {
+            // Signal signatures
+            interface SignalSignatures extends Gst.SystemClock.SignalSignatures {
+                'notify::address': (pspec: GObject.ParamSpec) => void;
+                'notify::base-time': (pspec: GObject.ParamSpec) => void;
+                'notify::bus': (pspec: GObject.ParamSpec) => void;
+                'notify::internal-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::minimum-update-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::port': (pspec: GObject.ParamSpec) => void;
+                'notify::qos-dscp': (pspec: GObject.ParamSpec) => void;
+                'notify::round-trip-limit': (pspec: GObject.ParamSpec) => void;
+                'notify::clock-type': (pspec: GObject.ParamSpec) => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::window-size': (pspec: GObject.ParamSpec) => void;
+                'notify::window-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.SystemClock.ConstructorProps {
@@ -220,6 +238,15 @@ declare module 'gi://GstNet?version=1.0' {
             get roundTripLimit(): number;
             set roundTripLimit(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: NetClientClock.SignalSignatures;
+
             // Fields
 
             clock: Gst.SystemClock;
@@ -236,9 +263,38 @@ declare module 'gi://GstNet?version=1.0' {
                 remote_port: number,
                 base_time: Gst.ClockTime,
             ): NetClientClock;
+
+            // Signals
+
+            connect<K extends keyof NetClientClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NetClientClock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof NetClientClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NetClientClock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof NetClientClock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<NetClientClock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace NetTimeProvider {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::active': (pspec: GObject.ParamSpec) => void;
+                'notify::address': (pspec: GObject.ParamSpec) => void;
+                'notify::clock': (pspec: GObject.ParamSpec) => void;
+                'notify::port': (pspec: GObject.ParamSpec) => void;
+                'notify::qos-dscp': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps, Gio.Initable.ConstructorProps {
@@ -277,6 +333,15 @@ declare module 'gi://GstNet?version=1.0' {
             get qosDscp(): number;
             set qosDscp(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: NetTimeProvider.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<NetTimeProvider.ConstructorProps>, ...args: any[]);
@@ -284,6 +349,26 @@ declare module 'gi://GstNet?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](clock: Gst.Clock, address: string | null, port: number): NetTimeProvider;
+
+            // Signals
+
+            connect<K extends keyof NetTimeProvider.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NetTimeProvider.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof NetTimeProvider.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NetTimeProvider.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof NetTimeProvider.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<NetTimeProvider.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -815,6 +900,24 @@ declare module 'gi://GstNet?version=1.0' {
         }
 
         namespace NtpClock {
+            // Signal signatures
+            interface SignalSignatures extends NetClientClock.SignalSignatures {
+                'notify::address': (pspec: GObject.ParamSpec) => void;
+                'notify::base-time': (pspec: GObject.ParamSpec) => void;
+                'notify::bus': (pspec: GObject.ParamSpec) => void;
+                'notify::internal-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::minimum-update-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::port': (pspec: GObject.ParamSpec) => void;
+                'notify::qos-dscp': (pspec: GObject.ParamSpec) => void;
+                'notify::round-trip-limit': (pspec: GObject.ParamSpec) => void;
+                'notify::clock-type': (pspec: GObject.ParamSpec) => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::window-size': (pspec: GObject.ParamSpec) => void;
+                'notify::window-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends NetClientClock.ConstructorProps {}
@@ -822,6 +925,15 @@ declare module 'gi://GstNet?version=1.0' {
 
         class NtpClock extends NetClientClock {
             static $gtype: GObject.GType<NtpClock>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: NtpClock.SignalSignatures;
 
             // Fields
 
@@ -839,9 +951,41 @@ declare module 'gi://GstNet?version=1.0' {
                 remote_port: number,
                 base_time: Gst.ClockTime,
             ): NtpClock;
+
+            // Signals
+
+            connect<K extends keyof NtpClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NtpClock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof NtpClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NtpClock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof NtpClock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<NtpClock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace PtpClock {
+            // Signal signatures
+            interface SignalSignatures extends Gst.SystemClock.SignalSignatures {
+                'notify::domain': (pspec: GObject.ParamSpec) => void;
+                'notify::grandmaster-clock-id': (pspec: GObject.ParamSpec) => void;
+                'notify::internal-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::master-clock-id': (pspec: GObject.ParamSpec) => void;
+                'notify::clock-type': (pspec: GObject.ParamSpec) => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::window-size': (pspec: GObject.ParamSpec) => void;
+                'notify::window-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.SystemClock.ConstructorProps {
@@ -891,6 +1035,15 @@ declare module 'gi://GstNet?version=1.0' {
             get master_clock_id(): number;
             get masterClockId(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PtpClock.SignalSignatures;
+
             // Fields
 
             clock: Gst.SystemClock;
@@ -901,7 +1054,25 @@ declare module 'gi://GstNet?version=1.0' {
 
             _init(...args: any[]): void;
 
-            static ['new'](name: string, domain: number): PtpClock;
+            static ['new'](name: string | null, domain: number): PtpClock;
+
+            // Signals
+
+            connect<K extends keyof PtpClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PtpClock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PtpClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PtpClock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PtpClock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PtpClock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         /**

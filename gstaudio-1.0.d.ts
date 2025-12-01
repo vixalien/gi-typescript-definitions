@@ -338,6 +338,14 @@ declare module 'gi://GstAudio?version=1.0' {
              * Surround right (between rear right and side right)
              */
             SURROUND_RIGHT,
+            /**
+             * Top surround left (between rear left and side left).
+             */
+            TOP_SURROUND_LEFT,
+            /**
+             * Top surround right (between rear right and side right).
+             */
+            TOP_SURROUND_RIGHT,
         }
         /**
          * Set of available dithering methods.
@@ -1009,6 +1017,10 @@ declare module 'gi://GstAudio?version=1.0' {
          */
         const AUDIO_FORMATS_ALL: string;
         /**
+         * Number of audio formats in #GstAudioFormat.
+         */
+        const AUDIO_FORMAT_LAST: number;
+        /**
          * Maximum range of allowed sample rates, for use in template caps strings.
          */
         const AUDIO_RATE_RANGE: string;
@@ -1305,6 +1317,14 @@ declare module 'gi://GstAudio?version=1.0' {
          * @returns The #GstAudioFormatInfo for @format.
          */
         function audio_format_get_info(format: AudioFormat | null): AudioFormatInfo;
+        /**
+         * Returns a string containing a descriptive name for the #GstAudioFormat.
+         *
+         * Since 1.26 this can also be used with %GST_AUDIO_FORMAT_UNKNOWN, previous
+         * versions were printing a critical warning and returned %NULL.
+         * @param format a #GstAudioFormat audio format
+         * @returns the name corresponding to @format
+         */
         function audio_format_to_string(format: AudioFormat | null): string;
         /**
          * Return all the raw audio formats supported by GStreamer.
@@ -1389,6 +1409,12 @@ declare module 'gi://GstAudio?version=1.0' {
          * positions `to`. `from` and `to` must contain the same number of
          * positions and the same positions, only in a different order.
          *
+         * This function internally calls gst_audio_get_channel_reorder_map() and
+         * gst_audio_reorder_channels_with_reorder_map(). It is more efficient to call
+         * gst_audio_get_channel_reorder_map() once to retrieve the reorder map and
+         * then call gst_audio_reorder_channels_with_reorder_map() with the same
+         * reorder map until the channel positions change.
+         *
          * Note: this function assumes the audio data is in interleaved layout
          * @param data The pointer to   the memory.
          * @param format The %GstAudioFormat of the buffer.
@@ -1402,6 +1428,22 @@ declare module 'gi://GstAudio?version=1.0' {
             from: AudioChannelPosition[] | null,
             to: AudioChannelPosition[] | null,
         ): boolean;
+        /**
+         * Reorders `data` with the given `reorder_map`.
+         *
+         * The reorder map can be retrieved for example with
+         * gst_audio_get_channel_reorder_map().
+         *
+         * Note: this function assumes the audio data is in interleaved layout
+         * @param data The pointer to   the memory.
+         * @param bps The number of bytes per sample.
+         * @param reorder_map The channel reorder map.
+         */
+        function audio_reorder_channels_with_reorder_map(
+            data: Uint8Array | string,
+            bps: number,
+            reorder_map: number[],
+        ): void;
         /**
          * Make a new resampler.
          * @param method a #GstAudioResamplerMethod
@@ -1870,6 +1912,23 @@ declare module 'gi://GstAudio?version=1.0' {
             VARIABLE_RATE,
         }
         namespace AudioAggregator {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.Aggregator.SignalSignatures {
+                'notify::alignment-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::discont-wait': (pspec: GObject.ParamSpec) => void;
+                'notify::force-live': (pspec: GObject.ParamSpec) => void;
+                'notify::ignore-inactive-pads': (pspec: GObject.ParamSpec) => void;
+                'notify::output-buffer-duration': (pspec: GObject.ParamSpec) => void;
+                'notify::output-buffer-duration-fraction': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::latency': (pspec: GObject.ParamSpec) => void;
+                'notify::min-upstream-latency': (pspec: GObject.ParamSpec) => void;
+                'notify::start-time': (pspec: GObject.ParamSpec) => void;
+                'notify::start-time-selection': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.Aggregator.ConstructorProps {
@@ -2000,11 +2059,40 @@ declare module 'gi://GstAudio?version=1.0' {
             get outputBufferDurationFraction(): Gst.Fraction;
             set outputBufferDurationFraction(val: Gst.Fraction);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioAggregator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AudioAggregator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioAggregator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioAggregator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioAggregator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioAggregator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioAggregator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioAggregator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2040,6 +2128,19 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioAggregatorConvertPad {
+            // Signal signatures
+            interface SignalSignatures extends AudioAggregatorPad.SignalSignatures {
+                'notify::converter-config': (pspec: GObject.ParamSpec) => void;
+                'notify::qos-messages': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AudioAggregatorPad.ConstructorProps {
@@ -2063,14 +2164,55 @@ declare module 'gi://GstAudio?version=1.0' {
             get converterConfig(): Gst.Structure;
             set converterConfig(val: Gst.Structure);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioAggregatorConvertPad.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AudioAggregatorConvertPad.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioAggregatorConvertPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioAggregatorConvertPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioAggregatorConvertPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioAggregatorConvertPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioAggregatorConvertPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioAggregatorConvertPad.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace AudioAggregatorPad {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.AggregatorPad.SignalSignatures {
+                'notify::qos-messages': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.AggregatorPad.ConstructorProps {
@@ -2098,11 +2240,40 @@ declare module 'gi://GstAudio?version=1.0' {
             get qosMessages(): boolean;
             set qosMessages(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioAggregatorPad.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AudioAggregatorPad.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioAggregatorPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioAggregatorPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioAggregatorPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioAggregatorPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioAggregatorPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioAggregatorPad.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2121,6 +2292,33 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioBaseSink {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.BaseSink.SignalSignatures {
+                'notify::alignment-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::buffer-time': (pspec: GObject.ParamSpec) => void;
+                'notify::can-activate-pull': (pspec: GObject.ParamSpec) => void;
+                'notify::discont-wait': (pspec: GObject.ParamSpec) => void;
+                'notify::drift-tolerance': (pspec: GObject.ParamSpec) => void;
+                'notify::latency-time': (pspec: GObject.ParamSpec) => void;
+                'notify::provide-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::slave-method': (pspec: GObject.ParamSpec) => void;
+                'notify::async': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::enable-last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::max-bitrate': (pspec: GObject.ParamSpec) => void;
+                'notify::max-lateness': (pspec: GObject.ParamSpec) => void;
+                'notify::processing-deadline': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::render-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::sync': (pspec: GObject.ParamSpec) => void;
+                'notify::throttle-time': (pspec: GObject.ParamSpec) => void;
+                'notify::ts-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseSink.ConstructorProps {
@@ -2193,7 +2391,7 @@ declare module 'gi://GstAudio?version=1.0' {
             set latency_time(val: number);
             get latencyTime(): number;
             set latencyTime(val: number);
-            // This accessor conflicts with a property or field in a parent class or interface.
+            // This accessor conflicts with a field or function name in a parent class or interface.
             provide_clock: boolean | any;
             get provideClock(): boolean;
             set provideClock(val: boolean);
@@ -2201,6 +2399,15 @@ declare module 'gi://GstAudio?version=1.0' {
             set slave_method(val: AudioBaseSinkSlaveMethod);
             get slaveMethod(): AudioBaseSinkSlaveMethod;
             set slaveMethod(val: AudioBaseSinkSlaveMethod);
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioBaseSink.SignalSignatures;
 
             // Fields
 
@@ -2215,6 +2422,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioBaseSink.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioBaseSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioBaseSink.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioBaseSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioBaseSink.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioBaseSink.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioBaseSink.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2319,6 +2544,23 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioBaseSrc {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.PushSrc.SignalSignatures {
+                'notify::actual-buffer-time': (pspec: GObject.ParamSpec) => void;
+                'notify::actual-latency-time': (pspec: GObject.ParamSpec) => void;
+                'notify::buffer-time': (pspec: GObject.ParamSpec) => void;
+                'notify::latency-time': (pspec: GObject.ParamSpec) => void;
+                'notify::provide-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::slave-method': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::do-timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::num-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::typefind': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.PushSrc.ConstructorProps {
@@ -2371,7 +2613,7 @@ declare module 'gi://GstAudio?version=1.0' {
             set latency_time(val: number);
             get latencyTime(): number;
             set latencyTime(val: number);
-            // This accessor conflicts with a property or field in a parent class or interface.
+            // This accessor conflicts with a field or function name in a parent class or interface.
             provide_clock: boolean | any;
             get provideClock(): boolean;
             set provideClock(val: boolean);
@@ -2379,6 +2621,15 @@ declare module 'gi://GstAudio?version=1.0' {
             set slave_method(val: AudioBaseSrcSlaveMethod);
             get slaveMethod(): AudioBaseSrcSlaveMethod;
             set slaveMethod(val: AudioBaseSrcSlaveMethod);
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioBaseSrc.SignalSignatures;
 
             // Fields
 
@@ -2392,6 +2643,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioBaseSrc.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioBaseSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioBaseSrc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioBaseSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioBaseSrc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioBaseSrc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioBaseSrc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2437,6 +2706,20 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioCdSrc {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.PushSrc.SignalSignatures {
+                'notify::device': (pspec: GObject.ParamSpec) => void;
+                'notify::mode': (pspec: GObject.ParamSpec) => void;
+                'notify::track': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::do-timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::num-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::typefind': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.PushSrc.ConstructorProps, Gst.URIHandler.ConstructorProps {
@@ -2503,6 +2786,15 @@ declare module 'gi://GstAudio?version=1.0' {
             get track(): number;
             set track(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioCdSrc.SignalSignatures;
+
             // Fields
 
             pushsrc: GstBase.PushSrc;
@@ -2512,6 +2804,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioCdSrc.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioCdSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioCdSrc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioCdSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioCdSrc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioCdSrc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioCdSrc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -3018,6 +3328,16 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioClock {
+            // Signal signatures
+            interface SignalSignatures extends Gst.SystemClock.SignalSignatures {
+                'notify::clock-type': (pspec: GObject.ParamSpec) => void;
+                'notify::timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::window-size': (pspec: GObject.ParamSpec) => void;
+                'notify::window-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.SystemClock.ConstructorProps {}
@@ -3031,6 +3351,15 @@ declare module 'gi://GstAudio?version=1.0' {
          */
         class AudioClock extends Gst.SystemClock {
             static $gtype: GObject.GType<AudioClock>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioClock.SignalSignatures;
 
             // Fields
 
@@ -3046,6 +3375,24 @@ declare module 'gi://GstAudio?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](name: string, func: AudioClockGetTimeFunc): AudioClock;
+
+            // Signals
+
+            connect<K extends keyof AudioClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioClock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioClock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioClock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioClock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3081,6 +3428,16 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioDecoder {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-latency': (pspec: GObject.ParamSpec) => void;
+                'notify::plc': (pspec: GObject.ParamSpec) => void;
+                'notify::tolerance': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -3210,6 +3567,15 @@ declare module 'gi://GstAudio?version=1.0' {
             get tolerance(): number;
             set tolerance(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioDecoder.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -3221,6 +3587,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioDecoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioDecoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioDecoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioDecoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioDecoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -3579,6 +3963,16 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioEncoder {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::hard-resync': (pspec: GObject.ParamSpec) => void;
+                'notify::mark-granule': (pspec: GObject.ParamSpec) => void;
+                'notify::perfect-timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::tolerance': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.Preset.ConstructorProps {
@@ -3704,6 +4098,15 @@ declare module 'gi://GstAudio?version=1.0' {
             get tolerance(): number;
             set tolerance(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioEncoder.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -3715,6 +4118,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioEncoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioEncoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioEncoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioEncoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioEncoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioEncoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioEncoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4609,6 +5030,13 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioFilter {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.BaseTransform.SignalSignatures {
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseTransform.ConstructorProps {}
@@ -4632,6 +5060,15 @@ declare module 'gi://GstAudio?version=1.0' {
         abstract class AudioFilter extends GstBase.BaseTransform {
             static $gtype: GObject.GType<AudioFilter>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioFilter.SignalSignatures;
+
             // Fields
 
             basetransform: GstBase.BaseTransform;
@@ -4641,6 +5078,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioFilter.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioFilter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioFilter.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioFilter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioFilter.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioFilter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioFilter.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -4656,6 +5111,12 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioRingBuffer {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -4673,6 +5134,15 @@ declare module 'gi://GstAudio?version=1.0' {
          */
         abstract class AudioRingBuffer extends Gst.Object {
             static $gtype: GObject.GType<AudioRingBuffer>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioRingBuffer.SignalSignatures;
 
             // Fields
 
@@ -4693,6 +5163,26 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioRingBuffer.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioRingBuffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioRingBuffer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioRingBuffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioRingBuffer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioRingBuffer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioRingBuffer.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -4918,6 +5408,20 @@ declare module 'gi://GstAudio?version=1.0' {
              */
             device_is_open(): boolean;
             /**
+             * Gets the current segment base number of the ringbuffer.
+             *
+             * MT safe.
+             * @returns Current segment base number of the ringbuffer.
+             */
+            get_segbase(): number;
+            /**
+             * Gets the current segment number of the ringbuffer.
+             *
+             * MT safe.
+             * @returns Current segment number of the ringbuffer.
+             */
+            get_segdone(): number;
+            /**
              * Check if the ringbuffer is acquired and ready to use.
              * @returns TRUE if the ringbuffer is acquired, FALSE on error. MT safe.
              */
@@ -5028,6 +5532,13 @@ declare module 'gi://GstAudio?version=1.0' {
              * @param sample the sample number to set
              */
             set_sample(sample: number): void;
+            /**
+             * Sets the current segment number of the ringbuffer.
+             *
+             * MT safe.
+             * @param segdone the segment number to set
+             */
+            set_segdone(segdone: number): void;
             set_timestamp(readseg: number, timestamp: Gst.ClockTime): void;
             /**
              * Start processing samples from the ringbuffer.
@@ -5042,6 +5553,33 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioSink {
+            // Signal signatures
+            interface SignalSignatures extends AudioBaseSink.SignalSignatures {
+                'notify::alignment-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::buffer-time': (pspec: GObject.ParamSpec) => void;
+                'notify::can-activate-pull': (pspec: GObject.ParamSpec) => void;
+                'notify::discont-wait': (pspec: GObject.ParamSpec) => void;
+                'notify::drift-tolerance': (pspec: GObject.ParamSpec) => void;
+                'notify::latency-time': (pspec: GObject.ParamSpec) => void;
+                'notify::provide-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::slave-method': (pspec: GObject.ParamSpec) => void;
+                'notify::async': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::enable-last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::max-bitrate': (pspec: GObject.ParamSpec) => void;
+                'notify::max-lateness': (pspec: GObject.ParamSpec) => void;
+                'notify::processing-deadline': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::render-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::sync': (pspec: GObject.ParamSpec) => void;
+                'notify::throttle-time': (pspec: GObject.ParamSpec) => void;
+                'notify::ts-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AudioBaseSink.ConstructorProps {}
@@ -5073,6 +5611,15 @@ declare module 'gi://GstAudio?version=1.0' {
         class AudioSink extends AudioBaseSink {
             static $gtype: GObject.GType<AudioSink>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioSink.SignalSignatures;
+
             // Fields
 
             element: AudioBaseSink;
@@ -5082,6 +5629,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioSink.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioSink.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioSink.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioSink.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioSink.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -5143,6 +5708,23 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         namespace AudioSrc {
+            // Signal signatures
+            interface SignalSignatures extends AudioBaseSrc.SignalSignatures {
+                'notify::actual-buffer-time': (pspec: GObject.ParamSpec) => void;
+                'notify::actual-latency-time': (pspec: GObject.ParamSpec) => void;
+                'notify::buffer-time': (pspec: GObject.ParamSpec) => void;
+                'notify::latency-time': (pspec: GObject.ParamSpec) => void;
+                'notify::provide-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::slave-method': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::do-timestamp': (pspec: GObject.ParamSpec) => void;
+                'notify::num-buffers': (pspec: GObject.ParamSpec) => void;
+                'notify::typefind': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AudioBaseSrc.ConstructorProps {}
@@ -5167,6 +5749,15 @@ declare module 'gi://GstAudio?version=1.0' {
         class AudioSrc extends AudioBaseSrc {
             static $gtype: GObject.GType<AudioSrc>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AudioSrc.SignalSignatures;
+
             // Fields
 
             element: AudioBaseSrc;
@@ -5176,6 +5767,24 @@ declare module 'gi://GstAudio?version=1.0' {
             constructor(properties?: Partial<AudioSrc.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AudioSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioSrc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AudioSrc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AudioSrc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AudioSrc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AudioSrc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -5997,6 +6606,14 @@ declare module 'gi://GstAudio?version=1.0' {
         }
 
         type AudioRingBufferClass = typeof AudioRingBuffer;
+        abstract class AudioRingBufferPrivate {
+            static $gtype: GObject.GType<AudioRingBufferPrivate>;
+
+            // Constructors
+
+            _init(...args: any[]): void;
+        }
+
         /**
          * The structure containing the format specification of the ringbuffer.
          *

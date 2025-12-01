@@ -87,6 +87,14 @@ declare module 'gi://GstBadAudio?version=1.0' {
          */
         const NONSTREAM_AUDIO_DECODER_SRC_NAME: string;
         namespace NonstreamAudioDecoder {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::current-subsong': (pspec: GObject.ParamSpec) => void;
+                'notify::num-loops': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -243,6 +251,15 @@ declare module 'gi://GstBadAudio?version=1.0' {
             get numLoops(): number;
             set numLoops(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: NonstreamAudioDecoder.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -263,6 +280,26 @@ declare module 'gi://GstBadAudio?version=1.0' {
             constructor(properties?: Partial<NonstreamAudioDecoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof NonstreamAudioDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NonstreamAudioDecoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof NonstreamAudioDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NonstreamAudioDecoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof NonstreamAudioDecoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<NonstreamAudioDecoder.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -567,6 +604,9 @@ declare module 'gi://GstBadAudio?version=1.0' {
         }
 
         namespace PlanarAudioAdapter {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -580,6 +620,15 @@ declare module 'gi://GstBadAudio?version=1.0' {
         class PlanarAudioAdapter extends GObject.Object {
             static $gtype: GObject.GType<PlanarAudioAdapter>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PlanarAudioAdapter.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<PlanarAudioAdapter.ConstructorProps>, ...args: any[]);
@@ -587,6 +636,26 @@ declare module 'gi://GstBadAudio?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): PlanarAudioAdapter;
+
+            // Signals
+
+            connect<K extends keyof PlanarAudioAdapter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PlanarAudioAdapter.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PlanarAudioAdapter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PlanarAudioAdapter.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PlanarAudioAdapter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PlanarAudioAdapter.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

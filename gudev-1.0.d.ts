@@ -46,10 +46,10 @@ declare module 'gi://GUdev?version=1.0' {
             CHAR,
         }
         namespace Client {
-            // Signal callback interfaces
-
-            interface Uevent {
-                (action: string, device: Device): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                uevent: (arg0: string, arg1: Device) => void;
+                'notify::subsystems': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -101,6 +101,15 @@ declare module 'gi://GUdev?version=1.0' {
              */
             get subsystems(): string[];
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Client.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Client.ConstructorProps>, ...args: any[]);
@@ -111,12 +120,21 @@ declare module 'gi://GUdev?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'uevent', callback: (_source: this, action: string, device: Device) => void): number;
-            connect_after(signal: 'uevent', callback: (_source: this, action: string, device: Device) => void): number;
-            emit(signal: 'uevent', action: string, device: Device): void;
+            connect<K extends keyof Client.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Client.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Client.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Client.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Client.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Client.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -164,6 +182,9 @@ declare module 'gi://GUdev?version=1.0' {
         }
 
         namespace Device {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -220,11 +241,38 @@ declare module 'gi://GUdev?version=1.0' {
         class Device extends GObject.Object {
             static $gtype: GObject.GType<Device>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Device.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Device.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Device.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -536,6 +584,11 @@ declare module 'gi://GUdev?version=1.0' {
         }
 
         namespace Enumerator {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::client': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -556,6 +609,15 @@ declare module 'gi://GUdev?version=1.0' {
              */
             get client(): Client;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Enumerator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Enumerator.ConstructorProps>, ...args: any[]);
@@ -563,6 +625,24 @@ declare module 'gi://GUdev?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](client: Client): Enumerator;
+
+            // Signals
+
+            connect<K extends keyof Enumerator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Enumerator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Enumerator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Enumerator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Enumerator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Enumerator.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

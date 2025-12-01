@@ -168,6 +168,20 @@ declare module 'gi://GstTranscoder?version=1.0' {
          */
         function transcoder_state_get_name(state: TranscoderState | null): string;
         namespace Transcoder {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::avoid-reencoding': (pspec: GObject.ParamSpec) => void;
+                'notify::dest-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::duration': (pspec: GObject.ParamSpec) => void;
+                'notify::pipeline': (pspec: GObject.ParamSpec) => void;
+                'notify::position': (pspec: GObject.ParamSpec) => void;
+                'notify::position-update-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::profile': (pspec: GObject.ParamSpec) => void;
+                'notify::src-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -214,6 +228,15 @@ declare module 'gi://GstTranscoder?version=1.0' {
             get src_uri(): string;
             get srcUri(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Transcoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Transcoder.ConstructorProps>, ...args: any[]);
@@ -223,6 +246,24 @@ declare module 'gi://GstTranscoder?version=1.0' {
             static ['new'](source_uri: string, dest_uri: string, encoding_profile: string): Transcoder;
 
             static new_full(source_uri: string, dest_uri: string, profile: GstPbutils.EncodingProfile): Transcoder;
+
+            // Signals
+
+            connect<K extends keyof Transcoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Transcoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Transcoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Transcoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Transcoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Transcoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -311,30 +352,15 @@ declare module 'gi://GstTranscoder?version=1.0' {
         }
 
         namespace TranscoderSignalAdapter {
-            // Signal callback interfaces
-
-            interface Done {
-                (): void;
-            }
-
-            interface DurationChanged {
-                (object: number): void;
-            }
-
-            interface Error {
-                (object: GLib.Error, p0: Gst.Structure): void;
-            }
-
-            interface PositionUpdated {
-                (object: number): void;
-            }
-
-            interface StateChanged {
-                (object: TranscoderState): void;
-            }
-
-            interface Warning {
-                (object: GLib.Error, p0: Gst.Structure): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                done: () => void;
+                'duration-changed': (arg0: number) => void;
+                error: (arg0: GLib.Error, arg1: Gst.Structure) => void;
+                'position-updated': (arg0: number) => void;
+                'state-changed': (arg0: TranscoderState) => void;
+                warning: (arg0: GLib.Error, arg1: Gst.Structure) => void;
+                'notify::transcoder': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -357,6 +383,15 @@ declare module 'gi://GstTranscoder?version=1.0' {
              */
             get transcoder(): Transcoder;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TranscoderSignalAdapter.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TranscoderSignalAdapter.ConstructorProps>, ...args: any[]);
@@ -365,36 +400,23 @@ declare module 'gi://GstTranscoder?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'done', callback: (_source: this) => void): number;
-            connect_after(signal: 'done', callback: (_source: this) => void): number;
-            emit(signal: 'done'): void;
-            connect(signal: 'duration-changed', callback: (_source: this, object: number) => void): number;
-            connect_after(signal: 'duration-changed', callback: (_source: this, object: number) => void): number;
-            emit(signal: 'duration-changed', object: number): void;
-            connect(signal: 'error', callback: (_source: this, object: GLib.Error, p0: Gst.Structure) => void): number;
-            connect_after(
-                signal: 'error',
-                callback: (_source: this, object: GLib.Error, p0: Gst.Structure) => void,
+            connect<K extends keyof TranscoderSignalAdapter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TranscoderSignalAdapter.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'error', object: GLib.Error, p0: Gst.Structure): void;
-            connect(signal: 'position-updated', callback: (_source: this, object: number) => void): number;
-            connect_after(signal: 'position-updated', callback: (_source: this, object: number) => void): number;
-            emit(signal: 'position-updated', object: number): void;
-            connect(signal: 'state-changed', callback: (_source: this, object: TranscoderState) => void): number;
-            connect_after(signal: 'state-changed', callback: (_source: this, object: TranscoderState) => void): number;
-            emit(signal: 'state-changed', object: TranscoderState): void;
-            connect(
-                signal: 'warning',
-                callback: (_source: this, object: GLib.Error, p0: Gst.Structure) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TranscoderSignalAdapter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TranscoderSignalAdapter.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'warning',
-                callback: (_source: this, object: GLib.Error, p0: Gst.Structure) => void,
-            ): number;
-            emit(signal: 'warning', object: GLib.Error, p0: Gst.Structure): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TranscoderSignalAdapter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TranscoderSignalAdapter.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

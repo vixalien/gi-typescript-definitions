@@ -383,6 +383,9 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
             SELECTION,
         }
         namespace ContextMenu {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -406,6 +409,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         class ContextMenu extends GObject.Object {
             static $gtype: GObject.GType<ContextMenu>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContextMenu.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ContextMenu.ConstructorProps>, ...args: any[]);
@@ -415,6 +427,24 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
             static ['new'](): ContextMenu;
 
             static new_with_items(items: ContextMenuItem[]): ContextMenu;
+
+            // Signals
+
+            connect<K extends keyof ContextMenu.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenu.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContextMenu.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenu.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContextMenu.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContextMenu.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -526,6 +556,9 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace ContextMenuItem {
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {}
@@ -543,6 +576,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         class ContextMenuItem extends GObject.InitiallyUnowned {
             static $gtype: GObject.GType<ContextMenuItem>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContextMenuItem.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ContextMenuItem.ConstructorProps>, ...args: any[]);
@@ -558,6 +600,26 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
             static new_separator(): ContextMenuItem;
 
             static new_with_submenu(label: string, submenu: ContextMenu): ContextMenuItem;
+
+            // Signals
+
+            connect<K extends keyof ContextMenuItem.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenuItem.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContextMenuItem.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContextMenuItem.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContextMenuItem.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContextMenuItem.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -597,6 +659,9 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace Frame {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -611,11 +676,38 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         class Frame extends GObject.Object {
             static $gtype: GObject.GType<Frame>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Frame.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Frame.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Frame.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Frame.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Frame.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Frame.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Frame.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Frame.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -651,6 +743,16 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace HitTestResult {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::context': (pspec: GObject.ParamSpec) => void;
+                'notify::image-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::link-label': (pspec: GObject.ParamSpec) => void;
+                'notify::link-title': (pspec: GObject.ParamSpec) => void;
+                'notify::link-uri': (pspec: GObject.ParamSpec) => void;
+                'notify::media-uri': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -751,11 +853,38 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              */
             get mediaUri(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HitTestResult.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HitTestResult.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof HitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HitTestResult.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HitTestResult.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -828,10 +957,9 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace ScriptWorld {
-            // Signal callback interfaces
-
-            interface WindowObjectCleared {
-                (page: WebPage, frame: Frame): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'window-object-cleared': (arg0: WebPage, arg1: Frame) => void;
             }
 
             // Constructor properties interface
@@ -841,6 +969,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
 
         class ScriptWorld extends GObject.Object {
             static $gtype: GObject.GType<ScriptWorld>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ScriptWorld.SignalSignatures;
 
             // Constructors
 
@@ -854,18 +991,21 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'window-object-cleared',
-                callback: (_source: this, page: WebPage, frame: Frame) => void,
+            connect<K extends keyof ScriptWorld.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ScriptWorld.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'window-object-cleared',
-                callback: (_source: this, page: WebPage, frame: Frame) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ScriptWorld.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ScriptWorld.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'window-object-cleared', page: WebPage, frame: Frame): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ScriptWorld.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ScriptWorld.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -887,6 +1027,11 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace URIRequest {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -912,6 +1057,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
             get uri(): string;
             set uri(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: URIRequest.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<URIRequest.ConstructorProps>, ...args: any[]);
@@ -919,6 +1073,24 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
             _init(...args: any[]): void;
 
             static ['new'](uri: string): URIRequest;
+
+            // Signals
+
+            connect<K extends keyof URIRequest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIRequest.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof URIRequest.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIRequest.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof URIRequest.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<URIRequest.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -945,6 +1117,16 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace URIResponse {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::content-length': (pspec: GObject.ParamSpec) => void;
+                'notify::http-headers': (pspec: GObject.ParamSpec) => void;
+                'notify::mime-type': (pspec: GObject.ParamSpec) => void;
+                'notify::status-code': (pspec: GObject.ParamSpec) => void;
+                'notify::suggested-filename': (pspec: GObject.ParamSpec) => void;
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -1019,11 +1201,38 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              */
             get uri(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: URIResponse.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<URIResponse.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof URIResponse.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIResponse.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof URIResponse.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, URIResponse.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof URIResponse.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<URIResponse.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1071,6 +1280,13 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace UserMessage {
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+                'notify::fd-list': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parameters': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {
@@ -1115,6 +1331,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              */
             get parameters(): GLib.Variant;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: UserMessage.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<UserMessage.ConstructorProps>, ...args: any[]);
@@ -1128,6 +1353,24 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
                 parameters?: GLib.Variant | null,
                 fd_list?: Gio.UnixFDList | null,
             ): UserMessage;
+
+            // Signals
+
+            connect<K extends keyof UserMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UserMessage.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UserMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UserMessage.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UserMessage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UserMessage.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1165,10 +1408,9 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace WebEditor {
-            // Signal callback interfaces
-
-            interface SelectionChanged {
-                (): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'selection-changed': () => void;
             }
 
             // Constructor properties interface
@@ -1186,6 +1428,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         class WebEditor extends GObject.Object {
             static $gtype: GObject.GType<WebEditor>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebEditor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebEditor.ConstructorProps>, ...args: any[]);
@@ -1194,12 +1445,21 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'selection-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'selection-changed', callback: (_source: this) => void): number;
-            emit(signal: 'selection-changed'): void;
+            connect<K extends keyof WebEditor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebEditor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebEditor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebEditor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebEditor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebEditor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1211,18 +1471,11 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace WebFormManager {
-            // Signal callback interfaces
-
-            interface FormControlsAssociated {
-                (frame: Frame, elements: JavaScriptCore.Value[]): void;
-            }
-
-            interface WillSendSubmitEvent {
-                (form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame): void;
-            }
-
-            interface WillSubmitForm {
-                (form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'form-controls-associated': (arg0: Frame, arg1: JavaScriptCore.Value[]) => void;
+                'will-send-submit-event': (arg0: JavaScriptCore.Value, arg1: Frame, arg2: Frame) => void;
+                'will-submit-form': (arg0: JavaScriptCore.Value, arg1: Frame, arg2: Frame) => void;
             }
 
             // Constructor properties interface
@@ -1236,6 +1489,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         class WebFormManager extends GObject.Object {
             static $gtype: GObject.GType<WebFormManager>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebFormManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebFormManager.ConstructorProps>, ...args: any[]);
@@ -1244,46 +1506,21 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'form-controls-associated',
-                callback: (_source: this, frame: Frame, elements: JavaScriptCore.Value[]) => void,
+            connect<K extends keyof WebFormManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebFormManager.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'form-controls-associated',
-                callback: (_source: this, frame: Frame, elements: JavaScriptCore.Value[]) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebFormManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebFormManager.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'form-controls-associated', frame: Frame, elements: JavaScriptCore.Value[]): void;
-            connect(
-                signal: 'will-send-submit-event',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            connect_after(
-                signal: 'will-send-submit-event',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            emit(
-                signal: 'will-send-submit-event',
-                form: JavaScriptCore.Value,
-                source_frame: Frame,
-                target_frame: Frame,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebFormManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebFormManager.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(
-                signal: 'will-submit-form',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            connect_after(
-                signal: 'will-submit-form',
-                callback: (_source: this, form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void,
-            ): number;
-            emit(
-                signal: 'will-submit-form',
-                form: JavaScriptCore.Value,
-                source_frame: Frame,
-                target_frame: Frame,
-            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1308,6 +1545,9 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace WebHitTestResult {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1322,11 +1562,40 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         class WebHitTestResult extends GObject.Object {
             static $gtype: GObject.GType<WebHitTestResult>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebHitTestResult.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebHitTestResult.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof WebHitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebHitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebHitTestResult.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebHitTestResult.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebHitTestResult.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebHitTestResult.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1417,26 +1686,14 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace WebPage {
-            // Signal callback interfaces
-
-            interface ConsoleMessageSent {
-                (console_message: ConsoleMessage): void;
-            }
-
-            interface ContextMenu {
-                (context_menu: ContextMenu, hit_test_result: WebHitTestResult): boolean;
-            }
-
-            interface DocumentLoaded {
-                (): void;
-            }
-
-            interface SendRequest {
-                (request: URIRequest, redirected_response: URIResponse): boolean;
-            }
-
-            interface UserMessageReceived {
-                (message: UserMessage): boolean;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'console-message-sent': (arg0: ConsoleMessage) => void;
+                'context-menu': (arg0: ContextMenu, arg1: WebHitTestResult) => boolean | void;
+                'document-loaded': () => void;
+                'send-request': (arg0: URIRequest, arg1: URIResponse) => boolean | void;
+                'user-message-received': (arg0: UserMessage) => boolean | void;
+                'notify::uri': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1459,6 +1716,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              */
             get uri(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebPage.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebPage.ConstructorProps>, ...args: any[]);
@@ -1467,48 +1733,21 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'console-message-sent',
-                callback: (_source: this, console_message: ConsoleMessage) => void,
+            connect<K extends keyof WebPage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebPage.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'console-message-sent',
-                callback: (_source: this, console_message: ConsoleMessage) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebPage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebPage.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'console-message-sent', console_message: ConsoleMessage): void;
-            connect(
-                signal: 'context-menu',
-                callback: (_source: this, context_menu: ContextMenu, hit_test_result: WebHitTestResult) => boolean,
-            ): number;
-            connect_after(
-                signal: 'context-menu',
-                callback: (_source: this, context_menu: ContextMenu, hit_test_result: WebHitTestResult) => boolean,
-            ): number;
-            emit(signal: 'context-menu', context_menu: ContextMenu, hit_test_result: WebHitTestResult): void;
-            connect(signal: 'document-loaded', callback: (_source: this) => void): number;
-            connect_after(signal: 'document-loaded', callback: (_source: this) => void): number;
-            emit(signal: 'document-loaded'): void;
-            connect(
-                signal: 'send-request',
-                callback: (_source: this, request: URIRequest, redirected_response: URIResponse) => boolean,
-            ): number;
-            connect_after(
-                signal: 'send-request',
-                callback: (_source: this, request: URIRequest, redirected_response: URIResponse) => boolean,
-            ): number;
-            emit(signal: 'send-request', request: URIRequest, redirected_response: URIResponse): void;
-            connect(
-                signal: 'user-message-received',
-                callback: (_source: this, message: UserMessage) => boolean,
-            ): number;
-            connect_after(
-                signal: 'user-message-received',
-                callback: (_source: this, message: UserMessage) => boolean,
-            ): number;
-            emit(signal: 'user-message-received', message: UserMessage): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebPage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebPage.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1550,7 +1789,10 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              * @param message a #WebKitUserMessage
              * @param cancellable a #GCancellable or %NULL to ignore
              */
-            send_message_to_view(message: UserMessage, cancellable?: Gio.Cancellable | null): Promise<UserMessage>;
+            send_message_to_view(
+                message: UserMessage,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<UserMessage>;
             /**
              * Send `message` to the #WebKitWebView corresponding to `web_page`. If `message` is floating, it's consumed.
              *
@@ -1580,7 +1822,7 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
                 message: UserMessage,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<UserMessage> | void;
+            ): globalThis.Promise<UserMessage> | void;
             /**
              * Finish an asynchronous operation started with webkit_web_page_send_message_to_view().
              * @param result a #GAsyncResult
@@ -1590,14 +1832,10 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         }
 
         namespace WebProcessExtension {
-            // Signal callback interfaces
-
-            interface PageCreated {
-                (web_page: WebPage): void;
-            }
-
-            interface UserMessageReceived {
-                (message: UserMessage): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'page-created': (arg0: WebPage) => void;
+                'user-message-received': (arg0: UserMessage) => void;
             }
 
             // Constructor properties interface
@@ -1681,6 +1919,15 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
         class WebProcessExtension extends GObject.Object {
             static $gtype: GObject.GType<WebProcessExtension>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WebProcessExtension.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WebProcessExtension.ConstructorProps>, ...args: any[]);
@@ -1689,18 +1936,23 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'page-created', callback: (_source: this, web_page: WebPage) => void): number;
-            connect_after(signal: 'page-created', callback: (_source: this, web_page: WebPage) => void): number;
-            emit(signal: 'page-created', web_page: WebPage): void;
-            connect(signal: 'user-message-received', callback: (_source: this, message: UserMessage) => void): number;
-            connect_after(
-                signal: 'user-message-received',
-                callback: (_source: this, message: UserMessage) => void,
+            connect<K extends keyof WebProcessExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebProcessExtension.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'user-message-received', message: UserMessage): void;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WebProcessExtension.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WebProcessExtension.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WebProcessExtension.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WebProcessExtension.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1719,7 +1971,10 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              * @param message a #WebKitUserMessage
              * @param cancellable a #GCancellable or %NULL to ignore
              */
-            send_message_to_context(message: UserMessage, cancellable?: Gio.Cancellable | null): Promise<UserMessage>;
+            send_message_to_context(
+                message: UserMessage,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<UserMessage>;
             /**
              * Send `message` to the #WebKitWebContext corresponding to `extension`. If `message` is floating, it's consumed.
              *
@@ -1749,7 +2004,7 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
                 message: UserMessage,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<UserMessage> | void;
+            ): globalThis.Promise<UserMessage> | void;
             /**
              * Finish an asynchronous operation started with webkit_web_process_extension_send_message_to_context().
              * @param result a #GAsyncResult

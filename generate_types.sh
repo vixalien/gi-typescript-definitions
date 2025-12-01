@@ -17,25 +17,11 @@ export PATH="$TMP_INSTALL_DIR:$PATH"
 COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack enable --install-directory $TMP_INSTALL_DIR
 CI=true pnpm install
 
-message "Finding all modules..."
-LIST_OUTPUT=$(pnpm exec ts-for-gir list)
-# This pretty prints the output of `ts-for-gir list` into a list of modules
-MODULES=$(echo "$LIST_OUTPUT" |
-sed -n '/Available Modules:/,/Conflicts:/p' |
-awk '/^- / {
-    module = $2
-    getline
-    print module
-}'
-)
-echo "$(echo $MODULES | wc -w) Modules found:"
-echo $MODULES
-
 message "Cleaning up old files"
 rm *.d.ts
 
 message "Generating modules..."
-pnpm exec ts-for-gir generate --ignoreVersionConflicts -o . $MODULES
+pnpm exec ts-for-gir generate --ignoreVersionConflicts -o . '*'
 
 message "Generated modules"
 exit

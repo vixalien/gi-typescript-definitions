@@ -244,6 +244,34 @@ declare module 'gi://GstTag?version=1.0' {
          */
         const TAG_CAPTURING_ISO_SPEED: string;
         /**
+         * Light source used when capturing an image. (string)
+         *
+         * The allowed values are:
+         *   "unknown"
+         *   "daylight"
+         *   "fluorescent"
+         *   "tungsten"
+         *   "flash"
+         *   "fine-weather"
+         *   "cloudy-weather"
+         *   "shade"
+         *   "daylight-fluorescent"
+         *   "day-white-fluorescent"
+         *   "cool-white-fluorescent"
+         *   "white-fluorescent"
+         *   "warm-white-fluorescent"
+         *   "standard-light-A"
+         *   "standard-light-B"
+         *   "standard-light-C"
+         *   "D55"
+         *   "D65"
+         *   "D75"
+         *   "D50"
+         *   "iso-studio-tungsten"
+         *   "other"
+         */
+        const TAG_CAPTURING_LIGHT_SOURCE: string;
+        /**
          * Defines the way a camera determines the exposure. (string)
          *
          * The allowed values are:
@@ -857,6 +885,12 @@ declare module 'gi://GstTag?version=1.0' {
             FREE_SOFTWARE_FOUNDATION_LICENSE,
         }
         namespace TagDemux {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {}
@@ -896,6 +930,15 @@ declare module 'gi://GstTag?version=1.0' {
         abstract class TagDemux extends Gst.Element {
             static $gtype: GObject.GType<TagDemux>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TagDemux.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -905,6 +948,24 @@ declare module 'gi://GstTag?version=1.0' {
             constructor(properties?: Partial<TagDemux.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TagDemux.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TagDemux.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TagDemux.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TagDemux.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TagDemux.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TagDemux.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -947,6 +1008,12 @@ declare module 'gi://GstTag?version=1.0' {
         }
 
         namespace TagMux {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.TagSetter.ConstructorProps {}
@@ -971,6 +1038,15 @@ declare module 'gi://GstTag?version=1.0' {
         abstract class TagMux extends Gst.Element implements Gst.TagSetter {
             static $gtype: GObject.GType<TagMux>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TagMux.SignalSignatures;
+
             // Fields
 
             element: Gst.Element;
@@ -980,6 +1056,24 @@ declare module 'gi://GstTag?version=1.0' {
             constructor(properties?: Partial<TagMux.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TagMux.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TagMux.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TagMux.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TagMux.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TagMux.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TagMux.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 

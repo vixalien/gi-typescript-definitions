@@ -276,6 +276,12 @@ declare module 'gi://GstVideo?version=1.0' {
              * An event cancelling all currently active touch points.
              */
             TOUCH_CANCEL,
+            /**
+             * A mouse button double click event.
+             * Use gst_navigation_event_parse_mouse_button_event() to extract the details
+             * from the event.
+             */
+            MOUSE_DOUBLE_CLICK,
         }
         /**
          * A set of notifications that may be received on the bus when navigation
@@ -1481,6 +1487,26 @@ declare module 'gi://GstVideo?version=1.0' {
              * packed RGB with alpha, 8 bits per channel
              */
             RBGA,
+            /**
+             * packed 4:2:2 YUV, 16 bits per channel (Y-U-Y-V)
+             */
+            Y216_LE,
+            /**
+             * packed 4:2:2 YUV, 16 bits per channel (Y-U-Y-V)
+             */
+            Y216_BE,
+            /**
+             * packed 4:4:4:4 YUV, 16 bits per channel(U-Y-V-A)
+             */
+            Y416_LE,
+            /**
+             * packed 4:4:4:4 YUV, 16 bits per channel(U-Y-V-A)
+             */
+            Y416_BE,
+            /**
+             * 10-bit grayscale, packed into 16bit words (6 bits left padding)
+             */
+            GRAY10_LE16,
         }
         /**
          * The orientation of the GL texture.
@@ -1850,11 +1876,11 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             static VERT: number;
             /**
-             * Flip across upper left/lower right diagonal
+             * Rotate counter-clockwise 90 degrees and flip vertically
              */
             static UL_LR: number;
             /**
-             * Flip across upper right/lower left diagonal
+             * Rotate clockwise 90 degrees and flip vertically
              */
             static UR_LL: number;
             /**
@@ -2368,6 +2394,10 @@ declare module 'gi://GstVideo?version=1.0' {
          * passthrough template caps.
          */
         const VIDEO_FORMATS_ANY_STR: string;
+        /**
+         * Number of video formats in #GstVideoFormat.
+         */
+        const VIDEO_FORMAT_LAST: number;
         const VIDEO_FPS_RANGE: string;
         const VIDEO_MAX_COMPONENTS: number;
         const VIDEO_MAX_PLANES: number;
@@ -2771,6 +2801,20 @@ declare module 'gi://GstVideo?version=1.0' {
          * @returns a new #GstEvent
          */
         function navigation_event_new_mouse_button_release(
+            button: number,
+            x: number,
+            y: number,
+            state: NavigationModifierType | null,
+        ): Gst.Event;
+        /**
+         * Create a new navigation event for the given key mouse double click.
+         * @param button The number of the pressed mouse button.
+         * @param x The x coordinate of the mouse cursor.
+         * @param y The y coordinate of the mouse cursor.
+         * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
+         * @returns a new #GstEvent
+         */
+        function navigation_event_new_mouse_double_click(
             button: number,
             x: number,
             y: number,
@@ -3302,6 +3346,23 @@ declare module 'gi://GstVideo?version=1.0' {
         function video_crop_meta_api_get_type(): GObject.GType;
         function video_crop_meta_get_info(): Gst.MetaInfo;
         /**
+         * Converting the video format into dma drm fourcc/modifier pair.
+         * If no matching fourcc found, then DRM_FORMAT_INVALID is returned
+         * and `modifier` will be set to DRM_FORMAT_MOD_INVALID.
+         * @param format a #GstVideoFormat
+         * @param modifier return location for the modifier
+         * @returns the DRM_FORMAT_* corresponding to @format.
+         */
+        function video_dma_drm_format_from_gst_format(format: VideoFormat | null, modifier?: number | null): number;
+        /**
+         * Converting a dma drm fourcc and modifier pair into a #GstVideoFormat. If
+         * no matching video format is found, then GST_VIDEO_FORMAT_UNKNOWN is returned.
+         * @param fourcc the dma drm fourcc value.
+         * @param modifier the dma drm modifier.
+         * @returns the GST_VIDEO_FORMAT_* corresponding to the @fourcc and @modifier          pair.
+         */
+        function video_dma_drm_format_to_gst_format(fourcc: number, modifier: number): VideoFormat;
+        /**
          * Converting the video format into dma drm fourcc. If no
          * matching fourcc found, then DRM_FORMAT_INVALID is returned.
          * @param format a #GstVideoFormat
@@ -3497,8 +3558,10 @@ declare module 'gi://GstVideo?version=1.0' {
          */
         function video_format_to_fourcc(format: VideoFormat | null): number;
         /**
-         * Returns a string containing a descriptive name for
-         * the #GstVideoFormat if there is one, or NULL otherwise.
+         * Returns a string containing a descriptive name for the #GstVideoFormat.
+         *
+         * Since 1.26 this can also be used with %GST_VIDEO_FORMAT_UNKNOWN, previous
+         * versions were printing a critical warning and returned %NULL.
          * @param format a #GstVideoFormat video format
          * @returns the name corresponding to @format
          */
@@ -4133,7 +4196,7 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             V_COSITED,
             /**
-             * choma samples are sited on alternate lines
+             * chroma samples are sited on alternate lines
              */
             ALT_LINE,
             /**
@@ -4599,10 +4662,9 @@ declare module 'gi://GstVideo?version=1.0' {
             INTERLACED,
         }
         namespace ColorBalanceChannel {
-            // Signal callback interfaces
-
-            interface ValueChanged {
-                (value: number): void;
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'value-changed': (arg0: number) => void;
             }
 
             // Constructor properties interface
@@ -4618,6 +4680,15 @@ declare module 'gi://GstVideo?version=1.0' {
         class ColorBalanceChannel extends GObject.Object {
             static $gtype: GObject.GType<ColorBalanceChannel>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ColorBalanceChannel.SignalSignatures;
+
             // Fields
 
             label: string;
@@ -4632,12 +4703,23 @@ declare module 'gi://GstVideo?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'value-changed', callback: (_source: this, value: number) => void): number;
-            connect_after(signal: 'value-changed', callback: (_source: this, value: number) => void): number;
-            emit(signal: 'value-changed', value: number): void;
+            connect<K extends keyof ColorBalanceChannel.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ColorBalanceChannel.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ColorBalanceChannel.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ColorBalanceChannel.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ColorBalanceChannel.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ColorBalanceChannel.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4649,6 +4731,18 @@ declare module 'gi://GstVideo?version=1.0' {
         }
 
         namespace VideoAggregator {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.Aggregator.SignalSignatures {
+                'notify::force-live': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::latency': (pspec: GObject.ParamSpec) => void;
+                'notify::min-upstream-latency': (pspec: GObject.ParamSpec) => void;
+                'notify::start-time': (pspec: GObject.ParamSpec) => void;
+                'notify::start-time-selection': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.Aggregator.ConstructorProps {
@@ -4688,6 +4782,15 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             get forceLive(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoAggregator.SignalSignatures;
+
             // Fields
 
             aggregator: GstBase.Aggregator;
@@ -4697,6 +4800,26 @@ declare module 'gi://GstVideo?version=1.0' {
             constructor(properties?: Partial<VideoAggregator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoAggregator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoAggregator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoAggregator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoAggregator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4740,6 +4863,21 @@ declare module 'gi://GstVideo?version=1.0' {
         }
 
         namespace VideoAggregatorConvertPad {
+            // Signal signatures
+            interface SignalSignatures extends VideoAggregatorPad.SignalSignatures {
+                'notify::converter-config': (pspec: GObject.ParamSpec) => void;
+                'notify::max-last-buffer-repeat': (pspec: GObject.ParamSpec) => void;
+                'notify::repeat-after-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends VideoAggregatorPad.ConstructorProps {
@@ -4763,11 +4901,40 @@ declare module 'gi://GstVideo?version=1.0' {
             get converterConfig(): Gst.Structure;
             set converterConfig(val: Gst.Structure);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoAggregatorConvertPad.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VideoAggregatorConvertPad.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoAggregatorConvertPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregatorConvertPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoAggregatorConvertPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregatorConvertPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoAggregatorConvertPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoAggregatorConvertPad.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4783,6 +4950,20 @@ declare module 'gi://GstVideo?version=1.0' {
         }
 
         namespace VideoAggregatorPad {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.AggregatorPad.SignalSignatures {
+                'notify::max-last-buffer-repeat': (pspec: GObject.ParamSpec) => void;
+                'notify::repeat-after-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.AggregatorPad.ConstructorProps {
@@ -4810,11 +4991,40 @@ declare module 'gi://GstVideo?version=1.0' {
             get zorder(): number;
             set zorder(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoAggregatorPad.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VideoAggregatorPad.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoAggregatorPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregatorPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoAggregatorPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregatorPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoAggregatorPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoAggregatorPad.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4907,6 +5117,21 @@ declare module 'gi://GstVideo?version=1.0' {
         }
 
         namespace VideoAggregatorParallelConvertPad {
+            // Signal signatures
+            interface SignalSignatures extends VideoAggregatorConvertPad.SignalSignatures {
+                'notify::converter-config': (pspec: GObject.ParamSpec) => void;
+                'notify::max-last-buffer-repeat': (pspec: GObject.ParamSpec) => void;
+                'notify::repeat-after-eos': (pspec: GObject.ParamSpec) => void;
+                'notify::zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::emit-signals': (pspec: GObject.ParamSpec) => void;
+                'notify::caps': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::offset': (pspec: GObject.ParamSpec) => void;
+                'notify::template': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends VideoAggregatorConvertPad.ConstructorProps {}
@@ -4920,14 +5145,52 @@ declare module 'gi://GstVideo?version=1.0' {
         class VideoAggregatorParallelConvertPad extends VideoAggregatorConvertPad {
             static $gtype: GObject.GType<VideoAggregatorParallelConvertPad>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoAggregatorParallelConvertPad.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VideoAggregatorParallelConvertPad.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoAggregatorParallelConvertPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregatorParallelConvertPad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoAggregatorParallelConvertPad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoAggregatorParallelConvertPad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoAggregatorParallelConvertPad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoAggregatorParallelConvertPad.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VideoBufferPool {
+            // Signal signatures
+            interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -4935,6 +5198,15 @@ declare module 'gi://GstVideo?version=1.0' {
 
         class VideoBufferPool extends Gst.BufferPool {
             static $gtype: GObject.GType<VideoBufferPool>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoBufferPool.SignalSignatures;
 
             // Fields
 
@@ -4947,9 +5219,41 @@ declare module 'gi://GstVideo?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): VideoBufferPool;
+
+            // Signals
+
+            connect<K extends keyof VideoBufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoBufferPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoBufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoBufferPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoBufferPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoBufferPool.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VideoDecoder {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::automatic-request-sync-point-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-points': (pspec: GObject.ParamSpec) => void;
+                'notify::discard-corrupted-frames': (pspec: GObject.ParamSpec) => void;
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps {
@@ -5171,11 +5475,38 @@ declare module 'gi://GstVideo?version=1.0' {
             get qos(): boolean;
             set qos(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoDecoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VideoDecoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoDecoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoDecoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoDecoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoDecoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoDecoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -5700,6 +6031,14 @@ declare module 'gi://GstVideo?version=1.0' {
         }
 
         namespace VideoEncoder {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Element.SignalSignatures {
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Element.ConstructorProps, Gst.Preset.ConstructorProps {
@@ -5789,11 +6128,38 @@ declare module 'gi://GstVideo?version=1.0' {
             get qos(): boolean;
             set qos(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoEncoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VideoEncoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoEncoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoEncoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoEncoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoEncoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoEncoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoEncoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -5965,11 +6331,25 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             allocate_output_frame(frame: VideoCodecFrame, size: number): Gst.FlowReturn;
             /**
+             * Removes `frame` from the list of pending frames, releases it
+             * and posts a QoS message with the frame's details on the bus.
+             * Similar to calling gst_video_encoder_finish_frame() without a buffer
+             * attached to `frame,` but this function additionally stores events
+             * from `frame` as pending, to be pushed out alongside the next frame
+             * submitted via gst_video_encoder_finish_frame().
+             * @param frame a #GstVideoCodecFrame
+             */
+            drop_frame(frame: VideoCodecFrame): void;
+            /**
              * `frame` must have a valid encoded data buffer, whose metadata fields
              * are then appropriately set according to frame data or no buffer at
              * all if the frame should be dropped.
              * It is subsequently pushed downstream or provided to `pre_push`.
              * In any case, the frame is considered finished and released.
+             *
+             * If `frame` does not have a buffer attached, it will be dropped, and
+             * a QoS message will be posted on the bus. Events from `frame` will be
+             * pushed out immediately.
              *
              * After calling this function the output buffer of the frame is to be
              * considered read-only. This function will also change the metadata
@@ -6078,6 +6458,14 @@ declare module 'gi://GstVideo?version=1.0' {
              * @returns a #GstCaps owned by caller
              */
             proxy_getcaps(caps?: Gst.Caps | null, filter?: Gst.Caps | null): Gst.Caps;
+            /**
+             * Removes `frame` from list of pending frames and releases it, similar
+             * to calling gst_video_encoder_finish_frame() without a buffer attached
+             * to the frame, but does not post a QoS message or do any additional
+             * processing. Events from `frame` are moved to the pending events list.
+             * @param frame a #GstVideoCodecFrame
+             */
+            release_frame(frame: VideoCodecFrame): void;
             /**
              * Set the codec headers to be sent downstream whenever requested.
              * @param headers a list of #GstBuffer containing the codec header
@@ -6688,6 +7076,13 @@ declare module 'gi://GstVideo?version=1.0' {
         }
 
         namespace VideoFilter {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.BaseTransform.SignalSignatures {
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseTransform.ConstructorProps {}
@@ -6702,6 +7097,15 @@ declare module 'gi://GstVideo?version=1.0' {
         abstract class VideoFilter extends GstBase.BaseTransform {
             static $gtype: GObject.GType<VideoFilter>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoFilter.SignalSignatures;
+
             // Fields
 
             element: GstBase.BaseTransform;
@@ -6712,6 +7116,24 @@ declare module 'gi://GstVideo?version=1.0' {
             constructor(properties?: Partial<VideoFilter.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoFilter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoFilter.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoFilter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoFilter.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoFilter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoFilter.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -6736,6 +7158,11 @@ declare module 'gi://GstVideo?version=1.0' {
             vfunc_transform_frame_ip(frame: VideoFrame): Gst.FlowReturn;
         }
 
+        namespace VideoMultiviewFlagsSet {
+            // Signal signatures
+            interface SignalSignatures extends Gst.FlagSet.SignalSignatures {}
+        }
+
         /**
          * See #GstVideoMultiviewFlags.
          */
@@ -6745,9 +7172,49 @@ declare module 'gi://GstVideo?version=1.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoMultiviewFlagsSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoMultiviewFlagsSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoMultiviewFlagsSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoMultiviewFlagsSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoMultiviewFlagsSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoMultiviewFlagsSet.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VideoSink {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.BaseSink.SignalSignatures {
+                'notify::show-preroll-frame': (pspec: GObject.ParamSpec) => void;
+                'notify::async': (pspec: GObject.ParamSpec) => void;
+                'notify::blocksize': (pspec: GObject.ParamSpec) => void;
+                'notify::enable-last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::last-sample': (pspec: GObject.ParamSpec) => void;
+                'notify::max-bitrate': (pspec: GObject.ParamSpec) => void;
+                'notify::max-lateness': (pspec: GObject.ParamSpec) => void;
+                'notify::processing-deadline': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::render-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::stats': (pspec: GObject.ParamSpec) => void;
+                'notify::sync': (pspec: GObject.ParamSpec) => void;
+                'notify::throttle-time': (pspec: GObject.ParamSpec) => void;
+                'notify::ts-offset': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseSink.ConstructorProps {
@@ -6781,6 +7248,15 @@ declare module 'gi://GstVideo?version=1.0' {
             get showPrerollFrame(): boolean;
             set showPrerollFrame(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VideoSink.SignalSignatures;
+
             // Fields
 
             element: GstBase.BaseSink;
@@ -6792,6 +7268,24 @@ declare module 'gi://GstVideo?version=1.0' {
             constructor(properties?: Partial<VideoSink.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VideoSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoSink.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VideoSink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VideoSink.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VideoSink.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VideoSink.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -7153,9 +7647,9 @@ declare module 'gi://GstVideo?version=1.0' {
              *
              * If a `user_data` was previously set, then the previous set `notify` will be called
              * before the `user_data` is replaced.
-             * @param notify a #GDestroyNotify
+             * @param user_data private data
              */
-            set_user_data(notify: GLib.DestroyNotify): void;
+            set_user_data(user_data?: any | null): void;
             /**
              * Decreases the refcount of the frame. If the refcount reaches 0, the frame
              * will be freed.
@@ -8001,8 +8495,12 @@ declare module 'gi://GstVideo?version=1.0' {
          * - padding-bottom (uint): extra pixels on the bottom
          * - padding-left (uint): extra pixels on the left side
          * - padding-right (uint): extra pixels on the right side
-         * The padding fields have the same semantic as #GstVideoMeta.alignment
-         * and so represent the paddings requested on produced video buffers.
+         * - stride-align0 (uint): stride align requirements for plane 0
+         * - stride-align1 (uint): stride align requirements for plane 1
+         * - stride-align2 (uint): stride align requirements for plane 2
+         * - stride-align3 (uint): stride align requirements for plane 3
+         * The padding and stride-align fields have the same semantic as #GstVideoMeta.alignment
+         * and so represent the paddings and stride-align requested on produced video buffers.
          *
          * Since 1.24 it can be serialized using gst_meta_serialize() and
          * gst_meta_deserialize().
@@ -8972,6 +9470,53 @@ declare module 'gi://GstVideo?version=1.0' {
         }
 
         namespace ColorBalance {
+            /**
+             * Interface for implementing ColorBalance.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Get the #GstColorBalanceType of this implementation.
+                 */
+                vfunc_get_balance_type(): ColorBalanceType;
+                /**
+                 * Retrieve the current value of the indicated channel, between min_value
+                 * and max_value.
+                 *
+                 * See Also: The #GstColorBalanceChannel.min_value and
+                 *         #GstColorBalanceChannel.max_value members of the
+                 *         #GstColorBalanceChannel object.
+                 * @param channel A #GstColorBalanceChannel instance
+                 */
+                vfunc_get_value(channel: ColorBalanceChannel): number;
+                /**
+                 * Retrieve a list of the available channels.
+                 */
+                vfunc_list_channels(): ColorBalanceChannel[];
+                /**
+                 * Sets the current value of the channel to the passed value, which must
+                 * be between min_value and max_value.
+                 *
+                 * See Also: The #GstColorBalanceChannel.min_value and
+                 *         #GstColorBalanceChannel.max_value members of the
+                 *         #GstColorBalanceChannel object.
+                 * @param channel A #GstColorBalanceChannel instance
+                 * @param value The new value for the channel.
+                 */
+                vfunc_set_value(channel: ColorBalanceChannel, value: number): void;
+                /**
+                 * A helper function called by implementations of the GstColorBalance
+                 * interface. It fires the #GstColorBalance::value-changed signal on the
+                 * instance, and the #GstColorBalanceChannel::value-changed signal on the
+                 * channel object.
+                 * @param channel A #GstColorBalanceChannel whose value has changed
+                 * @param value The new value of the channel
+                 */
+                vfunc_value_changed(channel: ColorBalanceChannel, value: number): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8981,7 +9526,7 @@ declare module 'gi://GstVideo?version=1.0' {
             $gtype: GObject.GType<ColorBalance>;
             prototype: ColorBalance;
         }
-        interface ColorBalance extends GObject.Object {
+        interface ColorBalance extends GObject.Object, ColorBalance.Interface {
             // Methods
 
             /**
@@ -9025,47 +9570,6 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param value The new value of the channel
              */
             value_changed(channel: ColorBalanceChannel, value: number): void;
-
-            // Virtual methods
-
-            /**
-             * Get the #GstColorBalanceType of this implementation.
-             */
-            vfunc_get_balance_type(): ColorBalanceType;
-            /**
-             * Retrieve the current value of the indicated channel, between min_value
-             * and max_value.
-             *
-             * See Also: The #GstColorBalanceChannel.min_value and
-             *         #GstColorBalanceChannel.max_value members of the
-             *         #GstColorBalanceChannel object.
-             * @param channel A #GstColorBalanceChannel instance
-             */
-            vfunc_get_value(channel: ColorBalanceChannel): number;
-            /**
-             * Retrieve a list of the available channels.
-             */
-            vfunc_list_channels(): ColorBalanceChannel[];
-            /**
-             * Sets the current value of the channel to the passed value, which must
-             * be between min_value and max_value.
-             *
-             * See Also: The #GstColorBalanceChannel.min_value and
-             *         #GstColorBalanceChannel.max_value members of the
-             *         #GstColorBalanceChannel object.
-             * @param channel A #GstColorBalanceChannel instance
-             * @param value The new value for the channel.
-             */
-            vfunc_set_value(channel: ColorBalanceChannel, value: number): void;
-            /**
-             * A helper function called by implementations of the GstColorBalance
-             * interface. It fires the #GstColorBalance::value-changed signal on the
-             * instance, and the #GstColorBalanceChannel::value-changed signal on the
-             * channel object.
-             * @param channel A #GstColorBalanceChannel whose value has changed
-             * @param value The new value of the channel
-             */
-            vfunc_value_changed(channel: ColorBalanceChannel, value: number): void;
         }
 
         export const ColorBalance: ColorBalanceNamespace & {
@@ -9073,6 +9577,25 @@ declare module 'gi://GstVideo?version=1.0' {
         };
 
         namespace Navigation {
+            /**
+             * Interface for implementing Navigation.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * sending a navigation event.
+                 * @param structure
+                 */
+                vfunc_send_event(structure: Gst.Structure): void;
+                /**
+                 * Sends an event to the navigation interface.
+                 * @param event The event to send
+                 */
+                vfunc_send_event_simple(event: Gst.Event): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9131,6 +9654,19 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
              */
             event_new_mouse_button_release(
+                button: number,
+                x: number,
+                y: number,
+                state: NavigationModifierType,
+            ): Gst.Event;
+            /**
+             * Create a new navigation event for the given key mouse double click.
+             * @param button The number of the pressed mouse button.
+             * @param x The x coordinate of the mouse cursor.
+             * @param y The y coordinate of the mouse cursor.
+             * @param state a bit-mask representing the state of the modifier keys (e.g. Control, Shift and Alt).
+             */
+            event_new_mouse_double_click(
                 button: number,
                 x: number,
                 y: number,
@@ -9373,7 +9909,7 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             query_set_commandsv(query: Gst.Query, cmds: NavigationCommand[]): void;
         }
-        interface Navigation extends GObject.Object {
+        interface Navigation extends GObject.Object, Navigation.Interface {
             // Methods
 
             /**
@@ -9393,7 +9929,7 @@ declare module 'gi://GstVideo?version=1.0' {
              * are sent relative to the display space of the related output area. This is
              * usually the size in pixels of the window associated with the element
              * implementing the #GstNavigation interface.
-             * @param event The type of mouse event, as a text string. Recognised values are "mouse-button-press", "mouse-button-release" and "mouse-move".
+             * @param event The type of mouse event, as a text string. Recognised values are "mouse-button-press", "mouse-button-release", "mouse-move" and "mouse-double-click".
              * @param button The button number of the button being pressed or released. Pass 0 for mouse-move events.
              * @param x The x coordinate of the mouse event.
              * @param y The y coordinate of the mouse event.
@@ -9410,19 +9946,6 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param delta_y The delta_y coordinate of the mouse event.
              */
             send_mouse_scroll_event(x: number, y: number, delta_x: number, delta_y: number): void;
-
-            // Virtual methods
-
-            /**
-             * sending a navigation event.
-             * @param structure
-             */
-            vfunc_send_event(structure: Gst.Structure): void;
-            /**
-             * Sends an event to the navigation interface.
-             * @param event The event to send
-             */
-            vfunc_send_event_simple(event: Gst.Event): void;
         }
 
         export const Navigation: NavigationNamespace & {
@@ -9456,6 +9979,51 @@ declare module 'gi://GstVideo?version=1.0' {
         };
 
         namespace VideoOrientation {
+            /**
+             * Interface for implementing VideoOrientation.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Get the horizontal centering offset from the given object.
+                 */
+                vfunc_get_hcenter(): [boolean, number];
+                /**
+                 * Get the horizontal flipping state (%TRUE for flipped) from the given object.
+                 */
+                vfunc_get_hflip(): [boolean, boolean];
+                /**
+                 * Get the vertical centering offset from the given object.
+                 */
+                vfunc_get_vcenter(): [boolean, number];
+                /**
+                 * Get the vertical flipping state (%TRUE for flipped) from the given object.
+                 */
+                vfunc_get_vflip(): [boolean, boolean];
+                /**
+                 * Set the horizontal centering offset for the given object.
+                 * @param center centering offset
+                 */
+                vfunc_set_hcenter(center: number): boolean;
+                /**
+                 * Set the horizontal flipping state (%TRUE for flipped) for the given object.
+                 * @param flip use flipping
+                 */
+                vfunc_set_hflip(flip: boolean): boolean;
+                /**
+                 * Set the vertical centering offset for the given object.
+                 * @param center centering offset
+                 */
+                vfunc_set_vcenter(center: number): boolean;
+                /**
+                 * Set the vertical flipping state (%TRUE for flipped) for the given object.
+                 * @param flip use flipping
+                 */
+                vfunc_set_vflip(flip: boolean): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9472,7 +10040,7 @@ declare module 'gi://GstVideo?version=1.0' {
              */
             from_tag(taglist: Gst.TagList): [boolean, VideoOrientationMethod];
         }
-        interface VideoOrientation extends GObject.Object {
+        interface VideoOrientation extends GObject.Object, VideoOrientation.Interface {
             // Methods
 
             /**
@@ -9519,45 +10087,6 @@ declare module 'gi://GstVideo?version=1.0' {
              * @returns %TRUE in case the element supports flipping
              */
             set_vflip(flip: boolean): boolean;
-
-            // Virtual methods
-
-            /**
-             * Get the horizontal centering offset from the given object.
-             */
-            vfunc_get_hcenter(): [boolean, number];
-            /**
-             * Get the horizontal flipping state (%TRUE for flipped) from the given object.
-             */
-            vfunc_get_hflip(): [boolean, boolean];
-            /**
-             * Get the vertical centering offset from the given object.
-             */
-            vfunc_get_vcenter(): [boolean, number];
-            /**
-             * Get the vertical flipping state (%TRUE for flipped) from the given object.
-             */
-            vfunc_get_vflip(): [boolean, boolean];
-            /**
-             * Set the horizontal centering offset for the given object.
-             * @param center centering offset
-             */
-            vfunc_set_hcenter(center: number): boolean;
-            /**
-             * Set the horizontal flipping state (%TRUE for flipped) for the given object.
-             * @param flip use flipping
-             */
-            vfunc_set_hflip(flip: boolean): boolean;
-            /**
-             * Set the vertical centering offset for the given object.
-             * @param center centering offset
-             */
-            vfunc_set_vcenter(center: number): boolean;
-            /**
-             * Set the vertical flipping state (%TRUE for flipped) for the given object.
-             * @param flip use flipping
-             */
-            vfunc_set_vflip(flip: boolean): boolean;
         }
 
         export const VideoOrientation: VideoOrientationNamespace & {
@@ -9565,6 +10094,45 @@ declare module 'gi://GstVideo?version=1.0' {
         };
 
         namespace VideoOverlay {
+            /**
+             * Interface for implementing VideoOverlay.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Tell an overlay that it has been exposed. This will redraw the current frame
+                 * in the drawable even if the pipeline is PAUSED.
+                 */
+                vfunc_expose(): void;
+                /**
+                 * Tell an overlay that it should handle events from the window system. These
+                 * events are forwarded upstream as navigation events. In some window system,
+                 * events are not propagated in the window hierarchy if a client is listening
+                 * for them. This method allows you to disable events handling completely
+                 * from the #GstVideoOverlay.
+                 * @param handle_events a #gboolean indicating if events should be handled or not.
+                 */
+                vfunc_handle_events(handle_events: boolean): void;
+                /**
+                 * virtual method to set the render rectangle
+                 * @param x
+                 * @param y
+                 * @param width
+                 * @param height
+                 */
+                vfunc_set_render_rectangle(x: number, y: number, width: number, height: number): void;
+                /**
+                 * This will call the video overlay's set_window_handle method. You
+                 * should use this method to tell to an overlay to display video output to a
+                 * specific window (e.g. an XWindow on X11). Passing 0 as the  `handle` will
+                 * tell the overlay to stop using that window and create an internal one.
+                 * @param handle a handle referencing the window.
+                 */
+                vfunc_set_window_handle(handle: never): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9601,7 +10169,7 @@ declare module 'gi://GstVideo?version=1.0' {
                 value: GObject.Value | any,
             ): boolean;
         }
-        interface VideoOverlay extends GObject.Object {
+        interface VideoOverlay extends GObject.Object, VideoOverlay.Interface {
             // Methods
 
             /**
@@ -9660,39 +10228,6 @@ declare module 'gi://GstVideo?version=1.0' {
              * @param handle a handle referencing the window.
              */
             set_window_handle(handle: never): void;
-
-            // Virtual methods
-
-            /**
-             * Tell an overlay that it has been exposed. This will redraw the current frame
-             * in the drawable even if the pipeline is PAUSED.
-             */
-            vfunc_expose(): void;
-            /**
-             * Tell an overlay that it should handle events from the window system. These
-             * events are forwarded upstream as navigation events. In some window system,
-             * events are not propagated in the window hierarchy if a client is listening
-             * for them. This method allows you to disable events handling completely
-             * from the #GstVideoOverlay.
-             * @param handle_events a #gboolean indicating if events should be handled or not.
-             */
-            vfunc_handle_events(handle_events: boolean): void;
-            /**
-             * virtual method to set the render rectangle
-             * @param x
-             * @param y
-             * @param width
-             * @param height
-             */
-            vfunc_set_render_rectangle(x: number, y: number, width: number, height: number): void;
-            /**
-             * This will call the video overlay's set_window_handle method. You
-             * should use this method to tell to an overlay to display video output to a
-             * specific window (e.g. an XWindow on X11). Passing 0 as the  `handle` will
-             * tell the overlay to stop using that window and create an internal one.
-             * @param handle a handle referencing the window.
-             */
-            vfunc_set_window_handle(handle: never): void;
         }
 
         export const VideoOverlay: VideoOverlayNamespace & {

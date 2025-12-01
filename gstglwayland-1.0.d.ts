@@ -31,6 +31,12 @@ declare module 'gi://GstGLWayland?version=1.0' {
          */
 
         namespace GLDisplayWayland {
+            // Signal signatures
+            interface SignalSignatures extends GstGL.GLDisplay.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstGL.GLDisplay.ConstructorProps {}
@@ -42,6 +48,15 @@ declare module 'gi://GstGLWayland?version=1.0' {
          */
         class GLDisplayWayland extends GstGL.GLDisplay {
             static $gtype: GObject.GType<GLDisplayWayland>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLDisplayWayland.SignalSignatures;
 
             // Fields
 
@@ -63,6 +78,26 @@ declare module 'gi://GstGLWayland?version=1.0' {
             static ['new'](...args: never[]): any;
 
             static new_with_display(display?: any | null): GLDisplayWayland;
+
+            // Signals
+
+            connect<K extends keyof GLDisplayWayland.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayWayland.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLDisplayWayland.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLDisplayWayland.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLDisplayWayland.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLDisplayWayland.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         type GLDisplayWaylandClass = typeof GLDisplayWayland;

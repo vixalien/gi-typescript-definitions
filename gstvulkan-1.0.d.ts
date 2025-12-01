@@ -224,34 +224,34 @@ declare module 'gi://GstVulkan?version=1.0' {
         const VULKAN_MEMORY_ALLOCATOR_NAME: string;
         const VULKAN_QUEUE_CONTEXT_TYPE_STR: string;
         const VULKAN_SWAPPER_VIDEO_FORMATS: string;
-        function context_get_vulkan_device(context: Gst.Context, device: VulkanDevice): boolean;
-        function context_get_vulkan_display(context: Gst.Context, display: VulkanDisplay): boolean;
-        function context_get_vulkan_instance(context: Gst.Context, instance: VulkanInstance): boolean;
-        function context_get_vulkan_queue(context: Gst.Context, queue: VulkanQueue): boolean;
+        function context_get_vulkan_device(context: Gst.Context): [boolean, VulkanDevice | null];
+        function context_get_vulkan_display(context: Gst.Context): [boolean, VulkanDisplay | null];
+        function context_get_vulkan_instance(context: Gst.Context): [boolean, VulkanInstance | null];
+        function context_get_vulkan_queue(context: Gst.Context): [boolean, VulkanQueue | null];
         /**
          * Sets `device` on `context`
          * @param context a #GstContext
          * @param device a #GstVulkanDevice
          */
-        function context_set_vulkan_device(context: Gst.Context, device: VulkanDevice): void;
+        function context_set_vulkan_device(context: Gst.Context, device?: VulkanDevice | null): void;
         /**
          * Sets `display` on `context`
          * @param context a #GstContext
          * @param display a #GstVulkanDisplay
          */
-        function context_set_vulkan_display(context: Gst.Context, display: VulkanDisplay): void;
+        function context_set_vulkan_display(context: Gst.Context, display?: VulkanDisplay | null): void;
         /**
          * Sets `instance` on `context`
          * @param context a #GstContext
          * @param instance a #GstVulkanInstance
          */
-        function context_set_vulkan_instance(context: Gst.Context, instance: VulkanInstance): void;
+        function context_set_vulkan_instance(context: Gst.Context, instance?: VulkanInstance | null): void;
         /**
          * Sets `queue` on `context`
          * @param context a #GstContext
          * @param queue a #GstVulkanQueue
          */
-        function context_set_vulkan_queue(context: Gst.Context, queue: VulkanQueue): void;
+        function context_set_vulkan_queue(context: Gst.Context, queue?: VulkanQueue | null): void;
         function is_vulkan_buffer_memory(mem: Gst.Memory): boolean;
         function is_vulkan_image_memory(mem: Gst.Memory): boolean;
         function is_vulkan_memory(mem: Gst.Memory): boolean;
@@ -322,6 +322,25 @@ declare module 'gi://GstVulkan?version=1.0' {
             display_ptr: VulkanDisplay | null,
             instance_ptr: VulkanInstance,
         ): [boolean, VulkanDisplay | null, VulkanInstance];
+        /**
+         * Perform the steps necessary for retrieving a #GstVulkanDevice from
+         * the surrounding elements or create a new device according to the device_id.
+         *
+         * If the contents of `device_ptr` is not %NULL, then no
+         * #GstContext query is necessary and no #GstVulkanDevice
+         * retrieval is performed.
+         * @param element a #GstElement
+         * @param instance the #GstVulkanInstance
+         * @param device_ptr the resulting #GstVulkanDevice
+         * @param device_id The device number to use, 0 is default.
+         * @returns whether a #GstVulkanDevice exists in @device_ptr
+         */
+        function vulkan_ensure_element_device(
+            element: Gst.Element,
+            instance: VulkanInstance,
+            device_ptr: VulkanDevice | null,
+            device_id: number,
+        ): [boolean, VulkanDevice | null];
         function vulkan_error_quark(): GLib.Quark;
         function vulkan_format_get_aspect(format: Vulkan.Format): number;
         function vulkan_format_get_info(format: Vulkan.Format): VulkanFormatInfo | null;
@@ -547,6 +566,12 @@ declare module 'gi://GstVulkan?version=1.0' {
             COMPLEX,
         }
         namespace VulkanBufferMemoryAllocator {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -558,14 +583,52 @@ declare module 'gi://GstVulkan?version=1.0' {
         class VulkanBufferMemoryAllocator extends Gst.Allocator {
             static $gtype: GObject.GType<VulkanBufferMemoryAllocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanBufferMemoryAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanBufferMemoryAllocator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanBufferMemoryAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanBufferMemoryAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanBufferMemoryAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanBufferMemoryAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanBufferMemoryAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanBufferMemoryAllocator.SignalSignatures[K]> extends [
+                    any,
+                    ...infer Q,
+                ]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VulkanBufferPool {
+            // Signal signatures
+            interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -576,6 +639,15 @@ declare module 'gi://GstVulkan?version=1.0' {
          */
         class VulkanBufferPool extends Gst.BufferPool {
             static $gtype: GObject.GType<VulkanBufferPool>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanBufferPool.SignalSignatures;
 
             // Fields
 
@@ -593,6 +665,26 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             static ['new'](...args: never[]): any;
 
+            // Signals
+
+            connect<K extends keyof VulkanBufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanBufferPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanBufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanBufferPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanBufferPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanBufferPool.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Static methods
 
             /**
@@ -609,6 +701,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanCommandPool {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -616,6 +714,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         class VulkanCommandPool extends Gst.Object {
             static $gtype: GObject.GType<VulkanCommandPool>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanCommandPool.SignalSignatures;
 
             // Fields
 
@@ -626,6 +733,26 @@ declare module 'gi://GstVulkan?version=1.0' {
             constructor(properties?: Partial<VulkanCommandPool.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanCommandPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanCommandPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanCommandPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanCommandPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanCommandPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanCommandPool.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -647,120 +774,13 @@ declare module 'gi://GstVulkan?version=1.0' {
             unlock(): void;
         }
 
-        namespace VulkanDecoder {
-            // Constructor properties interface
-
-            interface ConstructorProps extends Gst.Object.ConstructorProps {}
-        }
-
-        class VulkanDecoder extends Gst.Object {
-            static $gtype: GObject.GType<VulkanDecoder>;
-
-            // Fields
-
-            queue: VulkanQueue;
-            codec: number;
-            dedicated_dpb: boolean;
-            layered_dpb: boolean;
-
-            // Constructors
-
-            constructor(properties?: Partial<VulkanDecoder.ConstructorProps>, ...args: any[]);
-
-            _init(...args: any[]): void;
-
-            // Methods
-
-            /**
-             * Appends slices's `data` bitstream into `pic` internal input buffer.
-             * @param pic a #GstVulkanDecoderPicture
-             * @param data slice's bitstream data
-             * @param size the size of @data
-             * @param add_startcode whether add start code
-             * @returns whether the slice @data were added.
-             */
-            append_slice(pic: VulkanDecoderPicture, data: number, size: number, add_startcode: boolean): boolean;
-            /**
-             * Gets the Vulkan decoding capabilities of the current video session.
-             * @returns whether the capabilities were fetched correctly.
-             */
-            caps(): [boolean, VulkanVideoCapabilities];
-            /**
-             * Instantiates an internal Vulkan image pool for driver decoders whose output
-             * buffers cannot be used as DPB buffers.
-             * @param caps the #GstCaps of the DP
-             * @returns whether the pool was created.
-             */
-            create_dpb_pool(caps: Gst.Caps): boolean;
-            /**
-             * Decodes `pic`.
-             * @param pic a #GstVulkanDecoderPicture
-             * @returns whether @pic was decoded correctly. It might fill @error.
-             */
-            decode(pic: VulkanDecoderPicture): boolean;
-            /**
-             * Initializes the decoder at driver level and set its DPB slots to the inactive
-             * state.
-             * @returns whether flush was successful
-             */
-            flush(): boolean;
-            is_started(): boolean;
-            /**
-             * Creates a #GstVulkanImageView for `buf` for decoding, with the internal Ycbcr
-             * sampler, if available.
-             * @param buf a #GstBuffer
-             * @param is_out if @buf is for output or for DPB
-             * @returns the #GstVulkanImageView.
-             */
-            picture_create_view(buf: Gst.Buffer, is_out: boolean): VulkanImageView | null;
-            /**
-             * Initializes `pic` with `out` as output buffer.
-             * @param pic a #GstVulkanDecoderPicture
-             * @param out the #GstBuffer to use as output
-             * @returns whether @pic was initialized.
-             */
-            picture_init(pic: VulkanDecoderPicture, out: Gst.Buffer): boolean;
-            profile_caps(): Gst.Caps;
-            /**
-             * It creates a Vulkan video session for the given `profile`. If an error occurs,
-             * `error` is filled.
-             * @param profile a #GstVulkanVideoProfile
-             * @returns whether the video decoder has started correctly.
-             */
-            start(profile: VulkanVideoProfile): boolean;
-            /**
-             * Destroys the video session created at gst_vulkan_decoder_start() and clean up
-             * the internal objects.
-             * @returns whether the decoder stopped correctly.
-             */
-            stop(): boolean;
-            /**
-             * Update the internal codec parameters for the current video session.
-             * @param params a GstVulkanDecoderParameters union
-             * @returns whether the @params were updated internally. It might fill @error.
-             */
-            update_video_session_parameters(params: VulkanDecoderParameters): boolean;
-            /**
-             * Update the internal Ycbcr sampler for the output images.
-             * @param range whether color components are encoded using the full range of     numerical values or whether values are reserved for headroom and foot     room.
-             * @param xloc x location of downsampled chroma component samples relative to the luma     samples.
-             * @param yloc y location of downsampled chroma component samples relative to the luma     samples.
-             * @returns whether the sampler was updated.
-             */
-            update_ycbcr_sampler(
-                range: Vulkan.SamplerYcbcrRange,
-                xloc: Vulkan.ChromaLocation,
-                yloc: Vulkan.ChromaLocation,
-            ): boolean;
-            /**
-             * Waits indefinitely for decoding fences to signal, and queries the operation
-             * result if available.
-             * @returns whether the wait succeeded in waiting for all the fences to be     freed.
-             */
-            wait(): boolean;
-        }
-
         namespace VulkanDescriptorCache {
+            // Signal signatures
+            interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanHandlePool.ConstructorProps {}
@@ -768,6 +788,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         class VulkanDescriptorCache extends VulkanHandlePool {
             static $gtype: GObject.GType<VulkanDescriptorCache>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanDescriptorCache.SignalSignatures;
 
             // Fields
 
@@ -781,6 +810,26 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             static ['new'](pool: VulkanDescriptorPool, layouts: VulkanHandle[]): VulkanDescriptorCache;
 
+            // Signals
+
+            connect<K extends keyof VulkanDescriptorCache.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDescriptorCache.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanDescriptorCache.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDescriptorCache.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanDescriptorCache.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanDescriptorCache.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             acquire(): VulkanDescriptorSet;
@@ -789,6 +838,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanDescriptorPool {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -796,6 +851,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         class VulkanDescriptorPool extends Gst.Object {
             static $gtype: GObject.GType<VulkanDescriptorPool>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanDescriptorPool.SignalSignatures;
 
             // Fields
 
@@ -813,6 +877,26 @@ declare module 'gi://GstVulkan?version=1.0' {
                 max_sets: number,
             ): VulkanDescriptorPool;
 
+            // Signals
+
+            connect<K extends keyof VulkanDescriptorPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDescriptorPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanDescriptorPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDescriptorPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanDescriptorPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanDescriptorPool.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             create(layouts: VulkanHandle[]): VulkanDescriptorSet;
@@ -821,6 +905,14 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanDevice {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::instance': (pspec: GObject.ParamSpec) => void;
+                'notify::physical-device': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -839,6 +931,15 @@ declare module 'gi://GstVulkan?version=1.0' {
             get physical_device(): VulkanPhysicalDevice;
             get physicalDevice(): VulkanPhysicalDevice;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanDevice.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanDevice.ConstructorProps>, ...args: any[]);
@@ -848,6 +949,24 @@ declare module 'gi://GstVulkan?version=1.0' {
             static ['new'](physical_device: VulkanPhysicalDevice): VulkanDevice;
 
             static new_with_index(instance: VulkanInstance, device_index: number): VulkanDevice;
+
+            // Signals
+
+            connect<K extends keyof VulkanDevice.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDevice.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanDevice.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDevice.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanDevice.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanDevice.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -895,7 +1014,7 @@ declare module 'gi://GstVulkan?version=1.0' {
             enable_layer(name: string): boolean;
             /**
              * Iterate over each queue family available on #GstVulkanDevice
-             * @param func a #GstVulkanDeviceForEachQueueFunc to run for each #GstVulkanQueue
+             * @param func a #GstVulkanDeviceForEachQueueFunc    to run for each #GstVulkanQueue
              */
             foreach_queue(func: VulkanDeviceForEachQueueFunc): void;
             get_instance(): VulkanInstance | null;
@@ -917,12 +1036,18 @@ declare module 'gi://GstVulkan?version=1.0' {
             /**
              * Select a compatible queue from the `device` supporting the `expected_flags`.
              * @param expected_flags a VkQueueFlagBits
-             * @returns a #GstVulkanQueue for @queue matching the                           @expected_flags
+             * @returns a #GstVulkanQueue for @queue matching                                      the @expected_flags
              */
-            select_queue(expected_flags: Vulkan.QueueFlagBits): VulkanQueue;
+            select_queue(expected_flags: Vulkan.QueueFlagBits): VulkanQueue | null;
         }
 
         namespace VulkanDisplay {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -935,6 +1060,15 @@ declare module 'gi://GstVulkan?version=1.0' {
         class VulkanDisplay extends Gst.Object {
             static $gtype: GObject.GType<VulkanDisplay>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanDisplay.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanDisplay.ConstructorProps>, ...args: any[]);
@@ -944,6 +1078,24 @@ declare module 'gi://GstVulkan?version=1.0' {
             static ['new'](instance: VulkanInstance): VulkanDisplay;
 
             static new_with_type(instance: VulkanInstance, type: VulkanDisplayType): VulkanDisplay;
+
+            // Signals
+
+            connect<K extends keyof VulkanDisplay.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDisplay.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanDisplay.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDisplay.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanDisplay.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanDisplay.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1006,6 +1158,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanFenceCache {
+            // Signal signatures
+            interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanHandlePool.ConstructorProps {}
@@ -1014,6 +1172,15 @@ declare module 'gi://GstVulkan?version=1.0' {
         class VulkanFenceCache extends VulkanHandlePool {
             static $gtype: GObject.GType<VulkanFenceCache>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanFenceCache.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanFenceCache.ConstructorProps>, ...args: any[]);
@@ -1021,9 +1188,35 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](device: VulkanDevice): VulkanFenceCache;
+
+            // Signals
+
+            connect<K extends keyof VulkanFenceCache.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanFenceCache.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanFenceCache.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanFenceCache.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanFenceCache.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanFenceCache.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VulkanFullScreenQuad {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1031,6 +1224,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         class VulkanFullScreenQuad extends Gst.Object {
             static $gtype: GObject.GType<VulkanFullScreenQuad>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanFullScreenQuad.SignalSignatures;
 
             // Fields
 
@@ -1046,6 +1248,26 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](queue: VulkanQueue): VulkanFullScreenQuad;
+
+            // Signals
+
+            connect<K extends keyof VulkanFullScreenQuad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanFullScreenQuad.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanFullScreenQuad.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanFullScreenQuad.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanFullScreenQuad.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanFullScreenQuad.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1068,8 +1290,15 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             enable_blend(enable_blend: boolean): void;
             enable_clear(enable_clear: boolean): void;
+            /**
+             * `cmd` must be locked with gst_vulkan_command_buffer_lock().
+             * @param cmd the #GstVulkanCommandBuffer to fill with commands
+             * @param fence
+             * @returns whether @cmd could be filled with the necessary commands
+             */
             fill_command_buffer(cmd: VulkanCommandBuffer, fence: VulkanFence): boolean;
             get_last_fence(): VulkanFence;
+            get_queue(): VulkanQueue | null;
             prepare_draw(fence: VulkanFence): boolean;
             /**
              * You need to enable blend with gst_vulkan_full_screen_quad_enable_blend().
@@ -1102,8 +1331,8 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             set_index_buffer(indices: Gst.Memory, n_indices: number): boolean;
             set_info(in_info: GstVideo.VideoInfo, out_info: GstVideo.VideoInfo): boolean;
-            set_input_buffer(buffer: Gst.Buffer): boolean;
-            set_output_buffer(buffer: Gst.Buffer): boolean;
+            set_input_buffer(buffer?: Gst.Buffer | null): boolean;
+            set_output_buffer(buffer?: Gst.Buffer | null): boolean;
             set_shaders(vert: VulkanHandle, frag: VulkanHandle): boolean;
             set_uniform_buffer(uniforms: Gst.Memory): boolean;
             set_vertex_buffer(vertices: Gst.Memory): boolean;
@@ -1111,6 +1340,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanHandlePool {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1118,6 +1353,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         abstract class VulkanHandlePool extends Gst.Object {
             static $gtype: GObject.GType<VulkanHandlePool>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanHandlePool.SignalSignatures;
 
             // Fields
 
@@ -1130,6 +1374,26 @@ declare module 'gi://GstVulkan?version=1.0' {
             constructor(properties?: Partial<VulkanHandlePool.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanHandlePool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanHandlePool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanHandlePool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanHandlePool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanHandlePool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanHandlePool.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1160,6 +1424,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanImageBufferPool {
+            // Signal signatures
+            interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
@@ -1167,6 +1437,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         class VulkanImageBufferPool extends Gst.BufferPool {
             static $gtype: GObject.GType<VulkanImageBufferPool>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanImageBufferPool.SignalSignatures;
 
             // Fields
 
@@ -1184,10 +1463,42 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             static ['new'](...args: never[]): any;
 
+            // Signals
+
+            connect<K extends keyof VulkanImageBufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanImageBufferPool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanImageBufferPool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanImageBufferPool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanImageBufferPool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanImageBufferPool.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Static methods
 
             /**
-             * Sets the `usage` and `mem_properties` of the images to setup.
+             * Gets the configuration of the Vulkan image buffer pool.
+             * @param config the #GstStructure with the pool's configuration.
+             */
+            static config_get_allocation_params(
+                config: Gst.Structure,
+            ): [Vulkan.ImageUsageFlags | null, Vulkan.MemoryPropertyFlags | null, Vulkan.ImageLayout | null, number];
+            /**
+             * Sets the `usage` and `mem_properties,` `initial_layout` and `initial_access` of
+             * the images to setup.
+             *
+             * If `initial_access` is VK_IMAGE_LAYOUT_UNDEFINED or
+             * VK_IMAGE_LAYOUT_PREINITIALIZED, the image crated by this pool has not been
+             * initialized to a particular layout
              * @param config the #GstStructure with the pool's configuration.
              * @param usage The Vulkan image usage flags.
              * @param mem_properties Vulkan memory property flags.
@@ -1208,9 +1519,22 @@ declare module 'gi://GstVulkan?version=1.0' {
              * @param caps Upstream decode caps.
              */
             static config_set_decode_caps(config: Gst.Structure, caps: Gst.Caps): void;
+            /**
+             * Encode `caps` are used when the buffers are going to be used either as encoded
+             * src or DPB images.
+             * @param config the #GstStructure with the pool's configuration.
+             * @param caps Upstream encode caps.
+             */
+            static config_set_encode_caps(config: Gst.Structure, caps: Gst.Caps): void;
         }
 
         namespace VulkanImageMemoryAllocator {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -1222,18 +1546,50 @@ declare module 'gi://GstVulkan?version=1.0' {
         class VulkanImageMemoryAllocator extends Gst.Allocator {
             static $gtype: GObject.GType<VulkanImageMemoryAllocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanImageMemoryAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanImageMemoryAllocator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanImageMemoryAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanImageMemoryAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanImageMemoryAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanImageMemoryAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanImageMemoryAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanImageMemoryAllocator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VulkanInstance {
-            // Signal callback interfaces
-
-            interface CreateDevice {
-                (): VulkanDevice;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'create-device': (arg0: number) => VulkanDevice;
+                'notify::requested-api-major': (pspec: GObject.ParamSpec) => void;
+                'notify::requested-api-minor': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1260,6 +1616,15 @@ declare module 'gi://GstVulkan?version=1.0' {
             get requestedApiMinor(): number;
             set requestedApiMinor(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanInstance.SignalSignatures;
+
             // Fields
 
             n_physical_devices: number;
@@ -1274,12 +1639,21 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'create-device', callback: (_source: this) => VulkanDevice): number;
-            connect_after(signal: 'create-device', callback: (_source: this) => VulkanDevice): number;
-            emit(signal: 'create-device'): void;
+            connect<K extends keyof VulkanInstance.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanInstance.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanInstance.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanInstance.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanInstance.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanInstance.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1307,6 +1681,7 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             // Methods
 
+            check_api_version(major: number, minor: number, patch: number): boolean;
             /**
              * Check if the configured vulkan instance supports the specified version.
              * Will not work prior to opening the instance with gst_vulkan_instance_open().
@@ -1318,6 +1693,7 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             check_version(major: number, minor: number, patch: number): boolean;
             create_device(): VulkanDevice;
+            create_device_with_index(device_index: number): VulkanDevice;
             /**
              * Disable an Vulkan extension by `name`.  Disabling an extension will only have
              * an effect before the call to gst_vulkan_instance_open().
@@ -1349,6 +1725,16 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             fill_info(): boolean;
             /**
+             * Returns the vulkan API version configured when constructing the
+             * #GstVulkanInstance. This value can be any valid Vulkan API version and may
+             * not match gst_vulkan_instance_get_version() in any way.  This version is the
+             * maximum allowed vulkan API to be used in any capacity.
+             *
+             * This will not return valid values until gst_vulkan_instance_open() has been
+             * called.
+             */
+            get_api_version(): [number, number, number];
+            /**
              * Retrieves information about an extension.
              *
              * Will not find any extensions before gst_vulkan_instance_fill_info() has been
@@ -1373,7 +1759,7 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             get_proc_address(name: string): any | null;
             /**
-             * Retrieve the vulkan instance configured version.  Only returns the supported
+             * Retrieve the vulkan instance supported version.  Only returns the supported
              * API version by the instance without taking into account the requested API
              * version.  This means gst_vulkan_instance_check_version() will return
              * different values if a specific version has been requested (which is the
@@ -1387,6 +1773,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanMemoryAllocator {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -1398,14 +1790,50 @@ declare module 'gi://GstVulkan?version=1.0' {
         class VulkanMemoryAllocator extends Gst.Allocator {
             static $gtype: GObject.GType<VulkanMemoryAllocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanMemoryAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanMemoryAllocator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanMemoryAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanMemoryAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanMemoryAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanMemoryAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanMemoryAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanMemoryAllocator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VulkanOperation {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::command-pool': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -1428,6 +1856,15 @@ declare module 'gi://GstVulkan?version=1.0' {
             get command_pool(): VulkanCommandPool;
             get commandPool(): VulkanCommandPool;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanOperation.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanOperation.ConstructorProps>, ...args: any[]);
@@ -1435,6 +1872,26 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](cmd_pool: VulkanCommandPool): VulkanOperation;
+
+            // Signals
+
+            connect<K extends keyof VulkanOperation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanOperation.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanOperation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanOperation.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanOperation.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanOperation.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1455,6 +1912,7 @@ declare module 'gi://GstVulkan?version=1.0' {
              * it updates the `frame` barrier state by calling internally
              * gst_vulkan_operation_update_frame().
              * @param frame a Vulkan Image #GstBuffer
+             * @param src_stage source pipeline stage (VkPipelineStageFlags or   VkPipelineStageFlags2)
              * @param dst_stage destination pipeline stage (VkPipelineStageFlags or   VkPipelineStageFlags2)
              * @param new_access the new access flags (VkAccessFlags2 or VkAccessFlags)
              * @param new_layout the new VkImageLayout
@@ -1463,6 +1921,7 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             add_frame_barrier(
                 frame: Gst.Buffer,
+                src_stage: number,
                 dst_stage: number,
                 new_access: number,
                 new_layout: Vulkan.ImageLayout,
@@ -1481,11 +1940,14 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             begin(): boolean;
             /**
-             * Begins a query operation in the current command buffer.
-             * @param id
+             * Begins a query operation with `id` in the current command buffer. If video maintenance1 extension
+             * is available the query will be recorded as a video inline query. If NULL is passed to `base,`
+             * the query will be recorded as a normal query anyway.
+             * @param base a VkBaseInStructure base
+             * @param id query id
              * @returns whether the begin command was set
              */
-            begin_query(id: number): boolean;
+            begin_query(base: Vulkan.BaseInStructure, id: number): boolean;
             /**
              * Discards barriers, and all the semaphore arrays populated by
              * gst_vulkan_operation_add_dependency_frame().
@@ -1512,8 +1974,9 @@ declare module 'gi://GstVulkan?version=1.0' {
              */
             end(): boolean;
             /**
-             * Ends a query operation in the current command buffer.
-             * @param id
+             * Ends a query operation with `id` in the current command buffer. A query with
+             * `id` has had started with gst_vulkan_operation_begin_query()
+             * @param id query id
              * @returns whether the end command was set
              */
             end_query(id: number): boolean;
@@ -1564,6 +2027,14 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanPhysicalDevice {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::device-index': (pspec: GObject.ParamSpec) => void;
+                'notify::instance': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -1584,6 +2055,15 @@ declare module 'gi://GstVulkan?version=1.0' {
             get instance(): VulkanInstance;
             get name(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanPhysicalDevice.SignalSignatures;
+
             // Fields
 
             n_queue_families: number;
@@ -1597,12 +2077,48 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             static ['new'](instance: VulkanInstance, device_index: number): VulkanPhysicalDevice;
 
+            // Signals
+
+            connect<K extends keyof VulkanPhysicalDevice.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanPhysicalDevice.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanPhysicalDevice.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanPhysicalDevice.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanPhysicalDevice.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanPhysicalDevice.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Static methods
 
             static type_to_string(type: Vulkan.PhysicalDeviceType): string;
 
             // Methods
 
+            /**
+             * Note: This is the intersection of the exposed supported API version as would
+             * be returned by gst_vulkan_physical_device_get_api_version() and
+             * gst_vulkan_instance_check_version().  The latter will take into account any
+             * requested API version and may result in a different result than directly
+             * comparing against gst_vulkan_instance_get_version().
+             * @param major the API major version to check
+             * @param minor the API minor version to check
+             * @param patch the API patch version to check
+             * @returns whether the #GstVulkanPhysicalDevice supports the version specified          by @major, @minor and @patch.
+             */
+            check_api_version(major: number, minor: number, patch: number): boolean;
+            /**
+             * Retrieves the advertised Vulkan API version of the #GstVulkanPhysicalDevice.
+             */
+            get_api_version(): [number, number, number];
             /**
              * Retrieves information about a device extension.
              *
@@ -1625,6 +2141,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanQueue {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {}
@@ -1632,6 +2154,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         class VulkanQueue extends Gst.Object {
             static $gtype: GObject.GType<VulkanQueue>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanQueue.SignalSignatures;
 
             // Fields
 
@@ -1644,6 +2175,24 @@ declare module 'gi://GstVulkan?version=1.0' {
             constructor(properties?: Partial<VulkanQueue.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanQueue.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanQueue.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanQueue.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanQueue.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1669,12 +2218,6 @@ declare module 'gi://GstVulkan?version=1.0' {
             // Methods
 
             create_command_pool(): VulkanCommandPool;
-            /**
-             * Creates a #GstVulkanDecoder object if `codec` decoding is supported by `queue`
-             * @param codec the VkVideoCodecOperationFlagBitsKHR to decode
-             * @returns the #GstVulkanDecoder object
-             */
-            create_decoder(codec: number): VulkanDecoder | null;
             get_device(): VulkanDevice | null;
             /**
              * Locks the queue for command submission using `vkQueueSubmit()` to meet the
@@ -1690,6 +2233,14 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanSwapper {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                'notify::force-aspect-ratio': (pspec: GObject.ParamSpec) => void;
+                'notify::pixel-aspect-ratio': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Object.ConstructorProps {
@@ -1714,6 +2265,15 @@ declare module 'gi://GstVulkan?version=1.0' {
             get pixelAspectRatio(): Gst.Fraction;
             set pixelAspectRatio(val: Gst.Fraction);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanSwapper.SignalSignatures;
+
             // Fields
 
             device: VulkanDevice;
@@ -1729,9 +2289,27 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             static ['new'](device: VulkanDevice, window: VulkanWindow): VulkanSwapper;
 
+            // Signals
+
+            connect<K extends keyof VulkanSwapper.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanSwapper.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanSwapper.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanSwapper.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanSwapper.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanSwapper.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
-            choose_queue(available_queue: VulkanQueue): boolean;
+            choose_queue(available_queue?: VulkanQueue | null): boolean;
             get_supported_caps(): Gst.Caps;
             get_surface_rectangles(): [
                 GstVideo.VideoRectangle | null,
@@ -1743,6 +2321,12 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanTrashFenceList {
+            // Signal signatures
+            interface SignalSignatures extends VulkanTrashList.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanTrashList.ConstructorProps {}
@@ -1751,6 +2335,15 @@ declare module 'gi://GstVulkan?version=1.0' {
         class VulkanTrashFenceList extends VulkanTrashList {
             static $gtype: GObject.GType<VulkanTrashFenceList>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanTrashFenceList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanTrashFenceList.ConstructorProps>, ...args: any[]);
@@ -1758,9 +2351,35 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): VulkanTrashFenceList;
+
+            // Signals
+
+            connect<K extends keyof VulkanTrashFenceList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanTrashFenceList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanTrashFenceList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanTrashFenceList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanTrashFenceList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanTrashFenceList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace VulkanTrashList {
+            // Signal signatures
+            interface SignalSignatures extends VulkanHandlePool.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends VulkanHandlePool.ConstructorProps {}
@@ -1769,11 +2388,40 @@ declare module 'gi://GstVulkan?version=1.0' {
         class VulkanTrashList extends VulkanHandlePool {
             static $gtype: GObject.GType<VulkanTrashList>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanTrashList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanTrashList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanTrashList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanTrashList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanTrashList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanTrashList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanTrashList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanTrashList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1807,6 +2455,13 @@ declare module 'gi://GstVulkan?version=1.0' {
         }
 
         namespace VulkanVideoFilter {
+            // Signal signatures
+            interface SignalSignatures extends GstBase.BaseTransform.SignalSignatures {
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstBase.BaseTransform.ConstructorProps {}
@@ -1814,6 +2469,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
         class VulkanVideoFilter extends GstBase.BaseTransform {
             static $gtype: GObject.GType<VulkanVideoFilter>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanVideoFilter.SignalSignatures;
 
             // Fields
 
@@ -1826,29 +2490,45 @@ declare module 'gi://GstVulkan?version=1.0' {
             constructor(properties?: Partial<VulkanVideoFilter.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VulkanVideoFilter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanVideoFilter.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanVideoFilter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanVideoFilter.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanVideoFilter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanVideoFilter.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
+            // Methods
+
+            get_device(): VulkanDevice | null;
+            get_instance(): VulkanInstance | null;
+            get_queue(): VulkanQueue | null;
         }
 
         namespace VulkanWindow {
-            // Signal callback interfaces
-
-            interface Close {
-                (): boolean;
-            }
-
-            interface Draw {
-                (): void;
-            }
-
-            interface KeyEvent {
-                (id: string, key: string): void;
-            }
-
-            interface MouseEvent {
-                (id: string, button: number, x: number, y: number): void;
-            }
-
-            interface Resize {
-                (object: number, p0: number): void;
+            // Signal signatures
+            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                close: () => boolean | void;
+                draw: () => void;
+                'key-event': (arg0: string, arg1: string) => void;
+                'mouse-event': (arg0: string, arg1: number, arg2: number, arg3: number) => void;
+                resize: (arg0: number, arg1: number) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1869,6 +2549,15 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             get display(): VulkanDisplay;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanWindow.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanWindow.ConstructorProps>, ...args: any[]);
@@ -1879,30 +2568,21 @@ declare module 'gi://GstVulkan?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'close', callback: (_source: this) => boolean): number;
-            connect_after(signal: 'close', callback: (_source: this) => boolean): number;
-            emit(signal: 'close'): void;
-            connect(signal: 'draw', callback: (_source: this) => void): number;
-            connect_after(signal: 'draw', callback: (_source: this) => void): number;
-            emit(signal: 'draw'): void;
-            connect(signal: 'key-event', callback: (_source: this, id: string, key: string) => void): number;
-            connect_after(signal: 'key-event', callback: (_source: this, id: string, key: string) => void): number;
-            emit(signal: 'key-event', id: string, key: string): void;
-            connect(
-                signal: 'mouse-event',
-                callback: (_source: this, id: string, button: number, x: number, y: number) => void,
+            connect<K extends keyof VulkanWindow.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanWindow.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'mouse-event',
-                callback: (_source: this, id: string, button: number, x: number, y: number) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanWindow.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanWindow.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'mouse-event', id: string, button: number, x: number, y: number): void;
-            connect(signal: 'resize', callback: (_source: this, object: number, p0: number) => void): number;
-            connect_after(signal: 'resize', callback: (_source: this, object: number, p0: number) => void): number;
-            emit(signal: 'resize', object: number, p0: number): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanWindow.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanWindow.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2101,37 +2781,6 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
         }
 
-        type VulkanDecoderClass = typeof VulkanDecoder;
-        /**
-         * It contains the whole state for decoding a single picture.
-         */
-        class VulkanDecoderPicture {
-            static $gtype: GObject.GType<VulkanDecoderPicture>;
-
-            // Fields
-
-            slice_offs: any[];
-
-            // Constructors
-
-            _init(...args: any[]): void;
-
-            // Methods
-
-            /**
-             * Releases the internal resource of `pic`.
-             */
-            release(): void;
-        }
-
-        abstract class VulkanDecoderPrivate {
-            static $gtype: GObject.GType<VulkanDecoderPrivate>;
-
-            // Constructors
-
-            _init(...args: any[]): void;
-        }
-
         type VulkanDescriptorCacheClass = typeof VulkanDescriptorCache;
         abstract class VulkanDescriptorCachePrivate {
             static $gtype: GObject.GType<VulkanDescriptorCachePrivate>;
@@ -2189,6 +2838,30 @@ declare module 'gi://GstVulkan?version=1.0' {
             _init(...args: any[]): void;
         }
 
+        /**
+         * Encoder query result. Expected to be used in gst_vulkan_operation_get_query()
+         */
+        class VulkanEncodeQueryResult {
+            static $gtype: GObject.GType<VulkanEncodeQueryResult>;
+
+            // Fields
+
+            offset: number;
+            data_size: number;
+            status: number;
+
+            // Constructors
+
+            constructor(
+                properties?: Partial<{
+                    offset: number;
+                    data_size: number;
+                    status: number;
+                }>,
+            );
+            _init(...args: any[]): void;
+        }
+
         class VulkanFence {
             static $gtype: GObject.GType<VulkanFence>;
 
@@ -2231,6 +2904,18 @@ declare module 'gi://GstVulkan?version=1.0' {
             poffset: Uint8Array;
             w_sub: Uint8Array;
             h_sub: Uint8Array;
+
+            // Constructors
+
+            _init(...args: any[]): void;
+        }
+
+        class VulkanFormatMap {
+            static $gtype: GObject.GType<VulkanFormatMap>;
+
+            // Fields
+
+            format: GstVideo.VideoFormat;
 
             // Constructors
 
@@ -2523,14 +3208,14 @@ declare module 'gi://GstVulkan?version=1.0' {
             // Fields
 
             video: number;
-            query: boolean;
+            query_result_status: boolean;
 
             // Constructors
 
             constructor(
                 properties?: Partial<{
                     video: number;
-                    query: boolean;
+                    query_result_status: boolean;
                 }>,
             );
             _init(...args: any[]): void;
@@ -2615,17 +3300,6 @@ declare module 'gi://GstVulkan?version=1.0' {
         type VulkanWindowClass = typeof VulkanWindow;
         abstract class VulkanWindowPrivate {
             static $gtype: GObject.GType<VulkanWindowPrivate>;
-
-            // Constructors
-
-            _init(...args: any[]): void;
-        }
-
-        /**
-         * Codec specific parameters.
-         */
-        class VulkanDecoderParameters {
-            static $gtype: GObject.GType<VulkanDecoderParameters>;
 
             // Constructors
 

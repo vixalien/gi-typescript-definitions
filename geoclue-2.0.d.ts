@@ -85,10 +85,30 @@ declare module 'gi://Geoclue?version=2.0' {
             AUTO_DELETE,
         }
         namespace ClientProxy {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
+                'notify::active': (pspec: GObject.ParamSpec) => void;
+                'notify::desktop-id': (pspec: GObject.ParamSpec) => void;
+                'notify::distance-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::location': (pspec: GObject.ParamSpec) => void;
+                'notify::requested-accuracy-level': (pspec: GObject.ParamSpec) => void;
+                'notify::time-threshold': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Client.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
@@ -103,6 +123,15 @@ declare module 'gi://Geoclue?version=2.0' {
             implements Client, Gio.AsyncInitable<ClientProxy>, Gio.DBusInterface, Gio.Initable
         {
             static $gtype: GObject.GType<ClientProxy>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ClientProxy.SignalSignatures;
 
             // Constructors
 
@@ -138,6 +167,24 @@ declare module 'gi://Geoclue?version=2.0' {
             // Conflicted with Gio.DBusProxy.new_sync
 
             static new_sync(...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof ClientProxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ClientProxy.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ClientProxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ClientProxy.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ClientProxy.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ClientProxy.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -360,7 +407,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_client_call_start_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_start(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_start(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Start">Start()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -383,7 +430,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_start(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_client_call_start().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_start().
@@ -406,7 +453,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_client_call_stop_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_stop(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_stop(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Stop">Stop()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -429,7 +476,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_stop(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_client_call_stop().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_stop().
@@ -520,7 +567,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -612,7 +659,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -689,9 +736,14 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -706,8 +758,13 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -1242,10 +1299,22 @@ declare module 'gi://Geoclue?version=2.0' {
         }
 
         namespace ClientSkeleton {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusInterfaceSkeleton.SignalSignatures {
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::active': (pspec: GObject.ParamSpec) => void;
+                'notify::desktop-id': (pspec: GObject.ParamSpec) => void;
+                'notify::distance-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::location': (pspec: GObject.ParamSpec) => void;
+                'notify::requested-accuracy-level': (pspec: GObject.ParamSpec) => void;
+                'notify::time-threshold': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusInterfaceSkeleton.ConstructorProps,
+                extends
+                    Gio.DBusInterfaceSkeleton.ConstructorProps,
                     Client.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps {}
         }
@@ -1256,6 +1325,15 @@ declare module 'gi://Geoclue?version=2.0' {
         class ClientSkeleton extends Gio.DBusInterfaceSkeleton implements Client, Gio.DBusInterface {
             static $gtype: GObject.GType<ClientSkeleton>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ClientSkeleton.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ClientSkeleton.ConstructorProps>, ...args: any[]);
@@ -1263,6 +1341,24 @@ declare module 'gi://Geoclue?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): ClientSkeleton;
+
+            // Signals
+
+            connect<K extends keyof ClientSkeleton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ClientSkeleton.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ClientSkeleton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ClientSkeleton.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ClientSkeleton.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ClientSkeleton.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited properties
             /**
@@ -1345,7 +1441,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_client_call_start_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_start(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_start(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Start">Start()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -1368,7 +1464,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_start(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_client_call_start().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_start().
@@ -1391,7 +1487,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_client_call_stop_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_stop(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_stop(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Stop">Stop()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -1414,7 +1510,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_stop(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_client_call_stop().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_stop().
@@ -1473,9 +1569,16 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
+            // Conflicted with Gio.DBusInterfaceSkeleton.get_info
+            get_info(...args: never[]): any;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -1490,8 +1593,15 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
+            // Conflicted with Gio.DBusInterfaceSkeleton.vfunc_get_info
+            vfunc_get_info(...args: never[]): any;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -1941,10 +2051,32 @@ declare module 'gi://Geoclue?version=2.0' {
         }
 
         namespace LocationProxy {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
+                'notify::accuracy': (pspec: GObject.ParamSpec) => void;
+                'notify::altitude': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::heading': (pspec: GObject.ParamSpec) => void;
+                'notify::latitude': (pspec: GObject.ParamSpec) => void;
+                'notify::longitude': (pspec: GObject.ParamSpec) => void;
+                'notify::speed': (pspec: GObject.ParamSpec) => void;
+                'notify::timestamp': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Location.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
@@ -1959,6 +2091,15 @@ declare module 'gi://Geoclue?version=2.0' {
             implements Location, Gio.AsyncInitable<LocationProxy>, Gio.DBusInterface, Gio.Initable
         {
             static $gtype: GObject.GType<LocationProxy>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: LocationProxy.SignalSignatures;
 
             // Constructors
 
@@ -1994,6 +2135,24 @@ declare module 'gi://Geoclue?version=2.0' {
             // Conflicted with Gio.DBusProxy.new_sync
 
             static new_sync(...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof LocationProxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LocationProxy.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof LocationProxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LocationProxy.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof LocationProxy.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<LocationProxy.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2145,7 +2304,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -2237,7 +2396,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -2314,9 +2473,14 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -2331,8 +2495,13 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -2867,10 +3036,24 @@ declare module 'gi://Geoclue?version=2.0' {
         }
 
         namespace LocationSkeleton {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusInterfaceSkeleton.SignalSignatures {
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::accuracy': (pspec: GObject.ParamSpec) => void;
+                'notify::altitude': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::heading': (pspec: GObject.ParamSpec) => void;
+                'notify::latitude': (pspec: GObject.ParamSpec) => void;
+                'notify::longitude': (pspec: GObject.ParamSpec) => void;
+                'notify::speed': (pspec: GObject.ParamSpec) => void;
+                'notify::timestamp': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusInterfaceSkeleton.ConstructorProps,
+                extends
+                    Gio.DBusInterfaceSkeleton.ConstructorProps,
                     Location.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps {}
         }
@@ -2881,6 +3064,15 @@ declare module 'gi://Geoclue?version=2.0' {
         class LocationSkeleton extends Gio.DBusInterfaceSkeleton implements Location, Gio.DBusInterface {
             static $gtype: GObject.GType<LocationSkeleton>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: LocationSkeleton.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<LocationSkeleton.ConstructorProps>, ...args: any[]);
@@ -2888,6 +3080,26 @@ declare module 'gi://Geoclue?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): LocationSkeleton;
+
+            // Signals
+
+            connect<K extends keyof LocationSkeleton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LocationSkeleton.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof LocationSkeleton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LocationSkeleton.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof LocationSkeleton.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<LocationSkeleton.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited properties
             /**
@@ -2956,9 +3168,16 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
+            // Conflicted with Gio.DBusInterfaceSkeleton.get_info
+            get_info(...args: never[]): any;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -2973,8 +3192,15 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
+            // Conflicted with Gio.DBusInterfaceSkeleton.vfunc_get_info
+            vfunc_get_info(...args: never[]): any;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -3424,10 +3650,26 @@ declare module 'gi://Geoclue?version=2.0' {
         }
 
         namespace ManagerProxy {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures {
+                'notify::g-bus-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-connection': (pspec: GObject.ParamSpec) => void;
+                'notify::g-default-timeout': (pspec: GObject.ParamSpec) => void;
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-info': (pspec: GObject.ParamSpec) => void;
+                'notify::g-interface-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name': (pspec: GObject.ParamSpec) => void;
+                'notify::g-name-owner': (pspec: GObject.ParamSpec) => void;
+                'notify::g-object-path': (pspec: GObject.ParamSpec) => void;
+                'notify::available-accuracy-level': (pspec: GObject.ParamSpec) => void;
+                'notify::in-use': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusProxy.ConstructorProps,
+                extends
+                    Gio.DBusProxy.ConstructorProps,
                     Manager.ConstructorProps,
                     Gio.AsyncInitable.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps,
@@ -3442,6 +3684,15 @@ declare module 'gi://Geoclue?version=2.0' {
             implements Manager, Gio.AsyncInitable<ManagerProxy>, Gio.DBusInterface, Gio.Initable
         {
             static $gtype: GObject.GType<ManagerProxy>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ManagerProxy.SignalSignatures;
 
             // Constructors
 
@@ -3477,6 +3728,24 @@ declare module 'gi://Geoclue?version=2.0' {
             // Conflicted with Gio.DBusProxy.new_sync
 
             static new_sync(...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof ManagerProxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ManagerProxy.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ManagerProxy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ManagerProxy.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ManagerProxy.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ManagerProxy.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -3569,7 +3838,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param arg_id Argument to pass with the method invocation.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_add_agent(arg_id: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_add_agent(arg_id: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.AddAgent">AddAgent()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -3599,7 +3868,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 arg_id: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_manager_call_add_agent().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_add_agent().
@@ -3623,7 +3892,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_manager_call_create_client_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_create_client(cancellable?: Gio.Cancellable | null): Promise<string>;
+            call_create_client(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.CreateClient">CreateClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -3649,7 +3918,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_create_client(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with gclue_manager_call_create_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_create_client().
@@ -3673,7 +3942,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param arg_client Argument to pass with the method invocation.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_delete_client(arg_client: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_delete_client(arg_client: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.DeleteClient">DeleteClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -3703,7 +3972,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 arg_client: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_manager_call_delete_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_delete_client().
@@ -3727,7 +3996,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_manager_call_get_client_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_get_client(cancellable?: Gio.Cancellable | null): Promise<string>;
+            call_get_client(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.GetClient">GetClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -3750,7 +4019,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_get_client(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with gclue_manager_call_get_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_get_client().
@@ -3857,7 +4126,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -3949,7 +4218,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -4026,9 +4295,14 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -4043,8 +4317,13 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -4579,10 +4858,18 @@ declare module 'gi://Geoclue?version=2.0' {
         }
 
         namespace ManagerSkeleton {
+            // Signal signatures
+            interface SignalSignatures extends Gio.DBusInterfaceSkeleton.SignalSignatures {
+                'notify::g-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::available-accuracy-level': (pspec: GObject.ParamSpec) => void;
+                'notify::in-use': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends Gio.DBusInterfaceSkeleton.ConstructorProps,
+                extends
+                    Gio.DBusInterfaceSkeleton.ConstructorProps,
                     Manager.ConstructorProps,
                     Gio.DBusInterface.ConstructorProps {}
         }
@@ -4593,6 +4880,15 @@ declare module 'gi://Geoclue?version=2.0' {
         class ManagerSkeleton extends Gio.DBusInterfaceSkeleton implements Manager, Gio.DBusInterface {
             static $gtype: GObject.GType<ManagerSkeleton>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ManagerSkeleton.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ManagerSkeleton.ConstructorProps>, ...args: any[]);
@@ -4600,6 +4896,26 @@ declare module 'gi://Geoclue?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): ManagerSkeleton;
+
+            // Signals
+
+            connect<K extends keyof ManagerSkeleton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ManagerSkeleton.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ManagerSkeleton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ManagerSkeleton.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ManagerSkeleton.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ManagerSkeleton.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited properties
             /**
@@ -4641,7 +4957,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param arg_id Argument to pass with the method invocation.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_add_agent(arg_id: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_add_agent(arg_id: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.AddAgent">AddAgent()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -4671,7 +4987,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 arg_id: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_manager_call_add_agent().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_add_agent().
@@ -4695,7 +5011,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_manager_call_create_client_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_create_client(cancellable?: Gio.Cancellable | null): Promise<string>;
+            call_create_client(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.CreateClient">CreateClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -4721,7 +5037,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_create_client(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with gclue_manager_call_create_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_create_client().
@@ -4745,7 +5061,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param arg_client Argument to pass with the method invocation.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_delete_client(arg_client: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_delete_client(arg_client: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.DeleteClient">DeleteClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -4775,7 +5091,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 arg_client: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_manager_call_delete_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_delete_client().
@@ -4799,7 +5115,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_manager_call_get_client_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_get_client(cancellable?: Gio.Cancellable | null): Promise<string>;
+            call_get_client(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.GetClient">GetClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -4822,7 +5138,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_get_client(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with gclue_manager_call_get_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_get_client().
@@ -4897,9 +5213,16 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              * @returns A #GDBusInterfaceInfo. Do not free.
              */
-            get_info(): Gio.DBusInterfaceInfo;
+            get_info(): Gio.DBusInterfaceInfo | null;
+            // Conflicted with Gio.DBusInterfaceSkeleton.get_info
+            get_info(...args: never[]): any;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -4914,8 +5237,15 @@ declare module 'gi://Geoclue?version=2.0' {
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by `interface_`.
+             *
+             * This can return %NULL if no #GDBusInterfaceInfo was provided during
+             * construction of `interface_` and is also not made available otherwise.
+             * For example, #GDBusProxy implements #GDBusInterface but allows for a %NULL
+             * #GDBusInterfaceInfo.
              */
-            vfunc_get_info(): Gio.DBusInterfaceInfo;
+            vfunc_get_info(): Gio.DBusInterfaceInfo | null;
+            // Conflicted with Gio.DBusInterfaceSkeleton.vfunc_get_info
+            vfunc_get_info(...args: never[]): any;
             /**
              * Sets the #GDBusObject for `interface_` to `object`.
              *
@@ -5365,6 +5695,16 @@ declare module 'gi://Geoclue?version=2.0' {
         }
 
         namespace Simple {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::accuracy-level': (pspec: GObject.ParamSpec) => void;
+                'notify::client': (pspec: GObject.ParamSpec) => void;
+                'notify::desktop-id': (pspec: GObject.ParamSpec) => void;
+                'notify::distance-threshold': (pspec: GObject.ParamSpec) => void;
+                'notify::location': (pspec: GObject.ParamSpec) => void;
+                'notify::time-threshold': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncInitable.ConstructorProps {
@@ -5444,6 +5784,15 @@ declare module 'gi://Geoclue?version=2.0' {
              */
             get timeThreshold(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Simple.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Simple.ConstructorProps>, ...args: any[]);
@@ -5470,6 +5819,24 @@ declare module 'gi://Geoclue?version=2.0' {
                 distance_threshold: number,
                 cancellable?: Gio.Cancellable | null,
             ): Simple;
+
+            // Signals
+
+            connect<K extends keyof Simple.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Simple.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Simple.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Simple.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Simple.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Simple.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -5567,7 +5934,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            init_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Starts asynchronous initialization of the object implementing the
              * interface. This must be done before any real use of the object after
@@ -5659,7 +6026,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes asynchronous initialization and returns the result.
              * See g_async_initable_init_async().
@@ -6234,6 +6601,31 @@ declare module 'gi://Geoclue?version=2.0' {
         }
 
         namespace Client {
+            /**
+             * Interface for implementing Client.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Handler for the #GClueClient::handle-start signal.
+                 * @param invocation
+                 */
+                vfunc_handle_start(invocation: Gio.DBusMethodInvocation): boolean;
+                /**
+                 * Handler for the #GClueClient::handle-stop signal.
+                 * @param invocation
+                 */
+                vfunc_handle_stop(invocation: Gio.DBusMethodInvocation): boolean;
+                /**
+                 * Handler for the #GClueClient::location-updated signal.
+                 * @param arg_old
+                 * @param arg_new
+                 */
+                vfunc_location_updated(arg_old: string, arg_new: string): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6266,7 +6658,7 @@ declare module 'gi://Geoclue?version=2.0' {
              */
             override_properties(klass: typeof GObject.Object, property_id_begin: number): number;
         }
-        interface Client extends GObject.Object {
+        interface Client extends GObject.Object, Client.Interface {
             // Properties
 
             /**
@@ -6350,7 +6742,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_client_call_start_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_start(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_start(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Start">Start()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -6373,7 +6765,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_start(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_client_call_start().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_start().
@@ -6396,7 +6788,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_client_call_stop_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_stop(cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_stop(cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Client.Stop">Stop()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -6419,7 +6811,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_stop(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_client_call_stop().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_client_call_stop().
@@ -6454,25 +6846,6 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param arg_new Argument to pass with the signal.
              */
             emit_location_updated(arg_old: string, arg_new: string): void;
-
-            // Virtual methods
-
-            /**
-             * Handler for the #GClueClient::handle-start signal.
-             * @param invocation
-             */
-            vfunc_handle_start(invocation: Gio.DBusMethodInvocation): boolean;
-            /**
-             * Handler for the #GClueClient::handle-stop signal.
-             * @param invocation
-             */
-            vfunc_handle_stop(invocation: Gio.DBusMethodInvocation): boolean;
-            /**
-             * Handler for the #GClueClient::location-updated signal.
-             * @param arg_old
-             * @param arg_new
-             */
-            vfunc_location_updated(arg_old: string, arg_new: string): void;
         }
 
         export const Client: ClientNamespace & {
@@ -6576,6 +6949,37 @@ declare module 'gi://Geoclue?version=2.0' {
         };
 
         namespace Manager {
+            /**
+             * Interface for implementing Manager.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Handler for the #GClueManager::handle-add-agent signal.
+                 * @param invocation
+                 * @param arg_id
+                 */
+                vfunc_handle_add_agent(invocation: Gio.DBusMethodInvocation, arg_id: string): boolean;
+                /**
+                 * Handler for the #GClueManager::handle-create-client signal.
+                 * @param invocation
+                 */
+                vfunc_handle_create_client(invocation: Gio.DBusMethodInvocation): boolean;
+                /**
+                 * Handler for the #GClueManager::handle-delete-client signal.
+                 * @param invocation
+                 * @param arg_client
+                 */
+                vfunc_handle_delete_client(invocation: Gio.DBusMethodInvocation, arg_client: string): boolean;
+                /**
+                 * Handler for the #GClueManager::handle-get-client signal.
+                 * @param invocation
+                 */
+                vfunc_handle_get_client(invocation: Gio.DBusMethodInvocation): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6602,7 +7006,7 @@ declare module 'gi://Geoclue?version=2.0' {
              */
             override_properties(klass: typeof GObject.Object, property_id_begin: number): number;
         }
-        interface Manager extends GObject.Object {
+        interface Manager extends GObject.Object, Manager.Interface {
             // Properties
 
             /**
@@ -6645,7 +7049,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param arg_id Argument to pass with the method invocation.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_add_agent(arg_id: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_add_agent(arg_id: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.AddAgent">AddAgent()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -6675,7 +7079,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 arg_id: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_manager_call_add_agent().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_add_agent().
@@ -6699,7 +7103,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_manager_call_create_client_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_create_client(cancellable?: Gio.Cancellable | null): Promise<string>;
+            call_create_client(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.CreateClient">CreateClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -6725,7 +7129,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_create_client(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with gclue_manager_call_create_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_create_client().
@@ -6749,7 +7153,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param arg_client Argument to pass with the method invocation.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_delete_client(arg_client: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            call_delete_client(arg_client: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.DeleteClient">DeleteClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -6779,7 +7183,7 @@ declare module 'gi://Geoclue?version=2.0' {
                 arg_client: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an operation started with gclue_manager_call_delete_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_delete_client().
@@ -6803,7 +7207,7 @@ declare module 'gi://Geoclue?version=2.0' {
              * See gclue_manager_call_get_client_sync() for the synchronous, blocking version of this method.
              * @param cancellable A #GCancellable or %NULL.
              */
-            call_get_client(cancellable?: Gio.Cancellable | null): Promise<string>;
+            call_get_client(cancellable?: Gio.Cancellable | null): globalThis.Promise<string>;
             /**
              * Asynchronously invokes the <link linkend="gdbus-method-org-freedesktop-GeoClue2-Manager.GetClient">GetClient()</link> D-Bus method on `proxy`.
              * When the operation is finished, `callback` will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
@@ -6826,7 +7230,7 @@ declare module 'gi://Geoclue?version=2.0' {
             call_get_client(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string> | void;
+            ): globalThis.Promise<string> | void;
             /**
              * Finishes an operation started with gclue_manager_call_get_client().
              * @param res The #GAsyncResult obtained from the #GAsyncReadyCallback passed to gclue_manager_call_get_client().
@@ -6871,31 +7275,6 @@ declare module 'gi://Geoclue?version=2.0' {
              * @param client Parameter to return.
              */
             complete_get_client(invocation: Gio.DBusMethodInvocation, client: string): void;
-
-            // Virtual methods
-
-            /**
-             * Handler for the #GClueManager::handle-add-agent signal.
-             * @param invocation
-             * @param arg_id
-             */
-            vfunc_handle_add_agent(invocation: Gio.DBusMethodInvocation, arg_id: string): boolean;
-            /**
-             * Handler for the #GClueManager::handle-create-client signal.
-             * @param invocation
-             */
-            vfunc_handle_create_client(invocation: Gio.DBusMethodInvocation): boolean;
-            /**
-             * Handler for the #GClueManager::handle-delete-client signal.
-             * @param invocation
-             * @param arg_client
-             */
-            vfunc_handle_delete_client(invocation: Gio.DBusMethodInvocation, arg_client: string): boolean;
-            /**
-             * Handler for the #GClueManager::handle-get-client signal.
-             * @param invocation
-             */
-            vfunc_handle_get_client(invocation: Gio.DBusMethodInvocation): boolean;
         }
 
         export const Manager: ManagerNamespace & {

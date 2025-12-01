@@ -33,6 +33,12 @@ declare module 'gi://GstVulkanWayland?version=1.0' {
          */
 
         namespace VulkanDisplayWayland {
+            // Signal signatures
+            interface SignalSignatures extends GstVulkan.VulkanDisplay.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstVulkan.VulkanDisplay.ConstructorProps {}
@@ -44,6 +50,15 @@ declare module 'gi://GstVulkanWayland?version=1.0' {
          */
         class VulkanDisplayWayland extends GstVulkan.VulkanDisplay {
             static $gtype: GObject.GType<VulkanDisplayWayland>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanDisplayWayland.SignalSignatures;
 
             // Fields
 
@@ -65,6 +80,26 @@ declare module 'gi://GstVulkanWayland?version=1.0' {
             static ['new'](...args: never[]): any;
 
             static new_with_display(display?: any | null): VulkanDisplayWayland;
+
+            // Signals
+
+            connect<K extends keyof VulkanDisplayWayland.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDisplayWayland.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanDisplayWayland.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanDisplayWayland.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanDisplayWayland.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanDisplayWayland.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         type VulkanDisplayWaylandClass = typeof VulkanDisplayWayland;

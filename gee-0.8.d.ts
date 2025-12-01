@@ -84,10 +84,10 @@ declare module 'gi://Gee?version=0.8' {
         function functions_get_equal_func_for(t: GObject.GType): [EqualDataFunc, any];
         function functions_get_hash_func_for(t: GObject.GType): [HashDataFunc, any];
         function functions_get_compare_func_for(t: GObject.GType): [GLib.CompareDataFunc, any];
-        function hazard_pointer_policy_is_concrete(): boolean;
-        function hazard_pointer_policy_is_blocking(): boolean;
-        function hazard_pointer_policy_is_safe(): boolean;
-        function hazard_pointer_policy_to_concrete(): HazardPointerPolicy;
+        function hazard_pointer_policy_is_concrete(self: HazardPointerPolicy | null): boolean;
+        function hazard_pointer_policy_is_blocking(self: HazardPointerPolicy | null): boolean;
+        function hazard_pointer_policy_is_safe(self: HazardPointerPolicy | null): boolean;
+        function hazard_pointer_policy_to_concrete(self: HazardPointerPolicy | null): HazardPointerPolicy;
         function task(g_type: GObject.GType, g_dup_func: GObject.BoxedCopyFunc, task: Task): Future;
         function async_task(): globalThis.Promise<void>;
         function async_task(_callback_: Gio.AsyncReadyCallback | null): void;
@@ -176,6 +176,16 @@ declare module 'gi://Gee?version=0.8' {
             ): Iterator;
         }
         namespace AbstractBidirList {
+            // Signal signatures
+            interface SignalSignatures extends AbstractList.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractList.ConstructorProps, BidirList.ConstructorProps {
@@ -204,11 +214,40 @@ declare module 'gi://Gee?version=0.8' {
             get read_only_view(): BidirList;
             get readOnlyView(): BidirList;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractBidirList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractBidirList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractBidirList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractBidirList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractBidirList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractBidirList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractBidirList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractBidirList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -268,6 +307,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractBidirSortedSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractSortedSet.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractSortedSet.ConstructorProps, BidirSortedSet.ConstructorProps {
@@ -296,11 +345,40 @@ declare module 'gi://Gee?version=0.8' {
             get read_only_view(): BidirSortedSet;
             get readOnlyView(): BidirSortedSet;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractBidirSortedSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractBidirSortedSet.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractBidirSortedSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractBidirSortedSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractBidirSortedSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractBidirSortedSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractBidirSortedSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractBidirSortedSet.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -356,6 +434,24 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractBidirSortedMap {
+            // Signal signatures
+            interface SignalSignatures extends AbstractSortedMap.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::ascending-keys': (pspec: GObject.ParamSpec) => void;
+                'notify::ascending-entries': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::keys': (pspec: GObject.ParamSpec) => void;
+                'notify::values': (pspec: GObject.ParamSpec) => void;
+                'notify::entries': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractSortedMap.ConstructorProps, BidirSortedMap.ConstructorProps {
@@ -398,11 +494,40 @@ declare module 'gi://Gee?version=0.8' {
             // This accessor conflicts with another accessor's type in a parent class or interface.
             get readOnlyView(): BidirSortedMap | any;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractBidirSortedMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractBidirSortedMap.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractBidirSortedMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractBidirSortedMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractBidirSortedMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractBidirSortedMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractBidirSortedMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractBidirSortedMap.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -454,10 +579,21 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractCollection {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends GObject.Object.ConstructorProps,
+                extends
+                    GObject.Object.ConstructorProps,
                     Traversable.ConstructorProps,
                     Iterable.ConstructorProps,
                     Collection.ConstructorProps {
@@ -492,11 +628,40 @@ declare module 'gi://Gee?version=0.8' {
             get read_only_view(): Collection;
             get readOnlyView(): Collection;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractCollection.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractCollection.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractCollection.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractCollection.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractCollection.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractCollection.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractCollection.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1039,6 +1204,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractList {
+            // Signal signatures
+            interface SignalSignatures extends AbstractCollection.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractCollection.ConstructorProps, List.ConstructorProps {
@@ -1067,11 +1242,38 @@ declare module 'gi://Gee?version=0.8' {
             get read_only_view(): List;
             get readOnlyView(): List;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractList.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1172,10 +1374,27 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractMap {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::keys': (pspec: GObject.ParamSpec) => void;
+                'notify::values': (pspec: GObject.ParamSpec) => void;
+                'notify::entries': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends GObject.Object.ConstructorProps,
+                extends
+                    GObject.Object.ConstructorProps,
                     Traversable.ConstructorProps,
                     Iterable.ConstructorProps,
                     Map.ConstructorProps {
@@ -1228,11 +1447,38 @@ declare module 'gi://Gee?version=0.8' {
             get read_only_view(): Map;
             get readOnlyView(): Map;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractMap.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractMap.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1774,6 +2020,18 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractMultiMap {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, MultiMap.ConstructorProps {
@@ -1810,11 +2068,40 @@ declare module 'gi://Gee?version=0.8' {
             get v_destroy_func(): GLib.DestroyNotify;
             get vDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractMultiMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractMultiMap.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractMultiMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractMultiMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractMultiMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractMultiMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractMultiMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractMultiMap.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2319,6 +2606,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractMultiSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractCollection.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractCollection.ConstructorProps, MultiSet.ConstructorProps {
@@ -2343,11 +2640,40 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractMultiSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractMultiSet.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractMultiSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractMultiSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractMultiSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractMultiSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractMultiSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractMultiSet.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2426,6 +2752,19 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractQueue {
+            // Signal signatures
+            interface SignalSignatures extends AbstractCollection.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::remaining-capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::is-full': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractCollection.ConstructorProps, Queue.ConstructorProps {
@@ -2460,11 +2799,38 @@ declare module 'gi://Gee?version=0.8' {
             get is_full(): boolean;
             get isFull(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractQueue.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractQueue.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractQueue.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractQueue.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractQueue.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractQueue.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2557,6 +2923,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractCollection.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractCollection.ConstructorProps, Set.ConstructorProps {
@@ -2585,11 +2961,38 @@ declare module 'gi://Gee?version=0.8' {
             get read_only_view(): Set;
             get readOnlyView(): Set;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractSet.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2666,6 +3069,24 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractSortedMap {
+            // Signal signatures
+            interface SignalSignatures extends AbstractMap.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::ascending-keys': (pspec: GObject.ParamSpec) => void;
+                'notify::ascending-entries': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::keys': (pspec: GObject.ParamSpec) => void;
+                'notify::values': (pspec: GObject.ParamSpec) => void;
+                'notify::entries': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractMap.ConstructorProps, SortedMap.ConstructorProps {
@@ -2714,11 +3135,40 @@ declare module 'gi://Gee?version=0.8' {
             get readOnlyView(): AbstractSortedMap;
             get read_only_view(): AbstractSortedMap;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractSortedMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractSortedMap.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractSortedMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractSortedMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractSortedMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractSortedMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractSortedMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractSortedMap.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2810,6 +3260,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace AbstractSortedSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractSet.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractSet.ConstructorProps, SortedSet.ConstructorProps {
@@ -2838,11 +3298,40 @@ declare module 'gi://Gee?version=0.8' {
             get read_only_view(): SortedSet;
             get readOnlyView(): SortedSet;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AbstractSortedSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AbstractSortedSet.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AbstractSortedSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractSortedSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AbstractSortedSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AbstractSortedSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AbstractSortedSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AbstractSortedSet.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2894,6 +3383,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace ArrayList {
+            // Signal signatures
+            interface SignalSignatures extends AbstractBidirList.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractBidirList.ConstructorProps {
@@ -2918,6 +3417,15 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ArrayList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ArrayList.ConstructorProps>, ...args: any[]);
@@ -2937,6 +3445,24 @@ declare module 'gi://Gee?version=0.8' {
                 equal_func?: EqualDataFunc | null,
             ): ArrayList;
 
+            // Signals
+
+            connect<K extends keyof ArrayList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ArrayList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ArrayList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ArrayList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ArrayList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ArrayList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             add_all(collection: Collection): boolean;
@@ -2944,6 +3470,20 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace ArrayQueue {
+            // Signal signatures
+            interface SignalSignatures extends AbstractQueue.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::is-empty': (pspec: GObject.ParamSpec) => void;
+                'notify::capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::remaining-capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::is-full': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractQueue.ConstructorProps, Deque.ConstructorProps {
@@ -2972,6 +3512,15 @@ declare module 'gi://Gee?version=0.8' {
             get is_empty(): boolean;
             get isEmpty(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ArrayQueue.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ArrayQueue.ConstructorProps>, ...args: any[]);
@@ -2983,6 +3532,24 @@ declare module 'gi://Gee?version=0.8' {
                 g_dup_func: GObject.BoxedCopyFunc,
                 equal_func?: EqualDataFunc | null,
             ): ArrayQueue;
+
+            // Signals
+
+            connect<K extends keyof ArrayQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ArrayQueue.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ArrayQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ArrayQueue.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ArrayQueue.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ArrayQueue.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3030,6 +3597,17 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace ConcurrentList {
+            // Signal signatures
+            interface SignalSignatures extends AbstractList.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::is-empty': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractList.ConstructorProps {
@@ -3058,6 +3636,15 @@ declare module 'gi://Gee?version=0.8' {
             get is_empty(): boolean;
             get isEmpty(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ConcurrentList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ConcurrentList.ConstructorProps>, ...args: any[]);
@@ -3070,6 +3657,24 @@ declare module 'gi://Gee?version=0.8' {
                 equal_func?: EqualDataFunc | null,
             ): ConcurrentList;
 
+            // Signals
+
+            connect<K extends keyof ConcurrentList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConcurrentList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ConcurrentList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConcurrentList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ConcurrentList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ConcurrentList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_equal_func(): [EqualDataFunc, any];
@@ -3077,6 +3682,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace ConcurrentSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractSortedSet.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractSortedSet.ConstructorProps {
@@ -3101,6 +3716,15 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ConcurrentSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ConcurrentSet.ConstructorProps>, ...args: any[]);
@@ -3112,9 +3736,43 @@ declare module 'gi://Gee?version=0.8' {
                 g_dup_func: GObject.BoxedCopyFunc,
                 compare_func?: GLib.CompareDataFunc | null,
             ): ConcurrentSet;
+
+            // Signals
+
+            connect<K extends keyof ConcurrentSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConcurrentSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ConcurrentSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConcurrentSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ConcurrentSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ConcurrentSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         namespace HashMap {
+            // Signal signatures
+            interface SignalSignatures extends AbstractMap.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::keys': (pspec: GObject.ParamSpec) => void;
+                'notify::values': (pspec: GObject.ParamSpec) => void;
+                'notify::entries': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractMap.ConstructorProps {
@@ -3151,6 +3809,15 @@ declare module 'gi://Gee?version=0.8' {
             get v_destroy_func(): GLib.DestroyNotify;
             get vDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HashMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HashMap.ConstructorProps>, ...args: any[]);
@@ -3167,6 +3834,24 @@ declare module 'gi://Gee?version=0.8' {
                 value_equal_func?: EqualDataFunc | null,
             ): HashMap;
 
+            // Signals
+
+            connect<K extends keyof HashMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HashMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HashMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HashMap.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_key_hash_func(): [HashDataFunc, any];
@@ -3175,6 +3860,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace HashMultiMap {
+            // Signal signatures
+            interface SignalSignatures extends AbstractMultiMap.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractMultiMap.ConstructorProps {
@@ -3211,6 +3906,15 @@ declare module 'gi://Gee?version=0.8' {
             get v_destroy_func(): GLib.DestroyNotify;
             get vDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HashMultiMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HashMultiMap.ConstructorProps>, ...args: any[]);
@@ -3228,6 +3932,24 @@ declare module 'gi://Gee?version=0.8' {
                 value_equal_func?: EqualDataFunc | null,
             ): HashMultiMap;
 
+            // Signals
+
+            connect<K extends keyof HashMultiMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashMultiMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HashMultiMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashMultiMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HashMultiMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HashMultiMap.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_key_hash_func(): [HashDataFunc, any];
@@ -3237,6 +3959,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace HashMultiSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractMultiSet.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractMultiSet.ConstructorProps {
@@ -3261,6 +3993,15 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HashMultiSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HashMultiSet.ConstructorProps>, ...args: any[]);
@@ -3281,6 +4022,24 @@ declare module 'gi://Gee?version=0.8' {
                 equal_func?: EqualDataFunc | null,
             ): HashMultiSet;
 
+            // Signals
+
+            connect<K extends keyof HashMultiSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashMultiSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HashMultiSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashMultiSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HashMultiSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HashMultiSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_hash_func(): [HashDataFunc, any];
@@ -3288,6 +4047,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace HashSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractSet.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractSet.ConstructorProps {
@@ -3312,6 +4081,15 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: HashSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<HashSet.ConstructorProps>, ...args: any[]);
@@ -3325,10 +4103,33 @@ declare module 'gi://Gee?version=0.8' {
                 equal_func?: EqualDataFunc | null,
             ): HashSet;
 
+            // Signals
+
+            connect<K extends keyof HashSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof HashSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, HashSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof HashSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<HashSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_hash_func(): [HashDataFunc, any];
             get_equal_func(): [EqualDataFunc, any];
+        }
+
+        namespace Lazy {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
         }
 
         class Lazy {
@@ -3346,6 +4147,24 @@ declare module 'gi://Gee?version=0.8' {
 
             static from_value(g_type: GObject.GType, g_dup_func: GObject.BoxedCopyFunc, item: any): Lazy;
 
+            // Signals
+
+            connect<K extends keyof Lazy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Lazy.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Lazy.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Lazy.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Lazy.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Lazy.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             ['eval'](): void;
@@ -3355,12 +4174,23 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace LinkedList {
+            // Signal signatures
+            interface SignalSignatures extends AbstractBidirList.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::remaining-capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::is-full': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends AbstractBidirList.ConstructorProps,
-                    Queue.ConstructorProps,
-                    Deque.ConstructorProps {
+                extends AbstractBidirList.ConstructorProps, Queue.ConstructorProps, Deque.ConstructorProps {
                 g_type: GObject.GType;
                 gType: GObject.GType;
                 g_dup_func: GObject.BoxedCopyFunc;
@@ -3386,6 +4216,15 @@ declare module 'gi://Gee?version=0.8' {
             get readOnlyView(): LinkedList;
             get read_only_view(): LinkedList;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: LinkedList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<LinkedList.ConstructorProps>, ...args: any[]);
@@ -3397,6 +4236,24 @@ declare module 'gi://Gee?version=0.8' {
                 g_dup_func: GObject.BoxedCopyFunc,
                 equal_func?: EqualDataFunc | null,
             ): LinkedList;
+
+            // Signals
+
+            connect<K extends keyof LinkedList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LinkedList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof LinkedList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LinkedList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof LinkedList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<LinkedList.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3445,6 +4302,19 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace PriorityQueue {
+            // Signal signatures
+            interface SignalSignatures extends AbstractQueue.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::remaining-capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::is-full': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractQueue.ConstructorProps {
@@ -3469,6 +4339,15 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PriorityQueue.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<PriorityQueue.ConstructorProps>, ...args: any[]);
@@ -3481,11 +4360,34 @@ declare module 'gi://Gee?version=0.8' {
                 compare_func?: GLib.CompareDataFunc | null,
             ): PriorityQueue;
 
+            // Signals
+
+            connect<K extends keyof PriorityQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PriorityQueue.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PriorityQueue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PriorityQueue.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PriorityQueue.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PriorityQueue.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             offer(element: any): boolean;
             drain(recipient: Collection, amount: number): number;
             get_compare_func(): [GLib.CompareDataFunc, any];
+        }
+
+        namespace Promise {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
         }
 
         class Promise {
@@ -3501,6 +4403,24 @@ declare module 'gi://Gee?version=0.8' {
 
             static ['new'](g_type: GObject.GType, g_dup_func: GObject.BoxedCopyFunc): Promise;
 
+            // Signals
+
+            connect<K extends keyof Promise.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Promise.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Promise.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Promise.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Promise.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Promise.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             set_value(value: any): void;
@@ -3509,6 +4429,24 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace TreeMap {
+            // Signal signatures
+            interface SignalSignatures extends AbstractBidirSortedMap.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::ascending-keys': (pspec: GObject.ParamSpec) => void;
+                'notify::ascending-entries': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::keys': (pspec: GObject.ParamSpec) => void;
+                'notify::values': (pspec: GObject.ParamSpec) => void;
+                'notify::entries': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractBidirSortedMap.ConstructorProps {
@@ -3545,6 +4483,15 @@ declare module 'gi://Gee?version=0.8' {
             get v_destroy_func(): GLib.DestroyNotify;
             get vDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TreeMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TreeMap.ConstructorProps>, ...args: any[]);
@@ -3560,6 +4507,24 @@ declare module 'gi://Gee?version=0.8' {
                 value_equal_func?: EqualDataFunc | null,
             ): TreeMap;
 
+            // Signals
+
+            connect<K extends keyof TreeMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TreeMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TreeMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TreeMap.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_key_compare_func(): [GLib.CompareDataFunc, any];
@@ -3567,6 +4532,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace TreeMultiMap {
+            // Signal signatures
+            interface SignalSignatures extends AbstractMultiMap.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractMultiMap.ConstructorProps {
@@ -3603,6 +4578,15 @@ declare module 'gi://Gee?version=0.8' {
             get v_destroy_func(): GLib.DestroyNotify;
             get vDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TreeMultiMap.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TreeMultiMap.ConstructorProps>, ...args: any[]);
@@ -3618,6 +4602,24 @@ declare module 'gi://Gee?version=0.8' {
                 value_compare_func?: GLib.CompareDataFunc | null,
             ): TreeMultiMap;
 
+            // Signals
+
+            connect<K extends keyof TreeMultiMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeMultiMap.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TreeMultiMap.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeMultiMap.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TreeMultiMap.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TreeMultiMap.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_key_compare_func(): [GLib.CompareDataFunc, any];
@@ -3625,6 +4627,16 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace TreeMultiSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractMultiSet.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractMultiSet.ConstructorProps {
@@ -3649,6 +4661,15 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TreeMultiSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TreeMultiSet.ConstructorProps>, ...args: any[]);
@@ -3661,12 +4682,40 @@ declare module 'gi://Gee?version=0.8' {
                 compare_func?: GLib.CompareDataFunc | null,
             ): TreeMultiSet;
 
+            // Signals
+
+            connect<K extends keyof TreeMultiSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeMultiSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TreeMultiSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeMultiSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TreeMultiSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TreeMultiSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_compare_func(): [GLib.CompareDataFunc, any];
         }
 
         namespace TreeSet {
+            // Signal signatures
+            interface SignalSignatures extends AbstractBidirSortedSet.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends AbstractBidirSortedSet.ConstructorProps {
@@ -3691,6 +4740,15 @@ declare module 'gi://Gee?version=0.8' {
             get g_destroy_func(): GLib.DestroyNotify;
             get gDestroyFunc(): GLib.DestroyNotify;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TreeSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<TreeSet.ConstructorProps>, ...args: any[]);
@@ -3703,18 +4761,47 @@ declare module 'gi://Gee?version=0.8' {
                 compare_func?: GLib.CompareDataFunc | null,
             ): TreeSet;
 
+            // Signals
+
+            connect<K extends keyof TreeSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TreeSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TreeSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TreeSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TreeSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             get_compare_func(): [GLib.CompareDataFunc, any];
         }
 
         namespace UnrolledLinkedList {
+            // Signal signatures
+            interface SignalSignatures extends AbstractBidirList.SignalSignatures {
+                'notify::g-type': (pspec: GObject.ParamSpec) => void;
+                'notify::g-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::g-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only-view': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+                'notify::capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::remaining-capacity': (pspec: GObject.ParamSpec) => void;
+                'notify::is-full': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
-                extends AbstractBidirList.ConstructorProps,
-                    Queue.ConstructorProps,
-                    Deque.ConstructorProps {
+                extends AbstractBidirList.ConstructorProps, Queue.ConstructorProps, Deque.ConstructorProps {
                 g_type: GObject.GType;
                 gType: GObject.GType;
                 g_dup_func: GObject.BoxedCopyFunc;
@@ -3740,6 +4827,15 @@ declare module 'gi://Gee?version=0.8' {
             get readOnlyView(): UnrolledLinkedList;
             get read_only_view(): UnrolledLinkedList;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: UnrolledLinkedList.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<UnrolledLinkedList.ConstructorProps>, ...args: any[]);
@@ -3751,6 +4847,26 @@ declare module 'gi://Gee?version=0.8' {
                 g_dup_func: GObject.BoxedCopyFunc,
                 equal_func?: EqualDataFunc | null,
             ): UnrolledLinkedList;
+
+            // Signals
+
+            connect<K extends keyof UnrolledLinkedList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnrolledLinkedList.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UnrolledLinkedList.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnrolledLinkedList.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UnrolledLinkedList.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UnrolledLinkedList.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3797,6 +4913,19 @@ declare module 'gi://Gee?version=0.8' {
         }
 
         namespace MapEntry {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::k-type': (pspec: GObject.ParamSpec) => void;
+                'notify::k-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::k-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-type': (pspec: GObject.ParamSpec) => void;
+                'notify::v-dup-func': (pspec: GObject.ParamSpec) => void;
+                'notify::v-destroy-func': (pspec: GObject.ParamSpec) => void;
+                'notify::key': (pspec: GObject.ParamSpec) => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -3842,11 +4971,38 @@ declare module 'gi://Gee?version=0.8' {
             get read_only(): boolean;
             get readOnly(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MapEntry.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MapEntry.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof MapEntry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MapEntry.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MapEntry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MapEntry.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MapEntry.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MapEntry.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4244,6 +5400,19 @@ declare module 'gi://Gee?version=0.8' {
         type SortedSetIface = typeof SortedSet;
         type TraversableIface = typeof Traversable;
         namespace BidirIterator {
+            /**
+             * Interface for implementing BidirIterator.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Iterator.Interface {
+                // Virtual methods
+
+                vfunc_previous(): boolean;
+                vfunc_has_previous(): boolean;
+                vfunc_first(): boolean;
+                vfunc_last(): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Iterator.ConstructorProps {}
@@ -4253,20 +5422,13 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<BidirIterator>;
             prototype: BidirIterator;
         }
-        interface BidirIterator extends Iterator {
+        interface BidirIterator extends Iterator, BidirIterator.Interface {
             // Methods
 
             previous(): boolean;
             has_previous(): boolean;
             first(): boolean;
             last(): boolean;
-
-            // Virtual methods
-
-            vfunc_previous(): boolean;
-            vfunc_has_previous(): boolean;
-            vfunc_first(): boolean;
-            vfunc_last(): boolean;
         }
 
         export const BidirIterator: BidirIteratorNamespace & {
@@ -4274,6 +5436,17 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace BidirList {
+            /**
+             * Interface for implementing BidirList.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends List.Interface {
+                // Virtual methods
+
+                vfunc_bidir_list_iterator(): BidirListIterator;
+                vfunc_get_read_only_view(): BidirList;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends List.ConstructorProps {
@@ -4297,10 +5470,16 @@ declare module 'gi://Gee?version=0.8' {
             bidir_list_iterator(): BidirListIterator;
             get_read_only_view(): BidirList;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_bidir_list_iterator(): BidirListIterator;
+            /** @ignore */
             vfunc_get_read_only_view(): BidirList;
+            /** @ignore */
+            vfunc_get_read_only_view(): List;
+            /** @ignore */
+            vfunc_get_read_only_view(): Collection;
         }
 
         export const BidirList: BidirListNamespace & {
@@ -4308,6 +5487,16 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace BidirListIterator {
+            /**
+             * Interface for implementing BidirListIterator.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends BidirIterator.Interface {
+                // Virtual methods
+
+                vfunc_insert(item: any): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends BidirIterator.ConstructorProps {}
@@ -4317,14 +5506,10 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<BidirListIterator>;
             prototype: BidirListIterator;
         }
-        interface BidirListIterator extends BidirIterator {
+        interface BidirListIterator extends BidirIterator, BidirListIterator.Interface {
             // Methods
 
             insert(item: any): void;
-
-            // Virtual methods
-
-            vfunc_insert(item: any): void;
         }
 
         export const BidirListIterator: BidirListIteratorNamespace & {
@@ -4332,6 +5517,19 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace BidirMapIterator {
+            /**
+             * Interface for implementing BidirMapIterator.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends MapIterator.Interface {
+                // Virtual methods
+
+                vfunc_previous(): boolean;
+                vfunc_has_previous(): boolean;
+                vfunc_first(): boolean;
+                vfunc_last(): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends MapIterator.ConstructorProps {}
@@ -4341,20 +5539,13 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<BidirMapIterator>;
             prototype: BidirMapIterator;
         }
-        interface BidirMapIterator extends MapIterator {
+        interface BidirMapIterator extends MapIterator, BidirMapIterator.Interface {
             // Methods
 
             previous(): boolean;
             has_previous(): boolean;
             first(): boolean;
             last(): boolean;
-
-            // Virtual methods
-
-            vfunc_previous(): boolean;
-            vfunc_has_previous(): boolean;
-            vfunc_first(): boolean;
-            vfunc_last(): boolean;
         }
 
         export const BidirMapIterator: BidirMapIteratorNamespace & {
@@ -4362,6 +5553,17 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace BidirSortedSet {
+            /**
+             * Interface for implementing BidirSortedSet.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends SortedSet.Interface {
+                // Virtual methods
+
+                vfunc_bidir_iterator(): BidirIterator;
+                vfunc_get_read_only_view(): BidirSortedSet;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends SortedSet.ConstructorProps {
@@ -4387,10 +5589,18 @@ declare module 'gi://Gee?version=0.8' {
             bidir_iterator(): BidirIterator;
             get_read_only_view(): BidirSortedSet;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_bidir_iterator(): BidirIterator;
+            /** @ignore */
             vfunc_get_read_only_view(): BidirSortedSet;
+            /** @ignore */
+            vfunc_get_read_only_view(): SortedSet;
+            /** @ignore */
+            vfunc_get_read_only_view(): Set;
+            /** @ignore */
+            vfunc_get_read_only_view(): Collection;
         }
 
         export const BidirSortedSet: BidirSortedSetNamespace & {
@@ -4398,6 +5608,17 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace BidirSortedMap {
+            /**
+             * Interface for implementing BidirSortedMap.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends SortedMap.Interface {
+                // Virtual methods
+
+                vfunc_bidir_map_iterator(): BidirMapIterator;
+                vfunc_get_read_only_view(): BidirSortedMap;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends SortedMap.ConstructorProps {
@@ -4428,10 +5649,16 @@ declare module 'gi://Gee?version=0.8' {
             bidir_map_iterator(): BidirMapIterator;
             get_read_only_view(): BidirSortedMap;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_bidir_map_iterator(): BidirMapIterator;
+            /** @ignore */
             vfunc_get_read_only_view(): BidirSortedMap;
+            /** @ignore */
+            vfunc_get_read_only_view(): SortedMap;
+            /** @ignore */
+            vfunc_get_read_only_view(): Map;
         }
 
         export const BidirSortedMap: BidirSortedMapNamespace & {
@@ -4439,6 +5666,34 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Collection {
+            /**
+             * Interface for implementing Collection.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Iterable.Interface {
+                // Virtual methods
+
+                vfunc_contains(item: any): boolean;
+                vfunc_add(item: any): boolean;
+                vfunc_remove(item: any): boolean;
+                vfunc_clear(): void;
+                vfunc_add_all(collection: Collection): boolean;
+                vfunc_contains_all(collection: Collection): boolean;
+                vfunc_remove_all(collection: Collection): boolean;
+                vfunc_retain_all(collection: Collection): boolean;
+                vfunc_to_array(): any[];
+                vfunc_add_all_array(array: any[]): boolean;
+                vfunc_contains_all_array(array: any[]): boolean;
+                vfunc_remove_all_array(array: any[]): boolean;
+                vfunc_add_all_iterator(iter: Iterator): boolean;
+                vfunc_contains_all_iterator(iter: Iterator): boolean;
+                vfunc_remove_all_iterator(iter: Iterator): boolean;
+                vfunc_get_size(): number;
+                vfunc_get_is_empty(): boolean;
+                vfunc_get_read_only(): boolean;
+                vfunc_get_read_only_view(): Collection;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Iterable.ConstructorProps {
@@ -4456,7 +5711,7 @@ declare module 'gi://Gee?version=0.8' {
 
             empty(g_type: GObject.GType, g_dup_func: GObject.BoxedCopyFunc): Collection;
         }
-        interface Collection extends Iterable {
+        interface Collection extends Iterable, Collection.Interface {
             // Properties
 
             get size(): number;
@@ -4486,28 +5741,6 @@ declare module 'gi://Gee?version=0.8' {
             get_is_empty(): boolean;
             get_read_only(): boolean;
             get_read_only_view(): Collection;
-
-            // Virtual methods
-
-            vfunc_contains(item: any): boolean;
-            vfunc_add(item: any): boolean;
-            vfunc_remove(item: any): boolean;
-            vfunc_clear(): void;
-            vfunc_add_all(collection: Collection): boolean;
-            vfunc_contains_all(collection: Collection): boolean;
-            vfunc_remove_all(collection: Collection): boolean;
-            vfunc_retain_all(collection: Collection): boolean;
-            vfunc_to_array(): any[];
-            vfunc_add_all_array(array: any[]): boolean;
-            vfunc_contains_all_array(array: any[]): boolean;
-            vfunc_remove_all_array(array: any[]): boolean;
-            vfunc_add_all_iterator(iter: Iterator): boolean;
-            vfunc_contains_all_iterator(iter: Iterator): boolean;
-            vfunc_remove_all_iterator(iter: Iterator): boolean;
-            vfunc_get_size(): number;
-            vfunc_get_is_empty(): boolean;
-            vfunc_get_read_only(): boolean;
-            vfunc_get_read_only_view(): Collection;
         }
 
         export const Collection: CollectionNamespace & {
@@ -4515,6 +5748,16 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Comparable {
+            /**
+             * Interface for implementing Comparable.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_compare_to(object: any): number;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4524,14 +5767,10 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<Comparable>;
             prototype: Comparable;
         }
-        interface Comparable extends GObject.Object {
+        interface Comparable extends GObject.Object, Comparable.Interface {
             // Methods
 
             compare_to(object: any): number;
-
-            // Virtual methods
-
-            vfunc_compare_to(object: any): number;
         }
 
         export const Comparable: ComparableNamespace & {
@@ -4539,6 +5778,23 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Deque {
+            /**
+             * Interface for implementing Deque.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Queue.Interface {
+                // Virtual methods
+
+                vfunc_offer_head(element: any): boolean;
+                vfunc_peek_head(): any | null;
+                vfunc_poll_head(): any | null;
+                vfunc_drain_head(recipient: Collection, amount: number): number;
+                vfunc_offer_tail(element: any): boolean;
+                vfunc_peek_tail(): any | null;
+                vfunc_poll_tail(): any | null;
+                vfunc_drain_tail(recipient: Collection, amount: number): number;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Queue.ConstructorProps {}
@@ -4548,7 +5804,7 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<Deque>;
             prototype: Deque;
         }
-        interface Deque extends Queue {
+        interface Deque extends Queue, Deque.Interface {
             // Methods
 
             offer_head(element: any): boolean;
@@ -4559,17 +5815,6 @@ declare module 'gi://Gee?version=0.8' {
             peek_tail(): any | null;
             poll_tail(): any | null;
             drain_tail(recipient: Collection, amount: number): number;
-
-            // Virtual methods
-
-            vfunc_offer_head(element: any): boolean;
-            vfunc_peek_head(): any | null;
-            vfunc_poll_head(): any | null;
-            vfunc_drain_head(recipient: Collection, amount: number): number;
-            vfunc_offer_tail(element: any): boolean;
-            vfunc_peek_tail(): any | null;
-            vfunc_poll_tail(): any | null;
-            vfunc_drain_tail(recipient: Collection, amount: number): number;
         }
 
         export const Deque: DequeNamespace & {
@@ -4577,6 +5822,46 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Future {
+            /**
+             * Interface for implementing Future.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_wait(): any;
+                vfunc_wait_until(end_time: number): [boolean, any];
+                vfunc_wait_async(_callback_?: Gio.AsyncReadyCallback<this> | null): void;
+                vfunc_wait_finish(_res_: Gio.AsyncResult): any;
+                vfunc_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: Future.MapFunc): Future;
+                vfunc_light_map(
+                    a_type: GObject.GType,
+                    a_dup_func: GObject.BoxedCopyFunc,
+                    func: Future.LightMapFunc,
+                ): Future;
+                vfunc_light_map_broken(
+                    a_type: GObject.GType,
+                    a_dup_func: GObject.BoxedCopyFunc,
+                    func: Future.LightMapFunc,
+                ): Future;
+                vfunc_zip(
+                    a_type: GObject.GType,
+                    a_dup_func: GObject.BoxedCopyFunc,
+                    b_type: GObject.GType,
+                    b_dup_func: GObject.BoxedCopyFunc,
+                    zip_func: Future.ZipFunc,
+                    second: Future,
+                ): Future;
+                vfunc_flat_map(
+                    a_type: GObject.GType,
+                    a_dup_func: GObject.BoxedCopyFunc,
+                    func: Future.FlatMapFunc,
+                ): Future;
+                vfunc_get_value(): any | null;
+                vfunc_get_ready(): boolean;
+                vfunc_get_exception(): GLib.Error | null;
+            }
+
             interface MapFunc {
                 (
                     a_type: GObject.GType,
@@ -4629,7 +5914,7 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<Future>;
             prototype: Future;
         }
-        interface Future extends GObject.Object {
+        interface Future extends GObject.Object, Future.Interface {
             // Properties
 
             get ready(): boolean;
@@ -4643,7 +5928,7 @@ declare module 'gi://Gee?version=0.8' {
             wait_async(_callback_: Gio.AsyncReadyCallback<this> | null): void;
             wait_async(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<any> | void;
             wait_finish(_res_: Gio.AsyncResult): any;
-            map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: MapFunc): Future;
+            map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: Future.MapFunc): Future;
             light_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: Future.LightMapFunc): Future;
             light_map_broken(
                 a_type: GObject.GType,
@@ -4658,40 +5943,10 @@ declare module 'gi://Gee?version=0.8' {
                 zip_func: Future.ZipFunc,
                 second: Future,
             ): Future;
-            flat_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: FlatMapFunc): Future;
+            flat_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: Future.FlatMapFunc): Future;
             get_value(): any | null;
             get_ready(): boolean;
             get_exception(): GLib.Error | null;
-
-            // Virtual methods
-
-            vfunc_wait(): any;
-            vfunc_wait_until(end_time: number): [boolean, any];
-            vfunc_wait_async(_callback_?: Gio.AsyncReadyCallback<this> | null): void;
-            vfunc_wait_finish(_res_: Gio.AsyncResult): any;
-            vfunc_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: MapFunc): Future;
-            vfunc_light_map(
-                a_type: GObject.GType,
-                a_dup_func: GObject.BoxedCopyFunc,
-                func: Future.LightMapFunc,
-            ): Future;
-            vfunc_light_map_broken(
-                a_type: GObject.GType,
-                a_dup_func: GObject.BoxedCopyFunc,
-                func: Future.LightMapFunc,
-            ): Future;
-            vfunc_zip(
-                a_type: GObject.GType,
-                a_dup_func: GObject.BoxedCopyFunc,
-                b_type: GObject.GType,
-                b_dup_func: GObject.BoxedCopyFunc,
-                zip_func: Future.ZipFunc,
-                second: Future,
-            ): Future;
-            vfunc_flat_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, func: FlatMapFunc): Future;
-            vfunc_get_value(): any | null;
-            vfunc_get_ready(): boolean;
-            vfunc_get_exception(): GLib.Error | null;
         }
 
         export const Future: FutureNamespace & {
@@ -4699,6 +5954,17 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Hashable {
+            /**
+             * Interface for implementing Hashable.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_hash(): number;
+                vfunc_equal_to(object: any): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4708,16 +5974,11 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<Hashable>;
             prototype: Hashable;
         }
-        interface Hashable extends GObject.Object {
+        interface Hashable extends GObject.Object, Hashable.Interface {
             // Methods
 
             hash(): number;
             equal_to(object: any): boolean;
-
-            // Virtual methods
-
-            vfunc_hash(): number;
-            vfunc_equal_to(object: any): boolean;
         }
 
         export const Hashable: HashableNamespace & {
@@ -4725,6 +5986,16 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Iterable {
+            /**
+             * Interface for implementing Iterable.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_iterator(): Iterator;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -4734,14 +6005,10 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<Iterable>;
             prototype: Iterable;
         }
-        interface Iterable extends GObject.Object {
+        interface Iterable extends GObject.Object, Iterable.Interface {
             // Methods
 
             iterator(): Iterator;
-
-            // Virtual methods
-
-            vfunc_iterator(): Iterator;
         }
 
         export const Iterable: IterableNamespace & {
@@ -4749,6 +6016,21 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Iterator {
+            /**
+             * Interface for implementing Iterator.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_next(): boolean;
+                vfunc_has_next(): boolean;
+                vfunc_get(): any;
+                vfunc_remove(): void;
+                vfunc_get_valid(): boolean;
+                vfunc_get_read_only(): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4770,7 +6052,7 @@ declare module 'gi://Gee?version=0.8' {
             ): Iterator;
             concat(g_type: GObject.GType, g_dup_func: GObject.BoxedCopyFunc, iters: Iterator): Iterator;
         }
-        interface Iterator extends GObject.Object {
+        interface Iterator extends GObject.Object, Iterator.Interface {
             // Properties
 
             get valid(): boolean;
@@ -4785,15 +6067,6 @@ declare module 'gi://Gee?version=0.8' {
             remove(): void;
             get_valid(): boolean;
             get_read_only(): boolean;
-
-            // Virtual methods
-
-            vfunc_next(): boolean;
-            vfunc_has_next(): boolean;
-            vfunc_get(): any;
-            vfunc_remove(): void;
-            vfunc_get_valid(): boolean;
-            vfunc_get_read_only(): boolean;
         }
 
         export const Iterator: IteratorNamespace & {
@@ -4801,6 +6074,27 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace List {
+            /**
+             * Interface for implementing List.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Collection.Interface {
+                // Virtual methods
+
+                vfunc_list_iterator(): ListIterator;
+                vfunc_get(index: number): any;
+                vfunc_set(index: number, item: any): void;
+                vfunc_index_of(item: any): number;
+                vfunc_insert(index: number, item: any): void;
+                vfunc_remove_at(index: number): any;
+                vfunc_slice(start: number, stop: number): List | null;
+                vfunc_first(): any;
+                vfunc_last(): any;
+                vfunc_insert_all(index: number, collection: Collection): void;
+                vfunc_sort(compare_func?: GLib.CompareDataFunc | null): void;
+                vfunc_get_read_only_view(): List;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Collection.ConstructorProps {
@@ -4838,20 +6132,34 @@ declare module 'gi://Gee?version=0.8' {
             sort(compare_func?: GLib.CompareDataFunc | null): void;
             get_read_only_view(): List;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_list_iterator(): ListIterator;
+            /** @ignore */
             vfunc_get(index: number): any;
+            /** @ignore */
             vfunc_set(index: number, item: any): void;
+            /** @ignore */
             vfunc_index_of(item: any): number;
+            /** @ignore */
             vfunc_insert(index: number, item: any): void;
+            /** @ignore */
             vfunc_remove_at(index: number): any;
+            /** @ignore */
             vfunc_slice(start: number, stop: number): List | null;
+            /** @ignore */
             vfunc_first(): any;
+            /** @ignore */
             vfunc_last(): any;
+            /** @ignore */
             vfunc_insert_all(index: number, collection: Collection): void;
+            /** @ignore */
             vfunc_sort(compare_func?: GLib.CompareDataFunc | null): void;
+            /** @ignore */
             vfunc_get_read_only_view(): List;
+            /** @ignore */
+            vfunc_get_read_only_view(): Collection;
         }
 
         export const List: ListNamespace & {
@@ -4859,6 +6167,18 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace ListIterator {
+            /**
+             * Interface for implementing ListIterator.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Iterator.Interface {
+                // Virtual methods
+
+                vfunc_set(item: any): void;
+                vfunc_add(item: any): void;
+                vfunc_index(): number;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Iterator.ConstructorProps {}
@@ -4868,7 +6188,7 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<ListIterator>;
             prototype: ListIterator;
         }
-        interface ListIterator extends Iterator {
+        interface ListIterator extends Iterator, ListIterator.Interface {
             // Methods
 
             set(item: any): void;
@@ -4876,12 +6196,6 @@ declare module 'gi://Gee?version=0.8' {
             set(...args: never[]): any;
             add(item: any): void;
             index(): number;
-
-            // Virtual methods
-
-            vfunc_set(item: any): void;
-            vfunc_add(item: any): void;
-            vfunc_index(): number;
         }
 
         export const ListIterator: ListIteratorNamespace & {
@@ -4889,6 +6203,32 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Map {
+            /**
+             * Interface for implementing Map.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_has_key(key: any): boolean;
+                vfunc_has(key: any, value: any): boolean;
+                vfunc_get(key: any): any | null;
+                vfunc_set(key: any, value: any): void;
+                vfunc_unset(key: any): [boolean, any];
+                vfunc_clear(): void;
+                vfunc_map_iterator(): MapIterator;
+                vfunc_set_all(map: Map): void;
+                vfunc_unset_all(map: Map): boolean;
+                vfunc_has_all(map: Map): boolean;
+                vfunc_get_size(): number;
+                vfunc_get_is_empty(): boolean;
+                vfunc_get_read_only(): boolean;
+                vfunc_get_keys(): Set;
+                vfunc_get_values(): Collection;
+                vfunc_get_entries(): Set;
+                vfunc_get_read_only_view(): Map;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4914,7 +6254,7 @@ declare module 'gi://Gee?version=0.8' {
                 v_dup_func: GObject.BoxedCopyFunc,
             ): Map;
         }
-        interface Map extends GObject.Object {
+        interface Map extends GObject.Object, Map.Interface {
             // Properties
 
             get size(): number;
@@ -4953,26 +6293,6 @@ declare module 'gi://Gee?version=0.8' {
             get_read_only_view(): Map;
             get_key_type(): GObject.GType;
             get_value_type(): GObject.GType;
-
-            // Virtual methods
-
-            vfunc_has_key(key: any): boolean;
-            vfunc_has(key: any, value: any): boolean;
-            vfunc_get(key: any): any | null;
-            vfunc_set(key: any, value: any): void;
-            vfunc_unset(key: any): [boolean, any];
-            vfunc_clear(): void;
-            vfunc_map_iterator(): MapIterator;
-            vfunc_set_all(map: Map): void;
-            vfunc_unset_all(map: Map): boolean;
-            vfunc_has_all(map: Map): boolean;
-            vfunc_get_size(): number;
-            vfunc_get_is_empty(): boolean;
-            vfunc_get_read_only(): boolean;
-            vfunc_get_keys(): Set;
-            vfunc_get_values(): Collection;
-            vfunc_get_entries(): Set;
-            vfunc_get_read_only_view(): Map;
         }
 
         export const Map: MapNamespace & {
@@ -4980,6 +6300,26 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace MapIterator {
+            /**
+             * Interface for implementing MapIterator.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_next(): boolean;
+                vfunc_has_next(): boolean;
+                vfunc_get_key(): any;
+                vfunc_get_value(): any;
+                vfunc_set_value(value: any): void;
+                vfunc_unset(): void;
+                vfunc_fold(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FoldMapFunc, seed: any): any;
+                vfunc_foreach(f: ForallMapFunc): boolean;
+                vfunc_get_valid(): boolean;
+                vfunc_get_mutable(): boolean;
+                vfunc_get_read_only(): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4994,7 +6334,7 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<MapIterator>;
             prototype: MapIterator;
         }
-        interface MapIterator extends GObject.Object {
+        interface MapIterator extends GObject.Object, MapIterator.Interface {
             // Properties
 
             get valid(): boolean;
@@ -5015,20 +6355,6 @@ declare module 'gi://Gee?version=0.8' {
             get_valid(): boolean;
             get_mutable(): boolean;
             get_read_only(): boolean;
-
-            // Virtual methods
-
-            vfunc_next(): boolean;
-            vfunc_has_next(): boolean;
-            vfunc_get_key(): any;
-            vfunc_get_value(): any;
-            vfunc_set_value(value: any): void;
-            vfunc_unset(): void;
-            vfunc_fold(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FoldMapFunc, seed: any): any;
-            vfunc_foreach(f: ForallMapFunc): boolean;
-            vfunc_get_valid(): boolean;
-            vfunc_get_mutable(): boolean;
-            vfunc_get_read_only(): boolean;
         }
 
         export const MapIterator: MapIteratorNamespace & {
@@ -5036,6 +6362,28 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace MultiMap {
+            /**
+             * Interface for implementing MultiMap.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_get_keys(): Set;
+                vfunc_get_all_keys(): MultiSet;
+                vfunc_get_values(): Collection;
+                vfunc_contains(key: any): boolean;
+                vfunc_get(key: any): Collection;
+                vfunc_set(key: any, value: any): void;
+                vfunc_remove(key: any, value: any): boolean;
+                vfunc_remove_all(key: any): boolean;
+                vfunc_clear(): void;
+                vfunc_map_iterator(): MapIterator;
+                vfunc_get_size(): number;
+                vfunc_get_read_only(): boolean;
+                vfunc_get_read_only_view(): MultiMap;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -5049,7 +6397,7 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<MultiMap>;
             prototype: MultiMap;
         }
-        interface MultiMap extends GObject.Object {
+        interface MultiMap extends GObject.Object, MultiMap.Interface {
             // Properties
 
             get size(): number;
@@ -5075,22 +6423,6 @@ declare module 'gi://Gee?version=0.8' {
             get_key_type(): GObject.GType;
             get_value_type(): GObject.GType;
             get_read_only_view(): MultiMap;
-
-            // Virtual methods
-
-            vfunc_get_keys(): Set;
-            vfunc_get_all_keys(): MultiSet;
-            vfunc_get_values(): Collection;
-            vfunc_contains(key: any): boolean;
-            vfunc_get(key: any): Collection;
-            vfunc_set(key: any, value: any): void;
-            vfunc_remove(key: any, value: any): boolean;
-            vfunc_remove_all(key: any): boolean;
-            vfunc_clear(): void;
-            vfunc_map_iterator(): MapIterator;
-            vfunc_get_size(): number;
-            vfunc_get_read_only(): boolean;
-            vfunc_get_read_only_view(): MultiMap;
         }
 
         export const MultiMap: MultiMapNamespace & {
@@ -5098,6 +6430,17 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace MultiSet {
+            /**
+             * Interface for implementing MultiSet.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Collection.Interface {
+                // Virtual methods
+
+                vfunc_count(item: any): number;
+                vfunc_get_read_only_view(): MultiSet;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Collection.ConstructorProps {}
@@ -5115,10 +6458,14 @@ declare module 'gi://Gee?version=0.8' {
             count(item: any): number;
             get_read_only_view(): MultiSet;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_count(item: any): number;
+            /** @ignore */
             vfunc_get_read_only_view(): MultiSet;
+            /** @ignore */
+            vfunc_get_read_only_view(): Collection;
         }
 
         export const MultiSet: MultiSetNamespace & {
@@ -5126,6 +6473,22 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Queue {
+            /**
+             * Interface for implementing Queue.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Collection.Interface {
+                // Virtual methods
+
+                vfunc_offer(element: any): boolean;
+                vfunc_peek(): any | null;
+                vfunc_poll(): any | null;
+                vfunc_drain(recipient: Collection, amount: number): number;
+                vfunc_get_capacity(): number;
+                vfunc_get_remaining_capacity(): number;
+                vfunc_get_is_full(): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Collection.ConstructorProps {
@@ -5141,7 +6504,7 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<Queue>;
             prototype: Queue;
         }
-        interface Queue extends Collection {
+        interface Queue extends Collection, Queue.Interface {
             // Properties
 
             get capacity(): number;
@@ -5159,16 +6522,6 @@ declare module 'gi://Gee?version=0.8' {
             get_capacity(): number;
             get_remaining_capacity(): number;
             get_is_full(): boolean;
-
-            // Virtual methods
-
-            vfunc_offer(element: any): boolean;
-            vfunc_peek(): any | null;
-            vfunc_poll(): any | null;
-            vfunc_drain(recipient: Collection, amount: number): number;
-            vfunc_get_capacity(): number;
-            vfunc_get_remaining_capacity(): number;
-            vfunc_get_is_full(): boolean;
         }
 
         export const Queue: QueueNamespace & {
@@ -5176,6 +6529,16 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Set {
+            /**
+             * Interface for implementing Set.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Collection.Interface {
+                // Virtual methods
+
+                vfunc_get_read_only_view(): Set;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Collection.ConstructorProps {
@@ -5200,9 +6563,12 @@ declare module 'gi://Gee?version=0.8' {
 
             get_read_only_view(): Set;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_get_read_only_view(): Set;
+            /** @ignore */
+            vfunc_get_read_only_view(): Collection;
         }
 
         export const Set: SetNamespace & {
@@ -5210,6 +6576,21 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace SortedMap {
+            /**
+             * Interface for implementing SortedMap.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Map.Interface {
+                // Virtual methods
+
+                vfunc_head_map(before: any): SortedMap;
+                vfunc_tail_map(after: any): SortedMap;
+                vfunc_sub_map(before: any, after: any): SortedMap;
+                vfunc_get_ascending_keys(): SortedSet;
+                vfunc_get_ascending_entries(): SortedSet;
+                vfunc_get_read_only_view(): SortedMap;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Map.ConstructorProps {
@@ -5252,14 +6633,22 @@ declare module 'gi://Gee?version=0.8' {
             get_ascending_entries(): SortedSet;
             get_read_only_view(): SortedMap;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_head_map(before: any): SortedMap;
+            /** @ignore */
             vfunc_tail_map(after: any): SortedMap;
+            /** @ignore */
             vfunc_sub_map(before: any, after: any): SortedMap;
+            /** @ignore */
             vfunc_get_ascending_keys(): SortedSet;
+            /** @ignore */
             vfunc_get_ascending_entries(): SortedSet;
+            /** @ignore */
             vfunc_get_read_only_view(): SortedMap;
+            /** @ignore */
+            vfunc_get_read_only_view(): Map;
         }
 
         export const SortedMap: SortedMapNamespace & {
@@ -5267,6 +6656,26 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace SortedSet {
+            /**
+             * Interface for implementing SortedSet.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface extends Set.Interface {
+                // Virtual methods
+
+                vfunc_first(): any;
+                vfunc_last(): any;
+                vfunc_iterator_at(element: any): Iterator | null;
+                vfunc_lower(element: any): any | null;
+                vfunc_higher(element: any): any | null;
+                vfunc_floor(element: any): any | null;
+                vfunc_ceil(element: any): any | null;
+                vfunc_head_set(before: any): SortedSet;
+                vfunc_tail_set(after: any): SortedSet;
+                vfunc_sub_set(from: any, to: any): SortedSet;
+                vfunc_get_read_only_view(): SortedSet;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Set.ConstructorProps {
@@ -5301,19 +6710,34 @@ declare module 'gi://Gee?version=0.8' {
             sub_set(from: any, to: any): SortedSet;
             get_read_only_view(): SortedSet;
 
-            // Virtual methods
+            // Virtual methods - generated with overloads due to conflicts
 
+            /** @ignore */
             vfunc_first(): any;
+            /** @ignore */
             vfunc_last(): any;
+            /** @ignore */
             vfunc_iterator_at(element: any): Iterator | null;
+            /** @ignore */
             vfunc_lower(element: any): any | null;
+            /** @ignore */
             vfunc_higher(element: any): any | null;
+            /** @ignore */
             vfunc_floor(element: any): any | null;
+            /** @ignore */
             vfunc_ceil(element: any): any | null;
+            /** @ignore */
             vfunc_head_set(before: any): SortedSet;
+            /** @ignore */
             vfunc_tail_set(after: any): SortedSet;
+            /** @ignore */
             vfunc_sub_set(from: any, to: any): SortedSet;
+            /** @ignore */
             vfunc_get_read_only_view(): SortedSet;
+            /** @ignore */
+            vfunc_get_read_only_view(): Set;
+            /** @ignore */
+            vfunc_get_read_only_view(): Collection;
         }
 
         export const SortedSet: SortedSetNamespace & {
@@ -5321,6 +6745,31 @@ declare module 'gi://Gee?version=0.8' {
         };
 
         namespace Traversable {
+            /**
+             * Interface for implementing Traversable.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_foreach(f: ForallFunc): boolean;
+                vfunc_stream(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: StreamFunc): Iterator;
+                vfunc_fold(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FoldFunc, seed: any): any;
+                vfunc_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: MapFunc): Iterator;
+                vfunc_scan(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FoldFunc, seed: any): Iterator;
+                vfunc_filter(pred: Predicate): Iterator;
+                vfunc_chop(offset: number, length: number): Iterator;
+                vfunc_flat_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FlatMapFunc): Iterator;
+                vfunc_tee(forks: number): Iterator[];
+                vfunc_first_match(pred: Predicate): any | null;
+                vfunc_any_match(pred: Predicate): boolean;
+                vfunc_all_match(pred: Predicate): boolean;
+                vfunc_max(compare: GLib.CompareDataFunc): any;
+                vfunc_min(compare: GLib.CompareDataFunc): any;
+                vfunc_order_by(compare?: GLib.CompareDataFunc | null): Iterator;
+                vfunc_get_element_type(): GObject.GType;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5330,7 +6779,7 @@ declare module 'gi://Gee?version=0.8' {
             $gtype: GObject.GType<Traversable>;
             prototype: Traversable;
         }
-        interface Traversable extends GObject.Object {
+        interface Traversable extends GObject.Object, Traversable.Interface {
             // Methods
 
             foreach(f: ForallFunc): boolean;
@@ -5349,25 +6798,6 @@ declare module 'gi://Gee?version=0.8' {
             min(compare: GLib.CompareDataFunc): any;
             order_by(compare?: GLib.CompareDataFunc | null): Iterator;
             get_element_type(): GObject.GType;
-
-            // Virtual methods
-
-            vfunc_foreach(f: ForallFunc): boolean;
-            vfunc_stream(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: StreamFunc): Iterator;
-            vfunc_fold(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FoldFunc, seed: any): any;
-            vfunc_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: MapFunc): Iterator;
-            vfunc_scan(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FoldFunc, seed: any): Iterator;
-            vfunc_filter(pred: Predicate): Iterator;
-            vfunc_chop(offset: number, length: number): Iterator;
-            vfunc_flat_map(a_type: GObject.GType, a_dup_func: GObject.BoxedCopyFunc, f: FlatMapFunc): Iterator;
-            vfunc_tee(forks: number): Iterator[];
-            vfunc_first_match(pred: Predicate): any | null;
-            vfunc_any_match(pred: Predicate): boolean;
-            vfunc_all_match(pred: Predicate): boolean;
-            vfunc_max(compare: GLib.CompareDataFunc): any;
-            vfunc_min(compare: GLib.CompareDataFunc): any;
-            vfunc_order_by(compare?: GLib.CompareDataFunc | null): Iterator;
-            vfunc_get_element_type(): GObject.GType;
         }
 
         export const Traversable: TraversableNamespace & {

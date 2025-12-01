@@ -132,6 +132,14 @@ declare module 'gi://GstAllocators?version=1.0' {
             DONT_CLOSE,
         }
         namespace DRMDumbAllocator {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                'notify::drm-device-path': (pspec: GObject.ParamSpec) => void;
+                'notify::drm-fd': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {
@@ -155,6 +163,15 @@ declare module 'gi://GstAllocators?version=1.0' {
             get drm_fd(): number;
             get drmFd(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DRMDumbAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DRMDumbAllocator.ConstructorProps>, ...args: any[]);
@@ -164,6 +181,26 @@ declare module 'gi://GstAllocators?version=1.0' {
             static new_with_device_path(drm_device_path: string): DRMDumbAllocator;
 
             static new_with_fd(drm_fd: number): DRMDumbAllocator;
+
+            // Signals
+
+            connect<K extends keyof DRMDumbAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DRMDumbAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DRMDumbAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DRMDumbAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DRMDumbAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DRMDumbAllocator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -188,6 +225,12 @@ declare module 'gi://GstAllocators?version=1.0' {
         }
 
         namespace DmaBufAllocator {
+            // Signal signatures
+            interface SignalSignatures extends FdAllocator.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends FdAllocator.ConstructorProps {}
@@ -199,6 +242,15 @@ declare module 'gi://GstAllocators?version=1.0' {
         class DmaBufAllocator extends FdAllocator {
             static $gtype: GObject.GType<DmaBufAllocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DmaBufAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DmaBufAllocator.ConstructorProps>, ...args: any[]);
@@ -206,6 +258,26 @@ declare module 'gi://GstAllocators?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): DmaBufAllocator;
+
+            // Signals
+
+            connect<K extends keyof DmaBufAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DmaBufAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DmaBufAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DmaBufAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DmaBufAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DmaBufAllocator.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -232,6 +304,12 @@ declare module 'gi://GstAllocators?version=1.0' {
         }
 
         namespace FdAllocator {
+            // Signal signatures
+            interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -243,6 +321,15 @@ declare module 'gi://GstAllocators?version=1.0' {
         class FdAllocator extends Gst.Allocator {
             static $gtype: GObject.GType<FdAllocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: FdAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<FdAllocator.ConstructorProps>, ...args: any[]);
@@ -250,6 +337,24 @@ declare module 'gi://GstAllocators?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): FdAllocator;
+
+            // Signals
+
+            connect<K extends keyof FdAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FdAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FdAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FdAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FdAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FdAllocator.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -264,6 +369,12 @@ declare module 'gi://GstAllocators?version=1.0' {
         }
 
         namespace ShmAllocator {
+            // Signal signatures
+            interface SignalSignatures extends FdAllocator.SignalSignatures {
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends FdAllocator.ConstructorProps {}
@@ -283,11 +394,38 @@ declare module 'gi://GstAllocators?version=1.0' {
         class ShmAllocator extends FdAllocator {
             static $gtype: GObject.GType<ShmAllocator>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ShmAllocator.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ShmAllocator.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ShmAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ShmAllocator.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ShmAllocator.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ShmAllocator.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ShmAllocator.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ShmAllocator.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -309,6 +447,21 @@ declare module 'gi://GstAllocators?version=1.0' {
         type PhysMemoryAllocatorInterface = typeof PhysMemoryAllocator;
         type ShmAllocatorClass = typeof ShmAllocator;
         namespace PhysMemoryAllocator {
+            /**
+             * Interface for implementing PhysMemoryAllocator.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Implementations shall return the physicall memory address
+                 *    that is backing the provided memory, or 0 if none.
+                 * @param mem
+                 */
+                vfunc_get_phys_addr(mem: Gst.Memory): never;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
@@ -318,16 +471,7 @@ declare module 'gi://GstAllocators?version=1.0' {
             $gtype: GObject.GType<PhysMemoryAllocator>;
             prototype: PhysMemoryAllocator;
         }
-        interface PhysMemoryAllocator extends Gst.Allocator {
-            // Virtual methods
-
-            /**
-             * Implementations shall return the physicall memory address
-             *    that is backing the provided memory, or 0 if none.
-             * @param mem
-             */
-            vfunc_get_phys_addr(mem: Gst.Memory): never;
-        }
+        interface PhysMemoryAllocator extends Gst.Allocator, PhysMemoryAllocator.Interface {}
 
         export const PhysMemoryAllocator: PhysMemoryAllocatorNamespace & {
             new (): PhysMemoryAllocator; // This allows `obj instanceof PhysMemoryAllocator`

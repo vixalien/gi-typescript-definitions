@@ -59,6 +59,7 @@ declare module 'gi://CudaGst?version=1.0' {
             HANDLE_TYPE_POSIX_FILE_DESCRIPTOR_SUPPORTED,
             HANDLE_TYPE_WIN32_HANDLE_SUPPORTED,
             HANDLE_TYPE_WIN32_KMT_HANDLE_SUPPORTED,
+            MEMORY_POOLS_SUPPORTED,
         }
 
         export namespace event_flags {
@@ -70,6 +71,38 @@ declare module 'gi://CudaGst?version=1.0' {
             BLOCKING_SYNC,
             DISABLE_TIMING,
             INTERPROCESS,
+        }
+
+        export namespace externalMemoryHandleType {
+            export const $gtype: GObject.GType<externalMemoryHandleType>;
+        }
+
+        enum externalMemoryHandleType {
+            OPAQUE_FD,
+            OPAQUE_WIN32,
+            OPAQUE_WIN32_KMT,
+            D3D12_HEAP,
+            D3D12_RESOURCE,
+            D3D11_RESOURCE,
+            D3D11_RESOURCE_KMT,
+            NVSCIBUF,
+        }
+
+        export namespace externalSemaphoreHandleType {
+            export const $gtype: GObject.GType<externalSemaphoreHandleType>;
+        }
+
+        enum externalSemaphoreHandleType {
+            OPAQUE_FD,
+            OPAQUE_WIN32,
+            OPAQUE_WIN32_KMT,
+            D3D12_FENCE,
+            D3D11_FENCE,
+            NVSCISYNC,
+            D3D11_KEYED_MUTEX,
+            D3D11_KEYED_MUTEX_KMT,
+            TIMELINE_SEMAPHORE_FD,
+            TIMELINE_SEMAPHORE_WIN32,
         }
 
         export namespace filter_mode {
@@ -109,6 +142,23 @@ declare module 'gi://CudaGst?version=1.0' {
 
         enum ipcMem_flags {
             IPC_MEM_LAZY_ENABLE_PEER_ACCESS,
+        }
+
+        export namespace limit {
+            export const $gtype: GObject.GType<limit>;
+        }
+
+        enum limit {
+            STACK_SIZE,
+            PRINTF_FIFO_SIZE,
+            MALLOC_HEAP_SIZE,
+            DEV_RUNTIME_SYNC_DEPTH,
+            DEV_RUNTIME_PENDING_LAUNCH_COUNT,
+            MAX_L2_FETCH_GRANULARITY,
+            PERSISTING_L2_CACHE_SIZE,
+            SHMEM_SIZE,
+            CIG_ENABLED,
+            CIG_SHMEM_FALLBACK_ENABLED,
         }
 
         export namespace memAccess_flags {
@@ -163,6 +213,21 @@ declare module 'gi://CudaGst?version=1.0' {
             MAX,
         }
 
+        export namespace memPool_attribute {
+            export const $gtype: GObject.GType<memPool_attribute>;
+        }
+
+        enum memPool_attribute {
+            REUSE_FOLLOW_EVENT_DEPENDENCIES,
+            REUSE_ALLOW_OPPORTUNISTIC,
+            REUSE_ALLOW_INTERNAL_DEPENDENCIES,
+            RELEASE_THRESHOLD,
+            RESERVED_MEM_CURRENT,
+            RESERVED_MEM_HIGH,
+            USED_MEM_CURRENT,
+            USED_MEM_HIGH,
+        }
+
         export namespace memorytype {
             export const $gtype: GObject.GType<memorytype>;
         }
@@ -215,6 +280,57 @@ declare module 'gi://CudaGst?version=1.0' {
         const IPC_HANDLE_SIZE: number;
         const TRSF_READ_AS_INTEGER: number;
         const VERSION: number;
+        class DA_ARRAY3D_DESCRIPTOR {
+            static $gtype: GObject.GType<DA_ARRAY3D_DESCRIPTOR>;
+
+            // Fields
+
+            Width: number;
+            Height: number;
+            Depth: number;
+            Format: array_format;
+            NumChannels: number;
+            Flags: number;
+
+            // Constructors
+
+            _init(...args: any[]): void;
+        }
+
+        class DA_EXTERNAL_MEMORY_BUFFER_DESC {
+            static $gtype: GObject.GType<DA_EXTERNAL_MEMORY_BUFFER_DESC>;
+
+            // Fields
+
+            flags: number;
+            reserved: number[];
+
+            // Constructors
+
+            constructor(
+                properties?: Partial<{
+                    offset: number;
+                    size: number;
+                    flags: number;
+                    reserved: number[];
+                }>,
+            );
+            _init(...args: any[]): void;
+        }
+
+        class DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC {
+            static $gtype: GObject.GType<DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC>;
+
+            // Fields
+
+            numLevels: number;
+            reserved: number[];
+
+            // Constructors
+
+            _init(...args: any[]): void;
+        }
+
         class DA_MEMCPY2D {
             static $gtype: GObject.GType<DA_MEMCPY2D>;
 
@@ -393,13 +509,32 @@ declare module 'gi://CudaGst?version=1.0' {
             _init(...args: any[]): void;
         }
 
+        class memPoolProps {
+            static $gtype: GObject.GType<memPoolProps>;
+
+            // Fields
+
+            allocType: memAllocationType;
+            handleTypes: memAllocationHandleType;
+            win32SecurityAttributes: any;
+            maxSize: number;
+            reserved: Uint8Array;
+
+            // Constructors
+
+            _init(...args: any[]): void;
+        }
+
         type array = any;
         type context = any;
         type device = number;
         type deviceptr = never;
         type event = any;
+        type externalMemory = any;
+        type externalSemaphore = any;
         type __function = any;
         type graphicsResource = any;
+        type memoryPool = any;
         type mipmappedArray = any;
         type module = any;
         type stream = any;

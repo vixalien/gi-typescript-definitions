@@ -46,6 +46,18 @@ declare module 'gi://GstDxva?version=1.0' {
         }
         function dxva_codec_to_string(codec: DxvaCodec | null): string;
         namespace DxvaAV1Decoder {
+            // Signal signatures
+            interface SignalSignatures extends GstCodecs.AV1Decoder.SignalSignatures {
+                'notify::automatic-request-sync-point-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-points': (pspec: GObject.ParamSpec) => void;
+                'notify::discard-corrupted-frames': (pspec: GObject.ParamSpec) => void;
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstCodecs.AV1Decoder.ConstructorProps {}
@@ -54,11 +66,38 @@ declare module 'gi://GstDxva?version=1.0' {
         abstract class DxvaAV1Decoder extends GstCodecs.AV1Decoder {
             static $gtype: GObject.GType<DxvaAV1Decoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DxvaAV1Decoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DxvaAV1Decoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DxvaAV1Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaAV1Decoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DxvaAV1Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaAV1Decoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DxvaAV1Decoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DxvaAV1Decoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -93,6 +132,19 @@ declare module 'gi://GstDxva?version=1.0' {
         }
 
         namespace DxvaH264Decoder {
+            // Signal signatures
+            interface SignalSignatures extends GstCodecs.H264Decoder.SignalSignatures {
+                'notify::compliance': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-point-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-points': (pspec: GObject.ParamSpec) => void;
+                'notify::discard-corrupted-frames': (pspec: GObject.ParamSpec) => void;
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstCodecs.H264Decoder.ConstructorProps {}
@@ -101,11 +153,40 @@ declare module 'gi://GstDxva?version=1.0' {
         abstract class DxvaH264Decoder extends GstCodecs.H264Decoder {
             static $gtype: GObject.GType<DxvaH264Decoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DxvaH264Decoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DxvaH264Decoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DxvaH264Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaH264Decoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DxvaH264Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaH264Decoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DxvaH264Decoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DxvaH264Decoder.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -138,6 +219,18 @@ declare module 'gi://GstDxva?version=1.0' {
         }
 
         namespace DxvaH265Decoder {
+            // Signal signatures
+            interface SignalSignatures extends GstCodecs.H265Decoder.SignalSignatures {
+                'notify::automatic-request-sync-point-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-points': (pspec: GObject.ParamSpec) => void;
+                'notify::discard-corrupted-frames': (pspec: GObject.ParamSpec) => void;
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstCodecs.H265Decoder.ConstructorProps {}
@@ -146,11 +239,40 @@ declare module 'gi://GstDxva?version=1.0' {
         abstract class DxvaH265Decoder extends GstCodecs.H265Decoder {
             static $gtype: GObject.GType<DxvaH265Decoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DxvaH265Decoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DxvaH265Decoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DxvaH265Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaH265Decoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DxvaH265Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaH265Decoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DxvaH265Decoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DxvaH265Decoder.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -182,6 +304,18 @@ declare module 'gi://GstDxva?version=1.0' {
         }
 
         namespace DxvaMpeg2Decoder {
+            // Signal signatures
+            interface SignalSignatures extends GstCodecs.Mpeg2Decoder.SignalSignatures {
+                'notify::automatic-request-sync-point-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-points': (pspec: GObject.ParamSpec) => void;
+                'notify::discard-corrupted-frames': (pspec: GObject.ParamSpec) => void;
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstCodecs.Mpeg2Decoder.ConstructorProps {}
@@ -190,11 +324,40 @@ declare module 'gi://GstDxva?version=1.0' {
         abstract class DxvaMpeg2Decoder extends GstCodecs.Mpeg2Decoder {
             static $gtype: GObject.GType<DxvaMpeg2Decoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DxvaMpeg2Decoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DxvaMpeg2Decoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DxvaMpeg2Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaMpeg2Decoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DxvaMpeg2Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaMpeg2Decoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DxvaMpeg2Decoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DxvaMpeg2Decoder.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -231,6 +394,18 @@ declare module 'gi://GstDxva?version=1.0' {
         }
 
         namespace DxvaVp8Decoder {
+            // Signal signatures
+            interface SignalSignatures extends GstCodecs.Vp8Decoder.SignalSignatures {
+                'notify::automatic-request-sync-point-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-points': (pspec: GObject.ParamSpec) => void;
+                'notify::discard-corrupted-frames': (pspec: GObject.ParamSpec) => void;
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstCodecs.Vp8Decoder.ConstructorProps {}
@@ -239,11 +414,38 @@ declare module 'gi://GstDxva?version=1.0' {
         abstract class DxvaVp8Decoder extends GstCodecs.Vp8Decoder {
             static $gtype: GObject.GType<DxvaVp8Decoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DxvaVp8Decoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DxvaVp8Decoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DxvaVp8Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaVp8Decoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DxvaVp8Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaVp8Decoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DxvaVp8Decoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DxvaVp8Decoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -275,6 +477,18 @@ declare module 'gi://GstDxva?version=1.0' {
         }
 
         namespace DxvaVp9Decoder {
+            // Signal signatures
+            interface SignalSignatures extends GstCodecs.Vp9Decoder.SignalSignatures {
+                'notify::automatic-request-sync-point-flags': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-request-sync-points': (pspec: GObject.ParamSpec) => void;
+                'notify::discard-corrupted-frames': (pspec: GObject.ParamSpec) => void;
+                'notify::max-errors': (pspec: GObject.ParamSpec) => void;
+                'notify::min-force-key-unit-interval': (pspec: GObject.ParamSpec) => void;
+                'notify::qos': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GstCodecs.Vp9Decoder.ConstructorProps {}
@@ -283,11 +497,38 @@ declare module 'gi://GstDxva?version=1.0' {
         abstract class DxvaVp9Decoder extends GstCodecs.Vp9Decoder {
             static $gtype: GObject.GType<DxvaVp9Decoder>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DxvaVp9Decoder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DxvaVp9Decoder.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DxvaVp9Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaVp9Decoder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DxvaVp9Decoder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DxvaVp9Decoder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DxvaVp9Decoder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DxvaVp9Decoder.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
