@@ -5,7 +5,7 @@ This repo contains auto-generated types from the master GNOME SDK.
 ## Usage
 
 ```sh
-git submodule add https://github.com/vixalien/gi-typescript-definitions.git gi-types
+git submodule add https://github.com/vixalien/gi-typescript-definitions.git types
 ```
 
 Then add it to your `tsconfig.json`
@@ -13,7 +13,7 @@ Then add it to your `tsconfig.json`
 ```json
 {
   "compilerOptions": {
-    "types": ["gi-types"]
+    "include": ["types/index.d.ts", "src"]
   }
 }
 ```
@@ -22,6 +22,7 @@ Then in your application you can use GJS types
 
 
 ```ts
+// src/index.ts
 import Gtk from "gi://Gtk?version=4.0"
 
 const label = new Gtk.Label();
