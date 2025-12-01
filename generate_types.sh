@@ -10,17 +10,18 @@ message() {
 message "Enabling Node..."
 export PATH="/usr/lib/sdk/node24/bin:$PATH"
 
-YARN_GLOBAL_DIR=/tmp/yarn-global
+TMP_INSTALL_DIR=/tmp/yarn-global
 
 message "Installing ts-for-gir..."
-export PATH="$YARN_GLOBAL_DIR/node_modules/.bin:$PATH"
-yarn --global-folder $YARN_GLOBAL_DIR global add @ts-for-gir/cli@4.0.0-beta.28
+export PATH="$TMP_INSTALL_DIR:$PATH"
+COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack enable --install-directory $TMP_INSTALL_DIR
+CI=true pnpm install
 
 message "Finding all modules..."
-LIST_OUTPUT=$(ts-for-gir list)
+LIST_OUTPUT=$(pnpm exec ts-for-gir list)
 # This pretty prints the output of `ts-for-gir list` into a list of modules
 MODULES=$(echo "$LIST_OUTPUT" |
-sed -n '/Selected Modules:/,/Conflicts:/p' | 
+sed -n '/Available Modules:/,/Conflicts:/p' |
 awk '/^- / {
     module = $2
     getline
@@ -31,7 +32,7 @@ echo "$(echo $MODULES | wc -w) Modules found:"
 echo $MODULES
 
 message "Generating modules..."
-ts-for-gir generate --ignoreVersionConflicts -o . $MODULES
+pnpm exec ts-for-gir generate --ignoreVersionConflicts -o . $MODULES
 
 message "Generated modules"
 exit
