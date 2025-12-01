@@ -8,7 +8,7 @@ message() {
 }
 
 message "Enabling Node..."
-export PATH="/usr/lib/sdk/node20/bin:$PATH"
+export PATH="/usr/lib/sdk/node24/bin:$PATH"
 
 YARN_GLOBAL_DIR=/tmp/yarn-global
 
