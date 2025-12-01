@@ -31,6 +31,9 @@ awk '/^- / {
 echo "$(echo $MODULES | wc -w) Modules found:"
 echo $MODULES
 
+message "Cleaning up old files"
+rm *.d.ts
+
 message "Generating modules..."
 pnpm exec ts-for-gir generate --ignoreVersionConflicts -o . $MODULES
 
