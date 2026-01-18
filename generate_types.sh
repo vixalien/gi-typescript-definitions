@@ -18,10 +18,10 @@ COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack enable --install-directory $TMP_INSTA
 CI=true pnpm install
 
 message "Cleaning up old files"
-rm *.d.ts
+rm types/*.d.ts
 
 message "Generating modules..."
-pnpm exec ts-for-gir generate --ignoreVersionConflicts -o . '*'
+pnpm exec ts-for-gir generate --ignoreVersionConflicts -o types '*'
 
 message "Generated modules"
 exit
