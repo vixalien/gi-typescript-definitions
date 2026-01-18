@@ -142,6 +142,43 @@ declare module 'gi://Gdk?version=4.0' {
             FULL,
         }
         /**
+         * Enumerates the color channels of RGBA values as used in
+         * `GdkColor` and OpenGL/Vulkan shaders.
+         *
+         * Note that this is not the order of pixel values in Cairo
+         * and `GdkMemoryFormat` can have many different orders.
+         */
+
+        /**
+         * Enumerates the color channels of RGBA values as used in
+         * `GdkColor` and OpenGL/Vulkan shaders.
+         *
+         * Note that this is not the order of pixel values in Cairo
+         * and `GdkMemoryFormat` can have many different orders.
+         */
+        export namespace ColorChannel {
+            export const $gtype: GObject.GType<ColorChannel>;
+        }
+
+        enum ColorChannel {
+            /**
+             * The red color channel, aka 0
+             */
+            RED,
+            /**
+             * The green color channel, aka 1
+             */
+            GREEN,
+            /**
+             * The blue color channel, aka 2
+             */
+            BLUE,
+            /**
+             * The alpha color channel, aka 3
+             */
+            ALPHA,
+        }
+        /**
          * Specifies the crossing mode for enter and leave events.
          */
 
@@ -14765,14 +14802,6 @@ declare module 'gi://Gdk?version=4.0' {
             ): void;
             emit(signal: string, ...args: any[]): void;
 
-            // Static methods
-
-            /**
-             * Extracts the scroll direction relative to the physical motion.
-             * @param event a relative scroll direction.
-             */
-            static get_relative_direction(event: ScrollRelativeDirection): ScrollRelativeDirection;
-
             // Methods
 
             /**
@@ -14790,6 +14819,11 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the scroll direction of @event
              */
             get_direction(): ScrollDirection;
+            /**
+             * Extracts the scroll direction relative to the physical motion.
+             * @returns the relative scroll direction.
+             */
+            get_relative_direction(): ScrollRelativeDirection;
             /**
              * Extracts the scroll delta unit of a scroll event.
              *
@@ -17397,14 +17431,16 @@ declare module 'gi://Gdk?version=4.0' {
              * - A RGB color in the form “rgb(r,g,b)” (In this case the color
              *   will have full opacity)
              * - A RGBA color in the form “rgba(r,g,b,a)”
-             * - A HSL color in the form "hsl(hue, saturation, lightness)"
-             * - A HSLA color in the form "hsla(hue, saturation, lightness, alpha)"
+             * - A HSL color in the form “hsl(h,s,l)”
+             * - A HSLA color in the form “hsla(h,s,l,a)”
              *
              * Where “r”, “g”, “b” and “a” are respectively the red, green,
              * blue and alpha color values. In the last two cases, “r”, “g”,
              * and “b” are either integers in the range 0 to 255 or percentage
              * values in the range 0% to 100%, and a is a floating point value
-             * in the range 0 to 1.
+             * in the range 0 to 1. The range for “h” is 0 to 360, and
+             * “s”, “l” can be either numbers in the range 0 to 100 or
+             * percentages.
              * @param spec the string specifying the color
              * @returns %TRUE if the parsing succeeded
              */

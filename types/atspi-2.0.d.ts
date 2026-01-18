@@ -496,6 +496,10 @@ declare module 'gi://Atspi?version=2.0' {
              */
             META3,
             /**
+             * Alias for META3.
+             */
+            SUPER,
+            /**
              * A symbolic meta key name that is mapped by AT-SPI
              * to the appropriate META value, for the convenience of the client.
              */
@@ -505,12 +509,12 @@ declare module 'gi://Atspi?version=2.0' {
          * #AtspiRelationType specifies a relationship between objects
          * (possibly one-to-many
          * or many-to-one) outside of the normal parent/child hierarchical
-         * relationship. It allows better semantic       identification of how objects
+         * relationship. It allows better semantic identification of how objects
          * are associated with one another.       For instance the
          * `ATSPI_RELATION_LABELLED_BY`
-         * relationship may be used to identify labelling information       that should
+         * relationship may be used to identify labelling information that should
          * accompany the accessible name property when presenting an object's content or
-         * identity       to the end user.  Similarly,
+         * identity to the end user.  Similarly,
          * `ATSPI_RELATION_CONTROLLER_FOR` can be used
          * to further specify the context in which a valuator is useful, and/or the
          * other UI components which are directly effected by user interactions with
@@ -526,12 +530,12 @@ declare module 'gi://Atspi?version=2.0' {
          * #AtspiRelationType specifies a relationship between objects
          * (possibly one-to-many
          * or many-to-one) outside of the normal parent/child hierarchical
-         * relationship. It allows better semantic       identification of how objects
+         * relationship. It allows better semantic identification of how objects
          * are associated with one another.       For instance the
          * `ATSPI_RELATION_LABELLED_BY`
-         * relationship may be used to identify labelling information       that should
+         * relationship may be used to identify labelling information that should
          * accompany the accessible name property when presenting an object's content or
-         * identity       to the end user.  Similarly,
+         * identity to the end user.  Similarly,
          * `ATSPI_RELATION_CONTROLLER_FOR` can be used
          * to further specify the context in which a valuator is useful, and/or the
          * other UI components which are directly effected by user interactions with
@@ -664,35 +668,33 @@ declare module 'gi://Atspi?version=2.0' {
              */
             DESCRIBED_BY,
             /**
-             * Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates
-             * that this object has a detailed or extended description, the contents of
-             * which can be found in the target object(s). This relation type is most
-             * appropriate for information that is sufficiently lengthy as to make
-             * navigation to the container of that information desirable. For less verbose
-             * information suitable for announcement only, see %ATSPI_RELATION_DESCRIBED_BY.
-             * If the detailed information describes an error condition,
-             * %ATSPI_RELATION_ERROR_FOR should be used instead. `Since:` 2.26.
+             * Reciprocal of %ATSPI_RELATION_DETAILS_FOR. Indicates that this object has a
+             * detailed or extended description, the contents of which can be found in the
+             * target object(s). This relation type is most appropriate for information
+             * that is sufficiently lengthy as to make navigation to the container of that
+             * information desirable. For less verbose information suitable for
+             * announcement only, see %ATSPI_RELATION_DESCRIBED_BY. If the detailed
+             * information describes an error condition, %ATSPI_RELATION_ERROR_FOR should
+             * be used instead.
              */
             DETAILS,
             /**
-             * Reciprocal of %ATSPI_RELATION_DETAILS. Indicates
-             * that this object provides a detailed or extended description about the target
-             * object(s). See also %ATSPI_RELATION_DESCRIPTION_FOR and
-             * %ATSPI_RELATION_ERROR_FOR. `Since:` 2.26.
+             * Reciprocal of %ATSPI_RELATION_DETAILS. Indicates that this object provides a
+             * detailed or extended description about the target object(s). See also
+             * %ATSPI_RELATION_DESCRIPTION_FOR and %ATSPI_RELATION_ERROR_FOR.
              */
             DETAILS_FOR,
             /**
-             * Reciprocal of %ATSPI_RELATION_ERROR_FOR.
-             * Indicates that this object has one or more errors, the nature of which is
-             * described in the contents of the target object(s). Objects that have this
-             * relation type should also contain %ATSPI_STATE_INVALID_ENTRY in their
-             * #AtspiStateSet. `Since:` 2.26.
+             * Reciprocal of %ATSPI_RELATION_ERROR_FOR. Indicates that this object has one
+             * or more errors, the nature of which is described in the contents of the
+             * target object(s). Objects that have this relation type should also contain
+             * %ATSPI_STATE_INVALID_ENTRY in their #AtspiStateSet.
              */
             ERROR_MESSAGE,
             /**
-             * Reciprocal of %ATSPI_RELATION_ERROR_MESSAGE.
-             * Indicates that this object contains an error message describing an invalid
-             * condition in the target object(s). `Since:` 2.26.
+             * Reciprocal of %ATSPI_RELATION_ERROR_MESSAGE. Indicates that this object
+             * contains an error message describing an invalid condition in the target
+             * object(s).
              */
             ERROR_FOR,
             /**
@@ -750,7 +752,7 @@ declare module 'gi://Atspi?version=2.0' {
             CANVAS,
             /**
              * A choice that can be checked or unchecked and
-             * provides a separate       indicator for the current state.
+             * provides a separate indicator for the current state.
              */
             CHECK_BOX,
             /**
@@ -851,8 +853,9 @@ declare module 'gi://Atspi?version=2.0' {
              */
             INTERNAL_FRAME,
             /**
-             * An object used to present an icon or short string in an
-             * interface.
+             * For text views, see `ATSPI_ROLE_TEXT`. For generic containers, see
+             * `ATSPI_ROLE_PANEL`. For objects whose role is not known by the implementor,
+             * see `ATSPI_ROLE_UNKNOWN`.
              */
             LABEL,
             /**
@@ -956,7 +959,7 @@ declare module 'gi://Atspi?version=2.0' {
              * a large amount of information. `ATSPI_ROLE_SCROLL_PANE` objects are usually
              * accompanied by `ATSPI_ROLE_SCROLL_BAR` controllers, on which the
              * `ATSPI_RELATION_CONTROLLER_FOR` and `ATSPI_RELATION_CONTROLLED_BY`
-             * reciprocal relations are set. See  #atspi_get_relation_set.
+             * reciprocal relations are set. See #atspi_get_relation_set.
              */
             SCROLL_PANE,
             /**
@@ -1128,7 +1131,7 @@ declare module 'gi://Atspi?version=2.0' {
             /**
              * The object is a graphical depiction of quantitative data.
              * It may contain multiple subelements whose attributes and/or description
-             * may be queried to obtain both the  quantitative data and information about
+             * may be queried to obtain both the quantitative data and information about
              * how the data is being presented. The `ATSPI_LABELLED_BY` relation is
              * particularly important in interpreting objects of this type, as is the
              * accessible description property. See `ATSPI_ROLE_CAPTION`.
@@ -1143,7 +1146,7 @@ declare module 'gi://Atspi?version=2.0' {
             /**
              * The object is a visual frame or container which
              * contains a view of document content. #AtspiDocument frames may occur within
-             * another #AtspiDocument instance, in which case the second  document may be
+             * another #AtspiDocument instance, in which case the second document may be
              * said to be embedded in the containing instance.  HTML frames are often
              * ATSPI_ROLE_DOCUMENT_FRAME:  Either this object, or a singleton descendant,
              * should implement the #AtspiDocument interface.
@@ -1152,7 +1155,7 @@ declare module 'gi://Atspi?version=2.0' {
             /**
              * The object serves as a heading for content which
              * follows it in a document. The 'heading level' of the heading, if
-             * availabe,  may be obtained by       querying the object's attributes.
+             * available,  may be obtained by querying the object's attributes.
              */
             HEADING,
             /**
@@ -1272,81 +1275,70 @@ declare module 'gi://Atspi?version=2.0' {
              */
             INFO_BAR,
             /**
-             * A bar that serves as a level indicator to, for
-             * instance, show the strength of a password or the state of a battery. `Since:` 2.8
+             * A bar that serves as a level indicator to, for instance, show the strength
+             * of a password or the state of a battery.
              */
             LEVEL_BAR,
             /**
-             * A bar that serves as the title of a window or a
-             *  dialog. `Since:` 2.12
+             * A bar that serves as the title of a window or a dialog.
              */
             TITLE_BAR,
             /**
-             * An object which contains a text section
-             *  that is quoted from another source.  `Since:` 2.12
+             * An object which contains a text section that is quoted from another source.
              */
             BLOCK_QUOTE,
             /**
-             * An object which represents an audio
-             *  element. `Since:` 2.12
+             * An object which represents an audio element.
              */
             AUDIO,
             /**
-             * An object which represents a video
-             *  element. `Since:` 2.12
+             * An object which represents a video element.
              */
             VIDEO,
             /**
-             * A definition of a term or concept. `Since:` 2.12
+             * A definition of a term or concept.
              */
             DEFINITION,
             /**
-             * A section of a page that consists of a
-             *  composition that forms an independent part of a document, page, or
-             *  site. Examples: A blog entry, a news story, a forum post. `Since:`
-             *  2.12
+             * A section of a page that consists of a composition that forms an
+             * independent part of a document, page, or site. Examples: A blog entry, a
+             * news story, a forum post.
              */
             ARTICLE,
             /**
-             * A region of a web page intended as a
-             *  navigational landmark. This is designed to allow Assistive
-             *  Technologies to provide quick navigation among key regions within a
-             *  document. `Since:` 2.12
+             * A region of a web page intended as a navigational landmark. This is
+             * designed to allow Assistive Technologies to provide quick navigation among
+             * key regions within a document.
              */
             LANDMARK,
             /**
-             * A text widget or container holding log content, such
-             *  as chat history and error logs. In this role there is a
-             *  relationship between the arrival of new items in the log and the
-             *  reading order. The log contains a meaningful sequence and new
-             *  information is added only to the end of the log, not at arbitrary
-             *  points. `Since:` 2.12
+             * A text widget or container holding log content, such as chat history and
+             * error logs. In this role there is a relationship between the arrival of new
+             * items in the log and the reading order. The log contains a meaningful
+             * sequence and new information is added only to the end of the log, not at
+             * arbitrary points.
              */
             LOG,
             /**
-             * A container where non-essential information
-             *  changes frequently. Common usages of marquee include stock tickers
-             *  and ad banners. The primary difference between a marquee and a log
-             *  is that logs usually have a meaningful order or sequence of
-             *  important content changes. `Since:` 2.12
+             * A container where non-essential information changes frequently. Common
+             * usages of marquee include stock tickers and ad banners. The primary
+             * difference between a marquee and a log is that logs usually have a
+             * meaningful order or sequence of important content changes.
              */
             MARQUEE,
             /**
-             * A text widget or container that holds a mathematical
-             *  expression. `Since:` 2.12
+             * A text widget or container that holds a mathematical expression.
              */
             MATH,
             /**
-             * A widget whose purpose is to display a rating,
-             *  such as the number of stars associated with a song in a media
-             *  player. Objects of this role should also implement
-             *  AtspiValue. `Since:` 2.12
+             * A widget whose purpose is to display a rating,  such as the number of stars
+             * associated with a song in a media player. Objects of this role should also
+             * implement AtspiValue.
              */
             RATING,
             /**
-             * An object containing a numerical counter which
-             *  indicates an amount of elapsed time from a start point, or the time
-             *  remaining until an end point. `Since:` 2.12
+             * An object containing a numerical counter which indicates an amount of
+             * elapsed time from a start point, or the time remaining until an end point.
              */
             TIMER,
             /**
@@ -1360,88 +1352,79 @@ declare module 'gi://Atspi?version=2.0' {
              *  object which has an accessible relation pointing to another object. The
              *  displayed information, as a general rule, should be exposed through the
              *  accessible name of the object. For labels which describe another widget, see
-             *  `ATSPI_ROLE_LABEL`. For text views, see `ATSPI_ROLE_TEXT`. For generic
-             *  containers, see `ATSPI_ROLE_PANEL`. For objects whose role is not known by the
-             *  implementor, see `ATSPI_ROLE_UNKNOWN`. `Since:` 2.16.
              */
             STATIC,
             /**
-             * An object that represents a mathematical fraction. `Since:` 2.16.
+             * An object that represents a mathematical fraction.
              */
             MATH_FRACTION,
             /**
-             * An object that represents a mathematical expression
-             *  displayed with a radical. `Since:` 2.16.
+             * An object that represents a mathematical expression displayed with a
+             * radical.
              */
             MATH_ROOT,
             /**
-             * An object that contains text that is displayed as a
-             *  subscript. `Since:` 2.16.
+             * An object that contains text that is displayed as a subscript.
              */
             SUBSCRIPT,
             /**
-             * An object that contains text that is displayed as a
-             *  superscript. `Since:` 2.16.
+             * An object that contains text that is displayed as a superscript.
              */
             SUPERSCRIPT,
             /**
-             * An object that represents a list of term-value
-             *  groups. A term-value group represents an individual description and consist
-             *  of one or more names (`ATSPI_ROLE_DESCRIPTION_TERM)` followed by one or more
-             *  values (`ATSPI_ROLE_DESCRIPTION_VALUE)`. For each list, there should not be
-             *  more than one group with the same term name. `Since:` 2.26.
+             * An object that represents a list of term-value groups. A term-value group
+             * represents an individual description and consist of one or more names
+             * (`ATSPI_ROLE_DESCRIPTION_TERM)` followed by one or more values
+             * (`ATSPI_ROLE_DESCRIPTION_VALUE)`. For each list, there should not be more
+             * than one group with the same term name.
              */
             DESCRIPTION_LIST,
             /**
-             * An object that represents a term or phrase
-             *  with a corresponding definition. `Since:` 2.26.
+             * An object that represents a term or phrase with a corresponding definition.
              */
             DESCRIPTION_TERM,
             /**
-             * An object that represents the description,
-             *  definition, or value of a term. `Since:` 2.26.
+             * An object that represents the description,  definition, or value of a term.
              */
             DESCRIPTION_VALUE,
             /**
-             * An object that contains the text of a footnote. `Since:` 2.26.
+             * An object that contains the text of a footnote.
              */
             FOOTNOTE,
             /**
-             * Content previously deleted or proposed to be
-             * deleted, e.g. in revision history or a content view providing suggestions
-             * from reviewers. `Since:` 2.34.
+             * Content previously deleted or proposed to be deleted, e.g. in revision
+             * history or a content view providing suggestions from reviewers.
              */
             CONTENT_DELETION,
             /**
-             * Content previously inserted or proposed to be
-             * inserted, e.g. in revision history or a content view providing suggestions
-             * from reviewers. `Since:` 2.34.
+             * Content previously inserted or proposed to be inserted, e.g. in revision
+             * history or a content view providing suggestions from reviewers.
              */
             CONTENT_INSERTION,
             /**
-             * A run of content that is marked or highlighted, such as for
-             * reference purposes, or to call it out as having a special purpose. If the
-             * marked content has an associated section in the document elaborating on the
-             * reason for the mark, then %ATSPI_RELATION_DETAILS should be used on the mark
-             * to point to that associated section. In addition, the reciprocal relation
+             * A run of content that is marked or highlighted, such as for reference
+             * purposes, or to call it out as having a special purpose. If the marked
+             * content has an associated section in the document elaborating on the reason
+             * for the mark, then %ATSPI_RELATION_DETAILS should be used on the mark to
+             * point to that associated section. In addition, the reciprocal relation
              * %ATSPI_RELATION_DETAILS_FOR should be used on the associated content section
-             * to point back to the mark. `Since:` 2.36.
+             * to point back to the mark.
              */
             MARK,
             /**
-             * A container for content that is called out as a proposed
-             * change from the current version of the document, such as by a reviewer of the
-             * content. An object with this role should include children with %ATSPI_ROLE_CONTENT_DELETION and/or
-             * %ATSPI_ROLE_CONTENT_INSERTION, in any order, to indicate what the
-             * actual change is. `Since:` 2.36
+             * A container for content that is called out as a proposed change from the
+             * current version of the document, such as by a reviewer of the content. An
+             * object with this role should include children with
+             * %ATSPI_ROLE_CONTENT_DELETION and/or %ATSPI_ROLE_CONTENT_INSERTION, in any
+             * order, to indicate what the actual change is.
              */
             SUGGESTION,
             /**
-             * A specialized push button to open a menu. `Since` 2.46
+             * A specialized push button to open a menu.
              */
             PUSH_BUTTON_MENU,
             /**
-             * A switch that can be toggled on/off. `Since` 2.56
+             * A switch that can be toggled on/off.
              */
             SWITCH,
             /**
@@ -1502,12 +1485,12 @@ declare module 'gi://Atspi?version=2.0' {
         }
         /**
          * Enumeration used by various interfaces indicating every possible state
-         * an #AtspiAccesible object can assume.
+         * an #AtspiAccessible object can assume.
          */
 
         /**
          * Enumeration used by various interfaces indicating every possible state
-         * an #AtspiAccesible object can assume.
+         * an #AtspiAccessible object can assume.
          */
         export namespace StateType {
             export const $gtype: GObject.GType<StateType>;
@@ -1536,7 +1519,7 @@ declare module 'gi://Atspi?version=2.0' {
             ARMED,
             /**
              * Indicates the current object is busy, i.e. onscreen
-             * representation is in the process of changing, or       the object is
+             * representation is in the process of changing, or the object is
              * temporarily unavailable for interaction due to activity already in progress.
              */
             BUSY,
@@ -1550,7 +1533,7 @@ declare module 'gi://Atspi?version=2.0' {
             COLLAPSED,
             /**
              * Indicates that this object no longer has a valid
-             * backing widget        (for instance, if its peer object has been destroyed).
+             * backing widget (for instance, if its peer object has been destroyed).
              */
             DEFUNCT,
             /**
@@ -1635,7 +1618,7 @@ declare module 'gi://Atspi?version=2.0' {
             /**
              * Indicates this object is the child of an object
              * that allows its children to be selected and that this child is one of
-             * those children       that can be selected.
+             * those children that can be selected.
              */
             SELECTABLE,
             /**
@@ -1788,23 +1771,20 @@ declare module 'gi://Atspi?version=2.0' {
              */
             VISITED,
             /**
-             * Indicates this object has the potential to
-             *  be checked, such as a checkbox or toggle-able table cell. `Since:`
-             *  2.12
+             * Indicates this object has the potential to be checked, such as a checkbox
+             * or toggle-able table cell.
              */
             CHECKABLE,
             /**
-             * Indicates that the object has a popup
-             * context menu or sub-level menu which may or may not be
-             * showing. This means that activation renders conditional content.
-             * Note that ordinary tooltips are not considered popups in this
-             * context. `Since:` 2.12
+             * Indicates that the object has a popup context menu or sub-level menu
+             * which may or may not be showing. This means that activation renders
+             * conditional content. Note that ordinary tooltips are not considered
+             * popups in this context.
              */
             HAS_POPUP,
             /**
-             * Indicates that an object which is ENABLED and
-             * SENSITIVE has a value which can be read, but not modified, by the
-             * user. `Since:` 2.16
+             * Indicates that an object which is ENABLED and SENSITIVE has a value
+             * which can be read, but not modified, by the user.
              */
             READ_ONLY,
             /**
@@ -3301,11 +3281,11 @@ declare module 'gi://Atspi?version=2.0' {
             deselect_child(child_index: number): boolean;
             /**
              * Removes a child from the selected children list of an #AtspiSelection.
-             *          Note that `child_index` is the index in the selected-children list,
-             *          not the index in the parent container.  `selectedChildIndex` in this
-             *          method, and `child_index` in #atspi_selection_select_child
-             *          are asymmetric.
-             * @param selected_child_index a #gint indicating which of the selected children              of the #Accessible is to be selected.
+             *          Note that `selected_child_index` is the index in the
+             *          selected-children list, not the index in the parent container.
+             *          `selected_child_index` in this method and `child_index` in
+             *          #atspi_selection_select_child are asymmetric.
+             * @param selected_child_index a #gint indicating which of the selected children              of the #Accessible is to be deselected.
              * @returns #TRUE if the child was successfully deselected, #FALSE otherwise.
              */
             deselect_selected_child(selected_child_index: number): boolean;
@@ -6302,11 +6282,11 @@ declare module 'gi://Atspi?version=2.0' {
             deselect_child(child_index: number): boolean;
             /**
              * Removes a child from the selected children list of an #AtspiSelection.
-             *          Note that `child_index` is the index in the selected-children list,
-             *          not the index in the parent container.  `selectedChildIndex` in this
-             *          method, and `child_index` in #atspi_selection_select_child
-             *          are asymmetric.
-             * @param selected_child_index a #gint indicating which of the selected children              of the #Accessible is to be selected.
+             *          Note that `selected_child_index` is the index in the
+             *          selected-children list, not the index in the parent container.
+             *          `selected_child_index` in this method and `child_index` in
+             *          #atspi_selection_select_child are asymmetric.
+             * @param selected_child_index a #gint indicating which of the selected children              of the #Accessible is to be deselected.
              * @returns #TRUE if the child was successfully deselected, #FALSE otherwise.
              */
             deselect_selected_child(selected_child_index: number): boolean;

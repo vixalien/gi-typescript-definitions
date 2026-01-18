@@ -2029,6 +2029,10 @@ declare module 'gi://WebKit2?version=4.1' {
              * hit test feature.
              */
             HIT_TEST,
+            /**
+             * WebXR Layers feature.
+             */
+            LAYERS,
         }
         namespace AuthenticationRequest {
             // Signal signatures
@@ -15585,7 +15589,8 @@ declare module 'gi://WebKit2?version=4.1' {
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): globalThis.Promise<cairo.Surface> | void;
             /**
-             * Finishes an asynchronous operation started with webkit_web_view_get_snapshot().
+             * Finishes an asynchronous operation started with webkit_web_view_get_snapshot(), producing
+             * an image of the snapshot using the BGRA8888 pixel format.
              * @param result a #GAsyncResult
              * @returns an image with the retrieved snapshot, or %NULL in case of error.
              */

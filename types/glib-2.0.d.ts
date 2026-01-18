@@ -11327,7 +11327,7 @@ declare module 'gi://GLib?version=2.0' {
          * - `\r` → [U+000D Carriage Return](https://en.wikipedia.org/wiki/Carriage_return)
          * - `\t` → [U+0009 Horizontal Tabulation](https://en.wikipedia.org/wiki/Tab_character)
          * - `\v` → [U+000B Vertical Tabulation](https://en.wikipedia.org/wiki/Vertical_Tab)
-         * - `\` followed by one to three octal digits → the numeric value (mod 255)
+         * - `\` followed by one to three octal digits → the numeric value (mod 256)
          * - `\` followed by any other character → the character as is.
          *   For example, `\\` will turn into a backslash (`\`) and `\"` into a double quote (`"`).
          *
@@ -11597,18 +11597,21 @@ declare module 'gi://GLib?version=2.0' {
          */
         function strsplit(string: string, delimiter: string, max_tokens: number): string[];
         /**
-         * Splits `string` into a number of tokens not containing any of the characters
-         * in `delimiters`. A token is the (possibly empty) longest string that does not
-         * contain any of the characters in `delimiters`. If `max_tokens` is reached, the
-         * remainder is appended to the last token.
+         * Splits `string` into a number of tokens not containing any of the
+         * bytes in `delimiters`.
          *
-         * For example, the result of g_strsplit_set ("abc:def/ghi", ":/", -1) is an
-         * array containing the three strings "abc", "def", and "ghi".
+         * A token is the (possibly empty) longest string that does not
+         * contain any of the bytes in `delimiters`. Note that separators
+         * will only be single bytes from `delimiters`. If `max_tokens` is reached,
+         * the remainder is appended to the last token.
          *
-         * The result of g_strsplit_set (":def/ghi:", ":/", -1) is an array containing
-         * the four strings "", "def", "ghi", and "".
+         * For example, the result of `g_strsplit_set ("abc:def/ghi", ":/", -1)`
+         * is an array containing the three strings `"abc"`, `"def"`, and `"ghi"`.
          *
-         * As a special case, the result of splitting the empty string "" is an empty
+         * The result of `g_strsplit_set (":def/ghi:/x", ":/", -1)` is an array
+         * containing the five strings `""`, `"def"`, `"ghi"`, `""`, `"x"`.
+         *
+         * As a special case, the result of splitting the empty string `""` is an empty
          * array, not an array containing a single string. The reason for this
          * special case is that being able to represent an empty array is typically
          * more useful than consistent handling of empty elements. If you do need
@@ -11618,7 +11621,7 @@ declare module 'gi://GLib?version=2.0' {
          * Note that this function works on bytes not characters, so it can't be used
          * to delimit UTF-8 strings for anything but ASCII characters.
          * @param string a string to split
-         * @param delimiters a string containing characters that are used to split the   string. Can be empty, which will result in no string splitting
+         * @param delimiters a nul-terminated byte array containing bytes that are used to   split the string; can be empty (just a nul byte), which will result in no   string splitting
          * @param max_tokens the maximum number of tokens to split @string into.   If this is less than 1, the string is split completely
          * @returns a newly-allocated array of strings. Use   [func@GLib.strfreev] to free it.
          */
@@ -12877,7 +12880,7 @@ declare module 'gi://GLib?version=2.0' {
         /**
          * Converts a single character to UTF-8.
          * @param c a Unicode character code
-         * @returns number of bytes written
+         * @returns number of bytes written, guaranteed to be in the range [1, 6]
          */
         function unichar_to_utf8(c: string): [number, string];
         /**

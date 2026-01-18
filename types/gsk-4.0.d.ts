@@ -739,6 +739,18 @@ declare module 'gi://Gsk?version=4.0' {
              * operations.
              */
             COMPOSITE_NODE,
+            /**
+             * A node that isolated content of its child from previous content.
+             */
+            ISOLATION_NODE,
+            /**
+             * A node that displaces content according to some mask.
+             */
+            DISPLACEMENT_NODE,
+            /**
+             * A node that combines two child nodes in an arithmetic way.
+             */
+            ARITHMETIC_NODE,
         }
         /**
          * The filters used when scaling texture data.
@@ -986,6 +998,46 @@ declare module 'gi://Gsk?version=4.0' {
         }
         interface RenderReplayTextureFilter {
             (replay: RenderReplay, texture: Gdk.Texture): Gdk.Texture;
+        }
+        /**
+         * These flags describe the types of isolations possible with a
+         * [class`Gsk`.IsolationNode].
+         *
+         * More isolation options may be added in the future.
+         */
+
+        /**
+         * These flags describe the types of isolations possible with a
+         * [class`Gsk`.IsolationNode].
+         *
+         * More isolation options may be added in the future.
+         */
+        export namespace Isolation {
+            export const $gtype: GObject.GType<Isolation>;
+        }
+
+        enum Isolation {
+            /**
+             * No isolation is defined.
+             */
+            NONE,
+            /**
+             * If the background should be made available.
+             *   If the background is not available, future operations will be rendered
+             *   to a transparent background and added to the existing background later.
+             */
+            BACKGROUND,
+            /**
+             * If copies should be available to paste nodes.
+             *   If copies are not available, paste nodes can only paste from copies that
+             *   are made inside the isolated contents.
+             */
+            COPY_PASTE,
+            /**
+             * Isolate everything. This will include features that
+             *   are added in the future.
+             */
+            ALL,
         }
         /**
          * Flags that can be passed to gsk_path_foreach() to influence what
@@ -2479,6 +2531,55 @@ declare module 'gi://Gsk?version=4.0' {
             get_spread(): number;
         }
 
+        namespace IsolationNode {
+            // Signal signatures
+            interface SignalSignatures extends RenderNode.SignalSignatures {}
+        }
+
+        /**
+         * A render node that isolates its child from surrounding rendernodes.
+         */
+        class IsolationNode extends RenderNode {
+            static $gtype: GObject.GType<IsolationNode>;
+
+            // Constructors
+
+            _init(...args: any[]): void;
+
+            static ['new'](child: RenderNode, isolations: Isolation): IsolationNode;
+
+            // Signals
+
+            connect<K extends keyof IsolationNode.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, IsolationNode.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof IsolationNode.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, IsolationNode.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof IsolationNode.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<IsolationNode.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
+            // Methods
+
+            /**
+             * Gets the child node that is getting drawn by the given `node`.
+             * @returns the child `GskRenderNode`
+             */
+            get_child(): RenderNode;
+            /**
+             * Gets the isolation features that are enforced by this node.
+             * @returns the isolation features
+             */
+            get_isolations(): Isolation;
+        }
+
         namespace LinearGradientNode {
             // Signal signatures
             interface SignalSignatures extends RenderNode.SignalSignatures {}
@@ -3729,7 +3830,7 @@ declare module 'gi://Gsk?version=4.0' {
 
             _init(...args: any[]): void;
 
-            static ['new'](child: RenderNode, transform: Transform): TransformNode;
+            static ['new'](child: RenderNode, transform?: Transform | null): TransformNode;
 
             // Signals
 
@@ -4039,7 +4140,8 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * The returned bounds may be larger than necessary, because this
              * function aims to be fast, not accurate. The bounds are guaranteed
-             * to contain the path.
+             * to contain the path. For accurate bounds, use
+             * [method`Gsk`.Path.get_tight_bounds].
              *
              * It is possible that the returned rectangle has 0 width and/or height.
              * This can happen when the path only describes a point or an
@@ -4071,6 +4173,24 @@ declare module 'gi://Gsk?version=4.0' {
              */
             get_end_point(): [boolean, PathPoint];
             /**
+             * Moves `point` to the next vertex.
+             *
+             * An empty path has no points, so false
+             * is returned in this case.
+             * @param point the current point
+             * @returns true if @point was set
+             */
+            get_next(point: PathPoint): [boolean, PathPoint];
+            /**
+             * Moves `point` to the previous vertex.
+             *
+             * An empty path has no points, so false
+             * is returned in this case.
+             * @param point the current point
+             * @returns true if @point was set
+             */
+            get_previous(point: PathPoint): [boolean, PathPoint];
+            /**
              * Gets the start point of the path.
              *
              * An empty path has no points, so false
@@ -4090,6 +4210,14 @@ declare module 'gi://Gsk?version=4.0' {
              * @returns true if the path has bounds, false if the path is known   to be empty and have no bounds.
              */
             get_stroke_bounds(stroke: Stroke): [boolean, Graphene.Rect];
+            /**
+             * Computes the tight bounds of the given path.
+             *
+             * This function works harder than [method`Gsk`.Path.get_bounds] to
+             * produce the smallest possible bounds.
+             * @returns true if the path has bounds, false if the path is known   to be empty and have no bounds
+             */
+            get_tight_bounds(): [boolean, Graphene.Rect];
             /**
              * Returns whether a point is inside the fill area of a path.
              *
@@ -4836,12 +4964,15 @@ declare module 'gi://Gsk?version=4.0' {
          * }
          * ```
          */
-        abstract class RenderReplay {
+        class RenderReplay {
             static $gtype: GObject.GType<RenderReplay>;
 
             // Constructors
 
+            constructor(properties?: Partial<{}>);
             _init(...args: any[]): void;
+
+            static ['new'](): RenderReplay;
 
             // Methods
 
@@ -4850,7 +4981,7 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * The default method calls [method`Gsk`.RenderReplay.filter_node]
              * on all its child nodes and the filter functions for all its
-             * proeprties. If none of them are changed, it returns the passed
+             * properties. If none of them are changed, it returns the passed
              * in node. Otherwise it constructs a new node with the changed
              * children and properties.
              *
@@ -4924,21 +5055,21 @@ declare module 'gi://Gsk?version=4.0' {
              *
              * * create a replacement node and return that
              *
-             * * discard the node by returning %NULL
+             * * discard the node by returning `NULL`
              *
              * * call [method`Gsk`.RenderReplay.default] to have the default handler
              *   run for this node, which calls your function on its children
-             * @param filter The function to call to replay nodes
+             * @param filter the function to call to replay nodes
              */
-            set_node_filter(filter: RenderReplayNodeFilter): void;
+            set_node_filter(filter?: RenderReplayNodeFilter | null): void;
             /**
              * Sets the function to call for every node.
              *
              * This function is called before the node filter, so if it returns
-             * FALSE, the node filter will never be called.
+             * false, the node filter will never be called.
              * @param foreach the function to call for all nodes
              */
-            set_node_foreach(foreach: RenderReplayNodeForeach): void;
+            set_node_foreach(foreach?: RenderReplayNodeForeach | null): void;
             /**
              * Sets a filter function to be called by [method`Gsk`.RenderReplay.default]
              * for nodes that contain textures.

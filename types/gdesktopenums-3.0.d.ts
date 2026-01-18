@@ -300,6 +300,15 @@ declare module 'gi://GDesktopEnums?version=3.0' {
             KEYBINDING,
         }
 
+        export namespace StylusEraserButtonMode {
+            export const $gtype: GObject.GType<StylusEraserButtonMode>;
+        }
+
+        enum StylusEraserButtonMode {
+            DEFAULT,
+            BUTTON,
+        }
+
         export namespace TabletMapping {
             export const $gtype: GObject.GType<TabletMapping>;
         }

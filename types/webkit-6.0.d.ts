@@ -2078,6 +2078,10 @@ declare module 'gi://WebKit?version=6.0' {
              * hit test feature.
              */
             HIT_TEST,
+            /**
+             * WebXR Layers feature.
+             */
+            LAYERS,
         }
         namespace AuthenticationRequest {
             // Signal signatures
@@ -6135,7 +6139,7 @@ declare module 'gi://WebKit?version=6.0' {
          *
          * Image objects are always created by WebKit, and considered immutable:
          * a copy of the image data needs to be made before modifying the image.
-         * Pixel data can be obtained with [id`webkit_image_as_rgba_bytes]`.
+         * Pixel data can be obtained with [id`webkit_image_as_bytes]`.
          */
         class Image extends GObject.Object implements Gio.Icon, Gio.LoadableIcon {
             static $gtype: GObject.GType<Image>;
@@ -6198,11 +6202,10 @@ declare module 'gi://WebKit?version=6.0' {
              *
              * The pixel format for the returned byte buffer is 32-bit per pixel
              * with 8-bit premultiplied alpha, in the preferred byte order for
-             * the architecture (typically ABGR8888 on little-endian hosts, and
-             * RGBA8888 on big-endian ones).
+             * the architecture.
              * @returns a #GBytes
              */
-            as_rgba_bytes(): GLib.Bytes;
+            as_bytes(): GLib.Bytes;
             /**
              * Get the `image` height in pixels.
              * @returns the image height
@@ -16177,7 +16180,8 @@ declare module 'gi://WebKit?version=6.0' {
                 callback?: Gio.AsyncReadyCallback<this> | null,
             ): globalThis.Promise<Gdk.Texture> | void;
             /**
-             * Finishes an asynchronous operation started with webkit_web_view_get_snapshot().
+             * Finishes an asynchronous operation started with webkit_web_view_get_snapshot(), producing
+             * an image of the snapshot using the BGRA8888 pixel format.
              * @param result a #GAsyncResult
              * @returns an image with the retrieved snapshot, or %NULL in case of error.
              */
@@ -17315,6 +17319,17 @@ declare module 'gi://WebKit?version=6.0' {
              */
             announce(message: string, priority: Gtk.AccessibleAnnouncementPriority | null): void;
             /**
+             * Retrieves the accessible identifier for the accessible object.
+             *
+             * This functionality can be overridden by `GtkAccessible`
+             * implementations.
+             *
+             * It is left to the accessible implementation to define the scope
+             * and uniqueness of the identifier.
+             * @returns the accessible identifier
+             */
+            get_accessible_id(): string | null;
+            /**
              * Retrieves the accessible parent for an accessible object.
              *
              * This function returns `NULL` for top level widgets.
@@ -17439,6 +17454,16 @@ declare module 'gi://WebKit?version=6.0' {
              * @param values an array of `GValues`, one for each state
              */
             update_state(states: Gtk.AccessibleState[] | null, values: (GObject.Value | any)[]): void;
+            /**
+             * Retrieves the accessible identifier for the accessible object.
+             *
+             * This functionality can be overridden by `GtkAccessible`
+             * implementations.
+             *
+             * It is left to the accessible implementation to define the scope
+             * and uniqueness of the identifier.
+             */
+            vfunc_get_accessible_id(): string | null;
             /**
              * Retrieves the accessible parent for an accessible object.
              *
