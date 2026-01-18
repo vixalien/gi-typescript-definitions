@@ -10,7 +10,9 @@ message() {
 message "Enabling Node..."
 export PATH="/usr/lib/sdk/node24/bin:$PATH"
 
-TMP_INSTALL_DIR=/tmp/yarn-global
+TMP_INSTALL_DIR=/tmp/pnpm-global
+
+mkdir -p $TMP_INSTALL_DIR
 
 message "Installing ts-for-gir..."
 export PATH="$TMP_INSTALL_DIR:$PATH"

@@ -1,17 +1,19 @@
 {
-  "name": "gi-typescript-definitions",
-  "private": true,
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@reactionjs/types",
+  "version": "2025.01.18",
+  "description": "GNOME Runtime TypeScript types",
+  "main": "./types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    "./*": "./types/*.d.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.23.0",
-  "dependencies": {
+  "packageManager": "pnpm@10.28.0",
+  "devDependencies": {
     "@ts-for-gir/cli": "4.0.0-beta.38"
   }
 }
