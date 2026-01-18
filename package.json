@@ -9,6 +9,7 @@
   "exports": {
     "./*": "./types/*.d.ts"
   },
+  "files": ["types"],
   "keywords": [],
   "author": "",
   "license": "ISC",
