@@ -2,18 +2,18 @@
 
 This repo contains auto-generated types from the master GNOME SDK.
 
-## Usage
+## Installation
 
-```sh
-git submodule add https://github.com/vixalien/gi-typescript-definitions.git types
+```bash
+npm install @peachy/types
 ```
 
-Then add it to your `tsconfig.json`
+## Usage
 
 ```json
 {
   "compilerOptions": {
-    "include": ["types/index.d.ts", "src"]
+    "include": ["@peachy/types", "src"]
   }
 }
 ```
