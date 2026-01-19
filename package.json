@@ -1,5 +1,5 @@
 {
-  "name": "@reactionjs/types",
+  "name": "@peachy/types",
   "version": "2025.01.18",
   "description": "GNOME Runtime TypeScript types",
   "main": "./types/index.d.ts",
@@ -9,7 +9,9 @@
   "exports": {
     "./*": "./types/*.d.ts"
   },
-  "files": ["types"],
+  "files": [
+    "types"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
