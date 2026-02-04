@@ -495,6 +495,14 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              */
             get_n_items(): number;
             /**
+             * Gets the position in view coordinates where the context menu was triggered.
+             *
+             * This function only returns valid coordinates when called for a #WebKitContextMenu
+             * passed to #WebKitWebView::context-menu signal.
+             * @returns %TRUE if valid position coordinates are available, %FALSE otherwise
+             */
+            get_position(): [boolean, number, number];
+            /**
              * Gets the user data of `menu`.
              *
              * This function can be used from the UI Process to get user data previously set
@@ -629,6 +637,11 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              */
             get_gaction(): Gio.Action;
             /**
+             * Gets the target #GVariant associated with `item`.
+             * @returns the target #GVariant of the #WebKitContextMenuItem,    or %NULL if @item was not created with webkit_context_menu_item_new_from_gaction()    or if no target was specified.
+             */
+            get_gaction_target(): GLib.Variant | null;
+            /**
              * Gets the #WebKitContextMenuAction of `item`.
              *
              * If the #WebKitContextMenuItem was not
@@ -643,6 +656,11 @@ declare module 'gi://WebKitWebProcessExtension?version=6.0' {
              * @returns the #WebKitContextMenu representing the submenu of    @item or %NULL if @item doesn't have a submenu.
              */
             get_submenu(): ContextMenu;
+            /**
+             * Gets the title of `item`.
+             * @returns the title of @item, or %NULL if @item is a separator.
+             */
+            get_title(): string;
             /**
              * Checks whether `item` is a separator.
              * @returns %TRUE is @item is a separator or %FALSE otherwise

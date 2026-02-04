@@ -1424,7 +1424,7 @@ declare module 'gi://Soup?version=3.0' {
          * iterated by `iter`.
          *
          * If `iter` has already yielded the last header, then
-         * [method`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
+         * [func`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
          * will be unchanged.
          * @param iter a #SoupMessageHeadersIter
          * @returns %TRUE if another name and value were returned, %FALSE   if the end of the headers has been reached.
@@ -11921,6 +11921,7 @@ declare module 'gi://Soup?version=3.0' {
                 'notify::keepalive-interval': (pspec: GObject.ParamSpec) => void;
                 'notify::keepalive-pong-timeout': (pspec: GObject.ParamSpec) => void;
                 'notify::max-incoming-payload-size': (pspec: GObject.ParamSpec) => void;
+                'notify::max-total-message-size': (pspec: GObject.ParamSpec) => void;
                 'notify::origin': (pspec: GObject.ParamSpec) => void;
                 'notify::protocol': (pspec: GObject.ParamSpec) => void;
                 'notify::state': (pspec: GObject.ParamSpec) => void;
@@ -11941,6 +11942,8 @@ declare module 'gi://Soup?version=3.0' {
                 keepalivePongTimeout: number;
                 max_incoming_payload_size: number;
                 maxIncomingPayloadSize: number;
+                max_total_message_size: number;
+                maxTotalMessageSize: number;
                 origin: string;
                 protocol: string;
                 state: WebsocketState;
@@ -12039,19 +12042,55 @@ declare module 'gi://Soup?version=3.0' {
             get keepalivePongTimeout(): number;
             set keepalivePongTimeout(val: number);
             /**
-             * The maximum payload size for incoming packets.
+             * The maximum payload size for incoming packets, or 0 to not limit it.
              *
-             * The protocol expects or 0 to not limit it.
+             * Each message may consist of multiple packets, so also refer to
+             * [property`WebsocketConnection:`max-total-message-size].
              */
             get max_incoming_payload_size(): number;
             set max_incoming_payload_size(val: number);
             /**
-             * The maximum payload size for incoming packets.
+             * The maximum payload size for incoming packets, or 0 to not limit it.
              *
-             * The protocol expects or 0 to not limit it.
+             * Each message may consist of multiple packets, so also refer to
+             * [property`WebsocketConnection:`max-total-message-size].
              */
             get maxIncomingPayloadSize(): number;
             set maxIncomingPayloadSize(val: number);
+            /**
+             * The maximum size for incoming messages.
+             *
+             * Set to a value to limit the total message size, or 0 to not
+             * limit it.
+             *
+             * [method`Server`.add_websocket_handler] will set this to a nonzero
+             * default value to mitigate denial of service attacks. Clients must
+             * choose their own default if they need to mitigate denial of service
+             * attacks. You also need to set your own default if creating your own
+             * server SoupWebsocketConnection without using SoupServer.
+             *
+             * Each message may consist of multiple packets, so also refer to
+             * [property`WebsocketConnection:`max-incoming-payload-size].
+             */
+            get max_total_message_size(): number;
+            set max_total_message_size(val: number);
+            /**
+             * The maximum size for incoming messages.
+             *
+             * Set to a value to limit the total message size, or 0 to not
+             * limit it.
+             *
+             * [method`Server`.add_websocket_handler] will set this to a nonzero
+             * default value to mitigate denial of service attacks. Clients must
+             * choose their own default if they need to mitigate denial of service
+             * attacks. You also need to set your own default if creating your own
+             * server SoupWebsocketConnection without using SoupServer.
+             *
+             * Each message may consist of multiple packets, so also refer to
+             * [property`WebsocketConnection:`max-incoming-payload-size].
+             */
+            get maxTotalMessageSize(): number;
+            set maxTotalMessageSize(val: number);
             /**
              * The client's Origin.
              */
@@ -12184,6 +12223,11 @@ declare module 'gi://Soup?version=3.0' {
              */
             get_max_incoming_payload_size(): number;
             /**
+             * Gets the maximum total message size allowed for packets.
+             * @returns the maximum total message size.
+             */
+            get_max_total_message_size(): number;
+            /**
              * Get the origin of the WebSocket.
              * @returns the origin
              */
@@ -12260,6 +12304,13 @@ declare module 'gi://Soup?version=3.0' {
              * @param max_incoming_payload_size the maximum payload size
              */
             set_max_incoming_payload_size(max_incoming_payload_size: number): void;
+            /**
+             * Sets the maximum total message size allowed for packets.
+             *
+             * It does not limit the outgoing packet size.
+             * @param max_total_message_size the maximum total message size
+             */
+            set_max_total_message_size(max_total_message_size: number): void;
         }
 
         namespace WebsocketExtension {
@@ -13795,7 +13846,7 @@ declare module 'gi://Soup?version=3.0' {
          * An opaque type used to iterate over a [struct`MessageHeaders]` structure
          *
          * After intializing the iterator with [func`MessageHeadersIter`.init], call
-         * [method`MessageHeadersIter`.next] to fetch data from it.
+         * [func`MessageHeadersIter`.next] to fetch data from it.
          *
          * You may not modify the headers while iterating over them.
          */
@@ -13819,7 +13870,7 @@ declare module 'gi://Soup?version=3.0' {
              * iterated by `iter`.
              *
              * If `iter` has already yielded the last header, then
-             * [method`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
+             * [func`MessageHeadersIter`.next] will return %FALSE and `name` and `value`
              * will be unchanged.
              * @param iter a #SoupMessageHeadersIter
              */

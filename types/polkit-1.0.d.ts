@@ -516,6 +516,53 @@ declare module 'gi://Polkit?version=1.0' {
                 cancellable?: Gio.Cancellable | null,
             ): boolean;
             /**
+             * Asynchronously provide response that `identity` successfully authenticated
+             * for the authentication request identified by `cookie` as requested by `subject`.
+             *
+             * This function is only used by the socket-activated agent helper, running as uiid
+             * 0, and will fail otherwise. The requesting process is identified via `subject`
+             * which will contain a PID FD identifying the process.
+             *
+             * When the operation is finished, `callback` will be invoked in the
+             * <link linkend="g-main-context-push-thread-default">thread-default
+             * main loop</link> of the thread you are calling this method
+             * from. You can then call
+             * polkit_authority_authentication_agent_response_finish() to get the
+             * result of the operation.
+             * @param cookie The cookie passed to the authentication agent from the authority.
+             * @param identity The identity that was authenticated.
+             * @param subject The subject that requested the authentication.
+             * @param cancellable A #GCancellable or %NULL.
+             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+             */
+            authentication_agent_response_with_subject(
+                cookie: string,
+                identity: Identity,
+                subject: Subject,
+                cancellable?: Gio.Cancellable | null,
+                callback?: Gio.AsyncReadyCallback<this> | null,
+            ): void;
+            /**
+             * Provide response that `identity` successfully authenticated for the
+             * authentication request identified by `cookie`. See polkit_authority_authentication_agent_response_with_subject()
+             * for limitations on who is allowed is to call this method.
+             *
+             * The calling thread is blocked until a reply is received. See
+             * polkit_authority_authentication_agent_response_with_subject() for the
+             * asynchronous version.
+             * @param cookie The cookie passed to the authentication agent from the authority.
+             * @param identity The identity that was authenticated.
+             * @param subject The subject that requested the authentication.
+             * @param cancellable A #GCancellable or %NULL.
+             * @returns %TRUE if @authority acknowledged the call, %FALSE if @error is set.
+             */
+            authentication_agent_response_with_subject_sync(
+                cookie: string,
+                identity: Identity,
+                subject: Subject,
+                cancellable?: Gio.Cancellable | null,
+            ): boolean;
+            /**
              * Asynchronously checks if `subject` is authorized to perform the action represented
              * by `action_id`.
              *
@@ -538,7 +585,7 @@ declare module 'gi://Polkit?version=1.0' {
              * the <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.CheckAuthorization">D-Bus method</link> for more details.
              *
              * If `details` is non-empty then the request will fail with
-             * #POLKIT_ERROR_FAILED unless the process doing the check itsef is
+             * #POLKIT_ERROR_FAILED unless the process doing the check itself is
              * sufficiently authorized (e.g. running as uid 0).
              * @param subject A #PolkitSubject.
              * @param action_id The action to check for.
@@ -576,7 +623,7 @@ declare module 'gi://Polkit?version=1.0' {
              * the <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.CheckAuthorization">D-Bus method</link> for more details.
              *
              * If `details` is non-empty then the request will fail with
-             * #POLKIT_ERROR_FAILED unless the process doing the check itsef is
+             * #POLKIT_ERROR_FAILED unless the process doing the check itself is
              * sufficiently authorized (e.g. running as uid 0).
              * @param subject A #PolkitSubject.
              * @param action_id The action to check for.
@@ -616,7 +663,7 @@ declare module 'gi://Polkit?version=1.0' {
              * the <link linkend="eggdbus-method-org.freedesktop.PolicyKit1.Authority.CheckAuthorization">D-Bus method</link> for more details.
              *
              * If `details` is non-empty then the request will fail with
-             * #POLKIT_ERROR_FAILED unless the process doing the check itsef is
+             * #POLKIT_ERROR_FAILED unless the process doing the check itself is
              * sufficiently authorized (e.g. running as uid 0).
              * @param subject A #PolkitSubject.
              * @param action_id The action to check for.
@@ -4895,10 +4942,13 @@ declare module 'gi://Polkit?version=1.0' {
         namespace UnixProcess {
             // Signal signatures
             interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::cgroupid': (pspec: GObject.ParamSpec) => void;
+                'notify::ctty': (pspec: GObject.ParamSpec) => void;
                 'notify::gids': (pspec: GObject.ParamSpec) => void;
                 'notify::pid': (pspec: GObject.ParamSpec) => void;
                 'notify::pidfd': (pspec: GObject.ParamSpec) => void;
                 'notify::pidfd-is-safe': (pspec: GObject.ParamSpec) => void;
+                'notify::ppidfd': (pspec: GObject.ParamSpec) => void;
                 'notify::start-time': (pspec: GObject.ParamSpec) => void;
                 'notify::uid': (pspec: GObject.ParamSpec) => void;
             }
@@ -4906,11 +4956,14 @@ declare module 'gi://Polkit?version=1.0' {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Subject.ConstructorProps {
+                cgroupid: number;
+                ctty: number;
                 gids: any[];
                 pid: number;
                 pidfd: number;
                 pidfd_is_safe: boolean;
                 pidfdIsSafe: boolean;
+                ppidfd: number;
                 start_time: number;
                 startTime: number;
                 uid: number;
@@ -4947,6 +5000,14 @@ declare module 'gi://Polkit?version=1.0' {
             // Properties
 
             /**
+             * The start time of the process.
+             */
+            get cgroupid(): number;
+            /**
+             * The UNIX process controlling TTY.
+             */
+            get ctty(): number;
+            /**
              * The UNIX group ids of the process.
              */
             get gids(): any[];
@@ -4963,6 +5024,10 @@ declare module 'gi://Polkit?version=1.0' {
             set pidfd(val: number);
             get pidfd_is_safe(): boolean;
             get pidfdIsSafe(): boolean;
+            /**
+             * The UNIX process' parent id file descriptor.
+             */
+            get ppidfd(): number;
             /**
              * The start time of the process.
              */
@@ -5053,6 +5118,16 @@ declare module 'gi://Polkit?version=1.0' {
             // Methods
 
             /**
+             * Gets the cgroupid of `process`.
+             * @returns The cgroupid of @process.
+             */
+            get_cgroupid(): number;
+            /**
+             * Gets the controlling TTY for `process`.
+             * @returns The dev_t of the controlling TTY of @process.
+             */
+            get_ctty(): number;
+            /**
              * Gets the group ids for `process`. Note that this is the real group-ids,
              * not the effective group-ids.
              * @returns a #GArray          of #gid_t containing the group ids for @process or NULL if unknown,          as a new reference to the array, caller must deref it when done.
@@ -5078,6 +5153,16 @@ declare module 'gi://Polkit?version=1.0' {
              * @returns TRUE or FALSE.
              */
             get_pidfd_is_safe(): boolean;
+            /**
+             * Gets the process' parent id for `process`.
+             * @returns The process id for the parent of @process.
+             */
+            get_ppid(): number;
+            /**
+             * Gets the process' parent id file descriptor for `process`.
+             * @returns The process id file descriptor for the parent of @process.
+             */
+            get_ppidfd(): number;
             /**
              * Gets the start time of `process`.
              * @returns The start time of @process.

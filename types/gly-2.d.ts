@@ -746,7 +746,7 @@ declare module 'gi://Gly?version=2' {
              *
              * ::: warning
              *     Most loaders will ignore this option. Currently, only the SVG
-             *     loader is known to obay it.
+             *     loader is known to obey it.
              * @param width Maximum width
              * @param height Maximum height
              */
@@ -874,7 +874,7 @@ declare module 'gi://Gly?version=2' {
              * guaranteed to only return values from 1 to 8.
              *
              * If [method`Loader`.set_apply_transformations] is set to `FALSE`,
-             * the orientation has to be corrected manually to dispaly the image
+             * the orientation has to be corrected manually to display the image
              * correctly.
              */
             get_transformation_orientation(): number;

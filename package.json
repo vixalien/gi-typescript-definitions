@@ -1,6 +1,6 @@
 {
   "name": "@peachy/types",
-  "version": "2025.01.18",
+  "version": "2025.02.04",
   "description": "GNOME Runtime TypeScript types",
   "main": "./types/index.d.ts",
   "scripts": {

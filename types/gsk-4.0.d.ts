@@ -1614,10 +1614,10 @@ declare module 'gi://Gsk?version=4.0' {
             get_child(): RenderNode;
             /**
              * Gets the component transfer for one of the components.
-             * @param component a value between 0 and 3 to indicate the red, green, blue   or alpha component
+             * @param component the component to get the transfer for
              * @returns the `GskComponentTransfer`
              */
-            get_transfer(component: number): ComponentTransfer;
+            get_transfer(component: Gdk.ColorChannel | null): ComponentTransfer;
         }
 
         namespace CompositeNode {

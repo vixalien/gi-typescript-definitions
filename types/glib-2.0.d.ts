@@ -4020,27 +4020,6 @@ declare module 'gi://GLib?version=2.0' {
             SPACE_SEPARATOR,
         }
         /**
-         * Mnemonic constants for the ends of a Unix pipe.
-         */
-
-        /**
-         * Mnemonic constants for the ends of a Unix pipe.
-         */
-        export namespace UnixPipeEnd {
-            export const $gtype: GObject.GType<UnixPipeEnd>;
-        }
-
-        enum UnixPipeEnd {
-            /**
-             * The readable file descriptor 0
-             */
-            READ,
-            /**
-             * The writable file descriptor 1
-             */
-            WRITE,
-        }
-        /**
          * Error codes returned by #GUri methods.
          */
         class UriError extends Error {
@@ -6424,26 +6403,6 @@ declare module 'gi://GLib?version=2.0' {
          */
         function close(fd: number): boolean;
         /**
-         * Close every file descriptor equal to or greater than `lowfd`.
-         *
-         * Typically `lowfd` will be 3, to leave standard input, standard output
-         * and standard error open.
-         *
-         * This is the same as Linux `close_range (lowfd, ~0U, 0)`,
-         * but portable to other OSs and to older versions of Linux.
-         * Equivalently, it is the same as BSD `closefrom (lowfd)`, but portable,
-         * and async-signal-safe on all OSs.
-         *
-         * This function is async-signal safe, making it safe to call from a
-         * signal handler or a [callback`GLib`.SpawnChildSetupFunc], as long as `lowfd` is
-         * non-negative.
-         * See [`signal(7)`](man:signal(7)) and
-         * [`signal-safety(7)`](man:signal-safety(7)) for more details.
-         * @param lowfd Minimum fd to close, which must be non-negative
-         * @returns 0 on success, -1 with errno set on error
-         */
-        function closefrom(lowfd: number): number;
-        /**
          * Computes the checksum for a binary `data`. This is a
          * convenience wrapper for g_checksum_new(), g_checksum_get_string()
          * and g_checksum_free().
@@ -7063,25 +7022,6 @@ declare module 'gi://GLib?version=2.0' {
             error_type_copy: ErrorCopyFunc,
             error_type_clear: ErrorClearFunc,
         ): Quark;
-        /**
-         * Mark every file descriptor equal to or greater than `lowfd` to be closed
-         * at the next `execve()` or similar, as if via the `FD_CLOEXEC` flag.
-         *
-         * Typically `lowfd` will be 3, to leave standard input, standard output
-         * and standard error open after exec.
-         *
-         * This is the same as Linux `close_range (lowfd, ~0U, CLOSE_RANGE_CLOEXEC)`,
-         * but portable to other OSs and to older versions of Linux.
-         *
-         * This function is async-signal safe, making it safe to call from a
-         * signal handler or a [callback`GLib`.SpawnChildSetupFunc], as long as `lowfd` is
-         * non-negative.
-         * See [`signal(7)`](man:signal(7)) and
-         * [`signal-safety(7)`](man:signal-safety(7)) for more details.
-         * @param lowfd Minimum fd to act on, which must be non-negative
-         * @returns 0 on success, -1 with errno set on error
-         */
-        function fdwalk_set_cloexec(lowfd: number): number;
         /**
          * Gets a #GFileError constant based on the passed-in `err_no`.
          *
@@ -11621,11 +11561,11 @@ declare module 'gi://GLib?version=2.0' {
          * Note that this function works on bytes not characters, so it can't be used
          * to delimit UTF-8 strings for anything but ASCII characters.
          * @param string a string to split
-         * @param delimiters a nul-terminated byte array containing bytes that are used to   split the string; can be empty (just a nul byte), which will result in no   string splitting
+         * @param delimiters a   nul-terminated byte array containing bytes that are used to   split the string; can be empty (just a nul byte), which will result in no   string splitting
          * @param max_tokens the maximum number of tokens to split @string into.   If this is less than 1, the string is split completely
          * @returns a newly-allocated array of strings. Use   [func@GLib.strfreev] to free it.
          */
-        function strsplit_set(string: string, delimiters: string, max_tokens: number): string[];
+        function strsplit_set(string: string, delimiters: Uint8Array | string, max_tokens: number): string[];
         /**
          * Searches the string `haystack` for the first occurrence
          * of the string `needle,` limiting the length of the search
@@ -12143,6 +12083,11 @@ declare module 'gi://GLib?version=2.0' {
          * @returns true if the last test subprocess terminated successfully
          */
         function test_trap_has_passed(): boolean;
+        /**
+         * Checks the result of the last [func`GLib`.test_trap_subprocess] call.
+         * @returns true if the last test subprocess was skipped
+         */
+        function test_trap_has_skipped(): boolean;
         /**
          * Checks the result of the last [func`GLib`.test_trap_subprocess] call.
          * @returns true if the last test subprocess got killed due to a timeout
@@ -12966,133 +12911,6 @@ declare module 'gi://GLib?version=2.0' {
          * @returns the ISO 15924 code for @script, encoded as an integer,   of zero if @script is %G_UNICODE_SCRIPT_INVALID_CODE or   ISO 15924 code 'Zzzz' (script code for UNKNOWN) if @script is not understood.
          */
         function unicode_script_to_iso15924(script: UnicodeScript | null): number;
-        function unix_error_quark(): Quark;
-        /**
-         * Sets a function to be called when the IO condition, as specified by
-         * `condition` becomes true for `fd`.
-         *
-         * This is the same as g_unix_fd_add(), except that it allows you to
-         * specify a non-default priority and a provide a #GDestroyNotify for
-         * `user_data`.
-         * @param priority the priority of the source
-         * @param fd a file descriptor
-         * @param condition IO conditions to watch for on @fd
-         * @param _function a #GUnixFDSourceFunc
-         * @returns the ID (greater than 0) of the event source
-         */
-        function unix_fd_add_full(
-            priority: number,
-            fd: number,
-            condition: IOCondition | null,
-            _function: UnixFDSourceFunc,
-        ): number;
-        /**
-         * Queries the file path for the given FD opened by the current process.
-         * @param fd The file descriptor to query.
-         * @returns The file path, or `NULL` on error
-         */
-        function unix_fd_query_path(fd: number): string;
-        /**
-         * Creates a #GSource to watch for a particular I/O condition on a file
-         * descriptor.
-         *
-         * The source will never close the `fd` — you must do it yourself.
-         *
-         * Any callback attached to the returned #GSource must have type
-         * #GUnixFDSourceFunc.
-         * @param fd a file descriptor
-         * @param condition I/O conditions to watch for on @fd
-         * @returns the newly created #GSource
-         */
-        function unix_fd_source_new(fd: number, condition: IOCondition | null): Source;
-        /**
-         * Get the `passwd` file entry for the given `user_name` using `getpwnam_r()`.
-         * This can fail if the given `user_name` doesn’t exist.
-         *
-         * The returned `struct passwd` has been allocated using g_malloc() and should
-         * be freed using g_free(). The strings referenced by the returned struct are
-         * included in the same allocation, so are valid until the `struct passwd` is
-         * freed.
-         *
-         * This function is safe to call from multiple threads concurrently.
-         *
-         * You will need to include `pwd.h` to get the definition of `struct passwd`.
-         * @param user_name the username to get the passwd file entry for
-         * @returns passwd entry, or %NULL on error; free the returned    value with g_free()
-         */
-        function unix_get_passwd_entry(user_name: string): any | null;
-        /**
-         * Similar to the UNIX pipe() call, but on modern systems like Linux
-         * uses the pipe2() system call, which atomically creates a pipe with
-         * the configured flags.
-         *
-         * As of GLib 2.78, the supported flags are `O_CLOEXEC`/`FD_CLOEXEC` (see below)
-         * and `O_NONBLOCK`. Prior to GLib 2.78, only `FD_CLOEXEC` was supported — if
-         * you wanted to configure `O_NONBLOCK` then that had to be done separately with
-         * `fcntl()`.
-         *
-         * Since GLib 2.80, the constants %G_UNIX_PIPE_END_READ and
-         * %G_UNIX_PIPE_END_WRITE can be used as mnemonic indexes in `fds`.
-         *
-         * It is a programmer error to call this function with unsupported flags, and a
-         * critical warning will be raised.
-         *
-         * As of GLib 2.78, it is preferred to pass `O_CLOEXEC` in, rather than
-         * `FD_CLOEXEC`, as that matches the underlying `pipe()` API more closely. Prior
-         * to 2.78, only `FD_CLOEXEC` was supported. Support for `FD_CLOEXEC` may be
-         * deprecated and removed in future.
-         * @param fds Array of two integers
-         * @param flags Bitfield of file descriptor flags, as for fcntl()
-         * @returns %TRUE on success, %FALSE if not (and errno will be set).
-         */
-        function unix_open_pipe(fds: number[], flags: number): boolean;
-        /**
-         * Control the non-blocking state of the given file descriptor,
-         * according to `nonblock`. On most systems this uses %O_NONBLOCK, but
-         * on some older ones may use %O_NDELAY.
-         * @param fd A file descriptor
-         * @param nonblock If %TRUE, set the descriptor to be non-blocking
-         * @returns %TRUE if successful
-         */
-        function unix_set_fd_nonblocking(fd: number, nonblock: boolean): boolean;
-        /**
-         * A convenience function for g_unix_signal_source_new(), which
-         * attaches to the default #GMainContext.  You can remove the watch
-         * using g_source_remove().
-         * @param priority the priority of the signal source. Typically this will be in            the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.
-         * @param signum Signal number
-         * @param handler Callback
-         * @returns An ID (greater than 0) for the event source
-         */
-        function unix_signal_add(priority: number, signum: number, handler: SourceFunc): number;
-        /**
-         * Create a #GSource that will be dispatched upon delivery of the UNIX
-         * signal `signum`.  In GLib versions before 2.36, only `SIGHUP`, `SIGINT`,
-         * `SIGTERM` can be monitored.  In GLib 2.36, `SIGUSR1` and `SIGUSR2`
-         * were added. In GLib 2.54, `SIGWINCH` was added.
-         *
-         * Note that unlike the UNIX default, all sources which have created a
-         * watch will be dispatched, regardless of which underlying thread
-         * invoked g_unix_signal_source_new().
-         *
-         * For example, an effective use of this function is to handle `SIGTERM`
-         * cleanly; flushing any outstanding files, and then calling
-         * g_main_loop_quit().  It is not safe to do any of this from a regular
-         * UNIX signal handler; such a handler may be invoked while malloc() or
-         * another library function is running, causing reentrancy issues if the
-         * handler attempts to use those functions.  None of the GLib/GObject
-         * API is safe against this kind of reentrancy.
-         *
-         * The interaction of this source when combined with native UNIX
-         * functions like sigprocmask() is not defined.
-         *
-         * The source will not initially be associated with any #GMainContext
-         * and must be added to one with g_source_attach() before it will be
-         * executed.
-         * @param signum A signal number
-         * @returns A newly created #GSource
-         */
-        function unix_signal_source_new(signum: number): Source;
         /**
          * A wrapper for the POSIX unlink() function. The unlink() function
          * deletes a name from the filesystem. If this was the last link to the
@@ -14296,9 +14114,6 @@ declare module 'gi://GLib?version=2.0' {
         }
         interface TraverseNodeFunc {
             (node: TreeNode, data?: any | null): boolean;
-        }
-        interface UnixFDSourceFunc {
-            (fd: number, condition: IOCondition): boolean;
         }
         interface VoidFunc {
             (): void;
@@ -20633,6 +20448,22 @@ declare module 'gi://GLib?version=2.0' {
              */
             get_position(): [number, number];
             /**
+             * Retrieves the start position of the current start or end tag.
+             *
+             * This function can be used in the `start_element` or `end_element`
+             * callbacks to obtain location information for error reporting.
+             *
+             * Note that `line_number` and `char_number` are intended for human
+             * readable error messages and are therefore 1-based and in Unicode
+             * characters. `offset` on the other hand is meant for programmatic
+             * use, and thus is 0-based and in bytes.
+             *
+             * The information is meant to accompany the values returned by
+             * [method`GLib`.MarkupParseContext.get_position], and comes with the
+             * same accuracy guarantees.
+             */
+            get_tag_start(): [number, number, number];
+            /**
              * Returns the user_data associated with `context`.
              *
              * This will either be the user_data that was provided to
@@ -26372,28 +26203,6 @@ declare module 'gi://GLib?version=2.0' {
              * @returns the field of the record.
              */
             index(index_: number, field: number): any | null;
-        }
-
-        /**
-         * A Unix pipe. The advantage of this type over `int[2]` is that it can
-         * be closed automatically when it goes out of scope, using `g_auto(GUnixPipe)`,
-         * on compilers that support that feature.
-         */
-        class UnixPipe {
-            static $gtype: GObject.GType<UnixPipe>;
-
-            // Fields
-
-            fds: number[];
-
-            // Constructors
-
-            constructor(
-                properties?: Partial<{
-                    fds: number[];
-                }>,
-            );
-            _init(...args: any[]): void;
         }
 
         /**
