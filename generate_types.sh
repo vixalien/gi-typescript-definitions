@@ -23,7 +23,7 @@ message "Cleaning up old files"
 rm types/*.d.ts
 
 message "Generating modules..."
-pnpm exec ts-for-gir generate --ignoreVersionConflicts -o types '*'
+pnpm exec girgen typescript -o types
 
 message "Generated modules"
 exit
