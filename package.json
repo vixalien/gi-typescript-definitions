@@ -4,6 +4,7 @@
   "repository": {
     "url": "https://github.com/vixalien/peachy-types"
   },
+  "type": "module",
   "description": "GNOME Runtime TypeScript types",
   "main": "./types/index.d.ts",
   "scripts": {
