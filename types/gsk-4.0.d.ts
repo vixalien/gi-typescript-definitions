@@ -993,9 +993,6 @@ declare module 'gi://Gsk?version=4.0' {
         interface RenderReplayNodeFilter {
             (replay: RenderReplay, node: RenderNode): RenderNode | null;
         }
-        interface RenderReplayNodeForeach {
-            (replay: RenderReplay, node: RenderNode): boolean;
-        }
         interface RenderReplayTextureFilter {
             (replay: RenderReplay, texture: Gdk.Texture): Gdk.Texture;
         }
@@ -3090,6 +3087,15 @@ declare module 'gi://Gsk?version=4.0' {
              */
             get_bounds(): Graphene.Rect;
             /**
+             * Gets a list of all children nodes of the rendernode.
+             *
+             * Keep in mind that for various rendernodes, their children have different
+             * semantics, like the mask vs the source of a mask node. If you care about
+             * thse semantics, don't use this function, use the specific getters instead.
+             * @returns The children
+             */
+            get_children(): RenderNode[] | null;
+            /**
              * Returns the type of the render node.
              * @returns the type of @node
              */
@@ -4898,31 +4904,35 @@ declare module 'gi://Gsk?version=4.0' {
          * to filter each individual node and then run
          * [method`Gsk`.RenderReplay.filter_node] on the nodes you want to filter.
          *
-         * An easier method exists to just walk the node tree and extract information
-         * without any modifications. If you want to do that, the functions
-         * [method`Gsk`.RenderReplay.set_node_foreach] exists. You can also call
-         * [method`Gsk`.RenderReplay.foreach_node] to run that function. Note that
-         * the previously mentioned complex functionality will still be invoked if you
-         * have set up a function for it, but its result will not be returned.
+         * If you want to just walk the node tree and extract information
+         * without any modifications, you can also use [method`Gsk`.RenderNode.get_children].
          *
-         * Here is an example that combines both approaches to print the whole tree:
+         * Here is a little example application that redacts text in a node file:
          *
-         * ```c
+         * ```
          * #include <gtk/gtk.h>
          *
          * static GskRenderNode *
-         * print_nodes (GskRenderReplay *replay,
-         *              GskRenderNode   *node,
-         *              gpointer         user_data)
+         * redact_nodes (GskRenderReplay *replay,
+         *               GskRenderNode   *node,
+         *               gpointer         user_data)
          * {
-         *   int *depth = user_data;
          *   GskRenderNode *result;
          *
-         *   g_print ("%*s%s\n", 2 * *depth, "", g_type_name_from_instance ((GTypeInstance *) node));
+         *   if (gsk_render_node_get_node_type (node) == GSK_TEXT_NODE)
+         *     {
+         *       graphene_rect_t bounds;
+         *       const GdkRGBA *color;
          *
-         *   *depth += 1;
-         *   result = gsk_render_replay_default (replay, node);
-         *   *depth -= 1;
+         *       gsk_render_node_get_bounds (node, &bounds);
+         *       color = gsk_text_node_get_color (node);
+         *
+         *       result = gsk_color_node_new (color, &bounds);
+         *     }
+         *   else
+         *     {
+         *       result = gsk_render_replay_default (replay, node);
+         *     }
          *
          *   return result;
          * }
@@ -4932,15 +4942,14 @@ declare module 'gi://Gsk?version=4.0' {
          * {
          *   GFile *file;
          *   GBytes *bytes;
-         *   GskRenderNode *node;
+         *   GskRenderNode *result, *node;
          *   GskRenderReplay *replay;
-         *   int depth = 0;
          *
          *   gtk_init ();
          *
-         *   if (argc < 2)
+         *   if (argc != 3)
          *     {
-         *       g_print ("usage: %s NODEFILE\n", argv[0]);
+         *       g_print ("usage: %s INFILE OUTFILE\n", argv[0]);
          *       return 0;
          *     }
          *
@@ -4956,8 +4965,14 @@ declare module 'gi://Gsk?version=4.0' {
          *     return 1;
          *
          *   replay = gsk_render_replay_new ();
-         *   gsk_render_replay_set_node_filter (replay, print_nodes, &depth, NULL);
-         *   gsk_render_node_foreach_node (replay, node);
+         *   gsk_render_replay_set_node_filter (replay, redact_nodes, NULL, NULL);
+         *   result = gsk_render_replay_filter_node (replay, node);
+         *   gsk_render_replay_free (replay);
+         *
+         *   if (!gsk_render_node_write_to_file (result, argv[2], NULL))
+         *     return 1;
+         *
+         *   gsk_render_node_unref (result);
          *   gsk_render_node_unref (node);
          *
          *   return 0;
@@ -5004,16 +5019,8 @@ declare module 'gi://Gsk?version=4.0' {
              * After the replay the node may be unchanged, or it may be
              * removed, which will result in %NULL being returned.
              *
-             * This function calls the registered callback in the following order:
-             *
-             * 1. If a foreach function is set, it is called first. If it returns
-             *    false, this function immediately exits and returns the passed
-             *    in node.
-             *
-             * 2. If a node filter is set, it is called and its result is returned.
-             *
-             * 3. [method`Gsk`.RenderReplay.default] is called and its result is
-             *    returned.
+             * If no filter node is set, [method`Gsk`.RenderReplay.default] is
+             * called instead.
              * @param node the node to replay
              * @returns The replayed node
              */
@@ -5024,14 +5031,6 @@ declare module 'gi://Gsk?version=4.0' {
              * @returns the filtered texture
              */
             filter_texture(texture: Gdk.Texture): Gdk.Texture;
-            /**
-             * Calls the filter and foreach functions for each node.
-             *
-             * This function calls [method`Gsk`.RenderReplay.filter_node] internally,
-             * but discards the result assuming no changes were made.
-             * @param node the node to replay
-             */
-            foreach_node(node: RenderNode): void;
             /**
              * Frees a `GskRenderReplay`.
              */
@@ -5062,14 +5061,6 @@ declare module 'gi://Gsk?version=4.0' {
              * @param filter the function to call to replay nodes
              */
             set_node_filter(filter?: RenderReplayNodeFilter | null): void;
-            /**
-             * Sets the function to call for every node.
-             *
-             * This function is called before the node filter, so if it returns
-             * false, the node filter will never be called.
-             * @param foreach the function to call for all nodes
-             */
-            set_node_foreach(foreach?: RenderReplayNodeForeach | null): void;
             /**
              * Sets a filter function to be called by [method`Gsk`.RenderReplay.default]
              * for nodes that contain textures.

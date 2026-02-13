@@ -5004,7 +5004,7 @@ declare module 'gi://GtkSource?version=5' {
              * @returns the character encoding.
              */
             get_encoding(): Encoding;
-            get_location(): Gio.File;
+            get_location(): Gio.File | null;
             get_newline_type(): NewlineType;
             /**
              * Returns whether the file has been deleted. If the
@@ -12450,7 +12450,7 @@ declare module 'gi://GtkSource?version=5' {
             forward_finish(result: Gio.AsyncResult): [boolean, Gtk.TextIter | null, Gtk.TextIter | null, boolean];
             get_buffer(): Buffer;
             get_highlight(): boolean;
-            get_match_style(): Style;
+            get_match_style(): Style | null;
             /**
              * Gets the position of a search occurrence.
              *

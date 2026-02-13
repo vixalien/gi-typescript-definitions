@@ -12534,7 +12534,7 @@ declare module 'gi://GLib?version=2.0' {
          *
          * The result will be terminated with a nul byte.
          * @param str a UCS-4 encoded string
-         * @returns a pointer to a newly allocated UTF-8 string.   This value must be freed with [func@GLib.free]. If an error occurs,   @items_read will be set to the position of the first invalid input   character.
+         * @returns a pointer to a newly allocated UTF-8 string.   This value must be freed with [func@GLib.free].
          */
         function ucs4_to_utf8(str: string): [string, number, number];
         /**
