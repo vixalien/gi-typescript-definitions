@@ -1,6 +1,12 @@
-# gi-typescript-definitions
+# @peachy/types
 
-This repo contains auto-generated types from the master GNOME SDK.
+> **Note:** This package is meant to be used with [peachy]
+
+TypeScript type definitions for GJS and GNOME libraries. Get full autocomplete, type-checking, and inline documentation in your editor when building GNOME apps with TypeScript.
+
+Types are auto-generated with [ts-for-gir] data shipped with the GNOME SDK `master` branch.
+
+> **Note:** The full list of available types depends on the libraries present in the GNOME SDK at the time of generation. You can find the list of all generated types here: [./types](./types).
 
 ## Installation
 
@@ -10,40 +16,50 @@ npm install @peachy/types
 
 ## Usage
 
+Add `@peachy/types` to your `tsconfig.json`:
+
 ```json
 {
   "compilerOptions": {
-    "include": ["@peachy/types", "src"]
+    "types": ["@peachy/types"]
   }
 }
 ```
 
-Then in your application you can use GJS types
-
+Then import GNOME libraries with full type support:
 
 ```ts
-// src/index.ts
-import Gtk from "gi://Gtk?version=4.0"
+import Gtk from "gi://Gtk?version=4.0";
+import Adw from "gi://Adw?version=1";
 
-const label = new Gtk.Label();
+const app = new Adw.Application({
+  applicationId: "com.example.MyApp",
+});
+
+app.connect("activate", () => {
+  const window = new Adw.ApplicationWindow({ application: app });
+  const label = new Gtk.Label({ label: "Hello from TypeScript!" });
+  window.set_content(label);
+  window.present();
+});
+
+app.run([]);
 ```
 
-## Development
+## Versioning
 
-To update the types here, follow these steps
+Types track the GNOME SDK `master` branch from [GNOME Nightly][nightly]. This means they reflect the latest development state of GNOME libraries, which may include APIs not yet available in stable releases.
 
-Clone this repo, and make sure you have an updated installation of GNOME SDK and the node24
+| @peachy/types version | GNOME SDK |
+|-----------------------|------------------|
+| `latest` | `master` |
 
-```sh
-flatpak install org.gnome.Sdk//master org.freedesktop.Sdk.Extension.node24
-```
+In the future, we plan to support specific stable GNOME releases (48, 49, etc...).
 
-Then run this to update the types
+## License
 
-```sh
-./generate_types_in_flatpak.sh
-```
+MIT
 
-## TODO
-
-- [ ] Setup CI to automatically update these types
+[nightly]: https://nightly.gnome.org/
+[ts-for-gir]: https://github.com/gjsify/ts-for-gir
+[peachy]: https://gitlab.gnome.org/vixalien/peachy
