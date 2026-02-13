@@ -1,6 +1,9 @@
 {
   "name": "@peachy/types",
   "version": "2026.2.13",
+  "repository": {
+    "url": "https://github.com/vixalien/peachy-types"
+  },
   "description": "GNOME Runtime TypeScript types",
   "main": "./types/index.d.ts",
   "scripts": {
