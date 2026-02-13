@@ -3,8 +3,10 @@ name: TypeScript Regeneration
 on:
   # push:
   #   branches:
-  #     - main 
-  # pull_request:
+  #     - main
+  pull_request:
+    branches:
+      - main
   # schedule:
   #   - cron: '0 0 1/7 * *'
   workflow_dispatch:
@@ -12,40 +14,36 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    container:
-      image: bilelmoussaoui/flatpak-github-actions:gnome-nightly
-      options: --privileged
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
+      - name: Install flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak
+
       - name: Add Flatpak remotes
         run: |
           flatpak --system remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
           flatpak --system remote-add --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
-          flatpak --system remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
       - name: Install Flatpak SDKs
         run: |
-          flatpak --system install -y gnome-nightly org.gnome.Sdk//master
-          flatpak --system install -y flathub-beta org.freedesktop.Sdk.Extension.node20//24.08beta
+          flatpak --system install -y gnome-nightly org.gnome.Sdk
+          flatpak --system install -y flathub org.freedesktop.Sdk.Extension.node24
 
       - uses: actions/checkout@v4
-
-      - name: Delete existing .d.ts files
-        run: find . -name "*.d.ts" -type f -delete
 
       - name: Generate TypeScript types
         run: ./generate_types_in_flatpak.sh
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: gi-typescript-definitions
-          path: '*'
+      - name: Set current date
+        run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add .
-          git diff --staged --quiet || (git commit -m "Regenerate TypeScript files [skip ci]" && git push)
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "regenerate: ${{ env.CURRENT_DATE }}"
+          branch: regenerate-main
