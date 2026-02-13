@@ -243,11 +243,10 @@ declare module "gi://Gck?version=2" {
              * If @attr_types and @attr_count are non-NULL and non-zero respectively,
              * then the #GckObjectCache interface is expected to be implemented on the
              * derived class, then the enumerator will retrieve attributes for each object.
-             * @override
              * @param object_type the type of objects to create
              * @param attr_types types of attributes to retrieve for objects
              */
-            set_object_type_full(object_type: (GObject.GType | { $gtype: GObject.GType }), attr_types: number[]): void
+            set_object_type(object_type: (GObject.GType | { $gtype: GObject.GType }), attr_types: number[]): void
         }
 
         interface EnumeratorClass extends Omit<GObject.ObjectClass, "new"> {
@@ -2061,11 +2060,10 @@ declare module "gi://Gck?version=2" {
              *
              * As an optimization, the attribute memory values are automatically shared
              * between the attributes and the builder.
-             * @override
              * @param attrs the attributes to add
              * @param only_types the types of attributes to add
              */
-            add_onlyv(attrs: Attributes, only_types: number[]): void
+            add_only(attrs: Attributes, only_types: number[]): void
             /**
              * Add a new attribute to the builder for the string @value or %NULL.
              * Unconditionally adds a new attribute, even if one with the same @attr_type

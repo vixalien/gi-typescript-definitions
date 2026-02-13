@@ -25,10 +25,10 @@ declare module "gi://Gcr?version=4" {
         
 
         namespace Certificate {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "description": string
                 "expiry-date": GLib.DateTime | null
                 "issuer-name": string | null
@@ -36,7 +36,7 @@ declare module "gi://Gcr?version=4" {
                 "subject-name": string | null
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "description": string
                 "expiry-date": GLib.DateTime | null
                 "issuer-name": string | null
@@ -44,10 +44,10 @@ declare module "gi://Gcr?version=4" {
                 "subject-name": string | null
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the raw DER data for an X.509 certificate.
                  * @returns raw DER data of the X.509 certificate
@@ -74,7 +74,7 @@ declare module "gi://Gcr?version=4" {
          * [func@Certificate.mixin_class_init] and [func@Certificate.mixin_get_property]
          * functions.
          */
-        interface Certificate extends Certificate.Interface {
+        interface Certificate extends GObject.Object, Certificate.Interface {
             readonly $signals: Certificate.SignalSignatures
             readonly $readableProperties: Certificate.ReadableProperties
             readonly $writableProperties: Certificate.WritableProperties
@@ -439,25 +439,25 @@ declare module "gi://Gcr?version=4" {
         
 
         namespace Importer {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "interaction": Gio.TlsInteraction | null
                 "label": string
                 "uri": string
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "interaction": Gio.TlsInteraction | null
                 "label": string
                 "uri": string
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Import the queued items in the importer. This function returns immediately
                  * and completes asynchronously.
@@ -502,7 +502,7 @@ declare module "gi://Gcr?version=4" {
          *
          * To start the import, use [method@Importer.import_async].
          */
-        interface Importer extends Importer.Interface {
+        interface Importer extends GObject.Object, Importer.Interface {
             readonly $signals: Importer.SignalSignatures
             readonly $readableProperties: Importer.ReadableProperties
             readonly $writableProperties: Importer.WritableProperties
@@ -604,7 +604,7 @@ declare module "gi://Gcr?version=4" {
         
 
         namespace Prompt {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Action signal fired when the prompt is to be closed. After the default
                  * handler has run, the prompt is closed. The various prompting methods
@@ -615,7 +615,7 @@ declare module "gi://Gcr?version=4" {
                 "prompt-close"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "caller-window": string
                 "cancel-label": string
                 "choice-chosen": boolean
@@ -629,7 +629,7 @@ declare module "gi://Gcr?version=4" {
                 "warning": string
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "caller-window": string
                 "cancel-label": string
                 "choice-chosen": boolean
@@ -643,10 +643,10 @@ declare module "gi://Gcr?version=4" {
                 "warning": string
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * close a prompt
                  */
@@ -718,7 +718,7 @@ declare module "gi://Gcr?version=4" {
          * property, but may choose not to display the [property@Prompt:description] or
          * [property@Prompt:title] properties.
          */
-        interface Prompt extends Prompt.Interface {
+        interface Prompt extends GObject.Object, Prompt.Interface {
             readonly $signals: Prompt.SignalSignatures
             readonly $readableProperties: Prompt.ReadableProperties
             readonly $writableProperties: Prompt.WritableProperties

@@ -33,19 +33,19 @@ declare module "gi://GstPlayer?version=1.0" {
         
 
         namespace PlayerSignalDispatcher {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param player
                  * @param emitter
@@ -56,7 +56,7 @@ declare module "gi://GstPlayer?version=1.0" {
 
         /**
          */
-        interface PlayerSignalDispatcher extends PlayerSignalDispatcher.Interface {
+        interface PlayerSignalDispatcher extends GObject.Object, PlayerSignalDispatcher.Interface {
             readonly $signals: PlayerSignalDispatcher.SignalSignatures
             readonly $readableProperties: PlayerSignalDispatcher.ReadableProperties
             readonly $writableProperties: PlayerSignalDispatcher.WritableProperties
@@ -75,25 +75,25 @@ declare module "gi://GstPlayer?version=1.0" {
         
 
         namespace PlayerVideoRenderer {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          */
-        interface PlayerVideoRenderer extends PlayerVideoRenderer.Interface {
+        interface PlayerVideoRenderer extends GObject.Object, PlayerVideoRenderer.Interface {
             readonly $signals: PlayerVideoRenderer.SignalSignatures
             readonly $readableProperties: PlayerVideoRenderer.ReadableProperties
             readonly $writableProperties: PlayerVideoRenderer.WritableProperties

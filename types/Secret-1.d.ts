@@ -163,27 +163,27 @@ declare module "gi://Secret?version=1" {
         
 
         namespace Retrievable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "attributes": Record<string, string>
                 "created": number
                 "label": string
                 "modified": number
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "attributes": Record<string, string>
                 "created": number
                 "label": string
                 "modified": number
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Retrieve the secret value of this object.
                  *
@@ -218,7 +218,7 @@ declare module "gi://Secret?version=1" {
          * [method@Retrievable.retrieve_secret_finish].
          * @since 0.19.0
          */
-        interface Retrievable extends Retrievable.Interface {
+        interface Retrievable extends GObject.Object, Retrievable.Interface {
             readonly $signals: Retrievable.SignalSignatures
             readonly $readableProperties: Retrievable.ReadableProperties
             readonly $writableProperties: Retrievable.WritableProperties
@@ -2119,13 +2119,12 @@ declare module "gi://Secret?version=1" {
              * the schema's attributes are matched. This is useful when you are looking up items
              * that are not stored by the libsecret library. Other libraries such as libgnome-keyring
              * don't store the schema name.
-             * @override
              * @param name the dotted name of the schema
              * @param flags the flags for the schema
              * @param attribute_names_and_types the attribute names and types of those attributes
              * @returns the new schema, which should be unreferenced with   [method@Schema.unref] when done
              */
-            static newv(name: string, flags: SchemaFlags, attribute_names_and_types: Record<string, SchemaAttributeType>): Schema
+            static "new"(name: string, flags: SchemaFlags, attribute_names_and_types: Record<string, SchemaAttributeType>): Schema
             /**
              * the dotted name of the schema
              */
@@ -2344,13 +2343,12 @@ declare module "gi://Secret?version=1" {
          * All unlocked items that match the attributes will be deleted.
          *
          * This method will return immediately and complete asynchronously.
-         * @override
          * @param schema the schema for the attributes
          * @param attributes the attribute keys and values
          * @param cancellable optional cancellation object
          * @param callback called when the operation completes
          */
-        function password_clearv(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+        function password_clear(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         /**
          * Remove unlocked matching passwords from the secret service.
          *
@@ -2361,13 +2359,12 @@ declare module "gi://Secret?version=1" {
          * This method may block indefinitely and should not be used in user interface
          * threads.
          * @throws {GLib.Error}
-         * @override
          * @param schema the schema for the attributes
          * @param attributes the attribute keys and values
          * @param cancellable optional cancellation object
          * @returns whether any passwords were removed
          */
-        function password_clearv_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
+        function password_clear_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
         none
         none
         none
@@ -2390,13 +2387,12 @@ declare module "gi://Secret?version=1" {
          * If no secret is found then %NULL is returned.
          *
          * This method will return immediately and complete asynchronously.
-         * @override
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
          * @param cancellable optional cancellation object
          * @param callback called when the operation completes
          */
-        function password_lookupv(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+        function password_lookup(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         none
         none
         /**
@@ -2409,13 +2405,12 @@ declare module "gi://Secret?version=1" {
          * This method may block indefinitely and should not be used in user interface
          * threads.
          * @throws {GLib.Error}
-         * @override
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
          * @param cancellable optional cancellation object
          * @returns a new password string which should be freed with   [func@password_free] or may be freed with [func@GLib.free] when done
          */
-        function password_lookupv_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): string
+        function password_lookup_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): string
         none
         /**
          * Finish an asynchronous operation to search for items in the secret service.
@@ -2432,7 +2427,6 @@ declare module "gi://Secret?version=1" {
          * The @attributes should be a set of key and value string pairs.
          *
          * This method will return immediately and complete asynchronously.
-         * @override
          * @since 0.19.0
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
@@ -2440,7 +2434,7 @@ declare module "gi://Secret?version=1" {
          * @param cancellable optional cancellation object
          * @param callback called when the operation completes
          */
-        function password_searchv(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+        function password_search(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         /**
          * Search for items in the secret service.
          *
@@ -2451,7 +2445,6 @@ declare module "gi://Secret?version=1" {
          * This method may block indefinitely and should not be used in user interface
          * threads.
          * @throws {GLib.Error}
-         * @override
          * @since 0.19.0
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
@@ -2459,7 +2452,7 @@ declare module "gi://Secret?version=1" {
          * @param cancellable optional cancellation object
          * @returns a list of   [iface@Retrievable] containing attributes of the matched items
          */
-        function password_searchv_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Retrievable[]
+        function password_search_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Retrievable[]
         none
         none
         none
@@ -2484,7 +2477,6 @@ declare module "gi://Secret?version=1" {
          * collection, which doesn't get stored across login sessions.
          *
          * This method will return immediately and complete asynchronously.
-         * @override
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
          * @param collection a collection alias, or D-Bus object path of the
@@ -2494,7 +2486,7 @@ declare module "gi://Secret?version=1" {
          * @param cancellable optional cancellation object
          * @param callback called when the operation completes
          */
-        function password_storev(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+        function password_store(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         /**
          * Store a password in the secret service.
          *
@@ -2502,7 +2494,6 @@ declare module "gi://Secret?version=1" {
          * [struct@Value] as the argument instead of a null-terminated password.
          *
          * This method will return immediately and complete asynchronously.
-         * @override
          * @since 0.19.0
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
@@ -2513,7 +2504,7 @@ declare module "gi://Secret?version=1" {
          * @param cancellable optional cancellation object
          * @param callback called when the operation completes
          */
-        function password_storev_binary(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+        function password_store_binary(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         /**
          * Store a password in the secret service.
          *
@@ -2523,7 +2514,6 @@ declare module "gi://Secret?version=1" {
          * This method may block indefinitely and should not be used in user interface
          * threads.
          * @throws {GLib.Error}
-         * @override
          * @since 0.19.0
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
@@ -2534,7 +2524,7 @@ declare module "gi://Secret?version=1" {
          * @param cancellable optional cancellation object
          * @returns whether the storage was successful or not
          */
-        function password_storev_binary_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null): boolean
+        function password_store_binary_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null): boolean
         /**
          * Store a password in the secret service.
          *
@@ -2550,7 +2540,6 @@ declare module "gi://Secret?version=1" {
          * This method may block indefinitely and should not be used in user interface
          * threads.
          * @throws {GLib.Error}
-         * @override
          * @param schema the schema for attributes
          * @param attributes the attribute keys and values
          * @param collection a collection alias, or D-Bus object path of the
@@ -2560,7 +2549,7 @@ declare module "gi://Secret?version=1" {
          * @param cancellable optional cancellation object
          * @returns whether the storage was successful or not
          */
-        function password_storev_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null): boolean
+        function password_store_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null): boolean
         /**
          * Clear the memory used by a password.
          * @param password password to clear

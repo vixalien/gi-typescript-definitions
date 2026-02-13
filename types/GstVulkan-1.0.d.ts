@@ -96,7 +96,7 @@ declare module "gi://GstVulkan?version=1.0" {
              * @param device the #GstVulkanDevice to use
              * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
              */
-            "new"(device: VulkanDevice): Gst.BufferPool
+            "new"(device: VulkanDevice): VulkanBufferPool
             /**
              * Sets the @usage of the buffers to setup.
              * @since 1.24
@@ -868,7 +868,7 @@ declare module "gi://GstVulkan?version=1.0" {
              * @param device the #GstVulkanDevice to use
              * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
              */
-            "new"(device: VulkanDevice): Gst.BufferPool
+            "new"(device: VulkanDevice): VulkanImageBufferPool
             /**
              * Gets the configuration of the Vulkan image buffer pool.
              * @since 1.26
@@ -1677,7 +1677,7 @@ declare module "gi://GstVulkan?version=1.0" {
             /**
              * @returns a new #gst_vulkan_trash_fence_list_new
              */
-            "new"(): VulkanTrashList
+            "new"(): VulkanTrashFenceList
         }
 
         const VulkanTrashFenceList: VulkanTrashFenceListClass

@@ -288,10 +288,10 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Action {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "enabled": boolean
                 "name": string
                 "parameter-type": GLib.VariantType | null
@@ -299,7 +299,7 @@ declare module "gi://Gio?version=2.0" {
                 "state-type": GLib.VariantType | null
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "enabled": boolean
                 "name": string
                 "parameter-type": GLib.VariantType | null
@@ -307,10 +307,10 @@ declare module "gi://Gio?version=2.0" {
                 "state-type": GLib.VariantType | null
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Activates the action.
                  *
@@ -454,7 +454,7 @@ declare module "gi://Gio?version=2.0" {
          * Probably the only useful thing to do with a `GAction` is to put it
          * inside of a [class@Gio.SimpleActionGroup].
          */
-        interface Action extends Action.Interface {
+        interface Action extends GObject.Object, Action.Interface {
             readonly $signals: Action.SignalSignatures
             readonly $readableProperties: Action.ReadableProperties
             readonly $writableProperties: Action.WritableProperties
@@ -688,7 +688,7 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace ActionGroup {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Signals that a new action was just added to the group.
                  *
@@ -723,16 +723,16 @@ declare module "gi://Gio?version=2.0" {
                 "action-state-changed::{}"(action_name: string, value: GLib.Variant): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Emits the [signal@Gio.ActionGroup::action-added] signal on @action_group.
                  *
@@ -1010,7 +1010,7 @@ declare module "gi://Gio?version=2.0" {
          * not be implemented — their ‘wrappers’ are actually implemented with
          * calls to [method@Gio.ActionGroup.query_action].
          */
-        interface ActionGroup extends ActionGroup.Interface {
+        interface ActionGroup extends GObject.Object, ActionGroup.Interface {
             readonly $signals: ActionGroup.SignalSignatures
             readonly $readableProperties: ActionGroup.ReadableProperties
             readonly $writableProperties: ActionGroup.WritableProperties
@@ -1257,19 +1257,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace ActionMap {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds an action to the @action_map.
                  *
@@ -1315,7 +1315,7 @@ declare module "gi://Gio?version=2.0" {
          * name.
          * @since 2.32
          */
-        interface ActionMap extends ActionMap.Interface {
+        interface ActionMap extends GObject.Object, ActionMap.Interface {
             readonly $signals: ActionMap.SignalSignatures
             readonly $readableProperties: ActionMap.ReadableProperties
             readonly $writableProperties: ActionMap.WritableProperties
@@ -1390,19 +1390,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace AppInfo {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds a content type to the application information to indicate the
                  * application is capable of opening files with the given content type.
@@ -1692,7 +1692,7 @@ declare module "gi://Gio?version=2.0" {
          * Different launcher applications (e.g. file managers) may have
          * different ideas of what a given URI means.
          */
-        interface AppInfo extends AppInfo.Interface {
+        interface AppInfo extends GObject.Object, AppInfo.Interface {
             readonly $signals: AppInfo.SignalSignatures
             readonly $readableProperties: AppInfo.ReadableProperties
             readonly $writableProperties: AppInfo.WritableProperties
@@ -2120,19 +2120,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace AsyncInitable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Starts asynchronous initialization of the object implementing the
                  * interface. This must be done before any real use of the object after
@@ -2194,7 +2194,7 @@ declare module "gi://Gio?version=2.0" {
          * ```
          * @since 2.22
          */
-        interface AsyncInitable extends AsyncInitable.Interface {
+        interface AsyncInitable extends GObject.Object, AsyncInitable.Interface {
             readonly $signals: AsyncInitable.SignalSignatures
             readonly $readableProperties: AsyncInitable.ReadableProperties
             readonly $writableProperties: AsyncInitable.WritableProperties
@@ -2292,19 +2292,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace AsyncResult {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the source object from a [iface@Gio.AsyncResult].
                  * @returns a new reference to the source    object for the `res`, or `NULL` if there is none.
@@ -2413,7 +2413,7 @@ declare module "gi://Gio?version=2.0" {
          * `G_PRIORITY_LOW` and `G_PRIORITY_HIGH`, with `G_PRIORITY_DEFAULT`
          * as a default.
          */
-        interface AsyncResult extends AsyncResult.Interface {
+        interface AsyncResult extends GObject.Object, AsyncResult.Interface {
             readonly $signals: AsyncResult.SignalSignatures
             readonly $readableProperties: AsyncResult.ReadableProperties
             readonly $writableProperties: AsyncResult.WritableProperties
@@ -2466,19 +2466,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Converter {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * This is the main operation used when converting data. It is to be called
                  * multiple times in a loop, and each time it will do some work, i.e.
@@ -2594,7 +2594,7 @@ declare module "gi://Gio?version=2.0" {
          * replace.
          * @since 2.24
          */
-        interface Converter extends Converter.Interface {
+        interface Converter extends GObject.Object, Converter.Interface {
             readonly $signals: Converter.SignalSignatures
             readonly $readableProperties: Converter.ReadableProperties
             readonly $writableProperties: Converter.WritableProperties
@@ -2721,19 +2721,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace DBusInterface {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the #GDBusObject that @interface_ belongs to, if any.
                  * @since 2.32
@@ -2771,18 +2771,17 @@ declare module "gi://Gio?version=2.0" {
          * (see [class@Gio.DBusProxy]).
          * @since 2.30
          */
-        interface DBusInterface extends DBusInterface.Interface {
+        interface DBusInterface extends GObject.Object, DBusInterface.Interface {
             readonly $signals: DBusInterface.SignalSignatures
             readonly $readableProperties: DBusInterface.ReadableProperties
             readonly $writableProperties: DBusInterface.WritableProperties
             readonly $constructOnlyProperties: DBusInterface.ConstructOnlyProperties
             /**
              * Gets the #GDBusObject that @interface_ belongs to, if any.
-             * @override
              * @since 2.32
              * @returns A #GDBusObject or %NULL. The returned reference should be freed with g_object_unref().
              */
-            dup_object(): DBusObject | null
+            get_object(): DBusObject | null
             /**
              * Gets D-Bus introspection information for the D-Bus interface
              * implemented by @interface_.
@@ -2817,7 +2816,7 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace DBusObject {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when @interface is added to @object.
                  * @since 2.30
@@ -2832,16 +2831,16 @@ declare module "gi://Gio?version=2.0" {
                 "interface-removed"(interface: DBusInterface): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the D-Bus interface with name @interface_name associated with
                  * @object, if any.
@@ -2881,7 +2880,7 @@ declare module "gi://Gio?version=2.0" {
          * (see [class@Gio.DBusObjectProxy]). It is essentially just a container of
          * interfaces.
          */
-        interface DBusObject extends DBusObject.Interface {
+        interface DBusObject extends GObject.Object, DBusObject.Interface {
             readonly $signals: DBusObject.SignalSignatures
             readonly $readableProperties: DBusObject.ReadableProperties
             readonly $writableProperties: DBusObject.WritableProperties
@@ -2920,7 +2919,7 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace DBusObjectManager {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when @interface is added to @object.
                  *
@@ -2955,16 +2954,16 @@ declare module "gi://Gio?version=2.0" {
                 "object-removed"(object: DBusObject): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the interface proxy for @interface_name at @object_path, if
                  * any.
@@ -3027,7 +3026,7 @@ declare module "gi://Gio?version=2.0" {
          * See [class@Gio.DBusObjectManagerClient] for the client-side implementation
          * and [class@Gio.DBusObjectManagerServer] for the service-side implementation.
          */
-        interface DBusObjectManager extends DBusObjectManager.Interface {
+        interface DBusObjectManager extends GObject.Object, DBusObjectManager.Interface {
             readonly $signals: DBusObjectManager.SignalSignatures
             readonly $readableProperties: DBusObjectManager.ReadableProperties
             readonly $writableProperties: DBusObjectManager.WritableProperties
@@ -3074,19 +3073,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace DatagramBased {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks on the readiness of @datagram_based to perform operations. The
                  * operations specified in @condition are checked for and masked against the
@@ -3334,7 +3333,7 @@ declare module "gi://Gio?version=2.0" {
          * implement your own locking.
          * @since 2.48
          */
-        interface DatagramBased extends DatagramBased.Interface {
+        interface DatagramBased extends GObject.Object, DatagramBased.Interface {
             readonly $signals: DatagramBased.SignalSignatures
             readonly $readableProperties: DatagramBased.ReadableProperties
             readonly $writableProperties: DatagramBased.WritableProperties
@@ -3621,7 +3620,7 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Drive {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when the drive's state has changed.
                  */
@@ -3646,16 +3645,16 @@ declare module "gi://Gio?version=2.0" {
                 "stop-button"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks if a drive can be ejected.
                  * @returns %TRUE if the `drive` can be ejected, %FALSE otherwise.
@@ -3913,7 +3912,7 @@ declare module "gi://Gio?version=2.0" {
          * For [porting from GnomeVFS](migrating-gnome-vfs.html) note that there is no
          * equivalent of `GDrive` in that API.
          */
-        interface Drive extends Drive.Interface {
+        interface Drive extends GObject.Object, Drive.Interface {
             readonly $signals: Drive.SignalSignatures
             readonly $readableProperties: Drive.ReadableProperties
             readonly $writableProperties: Drive.WritableProperties
@@ -5116,19 +5115,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace File {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets an output stream for appending data to the file.
                  * If the file doesn't already exist it is created.
@@ -6870,7 +6869,7 @@ declare module "gi://Gio?version=2.0" {
          * [RFC9110](https://www.rfc-editor.org/rfc/rfc9110.html#name-etag).
          * `GFile` Entity Tags are a very similar concept.
          */
-        interface File extends File.Interface {
+        interface File extends GObject.Object, File.Interface {
             readonly $signals: File.SignalSignatures
             readonly $readableProperties: File.ReadableProperties
             readonly $writableProperties: File.WritableProperties
@@ -6995,32 +6994,8 @@ declare module "gi://Gio?version=2.0" {
              */
             copy(destination: File, flags: FileCopyFlags, cancellable: Cancellable | null, progress_callback: FileProgressCallback | null): boolean
             /**
-             * Copies the file @source to the location specified by @destination
-             * asynchronously. For details of the behaviour, see g_file_copy().
-             *
-             * If @progress_callback is not %NULL, then that function that will be called
-             * just like in g_file_copy(). The callback will run in the default main context
-             * of the thread calling g_file_copy_async() — the same context as @callback is
-             * run in.
-             *
-             * When the operation is finished, @callback will be called. You can then call
-             * g_file_copy_finish() to get the result of the operation.
-             * @param destination destination #GFile
-             * @param flags set of #GFileCopyFlags
-             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
-             * @param cancellable optional #GCancellable object,
-              %NULL to ignore
-             * @param progress_callback 
-              function to callback with progress information, or %NULL if
-              progress information is not needed
-             * @param callback a #GAsyncReadyCallback
-              to call when the request is satisfied
-             */
-            copy_async(destination: File, flags: FileCopyFlags, io_priority: number, cancellable: Cancellable | null, progress_callback: FileProgressCallback | null, callback: AsyncReadyCallback | null): void
-            /**
              * Version of [method@Gio.File.copy_async] using closures instead of callbacks for
              * easier binding in other languages.
-             * @override
              * @since 2.82
              * @param destination destination [type@Gio.File]
              * @param flags set of [flags@Gio.FileCopyFlags]
@@ -7031,7 +7006,7 @@ declare module "gi://Gio?version=2.0" {
               information, or `NULL` if progress information is not needed
              * @param ready_callback_closure [type@GObject.Closure] to invoke when the request is satisfied
              */
-            copy_async_with_closures(destination: File, flags: FileCopyFlags, io_priority: number, cancellable: Cancellable | null, progress_callback_closure: GObject.Closure | null, ready_callback_closure: GObject.Closure): void
+            copy_async(destination: File, flags: FileCopyFlags, io_priority: number, cancellable: Cancellable | null, progress_callback_closure: GObject.Closure | null, ready_callback_closure: GObject.Closure): void
             /**
              * Copies the file attributes from @source to @destination.
              *
@@ -7965,31 +7940,8 @@ declare module "gi://Gio?version=2.0" {
              */
             move(destination: File, flags: FileCopyFlags, cancellable: Cancellable | null, progress_callback: FileProgressCallback | null): boolean
             /**
-             * Asynchronously moves a file @source to the location of @destination. For details of the behaviour, see g_file_move().
-             *
-             * If @progress_callback is not %NULL, then that function that will be called
-             * just like in g_file_move(). The callback will run in the default main context
-             * of the thread calling g_file_move_async() — the same context as @callback is
-             * run in.
-             *
-             * When the operation is finished, @callback will be called. You can then call
-             * g_file_move_finish() to get the result of the operation.
-             * @since 2.72
-             * @param destination #GFile pointing to the destination location
-             * @param flags set of #GFileCopyFlags
-             * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
-             * @param cancellable optional #GCancellable object,
-              %NULL to ignore
-             * @param progress_callback 
-              #GFileProgressCallback function for updates
-             * @param callback a #GAsyncReadyCallback
-              to call when the request is satisfied
-             */
-            move_async(destination: File, flags: FileCopyFlags, io_priority: number, cancellable: Cancellable | null, progress_callback: FileProgressCallback | null, callback: AsyncReadyCallback | null): void
-            /**
              * Version of [method@Gio.File.move_async] using closures instead of callbacks for
              * easier binding in other languages.
-             * @override
              * @since 2.82
              * @param destination destination [type@Gio.File]
              * @param flags set of [flags@Gio.FileCopyFlags]
@@ -8000,7 +7952,7 @@ declare module "gi://Gio?version=2.0" {
               information, or `NULL` if progress information is not needed
              * @param ready_callback_closure [type@GObject.Closure] to invoke when the request is satisfied
              */
-            move_async_with_closures(destination: File, flags: FileCopyFlags, io_priority: number, cancellable: Cancellable | null, progress_callback_closure: GObject.Closure | null, ready_callback_closure: GObject.Closure): void
+            move_async(destination: File, flags: FileCopyFlags, io_priority: number, cancellable: Cancellable | null, progress_callback_closure: GObject.Closure | null, ready_callback_closure: GObject.Closure): void
             /**
              * Finishes an asynchronous file movement, started with
              * g_file_move_async().
@@ -9145,19 +9097,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Icon {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks if two icons are equal.
                  * @param icon2 pointer to the second #GIcon.
@@ -9221,7 +9173,7 @@ declare module "gi://Gio?version=2.0" {
          * understood by [func@Gio.Icon.deserialize], yielding one of the built-in
          * icon types.
          */
-        interface Icon extends Icon.Interface {
+        interface Icon extends GObject.Object, Icon.Interface {
             readonly $signals: Icon.SignalSignatures
             readonly $readableProperties: Icon.ReadableProperties
             readonly $writableProperties: Icon.WritableProperties
@@ -9302,19 +9254,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Initable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Initializes the object implementing the interface.
                  *
@@ -9390,7 +9342,7 @@ declare module "gi://Gio?version=2.0" {
          * an exception on failure.
          * @since 2.22
          */
-        interface Initable extends Initable.Interface {
+        interface Initable extends GObject.Object, Initable.Interface {
             readonly $signals: Initable.SignalSignatures
             readonly $readableProperties: Initable.ReadableProperties
             readonly $writableProperties: Initable.WritableProperties
@@ -9467,7 +9419,7 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace ListModel {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * This signal is emitted whenever items were added to or removed
                  * from @list. At @position, @removed items were removed and @added
@@ -9483,16 +9435,16 @@ declare module "gi://Gio?version=2.0" {
                 "items-changed"(position: number, removed: number, added: number): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Get the item at @position. If @position is greater than the number of
                  * items in @list, %NULL is returned.
@@ -9598,7 +9550,7 @@ declare module "gi://Gio?version=2.0" {
          *                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
          * ```
          */
-        interface ListModel extends ListModel.Interface {
+        interface ListModel extends GObject.Object, ListModel.Interface {
             readonly $signals: ListModel.SignalSignatures
             readonly $readableProperties: ListModel.ReadableProperties
             readonly $writableProperties: ListModel.WritableProperties
@@ -9639,12 +9591,11 @@ declare module "gi://Gio?version=2.0" {
              * of g_list_model_get_item().
              *
              * See also: g_list_model_get_n_items()
-             * @override
              * @since 2.44
              * @param position the position of the item to fetch
              * @returns the object at `position`.
              */
-            get_object(position: number): GObject.Object | null
+            get_item(position: number): GObject.Object | null
             /**
              * Emits the #GListModel::items-changed signal on @list.
              *
@@ -9861,7 +9812,7 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Mount {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when the mount has been changed.
                  */
@@ -9884,16 +9835,16 @@ declare module "gi://Gio?version=2.0" {
                 "unmounted"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks if @mount can be ejected.
                  * @returns %TRUE if the `mount` can be ejected.
@@ -10155,7 +10106,7 @@ declare module "gi://Gio?version=2.0" {
          * Note, when [porting from GnomeVFS](migrating-gnome-vfs.html), `GMount` is the
          * moral equivalent of `GnomeVFSVolume`.
          */
-        interface Mount extends Mount.Interface {
+        interface Mount extends GObject.Object, Mount.Interface {
             readonly $signals: Mount.SignalSignatures
             readonly $readableProperties: Mount.ReadableProperties
             readonly $writableProperties: Mount.WritableProperties
@@ -11206,19 +11157,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Proxy {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Given @connection to communicate with a proxy (eg, a
                  * #GSocketConnection that is connected to the proxy server), this
@@ -11273,7 +11224,7 @@ declare module "gi://Gio?version=2.0" {
          * [method@Gio.IOExtensionPoint.get_extension_by_name].
          * @since 2.26
          */
-        interface Proxy extends Proxy.Interface {
+        interface Proxy extends GObject.Object, Proxy.Interface {
             readonly $signals: Proxy.SignalSignatures
             readonly $readableProperties: Proxy.ReadableProperties
             readonly $writableProperties: Proxy.WritableProperties
@@ -11342,19 +11293,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace ProxyResolver {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks if @resolver can be used on this system. (This is used
                  * internally; g_proxy_resolver_get_default() will only return a proxy
@@ -11416,7 +11367,7 @@ declare module "gi://Gio?version=2.0" {
          * GIO comes with an implementation for use inside Flatpak portals.
          * @since 2.26
          */
-        interface ProxyResolver extends ProxyResolver.Interface {
+        interface ProxyResolver extends GObject.Object, ProxyResolver.Interface {
             readonly $signals: ProxyResolver.SignalSignatures
             readonly $readableProperties: ProxyResolver.ReadableProperties
             readonly $writableProperties: ProxyResolver.WritableProperties
@@ -11611,19 +11562,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Seekable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Tests if the stream supports the #GSeekableIface.
                  * @returns %TRUE if `seekable` can be seeked. %FALSE otherwise.
@@ -11697,7 +11648,7 @@ declare module "gi://Gio?version=2.0" {
          * [`lseek()`](man:lseek(2)) on a normal file.  Seeking past the end and writing
          * data will usually cause the stream to resize by introducing zero bytes.
          */
-        interface Seekable extends Seekable.Interface {
+        interface Seekable extends GObject.Object, Seekable.Interface {
             readonly $signals: Seekable.SignalSignatures
             readonly $readableProperties: Seekable.ReadableProperties
             readonly $writableProperties: Seekable.WritableProperties
@@ -11770,19 +11721,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace SocketConnectable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Creates a #GSocketAddressEnumerator for @connectable.
                  * @since 2.22
@@ -11847,7 +11798,7 @@ declare module "gi://Gio?version=2.0" {
          * }
          * ```
          */
-        interface SocketConnectable extends SocketConnectable.Interface {
+        interface SocketConnectable extends GObject.Object, SocketConnectable.Interface {
             readonly $signals: SocketConnectable.SignalSignatures
             readonly $readableProperties: SocketConnectable.ReadableProperties
             readonly $writableProperties: SocketConnectable.WritableProperties
@@ -11896,19 +11847,19 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace TlsBackend {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the default #GTlsDatabase used to verify TLS connections.
                  * @since 2.30
@@ -11938,7 +11889,7 @@ declare module "gi://Gio?version=2.0" {
          * by a TLS backend.
          * @since 2.28
          */
-        interface TlsBackend extends TlsBackend.Interface {
+        interface TlsBackend extends GObject.Object, TlsBackend.Interface {
             readonly $signals: TlsBackend.SignalSignatures
             readonly $readableProperties: TlsBackend.ReadableProperties
             readonly $writableProperties: TlsBackend.WritableProperties
@@ -12428,7 +12379,7 @@ declare module "gi://Gio?version=2.0" {
         
 
         namespace Volume {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when the volume has been changed.
                  */
@@ -12441,16 +12392,16 @@ declare module "gi://Gio?version=2.0" {
                 "removed"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks if a volume can be ejected.
                  * @returns %TRUE if the `volume` can be ejected. %FALSE otherwise
@@ -12657,7 +12608,7 @@ declare module "gi://Gio?version=2.0" {
          * identifier, which can be used to obtain a hal device by means of
          * `libhal_manager_find_device_string_match()`.
          */
-        interface Volume extends Volume.Interface {
+        interface Volume extends GObject.Object, Volume.Interface {
             readonly $signals: Volume.SignalSignatures
             readonly $readableProperties: Volume.ReadableProperties
             readonly $writableProperties: Volume.WritableProperties
@@ -14827,7 +14778,7 @@ declare module "gi://Gio?version=2.0" {
              * @param base_stream a [class@Gio.InputStream]
              * @returns a [class@Gio.InputStream] for the given `base_stream`.
              */
-            "new"(base_stream: InputStream): InputStream
+            "new"(base_stream: InputStream): BufferedInputStream
             /**
              * Creates a new [class@Gio.BufferedInputStream] from the given @base_stream,
              * with a buffer set to @size.
@@ -14835,7 +14786,7 @@ declare module "gi://Gio?version=2.0" {
              * @param size a #gsize
              * @returns a [class@Gio.InputStream].
              */
-            new_sized(base_stream: InputStream, size: number): InputStream
+            new_sized(base_stream: InputStream, size: number): BufferedInputStream
         }
 
         const BufferedInputStream: BufferedInputStreamClass
@@ -14925,14 +14876,14 @@ declare module "gi://Gio?version=2.0" {
              * @param base_stream a [class@Gio.OutputStream].
              * @returns a [class@Gio.OutputStream] for the given `base_stream`.
              */
-            "new"(base_stream: OutputStream): OutputStream
+            "new"(base_stream: OutputStream): BufferedOutputStream
             /**
              * Creates a new buffered output stream with a given buffer size.
              * @param base_stream a [class@Gio.OutputStream].
              * @param size a #gsize.
              * @returns a [class@Gio.OutputStream] with an internal buffer set to `size`.
              */
-            new_sized(base_stream: OutputStream, size: number): OutputStream
+            new_sized(base_stream: OutputStream, size: number): BufferedOutputStream
         }
 
         const BufferedOutputStream: BufferedOutputStreamClass
@@ -15429,7 +15380,7 @@ declare module "gi://Gio?version=2.0" {
              * @param converter a #GConverter
              * @returns a new #GInputStream.
              */
-            "new"(base_stream: InputStream, converter: Converter): InputStream
+            "new"(base_stream: InputStream, converter: Converter): ConverterInputStream
         }
 
         const ConverterInputStream: ConverterInputStreamClass
@@ -15486,7 +15437,7 @@ declare module "gi://Gio?version=2.0" {
              * @param converter a #GConverter
              * @returns a new #GOutputStream.
              */
-            "new"(base_stream: OutputStream, converter: Converter): OutputStream
+            "new"(base_stream: OutputStream, converter: Converter): ConverterOutputStream
         }
 
         const ConverterOutputStream: ConverterOutputStreamClass
@@ -16472,56 +16423,6 @@ declare module "gi://Gio?version=2.0" {
              */
             is_closed(): boolean
             /**
-             * Registers callbacks for exported objects at @object_path with the
-             * D-Bus interface that is described in @interface_info.
-             *
-             * Calls to functions in @vtable (and @user_data_free_func) will happen
-             * in the thread-default main context
-             * (see [method@GLib.MainContext.push_thread_default])
-             * of the thread you are calling this method from.
-             *
-             * Note that all #GVariant values passed to functions in @vtable will match
-             * the signature given in @interface_info - if a remote caller passes
-             * incorrect values, the `org.freedesktop.DBus.Error.InvalidArgs`
-             * is returned to the remote caller.
-             *
-             * Additionally, if the remote caller attempts to invoke methods or
-             * access properties not mentioned in @interface_info the
-             * `org.freedesktop.DBus.Error.UnknownMethod` resp.
-             * `org.freedesktop.DBus.Error.InvalidArgs` errors
-             * are returned to the caller.
-             *
-             * It is considered a programming error if the
-             * #GDBusInterfaceGetPropertyFunc function in @vtable returns a
-             * #GVariant of incorrect type.
-             *
-             * If an existing callback is already registered at @object_path and
-             * @interface_name, then @error is set to %G_IO_ERROR_EXISTS.
-             *
-             * GDBus automatically implements the standard D-Bus interfaces
-             * org.freedesktop.DBus.Properties, org.freedesktop.DBus.Introspectable
-             * and org.freedesktop.Peer, so you don't have to implement those for the
-             * objects you export. You can implement org.freedesktop.DBus.Properties
-             * yourself, e.g. to handle getting and setting of properties asynchronously.
-             *
-             * Note that the reference count on @interface_info will be
-             * incremented by 1 (unless allocated statically, e.g. if the
-             * reference count is -1, see g_dbus_interface_info_ref()) for as long
-             * as the object is exported. Also note that @vtable will be copied.
-             *
-             * See this [server][class@Gio.DBusConnection#an-example-d-bus-server]
-             * for an example of how to use this method.
-             * @throws {GLib.Error}
-             * @since 2.26
-             * @param object_path the object path to register at
-             * @param interface_info introspection data for the interface
-             * @param vtable a #GDBusInterfaceVTable to call into or %NULL
-             * @param user_data data to pass to functions in @vtable
-             * @param user_data_free_func function to call when the object path is unregistered
-             * @returns 0 if `error` is set, otherwise a registration id (never 0)     that can be used with g_dbus_connection_unregister_object()
-             */
-            register_object(object_path: string, interface_info: DBusInterfaceInfo, vtable: DBusInterfaceVTable | null, user_data: never | null, user_data_free_func: GLib.DestroyNotify): number
-            /**
              * Version of g_dbus_connection_register_object() using closures instead of a
              * #GDBusInterfaceVTable for easier binding in other languages.
              *
@@ -16530,7 +16431,6 @@ declare module "gi://Gio?version=2.0" {
              * [callback@Gio.DBusInterfaceMethodCallFunc]: ownership of a reference to the
              * [class@Gio.DBusMethodInvocation] is transferred to the function.
              * @throws {GLib.Error}
-             * @override
              * @since 2.46
              * @deprecated since 2.84 Deprecated in favour of    [method@Gio.DBusConnection.register_object_with_closures2], which has more    binding-friendly reference counting semantics.
              * @param object_path The object path to register at.
@@ -16540,7 +16440,7 @@ declare module "gi://Gio?version=2.0" {
              * @param set_property_closure #GClosure for setting a property.
              * @returns 0 if `error` is set, otherwise a registration ID (never 0) that can be used with g_dbus_connection_unregister_object() .
              */
-            register_object_with_closures(object_path: string, interface_info: DBusInterfaceInfo, method_call_closure: GObject.Closure | null, get_property_closure: GObject.Closure | null, set_property_closure: GObject.Closure | null): number
+            register_object(object_path: string, interface_info: DBusInterfaceInfo, method_call_closure: GObject.Closure | null, get_property_closure: GObject.Closure | null, set_property_closure: GObject.Closure | null): number
             /**
              * Version of [method@Gio.DBusConnection.register_object] using closures instead
              * of a [type@Gio.DBusInterfaceVTable] for easier binding in other languages.
@@ -22326,7 +22226,7 @@ declare module "gi://Gio?version=2.0" {
              * @param ecn the ECN value of the message
              * @returns a new type-of-service message
              */
-            "new"(dscp: number, ecn: EcnCodePoint): SocketControlMessage
+            "new"(dscp: number, ecn: EcnCodePoint): IPTosMessage
         }
 
         const IPTosMessage: IPTosMessageClass
@@ -22381,7 +22281,7 @@ declare module "gi://Gio?version=2.0" {
              * @param ecn the ECN value of the message
              * @returns a new traffic class message
              */
-            "new"(dscp: number, ecn: EcnCodePoint): SocketControlMessage
+            "new"(dscp: number, ecn: EcnCodePoint): IPv6TclassMessage
         }
 
         const IPv6TclassMessage: IPv6TclassMessageClass
@@ -22955,7 +22855,7 @@ declare module "gi://Gio?version=2.0" {
              * @param port a port number
              * @returns a new #GInetSocketAddress
              */
-            "new"(address: InetAddress, port: number): SocketAddress
+            "new"(address: InetAddress, port: number): InetSocketAddress
             /**
              * Creates a new #GInetSocketAddress for @address and @port.
              *
@@ -22967,7 +22867,7 @@ declare module "gi://Gio?version=2.0" {
              * @param port a port number
              * @returns a new #GInetSocketAddress, or %NULL if `address` cannot be parsed.
              */
-            new_from_string(address: string, port: number): SocketAddress | null
+            new_from_string(address: string, port: number): InetSocketAddress | null
         }
 
         const InetSocketAddress: InetSocketAddressClass
@@ -23713,21 +23613,21 @@ declare module "gi://Gio?version=2.0" {
              * Creates a new empty #GMemoryInputStream.
              * @returns a new #GInputStream
              */
-            "new"(): InputStream
+            "new"(): MemoryInputStream
             /**
              * Creates a new #GMemoryInputStream with data from the given @bytes.
              * @since 2.34
              * @param bytes a #GBytes
              * @returns new #GInputStream read from `bytes`
              */
-            new_from_bytes(bytes: GLib.Bytes): InputStream
+            new_from_bytes(bytes: GLib.Bytes): MemoryInputStream
             /**
              * Creates a new #GMemoryInputStream with data in memory of a given size.
              * @param data input data
              * @param destroy function that is called to free @data, or %NULL
              * @returns new #GInputStream read from `data` of `len` bytes.
              */
-            new_from_data(data: Uint8Array, destroy: GLib.DestroyNotify | null): InputStream
+            new_from_data(data: Uint8Array, destroy: GLib.DestroyNotify | null): MemoryInputStream
         }
 
         const MemoryInputStream: MemoryInputStreamClass
@@ -23848,7 +23748,7 @@ declare module "gi://Gio?version=2.0" {
              * for memory allocation.
              * @since 2.36
              */
-            new_resizable(): OutputStream
+            new_resizable(): MemoryOutputStream
         }
 
         const MemoryOutputStream: MemoryOutputStreamClass
@@ -25224,7 +25124,7 @@ declare module "gi://Gio?version=2.0" {
              * @param len the length of @native, in bytes
              * @returns a new #GNativeSocketAddress
              */
-            "new"(native: never | null, len: number): SocketAddress
+            "new"(native: never | null, len: number): NativeSocketAddress
         }
 
         const NativeSocketAddress: NativeSocketAddressClass
@@ -25637,13 +25537,12 @@ declare module "gi://Gio?version=2.0" {
              *
              * If @target is non-%NULL, @action will be activated with @target as
              * its parameter.
-             * @override
              * @since 2.40
              * @param label label of the button
              * @param action an action name
              * @param target a #GVariant to use as @action's parameter, or %NULL
              */
-            add_button_with_target_value(label: string, action: string, target: GLib.Variant | null): void
+            add_button_with_target(label: string, action: string, target: GLib.Variant | null): void
             /**
              * Sets the body of @notification to @body.
              * @since 2.40
@@ -25687,12 +25586,11 @@ declare module "gi://Gio?version=2.0" {
              *
              * When no default action is set, the application that the notification
              * was sent on is activated.
-             * @override
              * @since 2.40
              * @param action an action name
              * @param target a #GVariant to use as @action's parameter, or %NULL
              */
-            set_default_action_and_target_value(action: string, target: GLib.Variant | null): void
+            set_default_action_and_target(action: string, target: GLib.Variant | null): void
             /**
              * Sets the icon of @notification to @icon.
              * @since 2.40
@@ -27164,7 +27062,7 @@ declare module "gi://Gio?version=2.0" {
                 (or %NULL).
              * @returns a new #GProxyAddress
              */
-            "new"(inetaddr: InetAddress, port: number, protocol: string, dest_hostname: string, dest_port: number, username: string | null, password: string | null): SocketAddress
+            "new"(inetaddr: InetAddress, port: number, protocol: string, dest_hostname: string, dest_port: number, username: string | null, password: string | null): ProxyAddress
         }
 
         const ProxyAddress: ProxyAddressClass
@@ -28001,7 +27899,6 @@ declare module "gi://Gio?version=2.0" {
             /**
              * Version of [method@Gio.Settings.bind_with_mapping] using closures instead of
              * callbacks for easier binding in other languages.
-             * @override
              * @since 2.82
              * @param key the key to bind
              * @param object the object with property to bind
@@ -28012,7 +27909,7 @@ declare module "gi://Gio?version=2.0" {
              * @param set_mapping a function that gets called to convert values
               from @object to @settings, or `NULL` to use the default GIO mapping
              */
-            bind_with_mapping_closures(key: string, object: GObject.Object, property: string, flags: SettingsBindFlags, get_mapping: GObject.Closure | null, set_mapping: GObject.Closure | null): void
+            bind_with_mapping(key: string, object: GObject.Object, property: string, flags: SettingsBindFlags, get_mapping: GObject.Closure | null, set_mapping: GObject.Closure | null): void
             /**
              * Create a binding between the writability of @key in the
              * @settings object and the property @property of @object.
@@ -29499,7 +29396,7 @@ declare module "gi://Gio?version=2.0" {
              * @param output_stream a #GOutputStream.
              * @returns a new #GSimpleIOStream instance.
              */
-            "new"(input_stream: InputStream, output_stream: OutputStream): IOStream
+            "new"(input_stream: InputStream, output_stream: OutputStream): SimpleIOStream
         }
 
         const SimpleIOStream: SimpleIOStreamClass
@@ -29545,7 +29442,7 @@ declare module "gi://Gio?version=2.0" {
              * @param allowed %TRUE if the action is allowed
              * @returns the #GSimplePermission, as a #GPermission
              */
-            "new"(allowed: boolean): Permission
+            "new"(allowed: boolean): SimplePermission
         }
 
         const SimplePermission: SimplePermissionClass
@@ -32885,13 +32782,12 @@ declare module "gi://Gio?version=2.0" {
              *
              * The argument list is expected to be %NULL-terminated.
              * @throws {GLib.Error}
-             * @override
              * @since 2.40
              * @param argv commandline arguments for the subprocess
              * @param flags flags that define the behaviour of the subprocess
              * @returns A newly created #GSubprocess, or %NULL on error (and `error`   will be set)
              */
-            newv(argv: string[], flags: SubprocessFlags): Subprocess
+            "new"(argv: string[], flags: SubprocessFlags): Subprocess
         }
 
         const Subprocess: SubprocessClass
@@ -33955,7 +33851,7 @@ declare module "gi://Gio?version=2.0" {
              * @param socket the #GSocket associated with @base_io_stream
              * @returns the new #GSocketConnection.
              */
-            "new"(base_io_stream: IOStream, socket: Socket): SocketConnection
+            "new"(base_io_stream: IOStream, socket: Socket): TcpWrapperConnection
         }
 
         const TcpWrapperConnection: TcpWrapperConnectionClass
@@ -34374,7 +34270,7 @@ declare module "gi://Gio?version=2.0" {
               handling incoming clients, -1 means no limit
              * @returns a new #GSocketService.
              */
-            "new"(max_threads: number): SocketService
+            "new"(max_threads: number): ThreadedSocketService
         }
 
         const ThreadedSocketService: ThreadedSocketServiceClass
@@ -36792,14 +36688,14 @@ declare module "gi://Gio?version=2.0" {
              * @since 2.26
              * @returns a new #GUnixCredentialsMessage
              */
-            "new"(): SocketControlMessage
+            "new"(): UnixCredentialsMessage
             /**
              * Creates a new #GUnixCredentialsMessage holding @credentials.
              * @since 2.26
              * @param credentials A #GCredentials object.
              * @returns a new #GUnixCredentialsMessage
              */
-            new_with_credentials(credentials: Credentials): SocketControlMessage
+            new_with_credentials(credentials: Credentials): UnixCredentialsMessage
             /**
              * Checks if passing #GCredentials on a #GSocket is supported on this platform.
              * @since 2.26
@@ -37060,7 +36956,7 @@ declare module "gi://Gio?version=2.0" {
              * @param path the socket path
              * @returns a new #GUnixSocketAddress
              */
-            "new"(path: string): SocketAddress
+            "new"(path: string): UnixSocketAddress
             /**
              * Creates a new %G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED
              * #GUnixSocketAddress for @path.
@@ -37068,7 +36964,7 @@ declare module "gi://Gio?version=2.0" {
              * @param path the abstract name
              * @returns a new #GUnixSocketAddress
              */
-            new_abstract(path: number[]): SocketAddress
+            new_abstract(path: number[]): UnixSocketAddress
             /**
              * Creates a new #GUnixSocketAddress of type @type with name @path.
              *
@@ -37106,7 +37002,7 @@ declare module "gi://Gio?version=2.0" {
              * @param type a #GUnixSocketAddressType
              * @returns a new #GUnixSocketAddress
              */
-            new_with_type(path: number[], type: UnixSocketAddressType): SocketAddress
+            new_with_type(path: number[], type: UnixSocketAddressType): UnixSocketAddress
             /**
              * Checks if abstract UNIX domain socket names are supported.
              * @since 2.22
@@ -40481,7 +40377,6 @@ declare module "gi://Gio?version=2.0" {
         /**
          * Version of [func@Gio.bus_own_name_on_connection] using closures instead of
          * callbacks for easier binding in other languages.
-         * @override
          * @since 2.26
          * @param connection a bus connection
          * @param name the well-known name to own
@@ -40492,11 +40387,10 @@ declare module "gi://Gio?version=2.0" {
           or `NULL` to ignore
          * @returns an identifier (never 0) that can be used with   [func@Gio.bus_unown_name] to stop owning the name.
          */
-        function bus_own_name_on_connection_with_closures(connection: DBusConnection, name: string, flags: BusNameOwnerFlags, name_acquired_closure: GObject.Closure | null, name_lost_closure: GObject.Closure | null): number
+        function bus_own_name_on_connection(connection: DBusConnection, name: string, flags: BusNameOwnerFlags, name_acquired_closure: GObject.Closure | null, name_lost_closure: GObject.Closure | null): number
         /**
          * Version of [func@Gio.bus_own_name using closures instead of callbacks for
          * easier binding in other languages.
-         * @override
          * @since 2.26
          * @param bus_type the type of bus to own a name on
          * @param name the well-known name to own
@@ -40509,7 +40403,7 @@ declare module "gi://Gio?version=2.0" {
           `NULL` to ignore
          * @returns an identifier (never 0) that can be used with   [func@Gio.bus_unown_name] to stop owning the name.
          */
-        function bus_own_name_with_closures(bus_type: BusType, name: string, flags: BusNameOwnerFlags, bus_acquired_closure: GObject.Closure | null, name_acquired_closure: GObject.Closure | null, name_lost_closure: GObject.Closure | null): number
+        function bus_own_name(bus_type: BusType, name: string, flags: BusNameOwnerFlags, bus_acquired_closure: GObject.Closure | null, name_acquired_closure: GObject.Closure | null, name_lost_closure: GObject.Closure | null): number
         /**
          * Stops owning a name.
          *
@@ -40595,7 +40489,6 @@ declare module "gi://Gio?version=2.0" {
         /**
          * Version of g_bus_watch_name_on_connection() using closures instead of callbacks for
          * easier binding in other languages.
-         * @override
          * @since 2.26
          * @param connection A #GDBusConnection.
          * @param name The name (well-known or unique) to watch.
@@ -40606,11 +40499,10 @@ declare module "gi://Gio?version=2.0" {
         to not exist or %NULL.
          * @returns An identifier (never 0) that can be used with g_bus_unwatch_name() to stop watching the name.
          */
-        function bus_watch_name_on_connection_with_closures(connection: DBusConnection, name: string, flags: BusNameWatcherFlags, name_appeared_closure: GObject.Closure | null, name_vanished_closure: GObject.Closure | null): number
+        function bus_watch_name_on_connection(connection: DBusConnection, name: string, flags: BusNameWatcherFlags, name_appeared_closure: GObject.Closure | null, name_vanished_closure: GObject.Closure | null): number
         /**
          * Version of g_bus_watch_name() using closures instead of callbacks for
          * easier binding in other languages.
-         * @override
          * @since 2.26
          * @param bus_type The type of bus to watch a name on.
          * @param name The name (well-known or unique) to watch.
@@ -40621,7 +40513,7 @@ declare module "gi://Gio?version=2.0" {
         to not exist or %NULL.
          * @returns An identifier (never 0) that can be used with g_bus_unwatch_name() to stop watching the name.
          */
-        function bus_watch_name_with_closures(bus_type: BusType, name: string, flags: BusNameWatcherFlags, name_appeared_closure: GObject.Closure | null, name_vanished_closure: GObject.Closure | null): number
+        function bus_watch_name(bus_type: BusType, name: string, flags: BusNameWatcherFlags, name_appeared_closure: GObject.Closure | null, name_vanished_closure: GObject.Closure | null): number
         /**
          * Checks if a content type can be executable. Note that for instance
          * things like text files can be executables (i.e. scripts and batch files).

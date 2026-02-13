@@ -449,7 +449,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyActionRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ActionRow
         }
 
         const ActionRow: ActionRowClass
@@ -498,7 +498,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyApplicationWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ApplicationWindow
         }
 
         const ApplicationWindow: ApplicationWindowClass
@@ -718,7 +718,7 @@ declare module "gi://Handy?version=1" {
              * @param show_initials whether to use initials instead of an icon as fallback
              * @returns the newly created `HdyAvatar`
              */
-            "new"(size: number, text: string | null, show_initials: boolean): Gtk.Widget
+            "new"(size: number, text: string | null, show_initials: boolean): Avatar
         }
 
         const Avatar: AvatarClass
@@ -1014,7 +1014,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyCarousel`
              */
-            "new"(): Gtk.Widget
+            "new"(): Carousel
         }
 
         const Carousel: CarouselClass
@@ -1086,7 +1086,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns The newly created `HdyCarouselIndicatorDots`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorDots
         }
 
         const CarouselIndicatorDots: CarouselIndicatorDotsClass
@@ -1157,7 +1157,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyCarouselIndicatorLines`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorLines
         }
 
         const CarouselIndicatorLines: CarouselIndicatorLinesClass
@@ -1271,7 +1271,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyClamp`
              */
-            "new"(): Gtk.Widget
+            "new"(): Clamp
         }
 
         const Clamp: ClampClass
@@ -1453,7 +1453,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyComboRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ComboRow
         }
 
         const ComboRow: ComboRowClass
@@ -1783,7 +1783,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyDeck`
              */
-            "new"(): Gtk.Widget
+            "new"(): Deck
         }
 
         const Deck: DeckClass
@@ -2032,7 +2032,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyExpanderRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ExpanderRow
         }
 
         const ExpanderRow: ExpanderRowClass
@@ -2424,7 +2424,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.2
              * @returns the newly created `HdyFlap`
              */
-            "new"(): Gtk.Widget
+            "new"(): Flap
         }
 
         const Flap: FlapClass
@@ -2763,7 +2763,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyHeaderBar`.
              */
-            "new"(): Gtk.Widget
+            "new"(): HeaderBar
         }
 
         const HeaderBar: HeaderBarClass
@@ -3157,7 +3157,7 @@ declare module "gi://Handy?version=1" {
              * @param letters_visible whether the letters below the digits should be visible
              * @returns the newly created `HdyKeypad`
              */
-            "new"(symbols_visible: boolean, letters_visible: boolean): Gtk.Widget
+            "new"(symbols_visible: boolean, letters_visible: boolean): Keypad
         }
 
         const Keypad: KeypadClass
@@ -3563,7 +3563,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyLeaflet`
              */
-            "new"(): Gtk.Widget
+            "new"(): Leaflet
         }
 
         const Leaflet: LeafletClass
@@ -3674,7 +3674,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyPreferencesGroup`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesGroup
         }
 
         const PreferencesGroup: PreferencesGroupClass
@@ -3761,7 +3761,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyPreferencesPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesPage
         }
 
         const PreferencesPage: PreferencesPageClass
@@ -3850,7 +3850,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyPreferencesRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesRow
         }
 
         const PreferencesRow: PreferencesRowClass
@@ -3958,7 +3958,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyPreferencesWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesWindow
         }
 
         const PreferencesWindow: PreferencesWindowClass
@@ -4114,7 +4114,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdySearchBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): SearchBar
         }
 
         const SearchBar: SearchBarClass
@@ -4375,7 +4375,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdySqueezer`
              */
-            "new"(): Gtk.Widget
+            "new"(): Squeezer
         }
 
         const Squeezer: SqueezerClass
@@ -4483,7 +4483,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.2
              * @returns the newly created `HdyStatusPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): StatusPage
         }
 
         const StatusPage: StatusPageClass
@@ -6191,7 +6191,7 @@ declare module "gi://Handy?version=1" {
              * @deprecated since 1.4
              * @returns a new `HdyTitleBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): TitleBar
         }
 
         const TitleBar: TitleBarClass
@@ -6393,7 +6393,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyViewSwitcher`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcher
         }
 
         const ViewSwitcher: ViewSwitcherClass
@@ -6500,7 +6500,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyViewSwitcherBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherBar
         }
 
         const ViewSwitcherBar: ViewSwitcherBarClass
@@ -6746,7 +6746,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): Window
         }
 
         const Window: WindowClass
@@ -6799,7 +6799,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @returns the newly created `HdyWindowHandle`
              */
-            "new"(): Gtk.Widget
+            "new"(): WindowHandle
         }
 
         const WindowHandle: WindowHandleClass

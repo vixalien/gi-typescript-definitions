@@ -45,19 +45,19 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         
 
         namespace DOMEventTarget {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param event_name
                  * @param handler
@@ -84,30 +84,21 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
 
         /**
          */
-        interface DOMEventTarget extends DOMEventTarget.Interface {
+        interface DOMEventTarget extends GObject.Object, DOMEventTarget.Interface {
             readonly $signals: DOMEventTarget.SignalSignatures
             readonly $readableProperties: DOMEventTarget.ReadableProperties
             readonly $writableProperties: DOMEventTarget.WritableProperties
             readonly $constructOnlyProperties: DOMEventTarget.ConstructOnlyProperties
             /**
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param event_name A #gchar
-             * @param handler A #GCallback
-             * @param use_capture A #gboolean
-             * @returns a #gboolean
-             */
-            add_event_listener(event_name: string, handler: GObject.Callback, use_capture: boolean): boolean
-            /**
              * Version of webkit_dom_event_target_add_event_listener() using a closure
              * instead of a callbacks for easier binding in other languages.
-             * @override
              * @deprecated since 2.22 Use JavaScriptCore API instead
              * @param event_name A #gchar
              * @param handler A #GClosure
              * @param use_capture A #gboolean
              * @returns a #gboolean
              */
-            add_event_listener_with_closure(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean
+            add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean
             /**
              * @throws {GLib.Error}
              * @deprecated since 2.22 Use JavaScriptCore API instead
@@ -116,24 +107,15 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
              */
             dispatch_event(event: DOMEvent): boolean
             /**
-             * @deprecated since 2.22 Use JavaScriptCore API instead
-             * @param event_name A #gchar
-             * @param handler A #GCallback
-             * @param use_capture A #gboolean
-             * @returns a #gboolean
-             */
-            remove_event_listener(event_name: string, handler: never | null, use_capture: boolean): boolean
-            /**
              * Version of webkit_dom_event_target_remove_event_listener() using a closure
              * instead of a callbacks for easier binding in other languages.
-             * @override
              * @deprecated since 2.22 Use JavaScriptCore API instead
              * @param event_name A #gchar
              * @param handler A #GClosure
              * @param use_capture A #gboolean
              * @returns a #gboolean
              */
-            remove_event_listener_with_closure(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean
+            remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean
         }
 
 
@@ -148,19 +130,19 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         
 
         namespace DOMNodeFilter {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @deprecated since 2.22 Use JavaScriptCore API instead
                  * @param node A #WebKitDOMNode
@@ -172,7 +154,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
 
         /**
          */
-        interface DOMNodeFilter extends DOMNodeFilter.Interface {
+        interface DOMNodeFilter extends GObject.Object, DOMNodeFilter.Interface {
             readonly $signals: DOMNodeFilter.SignalSignatures
             readonly $readableProperties: DOMNodeFilter.ReadableProperties
             readonly $writableProperties: DOMNodeFilter.WritableProperties
@@ -197,19 +179,19 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
         
 
         namespace DOMXPathNSResolver {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @deprecated since 2.22 Use JavaScriptCore API instead
                  * @param prefix The prefix to lookup
@@ -221,7 +203,7 @@ declare module "gi://WebKit2WebExtension?version=4.1" {
 
         /**
          */
-        interface DOMXPathNSResolver extends DOMXPathNSResolver.Interface {
+        interface DOMXPathNSResolver extends GObject.Object, DOMXPathNSResolver.Interface {
             readonly $signals: DOMXPathNSResolver.SignalSignatures
             readonly $readableProperties: DOMXPathNSResolver.ReadableProperties
             readonly $writableProperties: DOMXPathNSResolver.WritableProperties

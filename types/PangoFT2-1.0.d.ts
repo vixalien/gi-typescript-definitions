@@ -103,7 +103,7 @@ declare module "gi://PangoFT2?version=1.0" {
              * @since 1.2
              * @returns the newly created fontmap object. Unref with g_object_unref() when you are finished with it.
              */
-            "new"(): Pango.FontMap
+            "new"(): FontMap
         }
 
         const FontMap: FontMapClass

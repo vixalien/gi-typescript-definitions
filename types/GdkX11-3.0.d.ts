@@ -927,7 +927,7 @@ declare module "gi://GdkX11?version=3.0" {
              * @param window an Xlib Window
              * @returns a #GdkWindow wrapper for the native   window, or %NULL if the window has been destroyed. The wrapper   will be newly created, if one doesn’t exist already.
              */
-            foreign_new_for_display(display: X11Display, window: xlib.Window): Gdk.Window
+            foreign_new_for_display(display: X11Display, window: xlib.Window): X11Window
             /**
              * Looks up the #GdkWindow that wraps the given native window handle.
              * @since 2.24

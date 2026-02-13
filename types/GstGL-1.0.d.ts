@@ -365,7 +365,7 @@ declare module "gi://GstGL?version=1.0" {
              * @param context the #GstGLContext to use
              * @returns a #GstBufferPool that allocates buffers with #GstGLMemory
              */
-            "new"(context: GLContext): Gst.BufferPool
+            "new"(context: GLContext): GLBufferPool
         }
 
         const GLBufferPool: GLBufferPoolClass

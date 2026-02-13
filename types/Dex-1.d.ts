@@ -111,7 +111,7 @@ declare module "gi://Dex?version=1" {
              * @param instance
              * @param info
              */
-            "new"(instance: never | null, info: AsyncPairInfo): Future
+            "new"(instance: never | null, info: AsyncPairInfo): AsyncPair
         }
 
         const AsyncPair: AsyncPairClass
@@ -309,7 +309,7 @@ declare module "gi://Dex?version=1" {
              * [method@Dex.Cancellable.cancel] is called.
              * @param cancellable a [class@Gio.Cancellable]
              */
-            new_from_cancellable(cancellable: Gio.Cancellable | null): Future
+            new_from_cancellable(cancellable: Gio.Cancellable | null): Cancellable
         }
 
         const Cancellable: CancellableClass
@@ -511,7 +511,7 @@ declare module "gi://Dex?version=1" {
              * Creates a new [class@Dex.Delayed]
              * @param future a [class@Dex.Future]
              */
-            "new"(future: Future): Future
+            "new"(future: Future): Delayed
         }
 
         const Delayed: DelayedClass
@@ -785,30 +785,27 @@ declare module "gi://Dex?version=1" {
              * Creates a new [class@Dex.Future] that resolves when all futures resolve.
              *
              * If any future rejects, the resulting [class@Dex.Future] also rejects immediately.
-             * @override
              * @param futures an array of futures
              * @returns a [class@Dex.Future]
              */
-            all_racev(futures: Future[]): Future
+            all_race(futures: Future[]): Future
             /**
              * Creates a new [class@Dex.Future] that resolves when all futures resolve.
              *
              * The resulting [class@Dex.Future] will not resolve or reject until all futures
              * have either resolved or rejected.
-             * @override
              * @param futures an array of futures
              * @returns a [class@Dex.Future]
              */
-            allv(futures: Future[]): Future
+            all(futures: Future[]): Future
             /**
              * Creates a new [class@Dex.Future] that resolves when the first future resolves.
              *
              * If all futures reject, then the [class@Dex.Future] returned will also reject.
-             * @override
              * @param futures an array of futures
              * @returns a [class@Dex.Future]
              */
-            anyv(futures: Future[]): Future
+            any(futures: Future[]): Future
             /**
              * Calls @callback when @future rejects.
              *
@@ -850,11 +847,10 @@ declare module "gi://Dex?version=1" {
             /**
              * Creates a new [class@Dex.Future] that resolves or rejects as soon as the
              * first dependent future resolves or rejects, sharing the same result.
-             * @override
              * @param futures an array of futures
              * @returns a [class@Dex.Future]
              */
-            firstv(futures: Future[]): Future
+            first(futures: Future[]): Future
             /**
              * Creates a new [class@Dex.Future] and resolves it with @v_bool.
              * @param v_bool the resolved value for the future
@@ -1521,7 +1517,7 @@ declare module "gi://Dex?version=1" {
              * Creates a new [class@Dex.Scheduler] that executes work items on a thread pool.
              * @returns a [class@Dex.ThreadPoolScheduler]
              */
-            "new"(): Scheduler
+            "new"(): ThreadPoolScheduler
             /**
              * Gets the default thread pool scheduler for the instance.
              *
@@ -1576,22 +1572,22 @@ declare module "gi://Dex?version=1" {
              * Creates a new timeout that will reject at a deadline.
              * @param deadline the deadline in usec in the monotonic clock
              */
-            new_deadline(deadline: number): Future
+            new_deadline(deadline: number): Timeout
             /**
              * Create a new timeout that will reject in @msec milliseconds
              * @param msec number of milliseconds
              */
-            new_msec(msec: number): Future
+            new_msec(msec: number): Timeout
             /**
              * Create a new timeout that will reject in @seconds seconds
              * @param seconds number of seconds
              */
-            new_seconds(seconds: number): Future
+            new_seconds(seconds: number): Timeout
             /**
              * Create a new timeout that will reject in @usec microseconds
              * @param usec number of microseconds
              */
-            new_usec(usec: number): Future
+            new_usec(usec: number): Timeout
         }
 
         const Timeout: TimeoutClass
@@ -1647,7 +1643,7 @@ declare module "gi://Dex?version=1" {
              * @param signum a unix signal number
              * @returns a new [class@Dex.Future]
              */
-            "new"(signum: number): Future
+            "new"(signum: number): UnixSignal
         }
 
         const UnixSignal: UnixSignalClass

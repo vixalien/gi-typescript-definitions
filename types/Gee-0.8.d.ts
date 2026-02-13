@@ -3486,6 +3486,21 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<ArrayList>
             readonly prototype: ArrayList
             new (props?: Partial<GObject.ConstructorProps<ArrayList>>): ArrayList
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param equal_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ArrayList
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param items
+             * @param equal_func
+             */
+            wrap(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, items: never[], equal_func: Gee.EqualDataFunc | null): ArrayList
         }
 
         const ArrayList: ArrayListClass
@@ -3549,6 +3564,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<ArrayQueue>
             readonly prototype: ArrayQueue
             new (props?: Partial<GObject.ConstructorProps<ArrayQueue>>): ArrayQueue
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param equal_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ArrayQueue
         }
 
         const ArrayQueue: ArrayQueueClass
@@ -3612,6 +3634,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<ConcurrentList>
             readonly prototype: ConcurrentList
             new (props?: Partial<GObject.ConstructorProps<ConcurrentList>>): ConcurrentList
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param equal_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): ConcurrentList
         }
 
         const ConcurrentList: ConcurrentListClass
@@ -3662,6 +3691,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<ConcurrentSet>
             readonly prototype: ConcurrentSet
             new (props?: Partial<GObject.ConstructorProps<ConcurrentSet>>): ConcurrentSet
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param compare_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): ConcurrentSet
         }
 
         const ConcurrentSet: ConcurrentSetClass
@@ -3742,6 +3778,18 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<HashMap>
             readonly prototype: HashMap
             new (props?: Partial<GObject.ConstructorProps<HashMap>>): HashMap
+            /**
+             * @param k_type
+             * @param k_dup_func
+             * @param k_destroy_func
+             * @param v_type
+             * @param v_dup_func
+             * @param v_destroy_func
+             * @param key_hash_func
+             * @param key_equal_func
+             * @param value_equal_func
+             */
+            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_hash_func: Gee.HashDataFunc | null, key_equal_func: Gee.EqualDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): HashMap
         }
 
         const HashMap: HashMapClass
@@ -3826,6 +3874,19 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<HashMultiMap>
             readonly prototype: HashMultiMap
             new (props?: Partial<GObject.ConstructorProps<HashMultiMap>>): HashMultiMap
+            /**
+             * @param k_type
+             * @param k_dup_func
+             * @param k_destroy_func
+             * @param v_type
+             * @param v_dup_func
+             * @param v_destroy_func
+             * @param key_hash_func
+             * @param key_equal_func
+             * @param value_hash_func
+             * @param value_equal_func
+             */
+            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_hash_func: Gee.HashDataFunc | null, key_equal_func: Gee.EqualDataFunc | null, value_hash_func: Gee.HashDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): HashMultiMap
         }
 
         const HashMultiMap: HashMultiMapClass
@@ -3884,6 +3945,23 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<HashMultiSet>
             readonly prototype: HashMultiSet
             new (props?: Partial<GObject.ConstructorProps<HashMultiSet>>): HashMultiSet
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param hash_func
+             * @param equal_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashMultiSet
+            /**
+             * @deprecated since 0.13.3
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param hash_func
+             * @param equal_func
+             */
+            broken(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashMultiSet
         }
 
         const HashMultiSet: HashMultiSetClass
@@ -3942,6 +4020,14 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<HashSet>
             readonly prototype: HashSet
             new (props?: Partial<GObject.ConstructorProps<HashSet>>): HashSet
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param hash_func
+             * @param equal_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, hash_func: Gee.HashDataFunc | null, equal_func: Gee.EqualDataFunc | null): HashSet
         }
 
         const HashSet: HashSetClass
@@ -3983,6 +4069,20 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<Lazy>
             readonly prototype: Lazy
             new (props?: Partial<GObject.ConstructorProps<Lazy>>): Lazy
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, func: Gee.LazyFunc): Lazy
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param item
+             */
+            from_value(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, item: never): Lazy
         }
 
         const Lazy: LazyClass
@@ -4043,6 +4143,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<LinkedList>
             readonly prototype: LinkedList
             new (props?: Partial<GObject.ConstructorProps<LinkedList>>): LinkedList
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param equal_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): LinkedList
         }
 
         const LinkedList: LinkedListClass
@@ -4101,6 +4208,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<PriorityQueue>
             readonly prototype: PriorityQueue
             new (props?: Partial<GObject.ConstructorProps<PriorityQueue>>): PriorityQueue
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param compare_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): PriorityQueue
         }
 
         const PriorityQueue: PriorityQueueClass
@@ -4141,6 +4255,12 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<Promise>
             readonly prototype: Promise
             new (props?: Partial<GObject.ConstructorProps<Promise>>): Promise
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify): Promise
         }
 
         const Promise: PromiseClass
@@ -4217,6 +4337,17 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<TreeMap>
             readonly prototype: TreeMap
             new (props?: Partial<GObject.ConstructorProps<TreeMap>>): TreeMap
+            /**
+             * @param k_type
+             * @param k_dup_func
+             * @param k_destroy_func
+             * @param v_type
+             * @param v_dup_func
+             * @param v_destroy_func
+             * @param key_compare_func
+             * @param value_equal_func
+             */
+            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_compare_func: GLib.CompareDataFunc | null, value_equal_func: Gee.EqualDataFunc | null): TreeMap
         }
 
         const TreeMap: TreeMapClass
@@ -4293,6 +4424,17 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<TreeMultiMap>
             readonly prototype: TreeMultiMap
             new (props?: Partial<GObject.ConstructorProps<TreeMultiMap>>): TreeMultiMap
+            /**
+             * @param k_type
+             * @param k_dup_func
+             * @param k_destroy_func
+             * @param v_type
+             * @param v_dup_func
+             * @param v_destroy_func
+             * @param key_compare_func
+             * @param value_compare_func
+             */
+            "new"(k_type: (GObject.GType | { $gtype: GObject.GType }), k_dup_func: GObject.BoxedCopyFunc, k_destroy_func: GLib.DestroyNotify, v_type: (GObject.GType | { $gtype: GObject.GType }), v_dup_func: GObject.BoxedCopyFunc, v_destroy_func: GLib.DestroyNotify, key_compare_func: GLib.CompareDataFunc | null, value_compare_func: GLib.CompareDataFunc | null): TreeMultiMap
         }
 
         const TreeMultiMap: TreeMultiMapClass
@@ -4347,6 +4489,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<TreeMultiSet>
             readonly prototype: TreeMultiSet
             new (props?: Partial<GObject.ConstructorProps<TreeMultiSet>>): TreeMultiSet
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param compare_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): TreeMultiSet
         }
 
         const TreeMultiSet: TreeMultiSetClass
@@ -4401,6 +4550,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<TreeSet>
             readonly prototype: TreeSet
             new (props?: Partial<GObject.ConstructorProps<TreeSet>>): TreeSet
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param compare_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, compare_func: GLib.CompareDataFunc | null): TreeSet
         }
 
         const TreeSet: TreeSetClass
@@ -4455,6 +4611,13 @@ declare module "gi://Gee?version=0.8" {
             readonly $gtype: GObject.GType<UnrolledLinkedList>
             readonly prototype: UnrolledLinkedList
             new (props?: Partial<GObject.ConstructorProps<UnrolledLinkedList>>): UnrolledLinkedList
+            /**
+             * @param g_type
+             * @param g_dup_func
+             * @param g_destroy_func
+             * @param equal_func
+             */
+            "new"(g_type: (GObject.GType | { $gtype: GObject.GType }), g_dup_func: GObject.BoxedCopyFunc, g_destroy_func: GLib.DestroyNotify, equal_func: Gee.EqualDataFunc | null): UnrolledLinkedList
         }
 
         const UnrolledLinkedList: UnrolledLinkedListClass

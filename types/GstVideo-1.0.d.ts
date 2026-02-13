@@ -25,7 +25,7 @@ declare module "gi://GstVideo?version=1.0" {
         
 
         namespace ColorBalance {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Fired when the value of the indicated channel has changed.
                  * @param channel The #GstColorBalanceChannel
@@ -34,16 +34,16 @@ declare module "gi://GstVideo?version=1.0" {
                 "value-changed"(channel: ColorBalanceChannel, value: number): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Get the #GstColorBalanceType of this implementation.
                  * @returns A the #GstColorBalanceType.
@@ -95,7 +95,7 @@ declare module "gi://GstVideo?version=1.0" {
          *
          * Example elements are 'xvimagesink' and 'colorbalance'
          */
-        interface ColorBalance extends ColorBalance.Interface {
+        interface ColorBalance extends GObject.Object, ColorBalance.Interface {
             readonly $signals: ColorBalance.SignalSignatures
             readonly $readableProperties: ColorBalance.ReadableProperties
             readonly $writableProperties: ColorBalance.WritableProperties
@@ -155,19 +155,19 @@ declare module "gi://GstVideo?version=1.0" {
         
 
         namespace Navigation {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * sending a navigation event.
                  * @deprecated since 1.22 Use #GstNavigationInterface.send_event_simple() instead.
@@ -208,7 +208,7 @@ declare module "gi://GstVideo?version=1.0" {
          * The GstNavigation message functions provide functions for creating and
          * parsing custom bus messages for signaling GstNavigation changes.
          */
-        interface Navigation extends Navigation.Interface {
+        interface Navigation extends GObject.Object, Navigation.Interface {
             readonly $signals: Navigation.SignalSignatures
             readonly $readableProperties: Navigation.ReadableProperties
             readonly $writableProperties: Navigation.WritableProperties
@@ -628,21 +628,21 @@ declare module "gi://GstVideo?version=1.0" {
         
 
         namespace VideoDirection {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "video-direction": VideoOrientationMethod
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "video-direction": VideoOrientationMethod
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -651,7 +651,7 @@ declare module "gi://GstVideo?version=1.0" {
          * operations of video-sources or operators.
          * @since 1.10
          */
-        interface VideoDirection extends VideoDirection.Interface {
+        interface VideoDirection extends GObject.Object, VideoDirection.Interface {
             readonly $signals: VideoDirection.SignalSignatures
             readonly $readableProperties: VideoDirection.ReadableProperties
             readonly $writableProperties: VideoDirection.WritableProperties
@@ -675,19 +675,19 @@ declare module "gi://GstVideo?version=1.0" {
         
 
         namespace VideoOrientation {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Get the horizontal centering offset from the given object.
                  * @returns %TRUE in case the element supports centering, return location for the result
@@ -739,7 +739,7 @@ declare module "gi://GstVideo?version=1.0" {
          * The interface allows unified access to control flipping and autocenter
          * operation of video-sources or operators.
          */
-        interface VideoOrientation extends VideoOrientation.Interface {
+        interface VideoOrientation extends GObject.Object, VideoOrientation.Interface {
             readonly $signals: VideoOrientation.SignalSignatures
             readonly $readableProperties: VideoOrientation.ReadableProperties
             readonly $writableProperties: VideoOrientation.WritableProperties
@@ -810,19 +810,19 @@ declare module "gi://GstVideo?version=1.0" {
         
 
         namespace VideoOverlay {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Tell an overlay that it has been exposed. This will redraw the current frame
                  * in the drawable even if the pipeline is PAUSED.
@@ -897,7 +897,7 @@ declare module "gi://GstVideo?version=1.0" {
          * }
          * ]|
          */
-        interface VideoOverlay extends VideoOverlay.Interface {
+        interface VideoOverlay extends GObject.Object, VideoOverlay.Interface {
             readonly $signals: VideoOverlay.SignalSignatures
             readonly $readableProperties: VideoOverlay.ReadableProperties
             readonly $writableProperties: VideoOverlay.WritableProperties
@@ -1384,7 +1384,7 @@ declare module "gi://GstVideo?version=1.0" {
              * supports all the video bufferpool options.
              * @returns a new #GstBufferPool to allocate video frames
              */
-            "new"(): Gst.BufferPool
+            "new"(): VideoBufferPool
         }
 
         const VideoBufferPool: VideoBufferPoolClass

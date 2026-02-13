@@ -160,7 +160,7 @@ declare module "gi://GstCuda?version=1.0" {
              * @param context The #GstCudaContext to use for the new buffer pool
              * @returns A newly created #GstCudaBufferPool
              */
-            "new"(context: CudaContext): Gst.BufferPool
+            "new"(context: CudaContext): CudaBufferPool
         }
 
         const CudaBufferPool: CudaBufferPoolClass

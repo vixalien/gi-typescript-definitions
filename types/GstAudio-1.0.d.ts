@@ -25,23 +25,23 @@ declare module "gi://GstAudio?version=1.0" {
         
 
         namespace StreamVolume {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "mute": boolean
                 "volume": number
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "mute": boolean
                 "volume": number
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -63,7 +63,7 @@ declare module "gi://GstAudio?version=1.0" {
          * "mute" #GObject properties and handle setting and getting of them properly.
          * The volume property is defined to be a linear volume factor.
          */
-        interface StreamVolume extends StreamVolume.Interface {
+        interface StreamVolume extends GObject.Object, StreamVolume.Interface {
             readonly $signals: StreamVolume.SignalSignatures
             readonly $readableProperties: StreamVolume.ReadableProperties
             readonly $writableProperties: StreamVolume.WritableProperties
@@ -861,7 +861,7 @@ declare module "gi://GstAudio?version=1.0" {
              * @param func a function
              * @returns a new #GstAudioClock casted to a #GstClock.
              */
-            "new"(name: string, func: AudioClockGetTimeFunc): Gst.Clock
+            "new"(name: string, func: AudioClockGetTimeFunc): AudioClock
         }
 
         const AudioClock: AudioClockClass
@@ -2183,11 +2183,10 @@ declare module "gi://GstAudio?version=1.0" {
              * will be called every time a segment has been written to a device.
              *
              * MT safe.
-             * @override
              * @since 1.12
              * @param cb the callback to set
              */
-            set_callback_full(cb: AudioRingBufferCallback | null): void
+            set_callback(cb: AudioRingBufferCallback | null): void
             /**
              * Tell the ringbuffer about the device's channel positions. This must
              * be called in when the ringbuffer is acquired.

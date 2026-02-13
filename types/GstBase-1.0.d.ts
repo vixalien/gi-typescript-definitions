@@ -135,13 +135,12 @@ declare module "gi://GstBase?version=1.0" {
              * bytes of data starting at @offset will be copied out of the buffers contained
              * in @adapter and into a new #GBytes structure which is returned. Depending on
              * the value of the @size argument an empty #GBytes structure may be returned.
-             * @override
              * @since 1.4
              * @param offset the bytes offset in the adapter to start from
              * @param size the number of bytes to copy
              * @returns A new #GBytes structure containing the copied data.
              */
-            copy_bytes(offset: number, size: number): GLib.Bytes
+            copy(offset: number, size: number): GLib.Bytes
             /**
              * Get the distance in bytes since the last buffer with the
              * %GST_BUFFER_FLAG_DISCONT flag.

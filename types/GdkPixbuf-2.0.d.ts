@@ -387,22 +387,10 @@ declare module "gi://GdkPixbuf?version=2.0" {
              *
              * Please see the section on [image data](class.Pixbuf.html#image-data) for information
              * about how the pixel data is stored in memory.
-             * @returns A pointer to the pixbuf's pixel data.
-             */
-            get_pixels(): Uint8Array
-            /**
-             * Queries a pointer to the pixel data of a pixbuf.
-             *
-             * This function will cause an implicit copy of the pixbuf data if the
-             * pixbuf was created from read-only data.
-             *
-             * Please see the section on [image data](class.Pixbuf.html#image-data) for information
-             * about how the pixel data is stored in memory.
-             * @override
              * @since 2.26
              * @returns A pointer to the pixbuf's pixel data.
              */
-            get_pixels_with_length(): Uint8Array
+            get_pixels(): Uint8Array
             /**
              * Queries the rowstride of a pixbuf, which is the number of bytes between
              * the start of a row and the start of the next row.
@@ -1801,7 +1789,7 @@ declare module "gi://GdkPixbuf?version=2.0" {
             /**
              * @param pixbuf
              */
-            "new"(pixbuf: Pixbuf): PixbufAnimation
+            "new"(pixbuf: Pixbuf): PixbufNonAnim
         }
 
         const PixbufNonAnim: PixbufNonAnimClass

@@ -19,19 +19,19 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Action {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Perform the specified action on the object.
                  * @param i the action index corresponding to the action to be performed
@@ -135,7 +135,7 @@ declare module "gi://Atk?version=1.0" {
          * exposing redundant actions if possible.  By convention we have been
          * using "mouse centric" terminology for #AtkAction names.
          */
-        interface Action extends Action.Interface {
+        interface Action extends GObject.Object, Action.Interface {
             readonly $signals: Action.SignalSignatures
             readonly $readableProperties: Action.ReadableProperties
             readonly $writableProperties: Action.WritableProperties
@@ -232,7 +232,7 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Component {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The 'bounds-changed" signal is emitted when the position or
                  * size of the component changes.
@@ -241,16 +241,16 @@ declare module "gi://Atk?version=1.0" {
                 "bounds-changed"(arg1: Rectangle): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param bounds
                  */
@@ -413,7 +413,7 @@ declare module "gi://Atk?version=1.0" {
          * transparent background, in which case text glyph bounding box
          * information is provided by #AtkText.
          */
-        interface Component extends Component.Interface {
+        interface Component extends GObject.Object, Component.Interface {
             readonly $signals: Component.SignalSignatures
             readonly $readableProperties: Component.ReadableProperties
             readonly $writableProperties: Component.WritableProperties
@@ -571,7 +571,7 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Document {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The "document-attribute-changed" signal should be emitted when there is a
                  * change to one of the document attributes returned by
@@ -622,16 +622,16 @@ declare module "gi://Atk?version=1.0" {
                 "reload"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Retrieves the current page number inside @document.
                  * @since 2.12
@@ -725,7 +725,7 @@ declare module "gi://Atk?version=1.0" {
          * cases where one document contains "embedded content" which can
          * reasonably be considered a document in its own right.
          */
-        interface Document extends Document.Interface {
+        interface Document extends GObject.Object, Document.Interface {
             readonly $signals: Document.SignalSignatures
             readonly $readableProperties: Document.ReadableProperties
             readonly $writableProperties: Document.WritableProperties
@@ -822,19 +822,19 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace EditableText {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Copy text from @start_pos up to, but not including @end_pos
                  * to the clipboard.
@@ -901,7 +901,7 @@ declare module "gi://Atk?version=1.0" {
          *
          * See [iface@AtkText]
          */
-        interface EditableText extends EditableText.Interface {
+        interface EditableText extends GObject.Object, EditableText.Interface {
             readonly $signals: EditableText.SignalSignatures
             readonly $readableProperties: EditableText.ReadableProperties
             readonly $writableProperties: EditableText.WritableProperties
@@ -970,19 +970,19 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace HyperlinkImpl {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the hyperlink associated with this object.
                  * @since 1.12
@@ -999,7 +999,7 @@ declare module "gi://Atk?version=1.0" {
          * AtkHyperlink in that AtkHyperlink is an object type, rather than an
          * interface, and thus cannot be directly queried. FTW
          */
-        interface HyperlinkImpl extends HyperlinkImpl.Interface {
+        interface HyperlinkImpl extends GObject.Object, HyperlinkImpl.Interface {
             readonly $signals: HyperlinkImpl.SignalSignatures
             readonly $readableProperties: HyperlinkImpl.ReadableProperties
             readonly $writableProperties: HyperlinkImpl.WritableProperties
@@ -1024,7 +1024,7 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Hypertext {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The "link-selected" signal is emitted by an AtkHyperText
                  * object when one of the hyperlinks associated with the object
@@ -1034,16 +1034,16 @@ declare module "gi://Atk?version=1.0" {
                 "link-selected"(arg1: number): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the link in this hypertext document at index
                  * @link_index
@@ -1082,7 +1082,7 @@ declare module "gi://Atk?version=1.0" {
          * Hypertext instances have textual content; they may implement Image
          * as well, and Hyperlinks need not have non-zero text offsets.
          */
-        interface Hypertext extends Hypertext.Interface {
+        interface Hypertext extends GObject.Object, Hypertext.Interface {
             readonly $signals: Hypertext.SignalSignatures
             readonly $readableProperties: Hypertext.ReadableProperties
             readonly $writableProperties: Hypertext.WritableProperties
@@ -1120,19 +1120,19 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Image {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Get a textual description of this image.
                  * @returns a string representing the image description
@@ -1192,7 +1192,7 @@ declare module "gi://Atk?version=1.0" {
          * presentation of the most significant information present in the
          * image.
          */
-        interface Image extends Image.Interface {
+        interface Image extends GObject.Object, Image.Interface {
             readonly $signals: Image.SignalSignatures
             readonly $readableProperties: Image.ReadableProperties
             readonly $writableProperties: Image.WritableProperties
@@ -1249,26 +1249,26 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace ImplementorIface {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          * (ref_accessible)(implementor);
          */
-        interface ImplementorIface extends ImplementorIface.Interface {
+        interface ImplementorIface extends GObject.Object, ImplementorIface.Interface {
             readonly $signals: ImplementorIface.SignalSignatures
             readonly $readableProperties: ImplementorIface.ReadableProperties
             readonly $writableProperties: ImplementorIface.WritableProperties
@@ -1287,7 +1287,7 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Selection {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The "selection-changed" signal is emitted by an object which
                  * implements AtkSelection interface when the selection changes.
@@ -1295,16 +1295,16 @@ declare module "gi://Atk?version=1.0" {
                 "selection-changed"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds the specified accessible child of the object to the
                  * object's selection.
@@ -1382,7 +1382,7 @@ declare module "gi://Atk?version=1.0" {
          * are accomplished a other ATK interfaces - #AtkSelection is limited
          * to the selection/deselection of children.
          */
-        interface Selection extends Selection.Interface {
+        interface Selection extends GObject.Object, Selection.Interface {
             readonly $signals: Selection.SignalSignatures
             readonly $readableProperties: Selection.ReadableProperties
             readonly $writableProperties: Selection.WritableProperties
@@ -1458,19 +1458,19 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace StreamableContent {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the character string of the specified mime type. The first mime
                  * type is at position 0, the second at position 1, and so on.
@@ -1527,7 +1527,7 @@ declare module "gi://Atk?version=1.0" {
          * tied to the current user-agent view of the a particular document,
          * but may in some cases give access to the underlying model data.
          */
-        interface StreamableContent extends StreamableContent.Interface {
+        interface StreamableContent extends GObject.Object, StreamableContent.Interface {
             readonly $signals: StreamableContent.SignalSignatures
             readonly $readableProperties: StreamableContent.ReadableProperties
             readonly $writableProperties: StreamableContent.WritableProperties
@@ -1579,7 +1579,7 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Table {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The "column-deleted" signal is emitted by an object which
                  * implements the AtkTable interface when a column is deleted.
@@ -1628,16 +1628,16 @@ declare module "gi://Atk?version=1.0" {
                 "row-reordered"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds the specified @column to the selection.
                  * @param column a #gint representing a column in @table
@@ -1890,7 +1890,7 @@ declare module "gi://Atk?version=1.0" {
          * expose other kind of children, like rows or captions. Right now,
          * index-based methods are deprecated.
          */
-        interface Table extends Table.Interface {
+        interface Table extends GObject.Object, Table.Interface {
             readonly $signals: Table.SignalSignatures
             readonly $readableProperties: Table.ReadableProperties
             readonly $writableProperties: Table.WritableProperties
@@ -2233,7 +2233,7 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Text {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The "text-attributes-changed" signal is emitted when the text
                  * attributes of the text of an object which implements AtkText
@@ -2285,16 +2285,16 @@ declare module "gi://Atk?version=1.0" {
                 "text-selection-changed"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds a selection bounded by the specified offsets.
                  * @param start_offset the starting character offset of the selected region
@@ -2602,7 +2602,7 @@ declare module "gi://Atk?version=1.0" {
          * character length; also bounding box glyph-to-offset mapping may be
          * complex for languages which use ligatures.
          */
-        interface Text extends Text.Interface {
+        interface Text extends GObject.Object, Text.Interface {
             readonly $signals: Text.SignalSignatures
             readonly $readableProperties: Text.ReadableProperties
             readonly $writableProperties: Text.WritableProperties
@@ -2893,7 +2893,7 @@ declare module "gi://Atk?version=1.0" {
         
 
         namespace Value {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The 'value-changed' signal is emitted when the current value
                  * that represent the object changes. @value is the numerical
@@ -2915,16 +2915,16 @@ declare module "gi://Atk?version=1.0" {
                 "value-changed"(value: number, text: string): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the value of this object.
                  * @deprecated Since 2.12. Use atk_value_get_value_and_text() instead.
@@ -3014,7 +3014,7 @@ declare module "gi://Atk?version=1.0" {
         /**
          * >
          */
-        interface Value extends Value.Interface {
+        interface Value extends GObject.Object, Value.Interface {
             readonly $signals: Value.SignalSignatures
             readonly $readableProperties: Value.ReadableProperties
             readonly $writableProperties: Value.WritableProperties
@@ -3574,7 +3574,7 @@ declare module "gi://Atk?version=1.0" {
              * @param obj a #GObject
              * @returns a default (non-functioning stub) #AtkObject
              */
-            "new"(obj: GObject.Object): Object
+            "new"(obj: GObject.Object): NoOpObject
         }
 
         const NoOpObject: NoOpObjectClass
@@ -3617,7 +3617,7 @@ declare module "gi://Atk?version=1.0" {
              * (non-functioning) #AtkObjects.
              * @returns an instance of an #AtkObjectFactory
              */
-            "new"(): ObjectFactory
+            "new"(): NoOpObjectFactory
         }
 
         const NoOpObjectFactory: NoOpObjectFactoryClass
@@ -4360,7 +4360,7 @@ declare module "gi://Atk?version=1.0" {
              * @since 1.30
              * @returns the newly created #AtkPlug
              */
-            "new"(): Object
+            "new"(): Plug
         }
 
         const Plug: PlugClass
@@ -4718,7 +4718,7 @@ declare module "gi://Atk?version=1.0" {
              * Creates a new #AtkSocket.
              * @returns the newly created #AtkSocket instance
              */
-            "new"(): Object
+            "new"(): Socket
         }
 
         const Socket: SocketClass

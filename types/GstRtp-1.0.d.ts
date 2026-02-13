@@ -1912,11 +1912,10 @@ declare module "gi://GstRtp?version=1.0" {
              * If @rtp did not contain an extension, this function will return %NULL, with
              * @bits unchanged. If there is an extension header but no extension data then
              * an empty #GBytes will be returned.
-             * @override
              * @since 1.2
              * @returns A new #GBytes if an extension header was present and %NULL otherwise., location for header bits
              */
-            get_extension_bytes(): [GLib.Bytes | null, number]
+            get_extension_data(): [GLib.Bytes | null, number]
             /**
              * Parses RFC 5285 style header extensions with a one byte header. It will
              * return the nth extension with the requested id.
@@ -1965,11 +1964,10 @@ declare module "gi://GstRtp?version=1.0" {
              * Similar to gst_rtp_buffer_get_payload, but more suitable for language
              * bindings usage. The return value is a pointer to a #GBytes structure
              * containing the payload data in @rtp.
-             * @override
              * @since 1.2
              * @returns A new #GBytes containing the payload data in `rtp`.
              */
-            get_payload_bytes(): GLib.Bytes | null
+            get_payload(): GLib.Bytes | null
             /**
              * Get the length of the payload of the RTP packet in @buffer.
              * @returns The length of the payload in `buffer`.

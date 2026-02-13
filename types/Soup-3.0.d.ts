@@ -23,19 +23,19 @@ declare module "gi://Soup?version=3.0" {
         
 
         namespace SessionFeature {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -50,7 +50,7 @@ declare module "gi://Soup?version=3.0" {
          *
          * See [method@Session.add_feature], etc, to add a feature to a session.
          */
-        interface SessionFeature extends SessionFeature.Interface {
+        interface SessionFeature extends GObject.Object, SessionFeature.Interface {
             readonly $signals: SessionFeature.SignalSignatures
             readonly $readableProperties: SessionFeature.ReadableProperties
             readonly $writableProperties: SessionFeature.WritableProperties
@@ -1479,7 +1479,7 @@ declare module "gi://Soup?version=3.0" {
              * @param read_only %TRUE if @filename is read-only
              * @returns the new #SoupCookieJar
              */
-            "new"(filename: string, read_only: boolean): CookieJar
+            "new"(filename: string, read_only: boolean): CookieJarDB
         }
 
         const CookieJarDB: CookieJarDBClass
@@ -1536,7 +1536,7 @@ declare module "gi://Soup?version=3.0" {
              * @param read_only %TRUE if @filename is read-only
              * @returns the new #SoupCookieJar
              */
-            "new"(filename: string, read_only: boolean): CookieJar
+            "new"(filename: string, read_only: boolean): CookieJarText
         }
 
         const CookieJarText: CookieJarTextClass
@@ -1733,7 +1733,7 @@ declare module "gi://Soup?version=3.0" {
              * @param filename the filename of the database to read/write from.
              * @returns the new #SoupHSTSEnforcer
              */
-            "new"(filename: string): HSTSEnforcer
+            "new"(filename: string): HSTSEnforcerDB
         }
 
         const HSTSEnforcerDB: HSTSEnforcerDBClass
@@ -5268,12 +5268,6 @@ declare module "gi://Soup?version=3.0" {
              */
             length: number
             /**
-             * Appends @length bytes from @data to @body according to @use.
-             * @param use how to use @data
-             * @param data data to append
-             */
-            append(use: MemoryUse, data: Uint8Array): void
-            /**
              * Appends the data from @buffer to @body.
              * @param buffer a #GBytes
              */
@@ -5284,10 +5278,9 @@ declare module "gi://Soup?version=3.0" {
              * This function is exactly equivalent to [method@MessageBody.append]
              * with %SOUP_MEMORY_TAKE as second argument; it exists mainly for
              * convenience and simplifying language bindings.
-             * @override
              * @param data data to append
              */
-            append_take(data: Uint8Array): void
+            append(data: Uint8Array): void
             /**
              * Tags @body as being complete.
              *

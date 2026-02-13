@@ -176,7 +176,6 @@ declare module "gi://GLibUnix?version=2.0" {
          * A convenience function for g_unix_signal_source_new(), which
          * attaches to the default #GMainContext.  You can remove the watch
          * using g_source_remove().
-         * @override
          * @since 2.30
          * @param priority the priority of the signal source. Typically this will be in
                    the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.
@@ -184,7 +183,7 @@ declare module "gi://GLibUnix?version=2.0" {
          * @param handler Callback
          * @returns An ID (greater than 0) for the event source
          */
-        function signal_add_full(priority: number, signum: number, handler: GLib.SourceFunc): number
+        function signal_add(priority: number, signum: number, handler: GLib.SourceFunc): number
         /**
          * Create a #GSource that will be dispatched upon delivery of the UNIX
          * signal @signum.  In GLib versions before 2.36, only `SIGHUP`, `SIGINT`,

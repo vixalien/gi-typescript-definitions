@@ -23,7 +23,7 @@ declare module "gi://Geoclue?version=2.0" {
         
 
         namespace Client {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  *  D-Bus method.
                  *
@@ -50,7 +50,7 @@ declare module "gi://Geoclue?version=2.0" {
                 "location-updated"(arg_old: string, arg_new: string): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "active": boolean
                 "desktop-id": string | null
                 "distance-threshold": number
@@ -59,7 +59,7 @@ declare module "gi://Geoclue?version=2.0" {
                 "time-threshold": number
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "active": boolean
                 "desktop-id": string | null
                 "distance-threshold": number
@@ -68,10 +68,10 @@ declare module "gi://Geoclue?version=2.0" {
                 "time-threshold": number
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Handler for the #GClueClient::handle-start signal.
                  * @param invocation
@@ -94,7 +94,7 @@ declare module "gi://Geoclue?version=2.0" {
         /**
          * .
          */
-        interface Client extends Client.Interface {
+        interface Client extends GObject.Object, Client.Interface {
             readonly $signals: Client.SignalSignatures
             readonly $readableProperties: Client.ReadableProperties
             readonly $writableProperties: Client.WritableProperties
@@ -246,10 +246,10 @@ declare module "gi://Geoclue?version=2.0" {
         
 
         namespace Location {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "accuracy": number
                 "altitude": number
                 "description": string | null
@@ -260,7 +260,7 @@ declare module "gi://Geoclue?version=2.0" {
                 "timestamp": GLib.Variant | null
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "accuracy": number
                 "altitude": number
                 "description": string | null
@@ -271,17 +271,17 @@ declare module "gi://Geoclue?version=2.0" {
                 "timestamp": GLib.Variant | null
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          * .
          */
-        interface Location extends Location.Interface {
+        interface Location extends GObject.Object, Location.Interface {
             readonly $signals: Location.SignalSignatures
             readonly $readableProperties: Location.ReadableProperties
             readonly $writableProperties: Location.WritableProperties
@@ -376,7 +376,7 @@ declare module "gi://Geoclue?version=2.0" {
         
 
         namespace Manager {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  *  D-Bus method.
                  *
@@ -413,20 +413,20 @@ declare module "gi://Geoclue?version=2.0" {
                 "handle-get-client"(invocation: Gio.DBusMethodInvocation): boolean
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "available-accuracy-level": number
                 "in-use": boolean
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "available-accuracy-level": number
                 "in-use": boolean
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Handler for the #GClueManager::handle-add-agent signal.
                  * @param invocation
@@ -455,7 +455,7 @@ declare module "gi://Geoclue?version=2.0" {
         /**
          * .
          */
-        interface Manager extends Manager.Interface {
+        interface Manager extends GObject.Object, Manager.Interface {
             readonly $signals: Manager.SignalSignatures
             readonly $readableProperties: Manager.ReadableProperties
             readonly $writableProperties: Manager.WritableProperties

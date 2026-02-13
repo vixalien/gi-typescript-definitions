@@ -137,7 +137,7 @@ declare module "gi://GstNet?version=1.0" {
              * @param base_time initial time of the clock
              * @returns a new #GstClock that receives a time from the remote clock.
              */
-            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): Gst.Clock
+            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): NetClientClock
         }
 
         const NetClientClock: NetClientClockClass
@@ -264,7 +264,7 @@ declare module "gi://GstNet?version=1.0" {
              * @param base_time initial time of the clock
              * @returns a new #GstClock that receives a time from the remote clock.
              */
-            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): Gst.Clock
+            "new"(name: string | null, remote_address: string, remote_port: number, base_time: Gst.ClockTime): NtpClock
         }
 
         const NtpClock: NtpClockClass
@@ -357,7 +357,7 @@ declare module "gi://GstNet?version=1.0" {
              * @param domain PTP domain
              * @returns A new #GstClock
              */
-            "new"(name: string | null, domain: number): Gst.Clock | null
+            "new"(name: string | null, domain: number): PtpClock | null
         }
 
         const PtpClock: PtpClockClass

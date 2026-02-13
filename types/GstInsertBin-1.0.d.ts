@@ -209,7 +209,7 @@ declare module "gi://GstInsertBin?version=1.0" {
              * @param name The name of the new #GstInsertBin element (or %NULL)
              * @returns The new #GstInsertBin
              */
-            "new"(name: string | null): Gst.Element
+            "new"(name: string | null): InsertBin
         }
 
         const InsertBin: InsertBinClass

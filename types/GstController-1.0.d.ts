@@ -87,7 +87,7 @@ declare module "gi://GstController?version=1.0" {
              * @param cs_b the control source for the blue channel
              * @returns the new #GstARGBControlBinding
              */
-            "new"(object: Gst.Object, property_name: string, cs_a: Gst.ControlSource, cs_r: Gst.ControlSource, cs_g: Gst.ControlSource, cs_b: Gst.ControlSource): Gst.ControlBinding
+            "new"(object: Gst.Object, property_name: string, cs_a: Gst.ControlSource, cs_r: Gst.ControlSource, cs_g: Gst.ControlSource, cs_b: Gst.ControlSource): ARGBControlBinding
         }
 
         const ARGBControlBinding: ARGBControlBindingClass
@@ -148,7 +148,7 @@ declare module "gi://GstController?version=1.0" {
              * @param cs the control source
              * @returns the new #GstDirectControlBinding
              */
-            "new"(object: Gst.Object, property_name: string, cs: Gst.ControlSource): Gst.ControlBinding
+            "new"(object: Gst.Object, property_name: string, cs: Gst.ControlSource): DirectControlBinding
             /**
              * Create a new control-binding that attaches the #GstControlSource to the
              * #GObject property. It will directly map the control source values to the
@@ -159,7 +159,7 @@ declare module "gi://GstController?version=1.0" {
              * @param cs the control source
              * @returns the new #GstDirectControlBinding
              */
-            new_absolute(object: Gst.Object, property_name: string, cs: Gst.ControlSource): Gst.ControlBinding
+            new_absolute(object: Gst.Object, property_name: string, cs: Gst.ControlSource): DirectControlBinding
         }
 
         const DirectControlBinding: DirectControlBindingClass
@@ -211,7 +211,7 @@ declare module "gi://GstController?version=1.0" {
              * This returns a new, unbound #GstInterpolationControlSource.
              * @returns a new, unbound #GstInterpolationControlSource.
              */
-            "new"(): Gst.ControlSource
+            "new"(): InterpolationControlSource
         }
 
         const InterpolationControlSource: InterpolationControlSourceClass
@@ -302,7 +302,7 @@ declare module "gi://GstController?version=1.0" {
              * This returns a new, unbound #GstLFOControlSource.
              * @returns a new, unbound #GstLFOControlSource.
              */
-            "new"(): Gst.ControlSource
+            "new"(): LFOControlSource
         }
 
         const LFOControlSource: LFOControlSourceClass
@@ -348,7 +348,7 @@ declare module "gi://GstController?version=1.0" {
              * @param ref_property_name the property_name in @ref_object to control
              * @returns a new #GstControlBinding that proxies the control interface between properties on different #GstObject's
              */
-            "new"(object: Gst.Object, property_name: string, ref_object: Gst.Object, ref_property_name: string): Gst.ControlBinding
+            "new"(object: Gst.Object, property_name: string, ref_object: Gst.Object, ref_property_name: string): ProxyControlBinding
         }
 
         const ProxyControlBinding: ProxyControlBindingClass
@@ -502,7 +502,7 @@ declare module "gi://GstController?version=1.0" {
              * This returns a new, unbound #GstTriggerControlSource.
              * @returns a new, unbound #GstTriggerControlSource.
              */
-            "new"(): Gst.ControlSource
+            "new"(): TriggerControlSource
         }
 
         const TriggerControlSource: TriggerControlSourceClass

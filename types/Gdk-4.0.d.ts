@@ -181,7 +181,7 @@ declare module "gi://Gdk?version=4.0" {
         
 
         namespace Paintable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when the contents of the @paintable change.
                  *
@@ -204,16 +204,16 @@ declare module "gi://Gdk?version=4.0" {
                 "invalidate-size"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets an immutable paintable for the current contents displayed by @paintable.
                  *
@@ -342,7 +342,7 @@ declare module "gi://Gdk?version=4.0" {
          * [method@Gdk.Paintable.invalidate_size],
          * [func@Gdk.Paintable.new_empty].
          */
-        interface Paintable extends Paintable.Interface {
+        interface Paintable extends GObject.Object, Paintable.Interface {
             readonly $signals: Paintable.SignalSignatures
             readonly $readableProperties: Paintable.ReadableProperties
             readonly $writableProperties: Paintable.WritableProperties
@@ -1583,10 +1583,9 @@ declare module "gi://Gdk?version=4.0" {
             set_content(provider: ContentProvider | null): boolean
             /**
              * Sets the @clipboard to contain the given @value.
-             * @override
              * @param value a `GValue` to set
              */
-            set_value(value: GObject.Value): void
+            set(value: GObject.Value): void
             /**
              * Asynchronously instructs the @clipboard to store its contents remotely.
              *

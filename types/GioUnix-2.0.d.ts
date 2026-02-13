@@ -23,19 +23,19 @@ declare module "gi://GioUnix?version=2.0" {
         
 
         namespace DesktopAppInfoLookup {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the default application for launching applications
                  * using this URI scheme for a particular [iface@GioUnix.DesktopAppInfoLookup]
@@ -59,7 +59,7 @@ declare module "gi://GioUnix?version=2.0" {
          * using the following functions.
          * @deprecated since 2.28 The [iface@GioUnix.DesktopAppInfoLookup] interface is   deprecated and unused by GIO.
          */
-        interface DesktopAppInfoLookup extends DesktopAppInfoLookup.Interface {
+        interface DesktopAppInfoLookup extends GObject.Object, DesktopAppInfoLookup.Interface {
             readonly $signals: DesktopAppInfoLookup.SignalSignatures
             readonly $readableProperties: DesktopAppInfoLookup.ReadableProperties
             readonly $writableProperties: DesktopAppInfoLookup.WritableProperties
@@ -93,19 +93,19 @@ declare module "gi://GioUnix?version=2.0" {
         
 
         namespace FileDescriptorBased {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the underlying file descriptor.
                  * @since 2.24
@@ -121,7 +121,7 @@ declare module "gi://GioUnix?version=2.0" {
          * file or the `GioUnix-2.0` GIR namespace when using it.
          * @since 2.24
          */
-        interface FileDescriptorBased extends FileDescriptorBased.Interface {
+        interface FileDescriptorBased extends GObject.Object, FileDescriptorBased.Interface {
             readonly $signals: FileDescriptorBased.SignalSignatures
             readonly $readableProperties: FileDescriptorBased.ReadableProperties
             readonly $writableProperties: FileDescriptorBased.WritableProperties
@@ -561,14 +561,14 @@ declare module "gi://GioUnix?version=2.0" {
              * @since 2.22
              * @returns a new #GUnixFDMessage
              */
-            "new"(): Gio.SocketControlMessage
+            "new"(): FDMessage
             /**
              * Creates a new #GUnixFDMessage containing @list.
              * @since 2.24
              * @param fd_list a #GUnixFDList
              * @returns a new #GUnixFDMessage
              */
-            new_with_fd_list(fd_list: Gio.UnixFDList): Gio.SocketControlMessage
+            new_with_fd_list(fd_list: Gio.UnixFDList): FDMessage
         }
 
         const FDMessage: FDMessageClass
@@ -651,7 +651,7 @@ declare module "gi://GioUnix?version=2.0" {
              * @param close_fd %TRUE to close the file descriptor when done
              * @returns a new #GUnixInputStream
              */
-            "new"(fd: number, close_fd: boolean): Gio.InputStream
+            "new"(fd: number, close_fd: boolean): InputStream
         }
 
         const InputStream: InputStreamClass
@@ -818,7 +818,7 @@ declare module "gi://GioUnix?version=2.0" {
              * @param close_fd %TRUE to close the file descriptor when done
              * @returns a new #GOutputStream
              */
-            "new"(fd: number, close_fd: boolean): Gio.OutputStream
+            "new"(fd: number, close_fd: boolean): OutputStream
         }
 
         const OutputStream: OutputStreamClass

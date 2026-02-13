@@ -701,22 +701,20 @@ declare module "gi://AppStreamCompose?version=1.0" {
             add_component_with_string(cpt: AppStream.Component, data: string): boolean
             /**
              * Add an issue hint for a component.
-             * @override
              * @param component_id The component-ID of the affected #AsComponent
              * @param tag AppStream Compose Issue hint tag
              * @param kv List of key-value pairs for replacement variables.
              * @returns %TRUE if the added hint did not cause the component to be invalidated.
              */
-            add_hint_by_cid_v(component_id: string, tag: string, kv: string): boolean
+            add_hint_by_cid(component_id: string, tag: string, kv: string): boolean
             /**
              * Add an issue hint for a component.
-             * @override
              * @param cpt The affected #AsComponent
              * @param tag AppStream Compose Issue hint tag
              * @param kv List of key-value pairs for replacement variables.
              * @returns %TRUE if the added hint did not cause the component to be invalidated.
              */
-            add_hint_v(cpt: AppStream.Component, tag: string, kv: string): boolean
+            add_hint(cpt: AppStream.Component, tag: string, kv: string): boolean
             /**
              * @returns The amount of components found for this unit.
              */

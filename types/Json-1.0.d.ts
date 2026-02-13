@@ -23,19 +23,19 @@ declare module "gi://Json?version=1.0" {
         
 
         namespace Serializable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Asks a `JsonSerializable` implementation to deserialize the
                  * property contained inside `property_node` and place its value
@@ -103,7 +103,7 @@ declare module "gi://Json?version=1.0" {
          * to be serialized or deserialized by [func@Json.construct_gobject] and
          * [func@Json.serialize_gobject], respectively.
          */
-        interface Serializable extends Serializable.Interface {
+        interface Serializable extends GObject.Object, Serializable.Interface {
             readonly $signals: Serializable.SignalSignatures
             readonly $readableProperties: Serializable.ReadableProperties
             readonly $writableProperties: Serializable.WritableProperties

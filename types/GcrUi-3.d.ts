@@ -45,7 +45,7 @@ declare module "gi://GcrUi?version=3" {
         
 
         namespace Renderer {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * A signal that is emitted by the renderer when it's data
                  * changed and should be rerendered.
@@ -53,20 +53,20 @@ declare module "gi://GcrUi?version=3" {
                 "data-changed"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "attributes": Gck.Attributes | null
                 "label": string
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "attributes": Gck.Attributes | null
                 "label": string
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * signal emitted when data being rendered changes
                  */
@@ -98,7 +98,7 @@ declare module "gi://GcrUi?version=3" {
          * function. This will create and initialize a renderer that's capable of viewing
          * the data in those attributes.
          */
-        interface Renderer extends Renderer.Interface {
+        interface Renderer extends GObject.Object, Renderer.Interface {
             readonly $signals: Renderer.SignalSignatures
             readonly $readableProperties: Renderer.ReadableProperties
             readonly $writableProperties: Renderer.WritableProperties
@@ -1061,7 +1061,7 @@ declare module "gi://GcrUi?version=3" {
              * Create a new secure entry buffer.
              * @returns the new entry buffer
              */
-            "new"(): Gtk.EntryBuffer
+            "new"(): SecureEntryBuffer
         }
 
         const SecureEntryBuffer: SecureEntryBufferClass

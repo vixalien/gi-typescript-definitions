@@ -118,13 +118,12 @@ declare module "gi://Tracker?version=3.0" {
              * This function should only be called on [class@SparqlStatement] objects
              * obtained through [method@SparqlConnection.update_statement] or
              * update statements loaded through [method@SparqlConnection.load_statement_from_gresource].
-             * @override
              * @since 3.5
              * @param stmt A [class@SparqlStatement] containing a SPARQL update
              * @param variable_names The names of each bound parameter
              * @param values The values of each bound parameter
              */
-            add_statementv(stmt: SparqlStatement, variable_names: string[], values: GObject.Value[]): void
+            add_statement(stmt: SparqlStatement, variable_names: string[], values: GObject.Value[]): void
             /**
              * Executes the batch. This operations happens synchronously.
              * @throws {GLib.Error}

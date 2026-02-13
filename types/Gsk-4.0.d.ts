@@ -248,7 +248,7 @@ declare module "gi://Gsk?version=4.0" {
              * @deprecated since 4.20 Broadway will be retired in GTK 5
              * @returns a new Broadway renderer.
              */
-            "new"(): Renderer
+            "new"(): BroadwayRenderer
         }
 
         const BroadwayRenderer: BroadwayRendererClass
@@ -352,7 +352,7 @@ declare module "gi://Gsk?version=4.0" {
              * avoided.
              * @returns a new Cairo renderer.
              */
-            "new"(): Renderer
+            "new"(): CairoRenderer
         }
 
         const CairoRenderer: CairoRendererClass
@@ -1038,7 +1038,7 @@ declare module "gi://Gsk?version=4.0" {
              * Creates an instance of the GL renderer.
              * @returns a GL renderer
              */
-            "new"(): Renderer
+            "new"(): GLRenderer
         }
 
         const GLRenderer: GLRendererClass
@@ -1757,7 +1757,7 @@ declare module "gi://Gsk?version=4.0" {
              * @deprecated since 4.18 Use gsk_gl_renderer_new()
              * @returns a GL renderer
              */
-            "new"(): Renderer
+            "new"(): NglRenderer
         }
 
         const NglRenderer: NglRendererClass
@@ -2076,6 +2076,15 @@ declare module "gi://Gsk?version=4.0" {
              * @returns , return location for the boundaries
              */
             get_bounds(): Graphene.Rect
+            /**
+             * Gets a list of all children nodes of the rendernode.
+             *
+             * Keep in mind that for various rendernodes, their children have different
+             * semantics, like the mask vs the source of a mask node. If you care about
+             * thse semantics, don't use this function, use the specific getters instead.
+             * @returns The children
+             */
+            get_children(): RenderNode[] | null
             /**
              * Gets a list of all children nodes of the rendernode.
              *
@@ -2954,7 +2963,7 @@ declare module "gi://Gsk?version=4.0" {
              * Vulkan support.
              * @returns a new Vulkan renderer
              */
-            "new"(): Renderer
+            "new"(): VulkanRenderer
         }
 
         const VulkanRenderer: VulkanRendererClass

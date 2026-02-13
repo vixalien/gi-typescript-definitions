@@ -137,7 +137,7 @@ declare module "gi://GstAllocators?version=1.0" {
              * @param drm_device_path path to the DRM device to open
              * @returns a new DRM Dumb allocator. Use gst_object_unref()   to release the allocator after usage.
              */
-            new_with_device_path(drm_device_path: string): Gst.Allocator | null
+            new_with_device_path(drm_device_path: string): DRMDumbAllocator | null
             /**
              * Creates a new #GstDRMDumbAllocator for the specific file desciptor. This
              * function can fail if the file descriptor is not a DRM device or if
@@ -146,7 +146,7 @@ declare module "gi://GstAllocators?version=1.0" {
              * @param drm_fd file descriptor of the DRM device
              * @returns a new DRM Dumb allocator. Use gst_object_unref()   to release the allocator after usage.
              */
-            new_with_fd(drm_fd: number): Gst.Allocator | null
+            new_with_fd(drm_fd: number): DRMDumbAllocator | null
         }
 
         const DRMDumbAllocator: DRMDumbAllocatorClass
@@ -186,7 +186,7 @@ declare module "gi://GstAllocators?version=1.0" {
              * @since 1.2
              * @returns a new dmabuf allocator. Use gst_object_unref() to release the allocator after usage
              */
-            "new"(): Gst.Allocator
+            "new"(): DmaBufAllocator
             /**
              * Return a %GstMemory that wraps a dmabuf file descriptor.
              * @since 1.2
@@ -245,7 +245,7 @@ declare module "gi://GstAllocators?version=1.0" {
              * @since 1.6
              * @returns a new fd allocator. Use gst_object_unref() to release the allocator after usage
              */
-            "new"(): Gst.Allocator
+            "new"(): FdAllocator
             /**
              * Return a %GstMemory that wraps a generic file descriptor.
              * @since 1.6

@@ -66,7 +66,7 @@ declare module "gi://GstVa?version=1.0" {
                 of valid #GstVideoFormat for surfaces in current VA context.
              * @returns a #GstVaDisplay
              */
-            "new"(display: VaDisplay, surface_formats: number[]): Gst.Allocator
+            "new"(display: VaDisplay, surface_formats: number[]): VaAllocator
             /**
              * Allocate a new VASurfaceID backed #GstMemory.
              * @since 1.22
@@ -266,7 +266,7 @@ declare module "gi://GstVa?version=1.0" {
              * @param path the path to the DRM device
              * @returns a newly allocated #GstVaDisplay if the     specified DRM render device could be opened and initialized;     otherwise %NULL is returned.
              */
-            new_from_path(path: string): VaDisplay
+            new_from_path(path: string): VaDisplayDrm
         }
 
         const VaDisplayDrm: VaDisplayDrmClass
@@ -313,7 +313,7 @@ declare module "gi://GstVa?version=1.0" {
              * @param handle a VADisplay to wrap
              * @returns a new #GstVaDisplay if `handle` is valid,     Otherwise %NULL.
              */
-            "new"(handle: never | null): VaDisplay
+            "new"(handle: never | null): VaDisplayWrapped
         }
 
         const VaDisplayWrapped: VaDisplayWrappedClass
@@ -357,7 +357,7 @@ declare module "gi://GstVa?version=1.0" {
              * @param display a #GstVaDisplay
              * @returns a new allocated #GstAllocator
              */
-            "new"(display: VaDisplay): Gst.Allocator
+            "new"(display: VaDisplay): VaDmabufAllocator
             /**
              * Removes all the memories in @allocator's pool.
              * @since 1.22
@@ -441,7 +441,7 @@ declare module "gi://GstVa?version=1.0" {
              * @since 1.22
              * @returns A new #GstBufferPool for VA allocators.
              */
-            "new"(): Gst.BufferPool
+            "new"(): VaPool
             /**
              * @since 1.22
              * @param caps the #GstCaps of the buffers handled by the new pool.
@@ -454,7 +454,7 @@ declare module "gi://GstVa?version=1.0" {
              * @param alloc_params #GstAllocationParams to use.
              * @returns a new #GstBufferPool that handles VASurfacesID-backed     buffers. If the pool cannot be configured correctly, %NULL is     returned.
              */
-            new_with_config(caps: Gst.Caps, min_buffers: number, max_buffers: number, usage_hint: number, use_derived: VaFeature, allocator: Gst.Allocator, alloc_params: Gst.AllocationParams): Gst.BufferPool
+            new_with_config(caps: Gst.Caps, min_buffers: number, max_buffers: number, usage_hint: number, use_derived: VaFeature, allocator: Gst.Allocator, alloc_params: Gst.AllocationParams): VaPool
             /**
              * Helper function to retrieve the VA surface size provided by @pool.
              * @since 1.24

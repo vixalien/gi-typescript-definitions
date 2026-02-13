@@ -233,6 +233,60 @@ declare module "gi://GObject?version=2.0" {
              * @param detailedName Name of the signal to stop emission of
              */
             stop_emission_by_name(detailedName: string): void
+
+            /**
+             * Creates a binding between `source_property` on `source` and `target_property`
+             * on `target`, allowing you to set the transformation functions to be used by
+             * the binding.
+             *
+             * @since 2.26
+             * @param source_property the property on `source` to bind
+             * @param target the target #GObject
+             * @param target_property the property on `target` to bind
+             * @param flags flags to pass to #GBinding
+             * @param transform_to a #GClosure wrapping the transformation function
+                from the `source` to the `target`, or %NULL to use the default
+             * @param transform_from a #GClosure wrapping the transformation function
+                from the @target to the `source`, or %NULL to use the default
+             * @returns the #GBinding instance representing the     binding between the two #GObject instances. The binding is released     whenever the #GBinding reference count reaches zero.
+             */
+            bind_property_full(
+                source_property: string,
+                target: Object,
+                target_property: string,
+                flags: BindingFlags,
+                transform_to: BindingTransformFunc | null,
+                transform_from: BindingTransformFunc | null,
+            ): Binding
+        }
+
+        interface ObjectGroup {
+            /**
+             * Creates a binding between `source_property` on the source object and
+             * `target_property` on @target, allowing you to set the transformation
+             * functions to be used by the binding. The binding flag
+             * %G_BINDING_SYNC_CREATE is automatically specified.
+             *
+             * @since 2.72
+             * @param source_property the property on the source to bind
+             * @param target the target #GObject
+             * @param target_property the property on @target to bind
+             * @param flags the flags used to create the #GBinding
+             * @param transform_to a #GClosure wrapping the
+                transformation function from the source object to the @target,
+                or %NULL to use the default
+             * @param transform_from a #GClosure wrapping the
+                transformation function from the @target to the source object,
+                or %NULL to use the default
+             */
+            bind_full(
+                source_property: string,
+                target: Object,
+                target_property: string,
+                flags: BindingFlags,
+                transform_to: BindingTransformFunc | null,
+                transform_from: BindingTransformFunc | null,
+            ): void
         }
 
         function registerClass<Class extends GObjectConstructor>(
@@ -324,6 +378,13 @@ declare module "gi://GObject?version=2.0" {
 
         const Type: PrimitiveConstructor<GType, string>
         const TYPE_GTYPE: GType<GType>
+
+        namespace ParamSpec {
+            interface SignalSignatures {}
+            interface ReadableProperties {}
+            interface WritableProperties {}
+            interface ConstructOnlyProperties {}
+        }
 
         /**
          * A GObject parameter specification that defines property characteristics.
@@ -1097,6 +1158,24 @@ declare module "gi://GObject?version=2.0" {
              */
             unset(): void
         }
+
+        /**
+         * A function to be called to transform `from_value` to `to_value`.
+         *
+         * If this is the `transform_to` function of a binding, then `from_value`
+         * is the `source_property` on the `source` object, and `to_value` is the
+         * `target_property` on the `target` object. If this is the
+         * `transform_from` function of a %G_BINDING_BIDIRECTIONAL binding,
+         * then those roles are reversed.
+         * @since 2.26
+         * @param binding a #GBinding
+         * @param from_value the #GValue containing the value to transform
+         * @returns tuple `%TRUE` if the transformation was successful, and `false` otherwise, the #GValue in which to store the transformed value
+         */
+        type BindingTransformFunc = (
+            binding: Binding,
+            from_value: Value,
+        ) => [success: boolean, to_value: Value]
     }
 
 
@@ -1106,19 +1185,19 @@ declare module "gi://GObject?version=2.0" {
         
 
         namespace TypePlugin {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -1172,7 +1251,7 @@ declare module "gi://GObject?version=2.0" {
          * already implements most of this except for the actual module loading and
          * unloading. It even handles multiple registered types per module.
          */
-        interface TypePlugin extends TypePlugin.Interface {
+        interface TypePlugin extends GObject.Object, TypePlugin.Interface {
             readonly $signals: TypePlugin.SignalSignatures
             readonly $readableProperties: TypePlugin.ReadableProperties
             readonly $writableProperties: TypePlugin.WritableProperties
@@ -1465,30 +1544,11 @@ declare module "gi://GObject?version=2.0" {
              * functions to be used by the binding. The binding flag
              * %G_BINDING_SYNC_CREATE is automatically specified.
              *
-             * See g_object_bind_property_full() for more information.
-             * @since 2.72
-             * @param source_property the property on the source to bind
-             * @param target the target #GObject
-             * @param target_property the property on @target to bind
-             * @param flags the flags used to create the #GBinding
-             * @param transform_to the transformation function
-                from the source object to the @target, or %NULL to use the default
-             * @param transform_from the transformation function
-                from the @target to the source object, or %NULL to use the default
-             */
-            bind_full(source_property: string, target: Object, target_property: string, flags: BindingFlags, transform_to: BindingTransformFunc | null, transform_from: BindingTransformFunc | null): void
-            /**
-             * Creates a binding between @source_property on the source object and
-             * @target_property on @target, allowing you to set the transformation
-             * functions to be used by the binding. The binding flag
-             * %G_BINDING_SYNC_CREATE is automatically specified.
-             *
              * This function is the language bindings friendly version of
              * g_binding_group_bind_property_full(), using #GClosures
              * instead of function pointers.
              *
              * See g_object_bind_property_with_closures() for more information.
-             * @override
              * @since 2.72
              * @param source_property the property on the source to bind
              * @param target the target #GObject
@@ -1501,7 +1561,7 @@ declare module "gi://GObject?version=2.0" {
                 transformation function from the @target to the source object,
                 or %NULL to use the default
              */
-            bind_with_closures(source_property: string, target: Object, target_property: string, flags: BindingFlags, transform_to: Closure | null, transform_from: Closure | null): void
+            bind_full(source_property: string, target: Object, target_property: string, flags: BindingFlags, transform_to: Closure | null, transform_from: Closure | null): void
             /**
              * Gets the source object used for binding properties.
              * @since 2.72
@@ -1662,44 +1722,6 @@ declare module "gi://GObject?version=2.0" {
              */
             bind_property(source_property: string, target: Object, target_property: string, flags: BindingFlags): Binding
             /**
-             * Complete version of g_object_bind_property().
-             *
-             * Creates a binding between @source_property on @source and @target_property
-             * on @target, allowing you to set the transformation functions to be used by
-             * the binding.
-             *
-             * If @flags contains %G_BINDING_BIDIRECTIONAL then the binding will be mutual:
-             * if @target_property on @target changes then the @source_property on @source
-             * will be updated as well. The @transform_from function is only used in case
-             * of bidirectional bindings, otherwise it will be ignored
-             *
-             * The binding will automatically be removed when either the @source or the
-             * @target instances are finalized. This will release the reference that is
-             * being held on the #GBinding instance; if you want to hold on to the
-             * #GBinding instance, you will need to hold a reference to it.
-             *
-             * To remove the binding, call g_binding_unbind().
-             *
-             * A #GObject can have multiple bindings.
-             *
-             * The same @user_data parameter will be used for both @transform_to
-             * and @transform_from transformation functions; the @notify function will
-             * be called once, when the binding is removed. If you need different data
-             * for each transformation function, please use
-             * g_object_bind_property_with_closures() instead.
-             * @since 2.26
-             * @param source_property the property on @source to bind
-             * @param target the target #GObject
-             * @param target_property the property on @target to bind
-             * @param flags flags to pass to #GBinding
-             * @param transform_to the transformation function
-                from the @source to the @target, or %NULL to use the default
-             * @param transform_from the transformation function
-                from the @target to the @source, or %NULL to use the default
-             * @returns the #GBinding instance representing the     binding between the two #GObject instances. The binding is released     whenever the #GBinding reference count reaches zero.
-             */
-            bind_property_full(source_property: string, target: Object, target_property: string, flags: BindingFlags, transform_to: BindingTransformFunc | null, transform_from: BindingTransformFunc | null): Binding
-            /**
              * Creates a binding between @source_property on @source and @target_property
              * on @target, allowing you to set the transformation functions to be used by
              * the binding.
@@ -1707,7 +1729,6 @@ declare module "gi://GObject?version=2.0" {
              * This function is the language bindings friendly version of
              * g_object_bind_property_full(), using #GClosures instead of
              * function pointers.
-             * @override
              * @since 2.26
              * @param source_property the property on @source to bind
              * @param target the target #GObject
@@ -1719,7 +1740,7 @@ declare module "gi://GObject?version=2.0" {
                 from the @target to the @source, or %NULL to use the default
              * @returns the #GBinding instance representing the     binding between the two #GObject instances. The binding is released     whenever the #GBinding reference count reaches zero.
              */
-            bind_property_with_closures(source_property: string, target: Object, target_property: string, flags: BindingFlags, transform_to: Closure, transform_from: Closure): Binding
+            bind_property_full(source_property: string, target: Object, target_property: string, flags: BindingFlags, transform_to: Closure, transform_from: Closure): Binding
             /**
              * Increases the freeze count on @object. If the freeze count is
              * non-zero, the emission of "notify" signals on @object is
@@ -4480,28 +4501,16 @@ declare module "gi://GObject?version=2.0" {
              */
             remove(index_: number): ValueArray
             /**
-             * Sort @value_array using @compare_func to compare the elements according to
-             * the semantics of #GCompareFunc.
-             *
-             * The current implementation uses the same sorting algorithm as standard
-             * C qsort() function.
-             * @deprecated since 2.32 Use #GArray and g_array_sort().
-             * @param compare_func function to compare elements
-             * @returns the #GValueArray passed in as `value_array`
-             */
-            sort(compare_func: GLib.CompareFunc): ValueArray
-            /**
              * Sort @value_array using @compare_func to compare the elements according
              * to the semantics of #GCompareDataFunc.
              *
              * The current implementation uses the same sorting algorithm as standard
              * C qsort() function.
-             * @override
              * @deprecated since 2.32 Use #GArray and g_array_sort_with_data().
              * @param compare_func function to compare elements
              * @returns the #GValueArray passed in as `value_array`
              */
-            sort_with_data(compare_func: GLib.CompareDataFunc): ValueArray
+            sort(compare_func: GLib.CompareDataFunc): ValueArray
         }
         /**
          * A structure containing a weak reference to a #GObject.
@@ -6837,21 +6846,6 @@ declare module "gi://GObject?version=2.0" {
          * @param g_class The #GTypeClass structure to initialize
          */
         type BaseInitFunc = (g_class: TypeClass) => void
-        /**
-         * A function to be called to transform @from_value to @to_value.
-         *
-         * If this is the @transform_to function of a binding, then @from_value
-         * is the @source_property on the @source object, and @to_value is the
-         * @target_property on the @target object. If this is the
-         * @transform_from function of a %G_BINDING_BIDIRECTIONAL binding,
-         * then those roles are reversed.
-         * @since 2.26
-         * @param binding a #GBinding
-         * @param from_value the #GValue containing the value to transform
-         * @param to_value the #GValue in which to store the transformed value
-         * @returns %TRUE if the transformation was successful, and %FALSE   otherwise
-         */
-        type BindingTransformFunc = (binding: Binding, from_value: Value, to_value: Value) => boolean
         /**
          * This function is provided by the user and should produce a copy
          * of the passed in boxed structure.

@@ -33,26 +33,26 @@ declare module "gi://GstPlay?version=1.0" {
         
 
         namespace PlayVideoRenderer {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          * @since 1.20
          */
-        interface PlayVideoRenderer extends PlayVideoRenderer.Interface {
+        interface PlayVideoRenderer extends GObject.Object, PlayVideoRenderer.Interface {
             readonly $signals: PlayVideoRenderer.SignalSignatures
             readonly $readableProperties: PlayVideoRenderer.ReadableProperties
             readonly $writableProperties: PlayVideoRenderer.WritableProperties

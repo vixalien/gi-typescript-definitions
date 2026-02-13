@@ -21,7 +21,7 @@ declare module "gi://Gst?version=1.0" {
         
 
         namespace ChildProxy {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Will be emitted after the @object was added to the @child_proxy.
                  * @param object the #GObject that was added
@@ -36,16 +36,16 @@ declare module "gi://Gst?version=1.0" {
                 "child-removed"(object: GObject.Object, name: string): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Emits the #GstChildProxy::child-added signal.
                  * @param child the newly added child
@@ -97,7 +97,7 @@ declare module "gi://Gst?version=1.0" {
          * scheme is recursive. Thus `child1::child2::property` is valid too, if
          * `child1` and `child2` implement the #GstChildProxy interface.
          */
-        interface ChildProxy extends ChildProxy.Interface {
+        interface ChildProxy extends GObject.Object, ChildProxy.Interface {
             readonly $signals: ChildProxy.SignalSignatures
             readonly $readableProperties: ChildProxy.ReadableProperties
             readonly $writableProperties: ChildProxy.WritableProperties
@@ -182,19 +182,19 @@ declare module "gi://Gst?version=1.0" {
         
 
         namespace Preset {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Delete the given preset.
                  * @param name preset name to remove
@@ -278,7 +278,7 @@ declare module "gi://Gst?version=1.0" {
          * where to find presets through the GST_PRESET_PATH environment variable.
          * Presets found in those paths will be considered as "app presets".
          */
-        interface Preset extends Preset.Interface {
+        interface Preset extends GObject.Object, Preset.Interface {
             readonly $signals: Preset.SignalSignatures
             readonly $readableProperties: Preset.ReadableProperties
             readonly $writableProperties: Preset.WritableProperties
@@ -526,19 +526,19 @@ declare module "gi://Gst?version=1.0" {
         
 
         namespace URIHandler {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the currently handled URI.
                  * @returns the URI currently handled by   the `handler`.  Returns %NULL if there are no URI currently   handled. The returned string must be freed with g_free() when no   longer needed.
@@ -564,7 +564,7 @@ declare module "gi://Gst?version=1.0" {
          *
          * Source and Sink plugins should implement this interface when possible.
          */
-        interface URIHandler extends URIHandler.Interface {
+        interface URIHandler extends GObject.Object, URIHandler.Interface {
             readonly $signals: URIHandler.SignalSignatures
             readonly $readableProperties: URIHandler.ReadableProperties
             readonly $writableProperties: URIHandler.WritableProperties
@@ -1095,7 +1095,7 @@ declare module "gi://Gst?version=1.0" {
              * @param name the name of the new bin
              * @returns a new #GstBin
              */
-            "new"(name: string | null): Element
+            "new"(name: string | null): Bin
         }
 
         const Bin: BinClass
@@ -1623,12 +1623,11 @@ declare module "gi://Gst?version=1.0" {
              *
              * The bus watch will take its own reference to the @bus, so it is safe to unref
              * @bus using gst_object_unref() after setting the bus watch.
-             * @override
              * @param priority The priority of the watch.
              * @param func A function to call when a message is received.
              * @returns The event source id or 0 if `bus` already got an event source.
              */
-            add_watch_full(priority: number, func: BusFunc): number
+            add_watch(priority: number, func: BusFunc): number
             /**
              * A helper #GstBusFunc that can be used to convert all asynchronous messages
              * into signals.
@@ -4840,7 +4839,7 @@ declare module "gi://Gst?version=1.0" {
              * @param target the pad to ghost.
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            "new"(name: string | null, target: Pad): Pad | null
+            "new"(name: string | null, target: Pad): GhostPad | null
             /**
              * Create a new ghostpad with @target as the target. The direction will be taken
              * from the target pad. The template used on the ghostpad will be @template.
@@ -4851,7 +4850,7 @@ declare module "gi://Gst?version=1.0" {
              * @param templ the #GstPadTemplate to use on the ghostpad.
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            new_from_template(name: string | null, target: Pad, templ: PadTemplate): Pad | null
+            new_from_template(name: string | null, target: Pad, templ: PadTemplate): GhostPad | null
             /**
              * Create a new ghostpad without a target with the given direction.
              * A target can be set on the ghostpad later with the
@@ -4862,7 +4861,7 @@ declare module "gi://Gst?version=1.0" {
              * @param dir the direction of the ghostpad
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            new_no_target(name: string | null, dir: PadDirection): Pad | null
+            new_no_target(name: string | null, dir: PadDirection): GhostPad | null
             /**
              * Create a new ghostpad based on @templ, without setting a target. The
              * direction will be taken from the @templ.
@@ -4870,7 +4869,7 @@ declare module "gi://Gst?version=1.0" {
              * @param templ the #GstPadTemplate to create the ghostpad from.
              * @returns a new #GstPad, or %NULL in case of an error.
              */
-            new_no_target_from_template(name: string | null, templ: PadTemplate): Pad | null
+            new_no_target_from_template(name: string | null, templ: PadTemplate): GhostPad | null
             /**
              * Invoke the default activate mode function of a ghost pad.
              * @param pad the #GstPad to activate or deactivate.
@@ -6721,7 +6720,7 @@ declare module "gi://Gst?version=1.0" {
              * @param name name of new pipeline
              * @returns newly created GstPipeline  MT safe.
              */
-            "new"(name: string | null): Element
+            "new"(name: string | null): Pipeline
         }
 
         const Pipeline: PipelineClass
@@ -7497,7 +7496,7 @@ declare module "gi://Gst?version=1.0" {
              * @since 1.20
              * @returns a new #GstSharedTaskPool. gst_object_unref() after usage.
              */
-            "new"(): TaskPool
+            "new"(): SharedTaskPool
         }
 
         const SharedTaskPool: SharedTaskPoolClass

@@ -5117,11 +5117,10 @@ declare module "gi://AppStream?version=1.0" {
          *
          * This function fully transfers ownership of the returned container,
          * to be used in GIR bindings.
-         * @override
          * @param with_special Include special categories (e.g. "addons", and "all"/"featured" in submenus)
          * @returns a list of #AsCategory
          */
-        function get_default_categories_gi(with_special: boolean): Category[]
+        function get_default_categories(with_special: boolean): Category[]
         /**
          * Get a translated license name for the given SPDX ID.
          * @since 1.0.0

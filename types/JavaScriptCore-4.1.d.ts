@@ -86,14 +86,13 @@ declare module "gi://JavaScriptCore?version=4.1" {
              *
              * Note that the value returned by @callback is adopted by @jsc_class, and the #GDestroyNotify passed to
              * jsc_context_register_class() is responsible for disposing of it.
-             * @override
              * @param name the constructor name or %NULL
              * @param callback a #GCallback to be called to create an instance of @jsc_class
              * @param return_type the #GType of the constructor return value
              * @param parameter_types s, one for each parameter, or %NULL
              * @returns a #JSCValue representing the class constructor.
              */
-            add_constructorv(name: string | null, callback: GObject.Callback, return_type: (GObject.GType | { $gtype: GObject.GType }), parameter_types: GObject.GType[] | null): Value
+            add_constructor(name: string | null, callback: GObject.Callback, return_type: (GObject.GType | { $gtype: GObject.GType }), parameter_types: GObject.GType[] | null): Value
             /**
              * s
              * with the method arguments and then @user_data as last parameter. When the method is cleared in the #JSCClass context,
@@ -118,13 +117,12 @@ declare module "gi://JavaScriptCore?version=4.1" {
              * %G_TYPE_POINTER instead of the actual boxed #GType to ensure that the instance owned by #JSCClass is used.
              * If you really want to return a new copy of the boxed type, use #JSC_TYPE_VALUE and return a #JSCValue created
              * with jsc_value_new_object() that receives the copy as the instance parameter.
-             * @override
              * @param name the method name
              * @param callback a #GCallback to be called to invoke method @name of @jsc_class
              * @param return_type the #GType of the method return value, or %G_TYPE_NONE if the method is void.
              * @param parameter_types s, one for each parameter, or %NULL
              */
-            add_methodv(name: string, callback: GObject.Callback, return_type: (GObject.GType | { $gtype: GObject.GType }), parameter_types: GObject.GType[] | null): void
+            add_method(name: string, callback: GObject.Callback, return_type: (GObject.GType | { $gtype: GObject.GType }), parameter_types: GObject.GType[] | null): void
             /**
              * Add a property with @name to @jsc_class. When the property value is read, @getter is called
              * receiving the the class instance as first parameter and @user_data as last parameter. When the property
@@ -505,18 +503,16 @@ declare module "gi://JavaScriptCore?version=4.1" {
             /**
              *  with constructor referenced by @value. If @n_parameters
              * is 0 no parameters will be passed to the constructor.
-             * @override
              * @param parameters s to pass as parameters to the constructor, or %NULL
              * @returns a #JSCValue referencing the newly created object instance.
              */
-            constructor_callv(parameters: Value[] | null): Value
+            constructor_call(parameters: Value[] | null): Value
             /**
              *  is returned
-             * @override
              * @param parameters s to pass as parameters to the function, or %NULL
              * @returns a #JSCValue with the return value of the function.
              */
-            function_callv(parameters: Value[] | null): Value
+            function_call(parameters: Value[] | null): Value
             /**
              * Get the #JSCContext in which @value was created.
              * @returns the #JSCValue context.
@@ -659,12 +655,11 @@ declare module "gi://JavaScriptCore?version=4.1" {
             object_has_property(name: string): boolean
             /**
              *  is returned.
-             * @override
              * @param name the method name
              * @param parameters s to pass as parameters to the method, or %NULL
              * @returns a #JSCValue with the return value of the method.
              */
-            object_invoke_methodv(name: string, parameters: Value[] | null): Value
+            object_invoke_method(name: string, parameters: Value[] | null): Value
             /**
              * Get whether the value referenced by @value is an instance of class @name.
              * @param name a class name
@@ -836,7 +831,6 @@ declare module "gi://JavaScriptCore?version=4.1" {
              * %G_TYPE_POINTER instead of the actual boxed #GType to ensure that the instance owned by #JSCClass is used.
              * If you really want to return a new copy of the boxed type, use #JSC_TYPE_VALUE and return a #JSCValue created
              * with jsc_value_new_object() that receives the copy as instance parameter.
-             * @override
              * @param context a #JSCContext
              * @param name the function name or %NULL
              * @param callback a #GCallback.
@@ -844,7 +838,7 @@ declare module "gi://JavaScriptCore?version=4.1" {
              * @param parameter_types s, one for each parameter, or %NULL
              * @returns a #JSCValue.
              */
-            new_functionv(context: Context, name: string | null, callback: GObject.Callback, return_type: (GObject.GType | { $gtype: GObject.GType }), parameter_types: GObject.GType[] | null): Value
+            new_function(context: Context, name: string | null, callback: GObject.Callback, return_type: (GObject.GType | { $gtype: GObject.GType }), parameter_types: GObject.GType[] | null): Value
             /**
              *  in @context.
              * @param context a #JSCContext

@@ -233,7 +233,7 @@ declare module "gi://GstCheck?version=1.0" {
              * @since 1.2
              * @returns a #GstTestClock cast to #GstClock.
              */
-            "new"(): Gst.Clock
+            "new"(): TestClock
             /**
              * Creates a new test clock with its time set to the specified time.
              *
@@ -242,7 +242,7 @@ declare module "gi://GstCheck?version=1.0" {
              * @param start_time a #GstClockTime set to the desired start time of the clock.
              * @returns a #GstTestClock cast to #GstClock.
              */
-            new_with_start_time(start_time: Gst.ClockTime): Gst.Clock
+            new_with_start_time(start_time: Gst.ClockTime): TestClock
             /**
              * Finds the latest time inside the list.
              *
@@ -846,11 +846,10 @@ declare module "gi://GstCheck?version=1.0" {
             take_all_data_as_buffer(): Gst.Buffer
             /**
              * Pulls all pending data from the harness and returns it as a single #GBytes.
-             * @override
              * @since 1.14
              * @returns a pointer to the data, newly allocated. Free     with g_free() when no longer needed.
              */
-            take_all_data_as_bytes(): GLib.Bytes
+            take_all_data(): GLib.Bytes
             /**
              * Tears down a @GstHarness, freeing all resources allocated using it.
              *

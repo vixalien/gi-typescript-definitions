@@ -47,19 +47,19 @@ declare module "gi://WebKit?version=6.0" {
         
 
         namespace PermissionRequest {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Allow the action which triggered this request.
                  */
@@ -81,7 +81,7 @@ declare module "gi://WebKit?version=6.0" {
          * #WebKitWebView::permission-request signal with a
          * #WebKitPermissionRequest object attached to it.
          */
-        interface PermissionRequest extends PermissionRequest.Interface {
+        interface PermissionRequest extends GObject.Object, PermissionRequest.Interface {
             readonly $signals: PermissionRequest.SignalSignatures
             readonly $readableProperties: PermissionRequest.ReadableProperties
             readonly $writableProperties: PermissionRequest.WritableProperties
@@ -8859,7 +8859,7 @@ declare module "gi://WebKit?version=6.0" {
              * webkit_web_view_new_with_settings().
              * @returns The newly created #WebKitWebView widget
              */
-            "new"(): Gtk.Widget
+            "new"(): WebView
         }
 
         const WebView: WebViewClass

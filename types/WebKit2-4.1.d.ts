@@ -45,19 +45,19 @@ declare module "gi://WebKit2?version=4.1" {
         
 
         namespace PermissionRequest {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Allow the action which triggered this request.
                  */
@@ -79,7 +79,7 @@ declare module "gi://WebKit2?version=4.1" {
          * #WebKitWebView::permission-request signal with a
          * #WebKitPermissionRequest object attached to it.
          */
-        interface PermissionRequest extends PermissionRequest.Interface {
+        interface PermissionRequest extends GObject.Object, PermissionRequest.Interface {
             readonly $signals: PermissionRequest.SignalSignatures
             readonly $readableProperties: PermissionRequest.ReadableProperties
             readonly $writableProperties: PermissionRequest.WritableProperties
@@ -9143,7 +9143,7 @@ declare module "gi://WebKit2?version=4.1" {
              * webkit_web_view_new_with_settings().
              * @returns The newly created #WebKitWebView widget
              */
-            "new"(): Gtk.Widget
+            "new"(): WebView
             /**
              * Creates a new #WebKitWebView with the given #WebKitWebContext.
              *
@@ -9154,7 +9154,7 @@ declare module "gi://WebKit2?version=4.1" {
              * @param context the #WebKitWebContext to be used by the #WebKitWebView
              * @returns The newly created #WebKitWebView widget
              */
-            new_with_context(context: WebContext): Gtk.Widget
+            new_with_context(context: WebContext): WebView
             /**
              * Creates a new #WebKitWebView sharing the same web process with @web_view.
              *
@@ -9171,7 +9171,7 @@ declare module "gi://WebKit2?version=4.1" {
              * @param web_view the related #WebKitWebView
              * @returns The newly created #WebKitWebView widget
              */
-            new_with_related_view(web_view: WebView): Gtk.Widget
+            new_with_related_view(web_view: WebView): WebView
             /**
              * Creates a new #WebKitWebView with the given #WebKitSettings.
              *
@@ -9181,7 +9181,7 @@ declare module "gi://WebKit2?version=4.1" {
              * @param settings a #WebKitSettings
              * @returns The newly created #WebKitWebView widget
              */
-            new_with_settings(settings: Settings): Gtk.Widget
+            new_with_settings(settings: Settings): WebView
             /**
              * Creates a new #WebKitWebView with the given #WebKitUserContentManager.
              *
@@ -9191,7 +9191,7 @@ declare module "gi://WebKit2?version=4.1" {
              * @param user_content_manager a #WebKitUserContentManager.
              * @returns The newly created #WebKitWebView widget
              */
-            new_with_user_content_manager(user_content_manager: UserContentManager): Gtk.Widget
+            new_with_user_content_manager(user_content_manager: UserContentManager): WebView
         }
 
         const WebView: WebViewClass

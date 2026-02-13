@@ -8508,20 +8508,18 @@ declare module "gi://Gdk?version=3.0" {
          * finalize (object);
          * }
          * ]|
-         * @override
          * @since 2.12
          * @param priority the priority of the idle source. Typically this will be in the
                    range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE
          * @param function function to call
          * @returns the ID (greater than 0) of the event source.
          */
-        function threads_add_idle_full(priority: number, func: GLib.SourceFunc): number
+        function threads_add_idle(priority: number, func: GLib.SourceFunc): number
         none
         /**
          * finalize (object);
          * }
          * ]|
-         * @override
          * @since 2.12
          * @param priority the priority of the timeout source. Typically this will be in the
                    range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.
@@ -8530,13 +8528,12 @@ declare module "gi://Gdk?version=3.0" {
          * @param function function to call
          * @returns the ID (greater than 0) of the event source.
          */
-        function threads_add_timeout_full(priority: number, interval: number, func: GLib.SourceFunc): number
+        function threads_add_timeout(priority: number, interval: number, func: GLib.SourceFunc): number
         none
         /**
          * A variant of gdk_threads_add_timeout_full() with second-granularity.
          * See g_timeout_add_seconds_full() for a discussion of why it is
          * a good idea to use this function if you don’t need finer granularity.
-         * @override
          * @since 2.14
          * @param priority the priority of the timeout source. Typically this will be in the
                    range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.
@@ -8544,7 +8541,7 @@ declare module "gi://Gdk?version=3.0" {
          * @param function function to call
          * @returns the ID (greater than 0) of the event source.
          */
-        function threads_add_timeout_seconds_full(priority: number, interval: number, func: GLib.SourceFunc): number
+        function threads_add_timeout_seconds(priority: number, interval: number, func: GLib.SourceFunc): number
         /**
          * This function marks the beginning of a critical section in which
          * GDK and GTK+ functions can be called safely and without causing race

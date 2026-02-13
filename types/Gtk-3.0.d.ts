@@ -235,23 +235,23 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace Activatable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "related-action": Action
                 "use-action-appearance": boolean
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "related-action": Action
                 "use-action-appearance": boolean
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * This is called to update the activatable completely, this is called
                  * internally when the #GtkActivatable:related-action property is set
@@ -286,7 +286,7 @@ declare module "gi://Gtk?version=3.0" {
          * }
          * ]|
          */
-        interface Activatable extends Activatable.Interface {
+        interface Activatable extends GObject.Object, Activatable.Interface {
             readonly $signals: Activatable.SignalSignatures
             readonly $readableProperties: Activatable.ReadableProperties
             readonly $writableProperties: Activatable.WritableProperties
@@ -449,19 +449,19 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace Buildable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds a child to @buildable. @type is an optional string
                  * describing how the child should be added.
@@ -570,7 +570,7 @@ declare module "gi://Gtk?version=3.0" {
          * An object only needs to implement this interface if it needs to extend the
          * #GtkBuilder format or run any extra routines at deserialization time.
          */
-        interface Buildable extends Buildable.Interface {
+        interface Buildable extends GObject.Object, Buildable.Interface {
             readonly $signals: Buildable.SignalSignatures
             readonly $readableProperties: Buildable.ReadableProperties
             readonly $writableProperties: Buildable.WritableProperties
@@ -680,19 +680,19 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace CellAccessibleParent {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param cell
                  */
@@ -751,7 +751,7 @@ declare module "gi://Gtk?version=3.0" {
 
         /**
          */
-        interface CellAccessibleParent extends CellAccessibleParent.Interface {
+        interface CellAccessibleParent extends GObject.Object, CellAccessibleParent.Interface {
             readonly $signals: CellAccessibleParent.SignalSignatures
             readonly $readableProperties: CellAccessibleParent.ReadableProperties
             readonly $writableProperties: CellAccessibleParent.WritableProperties
@@ -947,19 +947,19 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace CellLayout {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds an attribute mapping to the list in @cell_layout.
                  *
@@ -1076,7 +1076,7 @@ declare module "gi://Gtk?version=3.0" {
          * problematic calls out of init() and into a constructor()
          * for your class.
          */
-        interface CellLayout extends CellLayout.Interface {
+        interface CellLayout extends GObject.Object, CellLayout.Interface {
             readonly $signals: CellLayout.SignalSignatures
             readonly $readableProperties: CellLayout.ReadableProperties
             readonly $writableProperties: CellLayout.WritableProperties
@@ -1180,7 +1180,7 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace ColorChooser {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when a color is activated from the color chooser.
                  * This usually happens when the user clicks a color swatch,
@@ -1192,20 +1192,20 @@ declare module "gi://Gtk?version=3.0" {
                 "color-activated"(color: Gdk.RGBA): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "rgba": Gdk.RGBA
                 "use-alpha": boolean
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "rgba": Gdk.RGBA
                 "use-alpha": boolean
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds a palette to the color chooser. If @orientation is horizontal,
                  * the colors are grouped in rows, with @colors_per_line colors
@@ -1259,7 +1259,7 @@ declare module "gi://Gtk?version=3.0" {
          * #GtkColorChooserWidget, #GtkColorChooserDialog and #GtkColorButton.
          * @since 3.4
          */
-        interface ColorChooser extends ColorChooser.Interface {
+        interface ColorChooser extends GObject.Object, ColorChooser.Interface {
             readonly $signals: ColorChooser.SignalSignatures
             readonly $readableProperties: ColorChooser.ReadableProperties
             readonly $writableProperties: ColorChooser.WritableProperties
@@ -1348,7 +1348,7 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace Editable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The ::changed signal is emitted at the end of a single
                  * user-visible operation on the contents of the #GtkEditable.
@@ -1390,16 +1390,16 @@ declare module "gi://Gtk?version=3.0" {
                 "insert-text"(new_text: string, new_text_length: number): number
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  */
                 vfunc_changed(): void
@@ -1526,7 +1526,7 @@ declare module "gi://Gtk?version=3.0" {
          * }
          * ]|
          */
-        interface Editable extends Editable.Interface {
+        interface Editable extends GObject.Object, Editable.Interface {
             readonly $signals: Editable.SignalSignatures
             readonly $readableProperties: Editable.ReadableProperties
             readonly $writableProperties: Editable.WritableProperties
@@ -1652,7 +1652,7 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace FileChooser {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  *
                  * static GtkFileChooserConfirmation
@@ -1763,7 +1763,7 @@ declare module "gi://Gtk?version=3.0" {
                 "update-preview"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "action": FileChooserAction
                 "create-folders": boolean
                 "do-overwrite-confirmation": boolean
@@ -1777,7 +1777,7 @@ declare module "gi://Gtk?version=3.0" {
                 "use-preview-label": boolean
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "action": FileChooserAction
                 "create-folders": boolean
                 "do-overwrite-confirmation": boolean
@@ -1791,10 +1791,10 @@ declare module "gi://Gtk?version=3.0" {
                 "use-preview-label": boolean
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -1816,7 +1816,7 @@ declare module "gi://Gtk?version=3.0" {
          * and include your widgets in it.  Then, set the container as
          * the whole extra widget.
          */
-        interface FileChooser extends FileChooser.Interface {
+        interface FileChooser extends GObject.Object, FileChooser.Interface {
             readonly $signals: FileChooser.SignalSignatures
             readonly $readableProperties: FileChooser.ReadableProperties
             readonly $writableProperties: FileChooser.WritableProperties
@@ -2508,7 +2508,7 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace FontChooser {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Emitted when a font is activated.
                  * This usually happens when the user double clicks an item,
@@ -2519,7 +2519,7 @@ declare module "gi://Gtk?version=3.0" {
                 "font-activated"(fontname: string): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "font": string | null
                 "font-desc": Pango.FontDescription | null
                 "font-features": string
@@ -2529,7 +2529,7 @@ declare module "gi://Gtk?version=3.0" {
                 "show-preview-entry": boolean
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "font": string | null
                 "font-desc": Pango.FontDescription | null
                 "font-features": string
@@ -2539,10 +2539,10 @@ declare module "gi://Gtk?version=3.0" {
                 "show-preview-entry": boolean
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param fontname
                  */
@@ -2620,7 +2620,7 @@ declare module "gi://Gtk?version=3.0" {
          * #GtkFontChooserDialog and #GtkFontButton. The GtkFontChooser interface
          * has been introducted in GTK+ 3.2.
          */
-        interface FontChooser extends FontChooser.Interface {
+        interface FontChooser extends GObject.Object, FontChooser.Interface {
             readonly $signals: FontChooser.SignalSignatures
             readonly $readableProperties: FontChooser.ReadableProperties
             readonly $writableProperties: FontChooser.WritableProperties
@@ -2844,21 +2844,21 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace Orientable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "orientation": Orientation
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "orientation": Orientation
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -2872,7 +2872,7 @@ declare module "gi://Gtk?version=3.0" {
          *
          * #GtkOrientable was introduced in GTK+ 2.16.
          */
-        interface Orientable extends Orientable.Interface {
+        interface Orientable extends GObject.Object, Orientable.Interface {
             readonly $signals: Orientable.SignalSignatures
             readonly $readableProperties: Orientable.ReadableProperties
             readonly $writableProperties: Orientable.WritableProperties
@@ -2910,7 +2910,7 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace PrintOperationPreview {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * The ::got-page-size signal is emitted once for each page
                  * that gets rendered to the preview.
@@ -2932,16 +2932,16 @@ declare module "gi://Gtk?version=3.0" {
                 "ready"(context: PrintContext): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Ends a preview.
                  *
@@ -2985,7 +2985,7 @@ declare module "gi://Gtk?version=3.0" {
 
         /**
          */
-        interface PrintOperationPreview extends PrintOperationPreview.Interface {
+        interface PrintOperationPreview extends GObject.Object, PrintOperationPreview.Interface {
             readonly $signals: PrintOperationPreview.SignalSignatures
             readonly $readableProperties: PrintOperationPreview.ReadableProperties
             readonly $writableProperties: PrintOperationPreview.WritableProperties
@@ -3033,7 +3033,7 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace RecentChooser {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * This signal is emitted when the user "activates" a recent item
                  * in the recent chooser.  This can happen by double-clicking on an item
@@ -3052,7 +3052,7 @@ declare module "gi://Gtk?version=3.0" {
                 "selection-changed"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "filter": RecentFilter
                 "limit": number
                 "local-only": boolean
@@ -3064,7 +3064,7 @@ declare module "gi://Gtk?version=3.0" {
                 "sort-type": RecentSortType
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "filter": RecentFilter
                 "limit": number
                 "local-only": boolean
@@ -3077,10 +3077,10 @@ declare module "gi://Gtk?version=3.0" {
                 "sort-type": RecentSortType
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Adds @filter to the list of #GtkRecentFilter objects held by @chooser.
                  *
@@ -3184,7 +3184,7 @@ declare module "gi://Gtk?version=3.0" {
          *
          * Recently used files are supported since GTK+ 2.10.
          */
-        interface RecentChooser extends RecentChooser.Interface {
+        interface RecentChooser extends GObject.Object, RecentChooser.Interface {
             readonly $signals: RecentChooser.SignalSignatures
             readonly $readableProperties: RecentChooser.ReadableProperties
             readonly $writableProperties: RecentChooser.WritableProperties
@@ -3498,27 +3498,27 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace Scrollable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "hadjustment": Adjustment
                 "hscroll-policy": ScrollablePolicy
                 "vadjustment": Adjustment
                 "vscroll-policy": ScrollablePolicy
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "hadjustment": Adjustment
                 "hscroll-policy": ScrollablePolicy
                 "vadjustment": Adjustment
                 "vscroll-policy": ScrollablePolicy
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Returns the size of a non-scrolling border around the
                  * outside of the scrollable. An example for this would
@@ -3561,7 +3561,7 @@ declare module "gi://Gtk?version=3.0" {
          * - When any of the adjustments emits the #GtkAdjustment::value-changed signal,
          *   the scrollable widget should scroll its contents.
          */
-        interface Scrollable extends Scrollable.Interface {
+        interface Scrollable extends GObject.Object, Scrollable.Interface {
             readonly $signals: Scrollable.SignalSignatures
             readonly $readableProperties: Scrollable.ReadableProperties
             readonly $writableProperties: Scrollable.WritableProperties
@@ -3672,19 +3672,19 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace StyleProvider {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Returns the #GtkIconFactory defined to be in use for @path, or %NULL if none
                  * is defined.
@@ -3720,7 +3720,7 @@ declare module "gi://Gtk?version=3.0" {
          * GtkStyleProvider is an interface used to provide style information to a #GtkStyleContext.
          * See gtk_style_context_add_provider() and gtk_style_context_add_provider_for_screen().
          */
-        interface StyleProvider extends StyleProvider.Interface {
+        interface StyleProvider extends GObject.Object, StyleProvider.Interface {
             readonly $signals: StyleProvider.SignalSignatures
             readonly $readableProperties: StyleProvider.ReadableProperties
             readonly $writableProperties: StyleProvider.WritableProperties
@@ -3947,19 +3947,19 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace TreeDragDest {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Asks the #GtkTreeDragDest to insert a row before the path @dest,
                  * deriving the contents of the row from @selection_data. If @dest is
@@ -3988,7 +3988,7 @@ declare module "gi://Gtk?version=3.0" {
 
         /**
          */
-        interface TreeDragDest extends TreeDragDest.Interface {
+        interface TreeDragDest extends GObject.Object, TreeDragDest.Interface {
             readonly $signals: TreeDragDest.SignalSignatures
             readonly $readableProperties: TreeDragDest.ReadableProperties
             readonly $writableProperties: TreeDragDest.WritableProperties
@@ -4030,19 +4030,19 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace TreeDragSource {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Asks the #GtkTreeDragSource to delete the row at @path, because
                  * it was moved somewhere else via drag-and-drop. Returns %FALSE
@@ -4076,7 +4076,7 @@ declare module "gi://Gtk?version=3.0" {
 
         /**
          */
-        interface TreeDragSource extends TreeDragSource.Interface {
+        interface TreeDragSource extends GObject.Object, TreeDragSource.Interface {
             readonly $signals: TreeDragSource.SignalSignatures
             readonly $readableProperties: TreeDragSource.ReadableProperties
             readonly $writableProperties: TreeDragSource.WritableProperties
@@ -4123,7 +4123,7 @@ declare module "gi://Gtk?version=3.0" {
         
 
         namespace TreeModel {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * This signal is emitted when a row in the model has changed.
                  * @param path a #GtkTreePath-struct identifying the changed row
@@ -4162,16 +4162,16 @@ declare module "gi://Gtk?version=3.0" {
                 "row-inserted"(path: TreePath, iter: TreeIter): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Returns the type of the column.
                  * @param index_ the column index
@@ -4396,7 +4396,7 @@ declare module "gi://Gtk?version=3.0" {
          *   however, signals must be emitted at all times (however the root level
          *   is always referenced when any view is attached).
          */
-        interface TreeModel extends TreeModel.Interface {
+        interface TreeModel extends GObject.Object, TreeModel.Interface {
             readonly $signals: TreeModel.SignalSignatures
             readonly $readableProperties: TreeModel.ReadableProperties
             readonly $writableProperties: TreeModel.WritableProperties
@@ -4620,7 +4620,6 @@ declare module "gi://Gtk?version=3.0" {
              *
              * This should be called by models when their rows have been
              * reordered.
-             * @override
              * @since 3.10
              * @param path a #GtkTreePath-struct pointing to the tree node whose children
                 have been reordered
@@ -4632,7 +4631,7 @@ declare module "gi://Gtk?version=3.0" {
                 position before the re-ordering,
                 i.e. @new_order`[newpos] = oldpos`
              */
-            rows_reordered_with_length(path: TreePath, iter: TreeIter | null, new_order: number[]): void
+            rows_reordered(path: TreePath, iter: TreeIter | null, new_order: number[]): void
             /**
              * Lets the tree unref the node.
              *
@@ -5252,7 +5251,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.6
              * @returns a newly created #GtkAboutDialog
              */
-            "new"(): Widget
+            "new"(): AboutDialog
         }
 
         const AboutDialog: AboutDialogClass
@@ -5574,7 +5573,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param string the label string. Must be non-%NULL.
              * @returns a new #GtkAccelLabel.
              */
-            "new"(string: string): Widget
+            "new"(string: string): AccelLabel
         }
 
         const AccelLabel: AccelLabelClass
@@ -6607,7 +6606,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.12
              * @returns a new #GtkActionBar
              */
-            "new"(): Widget
+            "new"(): ActionBar
         }
 
         const ActionBar: ActionBarClass
@@ -7355,7 +7354,7 @@ declare module "gi://Gtk?version=3.0" {
              unused space, from 0 to 1. The values are similar to @xscale.
              * @returns the new #GtkAlignment
              */
-            "new"(xalign: number, yalign: number, xscale: number, yscale: number): Widget
+            "new"(xalign: number, yalign: number, xscale: number, yscale: number): Alignment
         }
 
         const Alignment: AlignmentClass
@@ -7529,7 +7528,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param content_type the content type to show applications for
              * @returns a newly created #GtkAppChooserButton
              */
-            "new"(content_type: string): Widget
+            "new"(content_type: string): AppChooserButton
         }
 
         const AppChooserButton: AppChooserButtonClass
@@ -7615,7 +7614,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param file a #GFile
              * @returns a newly created #GtkAppChooserDialog
              */
-            "new"(parent: Window | null, flags: DialogFlags, file: Gio.File): Widget
+            "new"(parent: Window | null, flags: DialogFlags, file: Gio.File): AppChooserDialog
             /**
              * Creates a new #GtkAppChooserDialog for the provided content type,
              * to allow the user to select an application for it.
@@ -7625,7 +7624,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param content_type a content type string
              * @returns a newly created #GtkAppChooserDialog
              */
-            new_for_content_type(parent: Window | null, flags: DialogFlags, content_type: string): Widget
+            new_for_content_type(parent: Window | null, flags: DialogFlags, content_type: string): AppChooserDialog
         }
 
         const AppChooserDialog: AppChooserDialogClass
@@ -7874,7 +7873,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param content_type the content type to show applications for
              * @returns a newly created #GtkAppChooserWidget
              */
-            "new"(content_type: string): Widget
+            "new"(content_type: string): AppChooserWidget
         }
 
         const AppChooserWidget: AppChooserWidgetClass
@@ -8515,7 +8514,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param application a #GtkApplication
              * @returns a newly created #GtkApplicationWindow
              */
-            "new"(application: Application): Widget
+            "new"(application: Application): ApplicationWindow
         }
 
         const ApplicationWindow: ApplicationWindowClass
@@ -8596,7 +8595,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param shadow_type a valid #GtkShadowType.
              * @returns the new #GtkArrow widget.
              */
-            "new"(arrow_type: ArrowType, shadow_type: ShadowType): Widget
+            "new"(arrow_type: ArrowType, shadow_type: ShadowType): Arrow
         }
 
         const Arrow: ArrowClass
@@ -8727,7 +8726,7 @@ declare module "gi://Gtk?version=3.0" {
              ratio is taken from the requistion of the child.
              * @returns the new #GtkAspectFrame.
              */
-            "new"(label: string | null, xalign: number, yalign: number, ratio: number, obey_child: boolean): Widget
+            "new"(label: string | null, xalign: number, yalign: number, ratio: number, obey_child: boolean): AspectFrame
         }
 
         const AspectFrame: AspectFrameClass
@@ -9099,7 +9098,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.10
              * @returns a newly created #GtkAssistant
              */
-            "new"(): Widget
+            "new"(): Assistant
         }
 
         const Assistant: AssistantClass
@@ -9412,7 +9411,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param spacing the number of pixels to place by default between children.
              * @returns a new #GtkBox.
              */
-            "new"(orientation: Orientation, spacing: number): Widget
+            "new"(orientation: Orientation, spacing: number): Box
         }
 
         const Box: BoxClass
@@ -10177,7 +10176,7 @@ declare module "gi://Gtk?version=3.0" {
              * use gtk_container_add().
              * @returns The newly created #GtkButton widget.
              */
-            "new"(): Widget
+            "new"(): Button
             /**
              * Creates a new button containing an icon from the current icon theme.
              *
@@ -10192,7 +10191,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param size an icon size (#GtkIconSize)
              * @returns a new #GtkButton displaying the themed icon
              */
-            new_from_icon_name(icon_name: string | null, size: number): Widget
+            new_from_icon_name(icon_name: string | null, size: number): Button
             /**
              * Creates a new #GtkButton containing the image and text from a
              * [stock item][gtkstock].
@@ -10205,14 +10204,14 @@ declare module "gi://Gtk?version=3.0" {
              * @param stock_id the name of the stock item
              * @returns a new #GtkButton
              */
-            new_from_stock(stock_id: string): Widget
+            new_from_stock(stock_id: string): Button
             /**
              * Creates a #GtkButton widget with a #GtkLabel child containing the given
              * text.
              * @param label The text you want the #GtkLabel to hold.
              * @returns The newly created #GtkButton widget.
              */
-            new_with_label(label: string): Widget
+            new_with_label(label: string): Button
             /**
              * Creates a new #GtkButton containing a label.
              * If characters in @label are preceded by an underscore, they are underlined.
@@ -10224,7 +10223,7 @@ declare module "gi://Gtk?version=3.0" {
                     mnemonic character
              * @returns a new #GtkButton
              */
-            new_with_mnemonic(label: string): Widget
+            new_with_mnemonic(label: string): Button
         }
 
         const Button: ButtonClass
@@ -10352,7 +10351,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param orientation the box's orientation.
              * @returns a new #GtkButtonBox.
              */
-            "new"(orientation: Orientation): Widget
+            "new"(orientation: Orientation): ButtonBox
         }
 
         const ButtonBox: ButtonBoxClass
@@ -10649,7 +10648,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new calendar, with the current date being selected.
              * @returns a newly #GtkCalendar widget
              */
-            "new"(): Widget
+            "new"(): Calendar
         }
 
         const Calendar: CalendarClass
@@ -11590,7 +11589,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.0
              * @returns a newly created #GtkCellAreaBox
              */
-            "new"(): CellArea
+            "new"(): CellAreaBox
         }
 
         const CellAreaBox: CellAreaBoxClass
@@ -12542,7 +12541,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.10
              * @returns the new cell renderer
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererAccel
         }
 
         const CellRendererAccel: CellRendererAccelClass
@@ -12653,7 +12652,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.6
              * @returns the new cell renderer
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererCombo
         }
 
         const CellRendererCombo: CellRendererComboClass
@@ -12790,7 +12789,7 @@ declare module "gi://Gtk?version=3.0" {
              * #GtkTreeView.
              * @returns the new cell renderer
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererPixbuf
         }
 
         const CellRendererPixbuf: CellRendererPixbufClass
@@ -12901,7 +12900,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.6
              * @returns the new cell renderer
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererProgress
         }
 
         const CellRendererProgress: CellRendererProgressClass
@@ -12979,7 +12978,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.10
              * @returns a new #GtkCellRendererSpin
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererSpin
         }
 
         const CellRendererSpin: CellRendererSpinClass
@@ -13057,7 +13056,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.20
              * @returns a new #GtkCellRenderer
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererSpinner
         }
 
         const CellRendererSpinner: CellRendererSpinnerClass
@@ -13499,7 +13498,7 @@ declare module "gi://Gtk?version=3.0" {
              * of the #GtkTreeView
              * @returns the new cell renderer
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererText
         }
 
         const CellRendererText: CellRendererTextClass
@@ -13635,7 +13634,7 @@ declare module "gi://Gtk?version=3.0" {
              * the model.
              * @returns the new cell renderer
              */
-            "new"(): CellRenderer
+            "new"(): CellRendererToggle
         }
 
         const CellRendererToggle: CellRendererToggleClass
@@ -13871,7 +13870,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.6
              * @returns A newly created #GtkCellView widget.
              */
-            "new"(): Widget
+            "new"(): CellView
             /**
              * Creates a new #GtkCellView widget with a specific #GtkCellArea
              * to layout cells and a specific #GtkCellAreaContext.
@@ -13885,7 +13884,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param context the #GtkCellAreaContext in which to calculate cell geometry
              * @returns A newly created #GtkCellView widget.
              */
-            new_with_context(area: CellArea, context: CellAreaContext): Widget
+            new_with_context(area: CellArea, context: CellAreaContext): CellView
             /**
              * Creates a new #GtkCellView widget, adds a #GtkCellRendererText
              * to it, and makes it show @markup. The text can be
@@ -13894,7 +13893,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param markup the text to display in the cell view
              * @returns A newly created #GtkCellView widget.
              */
-            new_with_markup(markup: string): Widget
+            new_with_markup(markup: string): CellView
             /**
              * Creates a new #GtkCellView widget, adds a #GtkCellRendererPixbuf
              * to it, and makes it show @pixbuf.
@@ -13902,7 +13901,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param pixbuf the image to display in the cell view
              * @returns A newly created #GtkCellView widget.
              */
-            new_with_pixbuf(pixbuf: GdkPixbuf.Pixbuf): Widget
+            new_with_pixbuf(pixbuf: GdkPixbuf.Pixbuf): CellView
             /**
              * Creates a new #GtkCellView widget, adds a #GtkCellRendererText
              * to it, and makes it show @text.
@@ -13910,7 +13909,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param text the text to display in the cell view
              * @returns A newly created #GtkCellView widget.
              */
-            new_with_text(text: string): Widget
+            new_with_text(text: string): CellView
         }
 
         const CellView: CellViewClass
@@ -13957,13 +13956,13 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkCheckButton.
              * @returns a #GtkWidget.
              */
-            "new"(): Widget
+            "new"(): CheckButton
             /**
              * Creates a new #GtkCheckButton with a #GtkLabel to the right of it.
              * @param label the text for the check button.
              * @returns a #GtkWidget.
              */
-            new_with_label(label: string): Widget
+            new_with_label(label: string): CheckButton
             /**
              * Creates a new #GtkCheckButton containing a label. The label
              * will be created using gtk_label_new_with_mnemonic(), so underscores
@@ -13972,7 +13971,7 @@ declare module "gi://Gtk?version=3.0" {
               mnemonic character
              * @returns a new #GtkCheckButton
              */
-            new_with_mnemonic(label: string): Widget
+            new_with_mnemonic(label: string): CheckButton
         }
 
         const CheckButton: CheckButtonClass
@@ -14095,13 +14094,13 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkCheckMenuItem.
              * @returns a new #GtkCheckMenuItem.
              */
-            "new"(): Widget
+            "new"(): CheckMenuItem
             /**
              * Creates a new #GtkCheckMenuItem with a label.
              * @param label the string to use for the label.
              * @returns a new #GtkCheckMenuItem.
              */
-            new_with_label(label: string): Widget
+            new_with_label(label: string): CheckMenuItem
             /**
              * Creates a new #GtkCheckMenuItem containing a label. The label
              * will be created using gtk_label_new_with_mnemonic(), so underscores
@@ -14110,7 +14109,7 @@ declare module "gi://Gtk?version=3.0" {
                 character
              * @returns a new #GtkCheckMenuItem
              */
-            new_with_mnemonic(label: string): Widget
+            new_with_mnemonic(label: string): CheckMenuItem
         }
 
         const CheckMenuItem: CheckMenuItemClass
@@ -14733,7 +14732,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.4
              * @returns a new color button
              */
-            "new"(): Widget
+            "new"(): ColorButton
             /**
              * Creates a new color button.
              * @since 2.4
@@ -14741,14 +14740,14 @@ declare module "gi://Gtk?version=3.0" {
              * @param color A #GdkColor to set the current color with
              * @returns a new color button
              */
-            new_with_color(color: Gdk.Color): Widget
+            new_with_color(color: Gdk.Color): ColorButton
             /**
              * Creates a new color button.
              * @since 3.0
              * @param rgba A #GdkRGBA to set the current color with
              * @returns a new color button
              */
-            new_with_rgba(rgba: Gdk.RGBA): Widget
+            new_with_rgba(rgba: Gdk.RGBA): ColorButton
         }
 
         const ColorButton: ColorButtonClass
@@ -14798,7 +14797,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param parent Transient parent of the dialog, or %NULL
              * @returns a new #GtkColorChooserDialog
              */
-            "new"(title: string | null, parent: Window | null): Widget
+            "new"(title: string | null, parent: Window | null): ColorChooserDialog
         }
 
         const ColorChooserDialog: ColorChooserDialogClass
@@ -14868,7 +14867,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.4
              * @returns a new #GtkColorChooserWidget
              */
-            "new"(): Widget
+            "new"(): ColorChooserWidget
         }
 
         const ColorChooserWidget: ColorChooserWidgetClass
@@ -15065,7 +15064,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new GtkColorSelection.
              * @returns a new #GtkColorSelection
              */
-            "new"(): Widget
+            "new"(): ColorSelection
             /**
              * Parses a color palette string; the string is a colon-separated
              * list of color names readable by gdk_color_parse().
@@ -15146,7 +15145,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param title a string containing the title text for the dialog.
              * @returns a #GtkColorSelectionDialog.
              */
-            "new"(title: string): Widget
+            "new"(title: string): ColorSelectionDialog
         }
 
         const ColorSelectionDialog: ColorSelectionDialogClass
@@ -15707,13 +15706,13 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.4
              * @returns A new #GtkComboBox.
              */
-            "new"(): Widget
+            "new"(): ComboBox
             /**
              * Creates a new empty #GtkComboBox using @area to layout cells.
              * @param area the #GtkCellArea to use to layout cell renderers
              * @returns A new #GtkComboBox.
              */
-            new_with_area(area: CellArea): Widget
+            new_with_area(area: CellArea): ComboBox
             /**
              * Creates a new empty #GtkComboBox with an entry.
              *
@@ -15721,20 +15720,20 @@ declare module "gi://Gtk?version=3.0" {
              * @param area the #GtkCellArea to use to layout cell renderers
              * @returns A new #GtkComboBox.
              */
-            new_with_area_and_entry(area: CellArea): Widget
+            new_with_area_and_entry(area: CellArea): ComboBox
             /**
              * Creates a new empty #GtkComboBox with an entry.
              * @since 2.24
              * @returns A new #GtkComboBox.
              */
-            new_with_entry(): Widget
+            new_with_entry(): ComboBox
             /**
              * Creates a new #GtkComboBox with the model initialized to @model.
              * @since 2.4
              * @param model A #GtkTreeModel.
              * @returns A new #GtkComboBox.
              */
-            new_with_model(model: TreeModel): Widget
+            new_with_model(model: TreeModel): ComboBox
             /**
              * Creates a new empty #GtkComboBox with an entry
              * and with the model initialized to @model.
@@ -15742,7 +15741,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param model A #GtkTreeModel
              * @returns A new #GtkComboBox
              */
-            new_with_model_and_entry(model: TreeModel): Widget
+            new_with_model_and_entry(model: TreeModel): ComboBox
         }
 
         const ComboBox: ComboBoxClass
@@ -15908,14 +15907,14 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.24
              * @returns A new #GtkComboBoxText
              */
-            "new"(): Widget
+            "new"(): ComboBoxText
             /**
              * Creates a new #GtkComboBoxText, which is a #GtkComboBox just displaying
              * strings. The combo box created by this function has an entry.
              * @since 2.24
              * @returns a new #GtkComboBoxText
              */
-            new_with_entry(): Widget
+            new_with_entry(): ComboBoxText
         }
 
         const ComboBoxText: ComboBoxTextClass
@@ -16823,7 +16822,7 @@ declare module "gi://Gtk?version=3.0" {
              * directly, but into the @vbox and @action_area, as described above.
              * @returns the new dialog as a #GtkWidget
              */
-            "new"(): Widget
+            "new"(): Dialog
         }
 
         const Dialog: DialogClass
@@ -16891,7 +16890,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new drawing area.
              * @returns a new #GtkDrawingArea
              */
-            "new"(): Widget
+            "new"(): DrawingArea
         }
 
         const DrawingArea: DrawingAreaClass
@@ -18394,14 +18393,14 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new entry.
              * @returns a new #GtkEntry.
              */
-            "new"(): Widget
+            "new"(): Entry
             /**
              * Creates a new entry with the specified text buffer.
              * @since 2.18
              * @param buffer The buffer to use for the new #GtkEntry.
              * @returns a new #GtkEntry
              */
-            new_with_buffer(buffer: EntryBuffer): Widget
+            new_with_buffer(buffer: EntryBuffer): Entry
         }
 
         const Entry: EntryClass
@@ -19274,7 +19273,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkEventBox.
              * @returns a new #GtkEventBox
              */
-            "new"(): Widget
+            "new"(): EventBox
         }
 
         const EventBox: EventBoxClass
@@ -19450,7 +19449,7 @@ declare module "gi://Gtk?version=3.0" {
             /**
              * @param widget
              */
-            "new"(widget: Widget): EventController
+            "new"(widget: Widget): EventControllerKey
         }
 
         const EventControllerKey: EventControllerKeyClass
@@ -19510,7 +19509,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a new #GtkEventControllerMotion
              */
-            "new"(widget: Widget): EventController
+            "new"(widget: Widget): EventControllerMotion
         }
 
         const EventControllerMotion: EventControllerMotionClass
@@ -19632,7 +19631,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param flags behavior flags
              * @returns a new #GtkEventControllerScroll
              */
-            "new"(widget: Widget, flags: EventControllerScrollFlags): EventController
+            "new"(widget: Widget, flags: EventControllerScrollFlags): EventControllerScroll
         }
 
         const EventControllerScroll: EventControllerScrollClass
@@ -19879,7 +19878,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label the text of the label
              * @returns a new #GtkExpander widget.
              */
-            "new"(label: string | null): Widget
+            "new"(label: string | null): Expander
             /**
              * Creates a new expander using @label as the text of the label.
              * If characters in @label are preceded by an underscore, they are underlined.
@@ -19892,7 +19891,7 @@ declare module "gi://Gtk?version=3.0" {
                 in front of the mnemonic character
              * @returns a new #GtkExpander widget.
              */
-            new_with_mnemonic(label: string | null): Widget
+            new_with_mnemonic(label: string | null): Expander
         }
 
         const Expander: ExpanderClass
@@ -20049,7 +20048,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param action the open mode for the widget.
              * @returns a new button widget.
              */
-            "new"(title: string, action: FileChooserAction): Widget
+            "new"(title: string, action: FileChooserAction): FileChooserButton
             /**
              * Creates a #GtkFileChooserButton widget which uses @dialog as its
              * file-picking window.
@@ -20065,7 +20064,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param dialog the widget to use as dialog
              * @returns a new button widget.
              */
-            new_with_dialog(dialog: Dialog): Widget
+            new_with_dialog(dialog: Dialog): FileChooserButton
         }
 
         const FileChooserButton: FileChooserButtonClass
@@ -20697,7 +20696,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param action Open or save mode for the widget
              * @returns a new #GtkFileChooserWidget
              */
-            "new"(action: FileChooserAction): Widget
+            "new"(action: FileChooserAction): FileChooserWidget
         }
 
         const FileChooserWidget: FileChooserWidgetClass
@@ -20949,7 +20948,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkFixed.
              * @returns a new #GtkFixed.
              */
-            "new"(): Widget
+            "new"(): Fixed
         }
 
         const Fixed: FixedClass
@@ -21431,7 +21430,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.12
              * @returns a new #GtkFlowBox container
              */
-            "new"(): Widget
+            "new"(): FlowBox
         }
 
         const FlowBox: FlowBoxClass
@@ -21548,7 +21547,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.12
              * @returns a new #GtkFlowBoxChild
              */
-            "new"(): Widget
+            "new"(): FlowBoxChild
         }
 
         const FlowBoxChild: FlowBoxChildClass
@@ -21780,14 +21779,14 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.4
              * @returns a new font picker widget.
              */
-            "new"(): Widget
+            "new"(): FontButton
             /**
              * Creates a new font picker widget.
              * @since 2.4
              * @param fontname Name of font to display in font chooser dialog
              * @returns a new font picker widget.
              */
-            new_with_font(fontname: string): Widget
+            new_with_font(fontname: string): FontButton
         }
 
         const FontButton: FontButtonClass
@@ -21836,7 +21835,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param parent Transient parent of the dialog, or %NULL
              * @returns a new #GtkFontChooserDialog
              */
-            "new"(title: string | null, parent: Window | null): Widget
+            "new"(title: string | null, parent: Window | null): FontChooserDialog
         }
 
         const FontChooserDialog: FontChooserDialogClass
@@ -21904,7 +21903,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.2
              * @returns a new #GtkFontChooserWidget
              */
-            "new"(): Widget
+            "new"(): FontChooserWidget
         }
 
         const FontChooserWidget: FontChooserWidgetClass
@@ -22053,7 +22052,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.2 Use #GtkFontChooserWidget instead
              * @returns a new #GtkFontSelection
              */
-            "new"(): Widget
+            "new"(): FontSelection
         }
 
         const FontSelection: FontSelectionClass
@@ -22145,7 +22144,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param title the title of the dialog window
              * @returns a new #GtkFontSelectionDialog
              */
-            "new"(title: string): Widget
+            "new"(title: string): FontSelectionDialog
         }
 
         const FontSelectionDialog: FontSelectionDialogClass
@@ -22291,7 +22290,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label the text to use as the label of the frame
              * @returns a new #GtkFrame widget
              */
-            "new"(label: string | null): Widget
+            "new"(label: string | null): Frame
         }
 
         const Frame: FrameClass
@@ -22649,7 +22648,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.16
              * @returns a new #GtkGLArea
              */
-            "new"(): Widget
+            "new"(): GLArea
         }
 
         const GLArea: GLAreaClass
@@ -23127,7 +23126,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a newly created #GtkGestureDrag
              */
-            "new"(widget: Widget): Gesture
+            "new"(widget: Widget): GestureDrag
         }
 
         const GestureDrag: GestureDragClass
@@ -23194,7 +23193,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a newly created #GtkGestureLongPress
              */
-            "new"(widget: Widget): Gesture
+            "new"(widget: Widget): GestureLongPress
         }
 
         const GestureLongPress: GestureLongPressClass
@@ -23286,7 +23285,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a newly created #GtkGestureMultiPress
              */
-            "new"(widget: Widget): Gesture
+            "new"(widget: Widget): GestureMultiPress
         }
 
         const GestureMultiPress: GestureMultiPressClass
@@ -23369,7 +23368,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param orientation expected orientation
              * @returns a newly created #GtkGesturePan
              */
-            "new"(widget: Widget, orientation: Orientation): Gesture
+            "new"(widget: Widget, orientation: Orientation): GesturePan
         }
 
         const GesturePan: GesturePanClass
@@ -23428,7 +23427,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a newly created #GtkGestureRotate
              */
-            "new"(widget: Widget): Gesture
+            "new"(widget: Widget): GestureRotate
         }
 
         const GestureRotate: GestureRotateClass
@@ -23649,7 +23648,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a newly created stylus gesture
              */
-            "new"(widget: Widget): Gesture
+            "new"(widget: Widget): GestureStylus
         }
 
         const GestureStylus: GestureStylusClass
@@ -23714,7 +23713,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a newly created #GtkGestureSwipe
              */
-            "new"(widget: Widget): Gesture
+            "new"(widget: Widget): GestureSwipe
         }
 
         const GestureSwipe: GestureSwipeClass
@@ -23773,7 +23772,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param widget a #GtkWidget
              * @returns a newly created #GtkGestureZoom
              */
-            "new"(widget: Widget): Gesture
+            "new"(widget: Widget): GestureZoom
         }
 
         const GestureZoom: GestureZoomClass
@@ -24028,7 +24027,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new grid widget.
              * @returns the new #GtkGrid
              */
-            "new"(): Widget
+            "new"(): Grid
         }
 
         const Grid: GridClass
@@ -24086,7 +24085,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param spacing the number of pixels to place by default between children.
              * @returns a new #GtkHBox.
              */
-            "new"(homogeneous: boolean, spacing: number): Widget
+            "new"(homogeneous: boolean, spacing: number): HBox
         }
 
         const HBox: HBoxClass
@@ -24124,7 +24123,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.2 Use gtk_button_box_new() with %GTK_ORIENTATION_HORIZONTAL instead
              * @returns a new button box #GtkWidget.
              */
-            "new"(): Widget
+            "new"(): HButtonBox
         }
 
         const HButtonBox: HButtonBoxClass
@@ -24168,7 +24167,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.2 Use gtk_paned_new() with %GTK_ORIENTATION_HORIZONTAL instead
              * @returns the new #GtkHPaned
              */
-            "new"(): Widget
+            "new"(): HPaned
         }
 
         const HPaned: HPanedClass
@@ -24266,7 +24265,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.14
              * @returns A newly-created HSV color selector.
              */
-            "new"(): Widget
+            "new"(): HSV
             /**
              * Converts a color from HSV space to RGB.
              *
@@ -24325,7 +24324,7 @@ declare module "gi://Gtk?version=3.0" {
             the scale.
              * @returns a new #GtkHScale.
              */
-            "new"(adjustment: Adjustment | null): Widget
+            "new"(adjustment: Adjustment | null): HScale
             /**
              * Creates a new horizontal scale widget that lets the user input a
              * number between @min and @max (including @min and @max) with the
@@ -24341,7 +24340,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param step step increment (tick size) used with keyboard shortcuts
              * @returns a new #GtkHScale
              */
-            new_with_range(min: number, max: number, step: number): Widget
+            new_with_range(min: number, max: number, step: number): HScale
         }
 
         const HScale: HScaleClass
@@ -24388,7 +24387,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param adjustment the #GtkAdjustment to use, or %NULL to create a new adjustment
              * @returns the new #GtkHScrollbar
              */
-            "new"(adjustment: Adjustment | null): Widget
+            "new"(adjustment: Adjustment | null): HScrollbar
         }
 
         const HScrollbar: HScrollbarClass
@@ -24429,7 +24428,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.2 Use gtk_separator_new() with %GTK_ORIENTATION_HORIZONTAL instead
              * @returns a new #GtkHSeparator.
              */
-            "new"(): Widget
+            "new"(): HSeparator
         }
 
         const HSeparator: HSeparatorClass
@@ -24594,7 +24593,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.4 #GtkHandleBox has been deprecated.
              * @returns a new #GtkHandleBox.
              */
-            "new"(): Widget
+            "new"(): HandleBox
         }
 
         const HandleBox: HandleBoxClass
@@ -24845,7 +24844,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a new #GtkHeaderBar
              */
-            "new"(): Widget
+            "new"(): HeaderBar
         }
 
         const HeaderBar: HeaderBarClass
@@ -25280,7 +25279,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkIMContextSimple.
              * @returns a new #GtkIMContextSimple.
              */
-            "new"(): IMContext
+            "new"(): IMContextSimple
         }
 
         const IMContextSimple: IMContextSimpleClass
@@ -25340,7 +25339,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkIMMulticontext.
              * @returns a new #GtkIMMulticontext.
              */
-            "new"(): IMContext
+            "new"(): IMMulticontext
         }
 
         const IMMulticontext: IMMulticontextClass
@@ -27000,7 +26999,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.6
              * @returns A newly created #GtkIconView widget
              */
-            "new"(): Widget
+            "new"(): IconView
             /**
              * Creates a new #GtkIconView widget using the
              * specified @area to layout cells inside the icons.
@@ -27008,14 +27007,14 @@ declare module "gi://Gtk?version=3.0" {
              * @param area the #GtkCellArea to use to layout cells
              * @returns A newly created #GtkIconView widget
              */
-            new_with_area(area: CellArea): Widget
+            new_with_area(area: CellArea): IconView
             /**
              * Creates a new #GtkIconView widget with the model @model.
              * @since 2.6
              * @param model The model.
              * @returns A newly created #GtkIconView widget.
              */
-            new_with_model(model: TreeModel): Widget
+            new_with_model(model: TreeModel): IconView
         }
 
         const IconView: IconViewClass
@@ -27374,7 +27373,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new empty #GtkImage widget.
              * @returns a newly created #GtkImage widget.
              */
-            "new"(): Widget
+            "new"(): Image
             /**
              * Creates a #GtkImage displaying the given animation.
              * The #GtkImage does not assume a reference to the
@@ -27388,7 +27387,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param animation an animation
              * @returns a new #GtkImage widget
              */
-            new_from_animation(animation: GdkPixbuf.PixbufAnimation): Widget
+            new_from_animation(animation: GdkPixbuf.PixbufAnimation): Image
             /**
              * Creates a new #GtkImage displaying the file @filename. If the file
              * isn’t found or can’t be loaded, the resulting #GtkImage will
@@ -27409,7 +27408,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param filename a filename
              * @returns a new #GtkImage
              */
-            new_from_file(filename: string): Widget
+            new_from_file(filename: string): Image
             /**
              * Creates a #GtkImage displaying an icon from the current icon theme.
              * If the icon name isn’t known, a “broken image” icon will be
@@ -27420,7 +27419,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param size a stock icon size (#GtkIconSize)
              * @returns a new #GtkImage displaying the themed icon
              */
-            new_from_gicon(icon: Gio.Icon, size: number): Widget
+            new_from_gicon(icon: Gio.Icon, size: number): Image
             /**
              * Creates a #GtkImage displaying an icon from the current icon theme.
              * If the icon name isn’t known, a “broken image” icon will be
@@ -27431,7 +27430,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param size a stock icon size (#GtkIconSize)
              * @returns a new #GtkImage displaying the themed icon
              */
-            new_from_icon_name(icon_name: string | null, size: number): Widget
+            new_from_icon_name(icon_name: string | null, size: number): Image
             /**
              * Creates a #GtkImage displaying an icon set. Sample stock sizes are
              * #GTK_ICON_SIZE_MENU, #GTK_ICON_SIZE_SMALL_TOOLBAR. Instead of using
@@ -27449,7 +27448,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param size a stock icon size (#GtkIconSize)
              * @returns a new #GtkImage
              */
-            new_from_icon_set(icon_set: IconSet, size: number): Widget
+            new_from_icon_set(icon_set: IconSet, size: number): Image
             /**
              * Creates a new #GtkImage displaying @pixbuf.
              * The #GtkImage does not assume a reference to the
@@ -27462,7 +27461,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param pixbuf a #GdkPixbuf, or %NULL
              * @returns a new #GtkImage
              */
-            new_from_pixbuf(pixbuf: GdkPixbuf.Pixbuf | null): Widget
+            new_from_pixbuf(pixbuf: GdkPixbuf.Pixbuf | null): Image
             /**
              * Creates a new #GtkImage displaying the resource file @resource_path. If the file
              * isn’t found or can’t be loaded, the resulting #GtkImage will
@@ -27484,7 +27483,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param resource_path a resource path
              * @returns a new #GtkImage
              */
-            new_from_resource(resource_path: string): Widget
+            new_from_resource(resource_path: string): Image
             /**
              * Creates a #GtkImage displaying a stock icon. Sample stock icon
              * names are #GTK_STOCK_OPEN, #GTK_STOCK_QUIT. Sample stock sizes
@@ -27497,7 +27496,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param size a stock icon size (#GtkIconSize)
              * @returns a new #GtkImage displaying the stock icon
              */
-            new_from_stock(stock_id: string, size: number): Widget
+            new_from_stock(stock_id: string, size: number): Image
             /**
              * Creates a new #GtkImage displaying @surface.
              * The #GtkImage does not assume a reference to the
@@ -27507,7 +27506,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param surface a #cairo_surface_t, or %NULL
              * @returns a new #GtkImage
              */
-            new_from_surface(surface: cairo.Surface | null): Widget
+            new_from_surface(surface: cairo.Surface | null): Image
         }
 
         const Image: ImageClass
@@ -27733,7 +27732,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.10 Use gtk_menu_item_new() instead.
              * @returns a new #GtkImageMenuItem
              */
-            "new"(): Widget
+            "new"(): ImageMenuItem
             /**
              * Creates a new #GtkImageMenuItem containing the image and text from a
              * stock item. Some stock ids have preprocessor macros like #GTK_STOCK_OK
@@ -27750,14 +27749,14 @@ declare module "gi://Gtk?version=3.0" {
               accelerator to, or %NULL.
              * @returns a new #GtkImageMenuItem.
              */
-            new_from_stock(stock_id: string, accel_group: AccelGroup | null): Widget
+            new_from_stock(stock_id: string, accel_group: AccelGroup | null): ImageMenuItem
             /**
              * Creates a new #GtkImageMenuItem containing a label.
              * @deprecated since 3.10 Use gtk_menu_item_new_with_label() instead.
              * @param label the text of the menu item.
              * @returns a new #GtkImageMenuItem.
              */
-            new_with_label(label: string): Widget
+            new_with_label(label: string): ImageMenuItem
             /**
              * Creates a new #GtkImageMenuItem containing a label. The label
              * will be created using gtk_label_new_with_mnemonic(), so underscores
@@ -27767,7 +27766,7 @@ declare module "gi://Gtk?version=3.0" {
                     mnemonic character
              * @returns a new #GtkImageMenuItem
              */
-            new_with_mnemonic(label: string): Widget
+            new_with_mnemonic(label: string): ImageMenuItem
         }
 
         const ImageMenuItem: ImageMenuItemClass
@@ -27970,7 +27969,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.18
              * @returns a new #GtkInfoBar object
              */
-            "new"(): Widget
+            "new"(): InfoBar
         }
 
         const InfoBar: InfoBarClass
@@ -28030,7 +28029,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkInvisible.
              * @returns a new #GtkInvisible.
              */
-            "new"(): Widget
+            "new"(): Invisible
             /**
              * Creates a new #GtkInvisible object for a specified screen
              * @since 2.2
@@ -28038,7 +28037,7 @@ declare module "gi://Gtk?version=3.0" {
                 the new #GtkInvisible will be created.
              * @returns a newly created #GtkInvisible object
              */
-            new_for_screen(screen: Gdk.Screen): Widget
+            new_for_screen(screen: Gdk.Screen): Invisible
         }
 
         const Invisible: InvisibleClass
@@ -28779,7 +28778,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param str The text of the label
              * @returns the new #GtkLabel
              */
-            "new"(str: string | null): Widget
+            "new"(str: string | null): Label
             /**
              * Creates a new #GtkLabel, containing the text in @str.
              *
@@ -28799,7 +28798,7 @@ declare module "gi://Gtk?version=3.0" {
                   mnemonic character
              * @returns the new #GtkLabel
              */
-            new_with_mnemonic(str: string | null): Widget
+            new_with_mnemonic(str: string | null): Label
         }
 
         const Label: LabelClass
@@ -28970,7 +28969,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param vadjustment vertical scroll adjustment, or %NULL
              * @returns a new #GtkLayout
              */
-            "new"(hadjustment: Adjustment | null, vadjustment: Adjustment | null): Widget
+            "new"(hadjustment: Adjustment | null, vadjustment: Adjustment | null): Layout
         }
 
         const Layout: LayoutClass
@@ -29193,7 +29192,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.6
              * @returns a #GtkLevelBar.
              */
-            "new"(): Widget
+            "new"(): LevelBar
             /**
              * Utility constructor that creates a new #GtkLevelBar for the specified
              * interval.
@@ -29202,7 +29201,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param max_value a positive value
              * @returns a #GtkLevelBar
              */
-            new_for_interval(min_value: number, max_value: number): Widget
+            new_for_interval(min_value: number, max_value: number): LevelBar
         }
 
         const LevelBar: LevelBarClass
@@ -29358,7 +29357,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param uri a valid URI
              * @returns a new link button widget.
              */
-            "new"(uri: string): Widget
+            "new"(uri: string): LinkButton
             /**
              * Creates a new #GtkLinkButton containing a label.
              * @since 2.10
@@ -29366,7 +29365,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label the text of the button
              * @returns a new link button widget.
              */
-            new_with_label(uri: string, label: string | null): Widget
+            new_with_label(uri: string, label: string | null): LinkButton
         }
 
         const LinkButton: LinkButtonClass
@@ -29798,7 +29797,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a new #GtkListBox
              */
-            "new"(): Widget
+            "new"(): ListBox
         }
 
         const ListBox: ListBoxClass
@@ -29973,7 +29972,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a new #GtkListBoxRow
              */
-            "new"(): Widget
+            "new"(): ListBoxRow
         }
 
         const ListBoxRow: ListBoxRowClass
@@ -30160,13 +30159,12 @@ declare module "gi://Gtk?version=3.0" {
              * varargs. This function is mainly intended for
              * language-bindings and in case the number of columns to
              * change is not known until run-time.
-             * @override
              * @since 2.12
              * @param iter A valid #GtkTreeIter for the row being modified
              * @param columns an array of column numbers
              * @param values an array of GValues
              */
-            set_valuesv(iter: TreeIter, columns: number[], values: GObject.Value[]): void
+            set(iter: TreeIter, columns: number[], values: GObject.Value[]): void
             /**
              * Swaps @a and @b in @store. Note that this function only works with
              * unsorted stores.
@@ -30183,11 +30181,10 @@ declare module "gi://Gtk?version=3.0" {
             new (props?: Partial<GObject.ConstructorProps<ListStore>>): ListStore
             /**
              * Non-vararg creation function.  Used primarily by language bindings.
-             * @override
              * @param types an array of #GType types for the columns, from first to last
              * @returns a new #GtkListStore
              */
-            newv(types: GObject.GType[]): ListStore
+            "new"(types: GObject.GType[]): ListStore
         }
 
         const ListStore: ListStoreClass
@@ -30309,7 +30306,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param permission a #GPermission
              * @returns a new #GtkLockButton
              */
-            "new"(permission: Gio.Permission | null): Widget
+            "new"(permission: Gio.Permission | null): LockButton
         }
 
         const LockButton: LockButtonClass
@@ -30900,7 +30897,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkMenu
              * @returns a new #GtkMenu
              */
-            "new"(): Widget
+            "new"(): Menu
             /**
              * Creates a #GtkMenu and populates it with menu items and
              * submenus according to @model.
@@ -30916,7 +30913,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param model a #GMenuModel
              * @returns a new #GtkMenu
              */
-            new_from_model(model: Gio.MenuModel): Widget
+            new_from_model(model: Gio.MenuModel): Menu
             /**
              * Returns a list of the menus which are attached to this widget.
              * This list is owned by GTK+ and must not be modified.
@@ -31046,7 +31043,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkMenuBar
              * @returns the new menu bar, as a #GtkWidget
              */
-            "new"(): Widget
+            "new"(): MenuBar
             /**
              * Creates a new #GtkMenuBar and populates it with menu items
              * and submenus according to @model.
@@ -31059,7 +31056,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param model a #GMenuModel
              * @returns a new #GtkMenuBar
              */
-            new_from_model(model: Gio.MenuModel): Widget
+            new_from_model(model: Gio.MenuModel): MenuBar
         }
 
         const MenuBar: MenuBarClass
@@ -31352,7 +31349,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.6
              * @returns The newly created #GtkMenuButton widget
              */
-            "new"(): Widget
+            "new"(): MenuButton
         }
 
         const MenuButton: MenuButtonClass
@@ -31666,13 +31663,13 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkMenuItem.
              * @returns the newly created #GtkMenuItem
              */
-            "new"(): Widget
+            "new"(): MenuItem
             /**
              * Creates a new #GtkMenuItem whose child is a #GtkLabel.
              * @param label the text for the label
              * @returns the newly created #GtkMenuItem
              */
-            new_with_label(label: string): Widget
+            new_with_label(label: string): MenuItem
             /**
              * Creates a new #GtkMenuItem containing a label.
              *
@@ -31682,7 +31679,7 @@ declare module "gi://Gtk?version=3.0" {
                 mnemonic character
              * @returns a new #GtkMenuItem
              */
-            new_with_mnemonic(label: string): Widget
+            new_with_mnemonic(label: string): MenuItem
         }
 
         const MenuItem: MenuItemClass
@@ -32160,7 +32157,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label a string that will be used as label, or %NULL
              * @returns the new #GtkMenuToolButton
              */
-            "new"(icon_widget: Widget | null, label: string | null): ToolItem
+            "new"(icon_widget: Widget | null, label: string | null): MenuToolButton
             /**
              * Creates a new #GtkMenuToolButton.
              * The new #GtkMenuToolButton will contain an icon and label from
@@ -32170,7 +32167,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param stock_id the name of a stock item
              * @returns the new #GtkMenuToolButton
              */
-            new_from_stock(stock_id: string): ToolItem
+            new_from_stock(stock_id: string): MenuToolButton
         }
 
         const MenuToolButton: MenuToolButtonClass
@@ -32579,7 +32576,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.16
              * @returns the newly created #GtkModelButton widget
              */
-            "new"(): Widget
+            "new"(): ModelButton
         }
 
         const ModelButton: ModelButtonClass
@@ -32671,7 +32668,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param parent transient parent of the window, or %NULL
              * @returns a new #GtkMountOperation
              */
-            "new"(parent: Window | null): Gio.MountOperation
+            "new"(parent: Window | null): MountOperation
         }
 
         const MountOperation: MountOperationClass
@@ -33486,7 +33483,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkNotebook widget with no pages.
              * @returns the newly created #GtkNotebook
              */
-            "new"(): Widget
+            "new"(): Notebook
         }
 
         const Notebook: NotebookClass
@@ -33558,7 +33555,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param notebook
              * @param child
              */
-            "new"(notebook: NotebookAccessible, child: Widget): Atk.Object
+            "new"(notebook: NotebookAccessible, child: Widget): NotebookPageAccessible
         }
 
         const NotebookPageAccessible: NotebookPageAccessibleClass
@@ -33835,7 +33832,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.20
              * @returns A pointer to a #GtkWidget
              */
-            "new"(): Widget
+            "new"(): OffscreenWindow
         }
 
         const OffscreenWindow: OffscreenWindowClass
@@ -33948,7 +33945,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.2
              * @returns a new #GtkOverlay object.
              */
-            "new"(): Widget
+            "new"(): Overlay
         }
 
         const Overlay: OverlayClass
@@ -34603,7 +34600,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param orientation the paned’s orientation.
              * @returns a new #GtkPaned.
              */
-            "new"(orientation: Orientation): Widget
+            "new"(orientation: Orientation): Paned
         }
 
         const Paned: PanedClass
@@ -35172,7 +35169,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a newly created #GtkPlacesSidebar
              */
-            "new"(): Widget
+            "new"(): PlacesSidebar
         }
 
         const PlacesSidebar: PlacesSidebarClass
@@ -35289,7 +35286,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param socket_id the window ID of the socket, or 0.
              * @returns the new #GtkPlug widget.
              */
-            "new"(socket_id: xlib.Window): Widget
+            "new"(socket_id: xlib.Window): Plug
             /**
              * Create a new plug widget inside the #GtkSocket identified by socket_id.
              * @since 2.2
@@ -35297,7 +35294,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param socket_id the XID of the socket’s window.
              * @returns the new #GtkPlug widget.
              */
-            new_for_display(display: Gdk.Display, socket_id: xlib.Window): Widget
+            new_for_display(display: Gdk.Display, socket_id: xlib.Window): Plug
         }
 
         const Plug: PlugClass
@@ -35606,7 +35603,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param relative_to #GtkWidget the popover is related to
              * @returns a new #GtkPopover
              */
-            "new"(relative_to: Widget | null): Widget
+            "new"(relative_to: Widget | null): Popover
             /**
              * Creates a #GtkPopover and populates it according to
              * @model. The popover is pointed to the @relative_to widget.
@@ -35623,7 +35620,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param model a #GMenuModel
              * @returns the new #GtkPopover
              */
-            new_from_model(relative_to: Widget | null, model: Gio.MenuModel): Widget
+            new_from_model(relative_to: Widget | null, model: Gio.MenuModel): Popover
         }
 
         const Popover: PopoverClass
@@ -35720,7 +35717,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.16
              * @returns a new #GtkPopoverMenu
              */
-            "new"(): Widget
+            "new"(): PopoverMenu
         }
 
         const PopoverMenu: PopoverMenuClass
@@ -37483,7 +37480,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkProgressBar.
              * @returns a #GtkProgressBar.
              */
-            "new"(): Widget
+            "new"(): ProgressBar
         }
 
         const ProgressBar: ProgressBarClass
@@ -37794,7 +37791,7 @@ declare module "gi://Gtk?version=3.0" {
                     radio button group, or %NULL if you are creating a new group.
              * @returns a new radio button
              */
-            "new"(group: RadioButton[] | null): Widget
+            "new"(group: RadioButton[] | null): RadioButton
             /**
              * Creates a new #GtkRadioButton, adding it to the same group as
              * @radio_group_member. As with gtk_radio_button_new(), a widget
@@ -37802,7 +37799,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param radio_group_member an existing #GtkRadioButton.
              * @returns a new radio button.
              */
-            new_from_widget(radio_group_member: RadioButton | null): Widget
+            new_from_widget(radio_group_member: RadioButton | null): RadioButton
             /**
              * Creates a new #GtkRadioButton with a text label.
              * @param group an existing
@@ -37810,7 +37807,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label the text label to display next to the radio button.
              * @returns a new radio button.
              */
-            new_with_label(group: RadioButton[] | null, label: string): Widget
+            new_with_label(group: RadioButton[] | null, label: string): RadioButton
             /**
              * Creates a new #GtkRadioButton with a text label, adding it to
              * the same group as @radio_group_member.
@@ -37818,7 +37815,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label a text string to display next to the radio button.
              * @returns a new radio button.
              */
-            new_with_label_from_widget(radio_group_member: RadioButton | null, label: string): Widget
+            new_with_label_from_widget(radio_group_member: RadioButton | null, label: string): RadioButton
             /**
              * Creates a new #GtkRadioButton containing a label, adding it to the same
              * group as @group. The label will be created using
@@ -37830,7 +37827,7 @@ declare module "gi://Gtk?version=3.0" {
                     mnemonic character
              * @returns a new #GtkRadioButton
              */
-            new_with_mnemonic(group: RadioButton[] | null, label: string): Widget
+            new_with_mnemonic(group: RadioButton[] | null, label: string): RadioButton
             /**
              * Creates a new #GtkRadioButton containing a label. The label
              * will be created using gtk_label_new_with_mnemonic(), so underscores
@@ -37840,7 +37837,7 @@ declare module "gi://Gtk?version=3.0" {
                     mnemonic character
              * @returns a new #GtkRadioButton
              */
-            new_with_mnemonic_from_widget(radio_group_member: RadioButton | null, label: string): Widget
+            new_with_mnemonic_from_widget(radio_group_member: RadioButton | null, label: string): RadioButton
         }
 
         const RadioButton: RadioButtonClass
@@ -37968,14 +37965,14 @@ declare module "gi://Gtk?version=3.0" {
               radio menu item is to be attached, or %NULL
              * @returns a new #GtkRadioMenuItem
              */
-            "new"(group: RadioMenuItem[] | null): Widget
+            "new"(group: RadioMenuItem[] | null): RadioMenuItem
             /**
              * Creates a new #GtkRadioMenuItem adding it to the same group as @group.
              * @since 2.4
              * @param group An existing #GtkRadioMenuItem
              * @returns The new #GtkRadioMenuItem
              */
-            new_from_widget(group: RadioMenuItem | null): Widget
+            new_from_widget(group: RadioMenuItem | null): RadioMenuItem
             /**
              * Creates a new #GtkRadioMenuItem whose child is a simple #GtkLabel.
              * @param group 
@@ -37983,7 +37980,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label the text for the label
              * @returns A new #GtkRadioMenuItem
              */
-            new_with_label(group: RadioMenuItem[] | null, label: string): Widget
+            new_with_label(group: RadioMenuItem[] | null, label: string): RadioMenuItem
             /**
              * Creates a new GtkRadioMenuItem whose child is a simple GtkLabel.
              * The new #GtkRadioMenuItem is added to the same group as @group.
@@ -37992,7 +37989,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label the text for the label
              * @returns The new #GtkRadioMenuItem
              */
-            new_with_label_from_widget(group: RadioMenuItem | null, label: string | null): Widget
+            new_with_label_from_widget(group: RadioMenuItem | null, label: string | null): RadioMenuItem
             /**
              * Creates a new #GtkRadioMenuItem containing a label. The label
              * will be created using gtk_label_new_with_mnemonic(), so underscores
@@ -38003,7 +38000,7 @@ declare module "gi://Gtk?version=3.0" {
                     mnemonic character
              * @returns a new #GtkRadioMenuItem
              */
-            new_with_mnemonic(group: RadioMenuItem[] | null, label: string): Widget
+            new_with_mnemonic(group: RadioMenuItem[] | null, label: string): RadioMenuItem
             /**
              * Creates a new GtkRadioMenuItem containing a label. The label will be
              * created using gtk_label_new_with_mnemonic(), so underscores in label
@@ -38016,7 +38013,7 @@ declare module "gi://Gtk?version=3.0" {
                     mnemonic character
              * @returns The new #GtkRadioMenuItem
              */
-            new_with_mnemonic_from_widget(group: RadioMenuItem | null, label: string | null): Widget
+            new_with_mnemonic_from_widget(group: RadioMenuItem | null, label: string | null): RadioMenuItem
         }
 
         const RadioMenuItem: RadioMenuItemClass
@@ -38117,7 +38114,7 @@ declare module "gi://Gtk?version=3.0" {
               existing radio button group, or %NULL if you are creating a new group
              * @returns The new #GtkRadioToolButton
              */
-            "new"(group: RadioButton[] | null): ToolItem
+            "new"(group: RadioButton[] | null): RadioToolButton
             /**
              * Creates a new #GtkRadioToolButton, adding it to @group.
              * The new #GtkRadioToolButton will contain an icon and label from the
@@ -38129,14 +38126,14 @@ declare module "gi://Gtk?version=3.0" {
              * @param stock_id the name of a stock item
              * @returns The new #GtkRadioToolButton
              */
-            new_from_stock(group: RadioButton[] | null, stock_id: string): ToolItem
+            new_from_stock(group: RadioButton[] | null, stock_id: string): RadioToolButton
             /**
              * Creates a new #GtkRadioToolButton adding it to the same group as @gruup
              * @since 2.4
              * @param group An existing #GtkRadioToolButton, or %NULL
              * @returns The new #GtkRadioToolButton
              */
-            new_from_widget(group: RadioToolButton | null): ToolItem
+            new_from_widget(group: RadioToolButton | null): RadioToolButton
             /**
              * Creates a new #GtkRadioToolButton adding it to the same group as @group.
              * The new #GtkRadioToolButton will contain an icon and label from the
@@ -38147,7 +38144,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param stock_id the name of a stock item
              * @returns A new #GtkRadioToolButton
              */
-            new_with_stock_from_widget(group: RadioToolButton | null, stock_id: string): ToolItem
+            new_with_stock_from_widget(group: RadioToolButton | null, stock_id: string): RadioToolButton
         }
 
         const RadioToolButton: RadioToolButtonClass
@@ -38704,7 +38701,7 @@ declare module "gi://Gtk?version=3.0" {
               the action, or %NULL
              * @returns the newly created #GtkRecentAction.
              */
-            "new"(name: string, label: string | null, tooltip: string | null, stock_id: string | null): Action
+            "new"(name: string, label: string | null, tooltip: string | null, stock_id: string | null): RecentAction
             /**
              * Creates a new #GtkRecentAction object. To add the action to
              * a #GtkActionGroup and set the accelerator for the action,
@@ -38721,7 +38718,7 @@ declare module "gi://Gtk?version=3.0" {
               #GtkRecentManager
              * @returns the newly created #GtkRecentAction
              */
-            new_for_manager(name: string, label: string | null, tooltip: string | null, stock_id: string | null, manager: RecentManager | null): Action
+            new_for_manager(name: string, label: string | null, tooltip: string | null, stock_id: string | null, manager: RecentManager | null): RecentAction
         }
 
         const RecentAction: RecentActionClass
@@ -38872,7 +38869,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.10
              * @returns a new #GtkRecentChooserMenu
              */
-            "new"(): Widget
+            "new"(): RecentChooserMenu
             /**
              * Creates a new #GtkRecentChooserMenu widget using @manager as
              * the underlying recently used resources manager.
@@ -38885,7 +38882,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param manager a #GtkRecentManager
              * @returns a new #GtkRecentChooserMenu, bound to `manager`.
              */
-            new_for_manager(manager: RecentManager): Widget
+            new_for_manager(manager: RecentManager): RecentChooserMenu
         }
 
         const RecentChooserMenu: RecentChooserMenuClass
@@ -38933,7 +38930,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.10
              * @returns a new #GtkRecentChooserWidget
              */
-            "new"(): Widget
+            "new"(): RecentChooserWidget
             /**
              * Creates a new #GtkRecentChooserWidget with a specified recent manager.
              *
@@ -38943,7 +38940,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param manager a #GtkRecentManager
              * @returns a new #GtkRecentChooserWidget
              */
-            new_for_manager(manager: RecentManager): Widget
+            new_for_manager(manager: RecentManager): RecentChooserWidget
         }
 
         const RecentChooserWidget: RecentChooserWidgetClass
@@ -39319,7 +39316,7 @@ declare module "gi://Gtk?version=3.0" {
             /**
              * @param renderer
              */
-            "new"(renderer: CellRenderer): Atk.Object
+            "new"(renderer: CellRenderer): RendererCellAccessible
         }
 
         const RendererCellAccessible: RendererCellAccessibleClass
@@ -39455,7 +39452,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a newly created #GtkRevealer
              */
-            "new"(): Widget
+            "new"(): Revealer
         }
 
         const Revealer: RevealerClass
@@ -39702,7 +39699,7 @@ declare module "gi://Gtk?version=3.0" {
                          of the scale, or %NULL to create a new adjustment.
              * @returns a new #GtkScale
              */
-            "new"(orientation: Orientation, adjustment: Adjustment | null): Widget
+            "new"(orientation: Orientation, adjustment: Adjustment | null): Scale
             /**
              * Creates a new scale widget with the given orientation that lets the
              * user input a number between @min and @max (including @min and @max)
@@ -39720,7 +39717,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param step step increment (tick size) used with keyboard shortcuts
              * @returns a new #GtkScale
              */
-            new_with_range(orientation: Orientation, min: number, max: number, step: number): Widget
+            new_with_range(orientation: Orientation, min: number, max: number, step: number): Scale
         }
 
         const Scale: ScaleClass
@@ -39936,7 +39933,7 @@ declare module "gi://Gtk?version=3.0" {
                     later with gtk_scale_button_set_icons()
              * @returns a new #GtkScaleButton
              */
-            "new"(size: number, min: number, max: number, step: number, icons: string[] | null): Widget
+            "new"(size: number, min: number, max: number, step: number, icons: string[] | null): ScaleButton
         }
 
         const ScaleButton: ScaleButtonClass
@@ -40032,7 +40029,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param adjustment the #GtkAdjustment to use, or %NULL to create a new adjustment.
              * @returns the new #GtkScrollbar.
              */
-            "new"(orientation: Orientation, adjustment: Adjustment | null): Widget
+            "new"(orientation: Orientation, adjustment: Adjustment | null): Scrollbar
         }
 
         const Scrollbar: ScrollbarClass
@@ -40601,7 +40598,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param vadjustment vertical adjustment
              * @returns a new scrolled window
              */
-            "new"(hadjustment: Adjustment | null, vadjustment: Adjustment | null): Widget
+            "new"(hadjustment: Adjustment | null, vadjustment: Adjustment | null): ScrolledWindow
         }
 
         const ScrolledWindow: ScrolledWindowClass
@@ -40777,7 +40774,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a new #GtkSearchBar
              */
-            "new"(): Widget
+            "new"(): SearchBar
         }
 
         const SearchBar: SearchBarClass
@@ -40911,7 +40908,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.6
              * @returns a new #GtkSearchEntry
              */
-            "new"(): Widget
+            "new"(): SearchEntry
         }
 
         const SearchEntry: SearchEntryClass
@@ -40959,7 +40956,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param orientation the separator’s orientation.
              * @returns a new #GtkSeparator.
              */
-            "new"(orientation: Orientation): Widget
+            "new"(orientation: Orientation): Separator
         }
 
         const Separator: SeparatorClass
@@ -41003,7 +41000,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkSeparatorMenuItem.
              * @returns a new #GtkSeparatorMenuItem.
              */
-            "new"(): Widget
+            "new"(): SeparatorMenuItem
         }
 
         const SeparatorMenuItem: SeparatorMenuItemClass
@@ -41076,7 +41073,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.4
              * @returns the new #GtkSeparatorToolItem
              */
-            "new"(): ToolItem
+            "new"(): SeparatorToolItem
         }
 
         const SeparatorToolItem: SeparatorToolItemClass
@@ -42149,7 +42146,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param accelerator the initial accelerator
              * @returns a newly-allocated #GtkShortcutLabel
              */
-            "new"(accelerator: string): Widget
+            "new"(accelerator: string): ShortcutLabel
         }
 
         const ShortcutLabel: ShortcutLabelClass
@@ -42809,7 +42806,7 @@ declare module "gi://Gtk?version=3.0" {
              * Create a new empty #GtkSocket.
              * @returns the new #GtkSocket.
              */
-            "new"(): Widget
+            "new"(): Socket
         }
 
         const Socket: SocketClass
@@ -43181,7 +43178,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param digits the number of decimal places to display
              * @returns The new spin button as a #GtkWidget
              */
-            "new"(adjustment: Adjustment | null, climb_rate: number, digits: number): Widget
+            "new"(adjustment: Adjustment | null, climb_rate: number, digits: number): SpinButton
             /**
              * This is a convenience constructor that allows creation of a numeric
              * #GtkSpinButton without manually creating an adjustment. The value is
@@ -43197,7 +43194,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param step Increment added or subtracted by spinning the widget
              * @returns The new spin button as a #GtkWidget
              */
-            new_with_range(min: number, max: number, step: number): Widget
+            new_with_range(min: number, max: number, step: number): SpinButton
         }
 
         const SpinButton: SpinButtonClass
@@ -43295,7 +43292,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.20
              * @returns a new #GtkSpinner
              */
-            "new"(): Widget
+            "new"(): Spinner
         }
 
         const Spinner: SpinnerClass
@@ -43639,7 +43636,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a new #GtkStack
              */
-            "new"(): Widget
+            "new"(): Stack
         }
 
         const Stack: StackClass
@@ -43748,7 +43745,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.16
              * @returns the new #GtkStackSidebar
              */
-            "new"(): Widget
+            "new"(): StackSidebar
         }
 
         const StackSidebar: StackSidebarClass
@@ -43837,7 +43834,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.10
              * @returns a new #GtkStackSwitcher.
              */
-            "new"(): Widget
+            "new"(): StackSwitcher
         }
 
         const StackSwitcher: StackSwitcherClass
@@ -44661,7 +44658,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkStatusbar ready for messages.
              * @returns the new #GtkStatusbar
              */
-            "new"(): Widget
+            "new"(): Statusbar
         }
 
         const Statusbar: StatusbarClass
@@ -46060,7 +46057,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 3.0
              * @returns the newly created #GtkSwitch instance
              */
-            "new"(): Widget
+            "new"(): Switch
         }
 
         const Switch: SwitchClass
@@ -46304,7 +46301,7 @@ declare module "gi://Gtk?version=3.0" {
               the cell containing the largest widget.
              * @returns A pointer to the newly created table widget.
              */
-            "new"(rows: number, columns: number, homogeneous: boolean): Widget
+            "new"(rows: number, columns: number, homogeneous: boolean): Table
         }
 
         const Table: TableClass
@@ -46343,7 +46340,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.4 #GtkTearoffMenuItem is deprecated and should not be     used in newly written code.
              * @returns a new #GtkTearoffMenuItem.
              */
-            "new"(): Widget
+            "new"(): TearoffMenuItem
         }
 
         const TearoffMenuItem: TearoffMenuItemClass
@@ -49605,7 +49602,7 @@ declare module "gi://Gtk?version=3.0" {
              * to specify your own buffer, consider gtk_text_view_new_with_buffer().
              * @returns a new #GtkTextView
              */
-            "new"(): Widget
+            "new"(): TextView
             /**
              * Creates a new #GtkTextView widget displaying the buffer
              * @buffer. One buffer can be shared among many widgets.
@@ -49616,7 +49613,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param buffer a #GtkTextBuffer
              * @returns a new #GtkTextView.
              */
-            new_with_buffer(buffer: TextBuffer): Widget
+            new_with_buffer(buffer: TextBuffer): TextView
         }
 
         const TextView: TextViewClass
@@ -50293,13 +50290,13 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new toggle button. A widget should be packed into the button, as in gtk_button_new().
              * @returns a new toggle button.
              */
-            "new"(): Widget
+            "new"(): ToggleButton
             /**
              * Creates a new toggle button with a text label.
              * @param label a string containing the message to be placed in the toggle button.
              * @returns a new toggle button.
              */
-            new_with_label(label: string): Widget
+            new_with_label(label: string): ToggleButton
             /**
              * Creates a new #GtkToggleButton containing a label. The label
              * will be created using gtk_label_new_with_mnemonic(), so underscores
@@ -50308,7 +50305,7 @@ declare module "gi://Gtk?version=3.0" {
                     mnemonic character
              * @returns a new #GtkToggleButton
              */
-            new_with_mnemonic(label: string): Widget
+            new_with_mnemonic(label: string): ToggleButton
         }
 
         const ToggleButton: ToggleButtonClass
@@ -50418,7 +50415,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.4
              * @returns a newly created #GtkToggleToolButton
              */
-            "new"(): ToolItem
+            "new"(): ToggleToolButton
             /**
              * Creates a new #GtkToggleToolButton containing the image and text from a
              * stock item. Some stock ids have preprocessor macros like #GTK_STOCK_OK
@@ -50430,7 +50427,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param stock_id the name of the stock item
              * @returns A new #GtkToggleToolButton
              */
-            new_from_stock(stock_id: string): ToolItem
+            new_from_stock(stock_id: string): ToggleToolButton
         }
 
         const ToggleToolButton: ToggleToolButtonClass
@@ -50654,7 +50651,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label a string that will be used as label, or %NULL
              * @returns A new #GtkToolButton
              */
-            "new"(icon_widget: Widget | null, label: string | null): ToolItem
+            "new"(icon_widget: Widget | null, label: string | null): ToolButton
             /**
              * Creates a new #GtkToolButton containing the image and text from a
              * stock item. Some stock ids have preprocessor macros like #GTK_STOCK_OK
@@ -50666,7 +50663,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param stock_id the name of the stock item
              * @returns A new #GtkToolButton
              */
-            new_from_stock(stock_id: string): ToolItem
+            new_from_stock(stock_id: string): ToolButton
         }
 
         const ToolButton: ToolButtonClass
@@ -51205,7 +51202,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param label the label of the new group
              * @returns a new #GtkToolItemGroup.
              */
-            "new"(label: string): Widget
+            "new"(label: string): ToolItemGroup
         }
 
         const ToolItemGroup: ToolItemGroupClass
@@ -51464,7 +51461,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.20
              * @returns a new #GtkToolPalette
              */
-            "new"(): Widget
+            "new"(): ToolPalette
             /**
              * Get the target entry for a dragged #GtkToolItemGroup.
              * @since 2.20
@@ -51742,7 +51739,7 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new toolbar.
              * @returns the newly-created toolbar.
              */
-            "new"(): Widget
+            "new"(): Toolbar
         }
 
         const Toolbar: ToolbarClass
@@ -52550,7 +52547,6 @@ declare module "gi://Gtk?version=3.0" {
              * A variant of gtk_tree_store_insert_with_values() which takes
              * the columns and values as two arrays, instead of varargs.  This
              * function is mainly intended for language bindings.
-             * @override
              * @since 2.10
              * @param parent A valid #GtkTreeIter, or %NULL
              * @param position position to insert the new row, or -1 for last
@@ -52558,7 +52554,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param values an array of GValues
              * @returns , An unset #GtkTreeIter to set the new row, or %NULL.
              */
-            insert_with_valuesv(parent: TreeIter | null, position: number, columns: number[], values: GObject.Value[]): void
+            insert_with_values(parent: TreeIter | null, position: number, columns: number[], values: GObject.Value[]): void
             /**
              * Returns %TRUE if @iter is an ancestor of @descendant.  That is, @iter is the
              * parent (or grandparent or great-grandparent) of @descendant.
@@ -52644,13 +52640,12 @@ declare module "gi://Gtk?version=3.0" {
              * the columns and values as two arrays, instead of varargs.  This
              * function is mainly intended for language bindings or in case
              * the number of columns to change is not known until run-time.
-             * @override
              * @since 2.12
              * @param iter A valid #GtkTreeIter for the row being modified
              * @param columns an array of column numbers
              * @param values an array of GValues
              */
-            set_valuesv(iter: TreeIter, columns: number[], values: GObject.Value[]): void
+            set(iter: TreeIter, columns: number[], values: GObject.Value[]): void
             /**
              * Swaps @a and @b in the same level of @tree_store. Note that this function
              * only works with unsorted stores.
@@ -52667,11 +52662,10 @@ declare module "gi://Gtk?version=3.0" {
             new (props?: Partial<GObject.ConstructorProps<TreeStore>>): TreeStore
             /**
              * Non vararg creation function.  Used primarily by language bindings.
-             * @override
              * @param types an array of #GType types for the columns, from first to last
              * @returns a new #GtkTreeStore
              */
-            newv(types: GObject.GType[]): TreeStore
+            "new"(types: GObject.GType[]): TreeStore
         }
 
         const TreeStore: TreeStoreClass
@@ -53856,13 +53850,13 @@ declare module "gi://Gtk?version=3.0" {
              * Creates a new #GtkTreeView widget.
              * @returns A newly created #GtkTreeView widget.
              */
-            "new"(): Widget
+            "new"(): TreeView
             /**
              * Creates a new #GtkTreeView widget with the model initialized to @model.
              * @param model the model.
              * @returns A newly created #GtkTreeView widget.
              */
-            new_with_model(model: TreeModel): Widget
+            new_with_model(model: TreeModel): TreeView
         }
 
         const TreeView: TreeViewClass
@@ -54825,7 +54819,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param spacing the number of pixels to place by default between children.
              * @returns a new #GtkVBox.
              */
-            "new"(homogeneous: boolean, spacing: number): Widget
+            "new"(homogeneous: boolean, spacing: number): VBox
         }
 
         const VBox: VBoxClass
@@ -54863,7 +54857,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.2 Use gtk_button_box_new() with %GTK_ORIENTATION_VERTICAL instead
              * @returns a new button box #GtkWidget.
              */
-            "new"(): Widget
+            "new"(): VButtonBox
         }
 
         const VButtonBox: VButtonBoxClass
@@ -54907,7 +54901,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.2 Use gtk_paned_new() with %GTK_ORIENTATION_VERTICAL instead
              * @returns the new #GtkVPaned
              */
-            "new"(): Widget
+            "new"(): VPaned
         }
 
         const VPaned: VPanedClass
@@ -54953,7 +54947,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param adjustment the #GtkAdjustment which sets the range of the scale.
              * @returns a new #GtkVScale.
              */
-            "new"(adjustment: Adjustment): Widget
+            "new"(adjustment: Adjustment): VScale
             /**
              * Creates a new vertical scale widget that lets the user input a
              * number between @min and @max (including @min and @max) with the
@@ -54969,7 +54963,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param step step increment (tick size) used with keyboard shortcuts
              * @returns a new #GtkVScale
              */
-            new_with_range(min: number, max: number, step: number): Widget
+            new_with_range(min: number, max: number, step: number): VScale
         }
 
         const VScale: VScaleClass
@@ -55016,7 +55010,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param adjustment the #GtkAdjustment to use, or %NULL to create a new adjustment
              * @returns the new #GtkVScrollbar
              */
-            "new"(adjustment: Adjustment | null): Widget
+            "new"(adjustment: Adjustment | null): VScrollbar
         }
 
         const VScrollbar: VScrollbarClass
@@ -55059,7 +55053,7 @@ declare module "gi://Gtk?version=3.0" {
              * @deprecated since 3.2 Use gtk_separator_new() with %GTK_ORIENTATION_VERTICAL instead
              * @returns a new #GtkVSeparator.
              */
-            "new"(): Widget
+            "new"(): VSeparator
         }
 
         const VSeparator: VSeparatorClass
@@ -55172,7 +55166,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param vadjustment vertical adjustment
              * @returns a new #GtkViewport
              */
-            "new"(hadjustment: Adjustment | null, vadjustment: Adjustment | null): Widget
+            "new"(hadjustment: Adjustment | null, vadjustment: Adjustment | null): Viewport
         }
 
         const Viewport: ViewportClass
@@ -55227,7 +55221,7 @@ declare module "gi://Gtk?version=3.0" {
              * @since 2.12
              * @returns a new #GtkVolumeButton
              */
-            "new"(): Widget
+            "new"(): VolumeButton
         }
 
         const VolumeButton: VolumeButtonClass
@@ -61826,7 +61820,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param type type of window
              * @returns a new #GtkWindow.
              */
-            "new"(type: WindowType): Widget
+            "new"(type: WindowType): Window
             /**
              * Gets the value set by gtk_window_set_default_icon_list().
              * The list is a copy and should be freed with g_list_free(),
@@ -65001,11 +64995,10 @@ declare module "gi://Gtk?version=3.0" {
             get_data_type(): Gdk.Atom
             /**
              * Retrieves the raw data of the selection along with its length.
-             * @override
              * @since 3.0
              * @returns the raw data of the selection
              */
-            get_data_with_length(): Uint8Array
+            get_data(): Uint8Array
             /**
              * Retrieves the display of the selection.
              * @since 2.14
@@ -67008,12 +67001,11 @@ declare module "gi://Gtk?version=3.0" {
             static new_first(): TreePath
             /**
              * Creates a new path with the given @indices array of @length.
-             * @override
              * @since 3.12
              * @param indices array of indices
              * @returns A newly created #GtkTreePath-struct
              */
-            static new_from_indicesv(indices: number[]): TreePath
+            static new_from_indices(indices: number[]): TreePath
             /**
              * Creates a new #GtkTreePath-struct initialized to @path.
              *
@@ -67067,11 +67059,10 @@ declare module "gi://Gtk?version=3.0" {
              * This is an array of integers, each representing a node in a tree.
              * It also returns the number of elements in the array.
              * The array should not be freed.
-             * @override
              * @since 3.0
              * @returns The current     indices, or %NULL
              */
-            get_indices_with_depth(): number[]
+            get_indices(): number[]
             /**
              * Returns %TRUE if @descendant is a descendant of @path.
              * @param descendant another #GtkTreePath-struct

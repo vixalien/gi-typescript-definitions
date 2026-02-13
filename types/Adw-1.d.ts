@@ -1179,7 +1179,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.5
              * @returns the newly created `AdwAboutDialog`
              */
-            "new"(): Dialog
+            "new"(): AboutDialog
             /**
              * `.
              *     If the license type retrieved from AppStream is not listed in
@@ -1194,7 +1194,7 @@ declare module "gi://Adw?version=1" {
              * @param release_notes_version The version to retrieve release notes for
              * @returns the newly created `AdwAboutDialog`
              */
-            new_from_appdata(resource_path: string, release_notes_version: string | null): Dialog
+            new_from_appdata(resource_path: string, release_notes_version: string | null): AboutDialog
         }
 
         const AboutDialog: AboutDialogClass
@@ -2230,7 +2230,7 @@ declare module "gi://Adw?version=1" {
              * @deprecated since 1.6 Use [class@AboutDialog].
              * @returns the newly created `AdwAboutWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): AboutWindow
             /**
              * `.
              *     If the license type retrieved from AppStream is not listed in
@@ -2246,7 +2246,7 @@ declare module "gi://Adw?version=1" {
              * @param release_notes_version The version to retrieve release notes for
              * @returns the newly created `AdwAboutWindow`
              */
-            new_from_appdata(resource_path: string, release_notes_version: string | null): Gtk.Widget
+            new_from_appdata(resource_path: string, release_notes_version: string | null): AboutWindow
         }
 
         const AboutWindow: AboutWindowClass
@@ -2463,7 +2463,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwActionRow`.
              * @returns the newly created `AdwActionRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ActionRow
         }
 
         const ActionRow: ActionRowClass
@@ -2863,7 +2863,7 @@ declare module "gi://Adw?version=1" {
              * @param body the body text
              * @returns the newly created `AdwAlertDialog`
              */
-            "new"(heading: string | null, body: string | null): Dialog
+            "new"(heading: string | null, body: string | null): AlertDialog
         }
 
         const AlertDialog: AlertDialogClass
@@ -3384,7 +3384,7 @@ declare module "gi://Adw?version=1" {
              * @param app an application instance
              * @returns the newly created `AdwApplicationWindow`
              */
-            "new"(app: Gtk.Application): Gtk.Widget
+            "new"(app: Gtk.Application): ApplicationWindow
         }
 
         const ApplicationWindow: ApplicationWindowClass
@@ -3560,7 +3560,7 @@ declare module "gi://Adw?version=1" {
              * @param show_initials whether to use initials instead of an icon as fallback
              * @returns the newly created `AdwAvatar`
              */
-            "new"(size: number, text: string | null, show_initials: boolean): Gtk.Widget
+            "new"(size: number, text: string | null, show_initials: boolean): Avatar
         }
 
         const Avatar: AvatarClass
@@ -3733,7 +3733,7 @@ declare module "gi://Adw?version=1" {
              * @param title the banner title
              * @returns the newly created `AdwBanner`
              */
-            "new"(title: string): Gtk.Widget
+            "new"(title: string): Banner
         }
 
         const Banner: BannerClass
@@ -3794,7 +3794,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwBin`.
              * @returns the new created `AdwBin`
              */
-            "new"(): Gtk.Widget
+            "new"(): Bin
         }
 
         const Bin: BinClass
@@ -4198,7 +4198,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.6
              * @returns the new created `AdwBottomSheet`
              */
-            "new"(): Gtk.Widget
+            "new"(): BottomSheet
         }
 
         const BottomSheet: BottomSheetClass
@@ -4275,13 +4275,12 @@ declare module "gi://Adw?version=1" {
              * See [method@Breakpoint.add_setter].
              *
              * This function is meant to be used by language bindings.
-             * @override
              * @since 1.4
              * @param objects setter target object
              * @param names setter target properties
              * @param values setter values
              */
-            add_settersv(objects: GObject.Object[], names: string[], values: GObject.Value[]): void
+            add_setters(objects: GObject.Object[], names: string[], values: GObject.Value[]): void
             /**
              * Gets the condition for @self.
              * @since 1.4
@@ -4395,7 +4394,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.4
              * @returns the newly created `AdwBreakpointBin`
              */
-            "new"(): Gtk.Widget
+            "new"(): BreakpointBin
         }
 
         const BreakpointBin: BreakpointBinClass
@@ -4550,7 +4549,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwButtonContent`.
              * @returns the new created `AdwButtonContent`
              */
-            "new"(): Gtk.Widget
+            "new"(): ButtonContent
         }
 
         const ButtonContent: ButtonContentClass
@@ -4635,7 +4634,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.6
              * @returns the newly created `AdwButtonRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ButtonRow
         }
 
         const ButtonRow: ButtonRowClass
@@ -4676,7 +4675,7 @@ declare module "gi://Adw?version=1" {
              * @param callback the callback to call
              * @returns the newly created callback target
              */
-            "new"(callback: AnimationTargetFunc): AnimationTarget
+            "new"(callback: AnimationTargetFunc): CallbackAnimationTarget
         }
 
         const CallbackAnimationTarget: CallbackAnimationTargetClass
@@ -4972,7 +4971,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwCarousel`.
              * @returns the newly created `AdwCarousel`
              */
-            "new"(): Gtk.Widget
+            "new"(): Carousel
         }
 
         const Carousel: CarouselClass
@@ -5039,7 +5038,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwCarouselIndicatorDots`.
              * @returns the newly created `AdwCarouselIndicatorDots`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorDots
         }
 
         const CarouselIndicatorDots: CarouselIndicatorDotsClass
@@ -5105,7 +5104,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwCarouselIndicatorLines`.
              * @returns the newly created `AdwCarouselIndicatorLines`
              */
-            "new"(): Gtk.Widget
+            "new"(): CarouselIndicatorLines
         }
 
         const CarouselIndicatorLines: CarouselIndicatorLinesClass
@@ -5268,7 +5267,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwClamp`.
              * @returns the newly created `AdwClamp`
              */
-            "new"(): Gtk.Widget
+            "new"(): Clamp
         }
 
         const Clamp: ClampClass
@@ -5411,7 +5410,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwClampLayout`.
              * @returns the newly created `AdwClampLayout`
              */
-            "new"(): Gtk.LayoutManager
+            "new"(): ClampLayout
         }
 
         const ClampLayout: ClampLayoutClass
@@ -5565,7 +5564,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwClampScrollable`.
              * @returns the newly created `AdwClampScrollable`
              */
-            "new"(): Gtk.Widget
+            "new"(): ClampScrollable
         }
 
         const ClampScrollable: ClampScrollableClass
@@ -5860,7 +5859,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwComboRow`.
              * @returns the newly created `AdwComboRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ComboRow
         }
 
         const ComboRow: ComboRowClass
@@ -6546,7 +6545,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.2
              * @returns the newly created `AdwEntryRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): EntryRow
         }
 
         const EntryRow: EntryRowClass
@@ -6933,7 +6932,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwExpanderRow`.
              * @returns the newly created `AdwExpanderRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): ExpanderRow
         }
 
         const ExpanderRow: ExpanderRowClass
@@ -7391,7 +7390,7 @@ declare module "gi://Adw?version=1" {
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
              * @returns the newly created `AdwFlap`
              */
-            "new"(): Gtk.Widget
+            "new"(): Flap
         }
 
         const Flap: FlapClass
@@ -7722,7 +7721,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwHeaderBar`.
              * @returns the newly created `AdwHeaderBar`.
              */
-            "new"(): Gtk.Widget
+            "new"(): HeaderBar
         }
 
         const HeaderBar: HeaderBarClass
@@ -7863,7 +7862,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.7
              * @returns the newly created `AdwInlineViewSwitcher`
              */
-            "new"(): Gtk.Widget
+            "new"(): InlineViewSwitcher
         }
 
         const InlineViewSwitcher: InlineViewSwitcherClass
@@ -8002,7 +8001,7 @@ declare module "gi://Adw?version=1" {
              * @param id the slot ID
              * @returns a new `AdwLayoutSlot`
              */
-            "new"(id: string): Gtk.Widget
+            "new"(id: string): LayoutSlot
         }
 
         const LayoutSlot: LayoutSlotClass
@@ -8493,7 +8492,7 @@ declare module "gi://Adw?version=1" {
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
              * @returns the new created `AdwLeaflet`
              */
-            "new"(): Gtk.Widget
+            "new"(): Leaflet
         }
 
         const Leaflet: LeafletClass
@@ -9017,7 +9016,7 @@ declare module "gi://Adw?version=1" {
              * @param body the body text
              * @returns the newly created `AdwMessageDialog`
              */
-            "new"(parent: Gtk.Window | null, heading: string | null, body: string | null): Gtk.Widget
+            "new"(parent: Gtk.Window | null, heading: string | null, body: string | null): MessageDialog
         }
 
         const MessageDialog: MessageDialogClass
@@ -9144,7 +9143,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.6
              * @returns the newly created `AdwMultiLayoutView`
              */
-            "new"(): Gtk.Widget
+            "new"(): MultiLayoutView
         }
 
         const MultiLayoutView: MultiLayoutViewClass
@@ -9744,7 +9743,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.4
              * @returns the newly created `AdwNavigationSplitView`
              */
-            "new"(): Gtk.Widget
+            "new"(): NavigationSplitView
         }
 
         const NavigationSplitView: NavigationSplitViewClass
@@ -10164,7 +10163,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.4
              * @returns the new created `AdwNavigationView`
              */
-            "new"(): Gtk.Widget
+            "new"(): NavigationView
         }
 
         const NavigationView: NavigationViewClass
@@ -10204,7 +10203,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.9
              * @returns the newly created target
              */
-            "new"(): AnimationTarget
+            "new"(): NoneAnimationTarget
         }
 
         const NoneAnimationTarget: NoneAnimationTargetClass
@@ -10599,7 +10598,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.4
              * @returns the newly created `AdwOverlaySplitView`
              */
-            "new"(): Gtk.Widget
+            "new"(): OverlaySplitView
         }
 
         const OverlaySplitView: OverlaySplitViewClass
@@ -10652,7 +10651,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.2
              * @returns the newly created `AdwPasswordEntryRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PasswordEntryRow
         }
 
         const PasswordEntryRow: PasswordEntryRowClass
@@ -10806,7 +10805,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.5
              * @returns the newly created `AdwPreferencesDialog`
              */
-            "new"(): Dialog
+            "new"(): PreferencesDialog
         }
 
         const PreferencesDialog: PreferencesDialogClass
@@ -10995,7 +10994,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwPreferencesGroup`.
              * @returns the newly created `AdwPreferencesGroup`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesGroup
         }
 
         const PreferencesGroup: PreferencesGroupClass
@@ -11211,7 +11210,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwPreferencesPage`.
              * @returns the newly created `AdwPreferencesPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesPage
         }
 
         const PreferencesPage: PreferencesPageClass
@@ -11352,7 +11351,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwPreferencesRow`.
              * @returns the newly created `AdwPreferencesRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesRow
         }
 
         const PreferencesRow: PreferencesRowClass
@@ -11548,7 +11547,7 @@ declare module "gi://Adw?version=1" {
              * @deprecated since 1.6 Use [class@PreferencesDialog].
              * @returns the newly created `AdwPreferencesWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): PreferencesWindow
         }
 
         const PreferencesWindow: PreferencesWindowClass
@@ -11628,7 +11627,7 @@ declare module "gi://Adw?version=1" {
              * @param property_name the name of the property on @object to animate
              * @returns the newly created `AdwPropertyAnimationTarget`
              */
-            "new"(object: GObject.Object, property_name: string): AnimationTarget
+            "new"(object: GObject.Object, property_name: string): PropertyAnimationTarget
             /**
              * Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
              * @object.
@@ -11637,7 +11636,7 @@ declare module "gi://Adw?version=1" {
              * @param pspec the param spec of the property on @object to animate
              * @returns new newly created `AdwPropertyAnimationTarget`
              */
-            new_for_pspec(object: GObject.Object, pspec: GObject.ParamSpec): AnimationTarget
+            new_for_pspec(object: GObject.Object, pspec: GObject.ParamSpec): PropertyAnimationTarget
         }
 
         const PropertyAnimationTarget: PropertyAnimationTargetClass
@@ -11730,7 +11729,7 @@ declare module "gi://Adw?version=1" {
              * @param accelerator the accelerator to show
              * @returns the newly created `AdwShortcutLabel`
              */
-            "new"(accelerator: string): Gtk.Widget
+            "new"(accelerator: string): ShortcutLabel
         }
 
         const ShortcutLabel: ShortcutLabelClass
@@ -11781,7 +11780,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.8
              * @returns the newly created `AdwShortcutsDialog`
              */
-            "new"(): Dialog
+            "new"(): ShortcutsDialog
         }
 
         const ShortcutsDialog: ShortcutsDialogClass
@@ -12506,7 +12505,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.9
              * @returns the newly created `AdwSidebar`
              */
-            "new"(): Gtk.Widget
+            "new"(): Sidebar
         }
 
         const Sidebar: SidebarClass
@@ -13344,7 +13343,7 @@ declare module "gi://Adw?version=1" {
              * @param digits the number of decimal places to display
              * @returns the newly created `AdwSpinRow`
              */
-            "new"(adjustment: Gtk.Adjustment | null, climb_rate: number, digits: number): Gtk.Widget
+            "new"(adjustment: Gtk.Adjustment | null, climb_rate: number, digits: number): SpinRow
             /**
              * Creates a new `AdwSpinRow` with the given properties.
              *
@@ -13363,7 +13362,7 @@ declare module "gi://Adw?version=1" {
              * @param step increment added or subtracted by spinning the widget
              * @returns the new `AdwSpinRow`
              */
-            new_with_range(min: number, max: number, step: number): Gtk.Widget
+            new_with_range(min: number, max: number, step: number): SpinRow
         }
 
         const SpinRow: SpinRowClass
@@ -13416,7 +13415,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.6
              * @returns the newly created `AdwSpinner`
              */
-            "new"(): Gtk.Widget
+            "new"(): Spinner
         }
 
         const Spinner: SpinnerClass
@@ -13805,7 +13804,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwSplitButton`.
              * @returns the newly created `AdwSplitButton`
              */
-            "new"(): Gtk.Widget
+            "new"(): SplitButton
         }
 
         const SplitButton: SplitButtonClass
@@ -14092,7 +14091,7 @@ declare module "gi://Adw?version=1" {
              * @param target a target value to animate
              * @returns the newly created animation
              */
-            "new"(widget: Gtk.Widget, from: number, to: number, spring_params: SpringParams, target: AnimationTarget): Animation
+            "new"(widget: Gtk.Widget, from: number, to: number, spring_params: SpringParams, target: AnimationTarget): SpringAnimation
         }
 
         const SpringAnimation: SpringAnimationClass
@@ -14457,7 +14456,7 @@ declare module "gi://Adw?version=1" {
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
              * @returns the newly created `AdwSqueezer`
              */
-            "new"(): Gtk.Widget
+            "new"(): Squeezer
         }
 
         const Squeezer: SqueezerClass
@@ -14682,7 +14681,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwStatusPage`.
              * @returns the newly created `AdwStatusPage`
              */
-            "new"(): Gtk.Widget
+            "new"(): StatusPage
         }
 
         const StatusPage: StatusPageClass
@@ -15345,7 +15344,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.4
              * @returns the newly created `AdwSwitchRow`
              */
-            "new"(): Gtk.Widget
+            "new"(): SwitchRow
         }
 
         const SwitchRow: SwitchRowClass
@@ -15721,7 +15720,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.3
              * @returns the newly created `AdwTabButton`
              */
-            "new"(): Gtk.Widget
+            "new"(): TabButton
         }
 
         const TabButton: TabButtonClass
@@ -16190,7 +16189,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.3
              * @returns the newly created `AdwTabOverview`
              */
-            "new"(): Gtk.Widget
+            "new"(): TabOverview
         }
 
         const TabOverview: TabOverviewClass
@@ -17539,7 +17538,7 @@ declare module "gi://Adw?version=1" {
              * @param target a target value to animate
              * @returns the newly created animation
              */
-            "new"(widget: Gtk.Widget, from: number, to: number, duration: number, target: AnimationTarget): Animation
+            "new"(widget: Gtk.Widget, from: number, to: number, duration: number, target: AnimationTarget): TimedAnimation
         }
 
         const TimedAnimation: TimedAnimationClass
@@ -17948,7 +17947,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwToastOverlay`.
              * @returns the new created `AdwToastOverlay`
              */
-            "new"(): Gtk.Widget
+            "new"(): ToastOverlay
         }
 
         const ToastOverlay: ToastOverlayClass
@@ -18449,7 +18448,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.7
              * @returns the newly created `AdwToggleGroup`
              */
-            "new"(): Gtk.Widget
+            "new"(): ToggleGroup
         }
 
         const ToggleGroup: ToggleGroupClass
@@ -18852,7 +18851,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.4
              * @returns the newly created `AdwToolbarView`
              */
-            "new"(): Gtk.Widget
+            "new"(): ToolbarView
         }
 
         const ToolbarView: ToolbarViewClass
@@ -19160,7 +19159,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwViewStack`.
              * @returns the newly created `AdwViewStack`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewStack
         }
 
         const ViewStack: ViewStackClass
@@ -19588,7 +19587,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwViewSwitcher`.
              * @returns the newly created `AdwViewSwitcher`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcher
         }
 
         const ViewSwitcher: ViewSwitcherClass
@@ -19674,7 +19673,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwViewSwitcherBar`.
              * @returns the newly created `AdwViewSwitcherBar`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherBar
         }
 
         const ViewSwitcherBar: ViewSwitcherBarClass
@@ -19871,7 +19870,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.9
              * @returns the newly created `AdwViewSwitcherSidebar`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherSidebar
         }
 
         const ViewSwitcherSidebar: ViewSwitcherSidebarClass
@@ -20042,7 +20041,7 @@ declare module "gi://Adw?version=1" {
              * @deprecated since 1.4 See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
              * @returns the newly created `AdwViewSwitcherTitle`
              */
-            "new"(): Gtk.Widget
+            "new"(): ViewSwitcherTitle
         }
 
         const ViewSwitcherTitle: ViewSwitcherTitleClass
@@ -20191,7 +20190,7 @@ declare module "gi://Adw?version=1" {
              * Creates a new `AdwWindow`.
              * @returns the newly created `AdwWindow`
              */
-            "new"(): Gtk.Widget
+            "new"(): Window
         }
 
         const Window: WindowClass
@@ -20282,7 +20281,7 @@ declare module "gi://Adw?version=1" {
              * @param subtitle a subtitle
              * @returns the newly created `AdwWindowTitle`
              */
-            "new"(title: string, subtitle: string): Gtk.Widget
+            "new"(title: string, subtitle: string): WindowTitle
         }
 
         const WindowTitle: WindowTitleClass
@@ -20810,7 +20809,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.7
              * @returns the newly created `AdwWrapBox`
              */
-            "new"(): Gtk.Widget
+            "new"(): WrapBox
         }
 
         const WrapBox: WrapBoxClass
@@ -21287,7 +21286,7 @@ declare module "gi://Adw?version=1" {
              * @since 1.7
              * @returns the newly created `AdwWrapLayout`
              */
-            "new"(): Gtk.LayoutManager
+            "new"(): WrapLayout
         }
 
         const WrapLayout: WrapLayoutClass

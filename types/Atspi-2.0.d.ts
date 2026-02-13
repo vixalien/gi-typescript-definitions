@@ -21,25 +21,25 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Action {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          */
-        interface Action extends Action.Interface {
+        interface Action extends GObject.Object, Action.Interface {
             readonly $signals: Action.SignalSignatures
             readonly $readableProperties: Action.ReadableProperties
             readonly $writableProperties: Action.WritableProperties
@@ -55,28 +55,11 @@ declare module "gi://Atspi?version=2.0" {
              * Get the description of '@i-th' action invocable on an
              *      object implementing #AtspiAction.
              * @throws {GLib.Error}
-             * @param i an integer indicating which action to query.
-             * @returns a UTF-8 string describing the '@i-th' invocable action.
-             */
-            get_action_description(i: number): string
-            /**
-             * Get the name of the '@i-th' action invocable on an
-             *      object implementing #AtspiAction.
-             * @throws {GLib.Error}
-             * @param i an integer indicating which action to query.
-             * @returns the non-localized name of the action, as a UTF-8 string.
-             */
-            get_action_name(i: number): string
-            /**
-             * Get the description of '@i-th' action invocable on an
-             *      object implementing #AtspiAction.
-             * @throws {GLib.Error}
-             * @override
              * @deprecated since 2.10 Use atspi_action_get_action_description instead.
              * @param i an integer indicating which action to query.
              * @returns a UTF-8 string describing the '@i-th' invocable action.
              */
-            get_description(i: number): string
+            get_action_description(i: number): string
             /**
              * gt;",
              *        etc. (we use the same string as gtk_accelerator_name() in
@@ -104,12 +87,11 @@ declare module "gi://Atspi?version=2.0" {
              * Get the name of the '@i-th' action invocable on an
              *      object implementing #AtspiAction.
              * @throws {GLib.Error}
-             * @override
              * @deprecated since 2.10 Use atspi_action_get_action_name instead.
              * @param i an integer indicating which action to query.
              * @returns the non-localized name of the action, as a UTF-8 string.
              */
-            get_name(i: number): string
+            get_action_name(i: number): string
         }
 
 
@@ -124,19 +106,19 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Collection {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -148,7 +130,7 @@ declare module "gi://Atspi?version=2.0" {
          * criteria to be returned. This interface can be used to avoid iteration
          * or client-side search of the object tree.
          */
-        interface Collection extends Collection.Interface {
+        interface Collection extends GObject.Object, Collection.Interface {
             readonly $signals: Collection.SignalSignatures
             readonly $readableProperties: Collection.ReadableProperties
             readonly $writableProperties: Collection.WritableProperties
@@ -227,19 +209,19 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Component {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -256,7 +238,7 @@ declare module "gi://Atspi?version=2.0" {
          * Coordinates of 3D objects are projected into the 2-dimensional screen view
          * for purposes of this interface.
          */
-        interface Component extends Component.Interface {
+        interface Component extends GObject.Object, Component.Interface {
             readonly $signals: Component.SignalSignatures
             readonly $readableProperties: Component.ReadableProperties
             readonly $writableProperties: Component.WritableProperties
@@ -400,25 +382,25 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Document {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          */
-        interface Document extends Document.Interface {
+        interface Document extends GObject.Object, Document.Interface {
             readonly $signals: Document.SignalSignatures
             readonly $readableProperties: Document.ReadableProperties
             readonly $writableProperties: Document.WritableProperties
@@ -426,30 +408,7 @@ declare module "gi://Atspi?version=2.0" {
             /**
              * Gets the value of a single attribute, if specified for the document as a whole.
              * @throws {GLib.Error}
-             * @override
              * @deprecated since 2.10 Use atspi_document_get_document_attribute_value instead.
-             * @param attribute a string indicating the name of a specific attribute.
-             * @returns a string corresponding to the value of the specified attribute, or an empty string if the attribute is unspecified for the object.
-             */
-            get_attribute_value(attribute: string): string
-            /**
-             * Gets all constant attributes for the document as a whole. For attributes
-             * that change within the document content, see @atspi_text_get_attribute_run instead.
-             * @throws {GLib.Error}
-             * @override
-             * @deprecated since 2.10 Use atspi_document_get_document_attributes instead.
-             * @returns a #GHashTable          containing the constant attributes of the document, as name-value pairs.
-             */
-            get_attributes(): Record<string, string>
-            /**
-             * Gets the current page number of an #AccessibleDocument object.
-             * @throws {GLib.Error}
-             * @returns a #gint indicating the current page number in the #AccessibleDocument object.
-             */
-            get_current_page_number(): number
-            /**
-             * Gets the value of a single attribute, if specified for the document as a whole.
-             * @throws {GLib.Error}
              * @param attribute a string indicating the name of a specific attribute.
              * @returns a string corresponding to the value of the specified attribute, or an empty string if the attribute is unspecified for the object.
              */
@@ -458,9 +417,16 @@ declare module "gi://Atspi?version=2.0" {
              * Gets all constant attributes for the document as a whole. For attributes
              * that change within the document content, see @atspi_text_get_attribute_run instead.
              * @throws {GLib.Error}
+             * @deprecated since 2.10 Use atspi_document_get_document_attributes instead.
              * @returns a #GHashTable          containing the constant attributes of the document, as name-value pairs.
              */
             get_document_attributes(): Record<string, string>
+            /**
+             * Gets the current page number of an #AccessibleDocument object.
+             * @throws {GLib.Error}
+             * @returns a #gint indicating the current page number in the #AccessibleDocument object.
+             */
+            get_current_page_number(): number
             /**
              * Gets the locale associated with the document's content,
              * e.g. the locale for LOCALE_TYPE_MESSAGES.
@@ -508,25 +474,25 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace EditableText {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          */
-        interface EditableText extends EditableText.Interface {
+        interface EditableText extends GObject.Object, EditableText.Interface {
             readonly $signals: EditableText.SignalSignatures
             readonly $readableProperties: EditableText.ReadableProperties
             readonly $writableProperties: EditableText.WritableProperties
@@ -617,19 +583,19 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Hypertext {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -643,7 +609,7 @@ declare module "gi://Atspi?version=2.0" {
          * with one or more hyperlinks which are associated with particular
          * offsets within the hypertext's content.
          */
-        interface Hypertext extends Hypertext.Interface {
+        interface Hypertext extends GObject.Object, Hypertext.Interface {
             readonly $signals: Hypertext.SignalSignatures
             readonly $readableProperties: Hypertext.ReadableProperties
             readonly $writableProperties: Hypertext.WritableProperties
@@ -684,25 +650,25 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Image {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          */
-        interface Image extends Image.Interface {
+        interface Image extends GObject.Object, Image.Interface {
             readonly $signals: Image.SignalSignatures
             readonly $readableProperties: Image.ReadableProperties
             readonly $writableProperties: Image.WritableProperties
@@ -763,19 +729,19 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Selection {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -789,7 +755,7 @@ declare module "gi://Atspi?version=2.0" {
          * interface is used to programmatically determine the selected-ness
          * of its children.
          */
-        interface Selection extends Selection.Interface {
+        interface Selection extends GObject.Object, Selection.Interface {
             readonly $signals: Selection.SignalSignatures
             readonly $readableProperties: Selection.ReadableProperties
             readonly $writableProperties: Selection.WritableProperties
@@ -888,19 +854,19 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Table {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -917,7 +883,7 @@ declare module "gi://Atspi?version=2.0" {
          * interfaces, such as Text, Action, Image, and Component, and should do
          * so as appropriate to their onscreen presentation and/or behavior.
          */
-        interface Table extends Table.Interface {
+        interface Table extends GObject.Object, Table.Interface {
             readonly $signals: Table.SignalSignatures
             readonly $readableProperties: Table.ReadableProperties
             readonly $writableProperties: Table.WritableProperties
@@ -1175,25 +1141,25 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace TableCell {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
         /**
          */
-        interface TableCell extends TableCell.Interface {
+        interface TableCell extends GObject.Object, TableCell.Interface {
             readonly $signals: TableCell.SignalSignatures
             readonly $readableProperties: TableCell.ReadableProperties
             readonly $writableProperties: TableCell.WritableProperties
@@ -1264,19 +1230,19 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Text {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -1291,7 +1257,7 @@ declare module "gi://Atspi?version=2.0" {
          * information for glyphs and substrings. It also allows portions of text to
          * be selected, if the objects StateSet includes STATE_SELECTABLE_TEXT.
          */
-        interface Text extends Text.Interface {
+        interface Text extends GObject.Object, Text.Interface {
             readonly $signals: Text.SignalSignatures
             readonly $readableProperties: Text.ReadableProperties
             readonly $writableProperties: Text.WritableProperties
@@ -1320,25 +1286,23 @@ declare module "gi://Atspi?version=2.0" {
             /**
              * Gets the value of a named attribute at a given offset.
              * @throws {GLib.Error}
-             * @override
              * @deprecated since 2.10 Use atspi_text_get_text_attribute_value instead.
              * @param offset The character offset at which to query the attribute.
              * @param attribute_name The attribute to query.
              * @returns the value of a given attribute at the given offset, or %NULL if not present.
              */
-            get_attribute_value(offset: number, attribute_name: string): string | null
+            get_text_attribute_value(offset: number, attribute_name: string): string | null
             /**
              * Gets the attributes applied to a range of text from an #AtspiText
              * object. The text attributes correspond to CSS attributes
              * where possible.
              * @throws {GLib.Error}
-             * @override
              * @deprecated since 2.10 Use atspi_text_get_text_attributes instead.
              * @param offset a #gint indicating the offset from which the attribute
                    search is based.
              * @returns a #GHashTable describing the attributes at the given character offset., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
              */
-            get_attributes(offset: number): [Record<string, string>, number, number]
+            get_text_attributes(offset: number): [Record<string, string>, number, number]
             /**
              * Gets the ranges of text from an #AtspiText object which lie within the
              *          bounds defined by (@x, @y) and (@x+@width, @y+@height).
@@ -1509,24 +1473,6 @@ declare module "gi://Atspi?version=2.0" {
              */
             get_text_at_offset(offset: number, type: TextBoundaryType): TextRange
             /**
-             * Gets the value of a named attribute at a given offset.
-             * @throws {GLib.Error}
-             * @param offset The character offset at which to query the attribute.
-             * @param attribute_name The attribute to query.
-             * @returns the value of a given attribute at the given offset, or %NULL if not present.
-             */
-            get_text_attribute_value(offset: number, attribute_name: string): string | null
-            /**
-             * Gets the attributes applied to a range of text from an #AtspiText
-             * object. The text attributes correspond to CSS attributes
-             * where possible.
-             * @throws {GLib.Error}
-             * @param offset a #gint indicating the offset from which the attribute
-                   search is based.
-             * @returns a #GHashTable describing the attributes at the given character offset., a #gint pointer indicating the start of the desired text                range., a #gint pointer indicating the first character past the desired              range.
-             */
-            get_text_attributes(offset: number): [Record<string, string>, number, number]
-            /**
              * Gets delimited text from an #AtspiText object which precedes a given
              *          text offset.
              * @throws {GLib.Error}
@@ -1599,19 +1545,19 @@ declare module "gi://Atspi?version=2.0" {
         
 
         namespace Value {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
             }
         }
 
@@ -1624,7 +1570,7 @@ declare module "gi://Atspi?version=2.0" {
          * STATE_EDITABLE is not present, the value is
          * treated as "read only".
          */
-        interface Value extends Value.Interface {
+        interface Value extends GObject.Object, Value.Interface {
             readonly $signals: Value.SignalSignatures
             readonly $readableProperties: Value.ReadableProperties
             readonly $writableProperties: Value.WritableProperties

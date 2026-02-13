@@ -23,19 +23,19 @@ declare module "gi://Polkit?version=1.0" {
         
 
         namespace Identity {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks if @a and @b are equal, ie. represent the same identity.
                  *
@@ -62,7 +62,7 @@ declare module "gi://Polkit?version=1.0" {
          * #PolkitIdentity is an abstract type for representing one or more
          * identities.
          */
-        interface Identity extends Identity.Interface {
+        interface Identity extends GObject.Object, Identity.Interface {
             readonly $signals: Identity.SignalSignatures
             readonly $readableProperties: Identity.ReadableProperties
             readonly $writableProperties: Identity.WritableProperties
@@ -108,19 +108,19 @@ declare module "gi://Polkit?version=1.0" {
         
 
         namespace Subject {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Checks if @a and @b are equal, ie. represent the same subject.
                  * However, avoid calling polkit_subject_equal() to compare two processes;
@@ -175,7 +175,7 @@ declare module "gi://Polkit?version=1.0" {
          * #PolkitSubject is an abstract type for representing one or more
          * processes.
          */
-        interface Subject extends Subject.Interface {
+        interface Subject extends GObject.Object, Subject.Interface {
             readonly $signals: Subject.SignalSignatures
             readonly $readableProperties: Subject.ReadableProperties
             readonly $writableProperties: Subject.WritableProperties
@@ -984,7 +984,7 @@ declare module "gi://Polkit?version=1.0" {
              * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to polkit_permission_new().
              * @returns A #GPermission or %NULL if `error` is set.
              */
-            new_finish(res: Gio.AsyncResult): Gio.Permission
+            new_finish(res: Gio.AsyncResult): Permission
             /**
              * Creates a #GPermission instance for the PolicyKit action
              * @action_id.
@@ -997,7 +997,7 @@ declare module "gi://Polkit?version=1.0" {
              * @param cancellable A #GCancellable or %NULL.
              * @returns A #GPermission or %NULL if `error` is set.
              */
-            new_sync(action_id: string, subject: Subject | null, cancellable: Gio.Cancellable | null): Gio.Permission
+            new_sync(action_id: string, subject: Subject | null, cancellable: Gio.Cancellable | null): Permission
             /**
              * Creates a #GPermission instance for the PolicyKit action
              * @action_id.

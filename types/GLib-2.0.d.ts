@@ -15275,7 +15275,6 @@ declare module "gi://GLib?version=2.0" {
          * [func@GLib.child_watch_source_new] and attaches it to the main loop context
          * using [method@GLib.Source.attach]. You can do these steps manually if you
          * need greater control.
-         * @override
          * @since 2.4
          * @param priority the priority of the idle source; typically this will be in the
           range between [const@GLib.PRIORITY_DEFAULT_IDLE] and
@@ -15286,7 +15285,7 @@ declare module "gi://GLib?version=2.0" {
          * @param function function to call
          * @returns the ID (greater than 0) of the event source
          */
-        function child_watch_add_full(priority: number, pid: Pid, func: ChildWatchFunc): number
+        function child_watch_add(priority: number, pid: Pid, func: ChildWatchFunc): number
         /**
          * Creates a new child watch source.
          *
@@ -17420,14 +17419,13 @@ declare module "gi://GLib?version=2.0" {
          * [method@GLib.Source.attach], so the callback will be invoked in whichever
          * thread is running that main context. You can do these steps manually if you
          * need greater control or to use a custom main context.
-         * @override
          * @param priority the priority of the idle source; typically this will be in the
           range between [const@GLib.PRIORITY_DEFAULT_IDLE] and
           [const@GLib.PRIORITY_HIGH_IDLE]
          * @param function function to call
          * @returns the ID (greater than 0) of the event source
          */
-        function idle_add_full(priority: number, func: SourceFunc): number
+        function idle_add(priority: number, func: SourceFunc): number
         none
         /**
          * Removes the idle function with the given data.
@@ -17532,14 +17530,13 @@ declare module "gi://GLib?version=2.0" {
          * This internally creates a main loop source using g_io_create_watch()
          * and attaches it to the main loop context with g_source_attach().
          * You can do these steps manually if you need greater control.
-         * @override
          * @param channel a #GIOChannel
          * @param priority the priority of the #GIOChannel source
          * @param condition the condition to watch for
          * @param func the function to call when the condition is satisfied
          * @returns the event source id
          */
-        function io_add_watch_full(channel: IOChannel, priority: number, condition: IOCondition, func: IOFunc): number
+        function io_add_watch(channel: IOChannel, priority: number, condition: IOCondition, func: IOFunc): number
         /**
          * Converts an `errno` error number to a #GIOChannelError.
          * @param en an `errno` error number, e.g. `EINVAL`
@@ -17776,7 +17773,6 @@ declare module "gi://GLib?version=2.0" {
          *
          * The `log_domain` parameter can be set to `NULL` or an empty string to use the default
          * application domain.
-         * @override
          * @since 2.46
          * @param log_domain the log domain
           application domain
@@ -17787,7 +17783,7 @@ declare module "gi://GLib?version=2.0" {
          * @param log_func the log handler function
          * @returns the ID of the new handler
          */
-        function log_set_handler_full(log_domain: string | null, log_levels: LogLevelFlags, log_func: LogFunc): number
+        function log_set_handler(log_domain: string | null, log_levels: LogLevelFlags, log_func: LogFunc): number
         /**
          * Set a writer function which will be called to format and write out each log
          * message.
@@ -21434,7 +21430,6 @@ declare module "gi://GLib?version=2.0" {
          *
          * The interval given is in terms of monotonic time, not wall clock time.
          * See [func@GLib.get_monotonic_time].
-         * @override
          * @param priority the priority of the timeout source; typically this will be in
           the range between [const@GLib.PRIORITY_DEFAULT] and
           [const@GLib.PRIORITY_HIGH]
@@ -21442,7 +21437,7 @@ declare module "gi://GLib?version=2.0" {
          * @param function function to call
          * @returns the ID (greater than 0) of the event source
          */
-        function timeout_add_full(priority: number, interval: number, func: SourceFunc): number
+        function timeout_add(priority: number, interval: number, func: SourceFunc): number
         none
         none
         /**
@@ -21486,7 +21481,6 @@ declare module "gi://GLib?version=2.0" {
          *
          * The interval given is in terms of monotonic time, not wall clock
          * time. See [func@GLib.get_monotonic_time].
-         * @override
          * @since 2.14
          * @param priority the priority of the timeout source; typically this will be in
           the range between [const@GLib.PRIORITY_DEFAULT] and
@@ -21495,7 +21489,7 @@ declare module "gi://GLib?version=2.0" {
          * @param function function to call
          * @returns the ID (greater than 0) of the event source
          */
-        function timeout_add_seconds_full(priority: number, interval: number, func: SourceFunc): number
+        function timeout_add_seconds(priority: number, interval: number, func: SourceFunc): number
         none
         /**
          * Creates a new timeout source.

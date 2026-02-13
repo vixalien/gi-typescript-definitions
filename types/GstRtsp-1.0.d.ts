@@ -29,7 +29,7 @@ declare module "gi://GstRtsp?version=1.0" {
         
 
         namespace RTSPExtension {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * @param object
                  * @param p0
@@ -37,16 +37,16 @@ declare module "gi://GstRtsp?version=1.0" {
                 "send"(object: never | null, p0: never | null): RTSPResult
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param req
                  * @param resp
@@ -98,7 +98,7 @@ declare module "gi://GstRtsp?version=1.0" {
          * This interface is implemented e.g. by the Windows Media Streaming RTSP
          *  exentension (rtspwms) and the RealMedia RTSP extension (rtspreal).
          */
-        interface RTSPExtension extends RTSPExtension.Interface {
+        interface RTSPExtension extends GObject.Object, RTSPExtension.Interface {
             readonly $signals: RTSPExtension.SignalSignatures
             readonly $readableProperties: RTSPExtension.ReadableProperties
             readonly $writableProperties: RTSPExtension.WritableProperties

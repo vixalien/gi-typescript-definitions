@@ -327,7 +327,7 @@ declare module "gi://Gcr?version=3" {
         
 
         namespace Collection {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * This signal is emitted when an object is added to the collection.
                  * @param object object that was added
@@ -340,16 +340,16 @@ declare module "gi://Gcr?version=3" {
                 "removed"(object: GObject.Object): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @param object
                  */
@@ -386,7 +386,7 @@ declare module "gi://Gcr?version=3" {
          * Use [ctor@SimpleCollection.new] to create a concrete implementation of this
          * interface which you can add objects to.
          */
-        interface Collection extends Collection.Interface {
+        interface Collection extends GObject.Object, Collection.Interface {
             readonly $signals: Collection.SignalSignatures
             readonly $readableProperties: Collection.ReadableProperties
             readonly $writableProperties: Collection.WritableProperties
@@ -433,19 +433,19 @@ declare module "gi://Gcr?version=3" {
         
 
         namespace Comparable {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Compare whether two objects represent the same thing. The return value can
                  * also be used to sort the objects.
@@ -459,7 +459,7 @@ declare module "gi://Gcr?version=3" {
         /**
          * An interface for comparing objects
          */
-        interface Comparable extends Comparable.Interface {
+        interface Comparable extends GObject.Object, Comparable.Interface {
             readonly $signals: Comparable.SignalSignatures
             readonly $readableProperties: Comparable.ReadableProperties
             readonly $writableProperties: Comparable.WritableProperties
@@ -616,27 +616,27 @@ declare module "gi://Gcr?version=3" {
         
 
         namespace Importer {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "icon": Gio.Icon
                 "interaction": Gio.TlsInteraction | null
                 "label": string
                 "uri": string
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "icon": Gio.Icon
                 "interaction": Gio.TlsInteraction | null
                 "label": string
                 "uri": string
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Import the queued items in the importer. This function returns immediately
                  * and completes asynchronously.
@@ -687,7 +687,7 @@ declare module "gi://Gcr?version=3" {
          *
          * To start the import, use [method@Importer.import] or its async variants.
          */
-        interface Importer extends Importer.Interface {
+        interface Importer extends GObject.Object, Importer.Interface {
             readonly $signals: Importer.SignalSignatures
             readonly $readableProperties: Importer.ReadableProperties
             readonly $writableProperties: Importer.WritableProperties
@@ -803,7 +803,7 @@ declare module "gi://Gcr?version=3" {
         
 
         namespace Prompt {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
                 /**
                  * Action signal fired when the prompt is to be closed. After the default
                  * handler has run, the prompt is closed. The various prompting methods
@@ -814,7 +814,7 @@ declare module "gi://Gcr?version=3" {
                 "prompt-close"(): void
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "caller-window": string
                 "cancel-label": string
                 "choice-chosen": boolean
@@ -828,7 +828,7 @@ declare module "gi://Gcr?version=3" {
                 "warning": string
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "caller-window": string
                 "cancel-label": string
                 "choice-chosen": boolean
@@ -842,10 +842,10 @@ declare module "gi://Gcr?version=3" {
                 "warning": string
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * close a prompt
                  */
@@ -917,7 +917,7 @@ declare module "gi://Gcr?version=3" {
          * property, but may choose not to display the [property@Prompt:description] or
          * [property@Prompt:title] properties.
          */
-        interface Prompt extends Prompt.Interface {
+        interface Prompt extends GObject.Object, Prompt.Interface {
             readonly $signals: Prompt.SignalSignatures
             readonly $readableProperties: Prompt.ReadableProperties
             readonly $writableProperties: Prompt.WritableProperties

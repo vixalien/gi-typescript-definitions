@@ -43,19 +43,19 @@ declare module "gi://GtkSource?version=5" {
         
 
         namespace CompletionProposal {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the typed-text for the proposal, if supported by the implementation.
                  *
@@ -79,7 +79,7 @@ declare module "gi://GtkSource?version=5" {
          * #GtkSourceCompletionProvider can use [func@GObject.IMPLEMENT_INTERFACE] to
          * implement this with %NULL for the interface init function.
          */
-        interface CompletionProposal extends CompletionProposal.Interface {
+        interface CompletionProposal extends GObject.Object, CompletionProposal.Interface {
             readonly $signals: CompletionProposal.SignalSignatures
             readonly $readableProperties: CompletionProposal.ReadableProperties
             readonly $writableProperties: CompletionProposal.WritableProperties
@@ -107,19 +107,19 @@ declare module "gi://GtkSource?version=5" {
         
 
         namespace CompletionProvider {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * This function requests @proposal to be activated by the
                  * #GtkSourceCompletionProvider.
@@ -247,7 +247,7 @@ declare module "gi://GtkSource?version=5" {
          * [vfunc@CompletionProvider.populate_async] to asynchronously populate the results
          * to avoid blocking the main loop.
          */
-        interface CompletionProvider extends CompletionProvider.Interface {
+        interface CompletionProvider extends GObject.Object, CompletionProvider.Interface {
             readonly $signals: CompletionProvider.SignalSignatures
             readonly $readableProperties: CompletionProvider.ReadableProperties
             readonly $writableProperties: CompletionProvider.WritableProperties
@@ -381,19 +381,19 @@ declare module "gi://GtkSource?version=5" {
         
 
         namespace HoverProvider {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * @throws {GLib.Error}
                  * @param context
@@ -427,7 +427,7 @@ declare module "gi://GtkSource?version=5" {
          * may take additional time should use [vfunc@HoverProvider.populate_async]
          * to avoid blocking the main loop.
          */
-        interface HoverProvider extends HoverProvider.Interface {
+        interface HoverProvider extends GObject.Object, HoverProvider.Interface {
             readonly $signals: HoverProvider.SignalSignatures
             readonly $readableProperties: HoverProvider.ReadableProperties
             readonly $writableProperties: HoverProvider.WritableProperties
@@ -458,19 +458,19 @@ declare module "gi://GtkSource?version=5" {
         
 
         namespace Indenter {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * This function should be implemented to alter the indentation of text
                  * within the view.
@@ -543,7 +543,7 @@ declare module "gi://GtkSource?version=5" {
          * All changes are encapsulated within a single user action so that the
          * user may undo them using standard undo/redo accelerators.
          */
-        interface Indenter extends Indenter.Interface {
+        interface Indenter extends GObject.Object, Indenter.Interface {
             readonly $signals: Indenter.SignalSignatures
             readonly $readableProperties: Indenter.ReadableProperties
             readonly $writableProperties: Indenter.WritableProperties
@@ -601,21 +601,21 @@ declare module "gi://GtkSource?version=5" {
         
 
         namespace StyleSchemeChooser {
-            interface SignalSignatures  {
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
             }
 
-            interface ReadableProperties  {
+            interface ReadableProperties extends GObject.Object.ReadableProperties {
                 "style-scheme": StyleScheme
             }
 
-            interface WritableProperties  {
+            interface WritableProperties extends GObject.Object.WritableProperties {
                 "style-scheme": StyleScheme
             }
 
-            interface ConstructOnlyProperties  {
+            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
             }
 
-            interface Interface  {
+            interface Interface extends GObject.Object {
                 /**
                  * Gets the currently-selected scheme.
                  * @returns the currently-selected scheme.
@@ -638,7 +638,7 @@ declare module "gi://GtkSource?version=5" {
          * In GtkSourceView, the main widgets that implement this interface are
          * [class@StyleSchemeChooserWidget] and [class@StyleSchemeChooserButton].
          */
-        interface StyleSchemeChooser extends StyleSchemeChooser.Interface {
+        interface StyleSchemeChooser extends GObject.Object, StyleSchemeChooser.Interface {
             readonly $signals: StyleSchemeChooser.SignalSignatures
             readonly $readableProperties: StyleSchemeChooser.ReadableProperties
             readonly $writableProperties: StyleSchemeChooser.WritableProperties
@@ -3194,7 +3194,7 @@ declare module "gi://GtkSource?version=5" {
              * Create a new #GtkSourceGutterRendererPixbuf.
              * @returns A #GtkSourceGutterRenderer
              */
-            "new"(): GutterRenderer
+            "new"(): GutterRendererPixbuf
         }
 
         const GutterRendererPixbuf: GutterRendererPixbufClass
@@ -3273,7 +3273,7 @@ declare module "gi://GtkSource?version=5" {
              * Create a new #GtkSourceGutterRendererText.
              * @returns A #GtkSourceGutterRenderer
              */
-            "new"(): GutterRenderer
+            "new"(): GutterRendererText
         }
 
         const GutterRendererText: GutterRendererTextClass
@@ -3806,7 +3806,7 @@ declare module "gi://GtkSource?version=5" {
              * Creates a new `GtkSourceMap`.
              * @returns a new #GtkSourceMap.
              */
-            "new"(): Gtk.Widget
+            "new"(): Map
         }
 
         const Map: MapClass
@@ -6338,7 +6338,7 @@ declare module "gi://GtkSource?version=5" {
              * Creates a new #GtkSourceStyleSchemeChooserButton.
              * @returns a new #GtkSourceStyleSchemeChooserButton.
              */
-            "new"(): Gtk.Widget
+            "new"(): StyleSchemeChooserButton
         }
 
         const StyleSchemeChooserButton: StyleSchemeChooserButtonClass
@@ -6385,7 +6385,7 @@ declare module "gi://GtkSource?version=5" {
              * Creates a new #GtkSourceStyleSchemeChooserWidget.
              * @returns a new  #GtkSourceStyleSchemeChooserWidget.
              */
-            "new"(): Gtk.Widget
+            "new"(): StyleSchemeChooserWidget
         }
 
         const StyleSchemeChooserWidget: StyleSchemeChooserWidgetClass
@@ -6573,7 +6573,7 @@ declare module "gi://GtkSource?version=5" {
              * @param scheme a #GtkSourceStyleScheme
              * @returns a #GtkWidget
              */
-            "new"(scheme: StyleScheme): Gtk.Widget
+            "new"(scheme: StyleScheme): StyleSchemePreview
         }
 
         const StyleSchemePreview: StyleSchemePreviewClass
@@ -6646,7 +6646,7 @@ declare module "gi://GtkSource?version=5" {
              * @param name tag name, or %NULL.
              * @returns a new `GtkSourceTag`.
              */
-            "new"(name: string | null): Gtk.TextTag
+            "new"(name: string | null): Tag
         }
 
         const Tag: TagClass
@@ -7266,7 +7266,7 @@ declare module "gi://GtkSource?version=5" {
              * [ctor@View.new_with_buffer].
              * @returns a new #GtkSourceView.
              */
-            "new"(): Gtk.Widget
+            "new"(): View
             /**
              * Creates a new #GtkSourceView widget displaying the buffer @buffer.
              *
@@ -7274,7 +7274,7 @@ declare module "gi://GtkSource?version=5" {
              * @param buffer a #GtkSourceBuffer.
              * @returns a new #GtkSourceView.
              */
-            new_with_buffer(buffer: Buffer): Gtk.Widget
+            new_with_buffer(buffer: Buffer): View
         }
 
         const View: ViewClass
@@ -7455,7 +7455,7 @@ declare module "gi://GtkSource?version=5" {
             new (props?: Partial<GObject.ConstructorProps<VimIMContext>>): VimIMContext
             /**
              */
-            "new"(): Gtk.IMContext
+            "new"(): VimIMContext
         }
 
         const VimIMContext: VimIMContextClass
@@ -7715,11 +7715,10 @@ declare module "gi://GtkSource?version=5" {
          * (or near) and can be checked using [func@GLib.get_monotonic_time] for comparison.
          *
          * Use [func@scheduler_remove] to remove the handler.
-         * @override
          * @since 5.2
          * @param callback the callback to execute
          */
-        function scheduler_add_full(callback: SchedulerCallback): number
+        function scheduler_add(callback: SchedulerCallback): number
         /**
          * Removes a scheduler callback previously registered with
          * [func@scheduler_add] or [func@scheduler_add_full].
