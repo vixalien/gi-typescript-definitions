@@ -6,7 +6,7 @@ TypeScript type definitions for GJS and GNOME libraries. Get full autocomplete, 
 
 Types are auto-generated with [ts-for-gir] data shipped with the GNOME SDK `master` branch.
 
-> **Note:** The full list of available types depends on the libraries present in the GNOME SDK at the time of generation. You can find the list of all generated types here: [./types].
+> **Note:** The full list of available types depends on the libraries present in the GNOME SDK at the time of generation. You can find the list of all generated types here: [./types](./types).
 
 ## Installation
 
