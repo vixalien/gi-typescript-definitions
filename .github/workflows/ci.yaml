@@ -26,13 +26,13 @@ jobs:
 
       - name: Add Flatpak remotes
         run: |
-          flatpak --system remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak --system remote-add --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
+          flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak --user remote-add --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
 
       - name: Install Flatpak SDKs
         run: |
-          flatpak --system install -y gnome-nightly org.gnome.Sdk
-          flatpak --system install -y flathub org.freedesktop.Sdk.Extension.node24
+          flatpak --user install -y gnome-nightly org.gnome.Sdk
+          flatpak --user install -y flathub org.freedesktop.Sdk.Extension.node24
 
       - uses: actions/checkout@v4
 
