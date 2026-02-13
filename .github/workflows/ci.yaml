@@ -31,8 +31,8 @@ jobs:
 
       - name: Install Flatpak SDKs
         run: |
-          flatpak --user install -y gnome-nightly org.gnome.Sdk
-          flatpak --user install -y flathub org.freedesktop.Sdk.Extension.node24
+          flatpak --user install -y gnome-nightly org.gnome.Sdk//master
+          flatpak --user install -y flathub org.freedesktop.Sdk.Extension.node24//25.08
 
       - uses: actions/checkout@v4
 
