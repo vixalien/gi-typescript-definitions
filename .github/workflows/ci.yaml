@@ -48,3 +48,5 @@ jobs:
           commit-message: "regenerate: ${{ env.CURRENT_DATE }}"
           branch: regenerate-main
           base: main
+          title: "Regenerate TypeScript types"
+          sign-commits: true
