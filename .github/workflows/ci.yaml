@@ -47,3 +47,4 @@ jobs:
         with:
           commit-message: "regenerate: ${{ env.CURRENT_DATE }}"
           branch: regenerate-main
+          base: main
