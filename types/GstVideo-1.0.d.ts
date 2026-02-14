@@ -986,7 +986,7 @@ declare module "gi://GstVideo?version=1.0" {
              * @param value The #GValue to be set
              * @returns %TRUE if the `property_id` matches the GstVideoOverlay property
              */
-            set_property(object: GObject.Object, last_prop_id: number, property_id: number, value: GObject.Value): boolean
+            set_property(object: GObject.Object, last_prop_id: number, property_id: number, value: (GObject.Value | unknown)): boolean
 
             [Symbol.hasInstance](instance: unknown): instance is VideoOverlay
         }
@@ -6661,7 +6661,7 @@ declare module "gi://GstVideo?version=1.0" {
          * @param value The #GValue to be set
          * @returns %TRUE if the `property_id` matches the GstVideoOverlay property
          */
-        function video_overlay_set_property(object: GObject.Object, last_prop_id: number, property_id: number, value: GObject.Value): boolean
+        function video_overlay_set_property(object: GObject.Object, last_prop_id: number, property_id: number, value: (GObject.Value | unknown)): boolean
         /**
          */
         function video_region_of_interest_meta_api_get_type(): GObject.GType

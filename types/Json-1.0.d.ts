@@ -55,7 +55,7 @@ declare module "gi://Json?version=1.0" {
                  * @param property_node the JSON node containing the serialized property
                  * @returns `TRUE` if the property was successfully deserialized, a pointer to an uninitialized value
                  */
-                vfunc_deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, GObject.Value]
+                vfunc_deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, unknown]
                 /**
                  * Calls the [vfunc@Json.Serializable.find_property] implementation on
                  * the `JsonSerializable` instance, which will return the property
@@ -73,7 +73,7 @@ declare module "gi://Json?version=1.0" {
                  * @param pspec a property description
                  * @returns , return location for the property value
                  */
-                vfunc_get_property(pspec: GObject.ParamSpec): GObject.Value
+                vfunc_get_property(pspec: GObject.ParamSpec): unknown
                 /**
                  * Asks a `JsonSerializable` implementation to serialize an object
                  * property into a JSON node.
@@ -82,7 +82,7 @@ declare module "gi://Json?version=1.0" {
                  * @param pspec a property description
                  * @returns a node containing the serialized property
                  */
-                vfunc_serialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec): Node | null
+                vfunc_serialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): Node | null
                 /**
                  * Calls the [vfunc@Json.Serializable.set_property] implementation
                  * on the `JsonSerializable` instance, which will set the property
@@ -91,7 +91,7 @@ declare module "gi://Json?version=1.0" {
                  * @param pspec a property description
                  * @param value the property value to set
                  */
-                vfunc_set_property(pspec: GObject.ParamSpec, value: GObject.Value): void
+                vfunc_set_property(pspec: GObject.ParamSpec, value: (GObject.Value | unknown)): void
             }
         }
 
@@ -121,7 +121,7 @@ declare module "gi://Json?version=1.0" {
              * @param property_node the JSON node containing the serialized property
              * @returns `TRUE` if the property was successfully deserialized
              */
-            default_deserialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec, property_node: Node): boolean
+            default_deserialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec, property_node: Node): boolean
             /**
              * serialize_property (serializable, property_name,
              *                                   value,
@@ -136,7 +136,7 @@ declare module "gi://Json?version=1.0" {
              * @param pspec a property description
              * @returns a node containing the   serialized property
              */
-            default_serialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec): Node | null
+            default_serialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): Node | null
             /**
              * Asks a `JsonSerializable` implementation to deserialize the
              * property contained inside `property_node` and place its value
@@ -156,7 +156,7 @@ declare module "gi://Json?version=1.0" {
              * @param property_node the JSON node containing the serialized property
              * @returns `TRUE` if the property was successfully deserialized, a pointer to an uninitialized value
              */
-            deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, GObject.Value]
+            deserialize_property(property_name: string, pspec: GObject.ParamSpec, property_node: Node): [boolean, unknown]
             /**
              * Calls the [vfunc@Json.Serializable.find_property] implementation on
              * the `JsonSerializable` instance, which will return the property
@@ -174,7 +174,7 @@ declare module "gi://Json?version=1.0" {
              * @param pspec a property description
              * @returns , return location for the property value
              */
-            get_property(pspec: GObject.ParamSpec): GObject.Value
+            get_property(pspec: GObject.ParamSpec): unknown
             /**
              * Calls the [vfunc@Json.Serializable.list_properties] implementation on
              * the `JsonSerializable` instance, which will return the list of serializable
@@ -191,7 +191,7 @@ declare module "gi://Json?version=1.0" {
              * @param pspec a property description
              * @returns a node containing the serialized property
              */
-            serialize_property(property_name: string, value: GObject.Value, pspec: GObject.ParamSpec): Node | null
+            serialize_property(property_name: string, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): Node | null
             /**
              * Calls the [vfunc@Json.Serializable.set_property] implementation
              * on the `JsonSerializable` instance, which will set the property
@@ -200,7 +200,7 @@ declare module "gi://Json?version=1.0" {
              * @param pspec a property description
              * @param value the property value to set
              */
-            set_property(pspec: GObject.ParamSpec, value: GObject.Value): void
+            set_property(pspec: GObject.ParamSpec, value: (GObject.Value | unknown)): void
         }
 
 
@@ -1937,7 +1937,7 @@ declare module "gi://Json?version=1.0" {
              * value. Use `JSON_NODE_HOLDS_VALUE` first.
              * @returns , return location for an uninitialized value
              */
-            get_value(): GObject.Value
+            get_value(): unknown
             /**
              * Returns the `GType` of the payload of the node.
              *
@@ -2162,7 +2162,7 @@ declare module "gi://Json?version=1.0" {
              * a value node.
              * @param value the value to set
              */
-            set_value(value: GObject.Value): void
+            set_value(value: (GObject.Value | unknown)): void
             /**
              * Sets @array inside @node.
              *

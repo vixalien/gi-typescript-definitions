@@ -546,7 +546,7 @@ declare module "gi://Gtk?version=3.0" {
                  * @param name name of property
                  * @param value value of property
                  */
-                vfunc_set_buildable_property(builder: Builder, name: string, value: GObject.Value): void
+                vfunc_set_buildable_property(builder: Builder, name: string, value: (GObject.Value | unknown)): void
                 /**
                  * Sets the name of the @buildable object.
                  * @since 2.12
@@ -659,7 +659,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param name name of property
              * @param value value of property
              */
-            set_buildable_property(builder: Builder, name: string, value: GObject.Value): void
+            set_buildable_property(builder: Builder, name: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the name of the @buildable object.
              * @since 2.12
@@ -3712,7 +3712,7 @@ declare module "gi://Gtk?version=3.0" {
                  * @param pspec The #GParamSpec to query
                  * @returns %TRUE if the property was found and has a value, %FALSE otherwise, return location for the property value
                  */
-                vfunc_get_style_property(path: WidgetPath, state: StateFlags, pspec: GObject.ParamSpec): [boolean, GObject.Value]
+                vfunc_get_style_property(path: WidgetPath, state: StateFlags, pspec: GObject.ParamSpec): [boolean, unknown]
             }
         }
 
@@ -3752,7 +3752,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param pspec The #GParamSpec to query
              * @returns %TRUE if the property was found and has a value, %FALSE otherwise, return location for the property value
              */
-            get_style_property(path: WidgetPath, state: StateFlags, pspec: GObject.ParamSpec): [boolean, GObject.Value]
+            get_style_property(path: WidgetPath, state: StateFlags, pspec: GObject.ParamSpec): [boolean, unknown]
         }
 
 
@@ -4216,7 +4216,7 @@ declare module "gi://Gtk?version=3.0" {
                  * @param column the column to lookup the value at
                  * @returns , an empty #GValue to set
                  */
-                vfunc_get_value(iter: TreeIter, column: number): GObject.Value
+                vfunc_get_value(iter: TreeIter, column: number): unknown
                 /**
                  * Sets @iter to point to the first child of @parent.
                  *
@@ -4486,7 +4486,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param column the column to lookup the value at
              * @returns , an empty #GValue to set
              */
-            get_value(iter: TreeIter, column: number): GObject.Value
+            get_value(iter: TreeIter, column: number): unknown
             /**
              * Sets @iter to point to the first child of @parent.
              *
@@ -9717,7 +9717,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param string the string representation of the value
              * @returns %TRUE on success, the #GValue to store the result in
              */
-            value_from_string(pspec: GObject.ParamSpec, string: string): [boolean, GObject.Value]
+            value_from_string(pspec: GObject.ParamSpec, string: string): [boolean, unknown]
             /**
              * Like gtk_builder_value_from_string(), this function demarshals
              * a value from a string, but takes a #GType instead of #GParamSpec.
@@ -9732,7 +9732,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param string the string representation of the value
              * @returns %TRUE on success, the #GValue to store the result in
              */
-            value_from_string_type(type: (GObject.GType | { $gtype: GObject.GType }), string: string): [boolean, GObject.Value]
+            value_from_string_type(type: (GObject.GType | { $gtype: GObject.GType }), string: string): [boolean, unknown]
             /**
              * Looks up a type by name, using the virtual function that
              * #GtkBuilder has for that purpose. This is mainly used when
@@ -10906,7 +10906,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of the property to get
              * @param value a location to return the value
              */
-            cell_get_property(renderer: CellRenderer, property_name: string, value: GObject.Value): void
+            cell_get_property(renderer: CellRenderer, property_name: string, value: (GObject.Value | unknown)): void
             /**
              * Sets a cell property for @renderer in @area.
              * @since 3.0
@@ -10914,7 +10914,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of the cell property to set
              * @param value the value to set the cell property to
              */
-            cell_set_property(renderer: CellRenderer, property_name: string, value: GObject.Value): void
+            cell_set_property(renderer: CellRenderer, property_name: string, value: (GObject.Value | unknown)): void
             /**
              * This is sometimes needed for cases where rows need to share
              * alignments in one orientation but may be separately grouped
@@ -11346,7 +11346,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param value
              * @param pspec
              */
-            vfunc_get_cell_property(renderer: CellRenderer, property_id: number, value: GObject.Value, pspec: GObject.ParamSpec): void
+            vfunc_get_cell_property(renderer: CellRenderer, property_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): void
             /**
              * Retrieves a cell area’s initial minimum and natural height.
              *
@@ -11461,7 +11461,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param value
              * @param pspec
              */
-            vfunc_set_cell_property(renderer: CellRenderer, property_id: number, value: GObject.Value, pspec: GObject.ParamSpec): void
+            vfunc_set_cell_property(renderer: CellRenderer, property_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): void
         }
 
         interface CellAreaClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
@@ -16001,7 +16001,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of the property to get
              * @param value a location to return the value
              */
-            child_get_property(child: Widget, property_name: string, value: GObject.Value): void
+            child_get_property(child: Widget, property_name: string, value: (GObject.Value | unknown)): void
             /**
              * Emits a #GtkWidget::child-notify signal for the
              * [child property][child-properties]
@@ -16034,7 +16034,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of the property to set
              * @param value the value to set the property to
              */
-            child_set_property(child: Widget, property_name: string, value: GObject.Value): void
+            child_set_property(child: Widget, property_name: string, value: (GObject.Value | unknown)): void
             /**
              * Returns the type of the children supported by the container.
              *
@@ -16311,7 +16311,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param value
              * @param pspec
              */
-            vfunc_get_child_property(child: Widget, property_id: number, value: GObject.Value, pspec: GObject.ParamSpec): void
+            vfunc_get_child_property(child: Widget, property_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): void
             /**
              * Returns a newly created widget path representing all the widget hierarchy
              * from the toplevel down to and including @child.
@@ -16339,7 +16339,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param value
              * @param pspec
              */
-            vfunc_set_child_property(child: Widget, property_id: number, value: GObject.Value, pspec: GObject.ParamSpec): void
+            vfunc_set_child_property(child: Widget, property_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): void
             /**
              * Sets, or unsets if @child is %NULL, the focused child of @container.
              *
@@ -30152,7 +30152,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param column column number to modify
              * @param value new value for the cell
              */
-            set_value(iter: TreeIter, column: number, value: GObject.Value): void
+            set_value(iter: TreeIter, column: number, value: (GObject.Value | unknown)): void
             /**
              * A variant of gtk_list_store_set_valist() which
              * takes the columns and values as two arrays, instead of
@@ -44782,7 +44782,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of the style property to get
              * @returns , a #GValue where the value of the property being     queried will be stored
              */
-            get_style_property(widget_type: (GObject.GType | { $gtype: GObject.GType }), property_name: string): GObject.Value
+            get_style_property(widget_type: (GObject.GType | { $gtype: GObject.GType }), property_name: string): unknown
             /**
              * Returns whether @style has an associated #GtkStyleContext.
              * @since 3.0
@@ -45428,7 +45428,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param state state to retrieve the property value for
              * @returns , return location for the style property value
              */
-            get_property(property: string, state: StateFlags): GObject.Value
+            get_property(property: string, state: StateFlags): unknown
             /**
              * Returns the scale used for assets.
              * @since 3.10
@@ -45476,7 +45476,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of the widget style property
              * @param value Return location for the property value
              */
-            get_style_property(property_name: string, value: GObject.Value): void
+            get_style_property(property_name: string, value: (GObject.Value | unknown)): void
             /**
              * Returns %TRUE if @context currently has defined the
              * given class name.
@@ -45871,7 +45871,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param state state to retrieve the property value for
              * @returns %TRUE if the property exists in `props`, %FALSE otherwise, return location for the style property value.
              */
-            get_property(property: string, state: StateFlags): [boolean, GObject.Value]
+            get_property(property: string, state: StateFlags): [boolean, unknown]
             /**
              * Returns the symbolic color that is mapped
              * to @name.
@@ -45909,7 +45909,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param state state to set the value for
              * @param value new value for the property
              */
-            set_property(property: string, state: StateFlags, value: GObject.Value): void
+            set_property(property: string, state: StateFlags, value: (GObject.Value | unknown)): void
             /**
              * Unsets a style property in @props.
              * @since 3.0
@@ -49782,7 +49782,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param state state to retrieve the value for
              * @returns , return location for the property value,         you must free this memory using g_value_unset() once you are         done with it.
              */
-            get_property(property: string, state: StateFlags): GObject.Value
+            get_property(property: string, state: StateFlags): unknown
             /**
              * Returns the #GdkScreen to which @engine currently rendering to.
              * @deprecated since 3.14
@@ -49803,7 +49803,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of the widget style property
              * @returns , Return location for the property value, free with         g_value_unset() after use.
              */
-            get_style_property(property_name: string): GObject.Value
+            get_style_property(property_name: string): unknown
             /**
              * Returns %TRUE if the currently rendered contents have
              * defined the given class name.
@@ -52138,7 +52138,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param value
              * @param column
              */
-            vfunc_modify(child_model: TreeModel, iter: TreeIter, value: GObject.Value, column: number): void
+            vfunc_modify(child_model: TreeModel, iter: TreeIter, value: (GObject.Value | unknown), column: number): void
             /**
              * @param child_model
              * @param iter
@@ -52634,7 +52634,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param column column number to modify
              * @param value new value for the cell
              */
-            set_value(iter: TreeIter, column: number, value: GObject.Value): void
+            set_value(iter: TreeIter, column: number, value: (GObject.Value | unknown)): void
             /**
              * A variant of gtk_tree_store_set_valist() which takes
              * the columns and values as two arrays, instead of varargs.  This
@@ -59192,7 +59192,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_name the name of a style property
              * @param value location to return the property value
              */
-            style_get_property(property_name: string, value: GObject.Value): void
+            style_get_property(property_name: string, value: (GObject.Value | unknown)): void
             /**
              * Reverts the effect of a previous call to gtk_widget_freeze_child_notify().
              * This causes all queued #GtkWidget::child-notify signals on @widget to be
@@ -64462,7 +64462,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_value a #GValue which must hold boxed values.
              * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GtkBorder.
              */
-            static parse_border(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+            static parse_border(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
             /**
              * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
              * or gtk_widget_class_install_style_property_parser() which parses a
@@ -64475,7 +64475,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_value a #GValue which must hold #GdkColor values.
              * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GdkColor.
              */
-            static parse_color(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+            static parse_color(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
             /**
              * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
              * or gtk_widget_class_install_style_property_parser() which parses a single
@@ -64489,7 +64489,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_value a #GValue which must hold enum values.
              * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GEnumValue.
              */
-            static parse_enum(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+            static parse_enum(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
             /**
              * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
              * or gtk_widget_class_install_style_property_parser() which parses flags.
@@ -64502,7 +64502,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_value a #GValue which must hold flags values.
              * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting flags value.
              */
-            static parse_flags(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+            static parse_flags(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
             /**
              * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
              * or gtk_widget_class_install_style_property_parser() which parses a
@@ -64513,7 +64513,7 @@ declare module "gi://Gtk?version=3.0" {
              * @param property_value a #GValue which must hold boxed values.
              * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GtkRequisition.
              */
-            static parse_requisition(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+            static parse_requisition(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
             /**
              * quark-ified type identifier
              */
@@ -69171,7 +69171,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param property_value a #GValue which must hold boxed values.
          * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GtkBorder.
          */
-        function rc_property_parse_border(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+        function rc_property_parse_border(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
         /**
          * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
          * or gtk_widget_class_install_style_property_parser() which parses a
@@ -69184,7 +69184,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param property_value a #GValue which must hold #GdkColor values.
          * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GdkColor.
          */
-        function rc_property_parse_color(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+        function rc_property_parse_color(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
         /**
          * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
          * or gtk_widget_class_install_style_property_parser() which parses a single
@@ -69198,7 +69198,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param property_value a #GValue which must hold enum values.
          * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GEnumValue.
          */
-        function rc_property_parse_enum(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+        function rc_property_parse_enum(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
         /**
          * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
          * or gtk_widget_class_install_style_property_parser() which parses flags.
@@ -69211,7 +69211,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param property_value a #GValue which must hold flags values.
          * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting flags value.
          */
-        function rc_property_parse_flags(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+        function rc_property_parse_flags(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
         /**
          * A #GtkRcPropertyParser for use with gtk_settings_install_property_parser()
          * or gtk_widget_class_install_style_property_parser() which parses a
@@ -69222,7 +69222,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param property_value a #GValue which must hold boxed values.
          * @returns %TRUE if `gstring` could be parsed and `property_value` has been set to the resulting #GtkRequisition.
          */
-        function rc_property_parse_requisition(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: GObject.Value): boolean
+        function rc_property_parse_requisition(pspec: GObject.ParamSpec, gstring: GLib.String, property_value: (GObject.Value | unknown)): boolean
         /**
          * If the modification time on any previously read file for the
          * default #GtkSettings has changed, discard all style information
@@ -74924,7 +74924,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param rc_string
          * @param property_value
          */
-        type RcPropertyParser = (pspec: GObject.ParamSpec, rc_string: GLib.String, property_value: GObject.Value) => boolean
+        type RcPropertyParser = (pspec: GObject.ParamSpec, rc_string: GLib.String, property_value: (GObject.Value | unknown)) => boolean
         /**
          * The type of function that is used with custom filters,
          * see gtk_recent_filter_add_custom().
@@ -74943,7 +74943,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param string
          * @param value
          */
-        type StylePropertyParser = (string: string, value: GObject.Value) => boolean
+        type StylePropertyParser = (string: string, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that is called to deserialize rich text that has been
          * serialized with gtk_text_buffer_serialize(), and insert it at @iter.
@@ -75039,7 +75039,7 @@ declare module "gi://Gtk?version=3.0" {
          * @param column the column whose display value is determined
          * @returns , A #GValue which is already initialized for  with the correct type for the column `column`.
          */
-        type TreeModelFilterModifyFunc = (model: TreeModel, iter: TreeIter, column: number) => GObject.Value
+        type TreeModelFilterModifyFunc = (model: TreeModel, iter: TreeIter, column: number) => unknown
         /**
          * A function which decides whether the row indicated by @iter is visible.
          * @param model the child model of the #GtkTreeModelFilter

@@ -638,7 +638,7 @@ declare module "gi://GstController?version=1.0" {
          * @param src_value the value returned by the cotnrol source
          * @param dest_value the target GValue
          */
-        type DirectControlBindingConvertGValue = (self: DirectControlBinding, src_value: number, dest_value: GObject.Value) => void
+        type DirectControlBindingConvertGValue = (self: DirectControlBinding, src_value: number, dest_value: (GObject.Value | unknown)) => void
         /**
          * Function to map a control-value to the target plain data type.
          * @param self the #GstDirectControlBinding instance

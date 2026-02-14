@@ -3618,7 +3618,7 @@ declare module "gi://GstGL?version=1.0" {
          * @param flags transformation flags
          * @returns whether any valid GST video formats were found and stored in `dst`, empty destination #GValue
          */
-        function gl_dma_buf_transform_drm_formats_to_gst_formats(context: GLContext, src: GObject.Value, flags: GLDrmFormatFlags): [boolean, GObject.Value]
+        function gl_dma_buf_transform_drm_formats_to_gst_formats(context: GLContext, src: (GObject.Value | unknown), flags: GLDrmFormatFlags): [boolean, unknown]
         /**
          * Given the video formats in @src #GValue, collect corresponding drm formats
          * supported by @context into @dst #GValue. This function returns %FALSE if
@@ -3629,7 +3629,7 @@ declare module "gi://GstGL?version=1.0" {
          * @param flags transformation flags
          * @returns whether any valid drm formats were found and stored in `dst`, empty destination #GValue
          */
-        function gl_dma_buf_transform_gst_formats_to_drm_formats(context: GLContext, src: GObject.Value, flags: GLDrmFormatFlags): [boolean, GObject.Value]
+        function gl_dma_buf_transform_gst_formats_to_drm_formats(context: GLContext, src: (GObject.Value | unknown), flags: GLDrmFormatFlags): [boolean, unknown]
         /**
          * @param element
          * @param display
@@ -3848,13 +3848,13 @@ declare module "gi://GstGL?version=1.0" {
          * @param value an initialized #GValue of type G_TYPE_STRING
          * @returns the mask of #GstGLTextureTarget's in `value` or     %GST_GL_TEXTURE_TARGET_NONE on failure
          */
-        function gl_value_get_texture_target_mask(value: GObject.Value): GLTextureTarget
+        function gl_value_get_texture_target_mask(value: (GObject.Value | unknown)): GLTextureTarget
         /**
          * @param value an initialized #GValue of type G_TYPE_STRING
          * @param target a #GstGLTextureTarget's
          * @returns whether the `target` could be set on `value`
          */
-        function gl_value_set_texture_target(value: GObject.Value, target: GLTextureTarget): boolean
+        function gl_value_set_texture_target(value: (GObject.Value | unknown), target: GLTextureTarget): boolean
         /**
          *  target) where target is a valid
          * #GstGLTextureTarget
@@ -3862,7 +3862,7 @@ declare module "gi://GstGL?version=1.0" {
          * @param target_mask a bitwise mask of #GstGLTextureTarget's
          * @returns whether the `target_mask` could be set on `value`
          */
-        function gl_value_set_texture_target_from_mask(value: GObject.Value, target_mask: GLTextureTarget): boolean
+        function gl_value_set_texture_target_from_mask(value: (GObject.Value | unknown), target_mask: GLTextureTarget): boolean
         /**
          * @param gl_api the #GstGLAPI
          * @param maj the major GL version

@@ -1585,7 +1585,7 @@ declare module "gi://Gdk?version=4.0" {
              * Sets the @clipboard to contain the given @value.
              * @param value a `GValue` to set
              */
-            set(value: GObject.Value): void
+            set(value: (GObject.Value | unknown)): void
             /**
              * Asynchronously instructs the @clipboard to store its contents remotely.
              *
@@ -1794,7 +1794,7 @@ declare module "gi://Gdk?version=4.0" {
              * @throws {GLib.Error}
              * @returns %TRUE if the value was set successfully. Otherwise   `error` will be set to describe the failure., the `GValue` to fill
              */
-            get_value(): [boolean, GObject.Value]
+            get_value(): [boolean, unknown]
             /**
              * Gets the formats that the provider can provide its current contents in.
              * @returns The formats of the provider
@@ -1858,7 +1858,7 @@ declare module "gi://Gdk?version=4.0" {
              * @throws {GLib.Error}
              * @returns %TRUE if the value was set successfully. Otherwise   `error` will be set to describe the failure., the `GValue` to fill
              */
-            vfunc_get_value(): [boolean, GObject.Value]
+            vfunc_get_value(): [boolean, unknown]
             /**
              * Gets the formats that the provider can provide its current contents in.
              * @returns The formats of the provider
@@ -1918,7 +1918,7 @@ declare module "gi://Gdk?version=4.0" {
              * @param value a `GValue`
              * @returns a new `GdkContentProvider`
              */
-            new_for_value(value: GObject.Value): ContentProvider
+            new_for_value(value: (GObject.Value | unknown)): ContentProvider
             /**
              * Creates a content provider that represents all the given @providers.
              *
@@ -3096,7 +3096,7 @@ declare module "gi://Gdk?version=4.0" {
              * @param value location to store the value of the setting
              * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise
              */
-            get_setting(name: string, value: GObject.Value): boolean
+            get_setting(name: string, value: (GObject.Value | unknown)): boolean
             /**
              * Gets the startup notification ID for a Wayland display, or %NULL
              * if no ID has been defined.
@@ -8902,7 +8902,7 @@ declare module "gi://Gdk?version=4.0" {
          * @param result the `GAsyncResult`
          * @returns %TRUE if the operation was successful. In this case,   `value` is set. %FALSE if an error occurred. In this case,   `error` is set, return location for the result of the operation
          */
-        function content_deserialize_finish(result: Gio.AsyncResult): [boolean, GObject.Value]
+        function content_deserialize_finish(result: Gio.AsyncResult): [boolean, unknown]
         /**
          * Parses the given @string into `GdkContentFormats` and
          * returns the formats.
@@ -8951,7 +8951,7 @@ declare module "gi://Gdk?version=4.0" {
          * @param cancellable optional `GCancellable` object
          * @param callback callback to call when the operation is done
          */
-        function content_serialize_async(stream: Gio.OutputStream, mime_type: string, value: GObject.Value, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+        function content_serialize_async(stream: Gio.OutputStream, mime_type: string, value: (GObject.Value | unknown), io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
         /**
          * Finishes a content serialization operation.
          * @throws {GLib.Error}

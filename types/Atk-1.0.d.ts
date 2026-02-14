@@ -2930,7 +2930,7 @@ declare module "gi://Atk?version=1.0" {
                  * @deprecated Since 2.12. Use atk_value_get_value_and_text() instead.
                  * @returns , a #GValue representing the current accessible value
                  */
-                vfunc_get_current_value(): GObject.Value
+                vfunc_get_current_value(): unknown
                 /**
                  * Gets the minimum increment by which the value of this object may be
                  * changed.  If zero, the minimum increment is undefined, which may
@@ -2945,7 +2945,7 @@ declare module "gi://Atk?version=1.0" {
                  * @deprecated Since 2.12. Use atk_value_get_range() instead.
                  * @returns , a #GValue representing the maximum accessible value
                  */
-                vfunc_get_maximum_value(): GObject.Value
+                vfunc_get_maximum_value(): unknown
                 /**
                  * Gets the minimum increment by which the value of this object may be changed.  If zero,
                  * the minimum increment is undefined, which may mean that it is limited only by the
@@ -2954,13 +2954,13 @@ declare module "gi://Atk?version=1.0" {
                  * @deprecated Since 2.12. Use atk_value_get_increment() instead.
                  * @returns , a #GValue representing the minimum increment by which the accessible value may be changed
                  */
-                vfunc_get_minimum_increment(): GObject.Value
+                vfunc_get_minimum_increment(): unknown
                 /**
                  * Gets the minimum value of this object.
                  * @deprecated Since 2.12. Use atk_value_get_range() instead.
                  * @returns , a #GValue representing the minimum accessible value
                  */
-                vfunc_get_minimum_value(): GObject.Value
+                vfunc_get_minimum_value(): unknown
                 /**
                  * Gets the range of this object.
                  * @since 2.12
@@ -2988,7 +2988,7 @@ declare module "gi://Atk?version=1.0" {
                  * @param value a #GValue which is the desired new accessible value.
                  * @returns %TRUE if new value is successfully set, %FALSE otherwise.
                  */
-                vfunc_set_current_value(value: GObject.Value): boolean
+                vfunc_set_current_value(value: (GObject.Value | unknown)): boolean
                 /**
                  * Sets the value of this object.
                  *
@@ -3024,7 +3024,7 @@ declare module "gi://Atk?version=1.0" {
              * @deprecated Since 2.12. Use atk_value_get_value_and_text() instead.
              * @returns , a #GValue representing the current accessible value
              */
-            get_current_value(): GObject.Value
+            get_current_value(): unknown
             /**
              * Gets the minimum increment by which the value of this object may be
              * changed.  If zero, the minimum increment is undefined, which may
@@ -3039,7 +3039,7 @@ declare module "gi://Atk?version=1.0" {
              * @deprecated Since 2.12. Use atk_value_get_range() instead.
              * @returns , a #GValue representing the maximum accessible value
              */
-            get_maximum_value(): GObject.Value
+            get_maximum_value(): unknown
             /**
              * Gets the minimum increment by which the value of this object may be changed.  If zero,
              * the minimum increment is undefined, which may mean that it is limited only by the
@@ -3048,13 +3048,13 @@ declare module "gi://Atk?version=1.0" {
              * @deprecated Since 2.12. Use atk_value_get_increment() instead.
              * @returns , a #GValue representing the minimum increment by which the accessible value may be changed
              */
-            get_minimum_increment(): GObject.Value
+            get_minimum_increment(): unknown
             /**
              * Gets the minimum value of this object.
              * @deprecated Since 2.12. Use atk_value_get_range() instead.
              * @returns , a #GValue representing the minimum accessible value
              */
-            get_minimum_value(): GObject.Value
+            get_minimum_value(): unknown
             /**
              * Gets the range of this object.
              * @since 2.12
@@ -3082,7 +3082,7 @@ declare module "gi://Atk?version=1.0" {
              * @param value a #GValue which is the desired new accessible value.
              * @returns %TRUE if new value is successfully set, %FALSE otherwise.
              */
-            set_current_value(value: GObject.Value): boolean
+            set_current_value(value: (GObject.Value | unknown)): boolean
             /**
              * Sets the value of this object.
              *

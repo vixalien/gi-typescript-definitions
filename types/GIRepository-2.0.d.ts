@@ -646,7 +646,7 @@ declare module "gi://GIRepository?version=2.0" {
          * @param invocation_hint
          * @param marshal_data
          */
-        function cclosure_marshal_generic(closure: GObject.Closure, return_gvalue: GObject.Value, n_param_values: number, param_values: GObject.Value, invocation_hint: never | null, marshal_data: never | null): void
+        function cclosure_marshal_generic(closure: GObject.Closure, return_gvalue: (GObject.Value | unknown), n_param_values: number, param_values: (GObject.Value | unknown), invocation_hint: never | null, marshal_data: never | null): void
         none
         /**
          * Obtain the type of the constant as a #GITypeInfo.

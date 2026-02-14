@@ -1,6 +1,6 @@
 {
   "name": "@peachy/types",
-  "version": "0.0.0-girgen.1",
+  "version": "0.0.0-girgen.2",
   "repository": {
     "url": "https://github.com/vixalien/peachy-types"
   },
@@ -21,6 +21,6 @@
   "license": "ISC",
   "packageManager": "pnpm@10.29.3",
   "devDependencies": {
-    "girgen": "^0.2.3"
+    "girgen": "^0.2.4"
   }
 }

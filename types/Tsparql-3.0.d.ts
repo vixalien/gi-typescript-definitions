@@ -829,7 +829,7 @@ declare module "gi://Tsparql?version=3.0" {
              * @param property_uri a string identifying the property to set
              * @param value an initialised [struct@GObject.Value]
              */
-            add_gvalue(property_uri: string, value: GObject.Value): void
+            add_gvalue(property_uri: string, value: (GObject.Value | unknown)): void
             /**
              * Adds a numeric property with integer precision. Previous values for the same property are kept.
              *
@@ -1096,7 +1096,7 @@ declare module "gi://Tsparql?version=3.0" {
              * @param property_uri a string identifying the property to set
              * @param value an initialised [struct@GObject.Value]
              */
-            set_gvalue(property_uri: string, value: GObject.Value): void
+            set_gvalue(property_uri: string, value: (GObject.Value | unknown)): void
             /**
              * Changes the identifier of a `TrackerResource`. The identifier should be a
              * URI or compact URI, but this is not necessarily enforced. Invalid

@@ -3160,7 +3160,7 @@ declare module "gi://Gdk?version=3.0" {
              * @param value location to store the value of the setting
              * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise.
              */
-            get_setting(name: string, value: GObject.Value): boolean
+            get_setting(name: string, value: (GObject.Value | unknown)): boolean
             /**
              * Get the system’s default visual for @screen.
              * This is the visual for the root window of the display.
@@ -8426,7 +8426,7 @@ declare module "gi://Gdk?version=3.0" {
          * @param value location to store the value of the setting.
          * @returns %TRUE if the setting existed and a value was stored   in `value`, %FALSE otherwise.
          */
-        function setting_get(name: string, value: GObject.Value): boolean
+        function setting_get(name: string, value: (GObject.Value | unknown)): boolean
         /**
          * @param window
          * @param unset_flags

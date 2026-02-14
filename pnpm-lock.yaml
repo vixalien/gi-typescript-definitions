@@ -11,25 +11,25 @@ importers:
   .:
     devDependencies:
       girgen:
-        specifier: ^0.2.3
-        version: 0.2.3
+        specifier: ^0.2.4
+        version: 0.2.4
 
 packages:
 
-  '@girgen/linux-x64@0.2.3':
-    resolution: {integrity: sha512-cGEGq8oGYVa24vzkkpjQxTuwCgUzM4mwtRobYCSCPrFTFH+yuVlsZN70tY2elPn084Pa2MDyMXPC+GOeXY4acg==}
+  '@girgen/linux-x64@0.2.4':
+    resolution: {integrity: sha512-Oe09KA4RdC9ob/q8PLoBhlx8dRyYZHnwCX61DvAJaCCuBpKfJasW5CVfbCNmoEpWrYv9K6aivq/7gmWsVMPXAQ==}
     cpu: [x64]
     os: [linux]
 
-  girgen@0.2.3:
-    resolution: {integrity: sha512-2JABOaOFUDQccFhrEalvYAfxJfuBlJTWPkQ86h3+5AcWg9qb/I8fORCJ4g8dCto2zuG/LtatNvVEK6uWZungxQ==}
+  girgen@0.2.4:
+    resolution: {integrity: sha512-m2Nk6NJB7sJSBKfDpWks9QHoFp2xvF2/hb10GpuCe0Cx3cqP9t9KuBQgUdR1l78BF/OYt++5Z5FGUVDAcuwnYw==}
     hasBin: true
 
 snapshots:
 
-  '@girgen/linux-x64@0.2.3':
+  '@girgen/linux-x64@0.2.4':
     optional: true
 
-  girgen@0.2.3:
+  girgen@0.2.4:
     optionalDependencies:
-      '@girgen/linux-x64': 0.2.3
+      '@girgen/linux-x64': 0.2.4

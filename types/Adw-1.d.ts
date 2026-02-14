@@ -12077,7 +12077,7 @@ declare module "gi://Adw?version=1" {
                  * @param preferred_action the preferred drop action
                  * @returns whether the drop was accepted  SinceL 1.9
                  */
-                "drop"(index: number, value: GObject.Value, preferred_action: Gdk.DragAction): boolean
+                "drop"(index: number, value: (GObject.Value | unknown), preferred_action: Gdk.DragAction): boolean
                 /**
                  * Emitted when the pointer enters the item at @index.
                  *
@@ -12105,7 +12105,7 @@ declare module "gi://Adw?version=1" {
                  * @param value the `GValue` being dropped
                  * @returns the preferred action for the drop
                  */
-                "drop-value-loaded"(index: number, value: GObject.Value): Gdk.DragAction
+                "drop-value-loaded"(index: number, value: (GObject.Value | unknown)): Gdk.DragAction
                 /**
                  * Emitted when a context menu is opened or closed for @item.
                  *
@@ -15363,7 +15363,7 @@ declare module "gi://Adw?version=1" {
                  * @param value the `GValue` being dropped
                  * @returns whether the drop was accepted
                  */
-                "extra-drag-drop"(page: TabPage, value: GObject.Value): boolean
+                "extra-drag-drop"(page: TabPage, value: (GObject.Value | unknown)): boolean
                 /**
                  * Emitted when the dropped content is preloaded.
                  *
@@ -15752,7 +15752,7 @@ declare module "gi://Adw?version=1" {
                  * @param value the `GValue` being dropped
                  * @returns whether the drop was accepted
                  */
-                "extra-drag-drop"(page: TabPage, value: GObject.Value): boolean
+                "extra-drag-drop"(page: TabPage, value: (GObject.Value | unknown)): boolean
                 /**
                  * Emitted when the dropped content is preloaded.
                  *

@@ -33411,7 +33411,7 @@ declare module "gi://Gio?version=2.0" {
              * @since 2.64
              * @returns %TRUE if `task` succeeded, %FALSE on error., return location for the #GValue
              */
-            propagate_value(): [boolean, GObject.Value]
+            propagate_value(): [boolean, unknown]
             /**
              * Sets @task's result to @result and completes the task (see
              * g_task_return_pointer() for more discussion of exactly what this
@@ -40944,7 +40944,7 @@ declare module "gi://Gio?version=2.0" {
          * @param type A #GVariantType
          * @returns A #GVariant (never floating) of     #GVariantType `type` holding the data from `gvalue` or an empty #GVariant     in case of failure. Free with g_variant_unref().
          */
-        function dbus_gvalue_to_gvariant(gvalue: GObject.Value, type: GLib.VariantType): GLib.Variant
+        function dbus_gvalue_to_gvariant(gvalue: (GObject.Value | unknown), type: GLib.VariantType): GLib.Variant
         /**
          * Converts a #GVariant to a #GValue. If @value is floating, it is consumed.
          *
@@ -40961,7 +40961,7 @@ declare module "gi://Gio?version=2.0" {
          * @param value A #GVariant.
          * @returns , Return location pointing to a zero-filled (uninitialized) #GValue.
          */
-        function dbus_gvariant_to_gvalue(value: GLib.Variant): GObject.Value
+        function dbus_gvariant_to_gvalue(value: GLib.Variant): unknown
         /**
          * Checks if @string is a
          * [D-Bus address](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses).
@@ -45400,7 +45400,7 @@ declare module "gi://Gio?version=2.0" {
          * @param variant variant to map to the property value
          * @returns true if the conversion succeeded, false in case of an error
          */
-        type SettingsBindGetMapping = (value: GObject.Value, variant: GLib.Variant) => boolean
+        type SettingsBindGetMapping = (value: (GObject.Value | unknown), variant: GLib.Variant) => boolean
         /**
          * The type for the function that is used to convert an object property
          * value to a [struct@GLib.Variant] for storing it in [class@Gio.Settings].
@@ -45408,7 +45408,7 @@ declare module "gi://Gio?version=2.0" {
          * @param expected_type expected type of the result
          * @returns a new [struct@GLib.Variant] holding the data from `value`,   or `NULL` in case of an error
          */
-        type SettingsBindSetMapping = (value: GObject.Value, expected_type: GLib.VariantType) => GLib.Variant | null
+        type SettingsBindSetMapping = (value: (GObject.Value | unknown), expected_type: GLib.VariantType) => GLib.Variant | null
         /**
          * The type of the function that is used to convert from a value stored
          * in a [class@Gio.Settings] to a value that is useful to the application.

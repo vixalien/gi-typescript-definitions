@@ -2086,15 +2086,6 @@ declare module "gi://Gsk?version=4.0" {
              */
             get_children(): RenderNode[] | null
             /**
-             * Gets a list of all children nodes of the rendernode.
-             *
-             * Keep in mind that for various rendernodes, their children have different
-             * semantics, like the mask vs the source of a mask node. If you care about
-             * thse semantics, don't use this function, use the specific getters instead.
-             * @returns The children
-             */
-            get_children(): RenderNode[] | null
-            /**
              * Returns the type of the render node.
              * @returns the type of `node`
              */
@@ -4835,14 +4826,14 @@ declare module "gi://Gsk?version=4.0" {
          * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
          * @returns the render node
          */
-        function value_dup_render_node(value: GObject.Value): RenderNode | null
+        function value_dup_render_node(value: (GObject.Value | unknown)): RenderNode | null
         /**
          * Retrieves the render node stored inside a `GValue`.
          * @since 4.6
          * @param value a `GValue` initialized with type `GSK_TYPE_RENDER_NODE`
          * @returns the render node
          */
-        function value_get_render_node(value: GObject.Value): RenderNode | null
+        function value_get_render_node(value: (GObject.Value | unknown)): RenderNode | null
         /**
          * Stores the given render node inside a `GValue`.
          *
@@ -4852,7 +4843,7 @@ declare module "gi://Gsk?version=4.0" {
          * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
          * @param node a render node
          */
-        function value_set_render_node(value: GObject.Value, node: RenderNode): void
+        function value_set_render_node(value: (GObject.Value | unknown), node: RenderNode): void
         /**
          * Stores the given render node inside a `GValue`.
          *
@@ -4862,7 +4853,7 @@ declare module "gi://Gsk?version=4.0" {
          * @param value a [struct@GObject.Value] initialized with type `GSK_TYPE_RENDER_NODE`
          * @param node a render node
          */
-        function value_take_render_node(value: GObject.Value, node: RenderNode | null): void
+        function value_take_render_node(value: (GObject.Value | unknown), node: RenderNode | null): void
         
         namespace BlendMode {
             const $gtype: GObject.GType<BlendMode>

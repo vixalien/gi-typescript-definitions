@@ -1002,7 +1002,7 @@ declare module "gi://Gtk?version=4.0" {
                  * @param name
                  * @param value
                  */
-                vfunc_set_buildable_property(builder: Builder, name: string, value: GObject.Value): void
+                vfunc_set_buildable_property(builder: Builder, name: string, value: (GObject.Value | unknown)): void
                 /**
                  * Stores the id attribute given in the `GtkBuilder` UI definition.
                  *   `GtkWidget` stores the name as object data. Implement this method if your
@@ -2222,7 +2222,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param pspec the `GParamSpec` for the property
              * @returns %TRUE if the property was found
              */
-            delegate_get_property(object: GObject.Object, prop_id: number, value: GObject.Value, pspec: GObject.ParamSpec): boolean
+            delegate_get_property(object: GObject.Object, prop_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): boolean
             /**
              * Sets a property on the `GtkEditable` delegate for @object.
              *
@@ -2235,7 +2235,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param pspec the `GParamSpec` for the property
              * @returns %TRUE if the property was found
              */
-            delegate_set_property(object: GObject.Object, prop_id: number, value: GObject.Value, pspec: GObject.ParamSpec): boolean
+            delegate_set_property(object: GObject.Object, prop_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): boolean
             /**
              * Overrides the `GtkEditable` properties for @class.
              *
@@ -4172,7 +4172,7 @@ declare module "gi://Gtk?version=4.0" {
                  * @param value data to drop
                  * @returns whether a new row was created before position `dest`
                  */
-                vfunc_drag_data_received(dest: TreePath, value: GObject.Value): boolean
+                vfunc_drag_data_received(dest: TreePath, value: (GObject.Value | unknown)): boolean
                 /**
                  * Determines whether a drop is possible before the given @dest_path,
                  * at the same depth as @dest_path. i.e., can we drop the data in
@@ -4184,7 +4184,7 @@ declare module "gi://Gtk?version=4.0" {
                  * @param value the data being dropped
                  * @returns %TRUE if a drop is possible before `dest_path`
                  */
-                vfunc_row_drop_possible(dest_path: TreePath, value: GObject.Value): boolean
+                vfunc_row_drop_possible(dest_path: TreePath, value: (GObject.Value | unknown)): boolean
             }
         }
 
@@ -4209,7 +4209,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value data to drop
              * @returns whether a new row was created before position `dest`
              */
-            drag_data_received(dest: TreePath, value: GObject.Value): boolean
+            drag_data_received(dest: TreePath, value: (GObject.Value | unknown)): boolean
             /**
              * Determines whether a drop is possible before the given @dest_path,
              * at the same depth as @dest_path. i.e., can we drop the data in
@@ -4221,7 +4221,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value the data being dropped
              * @returns %TRUE if a drop is possible before `dest_path`
              */
-            row_drop_possible(dest_path: TreePath, value: GObject.Value): boolean
+            row_drop_possible(dest_path: TreePath, value: (GObject.Value | unknown)): boolean
         }
 
 
@@ -4434,7 +4434,7 @@ declare module "gi://Gtk?version=4.0" {
                  * @param column the column to lookup the value at
                  * @returns , an empty `GValue` to set
                  */
-                vfunc_get_value(iter: TreeIter, column: number): GObject.Value
+                vfunc_get_value(iter: TreeIter, column: number): unknown
                 /**
                  * Sets @iter to point to the first child of @parent.
                  *
@@ -4740,7 +4740,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param column the column to lookup the value at
              * @returns , an empty `GValue` to set
              */
-            get_value(iter: TreeIter, column: number): GObject.Value
+            get_value(iter: TreeIter, column: number): unknown
             /**
              * Sets @iter to point to the first child of @parent.
              *
@@ -8923,7 +8923,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param string the string representation of the value
              * @returns %TRUE on success, the `GValue` to store the result in
              */
-            value_from_string(pspec: GObject.ParamSpec, string: string): [boolean, GObject.Value]
+            value_from_string(pspec: GObject.ParamSpec, string: string): [boolean, unknown]
             /**
              * Demarshals a value from a string.
              *
@@ -8940,7 +8940,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param string the string representation of the value
              * @returns %TRUE on success, the `GValue` to store the result in
              */
-            value_from_string_type(type: (GObject.GType | { $gtype: GObject.GType }), string: string): [boolean, GObject.Value]
+            value_from_string_type(type: (GObject.GType | { $gtype: GObject.GType }), string: string): [boolean, unknown]
         }
 
         interface BuilderClass extends Omit<GObject.ObjectClass, "new"> {
@@ -10018,7 +10018,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param property_name the name of the property to get
              * @param value a location to return the value
              */
-            cell_get_property(renderer: CellRenderer, property_name: string, value: GObject.Value): void
+            cell_get_property(renderer: CellRenderer, property_name: string, value: (GObject.Value | unknown)): void
             /**
              * Sets a cell property for @renderer in @area.
              * @deprecated since 4.10
@@ -10026,7 +10026,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param property_name the name of the cell property to set
              * @param value the value to set the cell property to
              */
-            cell_set_property(renderer: CellRenderer, property_name: string, value: GObject.Value): void
+            cell_set_property(renderer: CellRenderer, property_name: string, value: (GObject.Value | unknown)): void
             /**
              * This is sometimes needed for cases where rows need to share
              * alignments in one orientation but may be separately grouped
@@ -10454,7 +10454,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value
              * @param pspec
              */
-            vfunc_get_cell_property(renderer: CellRenderer, property_id: number, value: GObject.Value, pspec: GObject.ParamSpec): void
+            vfunc_get_cell_property(renderer: CellRenderer, property_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): void
             /**
              * Retrieves a cell area’s initial minimum and natural height.
              *
@@ -10555,7 +10555,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value
              * @param pspec
              */
-            vfunc_set_cell_property(renderer: CellRenderer, property_id: number, value: GObject.Value, pspec: GObject.ParamSpec): void
+            vfunc_set_cell_property(renderer: CellRenderer, property_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): void
             /**
              * Snapshots @area’s cells according to @area’s layout onto at
              * the given coordinates.
@@ -15854,7 +15854,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value a `GValue`
              * @returns a new `GtkExpression`
              */
-            new_for_value(value: GObject.Value): ConstantExpression
+            new_for_value(value: (GObject.Value | unknown)): ConstantExpression
         }
 
         const ConstantExpression: ConstantExpressionClass
@@ -17290,7 +17290,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value a `GValue`
              * @returns A new `GtkWidget`   for displaying `value` as a drag icon.
              */
-            create_widget_for_value(value: GObject.Value): Widget | null
+            create_widget_for_value(value: (GObject.Value | unknown)): Widget | null
             /**
              * Creates a `GtkDragIcon` that shows @paintable, and associates
              * it with the drag operation.
@@ -18145,7 +18145,7 @@ declare module "gi://Gtk?version=4.0" {
                  * @param y the y coordinate of the current pointer position
                  * @returns whether the drop was accepted at the given pointer position
                  */
-                "drop"(value: GObject.Value, x: number, y: number): boolean
+                "drop"(value: (GObject.Value | unknown), x: number, y: number): boolean
                 /**
                  * Emitted on the drop site when the pointer enters the widget.
                  *
@@ -21351,7 +21351,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value an empty `GValue`
              * @returns `TRUE` if the expression could be evaluated
              */
-            evaluate(this_: GObject.Object | null, value: GObject.Value): boolean
+            evaluate(this_: GObject.Object | null, value: (GObject.Value | unknown)): boolean
             /**
              * Gets the `GType` that this expression evaluates to.
              *
@@ -33128,7 +33128,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param column column number to modify
              * @param value new value for the cell
              */
-            set_value(iter: TreeIter, column: number, value: GObject.Value): void
+            set_value(iter: TreeIter, column: number, value: (GObject.Value | unknown)): void
             /**
              * A variant of gtk_list_store_set_valist() which
              * takes the columns and values as two arrays, instead of
@@ -55040,7 +55040,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value
              * @param column
              */
-            vfunc_modify(child_model: TreeModel, iter: TreeIter, value: GObject.Value, column: number): void
+            vfunc_modify(child_model: TreeModel, iter: TreeIter, value: (GObject.Value | unknown), column: number): void
             /**
              * @param child_model
              * @param iter
@@ -55603,7 +55603,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param column column number to modify
              * @param value new value for the cell
              */
-            set_value(iter: TreeIter, column: number, value: GObject.Value): void
+            set_value(iter: TreeIter, column: number, value: (GObject.Value | unknown)): void
             /**
              * A variant of gtk_tree_store_set_valist() which takes
              * the columns and values as two arrays, instead of using variadic
@@ -57411,54 +57411,6 @@ declare module "gi://Gtk?version=4.0" {
         }
 
         const TreeViewColumn: TreeViewColumnClass
-        
-
-        namespace TryExpression {
-            interface SignalSignatures extends Expression.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Expression.ReadableProperties {
-            }
-
-            interface WritableProperties extends Expression.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Expression.ConstructOnlyProperties {
-            }
-        }
-
-        /**
-         * A `GtkExpression` that tries to evaluate each of its expressions until it succeeds.
-         *
-         * If all expressions fail to evaluate, the `GtkTryExpression`'s evaluation fails as well.
-         * @since 4.22
-         */
-        interface TryExpression extends Expression {
-            readonly $signals: TryExpression.SignalSignatures
-            readonly $readableProperties: TryExpression.ReadableProperties
-            readonly $writableProperties: TryExpression.WritableProperties
-            readonly $constructOnlyProperties: TryExpression.ConstructOnlyProperties
-        }
-
-        interface TryExpressionClass extends Omit<ExpressionClass, "new"> {
-            readonly $gtype: GObject.GType<TryExpression>
-            readonly prototype: TryExpression
-            new (props?: Partial<GObject.ConstructorProps<TryExpression>>): TryExpression
-            /**
-             * Creates a `GtkExpression` with an array of expressions.
-             *
-             * When evaluated, the `GtkTryExpression` tries to evaluate each of its expressions until it succeeds.
-             * If all expressions fail to evaluate, the `GtkTryExpression`'s evaluation fails as well.
-             *
-             * The value type of the expressions in the array must match.
-             * @since 4.22
-             * @param expressions The array of expressions
-             * @returns a new `GtkExpression`
-             */
-            "new"(expressions: Expression[]): TryExpression
-        }
-
-        const TryExpression: TryExpressionClass
         
 
         namespace TryExpression {
@@ -62970,7 +62922,7 @@ declare module "gi://Gtk?version=4.0" {
              * @param value an empty `GValue` to be set
              * @returns `TRUE` if the expression could be evaluated and `value` was set
              */
-            evaluate(value: GObject.Value): boolean
+            evaluate(value: (GObject.Value | unknown)): boolean
             /**
              * Acquires a reference on the given `GtkExpressionWatch`.
              * @returns the `GtkExpressionWatch` with an additional reference
@@ -65245,7 +65197,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param property a `GtkAccessibleProperty`
          * @param value an uninitialized `GValue`
          */
-        function accessible_property_init_value(property: AccessibleProperty, value: GObject.Value): void
+        function accessible_property_init_value(property: AccessibleProperty, value: (GObject.Value | unknown)): void
         /**
          * Initializes @value with the appropriate type for the @relation.
          *
@@ -65254,7 +65206,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param relation a `GtkAccessibleRelation`
          * @param value an uninitialized `GValue`
          */
-        function accessible_relation_init_value(relation: AccessibleRelation, value: GObject.Value): void
+        function accessible_relation_init_value(relation: AccessibleRelation, value: (GObject.Value | unknown)): void
         /**
          * Initializes @value with the appropriate type for the @state.
          *
@@ -65263,7 +65215,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param state a `GtkAccessibleState`
          * @param value an uninitialized `GValue`
          */
-        function accessible_state_init_value(state: AccessibleState, value: GObject.Value): void
+        function accessible_state_init_value(state: AccessibleState, value: (GObject.Value | unknown)): void
         /**
          * = @target exists in @set, this function returns %FALSE.
          * @param set a `GtkBitset`
@@ -65399,7 +65351,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param pspec the `GParamSpec` for the property
          * @returns %TRUE if the property was found
          */
-        function editable_delegate_get_property(object: GObject.Object, prop_id: number, value: GObject.Value, pspec: GObject.ParamSpec): boolean
+        function editable_delegate_get_property(object: GObject.Object, prop_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): boolean
         /**
          * Sets a property on the `GtkEditable` delegate for @object.
          *
@@ -65412,7 +65364,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param pspec the `GParamSpec` for the property
          * @returns %TRUE if the property was found
          */
-        function editable_delegate_set_property(object: GObject.Object, prop_id: number, value: GObject.Value, pspec: GObject.ParamSpec): boolean
+        function editable_delegate_set_property(object: GObject.Object, prop_id: number, value: (GObject.Value | unknown), pspec: GObject.ParamSpec): boolean
         /**
          * Overrides the `GtkEditable` properties for @class.
          *
@@ -66019,7 +65971,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param value a `GValue`
          * @returns %TRUE if `selection_data` had target type %GTK_TYPE_TREE_ROW_DATA  is otherwise valid, a `GtkTreeModel`, row in `tree_model`
          */
-        function tree_get_row_drag_data(value: GObject.Value): boolean
+        function tree_get_row_drag_data(value: (GObject.Value | unknown)): boolean
         /**
          * Lets a set of row reference created by
          * gtk_tree_row_reference_new_proxy() know that the
@@ -66045,13 +65997,13 @@ declare module "gi://Gtk?version=4.0" {
          * @param value a `GValue` initialized with type `GTK_TYPE_EXPRESSION`
          * @returns a `GtkExpression`
          */
-        function value_dup_expression(value: GObject.Value): Expression | null
+        function value_dup_expression(value: (GObject.Value | unknown)): Expression | null
         /**
          * Retrieves the `GtkExpression` stored inside the given `value`.
          * @param value a `GValue` initialized with type `GTK_TYPE_EXPRESSION`
          * @returns a `GtkExpression`
          */
-        function value_get_expression(value: GObject.Value): Expression | null
+        function value_get_expression(value: (GObject.Value | unknown)): Expression | null
         /**
          * Stores the given `GtkExpression` inside `value`.
          *
@@ -66059,7 +66011,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param value a `GValue` initialized with type `GTK_TYPE_EXPRESSION`
          * @param expression a `GtkExpression`
          */
-        function value_set_expression(value: GObject.Value, expression: Expression): void
+        function value_set_expression(value: (GObject.Value | unknown), expression: Expression): void
         /**
          * Stores the given `GtkExpression` inside `value`.
          *
@@ -66067,7 +66019,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param value a `GValue` initialized with type `GTK_TYPE_EXPRESSION`
          * @param expression a `GtkExpression`
          */
-        function value_take_expression(value: GObject.Value, expression: Expression | null): void
+        function value_take_expression(value: (GObject.Value | unknown), expression: Expression | null): void
         const ACCESSIBLE_ATTRIBUTE_BACKGROUND: "bg-color"
         const ACCESSIBLE_ATTRIBUTE_FAMILY: "family-name"
         const ACCESSIBLE_ATTRIBUTE_FOREGROUND: "fg-color"
@@ -66425,7 +66377,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param property a `GtkAccessibleProperty`
          * @param value an uninitialized `GValue`
          */
-        function init_value(property: AccessibleProperty, value: GObject.Value): void
+        function init_value(property: AccessibleProperty, value: (GObject.Value | unknown)): void
         
         namespace AccessibleRelation {
             const $gtype: GObject.GType<AccessibleRelation>
@@ -66594,7 +66546,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param relation a `GtkAccessibleRelation`
          * @param value an uninitialized `GValue`
          */
-        function init_value(relation: AccessibleRelation, value: GObject.Value): void
+        function init_value(relation: AccessibleRelation, value: (GObject.Value | unknown)): void
         
         namespace AccessibleRole {
             const $gtype: GObject.GType<AccessibleRole>
@@ -67080,7 +67032,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param state a `GtkAccessibleState`
          * @param value an uninitialized `GValue`
          */
-        function init_value(state: AccessibleState, value: GObject.Value): void
+        function init_value(state: AccessibleState, value: (GObject.Value | unknown)): void
         
         namespace AccessibleTextContentChange {
             const $gtype: GObject.GType<AccessibleTextContentChange>
@@ -71828,7 +71780,7 @@ declare module "gi://Gtk?version=4.0" {
          * @param column the column whose display value is determined
          * @returns , A `GValue` which is already initialized for  with the correct type for the column `column`.
          */
-        type TreeModelFilterModifyFunc = (model: TreeModel, iter: TreeIter, column: number) => GObject.Value
+        type TreeModelFilterModifyFunc = (model: TreeModel, iter: TreeIter, column: number) => unknown
         /**
          * A function which decides whether the row indicated by @iter is visible.
          * @deprecated since 4.20 There is no replacement

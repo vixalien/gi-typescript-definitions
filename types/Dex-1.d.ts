@@ -941,7 +941,7 @@ declare module "gi://Dex?version=1" {
              * @param value the resolved [struct@GObject.Value]
              * @returns a [class@Dex.Future]
              */
-            new_for_value(value: GObject.Value): Future
+            new_for_value(value: (GObject.Value | unknown)): Future
             /**
              * Creates an infinite future that will never resolve or reject. This can
              * be useful when you want to mock a situation of "run forever" unless
@@ -1230,7 +1230,7 @@ declare module "gi://Dex?version=1" {
              * Sets the result for a [class@Dex.Promise].
              * @param value a [struct@GObject.Value] containing the resolved value
              */
-            resolve(value: GObject.Value): void
+            resolve(value: (GObject.Value | unknown)): void
             /**
              * Resolve promise to `value`.
              * @param value
@@ -2144,14 +2144,14 @@ declare module "gi://Dex?version=1" {
          * @param value a `GValue` initialized with type `DEX_TYPE_OBJECT`
          * @returns a `DexObject`
          */
-        function value_dup_object(value: GObject.Value): Object | null
+        function value_dup_object(value: (GObject.Value | unknown)): Object | null
         /**
          * Retrieves the `DexObject` stored inside the given `value`.
          * @since 0.4
          * @param value a `GValue` initialized with type `DEX_TYPE_OBJECT`
          * @returns a `DexObject`
          */
-        function value_get_object(value: GObject.Value): Object | null
+        function value_get_object(value: (GObject.Value | unknown)): Object | null
         /**
          * Stores the given `DexObject` inside `value`.
          *
@@ -2160,7 +2160,7 @@ declare module "gi://Dex?version=1" {
          * @param value a [struct@GObject.Value] initialized with type `DEX_TYPE_OBJECT`
          * @param object a `DexObject` or %NULL
          */
-        function value_set_object(value: GObject.Value, object: Object | null): void
+        function value_set_object(value: (GObject.Value | unknown), object: Object | null): void
         /**
          * Stores the given `DexObject` inside `value`.
          *
@@ -2169,7 +2169,7 @@ declare module "gi://Dex?version=1" {
          * @param value a [struct@GObject.Value] initialized with type `DEX_TYPE_OBJECT`
          * @param object a `DexObject`
          */
-        function value_take_object(value: GObject.Value, object: Object | null): void
+        function value_take_object(value: (GObject.Value | unknown), object: Object | null): void
         
         namespace BlockKind {
             const $gtype: GObject.GType<BlockKind>

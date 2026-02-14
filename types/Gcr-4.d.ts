@@ -2053,7 +2053,7 @@ declare module "gi://Gcr?version=4" {
              * provided in.
              * @returns %TRUE if the value was set successfully., the `GValue` to fill
              */
-            get_value(): [boolean, GObject.Value]
+            get_value(): [boolean, unknown]
             /**
              * Get the type associated with the value.
              * @returns The `GType` of the value

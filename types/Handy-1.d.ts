@@ -6236,7 +6236,7 @@ declare module "gi://Handy?version=1" {
              * @since 1.0
              * @param dest value with correct type to copy into
              */
-            copy_value(dest: GObject.Value): void
+            copy_value(dest: (GObject.Value | unknown)): void
             /**
              * Gets a copy of the contained string if the value is of type `G_TYPE_STRING`.
              * @since 1.0
@@ -6267,7 +6267,7 @@ declare module "gi://Handy?version=1" {
              * @param value the value to store
              * @returns a new `HdyValueObject`
              */
-            "new"(value: GObject.Value): ValueObject
+            "new"(value: (GObject.Value | unknown)): ValueObject
         }
 
         const ValueObject: ValueObjectClass

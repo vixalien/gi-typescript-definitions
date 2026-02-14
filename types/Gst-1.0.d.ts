@@ -155,7 +155,7 @@ declare module "gi://Gst?version=1.0" {
              * @param name name of the property
              * @returns , a #GValue that should take the result.
              */
-            get_property(name: string): GObject.Value
+            get_property(name: string): unknown
             /**
              * Looks up which object and #GParamSpec would be effected by the given @name.
              * @param name name of the property to look up
@@ -167,7 +167,7 @@ declare module "gi://Gst?version=1.0" {
              * @param name name of the property to set
              * @param value new #GValue for the property
              */
-            set_property(name: string, value: GObject.Value): void
+            set_property(name: string, value: (GObject.Value | unknown)): void
         }
 
 
@@ -411,7 +411,7 @@ declare module "gi://Gst?version=1.0" {
              * @param tag tag to set
              * @param value GValue to set for the tag
              */
-            add_tag_value(mode: TagMergeMode, tag: string, value: GObject.Value): void
+            add_tag_value(mode: TagMergeMode, tag: string, value: (GObject.Value | unknown)): void
             /**
              * Returns the current list of tags the setter uses.  The list should not be
              * modified or freed.
@@ -8420,19 +8420,19 @@ declare module "gi://Gst?version=1.0" {
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @param append_value the value to append
              */
-            append_and_take_value(value: GObject.Value, append_value: GObject.Value): void
+            append_and_take_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Appends @append_value to the GstValueArray in @value.
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @param append_value the value to append
              */
-            append_value(value: GObject.Value, append_value: GObject.Value): void
+            append_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Gets the number of values contained in @value.
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @returns the number of values
              */
-            get_size(value: GObject.Value): number
+            get_size(value: (GObject.Value | unknown)): number
             /**
              * Gets the value that is a member of the array contained in @value and
              * has the index @index.
@@ -8440,7 +8440,7 @@ declare module "gi://Gst?version=1.0" {
              * @param index index of value to get from the array
              * @returns the value at the given index
              */
-            get_value(value: GObject.Value, index: number): GObject.Value
+            get_value(value: (GObject.Value | unknown), index: number): GObject.Value
             /**
              * Initializes and pre-allocates a #GValue of type #GST_TYPE_ARRAY.
              * @since 1.18
@@ -8448,13 +8448,13 @@ declare module "gi://Gst?version=1.0" {
              * @param prealloc The number of entries to pre-allocate in the array
              * @returns The #GValue structure that has been passed in
              */
-            init(value: GObject.Value, prealloc: number): GObject.Value
+            init(value: (GObject.Value | unknown), prealloc: number): GObject.Value
             /**
              * Prepends @prepend_value to the GstValueArray in @value.
              * @param value a #GValue of type #GST_TYPE_ARRAY
              * @param prepend_value the value to prepend
              */
-            prepend_value(value: GObject.Value, prepend_value: GObject.Value): void
+            prepend_value(value: (GObject.Value | unknown), prepend_value: (GObject.Value | unknown)): void
         }
 
         const ValueArray: ValueArrayClass
@@ -8494,13 +8494,13 @@ declare module "gi://Gst?version=1.0" {
              * @param value a #GValue of type #GST_TYPE_LIST
              * @param append_value the value to append
              */
-            append_and_take_value(value: GObject.Value, append_value: GObject.Value): void
+            append_and_take_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Appends @append_value to the GstValueList in @value.
              * @param value a #GValue of type #GST_TYPE_LIST
              * @param append_value the value to append
              */
-            append_value(value: GObject.Value, append_value: GObject.Value): void
+            append_value(value: (GObject.Value | unknown), append_value: (GObject.Value | unknown)): void
             /**
              * Concatenates copies of @value1 and @value2 into a list.  Values that are not
              * of type #GST_TYPE_LIST are treated as if they were lists of length 1.
@@ -8509,13 +8509,13 @@ declare module "gi://Gst?version=1.0" {
              * @param value2 a #GValue
              * @returns , an uninitialized #GValue to take the result
              */
-            concat(value1: GObject.Value, value2: GObject.Value): GObject.Value
+            concat(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): unknown
             /**
              * Gets the number of values contained in @value.
              * @param value a #GValue of type #GST_TYPE_LIST
              * @returns the number of values
              */
-            get_size(value: GObject.Value): number
+            get_size(value: (GObject.Value | unknown)): number
             /**
              * Gets the value that is a member of the list contained in @value and
              * has the index @index.
@@ -8523,7 +8523,7 @@ declare module "gi://Gst?version=1.0" {
              * @param index index of value to get from the list
              * @returns the value at the given index
              */
-            get_value(value: GObject.Value, index: number): GObject.Value
+            get_value(value: (GObject.Value | unknown), index: number): GObject.Value
             /**
              * Initializes and pre-allocates a #GValue of type #GST_TYPE_LIST.
              * @since 1.18
@@ -8531,7 +8531,7 @@ declare module "gi://Gst?version=1.0" {
              * @param prealloc The number of entries to pre-allocate in the list
              * @returns The #GValue structure that has been passed in
              */
-            init(value: GObject.Value, prealloc: number): GObject.Value
+            init(value: (GObject.Value | unknown), prealloc: number): GObject.Value
             /**
              * Merges copies of @value1 and @value2.  Values that are not
              * of type #GST_TYPE_LIST are treated as if they were lists of length 1.
@@ -8543,13 +8543,13 @@ declare module "gi://Gst?version=1.0" {
              * @param value2 a #GValue
              * @returns , an uninitialized #GValue to take the result
              */
-            merge(value1: GObject.Value, value2: GObject.Value): GObject.Value
+            merge(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): unknown
             /**
              * Prepends @prepend_value to the GstValueList in @value.
              * @param value a #GValue of type #GST_TYPE_LIST
              * @param prepend_value the value to prepend
              */
-            prepend_value(value: GObject.Value, prepend_value: GObject.Value): void
+            prepend_value(value: (GObject.Value | unknown), prepend_value: (GObject.Value | unknown)): void
         }
 
         const ValueList: ValueListClass
@@ -9708,7 +9708,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field name of the field to set
              * @param value value to set the field to
              */
-            id_str_set_value(field: IdStr, value: GObject.Value): void
+            id_str_set_value(field: IdStr, value: (GObject.Value | unknown)): void
             /**
              * Creates a new #GstCaps that contains all the formats that are common
              * to both @caps1 and @caps2. Defaults to %GST_CAPS_INTERSECT_ZIG_ZAG mode.
@@ -9875,7 +9875,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field name of the field to set
              * @param value value to set the field to
              */
-            set_value(field: string, value: GObject.Value): void
+            set_value(field: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the given @field on all structures of @caps to the given @value.
              * This is a convenience function for calling gst_structure_set_value() on
@@ -9887,7 +9887,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field name of the field to set
              * @param value value to set the field to
              */
-            set_value_static_str(field: string, value: GObject.Value): void
+            set_value_static_str(field: string, value: (GObject.Value | unknown)): void
             /**
              * Converts the given @caps into a representation that represents the
              * same set of formats, but in a simpler form.  Component structures that are
@@ -11582,7 +11582,7 @@ declare module "gi://Gst?version=1.0" {
              * @param object object that this iterator should return
              * @returns the new #GstIterator for `object`.
              */
-            static new_single(type: (GObject.GType | { $gtype: GObject.GType }), object: GObject.Value): Iterator
+            static new_single(type: (GObject.GType | { $gtype: GObject.GType }), object: (GObject.Value | unknown)): Iterator
             /**
              * The function to copy the iterator
              */
@@ -11645,7 +11645,7 @@ declare module "gi://Gst?version=1.0" {
              * @param user_data user data passed to the compare function
              * @returns a new #GstIterator.  MT safe.
              */
-            filter(func: GLib.CompareFunc, user_data: GObject.Value): Iterator
+            filter(func: GLib.CompareFunc, user_data: (GObject.Value | unknown)): Iterator
             /**
              * Find the first element in @it that matches the compare function @func.
              * @func should return 0 when the element is found. The first parameter
@@ -11660,7 +11660,7 @@ declare module "gi://Gst?version=1.0" {
              * @param func the compare function to use
              * @returns Returns %TRUE if the element was found, else %FALSE.  MT safe., pointer to a #GValue where to store the result
              */
-            find_custom(func: GLib.CompareFunc): [boolean, GObject.Value]
+            find_custom(func: GLib.CompareFunc): [boolean, unknown]
             /**
              * Folds @func over the elements of @iter. That is to say, @func will be called
              * as @func (object, @ret, @user_data) for each object in @it. The normal use
@@ -11681,7 +11681,7 @@ declare module "gi://Gst?version=1.0" {
              * @param ret the seed value passed to the fold function
              * @returns A #GstIteratorResult, as described above.  MT safe.
              */
-            fold(func: IteratorFoldFunction, ret: GObject.Value): IteratorResult
+            fold(func: IteratorFoldFunction, ret: (GObject.Value | unknown)): IteratorResult
             /**
              * Iterate over all element of @it and call the given function @func for
              * each element.
@@ -11714,7 +11714,7 @@ declare module "gi://Gst?version=1.0" {
              * A return value of %GST_ITERATOR_ERROR indicates an unrecoverable fatal error.
              * @returns The result of the iteration. Unset `elem` after usage.  MT safe., pointer to hold next element
              */
-            next(): [IteratorResult, GObject.Value]
+            next(): [IteratorResult, unknown]
             /**
              * Pushes @other iterator onto @it. All calls performed on @it are
              * forwarded to @other. If @other returns %GST_ITERATOR_DONE, it is
@@ -12940,7 +12940,7 @@ declare module "gi://Gst?version=1.0" {
              * GstTask object but other objects might be added in the future.
              * @param object the object controlling the streaming
              */
-            set_stream_status_object(object: GObject.Value): void
+            set_stream_status_object(object: (GObject.Value | unknown)): void
             /**
              * Adds the @stream to the @message.
              * @since 1.10
@@ -15689,7 +15689,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field a #GQuark representing a field
              * @param value the new value of the field
              */
-            id_set_value(field: GLib.Quark, value: GObject.Value): void
+            id_set_value(field: GLib.Quark, value: (GObject.Value | unknown)): void
             /**
              * Finds the field with the given name, and returns the type of the
              * value it contains.  If the field is not found, G_TYPE_INVALID is
@@ -15744,7 +15744,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            id_str_set_value(fieldname: IdStr, value: GObject.Value): void
+            id_str_set_value(fieldname: IdStr, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given GstIdStr @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15753,7 +15753,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            id_str_take_value(fieldname: IdStr, value: GObject.Value): void
+            id_str_take_value(fieldname: IdStr, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given GQuark @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15762,7 +15762,7 @@ declare module "gi://Gst?version=1.0" {
              * @param field a #GQuark representing a field
              * @param value the new value of the field
              */
-            id_take_value(field: GLib.Quark, value: GObject.Value): void
+            id_take_value(field: GLib.Quark, value: (GObject.Value | unknown)): void
             /**
              * Intersects @struct1 and @struct2 and returns the intersection.
              * @param struct2 a #GstStructure
@@ -15918,7 +15918,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            set_value(fieldname: string, value: GObject.Value): void
+            set_value(fieldname: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given name @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15930,7 +15930,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            set_value_static_str(fieldname: string, value: GObject.Value): void
+            set_value_static_str(fieldname: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given name @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15938,7 +15938,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            take_value(fieldname: string, value: GObject.Value): void
+            take_value(fieldname: string, value: (GObject.Value | unknown)): void
             /**
              * Sets the field with the given name @field to @value.  If the field
              * does not exist, it is created.  If the field exists, the previous
@@ -15950,7 +15950,7 @@ declare module "gi://Gst?version=1.0" {
              * @param fieldname the name of the field to set
              * @param value the new value of the field
              */
-            take_value_static_str(fieldname: string, value: GObject.Value): void
+            take_value_static_str(fieldname: string, value: (GObject.Value | unknown)): void
             /**
              *  GST_LOG ("structure is %" GST_PTR_FORMAT, structure);
              * ]|
@@ -16005,7 +16005,7 @@ declare module "gi://Gst?version=1.0" {
              * @param tag tag to read out
              * @returns %TRUE, if a value was copied, %FALSE if the tag didn't exist in the          given list., uninitialized #GValue to copy into
              */
-            static copy_value(list: TagList, tag: string): [boolean, GObject.Value]
+            static copy_value(list: TagList, tag: string): [boolean, unknown]
             /**
              * Modifies a pointer to a #GstTagList to point to a different #GstTagList. The
              * modification is done atomically (so this is useful for ensuring thread
@@ -16040,7 +16040,7 @@ declare module "gi://Gst?version=1.0" {
              * @param tag tag
              * @param value GValue for this tag
              */
-            add_value(mode: TagMergeMode, tag: string, value: GObject.Value): void
+            add_value(mode: TagMergeMode, tag: string, value: (GObject.Value | unknown)): void
             /**
              * Creates a new #GstTagList as a copy of the old @taglist. The new taglist
              * will have a refcount of 1, owned by the caller, and will be writable as
@@ -18195,7 +18195,7 @@ declare module "gi://Gst?version=1.0" {
          * @param tag tag to read out
          * @returns %TRUE, if a value was copied, %FALSE if the tag didn't exist in the          given list., uninitialized #GValue to copy into
          */
-        function tag_list_copy_value(list: TagList, tag: string): [boolean, GObject.Value]
+        function tag_list_copy_value(list: TagList, tag: string): [boolean, unknown]
         /**
          * Modifies a pointer to a #GstTagList to point to a different #GstTagList. The
          * modification is done atomically (so this is useful for ensuring thread
@@ -18227,14 +18227,14 @@ declare module "gi://Gst?version=1.0" {
          * @param src GValue to copy from
          * @returns , uninitialized GValue to store result in
          */
-        function tag_merge_strings_with_comma(src: GObject.Value): GObject.Value
+        function tag_merge_strings_with_comma(src: (GObject.Value | unknown)): unknown
         /**
          * This is a convenience function for the func argument of gst_tag_register().
          * It creates a copy of the first value from the list.
          * @param src GValue to copy from
          * @returns , uninitialized GValue to store result in
          */
-        function tag_merge_use_first(src: GObject.Value): GObject.Value
+        function tag_merge_use_first(src: (GObject.Value | unknown)): unknown
         none
         none
         /**
@@ -18623,7 +18623,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value_str the string to get the value from
          * @returns , the value to set
          */
-        function util_set_value_from_string(value_str: string): GObject.Value
+        function util_set_value_from_string(value_str: string): unknown
         /**
          * Calculates the simpler representation of @numerator and @denominator and
          * update both values with the resulting simplified fraction.
@@ -18713,7 +18713,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value2 another value to compare
          * @returns %TRUE if the values can be compared
          */
-        function value_can_compare(value1: GObject.Value, value2: GObject.Value): boolean
+        function value_can_compare(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
         /**
          * Determines if intersecting two values will produce a valid result.
          * Two values will produce a valid intersection if they have the same
@@ -18722,14 +18722,14 @@ declare module "gi://Gst?version=1.0" {
          * @param value2 another value to intersect
          * @returns %TRUE if the values can intersect
          */
-        function value_can_intersect(value1: GObject.Value, value2: GObject.Value): boolean
+        function value_can_intersect(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
         /**
          * Checks if it's possible to subtract @subtrahend from @minuend.
          * @param minuend the value to subtract from
          * @param subtrahend the value to subtract
          * @returns %TRUE if a subtraction is possible
          */
-        function value_can_subtract(minuend: GObject.Value, subtrahend: GObject.Value): boolean
+        function value_can_subtract(minuend: (GObject.Value | unknown), subtrahend: (GObject.Value | unknown)): boolean
         /**
          * Determines if @value1 and @value2 can be non-trivially unioned.
          * Any two values can be trivially unioned by adding both of them
@@ -18742,7 +18742,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value2 another value to union
          * @returns %TRUE if there is a function allowing the two values to be unioned.
          */
-        function value_can_union(value1: GObject.Value, value2: GObject.Value): boolean
+        function value_can_union(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
         /**
          * Compares @value1 and @value2.  If @value1 and @value2 cannot be
          * compared, the function returns GST_VALUE_UNORDERED.  Otherwise,
@@ -18753,14 +18753,14 @@ declare module "gi://Gst?version=1.0" {
          * @param value2 another value to compare
          * @returns comparison result
          */
-        function value_compare(value1: GObject.Value, value2: GObject.Value): number
+        function value_compare(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): number
         /**
          * Tries to deserialize a string into the type specified by the given GValue.
          * If the operation succeeds, %TRUE is returned, %FALSE otherwise.
          * @param src string to deserialize
          * @returns %TRUE on success, #GValue to fill with contents of     deserialization
          */
-        function value_deserialize(src: string): [boolean, GObject.Value]
+        function value_deserialize(src: string): [boolean, unknown]
         /**
          * Tries to deserialize a string into the type specified by the given GValue.
          * @pspec may be used to guide the deserializing of nested members.
@@ -18770,7 +18770,7 @@ declare module "gi://Gst?version=1.0" {
          * @param pspec the #GParamSpec describing the expected value
          * @returns %TRUE on success, #GValue to fill with contents of     deserialization
          */
-        function value_deserialize_with_pspec(src: string, pspec: GObject.ParamSpec | null): [boolean, GObject.Value]
+        function value_deserialize_with_pspec(src: string, pspec: GObject.ParamSpec | null): [boolean, unknown]
         /**
          * Fixate @src into a new value @dest.
          * For ranges, the first element is taken. For lists and arrays, the
@@ -18780,7 +18780,7 @@ declare module "gi://Gst?version=1.0" {
          * @param src the #GValue to fixate
          * @returns %TRUE if `dest` contains a fixated version of `src`.
          */
-        function value_fixate(dest: GObject.Value, src: GObject.Value): boolean
+        function value_fixate(dest: (GObject.Value | unknown), src: (GObject.Value | unknown)): boolean
         /**
          * Multiplies the two #GValue items containing a #GST_TYPE_FRACTION and sets
          * @product to the product of the two fractions.
@@ -18789,7 +18789,7 @@ declare module "gi://Gst?version=1.0" {
          * @param factor2 a GValue initialized to #GST_TYPE_FRACTION
          * @returns %FALSE in case of an error (like integer overflow), %TRUE otherwise.
          */
-        function value_fraction_multiply(product: GObject.Value, factor1: GObject.Value, factor2: GObject.Value): boolean
+        function value_fraction_multiply(product: (GObject.Value | unknown), factor1: (GObject.Value | unknown), factor2: (GObject.Value | unknown)): boolean
         /**
          * Subtracts the @subtrahend from the @minuend and sets @dest to the result.
          * @param dest a GValue initialized to #GST_TYPE_FRACTION
@@ -18797,13 +18797,13 @@ declare module "gi://Gst?version=1.0" {
          * @param subtrahend a GValue initialized to #GST_TYPE_FRACTION
          * @returns %FALSE in case of an error (like integer overflow), %TRUE otherwise.
          */
-        function value_fraction_subtract(dest: GObject.Value, minuend: GObject.Value, subtrahend: GObject.Value): boolean
+        function value_fraction_subtract(dest: (GObject.Value | unknown), minuend: (GObject.Value | unknown), subtrahend: (GObject.Value | unknown)): boolean
         /**
          * Gets the bitmask specified by @value.
          * @param value a GValue initialized to #GST_TYPE_BITMASK
          * @returns the bitmask.
          */
-        function value_get_bitmask(value: GObject.Value): number
+        function value_get_bitmask(value: (GObject.Value | unknown)): number
         /**
          * Gets the contents of @value. The reference count of the returned
          * #GstCaps will not be modified, therefore the caller must take one
@@ -18811,112 +18811,112 @@ declare module "gi://Gst?version=1.0" {
          * @param value a GValue initialized to GST_TYPE_CAPS
          * @returns the contents of `value`
          */
-        function value_get_caps(value: GObject.Value): Caps
+        function value_get_caps(value: (GObject.Value | unknown)): Caps
         /**
          * Gets the contents of @value.
          * @param value a GValue initialized to GST_TYPE_CAPS_FEATURES
          * @returns the contents of `value`
          */
-        function value_get_caps_features(value: GObject.Value): CapsFeatures
+        function value_get_caps_features(value: (GObject.Value | unknown)): CapsFeatures
         /**
          * Gets the maximum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
          * @returns the maximum of the range
          */
-        function value_get_double_range_max(value: GObject.Value): number
+        function value_get_double_range_max(value: (GObject.Value | unknown)): number
         /**
          * Gets the minimum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
          * @returns the minimum of the range
          */
-        function value_get_double_range_min(value: GObject.Value): number
+        function value_get_double_range_min(value: (GObject.Value | unknown)): number
         /**
          * Retrieve the flags field of a GstFlagSet @value.
          * @since 1.6
          * @param value a GValue initialized to #GST_TYPE_FLAG_SET
          * @returns the flags field of the flagset instance.
          */
-        function value_get_flagset_flags(value: GObject.Value): number
+        function value_get_flagset_flags(value: (GObject.Value | unknown)): number
         /**
          * Retrieve the mask field of a GstFlagSet @value.
          * @since 1.6
          * @param value a GValue initialized to #GST_TYPE_FLAG_SET
          * @returns the mask field of the flagset instance.
          */
-        function value_get_flagset_mask(value: GObject.Value): number
+        function value_get_flagset_mask(value: (GObject.Value | unknown)): number
         /**
          * Gets the denominator of the fraction specified by @value.
          * @param value a GValue initialized to #GST_TYPE_FRACTION
          * @returns the denominator of the fraction.
          */
-        function value_get_fraction_denominator(value: GObject.Value): number
+        function value_get_fraction_denominator(value: (GObject.Value | unknown)): number
         /**
          * Gets the numerator of the fraction specified by @value.
          * @param value a GValue initialized to #GST_TYPE_FRACTION
          * @returns the numerator of the fraction.
          */
-        function value_get_fraction_numerator(value: GObject.Value): number
+        function value_get_fraction_numerator(value: (GObject.Value | unknown)): number
         /**
          * Gets the maximum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
          * @returns the maximum of the range
          */
-        function value_get_fraction_range_max(value: GObject.Value): GObject.Value | null
+        function value_get_fraction_range_max(value: (GObject.Value | unknown)): GObject.Value | null
         /**
          * Gets the minimum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
          * @returns the minimum of the range
          */
-        function value_get_fraction_range_min(value: GObject.Value): GObject.Value | null
+        function value_get_fraction_range_min(value: (GObject.Value | unknown)): GObject.Value | null
         /**
          * Gets the maximum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_INT64_RANGE
          * @returns the maximum of the range
          */
-        function value_get_int64_range_max(value: GObject.Value): number
+        function value_get_int64_range_max(value: (GObject.Value | unknown)): number
         /**
          * Gets the minimum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_INT64_RANGE
          * @returns the minimum of the range
          */
-        function value_get_int64_range_min(value: GObject.Value): number
+        function value_get_int64_range_min(value: (GObject.Value | unknown)): number
         /**
          * Gets the step of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_INT64_RANGE
          * @returns the step of the range
          */
-        function value_get_int64_range_step(value: GObject.Value): number
+        function value_get_int64_range_step(value: (GObject.Value | unknown)): number
         /**
          * Gets the maximum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_INT_RANGE
          * @returns the maximum of the range
          */
-        function value_get_int_range_max(value: GObject.Value): number
+        function value_get_int_range_max(value: (GObject.Value | unknown)): number
         /**
          * Gets the minimum of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_INT_RANGE
          * @returns the minimum of the range
          */
-        function value_get_int_range_min(value: GObject.Value): number
+        function value_get_int_range_min(value: (GObject.Value | unknown)): number
         /**
          * Gets the step of the range specified by @value.
          * @param value a GValue initialized to GST_TYPE_INT_RANGE
          * @returns the step of the range
          */
-        function value_get_int_range_step(value: GObject.Value): number
+        function value_get_int_range_step(value: (GObject.Value | unknown)): number
         /**
          * Gets the contents of @value.
          * @param value a GValue initialized to GST_TYPE_STRUCTURE
          * @returns the contents of `value`
          */
-        function value_get_structure(value: GObject.Value): Structure
+        function value_get_structure(value: (GObject.Value | unknown)): Structure
         /**
          * Initialises the target value to be of the same type as source and then copies
          * the contents from source to target.
          * @param src the source value
          * @returns , the target value
          */
-        function value_init_and_copy(src: GObject.Value): GObject.Value
+        function value_init_and_copy(src: (GObject.Value | unknown)): unknown
         /**
          * Calculates the intersection of two values.  If the values have
          * a non-empty intersection, the value representing the intersection
@@ -18926,7 +18926,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value2 another value to intersect
          * @returns %TRUE if the intersection is non-empty,    a uninitialized #GValue that will hold the calculated   intersection value. May be %NULL if the resulting set if not   needed.
          */
-        function value_intersect(value1: GObject.Value, value2: GObject.Value): boolean
+        function value_intersect(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
         /**
          * Tests if the given GValue, if available in a GstStructure (or any other
          * container) contains a "fixed" (which means: one value) or an "unfixed"
@@ -18935,14 +18935,14 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue to check
          * @returns true if the value is "fixed".
          */
-        function value_is_fixed(value: GObject.Value): boolean
+        function value_is_fixed(value: (GObject.Value | unknown)): boolean
         /**
          * Check that @value1 is a subset of @value2.
          * @param value1 a #GValue
          * @param value2 a #GValue
          * @returns %TRUE is `value1` is a subset of `value2`
          */
-        function value_is_subset(value1: GObject.Value, value2: GObject.Value): boolean
+        function value_is_subset(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): boolean
         /**
          * Registers functions to perform calculations on #GValue items of a given
          * type. Each type can only be added once.
@@ -18957,33 +18957,33 @@ declare module "gi://Gst?version=1.0" {
          * @param value a #GValue to serialize
          * @returns the serialization for `value` or %NULL if none exists
          */
-        function value_serialize(value: GObject.Value): string | null
+        function value_serialize(value: (GObject.Value | unknown)): string | null
         /**
          * Sets @value to the bitmask specified by @bitmask.
          * @param value a GValue initialized to #GST_TYPE_BITMASK
          * @param bitmask the bitmask
          */
-        function value_set_bitmask(value: GObject.Value, bitmask: number): void
+        function value_set_bitmask(value: (GObject.Value | unknown), bitmask: number): void
         /**
          * Sets the contents of @value to @caps. A reference to the
          * provided @caps will be taken by the @value.
          * @param value a GValue initialized to GST_TYPE_CAPS
          * @param caps the caps to set the value to
          */
-        function value_set_caps(value: GObject.Value, caps: Caps): void
+        function value_set_caps(value: (GObject.Value | unknown), caps: Caps): void
         /**
          * Sets the contents of @value to @features.
          * @param value a GValue initialized to GST_TYPE_CAPS_FEATURES
          * @param features the features to set the value to
          */
-        function value_set_caps_features(value: GObject.Value, features: CapsFeatures): void
+        function value_set_caps_features(value: (GObject.Value | unknown), features: CapsFeatures): void
         /**
          * Sets @value to the range specified by @start and @end.
          * @param value a GValue initialized to GST_TYPE_DOUBLE_RANGE
          * @param start the start of the range
          * @param end the end of the range
          */
-        function value_set_double_range(value: GObject.Value, start: number, end: number): void
+        function value_set_double_range(value: (GObject.Value | unknown), start: number, end: number): void
         /**
          * Sets @value to the flags and mask values provided in @flags and @mask.
          * The @flags value indicates the values of flags, the @mask represents
@@ -18993,7 +18993,7 @@ declare module "gi://Gst?version=1.0" {
          * @param flags The value of the flags set or unset
          * @param mask The mask indicate which flags bits must match for comparisons
          */
-        function value_set_flagset(value: GObject.Value, flags: number, mask: number): void
+        function value_set_flagset(value: (GObject.Value | unknown), flags: number, mask: number): void
         /**
          * Sets @value to the fraction specified by @numerator over @denominator.
          * The fraction gets reduced to the smallest numerator and denominator,
@@ -19002,14 +19002,14 @@ declare module "gi://Gst?version=1.0" {
          * @param numerator the numerator of the fraction
          * @param denominator the denominator of the fraction
          */
-        function value_set_fraction(value: GObject.Value, numerator: number, denominator: number): void
+        function value_set_fraction(value: (GObject.Value | unknown), numerator: number, denominator: number): void
         /**
          * Sets @value to the range specified by @start and @end.
          * @param value a GValue initialized to GST_TYPE_FRACTION_RANGE
          * @param start the start of the range (a GST_TYPE_FRACTION GValue)
          * @param end the end of the range (a GST_TYPE_FRACTION GValue)
          */
-        function value_set_fraction_range(value: GObject.Value, start: GObject.Value, end: GObject.Value): void
+        function value_set_fraction_range(value: (GObject.Value | unknown), start: (GObject.Value | unknown), end: (GObject.Value | unknown)): void
         /**
          * Sets @value to the range specified by @numerator_start/@denominator_start
          * and @numerator_end/@denominator_end.
@@ -19019,14 +19019,14 @@ declare module "gi://Gst?version=1.0" {
          * @param numerator_end the numerator end of the range
          * @param denominator_end the denominator end of the range
          */
-        function value_set_fraction_range_full(value: GObject.Value, numerator_start: number, denominator_start: number, numerator_end: number, denominator_end: number): void
+        function value_set_fraction_range_full(value: (GObject.Value | unknown), numerator_start: number, denominator_start: number, numerator_end: number, denominator_end: number): void
         /**
          * Sets @value to the range specified by @start and @end.
          * @param value a GValue initialized to GST_TYPE_INT64_RANGE
          * @param start the start of the range
          * @param end the end of the range
          */
-        function value_set_int64_range(value: GObject.Value, start: number, end: number): void
+        function value_set_int64_range(value: (GObject.Value | unknown), start: number, end: number): void
         /**
          * Sets @value to the range specified by @start, @end and @step.
          * @param value a GValue initialized to GST_TYPE_INT64_RANGE
@@ -19034,14 +19034,14 @@ declare module "gi://Gst?version=1.0" {
          * @param end the end of the range
          * @param step the step of the range
          */
-        function value_set_int64_range_step(value: GObject.Value, start: number, end: number, step: number): void
+        function value_set_int64_range_step(value: (GObject.Value | unknown), start: number, end: number, step: number): void
         /**
          * Sets @value to the range specified by @start and @end.
          * @param value a GValue initialized to GST_TYPE_INT_RANGE
          * @param start the start of the range
          * @param end the end of the range
          */
-        function value_set_int_range(value: GObject.Value, start: number, end: number): void
+        function value_set_int_range(value: (GObject.Value | unknown), start: number, end: number): void
         /**
          * Sets @value to the range specified by @start, @end and @step.
          * @param value a GValue initialized to GST_TYPE_INT_RANGE
@@ -19049,13 +19049,13 @@ declare module "gi://Gst?version=1.0" {
          * @param end the end of the range
          * @param step the step of the range
          */
-        function value_set_int_range_step(value: GObject.Value, start: number, end: number, step: number): void
+        function value_set_int_range_step(value: (GObject.Value | unknown), start: number, end: number, step: number): void
         /**
          * Sets the contents of @value to @structure.
          * @param value a GValue initialized to GST_TYPE_STRUCTURE
          * @param structure the structure to set the value to
          */
-        function value_set_structure(value: GObject.Value, structure: Structure): void
+        function value_set_structure(value: (GObject.Value | unknown), structure: Structure): void
         /**
          * Subtracts @subtrahend from @minuend and stores the result in @dest.
          * Note that this means subtraction as in sets, not as in mathematics.
@@ -19063,14 +19063,14 @@ declare module "gi://Gst?version=1.0" {
          * @param subtrahend the value to subtract
          * @returns %TRUE if the subtraction is not empty, the destination value     for the result if the subtraction is not empty. May be %NULL,     in which case the resulting set will not be computed, which can     give a fair speedup.
          */
-        function value_subtract(minuend: GObject.Value, subtrahend: GObject.Value): boolean
+        function value_subtract(minuend: (GObject.Value | unknown), subtrahend: (GObject.Value | unknown)): boolean
         /**
          * Creates a GValue corresponding to the union of @value1 and @value2.
          * @param value1 a value to union
          * @param value2 another value to union
          * @returns %TRUE if the union succeeded., the destination value
          */
-        function value_union(value1: GObject.Value, value2: GObject.Value): [boolean, GObject.Value]
+        function value_union(value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)): [boolean, unknown]
         none
         none
         /**
@@ -23060,7 +23060,7 @@ declare module "gi://Gst?version=1.0" {
          * @param src_value
          * @param dest_value
          */
-        type ControlBindingConvert = (binding: ControlBinding, src_value: number, dest_value: GObject.Value) => void
+        type ControlBindingConvert = (binding: ControlBinding, src_value: number, dest_value: (GObject.Value | unknown)) => void
         /**
          * Function for returning a value for a given timestamp.
          * @param self the #GstControlSource instance
@@ -23130,12 +23130,12 @@ declare module "gi://Gst?version=1.0" {
          * @param ret a #GValue collecting the result
          * @returns %TRUE if the fold should continue, %FALSE if it should stop.
          */
-        type IteratorFoldFunction = (item: GObject.Value, ret: GObject.Value) => boolean
+        type IteratorFoldFunction = (item: (GObject.Value | unknown), ret: (GObject.Value | unknown)) => boolean
         /**
          * A function that is called by gst_iterator_foreach() for every element.
          * @param item The item
          */
-        type IteratorForeachFunction = (item: GObject.Value) => void
+        type IteratorForeachFunction = (item: (GObject.Value | unknown)) => void
         /**
          * This function will be called when the iterator is freed.
          *
@@ -23155,7 +23155,7 @@ declare module "gi://Gst?version=1.0" {
          * @param item the item being retrieved.
          * @returns the result of the operation.
          */
-        type IteratorItemFunction = (it: Iterator, item: GObject.Value) => IteratorItem
+        type IteratorItemFunction = (it: Iterator, item: (GObject.Value | unknown)) => IteratorItem
         /**
          * The function that will be called when the next element of the iterator
          * should be retrieved.
@@ -23167,7 +23167,7 @@ declare module "gi://Gst?version=1.0" {
          * @param result a pointer to hold the next item
          * @returns the result of the operation.
          */
-        type IteratorNextFunction = (it: Iterator, result: GObject.Value) => IteratorResult
+        type IteratorNextFunction = (it: Iterator, result: (GObject.Value | unknown)) => IteratorResult
         /**
          * This function will be called whenever a concurrent update happened
          * to the iterated datastructure. The implementor of the iterator should
@@ -23586,7 +23586,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the field should be preserved, %FALSE if it should be removed.
          */
-        type StructureFilterMapFunc = (field_id: GLib.Quark, value: GObject.Value) => boolean
+        type StructureFilterMapFunc = (field_id: GLib.Quark, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_filter_and_map_in_place_id_str().
          * The function may modify @value, and the value will be removed from the
@@ -23596,7 +23596,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the field should be preserved, %FALSE if it should be removed.
          */
-        type StructureFilterMapIdStrFunc = (fieldname: IdStr, value: GObject.Value) => boolean
+        type StructureFilterMapIdStrFunc = (fieldname: IdStr, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_foreach(). The function may
          * not modify @value.
@@ -23604,7 +23604,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the foreach operation should continue, %FALSE if the foreach operation should stop with %FALSE.
          */
-        type StructureForeachFunc = (field_id: GLib.Quark, value: GObject.Value) => boolean
+        type StructureForeachFunc = (field_id: GLib.Quark, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_foreach_id_str(). The
          * function may not modify @value.
@@ -23613,7 +23613,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the foreach operation should continue, %FALSE if the foreach operation should stop with %FALSE.
          */
-        type StructureForeachIdStrFunc = (fieldname: IdStr, value: GObject.Value) => boolean
+        type StructureForeachIdStrFunc = (fieldname: IdStr, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_map_in_place(). The function
          * may modify @value.
@@ -23621,7 +23621,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the map operation should continue, %FALSE if the map operation should stop with %FALSE.
          */
-        type StructureMapFunc = (field_id: GLib.Quark, value: GObject.Value) => boolean
+        type StructureMapFunc = (field_id: GLib.Quark, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_structure_map_in_place_id_str(). The
          * function may modify @value.
@@ -23630,7 +23630,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value the #GValue of the field
          * @returns %TRUE if the map operation should continue, %FALSE if the map operation should stop with %FALSE.
          */
-        type StructureMapIdStrFunc = (fieldname: IdStr, value: GObject.Value) => boolean
+        type StructureMapIdStrFunc = (fieldname: IdStr, value: (GObject.Value | unknown)) => boolean
         /**
          * A function that will be called in gst_tag_list_foreach(). The function may
          * not modify the tag list.
@@ -23644,7 +23644,7 @@ declare module "gi://Gst?version=1.0" {
          * @param dest the destination #GValue
          * @param src the source #GValue
          */
-        type TagMergeFunc = (dest: GObject.Value, src: GObject.Value) => void
+        type TagMergeFunc = (dest: (GObject.Value | unknown), src: (GObject.Value | unknown)) => void
         /**
          * A function that will repeatedly be called in the thread created by
          * a #GstTask.
@@ -23671,14 +23671,14 @@ declare module "gi://Gst?version=1.0" {
          * @param value2 second value for comparison
          * @returns one of GST_VALUE_LESS_THAN, GST_VALUE_EQUAL, GST_VALUE_GREATER_THAN or GST_VALUE_UNORDERED
          */
-        type ValueCompareFunc = (value1: GObject.Value, value2: GObject.Value) => number
+        type ValueCompareFunc = (value1: (GObject.Value | unknown), value2: (GObject.Value | unknown)) => number
         /**
          * Used by gst_value_deserialize() to parse a non-binary form into the #GValue.
          * @param dest a #GValue
          * @param s a string
          * @returns %TRUE for success
          */
-        type ValueDeserializeFunc = (dest: GObject.Value, s: string) => boolean
+        type ValueDeserializeFunc = (dest: (GObject.Value | unknown), s: string) => boolean
         /**
          * Used by gst_value_deserialize_with_pspec() to parse a non-binary form into the #GValue.
          * @since 1.20
@@ -23687,7 +23687,7 @@ declare module "gi://Gst?version=1.0" {
          * @param pspec a #GParamSpec describing the expected value
          * @returns %TRUE for success
          */
-        type ValueDeserializeWithPSpecFunc = (dest: GObject.Value, s: string, pspec: GObject.ParamSpec) => boolean
+        type ValueDeserializeWithPSpecFunc = (dest: (GObject.Value | unknown), s: string, pspec: GObject.ParamSpec) => boolean
         /**
          * Used by gst_value_serialize() to obtain a non-binary form of the #GValue.
          *
@@ -23695,7 +23695,7 @@ declare module "gi://Gst?version=1.0" {
          * @param value1 a #GValue
          * @returns the string representation of the value
          */
-        type ValueSerializeFunc = (value1: GObject.Value) => string
+        type ValueSerializeFunc = (value1: (GObject.Value | unknown)) => string
         /**
          * map, GST_MAP_READWRITE))
          *     return;
