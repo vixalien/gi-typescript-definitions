@@ -2367,6 +2367,47 @@ declare module 'gi://Atspi?version=2.0' {
             UNDEFINED,
         }
         /**
+         * Enumeration used to query and enable device capabilities.
+         */
+
+        /**
+         * Enumeration used to query and enable device capabilities.
+         */
+        export namespace DeviceCapability {
+            export const $gtype: GObject.GType<DeviceCapability>;
+        }
+
+        enum DeviceCapability {
+            /**
+             * The capability to monitor keystrokes.
+             */
+            KEYBOARD_MONITOR,
+            /**
+             * The capability to synthesize keystrokes.
+             */
+            KEYBOARD_SYNTH,
+            /**
+             * The capability to set key grabs.
+             */
+            KEYBOARD_GRAB,
+            /**
+             * The capability to monitor the location of the pointer.
+             */
+            POINTER_MONITOR,
+            /**
+             * The capability to synthesize pointer motion.
+             */
+            POINTER_SYNTH,
+            /**
+             * The capability to monitor touch presses.
+             */
+            TOUCH_MONITOR,
+            /**
+             * The capability to synthesize touch events.
+             */
+            TOUCH_SYNTH,
+        }
+        /**
          * Specifies the type of a key listener event.
          * The values above can and should be bitwise-'OR'-ed
          * together, observing the compatibility limitations specified in the description of
@@ -4297,6 +4338,7 @@ declare module 'gi://Atspi?version=2.0' {
             toolkit_version: string;
             atspi_version: string;
             time_added: any;
+            pid: never;
 
             // Constructors
 
@@ -4326,6 +4368,9 @@ declare module 'gi://Atspi?version=2.0' {
         namespace Device {
             // Signal signatures
             interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'key-pressed': (arg0: number, arg1: number, arg2: ModifierType, arg3: string) => void;
+                'key-released': (arg0: number, arg1: number, arg2: ModifierType, arg3: string) => void;
+                'pointer-moved': (arg0: Accessible, arg1: number, arg2: number) => void;
                 'notify::app-id': (pspec: GObject.ParamSpec) => void;
             }
 
@@ -4342,17 +4387,7 @@ declare module 'gi://Atspi?version=2.0' {
 
             // Properties
 
-            /**
-             * The application ID of the application that created this device.
-             * The ID might be used for access control purposes
-             * by some device backends.
-             */
             get app_id(): string;
-            /**
-             * The application ID of the application that created this device.
-             * The ID might be used for access control purposes
-             * by some device backends.
-             */
             get appId(): string;
 
             /**
@@ -4409,6 +4444,10 @@ declare module 'gi://Atspi?version=2.0' {
              */
             vfunc_generate_mouse_event(obj: Accessible, x: number, y: number, name: string): void;
             /**
+             * Returns the capabilities currently enabled for this device.
+             */
+            vfunc_get_capabilities(): DeviceCapability;
+            /**
              * Gets the modifier for a given keysym, if one exists. Does not create a new
              * mapping. This function should be used when the intention is to query a
              * locking modifier such as num lock via atspi_device_get_locked_modifiers,
@@ -4464,6 +4503,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param id the identifier of the grab to be removed.
              */
             vfunc_remove_key_grab(id: number): void;
+            vfunc_set_capabilities(capabilities: DeviceCapability): DeviceCapability;
             /**
              * Removes a keyboard grab added via a call to atspi_device_add_keyboard.
              */
@@ -4506,6 +4546,10 @@ declare module 'gi://Atspi?version=2.0' {
              * Returns the application ID of the device.
              */
             get_app_id(): string;
+            /**
+             * Returns the capabilities currently enabled for this device.
+             */
+            get_capabilities(): DeviceCapability;
             get_grab_by_id(id: number): KeyDefinition;
             /**
              * Gets the modifier for a given keysym, if one exists. Does not create a new
@@ -4575,6 +4619,7 @@ declare module 'gi://Atspi?version=2.0' {
              * @param app_id the application ID.
              */
             set_app_id(app_id: string): void;
+            set_capabilities(capabilities: DeviceCapability | null): DeviceCapability;
             /**
              * Removes a keyboard grab added via a call to atspi_device_add_keyboard.
              */
